@@ -12,9 +12,12 @@
       "api/*": ["src/api/*"],
       "types/*": ["src/types/*"],
       "assets/*": ["assets/*"],
-      "constants/*": ["constants/*"],
-      "navigation/*": ["navigation/*"],
-      "theme/*": ["theme/*"]
+      "constants/*": ["src/constants/*"],
+      "navigation/*": ["src/navigation/*"],
+      "theme/*": ["src/theme/*"],
+      "store/*": ["src/store/*"],
+      "providers/*": ["src/providers/*"],
+      "locales/*": ["locales/*"]
     }
   },
   "include": [

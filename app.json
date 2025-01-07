@@ -32,10 +32,20 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "locales": {
+      "en": "./locales/en.json",
+      "ru": "./locales/ru.json",
+      "uz": "./locales/uz.json",
+      "ko": "./locales/ko.json"
+    },
+    "extra": {
+      "supportRTL": true
     }
   }
 }

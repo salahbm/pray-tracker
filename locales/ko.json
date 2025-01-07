@@ -1,0 +1,11 @@
+{
+  "Defaults": {
+    "Languages": {
+      "en": "English",
+      "ru": "Русский",
+      "uz": "O'zbek",
+      "ko": "한국어"
+    },
+    "welcome": "Welcome to Expo localization!"
+  }
+}

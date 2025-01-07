@@ -1,0 +1,14 @@
+{
+  "Defaults": {
+    "Locales": {
+      "chooseLanguage": "Choose a language",
+      "languages": {
+        "en": "English",
+        "ru": "Russian",
+        "uz": "Uzbek",
+        "ko": "Korean"
+      }
+    },
+    "welcome": "Welcome to Expo localization!"
+  }
+}
