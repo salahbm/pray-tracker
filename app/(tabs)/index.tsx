@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, Platform } from 'react-native';
 
-import image from '@/assets/images/partial-react-logo.png';
 import { HelloWave } from 'components/HelloWave';
 import ParallaxScrollView from 'components/ParallaxScrollView';
 import { Language } from 'components/shared/language';
 import { ThemedText } from 'components/ThemedText';
 import { ThemedView } from 'components/ThemedView';
+
+import image from 'assets/images/partial-react-logo.png';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
