@@ -1,11 +1,14 @@
 {
   "Defaults": {
-    "Languages": {
-      "en": "English",
-      "ru": "Русский",
-      "uz": "O'zbek",
-      "ko": "한국어"
+    "Locales": {
+      "choose": "Tilni tanlang",
+      "languages": {
+        "en": "Inglizcha",
+        "ru": "Ruscha",
+        "uz": "O'zbekcha",
+        "ko": "Koreyscha"
+      }
     },
-    "welcome": "Welcome to Expo localization!"
+    "welcome": "Expo lokallashuviga xush kelibsiz!"
   }
 }

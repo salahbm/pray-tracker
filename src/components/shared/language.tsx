@@ -10,37 +10,42 @@ import { ThemedText } from '@/components/ThemedText';
 import { useLanguage } from '@/hooks/useTranslation';
 import { useTranslation } from 'react-i18next';
 
-// USA RUSSIA UZBEKISTAN SOUTH KOREA
-const flags = [
-  { component: '🇺🇸', lang: 'en', name: 'USA' },
-  { component: '🇷🇺', lang: 'ru', name: 'Russia' },
-  { component: '🇺🇿', lang: 'uz', name: 'Uzbekistan' },
-  { component: '🇰🇷', lang: 'ko', name: 'South Korea' },
-];
+const FLAGS = {
+  en: '🇺🇸',
+  ru: '🇷🇺',
+  uz: '🇺🇿',
+  ko: '🇰🇷',
+} as const;
 
 export function Language() {
   const { currentLanguage, changeLanguage } = useLanguage();
-  const { t } = useTranslation('Defaults.Locales');
+  const { t } = useTranslation();
+  // Fetch languages object
+  const languages = t('Defaults.Locales.languages', { returnObjects: true });
+  const locales = Object.keys(languages);
 
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.text}>{t('chooseLanguage')}</ThemedText>
+      <ThemedText style={styles.text}>
+        {t('Defaults.Locales.choose')}
+      </ThemedText>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flagsContainer}
       >
-        {flags.map(({ component: Flag, lang, name }) => (
+        {locales.map((lang) => (
           <TouchableOpacity
-            key={name}
+            key={lang}
             onPress={() => changeLanguage(lang)}
             style={[
               styles.flag,
-              currentLanguage === lang && styles.activeFlag,
-              currentLanguage !== lang && styles.inactiveFlag,
+              currentLanguage === lang
+                ? styles.activeFlag
+                : styles.inactiveFlag,
             ]}
           >
-            <Text>{Flag}</Text>
+            <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>

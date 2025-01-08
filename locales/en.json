@@ -1,7 +1,7 @@
 {
   "Defaults": {
     "Locales": {
-      "chooseLanguage": "Choose a language",
+      "choose": "Choose a language",
       "languages": {
         "en": "English",
         "ru": "Russian",

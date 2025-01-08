@@ -1,11 +1,14 @@
 {
   "Defaults": {
-    "Languages": {
-      "en": "English",
-      "ru": "Русский",
-      "uz": "O'zbek",
-      "ko": "한국어"
+    "Locales": {
+      "choose": "Выберите язык",
+      "languages": {
+        "en": "Английский",
+        "ru": "Русский",
+        "uz": "Узбекский",
+        "ko": "Корейский"
+      }
     },
-    "welcome": "Welcome to Expo localization!"
+    "welcome": "Добро пожаловать в локализацию Expo!"
   }
 }
