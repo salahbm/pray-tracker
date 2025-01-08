@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface LanguageState {
   currentLanguage: string;
@@ -14,6 +15,7 @@ export const useLanguageStore = create<LanguageState>()(
     }),
     {
       name: 'language-store', // Key for persistence
+      storage: createJSONStorage(() => AsyncStorage), // (optional) by default, 'localStorage'
     },
   ),
 );

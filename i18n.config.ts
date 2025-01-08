@@ -1,11 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import * as Localization from 'expo-localization';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import enLocalization from './locales/en.json';
 import koLocalization from './locales/ko.json';
-import uzLocalization from './locales/uz.json';
 import ruLocalization from './locales/ru.json';
+import uzLocalization from './locales/uz.json';
 
 const resources = {
   en: { translation: enLocalization },

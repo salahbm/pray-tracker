@@ -1,23 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, Platform } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Language } from '@/components/shared/language';
-import { useTranslation } from 'react-i18next';
+import image from '@/assets/images/partial-react-logo.png';
+import { HelloWave } from 'components/HelloWave';
+import ParallaxScrollView from 'components/ParallaxScrollView';
+import { Language } from 'components/shared/language';
+import { ThemedText } from 'components/ThemedText';
+import { ThemedView } from 'components/ThemedView';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }
+      headerImage={<Image source={image} style={styles.reactLogo} />}
     >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="defaultSemiBold">{t('Defaults.welcome')}</ThemedText>
@@ -45,17 +41,6 @@ export default function HomeScreen() {
         <ThemedText>
           Tap the Explore tab to learn more about what's included in this
           starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>{' '}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{' '}
-          directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>

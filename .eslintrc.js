@@ -55,10 +55,6 @@ module.exports = {
         alphabetize: { order: 'asc', caseInsensitive: true },
       },
     ],
-    'import/no-extraneous-dependencies': [
-      'error',
-      { devDependencies: ['**/test/**', '**/*.test.*', '**/*.spec.*'] },
-    ],
 
     // Accessibility rules
     'jsx-a11y/anchor-is-valid': 'off', // Disable warnings for invalid anchor elements (handled by React Navigation)

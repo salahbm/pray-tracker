@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
   View,
@@ -6,9 +7,9 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { useLanguage } from '@/hooks/useTranslation';
-import { useTranslation } from 'react-i18next';
+
+import { ThemedText } from 'components/ThemedText';
+import { useLanguage } from 'hooks/useTranslation';
 
 const FLAGS = {
   en: '🇺🇸',
