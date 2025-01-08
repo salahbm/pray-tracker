@@ -10,10 +10,22 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "lint:fix": "expo lint --fix",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky",
+    "commit": "cz",
+    "commitlint": "commitlint --edit",
+    "release": "standard-version",
+    "release:dev": "standard-version --prerelease alpha",
+    "push": "git add . && npm run commit && npm run release && git push origin $(git branch --show-current) --follow-tags",
+    "push:dev": "git add . && npm run commit && npm run release:dev && git push origin $(git branch --show-current) --follow-tags"
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
@@ -51,12 +63,18 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/babel__core": "^7.20.5",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
+    "commitizen": "^4.3.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.4.0",
     "eslint": "^8.57.1",
     "eslint-config-expo": "~8.0.1",
     "eslint-config-prettier": "^9.1.0",
@@ -65,10 +83,13 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "husky": "^9.1.7",
     "jest": "^29.2.1",
     "jest-expo": "~52.0.2",
+    "lint-staged": "^15.3.0",
     "prettier": "^3.4.2",
     "react-test-renderer": "18.3.1",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
