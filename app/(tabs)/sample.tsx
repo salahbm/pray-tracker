@@ -17,7 +17,7 @@ const LocalizationExample = () => {
 
 const SampleScreen = () => {
   return (
-    <SafeAreaView className="flex-1 bg-gray-100">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="p-4">
         <Text className="text-2xl font-bold text-center text-gray-800">
           Project Documentation

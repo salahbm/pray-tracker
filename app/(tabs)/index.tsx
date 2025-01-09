@@ -1,68 +1,20 @@
-import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HelloWave } from 'components/HelloWave';
-import ParallaxScrollView from 'components/ParallaxScrollView';
-import { Language } from 'components/shared/language';
-import { ThemedText } from 'components/ThemedText';
-import { ThemedView } from 'components/ThemedView';
-
-import image from 'assets/images/partial-react-logo.png';
+import { Button } from 'components/ui/button';
+import ThemeSwitcher from '~/components/shared/theme';
+import { Text } from '~/components/ui/text';
 
 export default function HomeScreen() {
-  const { t } = useTranslation();
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={<Image source={image} style={styles.reactLogo} />}
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="defaultSemiBold">{t('Defaults.welcome')}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <Language />
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{' '}
-          to see changes. Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this
-          starter app.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView className="flex-1 bg-background">
+      <View>
+        <Text>This is initial screen</Text>
+        <Button>
+          <Text>Default</Text>
+        </Button>
+        <ThemeSwitcher />
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

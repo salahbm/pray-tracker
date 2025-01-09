@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 
-import { ThemedText } from 'components/ThemedText';
 import { useLanguage } from 'hooks/useTranslation';
 
 const FLAGS = {
@@ -27,9 +26,7 @@ export function Language() {
 
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.text}>
-        {t('Defaults.Locales.choose')}
-      </ThemedText>
+      <Text style={styles.text}>{t('Defaults.Locales.choose')}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
