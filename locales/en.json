@@ -9,6 +9,10 @@
         "ko": "Korean"
       }
     },
+    "Theme": {
+      "dark": "Dark",
+      "light": "Light"
+    },
     "welcome": "Welcome to Expo localization!"
   }
 }
