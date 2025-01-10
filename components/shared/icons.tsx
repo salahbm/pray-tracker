@@ -1,4 +1,13 @@
-import { MoonStar, Sun } from 'lucide-react-native';
+import {
+  MoonStar,
+  Sun,
+  Home,
+  Compass,
+  Award,
+  Users,
+  UserPlus,
+  Trophy,
+} from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
 
@@ -16,4 +25,11 @@ export function iconWithClassName(icon: LucideIcon) {
 
 iconWithClassName(Sun);
 iconWithClassName(MoonStar);
-export { Sun, MoonStar };
+iconWithClassName(Home);
+iconWithClassName(Compass);
+iconWithClassName(Award);
+iconWithClassName(Users);
+iconWithClassName(UserPlus);
+iconWithClassName(Trophy);
+
+export { Sun, MoonStar, Home, Compass, Award, Users, UserPlus, Trophy };

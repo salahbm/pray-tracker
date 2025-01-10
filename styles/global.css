@@ -4,68 +4,48 @@
 
 @layer base {
   :root {
-    --gradient: linear-gradient(to top left, #232526, #414345);
-    --background: 212 95.2% 98.3%;
-    --foreground: 212 0.4% 0.6%;
-
-    --muted: 212 0.4% 91.5%;
-    --muted-foreground: 212 0.2% 41.5%;
-
-    --popover: 212 87.28% 96.6%;
-    --popover-foreground: 212 0.4% 0.75%;
-
-    --card: 212 87.28% 96.6%;
-    --card-foreground: 212 0.4% 0.75%;
-
-    --border: 212 5.4% 89.6%;
-    --input: 212 5.4% 89.6%;
-
-    --primary: 212 4% 15%;
-    --primary-foreground: 212 0.08% 91.5%;
-
-    --secondary: 212 1.52% 100%;
-    --secondary-foreground: 212 1.24% 11.5%;
-
-    --accent: 212 1.52% 100%;
-    --accent-foreground: 212 1.24% 11.5%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 212 4% 15%;
-
-    --radius: 0.5rem;
+    --background: #fdfefa; /* Light background */
+    --foreground: #000000; /* Black text for contrast */
+    --muted: #f2f2f7; /* Light gray for muted elements */
+    --muted-foreground: #6d6d72; /* Dark gray for muted text */
+    --popover: #ffffff; /* White background for popovers */
+    --popover-foreground: #1c1c1e; /* Dark text for popovers */
+    --card: #f2f2f7; /* Light gray for cards */
+    --card-foreground: #000000; /* Black text for cards */
+    --border: #d1d1d6; /* Subtle gray for borders */
+    --input: #e5e5ea; /* Light gray for inputs */
+    --primary: #a5d80a; /* Vibrant blue for primary elements */
+    --primary-foreground: #ffffff; /* White text on primary elements */
+    --secondary: #ff9f0a; /* Vibrant orange for secondary elements */
+    --secondary-foreground: #000000; /* Black text on secondary elements */
+    --accent: #f63558; /* Bright pink accent color */
+    --accent-foreground: #ffffff; /* White text on accents */
+    --destructive: #f63558; /* Vibrant red for destructive actions */
+    --destructive-foreground: #ffffff; /* White text on destructive elements */
+    --ring: #a5d80a; /* Blue ring for active focus */
+    --radius: 0.75rem; /* Smooth radius for rounded elements */
   }
+
   .dark {
-    --gradient: linear-gradient(to top left, #acb6e5, #86fde8);
-
-    --background: 244 33.800000000000004% 6.32%;
-    --foreground: 244 5.2% 98.95%;
-
-    --muted: 244 26% 23.700000000000003%;
-    --muted-foreground: 244 5.2% 57.9%;
-
-    --popover: 244 54.6% 10.27%;
-    --popover-foreground: 244 5.2% 98.95%;
-
-    --card: 244 54.6% 10.27%;
-    --card-foreground: 244 5.2% 98.95%;
-
-    --border: 244 26% 23.700000000000003%;
-    --input: 244 26% 23.700000000000003%;
-
-    --primary: 244 52% 79%;
-    --primary-foreground: 244 5.2% 7.9%;
-
-    --secondary: 244 26% 23.700000000000003%;
-    --secondary-foreground: 244 5.2% 98.95%;
-
-    --accent: 244 26% 23.700000000000003%;
-    --accent-foreground: 244 5.2% 98.95%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 244 5.2% 98.95%;
-
-    --ring: 244 52% 79%;
+    --background: #2d2728; /* Dark background */
+    --foreground: #ffffff; /* White text for contrast */
+    --muted: #1c1c1e; /* Dark gray for muted elements */
+    --muted-foreground: #8e8e93; /* Light gray for muted text */
+    --popover: #2c2c2e; /* Slightly lighter gray for popovers */
+    --popover-foreground: #e5e5ea; /* Light gray for popover text */
+    --card: #1c1c1e; /* Dark gray for cards */
+    --card-foreground: #ffffff; /* White text for cards */
+    --border: #3a3a3c; /* Subtle gray for borders */
+    --input: #3a3a3c; /* Input background matches border */
+    --primary: #b9f900; /* Vibrant green for primary elements */
+    --primary-foreground: #ffffff; /* White text on primary elements */
+    --secondary: #ff9f0a; /* Vibrant orange for secondary elements */
+    --secondary-foreground: #ffffff; /* White text on secondary elements */
+    --accent: #0a84ff; /* Bright blue accent color */
+    --accent-foreground: #ffffff; /* White text on accents */
+    --destructive: #f63558; /* Vibrant red for destructive actions */
+    --destructive-foreground: #ffffff; /* White text on destructive elements */
+    --ring: #b9f900; /* Green ring for active focus */
+    --radius: 0.75rem; /* Smooth radius for rounded elements */
   }
 }

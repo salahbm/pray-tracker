@@ -1,25 +1,24 @@
 import React from 'react';
-import { SafeAreaView, Text, View, ScrollView } from 'react-native';
+import { SafeAreaView, View, ScrollView } from 'react-native';
 
 import { useLanguage } from 'hooks/useTranslation';
+import { Text } from '~/components/ui/text';
 
 // Localization Example
 const LocalizationExample = () => {
   const { currentLanguage } = useLanguage();
   return (
     <View className="p-4">
-      <Text className="text-md text-gray-800">
-        Current Locale: {currentLanguage}
-      </Text>
+      <Text className="text-md ">Current Locale: {currentLanguage}</Text>
     </View>
   );
 };
 
 const SampleScreen = () => {
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-background">
       <ScrollView className="p-4">
-        <Text className="text-2xl font-bold text-center text-gray-800">
+        <Text className="text-2xl font-bold text-center ">
           Project Documentation
         </Text>
 
@@ -40,9 +39,7 @@ const SampleScreen = () => {
 
         {/* Tools Information */}
         <View className="mt-4 p-4 bg-gray-200 rounded-lg gap-4">
-          <Text className="text-lg font-semibold text-gray-800">
-            Project Tools
-          </Text>
+          <Text className="text-lg font-semibold ">Project Tools</Text>
           <Text className="mt-2 text-gray-700">
             - <Text className="font-bold">NativeWind:</Text> Utility-first
             styling for React Native.
