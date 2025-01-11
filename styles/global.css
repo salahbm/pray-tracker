@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: #fdfefa; /* Light background */
-    --foreground: #000000; /* Black text for contrast */
+    --foreground: #2d2728; /* Black text for contrast */
     --muted: #f2f2f7; /* Light gray for muted elements */
     --muted-foreground: #6d6d72; /* Dark gray for muted text */
     --popover: #ffffff; /* White background for popovers */
@@ -28,7 +28,7 @@
 
   .dark {
     --background: #2d2728; /* Dark background */
-    --foreground: #ffffff; /* White text for contrast */
+    --foreground: #fdfefa; /* White text for contrast */
     --muted: #1c1c1e; /* Dark gray for muted elements */
     --muted-foreground: #8e8e93; /* Light gray for muted text */
     --popover: #2c2c2e; /* Slightly lighter gray for popovers */
