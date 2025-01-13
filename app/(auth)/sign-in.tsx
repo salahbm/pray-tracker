@@ -1,64 +1,85 @@
 import { useSignIn } from '@clerk/clerk-expo';
-import { Link, useRouter } from 'expo-router';
-import React from 'react';
-import { Text, TextInput, Button, View } from 'react-native';
+import { Link, router } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
-  const router = useRouter();
 
-  const [emailAddress, setEmailAddress] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
 
-  // Handle the submission of the sign-in form
-  const onSignInPress = React.useCallback(async () => {
+  const onSignInPress = useCallback(async () => {
     if (!isLoaded) return;
 
-    // Start the sign-in process using the email and password provided
     try {
       const signInAttempt = await signIn.create({
-        identifier: emailAddress,
-        password,
+        identifier: form.email,
+        password: form.password,
       });
 
-      // If sign-in process is complete, set the created session as active
-      // and redirect the user
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId });
-        router.replace('/');
+        router.replace('/(tabs)');
       } else {
-        // If the status isn't complete, check why. User might need to
-        // complete further steps.
-        console.error(JSON.stringify(signInAttempt, null, 2));
+        // See https://clerk.com/docs/custom-flows/error-handling for more info on error handling
+        console.log(JSON.stringify(signInAttempt, null, 2));
+        Alert.alert('Error', 'Log in failed. Please try again.');
       }
-    } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2));
+    } catch (err: any) {
+      console.log(JSON.stringify(err, null, 2));
+      Alert.alert('Error', err.errors[0].longMessage);
     }
-  }, [isLoaded, emailAddress, password]);
+  }, [isLoaded, form]);
 
   return (
-    <View>
-      <TextInput
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Enter email"
-        onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-      />
-      <TextInput
-        value={password}
-        placeholder="Enter password"
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <Button title="Sign in" onPress={onSignInPress} />
-      <View>
-        <Text>Don't have an account?</Text>
-        <Link href="/sign-up">
-          <Text>Sign up</Text>
+    <SafeAreaView className="flex h-full items-center justify-center bg-background px-6">
+      <View className="w-full max-w-md">
+        <Text className="text-3xl font-bold text-primary mb-6 text-center">
+          Welcome Back
+        </Text>
+        <Input
+          autoCapitalize="none"
+          className="mb-4 p-3 rounded-lg bg-surface"
+          value={form.email}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          onChangeText={(email) => setForm({ ...form, email })}
+        />
+        <Input
+          className="mb-4 p-3 rounded-lg bg-surface"
+          value={form.password}
+          placeholder="Enter your password"
+          secureTextEntry
+          onChangeText={(password) => setForm({ ...form, password })}
+        />
+        <Button
+          className="p-4 rounded-lg bg-primary text-white mb-4"
+          onPress={onSignInPress}
+        >
+          <Text className="font-bold text-white">Sign In</Text>
+        </Button>
+        <TouchableOpacity>
+          <Text className="text-sm text-secondary text-center">
+            Forgot Password?
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View className="mt-8">
+        <Text className="text-sm text-secondary text-center mb-2">
+          Don&apos;t have an account?
+        </Text>
+        <Link href="/(auth)/sign-up" className="text-primary text-center">
+          <Text className="font-bold">Sign up</Text>
         </Link>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
