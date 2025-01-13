@@ -4,10 +4,10 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 
-import { Button } from '~/components/ui/button';
-import { Text } from '~/components/ui/text';
-import { onboarding } from '~/constants/onboarding';
-import { useOnboarding } from '~/store/defaults/onboarding';
+import { Button } from 'components/ui/button';
+import { Text } from 'components/ui/text';
+import { onboarding } from 'constants/onboarding';
+import { useOnboarding } from 'store/defaults/onboarding';
 
 const Home = () => {
   const swiperRef = useRef<Swiper>(null);

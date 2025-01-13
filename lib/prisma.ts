@@ -1,19 +1,24 @@
+import 'dotenv/config';
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import { PrismaNeon } from '@prisma/adapter-neon';
 import { PrismaClient } from '@prisma/client';
+import ws from 'ws';
+neonConfig.webSocketConstructor = ws;
 
-// Prevent multiple instances of Prisma Client in development
-declare global {
-  // This is the type declaration for `globalThis.prisma` to be used globally
-  // to avoid TypeScript errors in the rest of your application.
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined;
-}
+// To work in edge environments (Cloudflare Workers, Vercel Edge, etc.), enable querying over fetch
+// neonConfig.poolQueryViaFetch = true
 
-const prisma = globalThis.prisma || new PrismaClient();
+// Type definitions
+// declare global {
+//   var prisma: PrismaClient | undefined
+// }
 
-if (process.env.NODE_ENV !== 'production') {
-  // In development, assign the Prisma client to globalThis to ensure
-  // the same client instance is used across hot reloads.
-  globalThis.prisma = prisma;
-}
+const connectionString = process.env.DATABASE_URL!;
 
-export const DB = prisma;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaNeon(pool);
+const prisma = global.prisma || new PrismaClient({ adapter });
+
+if (process.env.NODE_ENV === 'development') global.prisma = prisma;
+
+export default prisma;

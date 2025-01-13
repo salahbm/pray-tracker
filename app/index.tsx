@@ -1,6 +1,6 @@
 import { Redirect } from 'expo-router';
 
-import { useOnboarding } from '~/store/defaults/onboarding';
+import { useOnboarding } from 'store/defaults/onboarding';
 
 const Page = () => {
   const { visited } = useOnboarding();

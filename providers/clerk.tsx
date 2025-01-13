@@ -1,7 +1,7 @@
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { PropsWithChildren } from 'react';
 
-import { tokenCache } from '~/lib/cache';
+import { tokenCache } from 'lib/cache';
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 

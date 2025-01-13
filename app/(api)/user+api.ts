@@ -1,6 +1,6 @@
-import { DB } from '~/lib/prisma';
-import { ApiError, handleError } from '~/utils/error';
-import { createResponse, StatusCode } from '~/utils/status';
+import prisma from 'lib/prisma';
+import { ApiError, handleError } from 'utils/error';
+import { createResponse, StatusCode } from 'utils/status';
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       });
     }
 
-    const newUser = await DB.user.create({
+    const newUser = await prisma.user.create({
       data: {
         username,
         email,

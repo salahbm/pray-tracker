@@ -5,11 +5,12 @@ import { Alert, Image, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
-import { Text } from '~/components/ui/text';
-import { IMAGES } from '~/constants/images';
-import { fetchAPI } from '~/lib/fetch';
+import OAuth from '@/components/shared/o-auth';
+import { Button } from 'components/ui/button';
+import { Input } from 'components/ui/input';
+import { Text } from 'components/ui/text';
+import { IMAGES } from 'constants/images';
+import { fetchAPI } from 'lib/fetch';
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -56,9 +57,6 @@ export default function SignUpScreen() {
       if (completeSignUp.status === 'complete') {
         await fetchAPI('/(api)/user', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify({
             username: form.username,
             email: form.email,
@@ -78,8 +76,6 @@ export default function SignUpScreen() {
         });
       }
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       setVerification({
         ...verification,
         error: err.errors[0].longMessage,
@@ -126,6 +122,26 @@ export default function SignUpScreen() {
           <Text className="text-white text-center">Sign Up</Text>
         </Button>
       </View>
+      <OAuth />
+
+      <View className="mt-8 flex flex-row justify-center items-center gap-4 ">
+        <Text className="text-sm text-secondary text-center ">
+          Already have an account?
+        </Text>
+        <Link href="/(auth)/sign-in" className="text-primary text-center">
+          <Text className="font-bold">Sign In</Text>
+        </Link>
+      </View>
+
+      {/* Use as Guest */}
+
+      <Link href="/(tabs)">
+        <Text className="text-sm text-secondary text-center underline">
+          Use as Guest
+        </Text>
+      </Link>
+
+      {/* MODALS */}
 
       <ReactNativeModal
         isVisible={verification.state === 'pending'}
@@ -161,6 +177,8 @@ export default function SignUpScreen() {
         </View>
       </ReactNativeModal>
 
+      {/* SUCCESS MODAL */}
+
       <ReactNativeModal isVisible={showSuccessModal}>
         <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
@@ -179,25 +197,6 @@ export default function SignUpScreen() {
           </Button>
         </View>
       </ReactNativeModal>
-
-      <View className="mt-8">
-        <Text className="text-sm text-secondary text-center mb-2">
-          Already have an account?
-        </Text>
-        <Link href="/(auth)/sign-in" className="text-primary text-center">
-          <Text className="font-bold">Sign In</Text>
-        </Link>
-      </View>
-
-      {/* Use as Guest */}
-      <View className="mt-8 flex flex-row gap-2 justify-between items-center">
-        <Text className="text-sm text-secondary text-center mb-2">
-          Use as Guest
-        </Text>
-        <Link href="/(tabs)" className="text-primary text-center">
-          <Text>Browse Home</Text>
-        </Link>
-      </View>
     </SafeAreaView>
   );
 }

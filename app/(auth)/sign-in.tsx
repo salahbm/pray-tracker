@@ -4,8 +4,9 @@ import { useCallback, useState } from 'react';
 import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
+import OAuth from '@/components/shared/o-auth';
+import { Button } from 'components/ui/button';
+import { Input } from 'components/ui/input';
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -65,15 +66,11 @@ export default function Page() {
         >
           <Text className="font-bold text-white">Sign In</Text>
         </Button>
-        <TouchableOpacity>
-          <Text className="text-sm text-secondary text-center">
-            Forgot Password?
-          </Text>
-        </TouchableOpacity>
+        <OAuth />
       </View>
 
-      <View className="mt-8">
-        <Text className="text-sm text-secondary text-center mb-2">
+      <View className="mt-8 flex flex-row justify-center items-center gap-4">
+        <Text className="text-sm text-secondary text-center ">
           Don&apos;t have an account?
         </Text>
         <Link href="/(auth)/sign-up" className="text-primary text-center">

@@ -14,7 +14,7 @@ import { useColorScheme } from 'hooks/useColorScheme';
 import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
 import 'styles/global.css';
-import RootProvider from '~/providers/root';
+import RootProvider from 'providers/root';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

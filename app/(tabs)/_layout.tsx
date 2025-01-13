@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 import { useColorScheme } from 'hooks/useColorScheme';
-import { NAV_THEME } from '~/constants/colors';
+import { NAV_THEME } from 'constants/colors';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
