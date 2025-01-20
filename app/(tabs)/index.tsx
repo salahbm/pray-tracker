@@ -12,6 +12,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import HeatMap from '@/components/shared/heat-map';
+import YearPicker from '@/components/shared/year-picker';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import confetti from 'assets/gif/confetti.json';
 
@@ -25,6 +27,8 @@ const prayers = [
 ];
 
 export default function HomeScreen() {
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [isPickerVisible, setPickerVisible] = useState(false);
   const { user } = useUser();
   const { signOut } = useAuth();
   const [prayerStatus, setPrayerStatus] = useState(
@@ -157,7 +161,18 @@ export default function HomeScreen() {
 
       {/* Prayer History (Heatmap) */}
       <View>
-        <Text className={cn('text-lg font-semibold mb-3')}>Prayer History</Text>
+    <View className='flex flex-row justify-between items-center mb-6'>
+    <Text className={cn('text-lg font-semibold ')}>Prayer History</Text>
+        <Button variant='outline' size='sm' onPress={() => setPickerVisible(true)} >
+          <Text >{year}</Text>
+        </Button>
+    </View>
+      <YearPicker
+        value={year}
+        onChangeValue={setYear}
+        isVisible={isPickerVisible}
+        onBackdropPress={() => setPickerVisible(false)}
+      />
         <HeatMap
           data={data}
           onDayClick={(date, dayData) => {
@@ -171,7 +186,7 @@ export default function HomeScreen() {
                 .join('\n')}`,
             );
           }}
-          year={2024}
+          year={year}
         />
       </View>
 
