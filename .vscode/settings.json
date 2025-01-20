@@ -1,4 +1,11 @@
 {
   "i18n-ally.localesPaths": ["locales"],
-  "cSpell.words": ["nativewind"]
+  "cSpell.words": [
+    "dhuhr",
+    "fajr",
+    "isha",
+    "maghrib",
+    "nativewind",
+    "tahajjud"
+  ]
 }

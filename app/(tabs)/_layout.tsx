@@ -1,9 +1,9 @@
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
 
+import { NAV_THEME } from '@/constants/Colors';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 import { useColorScheme } from 'hooks/useColorScheme';
-import { NAV_THEME } from 'constants/colors';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
