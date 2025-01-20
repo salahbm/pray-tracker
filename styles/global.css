@@ -4,48 +4,26 @@
 
 @layer base {
   :root {
-    --background: #fdfefa; /* Light background */
-    --foreground: #2d2728; /* Black text for contrast */
-    --muted: #f2f2f7; /* Light gray for muted elements */
-    --muted-foreground: #6d6d72; /* Dark gray for muted text */
-    --popover: #ffffff; /* White background for popovers */
-    --popover-foreground: #1c1c1e; /* Dark text for popovers */
-    --card: #f2f2f7; /* Light gray for cards */
-    --card-foreground: #000000; /* Black text for cards */
-    --border: #d1d1d6; /* Subtle gray for borders */
-    --input: #e5e5ea; /* Light gray for inputs */
-    --primary: #a5d80a; /* Vibrant blue for primary elements */
-    --primary-foreground: #ffffff; /* White text on primary elements */
-    --secondary: #ff9f0a; /* Vibrant orange for secondary elements */
-    --secondary-foreground: #000000; /* Black text on secondary elements */
-    --accent: #f63558; /* Bright pink accent color */
-    --accent-foreground: #ffffff; /* White text on accents */
-    --destructive: #f63558; /* Vibrant red for destructive actions */
-    --destructive-foreground: #ffffff; /* White text on destructive elements */
-    --ring: #a5d80a; /* Blue ring for active focus */
-    --radius: 0.75rem; /* Smooth radius for rounded elements */
+    --background: #131310; 
+    --foreground: #A2AAAD; 
+    --muted: #0f0f0f; 
+    --muted-foreground: #a1a1a1; 
+    --popover: #1b1b1d; 
+    --popover-foreground: #e0e0e0; 
+    --card: #121214; 
+    --card-foreground: #f7f7f7; 
+    --border: #29292b; 
+    --input: #29292b; 
+    --primary: #b9f900; 
+    --primary-foreground: #ffffff; 
+    --secondary: #1d1d1f; 
+    --secondary-foreground: #fdfdfd; 
+    --accent: #ff5967; 
+    --accent-foreground: #ffffff; 
+    --destructive: #ff0f37; 
+    --destructive-foreground: #ffffff; 
+    --ring: #e02f4b; 
+    --radius: 0.75rem;
   }
 
-  .dark {
-    --background: #2d2728; /* Dark background */
-    --foreground: #fdfefa; /* White text for contrast */
-    --muted: #1c1c1e; /* Dark gray for muted elements */
-    --muted-foreground: #8e8e93; /* Light gray for muted text */
-    --popover: #2c2c2e; /* Slightly lighter gray for popovers */
-    --popover-foreground: #e5e5ea; /* Light gray for popover text */
-    --card: #1c1c1e; /* Dark gray for cards */
-    --card-foreground: #ffffff; /* White text for cards */
-    --border: #3a3a3c; /* Subtle gray for borders */
-    --input: #3a3a3c; /* Input background matches border */
-    --primary: #b9f900; /* Vibrant green for primary elements */
-    --primary-foreground: #ffffff; /* White text on primary elements */
-    --secondary: #ff9f0a; /* Vibrant orange for secondary elements */
-    --secondary-foreground: #ffffff; /* White text on secondary elements */
-    --accent: #0a84ff; /* Bright blue accent color */
-    --accent-foreground: #ffffff; /* White text on accents */
-    --destructive: #f63558; /* Vibrant red for destructive actions */
-    --destructive-foreground: #ffffff; /* White text on destructive elements */
-    --ring: #b9f900; /* Green ring for active focus */
-    --radius: 0.75rem; /* Smooth radius for rounded elements */
-  }
 }

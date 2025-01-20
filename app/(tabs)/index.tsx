@@ -161,18 +161,22 @@ export default function HomeScreen() {
 
       {/* Prayer History (Heatmap) */}
       <View>
-    <View className='flex flex-row justify-between items-center mb-6'>
-    <Text className={cn('text-lg font-semibold ')}>Prayer History</Text>
-        <Button variant='outline' size='sm' onPress={() => setPickerVisible(true)} >
-          <Text >{year}</Text>
-        </Button>
-    </View>
-      <YearPicker
-        value={year}
-        onChangeValue={setYear}
-        isVisible={isPickerVisible}
-        onBackdropPress={() => setPickerVisible(false)}
-      />
+        <View className="flex flex-row justify-between items-center mb-6">
+          <Text className={cn('text-lg font-semibold ')}>Prayer History</Text>
+          <Button
+            variant="outline"
+            size="sm"
+            onPress={() => setPickerVisible(true)}
+          >
+            <Text>{year}</Text>
+          </Button>
+        </View>
+        <YearPicker
+          value={year}
+          onChangeValue={setYear}
+          isVisible={isPickerVisible}
+          onBackdropPress={() => setPickerVisible(false)}
+        />
         <HeatMap
           data={data}
           onDayClick={(date, dayData) => {

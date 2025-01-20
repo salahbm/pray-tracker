@@ -1,13 +1,9 @@
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
 
-import { NAV_THEME } from '@/constants/Colors';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
-import { useColorScheme } from 'hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   const screens = useMemo(
     () => [
       { name: 'index', title: 'Home', Icon: Home },
@@ -21,8 +17,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: NAV_THEME[colorScheme.colorScheme].primary,
+        tabBarActiveTintColor: '#b9f900',
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#2D2C2B', // Transparent background
+          position: 'absolute', // Ensures the tab bar is overlayed
+          elevation: 0, // Remove shadow for Android
+          borderTopWidth: 0, // Remove border for iOS
+        },
       }}
     >
       {screens.map(({ name, title, Icon }) => (
