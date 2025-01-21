@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { NAV_THEME } from '@/constants/Colors';
+import { COLORS } from '@/constants/Colors';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 
 export default function TabLayout() {
@@ -20,7 +20,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: NAV_THEME.dark.primary,
+        tabBarActiveTintColor: COLORS.dark.primary,
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',

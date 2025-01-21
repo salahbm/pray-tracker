@@ -1,13 +1,18 @@
-import React from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { View } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
+
+import { Button } from '../ui/button';
+import { Text } from '../ui/text';
+import { COLORS } from '@/constants/Colors';
 
 interface YearPickerProps {
   value: number;
   onChangeValue: (year: number) => void;
   isVisible: boolean;
   onBackdropPress: () => void;
+  minYear?: number;
 }
 
 const YearPicker: React.FC<YearPickerProps> = ({
@@ -15,34 +20,83 @@ const YearPicker: React.FC<YearPickerProps> = ({
   onChangeValue,
   isVisible,
   onBackdropPress,
+  minYear = 1900,
 }) => {
-  const handleYearChange = (_: any, date?: Date) => {
-    if (date) {
-      // Only capture the year part and call onChangeValue
-      onChangeValue(date.getFullYear());
-    }
-    onBackdropPress();
-  };
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: currentYear - minYear + 1 },
+    (_, i) => (minYear + i).toString(), // Convert years to strings
+  );
+
+  const [selectedYear, setSelectedYear] = useState(value.toString()); // Store as string
 
   return (
     <Modal
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
-      backdropOpacity={0.5}
+      animationIn="zoomIn"
+      animationOut="zoomOut"
     >
-      <View className="bg-background rounded-lg p-4 py-6">
-        <DateTimePicker
-          value={new Date(value, 0)}
-          mode="date"
-          display="spinner"
-          onChange={handleYearChange}
-          maximumDate={new Date(2100, 0)}
-          minimumDate={new Date(1900, 0)}
-          textColor="#000"
-        />
+      <View style={styles.modalContainer}>
+        <Text style={styles.title}>Select a Year</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedYear}
+            onValueChange={(itemValue) => setSelectedYear(itemValue)}
+            style={styles.picker}
+            itemStyle={styles.pickerItem}
+          >
+            {years.map((year) => (
+              <Picker.Item key={year} label={year} value={year} />
+            ))}
+          </Picker>
+        </View>
+        <View className="flex-row flex gap-2 mt-8 justify-end">
+          <Button onPress={onBackdropPress} variant="outline">
+            <Text>Cancel</Text>
+          </Button>
+          <Button
+            onPress={() => {
+              onChangeValue(Number(selectedYear)); // Convert back to number
+              onBackdropPress();
+            }}
+          >
+            <Text className="text-secondary">Confirm</Text>
+          </Button>
+        </View>
       </View>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    backgroundColor: COLORS.dark.muted,
+    borderRadius: 10,
+    padding: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginBottom: 15,
+  },
+  pickerContainer: {
+    width: Dimensions.get('window').width * 0.8,
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.dark.muted,
+    borderRadius: 10,
+  },
+  picker: {
+    width: '100%',
+    height: '100%',
+  },
+  pickerItem: {
+    fontSize: 16,
+    color: COLORS.dark.muted_foreground,
+  },
+});
 
 export default YearPicker;

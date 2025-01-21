@@ -1,7 +1,16 @@
-const PRAYER_POINTS = {
-  'on-time': 2,
-  late: 1,
-  absent: 0,
-} as const;
+enum SALAHS {
+  FAJR = 'fajr',
+  DHUHR = 'dhuhr',
+  ASR = 'asr',
+  MAGHRIB = 'maghrib',
+  ISHA = 'isha',
+  TAHAJJUD = 'tahajjud',
+}
 
-export { PRAYER_POINTS };
+enum PRAYER_POINTS {
+  ON_TIME = 2,
+  LATE = 1,
+  MISSED = 0,
+}
+
+export { PRAYER_POINTS, SALAHS };
