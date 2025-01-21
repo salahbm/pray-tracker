@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { IMAGES } from '@/constants/images';
 import { cn } from '@/lib/utils';
 import confetti from 'assets/gif/confetti.json';
 
@@ -35,7 +36,7 @@ export default function HomeScreen() {
   const [clickedData, setClickedData] = useState<ClickedData | null>(null);
   const [accordion, setAccordion] = useState<string>('');
   const [prayers, setPrayers] = useState<Record<string, number>>({
-    [SALAHS.FAJR]: 3,
+    [SALAHS.FAJR]: 3, // 0:missed, 1:late, 2: on time, 3 not touched
     [SALAHS.DHUHR]: 3,
     [SALAHS.ASR]: 3,
     [SALAHS.MAGHRIB]: 3,
@@ -87,21 +88,25 @@ export default function HomeScreen() {
             <Text className={cn('text-xl font-bold')}>
               {user ? `Welcome, ${user.firstName} 👋` : 'Welcome, Guest 👋'}
             </Text>
-            <Text className={cn('text-gray-500')}>
+            <Text className={cn('text-muted-foreground')}>
               {new Date().toDateString()}
             </Text>
           </View>
-          <TouchableOpacity
-            onPress={handleSignInOrOut}
-            className={cn('items-center w-10 h-10')}
-          >
+          <TouchableOpacity onPress={handleSignInOrOut}>
             <Image
               source={{
-                uri: user?.imageUrl || 'https://via.placeholder.com/40',
+                uri: user?.imageUrl,
               }}
-              className={cn('w-10 h-10 rounded-full bg-white')}
+              className={cn('size-14 rounded-full')}
             />
           </TouchableOpacity>
+          <Image
+            source={IMAGES.guest}
+            className={cn(
+              'size-14 rounded-full bg-foreground',
+              user?.imageUrl && 'hidden',
+            )}
+          />
         </View>
 
         <View className={cn('mb-6')}>

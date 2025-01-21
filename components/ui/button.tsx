@@ -36,7 +36,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'default',
-      width: 'md',
+      width: 'auto',
     },
   },
 );
@@ -46,7 +46,7 @@ const buttonTextVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-primary-foreground',
+        default: 'text-secondary',
         destructive: 'text-destructive-foreground',
         outline: 'group-active:text-accent-foreground',
         secondary:

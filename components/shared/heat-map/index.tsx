@@ -10,7 +10,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
   const {
     data = null,
     color = defaultColorMap,
-    defaultBackgroundColor = '#adadad',
+    defaultBackgroundColor = '#858682',
     year = new Date().getFullYear(),
     onDayClick,
   } = props;
@@ -89,7 +89,10 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
                       key={`${month}-cell-${rowIndex}-${dayIndex}`}
                       className={cn('size-5 shrink-0 rounded')}
                       style={{
-                        opacity: getOpacityByNumber(color.opacity, dayScore),
+                        opacity:
+                          dayScore > 0
+                            ? getOpacityByNumber(color.opacity, dayScore)
+                            : 1,
                         backgroundColor:
                           dayScore > 0 ? color.theme : defaultBackgroundColor,
                       }}
