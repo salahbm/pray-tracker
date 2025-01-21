@@ -1,9 +1,10 @@
-import { useAuth, useUser } from '@clerk/clerk-expo';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import Checkbox from 'expo-checkbox';
 import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useState, useRef } from 'react';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { LineChart } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -21,12 +22,19 @@ import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { IMAGES } from '@/constants/images';
 import { cn } from '@/lib/utils';
+import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
 
-type ClickedData = {
-  date: string;
-  details: { data: DayData };
-};
+const lineData = [
+  { value: 0, dataPointText: '0' },
+  { value: 20, dataPointText: '20' },
+  { value: 18, dataPointText: '18' },
+  { value: 40, dataPointText: '40' },
+  { value: 36, dataPointText: '36' },
+  { value: 60, dataPointText: '60' },
+  { value: 54, dataPointText: '54' },
+  { value: 85, dataPointText: '85' },
+];
 
 export default function HomeScreen() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -45,7 +53,6 @@ export default function HomeScreen() {
   });
 
   const { user } = useUser();
-  const { signOut } = useAuth();
   const confettiRef = useRef<LottieView>(null);
 
   const handlePrayerChange = (prayer: string, value: number) => {
@@ -69,11 +76,6 @@ export default function HomeScreen() {
     setShowModal(false);
   };
 
-  const handleSignInOrOut = () => {
-    if (user) signOut();
-    router.push('/(auth)/sign-in');
-  };
-
   const handleDayClick = (date: string, details: { data: DayData }) => {
     if (!details || !details.data) return;
     setClickedData({ date, details: details });
@@ -83,7 +85,11 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1">
       <ScrollView contentContainerStyle={{ padding: 16 }}>
-        <View className={cn('flex-row items-center justify-between mb-4')}>
+        <View
+          className={cn(
+            'flex-row items-center justify-between mb-4 border-b border-border pb-4',
+          )}
+        >
           <View>
             <Text className={cn('text-xl font-bold')}>
               {user ? `Welcome, ${user.firstName} 👋` : 'Welcome, Guest 👋'}
@@ -92,21 +98,27 @@ export default function HomeScreen() {
               {new Date().toDateString()}
             </Text>
           </View>
-          <TouchableOpacity onPress={handleSignInOrOut}>
-            <Image
-              source={{
-                uri: user?.imageUrl,
-              }}
-              className={cn('size-14 rounded-full')}
-            />
-          </TouchableOpacity>
-          <Image
-            source={IMAGES.guest}
-            className={cn(
-              'size-14 rounded-full bg-foreground',
-              user?.imageUrl && 'hidden',
-            )}
-          />
+          <SignedIn>
+            <TouchableOpacity onPress={() => router.navigate('/(tabs)')}>
+              <Image
+                source={{
+                  uri: user?.imageUrl,
+                }}
+                className={cn('size-14 rounded-full')}
+              />
+            </TouchableOpacity>
+          </SignedIn>
+          <SignedOut>
+            <View className="flex-row justify-end gap-5 items-center">
+              <Image
+                source={IMAGES.guest}
+                className={cn('size-14 rounded-full bg-foreground')}
+              />
+              <Button size="sm">
+                <Text>Sign In</Text>
+              </Button>
+            </View>
+          </SignedOut>
         </View>
 
         <View className={cn('mb-6')}>
@@ -245,6 +257,26 @@ export default function HomeScreen() {
           </AccordionItem>
         </Accordion>
 
+        {/* CHARTS */}
+        <Text className={cn('text-lg font-semibold mt-6 mb-4')}>
+          Prayer Stats
+        </Text>
+        <LineChart
+          initialSpacing={0}
+          data={lineData}
+          spacing={30}
+          hideDataPoints
+          thickness={5}
+          hideRules
+          hideYAxisText
+          yAxisColor="#0BA5A4"
+          showVerticalLines
+          verticalLinesColor="rgba(14,164,164,0.5)"
+          xAxisColor="#0BA5A4"
+          color="#0BA5A4"
+        />
+        {/* LOTTIE CONFETTI */}
+
         <LottieView
           ref={confettiRef}
           source={confetti}
@@ -261,6 +293,8 @@ export default function HomeScreen() {
             pointerEvents: 'none',
           }}
         />
+
+        {/* MISSED MODAL */}
 
         <Modal
           isVisible={showModal}
