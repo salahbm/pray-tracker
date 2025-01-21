@@ -1,9 +1,15 @@
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
+import {
+  BottomSheetModal,
+  BottomSheetView,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LineChart } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -54,6 +60,14 @@ export default function HomeScreen() {
 
   const { user } = useUser();
   const confettiRef = useRef<LottieView>(null);
+  // ref
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((_index: number) => {}, []);
 
   const handlePrayerChange = (prayer: string, value: number) => {
     if (value === PRAYER_POINTS.MISSED) {
@@ -83,8 +97,8 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1">
-      <ScrollView contentContainerStyle={{ padding: 16 }}>
+    <SafeAreaView className="main-area">
+      <ScrollView>
         <View
           className={cn(
             'flex-row items-center justify-between mb-4 border-b border-border pb-4',
@@ -324,6 +338,24 @@ export default function HomeScreen() {
             </View>
           </View>
         </Modal>
+
+        {/* BOTTOM SHEET */}
+        {/* BOTTOM SHEET FOR PROFILE */}
+        <GestureHandlerRootView className="flex-1 bg-slate-50">
+          <BottomSheetModalProvider>
+            <Button onPress={handlePresentModalPress}>
+              <Text> Press</Text>
+            </Button>
+            <BottomSheetModal
+              ref={bottomSheetModalRef}
+              onChange={handleSheetChanges}
+            >
+              <BottomSheetView className="bg-white flex-1 justify-center items-center">
+                <Text>Awesome 🎉</Text>
+              </BottomSheetView>
+            </BottomSheetModal>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
       </ScrollView>
     </SafeAreaView>
   );
