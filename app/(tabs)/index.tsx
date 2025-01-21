@@ -1,19 +1,13 @@
 import { useUser, useAuth } from '@clerk/clerk-expo';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
-import {
-  View,
-  Text,
-  Switch,
-  Alert,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Switch, Alert, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import HeatMap from '@/components/shared/heat-map';
 import YearPicker from '@/components/shared/year-picker';
 import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import confetti from 'assets/gif/confetti.json';
 
@@ -26,6 +20,65 @@ const prayers = [
   { id: 'tahajjud', name: 'Tahajjud', description: 'Optional Night Prayer' },
 ];
 
+const data = {
+  '2024-01-01': {
+    fajr: 1,
+    dhuhr: 2,
+    asr: 0,
+    maghrib: 1,
+    isha: 2,
+    tahajjud: 0,
+  },
+  '2025-11-01': {
+    fajr: 1,
+    dhuhr: 2,
+    asr: 2,
+    maghrib: 1,
+    isha: 2,
+    tahajjud: 0,
+  },
+  '2025-01-21': {
+    fajr: 1,
+    dhuhr: 2,
+    asr: 2,
+    maghrib: 1,
+    isha: 2,
+    tahajjud: 2,
+  },
+  '2025-01-22': {
+    fajr: 1,
+    dhuhr: 2,
+    asr: 2,
+    maghrib: 1,
+    isha: 2,
+    tahajjud: 2,
+  },
+  '2025-01-25': {
+    fajr: 1,
+    dhuhr: 0,
+    asr: 2,
+    maghrib: 1,
+    isha: 2,
+    tahajjud: 0,
+  },
+  '2025-01-24': {
+    fajr: 1,
+    dhuhr: 0,
+    asr: 0,
+    maghrib: 1,
+    isha: 0,
+    tahajjud: 0,
+  },
+  '2025-01-01': {
+    fajr: 0,
+    dhuhr: 0,
+    asr: 0,
+    maghrib: 2,
+    isha: 0,
+    tahajjud: 0,
+  },
+};
+
 export default function HomeScreen() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [isPickerVisible, setPickerVisible] = useState(false);
@@ -34,49 +87,6 @@ export default function HomeScreen() {
   const [prayerStatus, setPrayerStatus] = useState(
     prayers.reduce((acc, prayer) => ({ ...acc, [prayer.id]: false }), {}),
   );
-
-  const data = {
-    '2024-01-01': {
-      fajr: true,
-      dhuhr: true,
-      asr: true,
-      maghrib: true,
-      isha: false,
-      tahajjud: true,
-    },
-    '2024-01-02': {
-      fajr: false,
-      dhuhr: true,
-      asr: false,
-      maghrib: true,
-      isha: false,
-      tahajjud: false,
-    },
-    '2024-02-15': {
-      fajr: true,
-      dhuhr: true,
-      asr: true,
-      maghrib: true,
-      isha: true,
-      tahajjud: true,
-    },
-    '2025-02-15': {
-      fajr: true,
-      dhuhr: true,
-      asr: true,
-      maghrib: true,
-      isha: true,
-      tahajjud: true,
-    },
-    '2026-02-15': {
-      fajr: true,
-      dhuhr: true,
-      asr: true,
-      maghrib: true,
-      isha: true,
-      tahajjud: true,
-    },
-  };
 
   const togglePrayer = (id) => {
     Alert.alert(
@@ -109,7 +119,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView className={cn('flex-1 bg-background p-4')}>
+    <SafeAreaView className="main-area">
       {/* Header Section */}
       <View className={cn('flex-row items-center justify-between mb-4')}>
         <View>
@@ -140,14 +150,12 @@ export default function HomeScreen() {
           <View
             key={prayer.id}
             className={cn(
-              'flex-row items-center justify-between bg-gray-100 p-2 rounded-md mb-2',
+              'flex-row items-center justify-between bg-card p-2 rounded-md mb-2',
             )}
           >
             <View>
               <Text className={cn('text-base font-medium')}>{prayer.name}</Text>
-              <Text className={cn('text-sm text-gray-500')}>
-                {prayer.description}
-              </Text>
+              <Text className={cn('text-sm ')}>{prayer.description}</Text>
             </View>
             <Switch
               value={prayerStatus[prayer.id]}
@@ -179,18 +187,10 @@ export default function HomeScreen() {
         />
         <HeatMap
           data={data}
-          onDayClick={(date, dayData) => {
-            Alert.alert(
-              'Prayer History',
-              `Date: ${new Date(date).toLocaleDateString()}\n\n${Object.entries(
-                dayData,
-              )
-                .filter(([_key, value]) => value)
-                .map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`)
-                .join('\n')}`,
-            );
-          }}
           year={year}
+          onDayClick={(date, { data }) =>
+            console.log('Day clicked!', date, data)
+          }
         />
       </View>
 

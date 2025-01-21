@@ -1,6 +1,9 @@
+import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
+import { StyleSheet } from 'react-native';
 
+import { NAV_THEME } from '@/constants/Colors';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 
 export default function TabLayout() {
@@ -17,14 +20,24 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#b9f900',
+        tabBarActiveTintColor: NAV_THEME.dark.primary,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#2D2C2B', // Transparent background
-          position: 'absolute', // Ensures the tab bar is overlayed
-          elevation: 0, // Remove shadow for Android
-          borderTopWidth: 0, // Remove border for iOS
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopWidth: 0, // Prevent any border
+          bottom: 0, // Ensure correct positioning
         },
+        tabBarBackground: () => (
+          <BlurView
+            intensity={80}
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              overflow: 'hidden',
+              backgroundColor: 'transparent',
+            }}
+          />
+        ),
       }}
     >
       {screens.map(({ name, title, Icon }) => (
