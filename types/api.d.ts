@@ -1,15 +1,13 @@
 export interface IResponseArray<T> {
-  code: number;
-  description: string;
+  status: number;
+  message: string;
   data: T[];
-  msg: string;
 }
 
 export interface IResponse<T> {
   code: number;
   description: string;
   data: T;
-  msg: string;
 }
 
 export interface PageAble {

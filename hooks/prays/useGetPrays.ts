@@ -10,7 +10,7 @@ type TPraysParams = {
 };
 
 const getPraysList = async (params: TPraysParams): Promise<Prays> => {
-  const data = await agent(`/pray/${params.id}?year=${params.year}`, {
+  const data = await agent(`/prays/${params.id}/get?year=${params.year}`, {
     method: 'GET',
   });
 
@@ -22,5 +22,4 @@ export const useGetPrays = (id: string, year: number) =>
     queryKey: [praysListKeys, id, year],
     queryFn: () => getPraysList({ id, year }),
     enabled: !!id,
-    refetchInterval: 20000,
   });

@@ -25,7 +25,9 @@ import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
+import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
+import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
@@ -48,7 +50,8 @@ const lineData: lineDataItem[] = [
 ];
 
 export default function HomeScreen() {
-  const [year, setYear] = useState(new Date().getFullYear());
+  const today = new Date();
+  const [year, setYear] = useState(today.getFullYear());
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [selectedPrayer, setSelectedPrayer] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -64,7 +67,10 @@ export default function HomeScreen() {
   });
 
   const { user } = useUser();
-  const { data: prays } = useGetPrays(user?.id, year);
+  const { data: userData } = useGetUser(user?.id);
+  console.log('userData:', userData);
+  const { data: prays } = useGetPrays(userData?.id, year);
+  const { mutateAsync: createPray, isPending } = useCreatePray();
   console.log('prays:', prays);
 
   // BOTTOM SHEETS REFERENCES
@@ -85,15 +91,26 @@ export default function HomeScreen() {
     signUpSheetRef.current?.snapToIndex(2);
   }, []);
 
-  const handlePrayerChange = (prayer: string, value: number) => {
-    if (value === PRAYER_POINTS.MISSED) {
-      setSelectedPrayer(prayer);
-      setShowModal(true);
-      return;
-    }
-    setPrayers((prev) => ({ ...prev, [prayer]: value }));
-    if (value === PRAYER_POINTS.ON_TIME) confettiRef.current?.play(0);
-  };
+  const handlePrayerChange = useCallback(
+    async (prayer: string, value: number) => {
+      if (
+        value === PRAYER_POINTS.MISSED &&
+        prayers[prayer] !== PRAYER_POINTS.NOT_TOUCHED
+      ) {
+        return setShowModal(true);
+      }
+      setPrayers((prev) => ({ ...prev, [prayer]: value }));
+
+      const payload = {
+        id: user?.id,
+        ...prayers,
+        date: today,
+      };
+      await createPray(payload);
+      if (value === PRAYER_POINTS.ON_TIME) confettiRef.current?.play(0);
+    },
+    [prayers, createPray, user?.id, today],
+  );
 
   const confirmTurnOff = () => {
     if (selectedPrayer) {
@@ -128,7 +145,7 @@ export default function HomeScreen() {
               {user ? `Welcome, ${user.username} 👋` : 'Welcome, Guest 👋'}
             </Text>
             <Text className={cn('text-muted-foreground')}>
-              {new Date().toDateString()}
+              {today.toDateString()}
             </Text>
           </View>
           <SignedIn>

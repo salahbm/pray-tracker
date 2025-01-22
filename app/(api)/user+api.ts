@@ -31,12 +31,18 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const users = await prisma.user.findMany();
+    const url = new URL(request.url);
+    const id = url.searchParams.get('id');
+    const users = await prisma.user.findMany({
+      where: {
+        clerkId: id,
+      },
+    });
     return createResponse(
       StatusCode.SUCCESS,
-      'Users fetched successfully',
+      'User fetched successfully',
       users,
     );
   } catch (error) {

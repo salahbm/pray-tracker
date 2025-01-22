@@ -31,14 +31,15 @@ model User {
 
 model Prays {
   id      String   @id @default(cuid())
-  clerkId String
-  user    User     @relation(fields: [clerkId], references: [id])
+  userId String
+  user    User     @relation(fields: [userId], references: [id])
   pray    Pray[]
 }
 
 model Pray {
   id       String   @id @default(cuid())
-  date     DateTime
+  // yyyy-MM-dd
+  date     String   
   fajr     Int      @default(0)
   dhuhr    Int      @default(0)
   asr      Int      @default(0)

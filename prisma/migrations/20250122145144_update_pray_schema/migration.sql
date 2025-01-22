@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Pray" ALTER COLUMN "date" SET DATA TYPE TEXT;

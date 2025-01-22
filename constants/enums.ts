@@ -11,6 +11,7 @@ enum PRAYER_POINTS {
   ON_TIME = 2,
   LATE = 1,
   MISSED = 0,
+  NOT_TOUCHED = 3,
 }
 
 export { PRAYER_POINTS, SALAHS };

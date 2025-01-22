@@ -2,15 +2,12 @@ import prisma from '@/lib/prisma';
 import { handleError } from '@/utils/error';
 import { createResponse, StatusCode } from '@/utils/status';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } },
-) {
+export async function GET(request: Request, { id }: { id: string }) {
   try {
     const url = new URL(request.url);
     const year = url.searchParams.get('year');
 
-    if (!params.id || !year) {
+    if (!id || !year) {
       return new Response(
         JSON.stringify({
           status: 400,
@@ -22,7 +19,7 @@ export async function GET(
 
     const prays = await prisma.prays.findMany({
       where: {
-        clerkId: params.id,
+        id,
         pray: {
           some: {
             date: {
