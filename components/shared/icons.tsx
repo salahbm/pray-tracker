@@ -7,6 +7,7 @@ import {
   Users,
   UserPlus,
   Trophy,
+  LogOut,
 } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
@@ -31,5 +32,6 @@ iconWithClassName(Award);
 iconWithClassName(Users);
 iconWithClassName(UserPlus);
 iconWithClassName(Trophy);
+iconWithClassName(LogOut);
 
-export { Sun, MoonStar, Home, Compass, Award, Users, UserPlus, Trophy };
+export { Sun, MoonStar, Home, Compass, Award, Users, UserPlus, Trophy, LogOut };

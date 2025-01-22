@@ -52,7 +52,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
           </Picker>
         </View>
         <View className="flex-row flex gap-2 mt-8 justify-end">
-          <Button onPress={onBackdropPress} variant="outline">
+          <Button onPress={onBackdropPress} variant="destructive">
             <Text>Cancel</Text>
           </Button>
           <Button

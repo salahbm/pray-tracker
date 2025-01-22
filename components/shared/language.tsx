@@ -1,12 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 
 import { useLanguage } from 'hooks/useTranslation';
 
@@ -25,52 +18,32 @@ export function Language() {
   const locales = Object.keys(languages);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{t('Defaults.Locales.choose')}</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flagsContainer}
-      >
-        {locales.map((lang) => (
-          <TouchableOpacity
-            key={lang}
-            onPress={() => changeLanguage(lang)}
-            style={[
-              styles.flag,
-              currentLanguage === lang
-                ? styles.activeFlag
-                : styles.inactiveFlag,
-            ]}
-          >
-            <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      alwaysBounceHorizontal
+      contentContainerClassName="flex-1 flex flex-row justify-end items-center gap-4 w-full"
+    >
+      {locales.map((lang) => (
+        <TouchableOpacity
+          key={lang}
+          onPress={() => changeLanguage(lang)}
+          style={
+            currentLanguage === lang ? styles.activeFlag : styles.inactiveFlag
+          }
+        >
+          <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-  },
-  flagsContainer: {
-    flexDirection: 'row',
-    paddingVertical: 10,
-  },
-  flag: {
-    paddingHorizontal: 10,
-  },
   activeFlag: {
-    transform: [{ scale: 1.2 }],
+    transform: [{ scale: 1.5 }],
   },
   inactiveFlag: {
     opacity: 0.5,
-  },
-  text: {
-    fontSize: 22,
-    lineHeight: 32,
-    marginTop: -6,
   },
 });

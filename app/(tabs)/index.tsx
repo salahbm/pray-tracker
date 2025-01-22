@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
-import { IMAGES } from '@/constants/images';
+import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
@@ -111,8 +111,15 @@ export default function HomeScreen() {
           )}
         >
           <View>
-            <Text className={cn('text-xl font-bold')}>
-              {user ? `Welcome, ${user.firstName} 👋` : 'Welcome, Guest 👋'}
+            <Text
+              numberOfLines={1}
+              className={cn('text-xl font-bold max-w-[250px] truncate')}
+            >
+              {user
+                ? user.username
+                  ? `Welcome, ${user.username} 👋`
+                  : `Welcome, ${user.primaryEmailAddress.emailAddress} 👋`
+                : 'Welcome, Guest 👋'}
             </Text>
             <Text className={cn('text-muted-foreground')}>
               {new Date().toDateString()}
@@ -120,7 +127,7 @@ export default function HomeScreen() {
           </View>
           <SignedIn>
             <TouchableOpacity
-              onPress={() => profileSheetRef.current?.snapToIndex(1)}
+              onPress={() => profileSheetRef.current?.snapToIndex(2)}
             >
               <Image
                 source={{
@@ -133,7 +140,7 @@ export default function HomeScreen() {
           <SignedOut>
             <View className="flex-row justify-end gap-5 items-center">
               <Image
-                source={IMAGES.guest}
+                source={FRIENDS.guest}
                 className={cn('size-14 rounded-full bg-foreground')}
               />
               <Button size="sm" onPress={handlePresentSignIn}>

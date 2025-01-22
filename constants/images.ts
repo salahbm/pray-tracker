@@ -10,10 +10,10 @@ import guest from '../assets/images/guest.png';
 export const IMAGES = {
   check,
   google,
-  guest,
 };
 
 export const FRIENDS = {
+  guest,
   friend_1,
   friend_2,
   friend_3,

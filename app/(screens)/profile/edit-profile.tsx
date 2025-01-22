@@ -3,19 +3,20 @@ import { Feather } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import { View, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import GoBack from '@/components/shared/go-back';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Text } from '@/components/ui/text';
+import { COLORS } from '@/constants/Colors';
+import { FRIENDS } from '@/constants/images';
+import { useError } from '@/providers/error-modal';
 
 const EditProfile = () => {
   const { user } = useUser();
+  const { showError } = useError();
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -54,7 +55,7 @@ const EditProfile = () => {
       await user?.reload();
       Alert.alert('Success', 'Profile updated successfully.');
     } catch (error: any) {
-      Alert.alert(
+      showError(
         'Error',
         error.errors
           ? error.errors[0].message
@@ -71,10 +72,7 @@ const EditProfile = () => {
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (permissionResult.status !== 'granted') {
-        Alert.alert(
-          'Permission Denied',
-          'Permission to access media library is required!',
-        );
+        showError('Error', 'Permission to access media library is required!');
         return;
       }
 
@@ -93,36 +91,37 @@ const EditProfile = () => {
         }
       }
     } catch (err: any) {
-      Alert.alert('Error', 'Failed to pick the image.');
+      showError('Error', 'Failed to pick the image.');
     }
   };
 
   return (
-    <ScrollView className="flex-1">
-      <SafeAreaView className="flex-1 pb-3">
+    <SafeAreaView className="flex-1">
+      <GoBack title="Edit Profile" />
+      <ScrollView className="main-area" automaticallyAdjustKeyboardInsets>
         <View className="h-[240px] items-center justify-center space-y-3">
           <View className="relative">
             <Image
               source={{
-                uri: image || 'https://via.placeholder.com/150', // Fallback image
+                uri: image || FRIENDS.guest,
               }}
-              style={{ borderRadius: 100, width: 208, height: 176 }} // Adjusted to match Tailwind classes
               accessibilityLabel="Profile Photo" // Replaced 'alt' with 'accessibilityLabel'
+              className="w-[150px] h-[150px] rounded-full"
             />
             <TouchableOpacity
               onPress={onPickImage} // Corrected function reference
               className="absolute p-1 rounded-full right-5 bottom-3 bg-light-orange"
             >
-              <Feather name="edit-3" size={20} color="#fff" />{' '}
+              <Feather name="edit-3" size={20} color={COLORS.dark.primary} />
               {/* Added color for better visibility */}
             </TouchableOpacity>
           </View>
         </View>
-        <View className="px-4 space-y-3">
+        <View className="flex gap-4">
           {/* First Name Field */}
           <View className="gap-1">
             <Text>First Name</Text>
-            <TextInput
+            <Input
               placeholder="Your First Name"
               className="px-3 py-2 border rounded-xl"
               value={firstName}
@@ -133,7 +132,7 @@ const EditProfile = () => {
           {/* Last Name Field */}
           <View className="gap-1">
             <Text>Last Name</Text>
-            <TextInput
+            <Input
               placeholder="Your Last Name"
               className="px-3 py-2 border rounded-xl"
               value={lastName}
@@ -144,7 +143,7 @@ const EditProfile = () => {
           {/* Current Password Field */}
           <View className="gap-1">
             <Text>Current Password</Text>
-            <TextInput
+            <Input
               placeholder="Your Current Password"
               className="px-3 py-2 border rounded-xl"
               autoCapitalize="none"
@@ -156,7 +155,7 @@ const EditProfile = () => {
           {/* New Password Field */}
           <View className="gap-1">
             <Text>New Password</Text>
-            <TextInput
+            <Input
               placeholder="Your New Password"
               className="px-3 py-2 border rounded-xl"
               autoCapitalize="none"
@@ -165,21 +164,17 @@ const EditProfile = () => {
               onChangeText={setNewPassword}
             />
           </View>
-          {/* Update Button */}
-          <View className="gap-1">
-            <TouchableOpacity
-              onPress={onUpdatePress}
-              className="py-4 bg-main-orange rounded-xl"
-              disabled={loading} // Disable button while loading
-            >
-              <Text className="text-base text-center text-off-white">
-                {loading ? 'Updating...' : 'Update'}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+        {/* Update Button */}
+
+        <Button
+          onPress={onUpdatePress}
+          disabled={loading} // Disable button while loading
+        >
+          <Text>{loading ? 'Updating...' : 'Update'}</Text>
+        </Button>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
