@@ -12,9 +12,13 @@ import { Text } from 'components/ui/text';
 import { IMAGES } from 'constants/images';
 import { fetchAPI } from 'lib/fetch';
 
-export default function SignUpScreen() {
+interface ISignUn {
+  onSuccess: () => void;
+  onNavigate: () => void;
+}
+
+export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
   const { isLoaded, signUp, setActive } = useSignUp();
-  const router = useRouter();
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
   const [form, setForm] = React.useState({
     email: '',
@@ -41,7 +45,6 @@ export default function SignUpScreen() {
         state: 'pending',
       });
     } catch (err: any) {
-      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Error', err.errors[0].longMessage);
     }
   };
@@ -85,10 +88,10 @@ export default function SignUpScreen() {
   };
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-center bg-background px-6">
+    <SafeAreaView>
       <View className="w-full max-w-md">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
-          Sign Up
+          Join Us
         </Text>
 
         <Input
@@ -119,27 +122,19 @@ export default function SignUpScreen() {
           onPress={onSignUpPress}
           className="p-4 rounded-lg bg-primary text-white"
         >
-          <Text className="text-white text-center">Sign Up</Text>
+          <Text className="text-black text-center">Sign Up</Text>
         </Button>
       </View>
       <OAuth />
 
       <View className="mt-8 flex flex-row justify-center items-center gap-4 ">
-        <Text className="text-sm text-secondary text-center ">
+        <Text className="text-sm text-muted-foreground text-center ">
           Already have an account?
         </Text>
-        <Link href="/(auth)/sign-in" className="text-primary text-center">
-          <Text className="font-bold">Sign In</Text>
-        </Link>
+        <Button variant="link" onPress={onNavigate}>
+          <Text>Sign In</Text>
+        </Button>
       </View>
-
-      {/* Use as Guest */}
-
-      <Link href="/(tabs)">
-        <Text className="text-sm text-secondary text-center underline">
-          Use as Guest
-        </Text>
-      </Link>
 
       {/* MODALS */}
 
@@ -186,11 +181,11 @@ export default function SignUpScreen() {
             className="w-[110px] h-[110px] mx-auto my-5"
           />
           <Text className="text-3xl font-bold text-center">Verified</Text>
-          <Text className="text-base text-gray-400 text-center mt-2">
+          <Text className="text-base text-muted-foreground text-center mt-2">
             You have successfully verified your account.
           </Text>
           <Button
-            onPress={() => router.push('/(tabs)')}
+            onPress={onSuccess}
             className="mt-5 bg-primary p-4 rounded-lg"
           >
             <Text className="text-center">Browse Home</Text>

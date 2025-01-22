@@ -1,19 +1,17 @@
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
-import {
-  BottomSheetModal,
-  BottomSheetView,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
-import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useState, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LineChart } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import SignInScreen from '../(auth)/sign-in';
+import SignUpScreen from '../(auth)/sign-up';
+import ProfilePage from '../(screens)/profile';
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import HeatMap from '@/components/shared/heat-map';
 import { DayData } from '@/components/shared/heat-map/heat';
 import YearPicker from '@/components/shared/year-picker';
@@ -59,15 +57,23 @@ export default function HomeScreen() {
   });
 
   const { user } = useUser();
+  // BOTTOM SHEETS REFERENCES
+  const signInSheetRef = useRef<BottomSheet>(null);
+  const signUpSheetRef = useRef<BottomSheet>(null);
+  const profileSheetRef = useRef<BottomSheet>(null);
+  // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
-  // ref
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+  // Callbacks to present each sheet
+  const handlePresentSignIn = useCallback(() => {
+    signUpSheetRef.current?.close();
+    signInSheetRef.current?.snapToIndex(2);
   }, []);
-  const handleSheetChanges = useCallback((_index: number) => {}, []);
+
+  const handlePresentSignUp = useCallback(() => {
+    signInSheetRef.current?.close();
+    signUpSheetRef.current?.snapToIndex(0);
+  }, []);
 
   const handlePrayerChange = (prayer: string, value: number) => {
     if (value === PRAYER_POINTS.MISSED) {
@@ -97,8 +103,8 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="main-area">
-      <ScrollView>
+    <SafeAreaView className="main-area py-6">
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           className={cn(
             'flex-row items-center justify-between mb-4 border-b border-border pb-4',
@@ -113,7 +119,9 @@ export default function HomeScreen() {
             </Text>
           </View>
           <SignedIn>
-            <TouchableOpacity onPress={() => router.navigate('/(tabs)')}>
+            <TouchableOpacity
+              onPress={() => profileSheetRef.current?.snapToIndex(1)}
+            >
               <Image
                 source={{
                   uri: user?.imageUrl,
@@ -128,7 +136,7 @@ export default function HomeScreen() {
                 source={IMAGES.guest}
                 className={cn('size-14 rounded-full bg-foreground')}
               />
-              <Button size="sm">
+              <Button size="sm" onPress={handlePresentSignIn}>
                 <Text>Sign In</Text>
               </Button>
             </View>
@@ -307,56 +315,51 @@ export default function HomeScreen() {
             pointerEvents: 'none',
           }}
         />
-
-        {/* MISSED MODAL */}
-
-        <Modal
-          isVisible={showModal}
-          animationIn="zoomIn"
-          animationOut="zoomOut"
-          onBackdropPress={() => setShowModal(false)}
-        >
-          <View className="bg-muted p-6 rounded-md h-[220px]">
-            <Text className="text-lg font-semibold mb-4 text-center flex-1">
-              Are you sure you want to mark {selectedPrayer} as Missed?
-            </Text>
-            <View className="flex-row justify-between">
-              <Button
-                onPress={() => setShowModal(false)}
-                width="full"
-                variant="ghost"
-              >
-                <Text>No</Text>
-              </Button>
-              <Button
-                onPress={confirmTurnOff}
-                width="full"
-                variant="destructive"
-              >
-                <Text>Yes</Text>
-              </Button>
-            </View>
-          </View>
-        </Modal>
-
-        {/* BOTTOM SHEET */}
-        {/* BOTTOM SHEET FOR PROFILE */}
-        <GestureHandlerRootView className="flex-1 bg-slate-50">
-          <BottomSheetModalProvider>
-            <Button onPress={handlePresentModalPress}>
-              <Text> Press</Text>
-            </Button>
-            <BottomSheetModal
-              ref={bottomSheetModalRef}
-              onChange={handleSheetChanges}
-            >
-              <BottomSheetView className="bg-white flex-1 justify-center items-center">
-                <Text>Awesome 🎉</Text>
-              </BottomSheetView>
-            </BottomSheetModal>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
       </ScrollView>
+
+      {/* MISSED MODAL */}
+
+      <Modal
+        isVisible={showModal}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        onBackdropPress={() => setShowModal(false)}
+      >
+        <View className="bg-muted p-6 rounded-md h-[220px]">
+          <Text className="text-lg font-semibold mb-4 text-center flex-1">
+            Are you sure you want to mark {selectedPrayer} as Missed?
+          </Text>
+          <View className="flex-row justify-between">
+            <Button
+              onPress={() => setShowModal(false)}
+              width="full"
+              variant="ghost"
+            >
+              <Text>No</Text>
+            </Button>
+            <Button onPress={confirmTurnOff} width="full" variant="destructive">
+              <Text>Yes</Text>
+            </Button>
+          </View>
+        </View>
+      </Modal>
+      {/* BOTTOM SHEET */}
+      <CustomBottomSheet sheetRef={signInSheetRef}>
+        <SignInScreen
+          onSuccess={() => signInSheetRef.current?.close()}
+          onNavigate={handlePresentSignUp}
+        />
+      </CustomBottomSheet>
+
+      <CustomBottomSheet sheetRef={signUpSheetRef}>
+        <SignUpScreen
+          onSuccess={() => signUpSheetRef.current?.close()}
+          onNavigate={handlePresentSignIn}
+        />
+      </CustomBottomSheet>
+      <CustomBottomSheet sheetRef={profileSheetRef}>
+        <ProfilePage onNavigate={() => profileSheetRef.current?.close()} />
+      </CustomBottomSheet>
     </SafeAreaView>
   );
 }

@@ -1,14 +1,19 @@
 import { useSignIn } from '@clerk/clerk-expo';
-import { Link, router } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Text, View, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
+import { Text } from '@/components/ui/text';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
-export default function Page() {
+interface ISignIn {
+  onSuccess: () => void;
+  onNavigate: () => void;
+}
+
+export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [form, setForm] = useState({
@@ -27,23 +32,21 @@ export default function Page() {
 
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId });
-        router.replace('/(tabs)');
+        onSuccess();
       } else {
         // See https://clerk.com/docs/custom-flows/error-handling for more info on error handling
-        console.log(JSON.stringify(signInAttempt, null, 2));
         Alert.alert('Error', 'Log in failed. Please try again.');
       }
     } catch (err: any) {
-      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Error', err.errors[0].longMessage);
     }
-  }, [isLoaded, form]);
+  }, [isLoaded, form, signIn, setActive, onSuccess]);
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-center bg-background px-6">
+    <SafeAreaView>
       <View className="w-full max-w-md">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
-          Welcome Back
+          Welcome back
         </Text>
         <Input
           autoCapitalize="none"
@@ -64,18 +67,18 @@ export default function Page() {
           className="p-4 rounded-lg bg-primary text-white mb-4"
           onPress={onSignInPress}
         >
-          <Text className="font-bold text-white">Sign In</Text>
+          <Text className="font-bold text-secondary">Sign In</Text>
         </Button>
         <OAuth />
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center gap-4">
-        <Text className="text-sm text-secondary text-center ">
+        <Text className="text-sm text-muted-foreground text-center ">
           Don&apos;t have an account?
         </Text>
-        <Link href="/(auth)/sign-up" className="text-primary text-center">
-          <Text className="font-bold">Sign up</Text>
-        </Link>
+        <Button variant="link" onPress={onNavigate}>
+          <Text className="font-primary">Sign up</Text>
+        </Button>
       </View>
     </SafeAreaView>
   );

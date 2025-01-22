@@ -1,74 +1,74 @@
 import { Feather } from '@expo/vector-icons';
-import React from 'react';
+import { router } from 'expo-router';
 import {
   View,
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
 
-const ProfilePage = () => {
+interface Props {
+  onNavigate: () => void;
+}
+
+const ProfilePage = ({ onNavigate }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Profile</Text>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Profile</Text>
+      </View>
+
+      {/* Edit Profile Section */}
+      <TouchableOpacity
+        style={styles.section}
+        onPress={() => {
+          onNavigate();
+          router.push('/(screens)/profile/edit-profile');
+        }}
+      >
+        <View style={styles.row}>
+          <Feather name="user" size={20} color="#f5f5f5" />
+          <Text style={styles.sectionText}>Edit Profile</Text>
         </View>
+        <Feather name="chevron-right" size={20} color="#adb3bf" />
+      </TouchableOpacity>
 
-        {/* Edit Profile Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
-            <Feather name="user" size={20} color="#f5f5f5" />
-            <Text style={styles.sectionText}>Edit Profile</Text>
-          </View>
-          <Feather name="chevron-right" size={20} color="#adb3bf" />
-        </TouchableOpacity>
+      {/* Notifications Section */}
+      <TouchableOpacity style={styles.section}>
+        <View style={styles.row}>
+          <Feather name="bell" size={20} color="#f5f5f5" />
+          <Text style={styles.sectionText}>Notifications</Text>
+        </View>
+        <Feather name="chevron-right" size={20} color="#adb3bf" />
+      </TouchableOpacity>
 
-        {/* Notifications Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
-            <Feather name="bell" size={20} color="#f5f5f5" />
-            <Text style={styles.sectionText}>Notifications</Text>
-          </View>
-          <Feather name="chevron-right" size={20} color="#adb3bf" />
-        </TouchableOpacity>
+      {/* Divider */}
+      <View style={styles.divider} />
 
-        {/* Divider */}
-        <View style={styles.divider} />
+      {/* Privacy & Security Section */}
+      <TouchableOpacity style={styles.section}>
+        <View style={styles.row}>
+          <Feather name="lock" size={20} color="#f5f5f5" />
+          <Text style={styles.sectionText}>Privacy & Security</Text>
+        </View>
+        <Feather name="chevron-right" size={20} color="#adb3bf" />
+      </TouchableOpacity>
 
-        {/* Privacy & Security Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
-            <Feather name="lock" size={20} color="#f5f5f5" />
-            <Text style={styles.sectionText}>Privacy & Security</Text>
-          </View>
-          <Feather name="chevron-right" size={20} color="#adb3bf" />
-        </TouchableOpacity>
-
-        {/* Terms & Conditions Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
-            <Feather name="file-text" size={20} color="#f5f5f5" />
-            <Text style={styles.sectionText}>Terms & Conditions</Text>
-          </View>
-          <Feather name="chevron-right" size={20} color="#adb3bf" />
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
+      {/* Terms & Conditions Section */}
+      <TouchableOpacity style={styles.section}>
+        <View style={styles.row}>
+          <Feather name="file-text" size={20} color="#f5f5f5" />
+          <Text style={styles.sectionText}>Terms & Conditions</Text>
+        </View>
+        <Feather name="chevron-right" size={20} color="#adb3bf" />
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000000',
-  },
-  content: {
-    padding: 16,
-  },
   header: {
     marginBottom: 20,
     paddingHorizontal: 16,

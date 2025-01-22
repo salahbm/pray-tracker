@@ -19,7 +19,7 @@ const Home = () => {
   const onNextPress = () => {
     if (isLastSlide) {
       setVisited();
-      router.replace('/(auth)/sign-up');
+      router.replace('/(tabs)');
     } else {
       swiperRef.current?.scrollBy(1, true);
     }
@@ -27,7 +27,7 @@ const Home = () => {
 
   const onSkipPress = () => {
     setVisited();
-    router.replace('/(auth)/sign-up');
+    router.replace('/(tabs)');
   };
 
   return (
