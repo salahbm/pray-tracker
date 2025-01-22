@@ -1,16 +1,16 @@
 import { useSignUp } from '@clerk/clerk-expo';
-import { Link, useRouter } from 'expo-router';
 import * as React from 'react';
-import { Alert, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
+import { usePostUser } from '@/hooks/auth/usePutUser';
+import { fireToast } from '@/providers/toaster';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Text } from 'components/ui/text';
 import { IMAGES } from 'constants/images';
-import { fetchAPI } from 'lib/fetch';
 
 interface ISignUn {
   onSuccess: () => void;
@@ -19,6 +19,7 @@ interface ISignUn {
 
 export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const { mutateAsync: postUser } = usePostUser();
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
   const [form, setForm] = React.useState({
     email: '',
@@ -44,8 +45,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
         ...verification,
         state: 'pending',
       });
-    } catch (err: any) {
-      Alert.alert('Error', err.errors[0].longMessage);
+    } catch (err) {
+      fireToast.error('Error: ' + err.errors[0].longMessage);
     }
   };
 
@@ -58,14 +59,12 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
         code: verification.code,
       });
       if (completeSignUp.status === 'complete') {
-        await fetchAPI('/(api)/user', {
-          method: 'POST',
-          body: JSON.stringify({
-            username: form.username,
-            email: form.email,
-            clerkId: completeSignUp.createdUserId,
-          }),
-        });
+        const payload = {
+          username: form.username,
+          email: form.email,
+          clerkId: completeSignUp.createdUserId,
+        };
+        await postUser(payload);
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({
           ...verification,
@@ -78,7 +77,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
           state: 'failed',
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       setVerification({
         ...verification,
         error: err.errors[0].longMessage,

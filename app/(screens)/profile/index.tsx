@@ -1,13 +1,7 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { LogOut } from '@/components/shared/icons';
 import { Language } from '@/components/shared/language';
@@ -22,107 +16,105 @@ const ProfilePage = ({ onNavigate }: Props) => {
   const { signOut } = useAuth();
   return (
     <View className="flex-1">
-      <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Profile</Text>
-        </View>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Profile</Text>
+      </View>
 
-        <View style={{ flex: 1 }}>
-          {/* Edit Profile Section */}
-          <TouchableOpacity
-            style={styles.section}
-            onPress={() => {
-              onNavigate();
-              router.push('/(screens)/profile/edit-profile');
-            }}
-          >
-            <View style={styles.row}>
-              <Feather
-                name="user"
-                size={20}
-                color={COLORS.dark.muted_foreground}
-              />
-              <Text style={styles.sectionText}>Edit Profile</Text>
-            </View>
+      <View style={{ flex: 1 }}>
+        {/* Edit Profile Section */}
+        <TouchableOpacity
+          style={styles.section}
+          onPress={() => {
+            onNavigate();
+            router.push('/(screens)/profile/edit-profile');
+          }}
+        >
+          <View style={styles.row}>
             <Feather
-              name="chevron-right"
+              name="user"
               size={20}
               color={COLORS.dark.muted_foreground}
             />
-          </TouchableOpacity>
-
-          {/* Notifications Section */}
-          <TouchableOpacity style={styles.section}>
-            <View style={styles.row}>
-              <Feather
-                name="bell"
-                size={20}
-                color={COLORS.dark.muted_foreground}
-              />
-              <Text style={styles.sectionText}>Notifications</Text>
-            </View>
-            <Feather
-              name="chevron-right"
-              size={20}
-              color={COLORS.dark.muted_foreground}
-            />
-          </TouchableOpacity>
-
-          {/* Language Section */}
-          <View style={styles.section}>
-            <View style={styles.row}>
-              <Feather
-                name="globe"
-                size={20}
-                color={COLORS.dark.muted_foreground}
-              />
-              <Text style={styles.sectionText}>Languages</Text>
-            </View>
-            <Language />
+            <Text style={styles.sectionText}>Edit Profile</Text>
           </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={COLORS.dark.muted_foreground}
+          />
+        </TouchableOpacity>
 
-          {/* Divider */}
-          <View style={styles.divider} />
-
-          {/* Privacy & Security Section */}
-          <TouchableOpacity style={styles.section}>
-            <View style={styles.row}>
-              <Feather
-                name="lock"
-                size={20}
-                color={COLORS.dark.muted_foreground}
-              />
-              <Text style={styles.sectionText}>Privacy & Security</Text>
-            </View>
+        {/* Notifications Section */}
+        <TouchableOpacity style={styles.section}>
+          <View style={styles.row}>
             <Feather
-              name="chevron-right"
+              name="bell"
               size={20}
               color={COLORS.dark.muted_foreground}
             />
-          </TouchableOpacity>
+            <Text style={styles.sectionText}>Notifications</Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={COLORS.dark.muted_foreground}
+          />
+        </TouchableOpacity>
 
-          {/* Terms & Conditions Section */}
-          <TouchableOpacity style={styles.section}>
-            <View style={styles.row}>
-              <Feather
-                name="file-text"
-                size={20}
-                color={COLORS.dark.muted_foreground}
-              />
-              <Text style={styles.sectionText}>Terms & Conditions</Text>
-            </View>
+        {/* Language Section */}
+        <View style={styles.section}>
+          <View style={styles.row}>
             <Feather
-              name="chevron-right"
+              name="globe"
               size={20}
               color={COLORS.dark.muted_foreground}
             />
-          </TouchableOpacity>
-
-          {/* Divider */}
-          <View style={styles.divider} />
+            <Text style={styles.sectionText}>Languages</Text>
+          </View>
+          <Language />
         </View>
-      </ScrollView>
+
+        {/* Divider */}
+        <View style={styles.divider} />
+
+        {/* Privacy & Security Section */}
+        <TouchableOpacity style={styles.section}>
+          <View style={styles.row}>
+            <Feather
+              name="lock"
+              size={20}
+              color={COLORS.dark.muted_foreground}
+            />
+            <Text style={styles.sectionText}>Privacy & Security</Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={COLORS.dark.muted_foreground}
+          />
+        </TouchableOpacity>
+
+        {/* Terms & Conditions Section */}
+        <TouchableOpacity style={styles.section}>
+          <View style={styles.row}>
+            <Feather
+              name="file-text"
+              size={20}
+              color={COLORS.dark.muted_foreground}
+            />
+            <Text style={styles.sectionText}>Terms & Conditions</Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={COLORS.dark.muted_foreground}
+          />
+        </TouchableOpacity>
+
+        {/* Divider */}
+        <View style={styles.divider} className="mb-32" />
+      </View>
 
       <Button
         className="flex-row gap-4"
@@ -143,6 +135,7 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 20,
   },
+
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',

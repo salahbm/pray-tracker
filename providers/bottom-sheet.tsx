@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   return (
-    <GestureHandlerRootView className="flex-1 bg-slate-100">
+    <GestureHandlerRootView>
       <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
     </GestureHandlerRootView>
   );

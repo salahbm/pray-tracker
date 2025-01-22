@@ -59,7 +59,7 @@ const CustomBottomSheet = ({
     >
       <BottomSheetScrollView
         contentContainerStyle={scrollStyle}
-        className="bg-muted px-6"
+        className="bg-muted px-6 flex-1"
       >
         {children}
       </BottomSheetScrollView>

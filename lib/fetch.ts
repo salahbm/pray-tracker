@@ -1,40 +1,37 @@
-import { useState, useEffect, useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const fetchAPI = async (url: string, options?: RequestInit) => {
+import { API_BASE_URL } from '@/constants/config';
+
+export const agent = async (url: string, options?: RequestInit) => {
   try {
-    const response = await fetch(url, options);
+    const fullURL = `${API_BASE_URL}${url}`;
+
+    const accessToken = await AsyncStorage.getItem('ACCESS_TOKEN');
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json; charset=utf-8',
+      ...(options?.headers || {}),
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    };
+
+    const response = await fetch(fullURL, {
+      ...options,
+      credentials: 'omit', // 'include' is browser-specific; omit is safer for Expo.
+      headers,
+    });
+
     if (!response.ok) {
-      new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json();
+      throw {
+        status: response.status,
+        code: errorData.code,
+        message: errorData.message || 'Unknown error message',
+        details: errorData.details || 'Unknown error',
+      };
     }
     return await response.json();
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.log('Fetch error:', error);
     throw error;
   }
-};
-
-export const useFetch = <T>(url: string, options?: RequestInit) => {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const result = await fetchAPI(url, options);
-      setData(result.data);
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  }, [url, options]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  return { data, loading, error, refetch: fetchData };
 };

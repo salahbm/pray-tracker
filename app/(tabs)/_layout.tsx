@@ -27,6 +27,7 @@ export default function TabLayout() {
           backgroundColor: 'transparent',
           borderTopWidth: 0, // Prevent any border
           bottom: 0, // Ensure correct positioning
+          height: 70,
         },
         tabBarBackground: () => (
           <BlurView

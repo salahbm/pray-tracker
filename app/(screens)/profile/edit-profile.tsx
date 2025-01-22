@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { View, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -12,27 +12,33 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { FRIENDS } from '@/constants/images';
-import { useError } from '@/providers/error-modal';
+import { useUpdateUser } from '@/hooks/auth/usePutUser';
+import { fireToast } from '@/providers/toaster';
 
 const EditProfile = () => {
   const { user } = useUser();
-  const { showError } = useError();
+
+  const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
+  const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [image, setImage] = useState<string>(user?.imageUrl || '');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [imageBase64, setImageBase64] = useState(null);
 
   const onUpdatePress = async () => {
-    setLoading(true);
-
     try {
       // Update first and last name if they have changed
-      if (firstName.trim() && lastName.trim()) {
+      if (
+        firstName !== user?.firstName ||
+        lastName !== user?.lastName ||
+        username !== user?.username
+      ) {
         await user?.update({
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
+          username,
+          firstName,
+          lastName,
         });
       }
 
@@ -45,24 +51,33 @@ const EditProfile = () => {
       }
 
       // Update profile image if a new image is selected
-      if (image && image !== user?.imageUrl) {
-        const base64 = await FileSystem.readAsStringAsync(image, {
-          encoding: 'base64',
-        });
-        await user?.setProfileImage({ file: base64 });
+      if (imageBase64 && imageBase64 !== user?.imageUrl) {
+        const { base64, mimeType } = imageBase64;
+
+        // Construct the data URI with the correct MIME type
+        const base64WithPrefix = `data:image/${mimeType};base64,${base64}`;
+
+        // Send the base64 string to the API
+        await user?.setProfileImage({ file: base64WithPrefix });
+
+        // Clear the imageBase64 state
+        setImageBase64(null);
+        setImage(user.imageUrl);
       }
 
       await user?.reload();
-      Alert.alert('Success', 'Profile updated successfully.');
-    } catch (error: any) {
-      showError(
-        'Error',
-        error.errors
-          ? error.errors[0].message
-          : 'An unexpected error occurred.',
-      );
-    } finally {
-      setLoading(false);
+
+      const payload = {
+        id: user?.id,
+        username: user?.username,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        photo: user?.imageUrl,
+      };
+
+      await updateUser(payload);
+    } catch (error) {
+      fireToast.error(error.message);
     }
   };
 
@@ -72,7 +87,7 @@ const EditProfile = () => {
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (permissionResult.status !== 'granted') {
-        showError('Error', 'Permission to access media library is required!');
+        fireToast.error('Permission to access media library is required!');
         return;
       }
 
@@ -80,25 +95,34 @@ const EditProfile = () => {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 4],
-        quality: 0.5, // Increased quality for better image resolution
-        base64: false, // We'll handle base64 conversion separately
+        quality: 0.5, // Adjust as needed
+        base64: true, // Enable base64 encoding
       });
 
       if (!result.canceled && result.assets.length > 0) {
         const selectedImage = result.assets[0];
-        if (selectedImage.uri) {
+        if (selectedImage.base64 && selectedImage.type) {
+          // Optionally, store the MIME type if needed
+          setImageBase64({
+            base64: selectedImage.base64,
+            type: selectedImage.type,
+          });
           setImage(selectedImage.uri);
+        } else {
+          fireToast.error(
+            'Failed to retrieve base64 data from the selected image.',
+          );
         }
       }
-    } catch (err: any) {
-      showError('Error', 'Failed to pick the image.');
+    } catch (e) {
+      fireToast.error('Failed: ' + e);
     }
   };
 
   return (
     <SafeAreaView className="flex-1">
       <GoBack title="Edit Profile" />
-      <ScrollView className="main-area" automaticallyAdjustKeyboardInsets>
+      <ScrollView className="main-area pb-10" automaticallyAdjustKeyboardInsets>
         <View className="h-[240px] items-center justify-center space-y-3">
           <View className="relative">
             <Image
@@ -112,12 +136,23 @@ const EditProfile = () => {
               onPress={onPickImage} // Corrected function reference
               className="absolute p-1 rounded-full right-5 bottom-3 bg-light-orange"
             >
-              <Feather name="edit-3" size={20} color={COLORS.dark.primary} />
+              <Feather name="edit-3" size={24} color={COLORS.dark.primary} />
               {/* Added color for better visibility */}
             </TouchableOpacity>
           </View>
         </View>
         <View className="flex gap-4">
+          {/* User Name Field */}
+          <View className="gap-1">
+            <Text>User Name</Text>
+            <Input
+              placeholder="Your User Name"
+              className="px-3 py-2 border rounded-xl"
+              value={username}
+              onChangeText={setUserName}
+              autoCapitalize="words"
+            />
+          </View>
           {/* First Name Field */}
           <View className="gap-1">
             <Text>First Name</Text>
@@ -165,15 +200,14 @@ const EditProfile = () => {
             />
           </View>
         </View>
-        {/* Update Button */}
-
-        <Button
-          onPress={onUpdatePress}
-          disabled={loading} // Disable button while loading
-        >
-          <Text>{loading ? 'Updating...' : 'Update'}</Text>
-        </Button>
       </ScrollView>
+      {/* Update Button */}
+
+      <View className="bg-background px-5 py-4">
+        <Button onPress={onUpdatePress} disabled={isLoading}>
+          <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
+        </Button>
+      </View>
     </SafeAreaView>
   );
 };

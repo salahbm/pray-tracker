@@ -30,3 +30,41 @@ export async function POST(request: Request) {
     return handleError(error);
   }
 }
+
+export async function GET() {
+  try {
+    const users = await prisma.user.findMany();
+    return createResponse(
+      StatusCode.SUCCESS,
+      'Users fetched successfully',
+      users,
+    );
+  } catch (error) {
+    // Use handleError to standardize the response for all errors
+    return handleError(error);
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const { id, ...data } = await request.json();
+
+    // Check if user exists
+    const existingUser = await prisma.user.findUnique({ where: { id } });
+    if (!existingUser) {
+      throw new ApiError('User not found', 404);
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data,
+    });
+    return createResponse(
+      StatusCode.SUCCESS,
+      'User updated successfully',
+      updatedUser,
+    );
+  } catch (error) {
+    return handleError(error);
+  }
+}
