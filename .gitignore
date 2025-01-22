@@ -38,5 +38,5 @@ yarn-error.*
 app-example
 
 
-# ENV 
-.env
+# Environment files
+.env*.local

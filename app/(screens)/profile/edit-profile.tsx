@@ -1,6 +1,5 @@
 import { useUser } from '@clerk/clerk-expo';
 import { Feather } from '@expo/vector-icons';
-import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { View, Image, TouchableOpacity, ScrollView } from 'react-native';

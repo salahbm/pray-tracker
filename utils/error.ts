@@ -22,9 +22,6 @@ export function handleError(error: unknown) {
     );
   }
 
-  // Fallback for unexpected errors
-  console.error('Unexpected error:', error);
-
   return new Response(
     JSON.stringify({
       status: 500,

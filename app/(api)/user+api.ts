@@ -50,13 +50,15 @@ export async function PUT(request: Request) {
     const { id, ...data } = await request.json();
 
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({ where: { id } });
+    const existingUser = await prisma.user.findUnique({
+      where: { clerkId: id },
+    });
     if (!existingUser) {
-      throw new ApiError('User not found', 404);
+      throw new ApiError('User not found', StatusCode.NOT_FOUND);
     }
 
     const updatedUser = await prisma.user.update({
-      where: { id },
+      where: { clerkId: id },
       data,
     });
     return createResponse(

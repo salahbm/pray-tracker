@@ -1,0 +1,13 @@
+{
+  "build": {
+    "development": {
+      "environment": "development"
+    },
+    "preview": {
+      "environment": "preview"
+    },
+    "production": {
+      "environment": "production"
+    }
+  }
+}
