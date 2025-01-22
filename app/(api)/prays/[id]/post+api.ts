@@ -5,7 +5,6 @@ import { createResponse, StatusCode } from '@/utils/status';
 export async function POST(request: Request, { id }: { id: string }) {
   try {
     const body = await request.json();
-    console.log('body:', body);
 
     const { date, fajr, dhuhr, asr, maghrib, isha, tahajjud } = body;
 
@@ -39,15 +38,12 @@ export async function POST(request: Request, { id }: { id: string }) {
       },
     });
 
-    console.log('newPray:', newPray);
-
     return createResponse(
       StatusCode.SUCCESS,
       'Pray created successfully',
       newPray,
     );
   } catch (error) {
-    console.error('Error:', error);
     return handleError(error);
   }
 }

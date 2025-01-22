@@ -23,8 +23,8 @@ export async function GET(request: Request, { id }: { id: string }) {
         pray: {
           some: {
             date: {
-              gte: new Date(`${year}-01-01`),
-              lte: new Date(`${year}-12-31`),
+              gte: `${year}-01-01`,
+              lte: `${year}-12-31`,
             },
           },
         },

@@ -35,7 +35,7 @@ export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.searchParams.get('id');
-    const users = await prisma.user.findMany({
+    const users = await prisma.user.findUnique({
       where: {
         clerkId: id,
       },

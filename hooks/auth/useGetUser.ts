@@ -1,8 +1,8 @@
-import { User } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
+import { User } from '@/types/user';
 
 type TUserParams = {
   id: string;
@@ -13,7 +13,7 @@ const getUser = async (params: TUserParams): Promise<User> => {
     method: 'GET',
   });
 
-  return data;
+  return data.data;
 };
 
 export const useGetUser = (id: string) =>

@@ -2,7 +2,7 @@ import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import LottieView from 'lottie-react-native';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
@@ -50,7 +50,8 @@ const lineData: lineDataItem[] = [
 ];
 
 export default function HomeScreen() {
-  const today = new Date();
+  const today = useMemo(() => new Date(), []);
+  console.log('today:', today);
   const [year, setYear] = useState(today.getFullYear());
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [selectedPrayer, setSelectedPrayer] = useState<string | null>(null);
@@ -68,10 +69,8 @@ export default function HomeScreen() {
 
   const { user } = useUser();
   const { data: userData } = useGetUser(user?.id);
-  console.log('userData:', userData);
-  const { data: prays } = useGetPrays(userData?.id, year);
-  const { mutateAsync: createPray, isPending } = useCreatePray();
-  console.log('prays:', prays);
+  const { data: _prays, refetch } = useGetPrays(userData?.id, year);
+  const { mutateAsync: createPray } = useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
@@ -109,7 +108,8 @@ export default function HomeScreen() {
       await createPray(payload);
       if (value === PRAYER_POINTS.ON_TIME) confettiRef.current?.play(0);
     },
-    [prayers, createPray, user?.id, today],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [prayers, createPray, user?.id],
   );
 
   const confirmTurnOff = () => {
@@ -137,6 +137,9 @@ export default function HomeScreen() {
             'flex-row items-center justify-between border-b border-border pb-5',
           )}
         >
+          <Button size="sm" variant="outline" onPress={() => refetch()}>
+            <Text>{'fetch'}</Text>
+          </Button>
           <View>
             <Text
               numberOfLines={1}
