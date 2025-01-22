@@ -1,41 +1,97 @@
-import { StyleSheet } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { toast, Toasts } from '@backpackapp-io/react-native-toast';
+import { Ban, Check } from 'lucide-react-native';
+import { Easing } from 'react-native-reanimated';
 
 import { COLORS } from '@/constants/Colors';
 
 export const fireToast = {
   success: (message: string) => {
-    Toast.show({
-      type: 'success',
-      text1: message,
-      text1Style: [styles.text, { color: COLORS.dark.primary }],
+    toast(message, {
+      icon: <Check size={24} color={COLORS.dark.primary} />,
+      styles: {
+        pressable: {
+          backgroundColor: COLORS.dark.background,
+          borderWidth: 1,
+          borderColor: COLORS.dark.primary,
+        },
+        view: {
+          backgroundColor: COLORS.dark.background,
+          borderRadius: 8,
+          padding: 16,
+        },
+        text: {
+          color: COLORS.dark.primary,
+          fontSize: 14,
+          marginRight: 20,
+        },
+        indicator: {
+          marginRight: 0,
+        },
+      },
     });
   },
   error: (message: string) => {
-    Toast.show({
-      type: 'error',
-      text1: message,
-      text1Style: [styles.text, { color: COLORS.dark.destructive }],
+    toast(message, {
+      icon: <Ban size={24} color={COLORS.dark.destructive} />,
+      styles: {
+        pressable: {
+          backgroundColor: COLORS.dark.background,
+          borderWidth: 1,
+          borderColor: COLORS.dark.destructive,
+        },
+        view: {
+          backgroundColor: COLORS.dark.background,
+          borderRadius: 8,
+          padding: 16,
+        },
+        text: {
+          color: COLORS.dark.destructive,
+          fontSize: 14,
+          marginRight: 20,
+        },
+        indicator: {
+          marginRight: 0,
+        },
+      },
     });
   },
   info: (message: string) => {
-    Toast.show({
-      type: 'info',
-      text1: message,
-      text1Style: [styles.text, { color: COLORS.dark.blue }],
+    toast(message, {
+      icon: <Check size={24} color={COLORS.dark.blue} />,
+      styles: {
+        pressable: {
+          backgroundColor: COLORS.dark.background,
+          borderWidth: 1,
+          borderColor: COLORS.dark.blue,
+        },
+        view: {
+          backgroundColor: COLORS.dark.background,
+          borderRadius: 8,
+          padding: 16,
+        },
+        text: {
+          color: COLORS.dark.blue,
+          fontSize: 14,
+          marginRight: 20,
+        },
+        indicator: {
+          marginRight: 0,
+        },
+      },
     });
   },
 };
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
-
 const ToastProvider = () => {
-  return <Toast topOffset={50} />;
+  return (
+    <Toasts
+      globalAnimationConfig={{
+        duration: 500,
+        flingPositionReturnDuration: 200,
+        easing: Easing.elastic(1),
+      }}
+    />
+  );
 };
 
 export default ToastProvider;

@@ -58,10 +58,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
+      console.log('completeSignUp:', completeSignUp);
       if (completeSignUp.status === 'complete') {
         const payload = {
-          username: form.username,
-          email: form.email,
+          username: completeSignUp.username,
+          email: completeSignUp.emailAddress,
           clerkId: completeSignUp.createdUserId,
         };
         await postUser(payload);
@@ -76,6 +77,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
           error: 'Verification failed. Please try again.',
           state: 'failed',
         });
+        fireToast.error('Verification failed. Please try again.');
       }
     } catch (err) {
       setVerification({
@@ -89,11 +91,15 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
   return (
     <SafeAreaView>
       <View className="w-full max-w-md">
-        <Text className="text-3xl font-bold text-primary mb-6 text-center">
+        <Text className="text-3xl font-bold text-primary mb-2 text-center">
           Join Us
+        </Text>
+        <Text className="text-sm text-muted-foreground text-center mb-6">
+          Sign up with your email and password
         </Text>
 
         <Input
+          label="Email"
           autoCapitalize="none"
           className="mb-4 p-3 rounded-lg bg-surface"
           value={form.email}
@@ -103,6 +109,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
         />
 
         <Input
+          label="Username"
           className="mb-4 p-3 rounded-lg bg-surface"
           value={form.username}
           placeholder="Enter your username"
@@ -110,7 +117,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
         />
 
         <Input
-          className="mb-4 p-3 rounded-lg bg-surface"
+          label="Password"
+          className="mb-10 p-3 rounded-lg bg-surface"
           value={form.password}
           placeholder="Enter your password"
           secureTextEntry
@@ -148,7 +156,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
           }
         }}
       >
-        <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+        <View className="bg-muted px-7 py-14 rounded-2xl ">
           <Text className="text-2xl font-bold mb-2">Verification</Text>
           <Text className="text-gray-600 mb-5">
             We&apos;ve sent a verification code to {form.email}.
@@ -166,7 +174,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
             </Text>
           )}
           <Button onPress={onPressVerify} className="mt-5 p-4 rounded-lg">
-            <Text className="text-white text-center">Verify Email</Text>
+            <Text className="text-secondary text-center">Verify Email</Text>
           </Button>
         </View>
       </ReactNativeModal>
@@ -174,7 +182,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
       {/* SUCCESS MODAL */}
 
       <ReactNativeModal isVisible={showSuccessModal}>
-        <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+        <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
             source={IMAGES.check}
             className="w-[110px] h-[110px] mx-auto my-5"

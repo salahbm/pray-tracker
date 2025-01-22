@@ -1,6 +1,7 @@
 {
   "i18n-ally.localesPaths": ["locales"],
   "cSpell.words": [
+    "cuid",
     "datetimepicker",
     "dhuhr",
     "fajr",

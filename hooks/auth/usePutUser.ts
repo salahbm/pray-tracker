@@ -37,9 +37,6 @@ export const useUpdateUser = () => {
       });
       fireToast.success(data.message);
     },
-    onError: (error: ErrorData) => {
-      fireToast.error(error.message);
-    },
   });
 };
 
@@ -74,7 +71,6 @@ export const usePostUser = () => {
       fireToast.success(data.message);
     },
     onError: (error: ErrorData) => {
-      console.log('error:', error);
       fireToast.error(error.message);
     },
   });

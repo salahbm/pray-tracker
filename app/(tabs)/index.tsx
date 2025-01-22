@@ -30,7 +30,7 @@ import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
 
 const lineData: lineDataItem[] = [
-  { value: 0, dataPointText: '0', label: '2025' },
+  { value: 0, dataPointText: '0' },
   { value: 20, dataPointText: '20' },
   { value: 18, dataPointText: '18' },
   { value: 40, dataPointText: '40' },
@@ -38,20 +38,12 @@ const lineData: lineDataItem[] = [
   { value: 60, dataPointText: '60' },
   { value: 54, dataPointText: '54' },
   { value: 85, dataPointText: '85' },
-  { value: 80, dataPointText: '80' },
-  { value: 50, dataPointText: '50' },
-  { value: 120, dataPointText: '120' },
-  { value: 140, dataPointText: '140' },
-  { value: 160, dataPointText: '160' },
-  { value: 10, dataPointText: '10' },
-  { value: 200, dataPointText: '200' },
-  { value: 220, dataPointText: '220' },
   { value: 240, dataPointText: '240' },
   { value: 60, dataPointText: '60' },
   { value: 280, dataPointText: '280' },
   { value: 300, dataPointText: '300' },
   { value: 320, dataPointText: '320' },
-  { value: 100, dataPointText: '100', label: '2026' },
+  { value: 100, dataPointText: '100' },
 ];
 
 export default function HomeScreen() {
@@ -71,6 +63,7 @@ export default function HomeScreen() {
   });
 
   const { user } = useUser();
+
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
   const signUpSheetRef = useRef<BottomSheet>(null);
@@ -86,7 +79,7 @@ export default function HomeScreen() {
 
   const handlePresentSignUp = useCallback(() => {
     signInSheetRef.current?.close();
-    signUpSheetRef.current?.snapToIndex(0);
+    signUpSheetRef.current?.snapToIndex(2);
   }, []);
 
   const handlePrayerChange = (prayer: string, value: number) => {
@@ -121,7 +114,7 @@ export default function HomeScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           className={cn(
-            'flex-row items-center justify-between mb-4 border-b border-border pb-4',
+            'flex-row items-center justify-between border-b border-border pb-5',
           )}
         >
           <View>
@@ -164,56 +157,52 @@ export default function HomeScreen() {
           </SignedOut>
         </View>
 
-        <View className={cn('mb-6')}>
-          <View className="flex-row items-center justify-between mb-3">
-            <Text className={cn('text-lg font-semibold')}>
-              Today&apos;s Prayers
-            </Text>
-            <View className="flex-1 flex-row justify-end gap-2">
-              <Text className={cn('text-sm font-bold text-center')}>
-                Missed
-              </Text>
-              <Text className={cn('text-sm font-bold text-center')}>Late</Text>
-              <Text className={cn('text-sm font-bold text-center')}>
-                On Time
-              </Text>
+        {/* Today's Prayers */}
+        <View className="flex-row items-center justify-between mt-6 mb-2">
+          <Text className={cn('text-xl font-semibold')}>
+            Today&apos;s Prayers
+          </Text>
+          <View className="flex-1 flex-row justify-end gap-2">
+            <Text className={cn('text-sm font-bold text-center')}>Missed</Text>
+            <Text className={cn('text-sm font-bold text-center')}>Late</Text>
+            <Text className={cn('text-sm font-bold text-center')}>On Time</Text>
+          </View>
+        </View>
+        {Object.entries(prayers).map(([prayer, value]) => (
+          <View
+            key={prayer}
+            className="flex-row items-center justify-between mb-2"
+          >
+            <Text className={cn('capitalize font-semibold')}>{prayer}</Text>
+            <View className="flex-1 flex-row justify-end gap-10">
+              {[
+                PRAYER_POINTS.MISSED,
+                PRAYER_POINTS.LATE,
+                PRAYER_POINTS.ON_TIME,
+              ].map((val) => (
+                <Checkbox
+                  key={val}
+                  value={value === val}
+                  onValueChange={() => handlePrayerChange(prayer, val)}
+                  color={
+                    value === val
+                      ? val === PRAYER_POINTS.ON_TIME
+                        ? COLORS.dark.primary
+                        : val === PRAYER_POINTS.LATE
+                          ? COLORS.dark.border
+                          : COLORS.dark.destructive
+                      : undefined
+                  }
+                />
+              ))}
             </View>
           </View>
-          {Object.entries(prayers).map(([prayer, value]) => (
-            <View
-              key={prayer}
-              className="flex-row items-center justify-between mb-2"
-            >
-              <Text className={cn('capitalize font-semibold')}>{prayer}</Text>
-              <View className="flex-1 flex-row justify-end gap-10">
-                {[
-                  PRAYER_POINTS.MISSED,
-                  PRAYER_POINTS.LATE,
-                  PRAYER_POINTS.ON_TIME,
-                ].map((val) => (
-                  <Checkbox
-                    key={val}
-                    value={value === val}
-                    onValueChange={() => handlePrayerChange(prayer, val)}
-                    color={
-                      value === val
-                        ? val === PRAYER_POINTS.ON_TIME
-                          ? COLORS.dark.primary
-                          : val === PRAYER_POINTS.LATE
-                            ? COLORS.dark.border
-                            : COLORS.dark.destructive
-                        : undefined
-                    }
-                  />
-                ))}
-              </View>
-            </View>
-          ))}
-        </View>
+        ))}
 
-        <View>
-          <View className="flex flex-row justify-between items-center mb-6">
-            <Text className={cn('text-lg font-semibold')}>Prayer History</Text>
+        {/* PRAYER HISTORY */}
+        <View className="mt-6">
+          <View className="flex flex-row justify-between items-center  mb-4">
+            <Text className={cn('text-xl font-semibold')}>Prayer History</Text>
             <Button
               variant="outline"
               size="sm"
@@ -234,8 +223,8 @@ export default function HomeScreen() {
         <Accordion type="single" value={accordion} onValueChange={setAccordion}>
           <AccordionItem value="item-1">
             {clickedData && clickedData.details && (
-              <AccordionContent>
-                <View className={cn('p-4 bg-muted rounded-md mt-4')}>
+              <AccordionContent className="mt-5">
+                <View className={cn('p-4 bg-muted rounded-md')}>
                   <View className="w-full flex flex-row items-center justify-between">
                     <Text className={cn('text-md text-muted-foreground')}>
                       {clickedData.date}
@@ -301,12 +290,13 @@ export default function HomeScreen() {
         </Accordion>
 
         {/* CHARTS */}
-        <Text className={cn('text-lg font-semibold mt-6 mb-4')}>
+        <Text className={cn('text-xl font-semibold mt-6 mb-4')}>
           Prayer Stats
         </Text>
         <LineChart
-          initialSpacing={0}
           data={lineData}
+          initialSpacing={0}
+          endSpacing={-10}
           spacing={30}
           thickness={3}
           hideDataPoints
@@ -319,16 +309,15 @@ export default function HomeScreen() {
           startOpacity={0.5}
           endFillColor={COLORS.dark.primary}
           endOpacity={0.1}
-          verticalLinesStrokeDashArray={[6, 6]}
+          verticalLinesStrokeDashArray={[7, 7]}
           color={COLORS.dark.primary}
-          yAxisTextStyle={{ color: COLORS.dark.border, fontSize: 12 }}
-          yAxisColor={COLORS.dark.blue}
-          verticalLinesColor={COLORS.dark.border}
-          xAxisColor={COLORS.dark.blue}
-          xAxisLabelTextStyle={{ color: COLORS.dark.border, fontSize: 12 }}
+          yAxisTextStyle={{ color: COLORS.dark.muted_foreground, fontSize: 12 }}
+          yAxisColor={COLORS.dark.border}
+          verticalLinesColor={COLORS.dark.muted_foreground}
+          xAxisColor={COLORS.dark.border}
         />
-        {/* LOTTIE CONFETTI */}
 
+        {/* LOTTIE CONFETTI */}
         <LottieView
           ref={confettiRef}
           source={confetti}
@@ -348,7 +337,6 @@ export default function HomeScreen() {
       </ScrollView>
 
       {/* MISSED MODAL */}
-
       <Modal
         isVisible={showModal}
         animationIn="zoomIn"
@@ -356,7 +344,7 @@ export default function HomeScreen() {
         onBackdropPress={() => setShowModal(false)}
       >
         <View className="bg-muted p-6 rounded-md h-[220px]">
-          <Text className="text-lg font-semibold mb-4 text-center flex-1">
+          <Text className="text-xl font-semibold mb-4 text-center flex-1">
             Are you sure you want to mark {selectedPrayer} as Missed?
           </Text>
           <View className="flex-row justify-between">
@@ -373,6 +361,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </Modal>
+
       {/* BOTTOM SHEET */}
       <CustomBottomSheet sheetRef={signInSheetRef}>
         <SignInScreen

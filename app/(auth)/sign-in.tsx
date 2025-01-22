@@ -1,10 +1,11 @@
 import { useSignIn } from '@clerk/clerk-expo';
 import { useCallback, useState } from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
+import { fireToast } from '@/providers/toaster';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -15,6 +16,7 @@ interface ISignIn {
 
 export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   const { signIn, setActive, isLoaded } = useSignIn();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [form, setForm] = useState({
     email: '',
@@ -23,7 +25,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
 
   const onSignInPress = useCallback(async () => {
     if (!isLoaded) return;
-
+    setIsLoading(true);
     try {
       const signInAttempt = await signIn.create({
         identifier: form.email,
@@ -34,11 +36,12 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         await setActive({ session: signInAttempt.createdSessionId });
         onSuccess();
       } else {
-        // See https://clerk.com/docs/custom-flows/error-handling for more info on error handling
-        Alert.alert('Error', 'Log in failed. Please try again.');
+        fireToast.error('Log in failed. Please try again.');
       }
-    } catch (err: any) {
-      Alert.alert('Error', err.errors[0].longMessage);
+    } catch (err) {
+      fireToast.error(err.errors[0].longMessage);
+    } finally {
+      setIsLoading(false);
     }
   }, [isLoaded, form, signIn, setActive, onSuccess]);
 
@@ -49,6 +52,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
           Welcome back
         </Text>
         <Input
+          label="Email"
           autoCapitalize="none"
           className="mb-4 p-3 rounded-lg bg-surface"
           value={form.email}
@@ -57,7 +61,8 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
           onChangeText={(email) => setForm({ ...form, email })}
         />
         <Input
-          className="mb-4 p-3 rounded-lg bg-surface"
+          label="Password"
+          className="mb-10 p-3 rounded-lg bg-surface"
           value={form.password}
           placeholder="Enter your password"
           secureTextEntry
@@ -76,7 +81,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         <Text className="text-sm text-muted-foreground text-center ">
           Don&apos;t have an account?
         </Text>
-        <Button variant="link" onPress={onNavigate}>
+        <Button variant="link" onPress={onNavigate} disabled={isLoading}>
           <Text className="font-primary">Sign up</Text>
         </Button>
       </View>
