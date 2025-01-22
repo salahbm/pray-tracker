@@ -15,7 +15,6 @@ datasource db {
 }
 
 
-
 model User {
   id          String    @id @default(cuid())
   clerkId     String    @unique
@@ -26,24 +25,21 @@ model User {
   photo       String?
   prays       Prays[]
 
-
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
-
-
 model Prays {
   id      String   @id @default(cuid())
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
+  clerkId String
+  user    User     @relation(fields: [clerkId], references: [id])
   pray    Pray[]
 }
 
 model Pray {
   id       String   @id @default(cuid())
   date     DateTime
-  fajr     Int      @default(0) // Prayer Points
+  fajr     Int      @default(0)
   dhuhr    Int      @default(0)
   asr      Int      @default(0)
   maghrib  Int      @default(0)
@@ -52,4 +48,3 @@ model Pray {
   praysId  String
   prays    Prays    @relation(fields: [praysId], references: [id])
 }
-

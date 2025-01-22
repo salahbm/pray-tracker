@@ -76,10 +76,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
           </Text>
           <View className={cn('grid grid-cols-7 gap-1')}>
             {grid.map((row, rowIndex) => (
-              <View
-                key={`${month}-row-${rowIndex}`}
-                className="flex flex-row gap-2"
-              >
+              <View key={`${month}-row-${rowIndex}`} className="flex flex-row">
                 {row.map((dayScore, dayIndex) => {
                   const selectedDate =
                     monthData.dates[rowIndex * 7 + dayIndex] || '';
@@ -87,7 +84,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
                   return (
                     <TouchableOpacity
                       key={`${month}-cell-${rowIndex}-${dayIndex}`}
-                      className={cn('size-5 shrink-0 rounded')}
+                      className={cn('size-6 shrink-0 rounded m-1')}
                       style={{
                         opacity:
                           dayScore > 0

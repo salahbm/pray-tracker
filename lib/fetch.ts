@@ -31,7 +31,7 @@ export const agent = async (url: string, options?: RequestInit) => {
     }
     return await response.json();
   } catch (error) {
-    console.log('Fetch error:', error);
+    console.log(error);
     throw error;
   }
 };

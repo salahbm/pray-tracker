@@ -25,6 +25,7 @@ import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
+import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
@@ -63,6 +64,8 @@ export default function HomeScreen() {
   });
 
   const { user } = useUser();
+  const { data: prays } = useGetPrays(user?.id, year);
+  console.log('prays:', prays);
 
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
@@ -122,11 +125,7 @@ export default function HomeScreen() {
               numberOfLines={1}
               className={cn('text-xl font-bold max-w-[250px] truncate')}
             >
-              {user
-                ? user.username
-                  ? `Welcome, ${user.username} 👋`
-                  : `Welcome, ${user.primaryEmailAddress.emailAddress} 👋`
-                : 'Welcome, Guest 👋'}
+              {user ? `Welcome, ${user.username} 👋` : 'Welcome, Guest 👋'}
             </Text>
             <Text className={cn('text-muted-foreground')}>
               {new Date().toDateString()}

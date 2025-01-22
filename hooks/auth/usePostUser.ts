@@ -1,40 +1,41 @@
+// post user
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { fireToast } from '@/providers/toaster';
+import { ErrorData } from '@/types/api';
 
-interface IUserParams {
-  id: string;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  photo?: string;
+interface IUserPostParams {
+  email: string;
+  clerkId: string;
+  username: string;
 }
 
-const updateUser = async (params: IUserParams) => {
+const postUser = async (params: IUserPostParams) => {
   const response = await agent('/user', {
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify({
-      id: params.id,
       username: params.username,
-      firstName: params.firstName,
-      lastName: params.lastName,
-      photo: params.photo,
+      email: params.email,
+      clerkId: params.clerkId,
     }),
   });
   return response;
 };
 
-export const useUpdateUser = () => {
+export const usePostUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: updateUser,
+    mutationFn: postUser,
     onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: [userKeys],
       });
       fireToast.success(data.message);
+    },
+    onError: (error: ErrorData) => {
+      fireToast.error(error.message);
     },
   });
 };

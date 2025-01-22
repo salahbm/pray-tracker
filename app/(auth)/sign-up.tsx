@@ -5,7 +5,7 @@ import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
-import { usePostUser } from '@/hooks/auth/usePutUser';
+import { usePostUser } from '@/hooks/auth/usePostUser';
 import { fireToast } from '@/providers/toaster';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
@@ -39,6 +39,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
       await signUp.create({
         emailAddress: form.email,
         password: form.password,
+        username: form.username,
       });
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setVerification({
@@ -54,11 +55,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
 
   const onPressVerify = async () => {
     if (!isLoaded) return;
+
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
-      console.log('completeSignUp:', completeSignUp);
       if (completeSignUp.status === 'complete') {
         const payload = {
           username: completeSignUp.username,
@@ -192,7 +193,10 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
             You have successfully verified your account.
           </Text>
           <Button
-            onPress={onSuccess}
+            onPress={() => {
+              setShowSuccessModal(false);
+              onSuccess();
+            }}
             className="mt-5 bg-primary p-4 rounded-lg"
           >
             <Text className="text-center">Browse Home</Text>

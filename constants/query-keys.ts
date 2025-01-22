@@ -1,3 +1,5 @@
 const userKeys = 'userCache';
 
-export { userKeys };
+const praysListKeys = 'praysListCache';
+
+export { userKeys, praysListKeys };
