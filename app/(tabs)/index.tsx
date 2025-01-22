@@ -4,7 +4,7 @@ import Checkbox from 'expo-checkbox';
 import LottieView from 'lottie-react-native';
 import { useState, useRef, useCallback } from 'react';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { LineChart } from 'react-native-gifted-charts';
+import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -29,8 +29,8 @@ import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
 
-const lineData = [
-  { value: 0, dataPointText: '0' },
+const lineData: lineDataItem[] = [
+  { value: 0, dataPointText: '0', label: '2025' },
   { value: 20, dataPointText: '20' },
   { value: 18, dataPointText: '18' },
   { value: 40, dataPointText: '40' },
@@ -38,6 +38,20 @@ const lineData = [
   { value: 60, dataPointText: '60' },
   { value: 54, dataPointText: '54' },
   { value: 85, dataPointText: '85' },
+  { value: 80, dataPointText: '80' },
+  { value: 50, dataPointText: '50' },
+  { value: 120, dataPointText: '120' },
+  { value: 140, dataPointText: '140' },
+  { value: 160, dataPointText: '160' },
+  { value: 10, dataPointText: '10' },
+  { value: 200, dataPointText: '200' },
+  { value: 220, dataPointText: '220' },
+  { value: 240, dataPointText: '240' },
+  { value: 60, dataPointText: '60' },
+  { value: 280, dataPointText: '280' },
+  { value: 300, dataPointText: '300' },
+  { value: 320, dataPointText: '320' },
+  { value: 100, dataPointText: '100', label: '2026' },
 ];
 
 export default function HomeScreen() {
@@ -103,7 +117,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="main-area py-6">
+    <SafeAreaView className="main-area pt-6 pb-12">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           className={cn(
@@ -294,15 +308,24 @@ export default function HomeScreen() {
           initialSpacing={0}
           data={lineData}
           spacing={30}
+          thickness={3}
           hideDataPoints
-          thickness={5}
           hideRules
-          hideYAxisText
-          yAxisColor="#0BA5A4"
           showVerticalLines
-          verticalLinesColor="rgba(14,164,164,0.5)"
-          xAxisColor="#0BA5A4"
-          color="#0BA5A4"
+          areaChart
+          curved
+          isAnimated
+          startFillColor={COLORS.dark.primary}
+          startOpacity={0.5}
+          endFillColor={COLORS.dark.primary}
+          endOpacity={0.1}
+          verticalLinesStrokeDashArray={[6, 6]}
+          color={COLORS.dark.primary}
+          yAxisTextStyle={{ color: COLORS.dark.border, fontSize: 12 }}
+          yAxisColor={COLORS.dark.blue}
+          verticalLinesColor={COLORS.dark.border}
+          xAxisColor={COLORS.dark.blue}
+          xAxisLabelTextStyle={{ color: COLORS.dark.border, fontSize: 12 }}
         />
         {/* LOTTIE CONFETTI */}
 
