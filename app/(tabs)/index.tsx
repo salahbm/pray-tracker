@@ -51,17 +51,18 @@ export default function HomeScreen() {
   const [clickedData, setClickedData] = useState<ClickedData | null>(null);
   const [accordion, setAccordion] = useState<string>('');
   const [prayers, setPrayers] = useState<Record<string, number>>({
-    [SALAHS.FAJR]: 3, // 0:missed, 1:late, 2: on time, 3 not touched
-    [SALAHS.DHUHR]: 3,
-    [SALAHS.ASR]: 3,
-    [SALAHS.MAGHRIB]: 3,
-    [SALAHS.ISHA]: 3,
-    [SALAHS.TAHAJJUD]: 3,
+    [SALAHS.FAJR]: null, // 0:missed, 1:late, 2: on time, null not touched
+    [SALAHS.DHUHR]: null,
+    [SALAHS.ASR]: null,
+    [SALAHS.MAGHRIB]: null,
+    [SALAHS.ISHA]: null,
+    [SALAHS.TAHAJJUD]: null,
   });
 
   const { user } = useUser();
   const { data: userData } = useGetUser(user?.id);
-  const { data: _prays } = useGetPrays(userData?.id, year);
+  const { data: prays } = useGetPrays(userData?.id, year);
+  console.log('prays:', prays);
   const { mutateAsync: createPray } = useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
@@ -93,9 +94,9 @@ export default function HomeScreen() {
       setPrayers((prev) => ({ ...prev, [prayer]: value }));
 
       const payload = {
-        id: user?.id,
-        ...prayers,
+        id: userData?.id,
         date: today,
+        ...prayers,
       };
       await createPray(payload);
       if (value === PRAYER_POINTS.ON_TIME) confettiRef.current?.play(0);
@@ -137,6 +138,7 @@ export default function HomeScreen() {
 
         {/* PRAYER HISTORY */}
         <PrayerHistory
+          data={prays}
           setPickerVisible={setPickerVisible}
           isPickerVisible={isPickerVisible}
           year={year}

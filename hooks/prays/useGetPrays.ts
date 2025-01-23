@@ -1,6 +1,6 @@
-import { Prays } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
+import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 
@@ -9,8 +9,8 @@ type TPraysParams = {
   year: number;
 };
 
-const getPraysList = async (params: TPraysParams): Promise<Prays> => {
-  const data = await agent(`/prays/${params.id}/get?year=${params.year}`, {
+const getPraysList = async (params: TPraysParams) => {
+  const { data } = await agent(`/prays/${params.id}/get?year=${params.year}`, {
     method: 'GET',
   });
 

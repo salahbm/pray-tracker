@@ -24,6 +24,7 @@ model User {
   lastName    String?
   photo       String?
   prays       Prays[]
+  totalPoints Int       @default(0)
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -31,15 +32,14 @@ model User {
 
 model Prays {
   id      String   @id @default(cuid())
-  userId String
+  userId  String
   user    User     @relation(fields: [userId], references: [id])
   pray    Pray[]
 }
 
 model Pray {
   id       String   @id @default(cuid())
-  // yyyy-MM-dd
-  date     String   
+  date     String   @unique // Ensure no duplicate date entries
   fajr     Int      @default(0)
   dhuhr    Int      @default(0)
   asr      Int      @default(0)
@@ -48,4 +48,6 @@ model Pray {
   tahajjud Int      @default(0)
   praysId  String
   prays    Prays    @relation(fields: [praysId], references: [id])
+
+  @@unique([date, praysId]) // Composite unique constraint
 }

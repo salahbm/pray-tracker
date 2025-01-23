@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { View, Pressable, Animated } from 'react-native';
 
 import { Text } from '../ui/text';
-import { useColorScheme } from 'hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { cn } from 'lib/utils';
 
 const ThemeSwitcher = () => {

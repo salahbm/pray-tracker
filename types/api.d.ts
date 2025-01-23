@@ -5,8 +5,8 @@ export interface IResponseArray<T> {
 }
 
 export interface IResponse<T> {
-  code: number;
-  description: string;
+  status: StatusCode;
+  message: string;
   data: T;
 }
 

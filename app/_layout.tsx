@@ -10,7 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
-import { useColorScheme } from 'hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/common/useColorScheme';
 import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
 import 'styles/global.css';

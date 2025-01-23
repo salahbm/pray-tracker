@@ -27,6 +27,7 @@ interface PrayerHistoryProps {
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData }) => void;
   setClickedData: React.Dispatch<React.SetStateAction<ClickedData>>;
+  data: Record<string, DayData>;
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
@@ -40,6 +41,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     accordion,
     handleDayClick,
     setClickedData,
+    data,
   } = params;
   return (
     <React.Fragment>
@@ -60,7 +62,8 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           isVisible={isPickerVisible}
           onBackdropPress={() => setPickerVisible(false)}
         />
-        <HeatMap data={null} year={year} onDayClick={handleDayClick} />
+        {/* HEAT MAP */}
+        <HeatMap data={data ?? null} year={year} onDayClick={handleDayClick} />
       </View>
 
       <Accordion type="single" value={accordion} onValueChange={setAccordion}>

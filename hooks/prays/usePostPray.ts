@@ -22,6 +22,7 @@ const createPray = async (data: PrayData): Promise<IResponse<IPray>> => {
   const response = await agent(`/prays/${data.id}/post`, {
     method: 'POST',
     body: JSON.stringify({
+      userId: data.id,
       date: format(data.date, 'yyyy-MM-dd'),
       fajr: data.fajr,
       dhuhr: data.dhuhr,

@@ -22,6 +22,8 @@ export function handleError(error: unknown) {
     );
   }
 
+  console.log('error:', error);
+
   return new Response(
     JSON.stringify({
       status: 500,

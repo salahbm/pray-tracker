@@ -13,5 +13,5 @@ export interface IPray {
 export interface IPrays {
   id: string;
   userId: string;
-  prays: IPray[];
+  pray: IPray[];
 }

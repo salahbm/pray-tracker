@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 
-import { useLanguage } from 'hooks/useTranslation';
+import { useLanguage } from '@/hooks/common/useTranslation';
 
 const FLAGS = {
   en: '🇺🇸',

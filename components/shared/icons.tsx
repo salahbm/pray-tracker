@@ -8,6 +8,7 @@ import {
   UserPlus,
   Trophy,
   LogOut,
+  ChevronDown,
 } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
@@ -24,6 +25,7 @@ export function iconWithClassName(icon: LucideIcon) {
   });
 }
 
+iconWithClassName(ChevronDown);
 iconWithClassName(Sun);
 iconWithClassName(MoonStar);
 iconWithClassName(Home);
@@ -34,4 +36,15 @@ iconWithClassName(UserPlus);
 iconWithClassName(Trophy);
 iconWithClassName(LogOut);
 
-export { Sun, MoonStar, Home, Compass, Award, Users, UserPlus, Trophy, LogOut };
+export {
+  Sun,
+  MoonStar,
+  Home,
+  Compass,
+  Award,
+  Users,
+  UserPlus,
+  Trophy,
+  LogOut,
+  ChevronDown,
+};
