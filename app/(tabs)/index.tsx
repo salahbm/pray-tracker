@@ -61,6 +61,7 @@ export default function HomeScreen() {
 
   const { user } = useUser();
   const { data: userData } = useGetUser(user?.id);
+  console.log('userData:', userData);
   const { data: prays } = useGetPrays(userData?.id, year);
   console.log('prays:', prays);
   const { mutateAsync: createPray } = useCreatePray();
@@ -85,37 +86,39 @@ export default function HomeScreen() {
 
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
+      setSelectedPrayer(prayer);
+
       if (
         value === PRAYER_POINTS.MISSED &&
         prayers[prayer] !== PRAYER_POINTS.NOT_TOUCHED
       ) {
         return setShowModal(true);
       }
-      setPrayers((prev) => ({ ...prev, [prayer]: value }));
+
+      // Update the state and create the payload with the latest state
+      const updatedPrayers = { ...prayers, [prayer]: value };
+      setPrayers(updatedPrayers);
 
       const payload = {
         id: userData?.id,
         date: today,
-        ...prayers,
+        ...updatedPrayers,
       };
+
       await createPray(payload);
-      if (value === PRAYER_POINTS.ON_TIME) confettiRef.current?.play(0);
+
+      // Play confetti animation if the prayer was on time
+      if (value === PRAYER_POINTS.ON_TIME) {
+        confettiRef.current?.play(0);
+      }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [prayers, createPray, user?.id],
+    [prayers, createPray, userData?.id, today],
   );
 
   const confirmTurnOff = () => {
-    if (selectedPrayer) {
-      setPrayers((prev) => ({
-        ...prev,
-        [selectedPrayer]: PRAYER_POINTS.MISSED,
-      }));
-    }
-    setSelectedPrayer(null);
+    handlePrayerChange(selectedPrayer, PRAYER_POINTS.MISSED);
     setShowModal(false);
   };
-
   const handleDayClick = (date: string, details: { data: DayData }) => {
     if (!details || !details.data) return;
     setClickedData({ date, details: details });

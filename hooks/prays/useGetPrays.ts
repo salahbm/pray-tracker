@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 

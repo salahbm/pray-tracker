@@ -7,30 +7,25 @@ export async function GET(request: Request, { id }: { id: string }) {
     const url = new URL(request.url);
     const year = url.searchParams.get('year');
 
-    if (!id || !year) {
+    if (!id) {
       return new Response(
         JSON.stringify({
-          status: 400,
-          message: 'Missing required fields: id and/or year',
+          status: StatusCode.UNAUTHORIZED,
+          message: 'Please, Sign In to fetch Prays',
         }),
-        { status: 400 },
+        { status: StatusCode.UNAUTHORIZED },
       );
     }
 
+    // Filter by year if provided
+
     const prays = await prisma.prays.findMany({
       where: {
-        id,
-        pray: {
-          some: {
-            date: {
-              gte: `${year}-01-01`,
-              lte: `${year}-12-31`,
-            },
-          },
+        userId: id,
+        date: {
+          gte: new Date(`${year}-01-01`),
+          lte: new Date(`${year}-12-31`),
         },
-      },
-      include: {
-        pray: true,
       },
     });
 
@@ -40,6 +35,7 @@ export async function GET(request: Request, { id }: { id: string }) {
       prays,
     );
   } catch (error) {
+    // Use handleError to standardize the response for all errors
     return handleError(error);
   }
 }

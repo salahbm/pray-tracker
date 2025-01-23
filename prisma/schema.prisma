@@ -31,23 +31,20 @@ model User {
 }
 
 model Prays {
-  id      String   @id @default(cuid())
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
-  pray    Pray[]
-}
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime // Use DateTime instead of String for easier date manipulation
+  fajr      Int  @default(0)
+  dhuhr     Int  @default(0)
+  asr       Int  @default(0)
+  maghrib   Int  @default(0)
+  isha      Int  @default(0)
+  tahajjud  Int  @default(0)
 
-model Pray {
-  id       String   @id @default(cuid())
-  date     String   @unique // Ensure no duplicate date entries
-  fajr     Int      @default(0)
-  dhuhr    Int      @default(0)
-  asr      Int      @default(0)
-  maghrib  Int      @default(0)
-  isha     Int      @default(0)
-  tahajjud Int      @default(0)
-  praysId  String
-  prays    Prays    @relation(fields: [praysId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([date, praysId]) // Composite unique constraint
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date]) // Ensure no duplicate date entries for a user
 }

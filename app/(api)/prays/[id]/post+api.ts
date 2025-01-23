@@ -12,20 +12,19 @@ export async function POST(request: Request) {
         JSON.stringify({
           status: StatusCode.UNAUTHORIZED,
           code: StatusCode.UNAUTHORIZED,
-          message: 'Please, Sign In to create a Pray',
+          message: 'Please, Authenticate to create Prays',
           details: { userId },
         }),
         { status: StatusCode.UNAUTHORIZED },
       );
     }
 
-    // Upsert Pray record
-    const updatedPray = await prisma.pray.upsert({
+    // Upsert Prays record for the given user and date
+    const updatedPrays = await prisma.prays.upsert({
       where: {
-        // Use the composite unique constraint explicitly
-        date_praysId: {
-          date,
-          praysId: userId,
+        userId_date: {
+          userId,
+          date: new Date(date),
         },
       },
       update: {
@@ -37,18 +36,19 @@ export async function POST(request: Request) {
         tahajjud: { increment: tahajjud || 0 },
       },
       create: {
-        date,
+        userId,
+        date: new Date(date),
         fajr: fajr || 0,
         dhuhr: dhuhr || 0,
         asr: asr || 0,
         maghrib: maghrib || 0,
         isha: isha || 0,
         tahajjud: tahajjud || 0,
-        praysId: userId, // Set praysId correctly
       },
     });
+
     // Recalculate total points for the user
-    const userTotalPoints = await prisma.pray.aggregate({
+    const userTotalPoints = await prisma.prays.aggregate({
       _sum: {
         fajr: true,
         dhuhr: true,
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         tahajjud: true,
       },
       where: {
-        praysId: userId,
+        userId,
       },
     });
 
@@ -75,8 +75,8 @@ export async function POST(request: Request) {
 
     return createResponse(
       StatusCode.SUCCESS,
-      'Pray updated successfully',
-      updatedPray,
+      'Prays updated successfully',
+      updatedPrays,
     );
   } catch (error) {
     return handleError(error);
