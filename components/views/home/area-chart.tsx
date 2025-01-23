@@ -7,42 +7,19 @@ import { COLORS } from '@/constants/Colors';
 import { cn } from '@/lib/utils';
 import { IPrays } from '@/types/prays';
 
-// const lineDataDummy: lineDataItem[] = [
-//   { value: 0 },
-//   { value: 1 },
-//   { value: 2 },
-//   { value: 7 },
-//   { value: 2 },
-//   { value: 3 },
-//   { value: 1 },
-//   { value: 2 },
-//   { value: 12 },
-//   { value: 3 },
-//   { value: 1 },
-//   { value: 4 },
-//   { value: 6 },
-// ];
-
 const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
-    // Calculate daily prayer points
-    const dailyPoints = lineData.map(
-      (pray) =>
+
+    return lineData.map((pray) => ({
+      value:
         pray.asr +
         pray.dhuhr +
         pray.fajr +
         pray.isha +
         pray.maghrib +
         pray.tahajjud,
-    );
-
-    // Convert daily points to cumulative sum
-    return dailyPoints.reduce((acc: lineDataItem[], point, index) => {
-      const cumulativeValue = (acc[index - 1]?.value || 0) + point;
-      acc.push({ value: cumulativeValue });
-      return acc;
-    }, []);
+    }));
   }, [lineData]);
 
   return (
@@ -62,8 +39,8 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         areaChart
         curved
         startFillColor={COLORS.dark.primary}
-        startOpacity={0.5}
-        endFillColor={COLORS.dark.primary}
+        startOpacity={0.2}
+        endFillColor={COLORS.dark.border}
         endOpacity={0.1}
         verticalLinesStrokeDashArray={[7, 7]}
         color={COLORS.dark.primary}
