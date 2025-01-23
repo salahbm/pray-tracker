@@ -1,14 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
+import { IPrays } from '@/types/prays';
 
 type TPraysParams = {
   id: string;
   year: number;
 };
 
-const getPraysList = async (params: TPraysParams) => {
+export type TransformedPrays = Record<string, DayData>;
+
+const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
   const { data } = await agent(`/prays/${params.id}/get?year=${params.year}`, {
     method: 'GET',
   });

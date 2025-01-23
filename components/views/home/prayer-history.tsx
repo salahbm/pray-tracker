@@ -1,5 +1,6 @@
+import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import HeatMap from '@/components/shared/heat-map';
@@ -14,8 +15,10 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS } from '@/constants/enums';
+import { TransformedPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
+import { IPrays } from '@/types/prays';
 
 interface PrayerHistoryProps {
   setPickerVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,7 +30,7 @@ interface PrayerHistoryProps {
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData }) => void;
   setClickedData: React.Dispatch<React.SetStateAction<ClickedData>>;
-  data: Record<string, DayData>;
+  data: IPrays[];
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
@@ -43,6 +46,22 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     setClickedData,
     data,
   } = params;
+
+  const transformedData = useMemo(() => {
+    if (!data) return {};
+    return data.reduce((acc: TransformedPrays, pray: IPrays) => {
+      const date = format(new Date(pray.date), 'yyyy-MM-dd');
+      acc[date] = {
+        fajr: pray.fajr,
+        dhuhr: pray.dhuhr,
+        asr: pray.asr,
+        maghrib: pray.maghrib,
+        isha: pray.isha,
+        tahajjud: pray.tahajjud,
+      };
+      return acc;
+    }, {});
+  }, [data]);
   return (
     <React.Fragment>
       <View className="mt-6">
@@ -63,7 +82,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           onBackdropPress={() => setPickerVisible(false)}
         />
         {/* HEAT MAP */}
-        <HeatMap data={data ?? null} year={year} onDayClick={handleDayClick} />
+        <HeatMap
+          data={transformedData ?? null}
+          year={year}
+          onDayClick={handleDayClick}
+        />
       </View>
 
       <Accordion type="single" value={accordion} onValueChange={setAccordion}>

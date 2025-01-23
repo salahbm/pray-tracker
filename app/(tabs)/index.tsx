@@ -3,7 +3,6 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import LottieView from 'lottie-react-native';
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { View, ScrollView } from 'react-native';
-import { lineDataItem } from 'react-native-gifted-charts';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -25,23 +24,6 @@ import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
 
-const lineData: lineDataItem[] = [
-  { value: 0, dataPointText: '0' },
-  { value: 20, dataPointText: '20' },
-  { value: 18, dataPointText: '18' },
-  { value: 40, dataPointText: '40' },
-  { value: 36, dataPointText: '36' },
-  { value: 60, dataPointText: '60' },
-  { value: 54, dataPointText: '54' },
-  { value: 85, dataPointText: '85' },
-  { value: 240, dataPointText: '240' },
-  { value: 60, dataPointText: '60' },
-  { value: 280, dataPointText: '280' },
-  { value: 300, dataPointText: '300' },
-  { value: 320, dataPointText: '320' },
-  { value: 100, dataPointText: '100' },
-];
-
 export default function HomeScreen() {
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
@@ -61,9 +43,7 @@ export default function HomeScreen() {
 
   const { user } = useUser();
   const { data: userData } = useGetUser(user?.id);
-  console.log('userData:', userData);
   const { data: prays } = useGetPrays(userData?.id, year);
-  console.log('prays:', prays);
   const { mutateAsync: createPray } = useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
@@ -154,7 +134,7 @@ export default function HomeScreen() {
         />
 
         {/* CHARTS */}
-        <AreaChart lineData={lineData} />
+        <AreaChart lineData={prays} />
 
         {/* LOTTIE CONFETTI */}
         <LottieView

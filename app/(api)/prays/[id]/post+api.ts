@@ -28,12 +28,12 @@ export async function POST(request: Request) {
         },
       },
       update: {
-        fajr: { increment: fajr || 0 },
-        dhuhr: { increment: dhuhr || 0 },
-        asr: { increment: asr || 0 },
-        maghrib: { increment: maghrib || 0 },
-        isha: { increment: isha || 0 },
-        tahajjud: { increment: tahajjud || 0 },
+        fajr: fajr || 0,
+        dhuhr: dhuhr || 0,
+        asr: asr || 0,
+        maghrib: maghrib || 0,
+        isha: isha || 0,
+        tahajjud: tahajjud || 0,
       },
       create: {
         userId,

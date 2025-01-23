@@ -1,17 +1,14 @@
-export interface IPray {
+export interface IPrays {
   id: string;
+  userId: string;
   date: Date;
-  fajr: number; // Prayer Points
+  fajr: number;
   dhuhr: number;
   asr: number;
   maghrib: number;
   isha: number;
   tahajjud: number;
-  praysId: string;
-}
 
-export interface IPrays {
-  id: string;
-  userId: string;
-  pray: IPray[];
+  createdAt: Date;
+  updatedAt: Date;
 }
