@@ -1,5 +1,5 @@
 import { toast, Toasts } from '@backpackapp-io/react-native-toast';
-import { Ban, Check } from 'lucide-react-native';
+import { Ban, Check, Info } from 'lucide-react-native';
 import { Easing } from 'react-native-reanimated';
 
 import { COLORS } from '@/constants/Colors';
@@ -22,7 +22,7 @@ export const fireToast = {
         text: {
           color: COLORS.dark.primary,
           fontSize: 14,
-          marginRight: 20,
+          marginLeft: 8,
         },
         indicator: {
           marginRight: 0,
@@ -47,7 +47,7 @@ export const fireToast = {
         text: {
           color: COLORS.dark.destructive,
           fontSize: 14,
-          marginRight: 20,
+          marginLeft: 8,
         },
         indicator: {
           marginRight: 0,
@@ -57,12 +57,12 @@ export const fireToast = {
   },
   info: (message: string) => {
     toast(message, {
-      icon: <Check size={24} color={COLORS.dark.blue} />,
+      icon: <Info size={24} color={COLORS.dark.border} />,
       styles: {
         pressable: {
           backgroundColor: COLORS.dark.background,
           borderWidth: 1,
-          borderColor: COLORS.dark.blue,
+          borderColor: COLORS.dark.border,
         },
         view: {
           backgroundColor: COLORS.dark.background,
@@ -70,9 +70,9 @@ export const fireToast = {
           padding: 16,
         },
         text: {
-          color: COLORS.dark.blue,
+          color: COLORS.dark.border,
           fontSize: 14,
-          marginRight: 20,
+          marginLeft: 8,
         },
         indicator: {
           marginRight: 0,

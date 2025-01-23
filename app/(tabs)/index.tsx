@@ -1,7 +1,7 @@
 import { useUser } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
 import LottieView from 'lottie-react-native';
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,31 +20,42 @@ import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
+import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
+import { fireToast } from '@/providers/toaster';
 import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
 
 export default function HomeScreen() {
+  // DATE STATE
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
+
+  // USER LOAD
+  const { user } = useUser();
+
+  // QUERIES
+  const { data: userData } = useGetUser(user?.id);
+  const { data: prays } = useGetPrays(userData?.id, year);
+  const { data: todaysPrays } = useGetTodayPrays(userData?.id);
+
+  // MUTATIONS
+  const { mutateAsync: createPray } = useCreatePray();
+
+  // STATES
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [selectedPrayer, setSelectedPrayer] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [clickedData, setClickedData] = useState<ClickedData | null>(null);
   const [accordion, setAccordion] = useState<string>('');
   const [prayers, setPrayers] = useState<Record<string, number>>({
-    [SALAHS.FAJR]: null, // 0:missed, 1:late, 2: on time, null not touched
+    [SALAHS.FAJR]: null, // 0:missed, 1:late, 2:on time, null not touched
     [SALAHS.DHUHR]: null,
     [SALAHS.ASR]: null,
     [SALAHS.MAGHRIB]: null,
     [SALAHS.ISHA]: null,
     [SALAHS.TAHAJJUD]: null,
   });
-
-  const { user } = useUser();
-  const { data: userData } = useGetUser(user?.id);
-  const { data: prays } = useGetPrays(userData?.id, year);
-  const { mutateAsync: createPray } = useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
@@ -67,7 +78,10 @@ export default function HomeScreen() {
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
       setSelectedPrayer(prayer);
+      // if values same as before, just return
+      if (prayers[prayer] === value) return;
 
+      // if prayer is missed and not touched, show modal
       if (
         value === PRAYER_POINTS.MISSED &&
         prayers[prayer] !== PRAYER_POINTS.NOT_TOUCHED
@@ -105,6 +119,36 @@ export default function HomeScreen() {
     setAccordion('item-1');
   };
 
+  const handleUpdateClickedDay = async (
+    date: string,
+    details: { data: DayData },
+  ) => {
+    if (!details || !details.data) return;
+
+    await createPray({
+      id: userData?.id,
+      date: new Date(date),
+      ...details.data,
+    })
+      .then(() => {
+        setClickedData({ date, details: details });
+      })
+      .then(() => {
+        fireToast.info('Prayer updated successfully');
+      });
+  };
+
+  useEffect(() => {
+    setPrayers({
+      [SALAHS.FAJR]: todaysPrays?.fajr ?? null, // 0:missed, 1:late, 2:on time, null not touched
+      [SALAHS.DHUHR]: todaysPrays?.dhuhr ?? null,
+      [SALAHS.ASR]: todaysPrays?.asr ?? null,
+      [SALAHS.MAGHRIB]: todaysPrays?.maghrib ?? null,
+      [SALAHS.ISHA]: todaysPrays?.isha ?? null,
+      [SALAHS.TAHAJJUD]: todaysPrays?.tahajjud ?? null,
+    });
+  }, [todaysPrays, prays]);
+
   return (
     <SafeAreaView className="main-area pt-6 pb-12">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -130,7 +174,7 @@ export default function HomeScreen() {
           setAccordion={setAccordion}
           accordion={accordion}
           handleDayClick={handleDayClick}
-          setClickedData={setClickedData}
+          handleUpdateClickedDay={handleUpdateClickedDay}
         />
 
         {/* CHARTS */}

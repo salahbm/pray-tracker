@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
-import { praysListKeys } from '@/constants/query-keys';
+import { praysListKeys, todaysPrayKey } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponse } from '@/types/api';
-import { IPray } from '@/types/prays';
+import { IPrays } from '@/types/prays';
 
 type PrayData = {
   id: string;
@@ -18,7 +18,7 @@ type PrayData = {
   tahajjud?: number;
 };
 
-const createPray = async (data: PrayData): Promise<IResponse<IPray>> => {
+const createPray = async (data: PrayData): Promise<IResponse<IPrays>> => {
   const response = await agent(`/prays/${data.id}/post`, {
     method: 'POST',
     body: JSON.stringify({
@@ -41,7 +41,7 @@ export const useCreatePray = () => {
     mutationFn: createPray,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [praysListKeys],
+        queryKey: [praysListKeys, todaysPrayKey],
       });
     },
     onError: (error: ErrorData) => {

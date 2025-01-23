@@ -9,39 +9,18 @@ import { IPrays } from '@/types/prays';
 
 // const lineDataDummy: lineDataItem[] = [
 //   { value: 0 },
-//   { value: 20 },
-//   { value: 18 },
-//   { value: 40 },
-//   { value: 36 },
-//   { value: 60 },
-//   { value: 54 },
-//   { value: 85 },
-//   { value: 240 },
-//   { value: 60 },
-//   { value: 280 },
-//   { value: 300 },
-//   { value: 320 },
-//   { value: 100 },
-//   { value: 0 },
-//   { value: 10 },
-//   { value: 20 },
-//   { value: 30 },
-//   { value: 40 },
-//   { value: 50 },
-//   { value: 60 },
-//   { value: 70 },
-//   { value: 80 },
-//   { value: 90 },
-//   { value: 100 },
-//   { value: 110 },
-//   { value: 120 },
-//   { value: 130 },
-//   { value: 140 },
-//   { value: 150 },
-//   { value: 160 },
-//   { value: 170 },
-//   { value: 180 },
-//   { value: 190 },
+//   { value: 1 },
+//   { value: 2 },
+//   { value: 7 },
+//   { value: 2 },
+//   { value: 3 },
+//   { value: 1 },
+//   { value: 2 },
+//   { value: 12 },
+//   { value: 3 },
+//   { value: 1 },
+//   { value: 4 },
+//   { value: 6 },
 // ];
 
 const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
@@ -82,7 +61,6 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         showVerticalLines
         areaChart
         curved
-        isAnimated
         startFillColor={COLORS.dark.primary}
         startOpacity={0.5}
         endFillColor={COLORS.dark.primary}

@@ -29,8 +29,8 @@ interface PrayerHistoryProps {
   setAccordion: React.Dispatch<React.SetStateAction<string>>;
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData }) => void;
-  setClickedData: React.Dispatch<React.SetStateAction<ClickedData>>;
   data: IPrays[];
+  handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
@@ -43,8 +43,8 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     setAccordion,
     accordion,
     handleDayClick,
-    setClickedData,
     data,
+    handleUpdateClickedDay,
   } = params;
 
   const transformedData = useMemo(() => {
@@ -124,19 +124,14 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                           <Checkbox
                             key={val}
                             value={value === val}
-                            onValueChange={() => {
-                              setClickedData((prev) =>
-                                prev
-                                  ? {
-                                      ...prev,
-                                      prayers: {
-                                        ...prev.details,
-                                        [prayer]: val,
-                                      },
-                                    }
-                                  : null,
-                              );
-                            }}
+                            onValueChange={() =>
+                              handleUpdateClickedDay(clickedData.date, {
+                                data: {
+                                  ...clickedData.details.data,
+                                  [prayer]: val,
+                                },
+                              })
+                            }
                             color={
                               value === val
                                 ? val === PRAYER_POINTS.ON_TIME
