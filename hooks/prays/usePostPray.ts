@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
-import { praysListKeys, todaysPrayKey } from '@/constants/query-keys';
+import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponse } from '@/types/api';
@@ -41,7 +41,7 @@ export const useCreatePray = () => {
     mutationFn: createPray,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [praysListKeys, todaysPrayKey],
+        queryKey: [praysListKeys],
       });
     },
     onError: (error: ErrorData) => {

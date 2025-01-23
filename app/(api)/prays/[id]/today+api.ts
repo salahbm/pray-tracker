@@ -5,7 +5,7 @@ import { createResponse, StatusCode } from '@/utils/status';
 export async function GET(request: Request, { id }: { id: string }) {
   try {
     const url = new URL(request.url);
-    const today = url.searchParams.get('today'); // Full ISO string
+    const today = url.searchParams.get('today'); // yyyy-MM-dd
 
     if (!id) {
       return new Response(
@@ -17,11 +17,8 @@ export async function GET(request: Request, { id }: { id: string }) {
       );
     }
 
-    // Extract only the date (yyyy-MM-dd) from the ISO string
-    const dateOnly = today.split('T')[0]; // e.g., "2025-01-23"
-
-    const startOfDay = new Date(`${dateOnly}T00:00:00.000Z`);
-    const endOfDay = new Date(`${dateOnly}T23:59:59.999Z`);
+    const startOfDay = new Date(`${today}T00:00:00.000Z`);
+    const endOfDay = new Date(`${today}T23:59:59.999Z`);
 
     const pray = await prisma.prays.findFirst({
       where: {

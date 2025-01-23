@@ -1,18 +1,21 @@
 import { useUser } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
 import LottieView from 'lottie-react-native';
-import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
-import Modal from 'react-native-modal';
+import {
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+  useEffect,
+  useReducer,
+} from 'react';
+import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import { DayData } from '@/components/shared/heat-map/heat';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
@@ -23,8 +26,36 @@ import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { fireToast } from '@/providers/toaster';
-import { ClickedData } from '@/types/global';
 import confetti from 'assets/gif/confetti.json';
+
+const initialState = {
+  prayers: {
+    [SALAHS.FAJR]: null,
+    [SALAHS.DHUHR]: null,
+    [SALAHS.ASR]: null,
+    [SALAHS.MAGHRIB]: null,
+    [SALAHS.ISHA]: null,
+    [SALAHS.TAHAJJUD]: null,
+  },
+  isPickerVisible: false,
+  clickedData: null,
+  accordion: '',
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'SET_PRAYERS':
+      return { ...state, prayers: action.payload };
+    case 'TOGGLE_PICKER':
+      return { ...state, isPickerVisible: !state.isPickerVisible };
+    case 'SET_CLICKED_DATA':
+      return { ...state, clickedData: action.payload };
+    case 'SET_ACCORDION':
+      return { ...state, accordion: action.payload };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+}
 
 export default function HomeScreen() {
   // DATE STATE
@@ -37,25 +68,10 @@ export default function HomeScreen() {
   // QUERIES
   const { data: userData } = useGetUser(user?.id);
   const { data: prays } = useGetPrays(userData?.id, year);
-  const { data: todaysPrays } = useGetTodayPrays(userData?.id);
+  const { data: todaysPrays, refetch } = useGetTodayPrays(userData?.id);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
-
-  // STATES
-  const [isPickerVisible, setPickerVisible] = useState(false);
-  const [selectedPrayer, setSelectedPrayer] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [clickedData, setClickedData] = useState<ClickedData | null>(null);
-  const [accordion, setAccordion] = useState<string>('');
-  const [prayers, setPrayers] = useState<Record<string, number>>({
-    [SALAHS.FAJR]: null, // 0:missed, 1:late, 2:on time, null not touched
-    [SALAHS.DHUHR]: null,
-    [SALAHS.ASR]: null,
-    [SALAHS.MAGHRIB]: null,
-    [SALAHS.ISHA]: null,
-    [SALAHS.TAHAJJUD]: null,
-  });
 
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
@@ -63,6 +79,10 @@ export default function HomeScreen() {
   const profileSheetRef = useRef<BottomSheet>(null);
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
+
+  // Reducer for state management
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { prayers, isPickerVisible, clickedData, accordion } = state;
 
   // Callbacks to present each sheet
   const handlePresentSignIn = useCallback(() => {
@@ -75,33 +95,21 @@ export default function HomeScreen() {
     signUpSheetRef.current?.snapToIndex(2);
   }, []);
 
+  // FUNCTIONS
   const handlePrayerChange = useCallback(
-    async (prayer: string, value: number) => {
-      setSelectedPrayer(prayer);
-      // if values same as before, just return
+    async (prayer, value) => {
       if (prayers[prayer] === value) return;
 
-      // if prayer is missed and not touched, show modal
-      if (
-        value === PRAYER_POINTS.MISSED &&
-        prayers[prayer] !== PRAYER_POINTS.NOT_TOUCHED
-      ) {
-        return setShowModal(true);
-      }
-
-      // Update the state and create the payload with the latest state
       const updatedPrayers = { ...prayers, [prayer]: value };
-      setPrayers(updatedPrayers);
 
-      const payload = {
+      await createPray({
         id: userData?.id,
         date: today,
         ...updatedPrayers,
-      };
+      });
 
-      await createPray(payload);
+      dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
 
-      // Play confetti animation if the prayer was on time
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
       }
@@ -109,45 +117,44 @@ export default function HomeScreen() {
     [prayers, createPray, userData?.id, today],
   );
 
-  const confirmTurnOff = () => {
-    handlePrayerChange(selectedPrayer, PRAYER_POINTS.MISSED);
-    setShowModal(false);
-  };
-  const handleDayClick = (date: string, details: { data: DayData }) => {
+  const handleDayClick = useCallback((date, details) => {
     if (!details || !details.data) return;
-    setClickedData({ date, details: details });
-    setAccordion('item-1');
-  };
+    dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
+    dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
+  }, []);
 
-  const handleUpdateClickedDay = async (
-    date: string,
-    details: { data: DayData },
-  ) => {
-    if (!details || !details.data) return;
+  const handleUpdateClickedDay = useCallback(
+    async (date, details) => {
+      if (!details || !details.data) return;
 
-    await createPray({
-      id: userData?.id,
-      date: new Date(date),
-      ...details.data,
-    })
-      .then(() => {
-        setClickedData({ date, details: details });
-      })
-      .then(() => {
-        fireToast.info('Prayer updated successfully');
+      await createPray({
+        id: userData?.id,
+        date: new Date(date),
+        ...details.data,
       });
-  };
+
+      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
+      fireToast.info('Prayer updated successfully');
+      refetch();
+    },
+    [createPray, userData?.id, refetch],
+  );
 
   useEffect(() => {
-    setPrayers({
-      [SALAHS.FAJR]: todaysPrays?.fajr ?? null, // 0:missed, 1:late, 2:on time, null not touched
-      [SALAHS.DHUHR]: todaysPrays?.dhuhr ?? null,
-      [SALAHS.ASR]: todaysPrays?.asr ?? null,
-      [SALAHS.MAGHRIB]: todaysPrays?.maghrib ?? null,
-      [SALAHS.ISHA]: todaysPrays?.isha ?? null,
-      [SALAHS.TAHAJJUD]: todaysPrays?.tahajjud ?? null,
+    if (!todaysPrays) return;
+
+    dispatch({
+      type: 'SET_PRAYERS',
+      payload: {
+        [SALAHS.FAJR]: todaysPrays?.fajr ?? null,
+        [SALAHS.DHUHR]: todaysPrays?.dhuhr ?? null,
+        [SALAHS.ASR]: todaysPrays?.asr ?? null,
+        [SALAHS.MAGHRIB]: todaysPrays?.maghrib ?? null,
+        [SALAHS.ISHA]: todaysPrays?.isha ?? null,
+        [SALAHS.TAHAJJUD]: todaysPrays?.tahajjud ?? null,
+      },
     });
-  }, [todaysPrays, prays]);
+  }, [todaysPrays]);
 
   return (
     <SafeAreaView className="main-area pt-6 pb-12">
@@ -166,12 +173,11 @@ export default function HomeScreen() {
         {/* PRAYER HISTORY */}
         <PrayerHistory
           data={prays}
-          setPickerVisible={setPickerVisible}
+          dispatch={dispatch}
           isPickerVisible={isPickerVisible}
           year={year}
           setYear={setYear}
           clickedData={clickedData}
-          setAccordion={setAccordion}
           accordion={accordion}
           handleDayClick={handleDayClick}
           handleUpdateClickedDay={handleUpdateClickedDay}
@@ -198,31 +204,6 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
-
-      {/* MISSED MODAL */}
-      <Modal
-        isVisible={showModal}
-        animationIn="zoomIn"
-        animationOut="zoomOut"
-        onBackdropPress={() => setShowModal(false)}
-      >
-        <View className="bg-muted p-6  py-12 rounded-lg h-auto">
-          <Text className="text-lg font-bold text-center mb-6">
-            Are you sure you want to mark as Missed?
-          </Text>
-          <View className="flex-row justify-between gap-2">
-            <Button
-              onPress={() => setShowModal(false)}
-              className="flex-1 bg-muted-foreground p-3 rounded-md"
-            >
-              <Text className="text-center text-muted font-medium">No</Text>
-            </Button>
-            <Button onPress={confirmTurnOff} className="flex-1  p-3 rounded-md">
-              <Text className="font-medium">Yes</Text>
-            </Button>
-          </View>
-        </View>
-      </Modal>
 
       {/* BOTTOM SHEET */}
       <CustomBottomSheet sheetRef={signInSheetRef}>

@@ -21,31 +21,39 @@ import { ClickedData } from '@/types/global';
 import { IPrays } from '@/types/prays';
 
 interface PrayerHistoryProps {
-  setPickerVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isPickerVisible: boolean;
   year: number;
   setYear: React.Dispatch<React.SetStateAction<number>>;
   clickedData: ClickedData;
-  setAccordion: React.Dispatch<React.SetStateAction<string>>;
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData }) => void;
   data: IPrays[];
   handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
+  dispatch: React.Dispatch<{ type: string; payload?: unknown }>;
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
   const {
-    setPickerVisible,
     isPickerVisible,
     year,
     setYear,
     clickedData,
-    setAccordion,
     accordion,
     handleDayClick,
     data,
     handleUpdateClickedDay,
+    dispatch,
   } = params;
+
+  // Example of toggling picker visibility
+  const togglePicker = () => {
+    dispatch({ type: 'TOGGLE_PICKER' });
+  };
+
+  // Example of setting accordion state
+  const setAccordionState = (newAccordion) => {
+    dispatch({ type: 'SET_ACCORDION', payload: newAccordion });
+  };
 
   const transformedData = useMemo(() => {
     if (!data) return {};
@@ -67,11 +75,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
       <View className="mt-6">
         <View className="flex flex-row justify-between items-center  mb-4">
           <Text className={cn('text-xl font-semibold')}>Prayer History</Text>
-          <Button
-            variant="outline"
-            size="sm"
-            onPress={() => setPickerVisible(true)}
-          >
+          <Button variant="outline" size="sm" onPress={togglePicker}>
             <Text>{year}</Text>
           </Button>
         </View>
@@ -79,7 +83,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           value={year}
           onChangeValue={setYear}
           isVisible={isPickerVisible}
-          onBackdropPress={() => setPickerVisible(false)}
+          onBackdropPress={togglePicker}
         />
         {/* HEAT MAP */}
         <HeatMap
@@ -89,7 +93,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
         />
       </View>
 
-      <Accordion type="single" value={accordion} onValueChange={setAccordion}>
+      <Accordion
+        type="single"
+        value={accordion}
+        onValueChange={setAccordionState}
+      >
         <AccordionItem value="item-1">
           {clickedData && clickedData.details && (
             <AccordionContent className="mt-5">
@@ -101,7 +109,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onPress={() => setAccordion('')}
+                    onPress={setAccordionState}
                   >
                     <Text>Close</Text>
                   </Button>
@@ -110,7 +118,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                   ([prayer, value]) => (
                     <View
                       key={prayer}
-                      className="flex-row items-center justify-between mb-2 mt-4"
+                      className="flex-row items-center justify-between mt-2"
                     >
                       <Text className={cn('capitalize font-semibold')}>
                         {prayer}
