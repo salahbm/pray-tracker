@@ -157,7 +157,7 @@ export default function HomeScreen() {
   }, [todaysPrays]);
 
   return (
-    <SafeAreaView className="main-area pt-6 pb-12">
+    <SafeAreaView className="main-area pt-6 pb-10">
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* HEADER */}
         <HomeHeader
