@@ -17,6 +17,7 @@ import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import Loader from '@/components/shared/laoder';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
@@ -63,12 +64,19 @@ export default function HomeScreen() {
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
   // USER LOAD
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   // QUERIES
-  const { data: userData } = useGetUser(user?.id);
-  const { data: prays } = useGetPrays(userData?.id, year);
-  const { data: todaysPrays, refetch } = useGetTodayPrays(userData?.id);
+  const { data: userData, isLoading } = useGetUser(user?.id);
+  const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
+    userData?.id,
+    year,
+  );
+  const {
+    data: todaysPrays,
+    refetch,
+    isLoading: isLoadingTodaysPrays,
+  } = useGetTodayPrays(userData?.id);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -170,6 +178,11 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="main-area">
+      <Loader
+        visible={
+          isLoading || isLoadingPrays || isLoadingTodaysPrays || !isLoaded
+        }
+      />
       <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
         {/* HEADER */}
         <HomeHeader
@@ -216,7 +229,6 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
-
       {/* BOTTOM SHEET */}
       <CustomBottomSheet sheetRef={signInSheetRef}>
         <SignInScreen
@@ -224,7 +236,6 @@ export default function HomeScreen() {
           onNavigate={handlePresentSignUp}
         />
       </CustomBottomSheet>
-
       {/* SIGN UP SHEET */}
       <CustomBottomSheet sheetRef={signUpSheetRef}>
         <SignUpScreen
