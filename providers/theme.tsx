@@ -3,8 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { useState, useCallback, createContext, useContext } from 'react';
 import { View, ViewProps } from 'react-native';
 
-import { StatusBarTheme, Themes, ThemesVariant, THEMES } from './theme.config';
 import { useThemeStore } from '@/store/defaults/theme';
+import {
+  StatusBarTheme,
+  Themes,
+  THEMES,
+  ThemesVariant,
+} from '@/styles/theme.config';
 
 type ThemeContextValues = {
   theme: ThemesVariant;

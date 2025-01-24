@@ -4,8 +4,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet from './bottom-sheet';
 import ClerkProviderWrapper from './clerk';
 import QueryProvider from './query';
+import { ThemeProvider } from './theme';
 import ToastProvider from './toaster';
-import { ThemeProvider } from '@/styles/themes';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (

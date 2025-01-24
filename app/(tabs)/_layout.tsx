@@ -3,10 +3,11 @@ import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants/Colors';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 
 export default function TabLayout() {
+  const colors = useCurrentThemeColors();
   const screens = useMemo(
     () => [
       { name: 'index', title: 'Home', Icon: Home },
@@ -20,7 +21,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: COLORS.dark.primary,
+        tabBarActiveTintColor: colors['--primary'],
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',

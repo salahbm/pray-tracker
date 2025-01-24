@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { THEMES, ThemesVariant } from '@/styles/themes/theme.config';
+import { THEMES, ThemesVariant } from '@/styles/theme.config';
 
 interface ThemeState {
   currentTheme: ThemesVariant;

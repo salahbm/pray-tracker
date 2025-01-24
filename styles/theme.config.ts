@@ -23,8 +23,33 @@ export type StatusBarThemeStyle = {
   };
 };
 
-export const Themes = {
-  light: vars({
+export type ThemeColorKeys =
+  | '--background'
+  | '--foreground'
+  | '--muted'
+  | '--muted-foreground'
+  | '--popover'
+  | '--popover-foreground'
+  | '--card'
+  | '--card-foreground'
+  | '--border'
+  | '--input'
+  | '--primary'
+  | '--primary-foreground'
+  | '--secondary'
+  | '--secondary-foreground'
+  | '--accent'
+  | '--accent-foreground'
+  | '--destructive'
+  | '--destructive-foreground'
+  | '--ring';
+
+export type ThemeColors = Record<ThemeColorKeys, string>;
+
+export type AllThemes = Record<ThemesVariant, ThemeColors>;
+
+export const THEME_COLORS: AllThemes = {
+  light: {
     '--background': '#ffffff',
     '--foreground': '#1e1e1e',
     '--muted': '#f5f5f5',
@@ -44,8 +69,8 @@ export const Themes = {
     '--destructive': '#e74c3c',
     '--destructive-foreground': '#ffffff',
     '--ring': '#3498db',
-  }),
-  dark: vars({
+  },
+  dark: {
     '--background': '#000000',
     '--foreground': '#f5f5f5',
     '--muted': '#1e1e1e',
@@ -65,8 +90,8 @@ export const Themes = {
     '--destructive': '#fb0f50',
     '--destructive-foreground': '#ffffff',
     '--ring': '#00aaff',
-  }),
-  forest_green: vars({
+  },
+  forest_green: {
     '--background': '#1b3022',
     '--foreground': '#d9f8c4',
     '--muted': '#2a4230',
@@ -86,8 +111,8 @@ export const Themes = {
     '--destructive': '#ff5e5e',
     '--destructive-foreground': '#ffffff',
     '--ring': '#75c044',
-  }),
-  ocean_breeze: vars({
+  },
+  ocean_breeze: {
     '--background': '#0e2439',
     '--foreground': '#e3f2fd',
     '--muted': '#1b4a6b',
@@ -107,8 +132,8 @@ export const Themes = {
     '--destructive': '#f8676a',
     '--destructive-foreground': '#ffffff',
     '--ring': '#0eaaff',
-  }),
-  sunset: vars({
+  },
+  sunset: {
     '--background': '#2e1a1a',
     '--foreground': '#fddbcf',
     '--muted': '#4a2828',
@@ -128,8 +153,8 @@ export const Themes = {
     '--destructive': '#ff4500',
     '--destructive-foreground': '#ffffff',
     '--ring': '#ff6347',
-  }),
-  royal_purple: vars({
+  },
+  royal_purple: {
     '--background': '#1a0e2a',
     '--foreground': '#eae2fc',
     '--muted': '#29144d',
@@ -149,8 +174,8 @@ export const Themes = {
     '--destructive': '#e91e63',
     '--destructive-foreground': '#ffffff',
     '--ring': '#9c27b0',
-  }),
-  golden_desert: vars({
+  },
+  golden_desert: {
     '--background': '#3e2f1b',
     '--foreground': '#f7e1ba',
     '--muted': '#5a4322',
@@ -170,8 +195,8 @@ export const Themes = {
     '--destructive': '#f4511e',
     '--destructive-foreground': '#ffffff',
     '--ring': '#ffcc80',
-  }),
-  emerald_green: vars({
+  },
+  emerald_green: {
     '--background': '#1b2e23',
     '--foreground': '#d6f6d6',
     '--muted': '#2a4531',
@@ -191,7 +216,40 @@ export const Themes = {
     '--destructive': '#d32f2f',
     '--destructive-foreground': '#ffffff',
     '--ring': '#2e7d32',
-  }),
+  },
+  sunset_orange: {
+    '--background': '#2e1a1a',
+    '--foreground': '#fddbcf',
+    '--muted': '#4a2828',
+    '--muted-foreground': '#ffa07a',
+    '--popover': '#4e2929',
+    '--popover-foreground': '#fddbcf',
+    '--card': '#5a3030',
+    '--card-foreground': '#fddbcf',
+    '--border': '#ff4500',
+    '--input': '#ff4500',
+    '--primary': '#ff6347',
+    '--primary-foreground': '#ffffff',
+    '--secondary': '#ff8c69',
+    '--secondary-foreground': '#2e1a1a',
+    '--accent': '#ffa07a',
+    '--accent-foreground': '#ffffff',
+    '--destructive': '#d32f2f',
+    '--destructive-foreground': '#ffffff',
+    '--ring': '#ff6347',
+  },
+};
+
+export const Themes = {
+  light: vars(THEME_COLORS.light),
+  dark: vars(THEME_COLORS.dark),
+  forest_green: vars(THEME_COLORS.forest_green),
+  ocean_breeze: vars(THEME_COLORS.ocean_breeze),
+  sunset: vars(THEME_COLORS.sunset),
+  royal_purple: vars(THEME_COLORS.royal_purple),
+  golden_desert: vars(THEME_COLORS.golden_desert),
+  emerald_green: vars(THEME_COLORS.emerald_green),
+  sunset_orange: vars(THEME_COLORS.sunset_orange),
 };
 
 export const StatusBarTheme: StatusBarThemeStyle = {

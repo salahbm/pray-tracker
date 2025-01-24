@@ -14,6 +14,7 @@ interface Props {
 
 const ProfilePage = ({ onNavigate }: Props) => {
   const { signOut } = useAuth();
+
   return (
     <View className="flex-1">
       {/* Header */}
