@@ -1,5 +1,6 @@
 import { useUser } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { format } from 'date-fns';
 import LottieView from 'lottie-react-native';
 import {
   useState,
@@ -78,6 +79,7 @@ export default function HomeScreen() {
   const profileSheetRef = useRef<BottomSheet>(null);
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
+  const homeRef = useRef<ScrollView>(null);
 
   // Reducer for state management
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -116,11 +118,22 @@ export default function HomeScreen() {
     [prayers, createPray, userData?.id, today],
   );
 
-  const handleDayClick = useCallback((date, details) => {
-    if (!details || !details.data) return;
-    dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
-    dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
-  }, []);
+  const handleDayClick = useCallback(
+    (date, details) => {
+      if (!details || !details.data) return;
+      // if today, scroll to top
+      if (date === format(today, 'yyyy-MM-dd')) {
+        return homeRef.current?.scrollTo({
+          y: 0,
+          animated: true,
+        });
+      }
+
+      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
+      dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
+    },
+    [today],
+  );
 
   const handleUpdateClickedDay = useCallback(
     async (date, details) => {
@@ -156,8 +169,8 @@ export default function HomeScreen() {
   }, [todaysPrays]);
 
   return (
-    <SafeAreaView className="main-area pt-6 pb-10">
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <SafeAreaView className="main-area">
+      <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
         {/* HEADER */}
         <HomeHeader
           today={today}

@@ -11,7 +11,7 @@ import {
   TextStyle,
 } from 'react-native';
 
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface GoBackHeaderProps {
   title?: string;
@@ -25,7 +25,7 @@ interface GoBackHeaderProps {
 }
 
 const GoBack: React.FC<GoBackHeaderProps> = (props) => {
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const {
     title,
     textColor = colors['--foreground'],
@@ -39,7 +39,7 @@ const GoBack: React.FC<GoBackHeaderProps> = (props) => {
   const canGoBack = navigation.canGoBack();
 
   return (
-    <View className="flex-row items-center px-6 py-3 justify-between bg-background shadow-lg">
+    <View className="flex-row items-center px-4 justify-between bg-background">
       {canGoBack ? (
         <TouchableOpacity
           onPress={() => navigation.goBack()}

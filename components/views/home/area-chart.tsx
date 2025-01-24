@@ -3,12 +3,12 @@ import { Dimensions } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 
 import { Text } from '@/components/ui/text';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { cn } from '@/lib/utils';
+import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
 
 const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
 

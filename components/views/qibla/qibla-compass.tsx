@@ -11,7 +11,7 @@ import { View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
 
 import { COLORS } from '@/constants/Colors';
 import { IMAGES } from '@/constants/images';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface State {
   loading: boolean;
@@ -54,7 +54,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
     let angle = Math.atan2(y, x) * (180 / Math.PI);
     if (angle < 0) angle += 360;

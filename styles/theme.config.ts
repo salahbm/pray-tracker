@@ -266,7 +266,7 @@ export const StatusBarTheme: StatusBarThemeStyle = {
     background: '#1b2e23',
   },
   ocean_breeze: {
-    style: 'dark',
+    style: 'light',
     background: '#1b2e23',
   },
   sunset: {

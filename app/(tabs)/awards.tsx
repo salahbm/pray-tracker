@@ -1,7 +1,6 @@
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Button } from 'components/ui/button';
 import { Text } from 'components/ui/text';
 
@@ -13,7 +12,6 @@ export default function HomeScreen() {
         <Button>
           <Text>Default</Text>
         </Button>
-        <ThemeSwitcher />
       </View>
     </SafeAreaView>
   );

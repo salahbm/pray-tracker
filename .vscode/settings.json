@@ -12,5 +12,6 @@
     "pageable",
     "SUPABASE",
     "tahajjud"
-  ]
+  ],
+  "i18n-ally.keystyle": "nested"
 }

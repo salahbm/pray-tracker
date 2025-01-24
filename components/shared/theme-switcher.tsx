@@ -42,7 +42,10 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <View className="flex flex-col items-center gap-2 p-4">
+    <View className="flex flex-col gap-2 pt-8 text-left">
+      <Text className="font-bold text-xl mb-4">
+        {t('Defaults.Themes.Title')}
+      </Text>
       {Object.values(THEMES).map((theme) => {
         const themeStyles = THEME_COLORS[theme] || THEME_COLORS[THEMES.light];
         const isActive = currentTheme === theme;

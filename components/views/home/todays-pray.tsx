@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
 
 interface IPrayers {
@@ -13,7 +13,7 @@ interface IPrayers {
 }
 
 const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   return (
     <React.Fragment>
       <View className="flex-row items-center justify-between mt-6 mb-2">

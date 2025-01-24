@@ -4,9 +4,8 @@ import { router } from 'expo-router';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 import { LogOut } from '@/components/shared/icons';
-import { Language } from '@/components/shared/language';
 import { Button } from '@/components/ui/button';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface Props {
   onNavigate: () => void;
@@ -14,7 +13,7 @@ interface Props {
 
 const ProfilePage = ({ onNavigate }: Props) => {
   const { signOut } = useAuth();
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
 
   return (
     <View className="flex-1">
@@ -50,15 +49,21 @@ const ProfilePage = ({ onNavigate }: Props) => {
         </TouchableOpacity>
 
         {/* Notifications Section */}
-        <TouchableOpacity className="profile-section">
+        <TouchableOpacity
+          className="profile-section"
+          onPress={() => {
+            onNavigate();
+            router.push('/(screens)/profile/settings');
+          }}
+        >
           <View className="flex-row items-center">
             <Feather
-              name="bell"
+              name="settings"
               size={20}
               color={colors['--muted-foreground']}
             />
             <Text className="text-base text-muted-foreground ml-2">
-              Notifications
+              Settings
             </Text>
           </View>
           <Feather
@@ -67,21 +72,6 @@ const ProfilePage = ({ onNavigate }: Props) => {
             color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
-
-        {/* Language Section */}
-        <View className="profile-section">
-          <View className="flex-row items-center">
-            <Feather
-              name="globe"
-              size={20}
-              color={colors['--muted-foreground']}
-            />
-            <Text className="text-base text-muted-foreground ml-2">
-              Languages
-            </Text>
-          </View>
-          <Language />
-        </View>
 
         {/* Divider */}
         <View className="h-px bg-border my-4" />

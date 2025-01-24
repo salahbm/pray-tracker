@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TextInput, View, type TextInputProps } from 'react-native';
 
 import { Text } from './text';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from 'lib/utils';
 
 const Input = React.forwardRef<
@@ -13,7 +13,7 @@ const Input = React.forwardRef<
     error?: boolean;
   }
 >(({ className, label, secureTextEntry = false, ...props }, ref) => {
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const [secure, setSecure] = React.useState(secureTextEntry);
   return (
     <React.Fragment>

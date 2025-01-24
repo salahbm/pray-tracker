@@ -11,12 +11,12 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useUpdateUser } from '@/hooks/auth/usePutUser';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { fireToast } from '@/providers/toaster';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const EditProfile = () => {
   const { user } = useUser();
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
@@ -119,9 +119,9 @@ const EditProfile = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="safe-area">
       <GoBack title="Edit Profile" />
-      <ScrollView className="main-area pb-10" automaticallyAdjustKeyboardInsets>
+      <ScrollView className="main-area" automaticallyAdjustKeyboardInsets>
         <View className="h-[240px] items-center justify-center space-y-3">
           <View className="relative">
             <Image

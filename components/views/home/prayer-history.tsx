@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 import { TransformedPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
@@ -45,7 +45,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     handleUpdateClickedDay,
     dispatch,
   } = params;
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   // Example of toggling picker visibility
   const togglePicker = () => {
     dispatch({ type: 'TOGGLE_PICKER' });

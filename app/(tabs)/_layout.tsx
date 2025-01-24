@@ -3,11 +3,11 @@ import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 import { Award, Compass, Home, Users } from 'components/shared/icons';
 
 export default function TabLayout() {
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const screens = useMemo(
     () => [
       { name: 'index', title: 'Home', Icon: Home },

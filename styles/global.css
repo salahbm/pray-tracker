@@ -8,7 +8,15 @@
 
 @layer utilities {
   .main-area {
-    @apply flex flex-1 flex-col bg-background text-foreground px-4;
+    @apply flex flex-1 flex-col bg-background text-foreground px-4 pt-6 pb-10;
+  }
+  .safe-area {
+    @apply flex-1 bg-background;
+  }
+
+  /* gradient background */
+  .touchable {
+    @apply cursor-pointer border-b border-border px-4 pb-4 flex-row justify-between items-center mb-7;
   }
 
   /* PROFILE */

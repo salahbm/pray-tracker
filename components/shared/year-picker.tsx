@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
-import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface YearPickerProps {
   value: number;
@@ -23,7 +23,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
   minYear = 1900,
 }) => {
   const currentYear = new Date().getFullYear();
-  const colors = useCurrentThemeColors();
+  const { colors } = useThemeStore();
   const years = Array.from(
     { length: currentYear - minYear + 1 },
     (_, i) => (minYear + i).toString(), // Convert years to strings
