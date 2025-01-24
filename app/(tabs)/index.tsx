@@ -17,7 +17,7 @@ import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import Loader from '@/components/shared/laoder';
+import Loader from '@/components/shared/loader';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';

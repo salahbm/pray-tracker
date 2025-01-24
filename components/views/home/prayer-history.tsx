@@ -15,15 +15,16 @@ import {
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
-import { useThemeStore } from '@/store/defaults/theme';
 import { TransformedPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
+import { useThemeStore } from '@/store/defaults/theme';
 import { ClickedData } from '@/types/global';
 import { IPrays } from '@/types/prays';
 
 interface PrayerHistoryProps {
   isPickerVisible: boolean;
   year: number;
+  minYear: number;
   setYear: React.Dispatch<React.SetStateAction<number>>;
   clickedData: ClickedData;
   accordion: string;
@@ -44,6 +45,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     data,
     handleUpdateClickedDay,
     dispatch,
+    minYear = 2000,
   } = params;
   const { colors } = useThemeStore();
   // Example of toggling picker visibility
@@ -82,6 +84,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
         </View>
         <YearPicker
           value={year}
+          minYear={minYear}
           onChangeValue={setYear}
           isVisible={isPickerVisible}
           onBackdropPress={togglePicker}
