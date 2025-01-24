@@ -24,7 +24,7 @@ import { IPrays } from '@/types/prays';
 interface PrayerHistoryProps {
   isPickerVisible: boolean;
   year: number;
-  minYear: number;
+  minYear?: number;
   setYear: React.Dispatch<React.SetStateAction<number>>;
   clickedData: ClickedData;
   accordion: string;

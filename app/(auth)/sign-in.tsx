@@ -72,7 +72,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
           className="p-4 rounded-lg bg-primary text-white mb-4"
           onPress={onSignInPress}
         >
-          <Text className="font-bold text-secondary">Sign In</Text>
+          <Text className="font-bold">Sign In</Text>
         </Button>
         <OAuth />
       </View>

@@ -32,7 +32,7 @@ export default function TabLayout() {
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={80}
+            intensity={20}
             style={{
               ...StyleSheet.absoluteFillObject,
               overflow: 'hidden',

@@ -110,14 +110,12 @@ export default function HomeScreen() {
       if (prayers[prayer] === value) return;
 
       const updatedPrayers = { ...prayers, [prayer]: value };
-
+      dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       await createPray({
         id: userData?.id,
         date: today,
         ...updatedPrayers,
       });
-
-      dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
 
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
@@ -161,6 +159,12 @@ export default function HomeScreen() {
   );
 
   useEffect(() => {
+    if (!user) {
+      return dispatch({
+        type: 'SET_PRAYERS',
+        payload: { ...initialState.prayers },
+      });
+    }
     if (!todaysPrays) return;
 
     dispatch({
@@ -174,7 +178,7 @@ export default function HomeScreen() {
         [SALAHS.TAHAJJUD]: todaysPrays?.tahajjud ?? null,
       },
     });
-  }, [todaysPrays]);
+  }, [todaysPrays, user]);
 
   return (
     <SafeAreaView className="main-area">

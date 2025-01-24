@@ -1,5 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { format } from 'date-fns';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { View, Image } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
@@ -11,6 +12,7 @@ import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
+import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useGetUser } from '@/hooks/auth/useGetUser';
 import { fireToast } from '@/providers/toaster';
 
@@ -18,13 +20,22 @@ const Account = () => {
   const { user, isLoaded } = useUser();
   const { data: userData, isLoading } = useGetUser(user?.id);
   const { signOut } = useAuth();
+  const { mutateAsync } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleWithdrawAccount = () => {
-    // Add logic for withdrawing the account (e.g., calling an API to delete the user)
-    setModalVisible(false);
-    fireToast.success('Account withdrawal initiated.');
-    // Optionally redirect or show a confirmation message
+  const handleWithdrawAccount = async () => {
+    await mutateAsync({ id: userData.id })
+      .then(() => {
+        user.delete();
+      })
+      .then(() => {
+        signOut();
+      })
+      .finally(() => {
+        setModalVisible(false);
+        fireToast.success('Account withdrawal initiated.');
+        router.replace('/(tabs)');
+      });
   };
 
   return (
@@ -42,15 +53,21 @@ const Account = () => {
         {/* Account Info */}
         <View className="mt-12">
           <View className="flex-row justify-between items-center w-full mb-4">
+            <Text className="text-base font-semibold">Email:</Text>
+            <Text className="text-base font-semibold">
+              {userData?.email ? userData.email : '-'}
+            </Text>
+          </View>
+          <View className="flex-row justify-between items-center w-full mb-4">
             <Text className="text-base font-semibold">Created:</Text>
             <Text className="text-base font-semibold">
-              {userData?.createdAt ? format(userData.createdAt, 'PPpp') : 'N/A'}
+              {userData?.createdAt ? format(userData.createdAt, 'PPpp') : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full">
             <Text className="text-base font-semibold">Last Updated:</Text>
             <Text className="text-base font-semibold">
-              {userData?.updatedAt ? format(userData.updatedAt, 'PPpp') : 'N/A'}
+              {userData?.updatedAt ? format(userData.updatedAt, 'PPpp') : '-'}
             </Text>
           </View>
         </View>
@@ -71,7 +88,10 @@ const Account = () => {
       <Button
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
-        onPress={async () => await signOut()}
+        onPress={async () => {
+          await signOut();
+          router.replace('/(tabs)');
+        }}
       >
         <Text className="text-destructive font-bold">Logout</Text>
         <LogOut className="stroke-destructive" />

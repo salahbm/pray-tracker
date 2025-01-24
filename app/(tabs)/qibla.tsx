@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import QiblaCompass from '@/components/views/qibla/qibla-compass';
 import { cn } from '@/lib/utils';
@@ -93,6 +94,15 @@ const QiblaScreen = () => {
     : [];
   return (
     <SafeAreaView className="main-area">
+      <Loader
+        visible={
+          !coords ||
+          !data ||
+          !data.data ||
+          !data.data.timings ||
+          !data.data.timings.Fajr
+        }
+      />
       <View className="flex items-center justify-center border-b border-muted-foreground py-4 pb-12">
         <View className="flex items-center flex-row mb-4 gap-2">
           <Text className={cn('text-xl font-semibold ')}>Next Prayer:</Text>
@@ -102,6 +112,12 @@ const QiblaScreen = () => {
           scrollEnabled={false}
           data={prayerTimes}
           keyExtractor={(item) => item.name}
+          ListHeaderComponent={() => (
+            <View className="flex-row items-center justify-between w-full my-2">
+              <Text className="font-semibold">Prayers</Text>
+              <Text className="font-bold">Time</Text>
+            </View>
+          )}
           renderItem={({ item }) => (
             <View className="flex-row items-center justify-between w-full my-2">
               <Text className="font-semibold">{item.name}</Text>

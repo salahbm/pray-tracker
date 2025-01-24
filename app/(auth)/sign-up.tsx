@@ -175,7 +175,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUn) {
             </Text>
           )}
           <Button onPress={onPressVerify} className="mt-5 p-4 rounded-lg">
-            <Text className="text-secondary text-center">Verify Email</Text>
+            <Text className="text-center">Verify Email</Text>
           </Button>
         </View>
       </ReactNativeModal>

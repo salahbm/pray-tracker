@@ -76,3 +76,20 @@ export async function PUT(request: Request) {
     return handleError(error);
   }
 }
+
+// DELETE USER
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+    const deletedUser = await prisma.user.delete({
+      where: { id },
+    });
+    return createResponse(
+      StatusCode.SUCCESS,
+      'User deleted successfully',
+      deletedUser,
+    );
+  } catch (error) {
+    return handleError(error);
+  }
+}
