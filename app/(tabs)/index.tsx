@@ -61,7 +61,6 @@ export default function HomeScreen() {
   // DATE STATE
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
-
   // USER LOAD
   const { user } = useUser();
 

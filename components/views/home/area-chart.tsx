@@ -3,11 +3,12 @@ import { Dimensions } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 
 import { Text } from '@/components/ui/text';
-import { COLORS } from '@/constants/Colors';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { cn } from '@/lib/utils';
 import { IPrays } from '@/types/prays';
 
 const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
+  const colors = useCurrentThemeColors();
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
 
@@ -38,16 +39,16 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         showVerticalLines
         areaChart
         curved
-        startFillColor={COLORS.dark.primary}
+        startFillColor={colors['--primary']}
         startOpacity={0.2}
-        endFillColor={COLORS.dark.border}
+        endFillColor={colors['--border']}
         endOpacity={0.1}
         verticalLinesStrokeDashArray={[7, 7]}
-        color={COLORS.dark.primary}
-        yAxisTextStyle={{ color: COLORS.dark.muted_foreground, fontSize: 12 }}
-        yAxisColor={COLORS.dark.border}
-        verticalLinesColor={COLORS.dark.muted_foreground}
-        xAxisColor={COLORS.dark.border}
+        color={colors['--primary']}
+        yAxisTextStyle={{ color: colors['--muted-foreground'], fontSize: 12 }}
+        yAxisColor={colors['--border']}
+        verticalLinesColor={colors['--muted-foreground']}
+        xAxisColor={colors['--border']}
         adjustToWidth
         height={220}
         parentWidth={Dimensions.get('window').width * 0.85}

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base {
+
+} */
+
+@layer utilities {
+  .main-area {
+    @apply flex flex-1 flex-col bg-background text-foreground px-4;
+  }
+
+  /* PROFILE */
+  .profile-section {
+    @apply bg-muted border border-border rounded-lg py-4 px-5 flex-row justify-between items-center mb-4;
+  }
+}

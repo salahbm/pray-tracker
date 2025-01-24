@@ -5,14 +5,13 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   StyleProp,
   ViewStyle,
   TextStyle,
 } from 'react-native';
 
-import { COLORS } from '@/constants/Colors';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 
 interface GoBackHeaderProps {
   title?: string;
@@ -25,99 +24,60 @@ interface GoBackHeaderProps {
   titleStyle?: StyleProp<TextStyle>;
 }
 
-const GoBack: React.FC<GoBackHeaderProps> = ({
-  title,
-  textColor = COLORS.dark.foreground,
-  iconColor = COLORS.dark.primary,
-  iconSize = 24,
-  onRightPress,
-  rightIconName,
-  containerStyle,
-  titleStyle,
-}) => {
+const GoBack: React.FC<GoBackHeaderProps> = (props) => {
+  const colors = useCurrentThemeColors();
+  const {
+    title,
+    textColor = colors['--foreground'],
+    iconColor = colors['--primary'],
+    iconSize = 24,
+    onRightPress,
+    rightIconName,
+  } = props;
   const navigation = useNavigation();
 
   const canGoBack = navigation.canGoBack();
 
   return (
-    <View style={[styles.headerContainer, containerStyle]}>
+    <View className="flex-row items-center px-6 py-3 justify-between bg-background shadow-lg">
       {canGoBack ? (
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={styles.backButton}
+          className="w-10 justify-center items-start"
           accessibilityLabel="Go back"
           accessibilityRole="button"
         >
           <Ionicons name="arrow-back" size={iconSize} color={iconColor} />
         </TouchableOpacity>
       ) : (
-        <View style={styles.backButtonPlaceholder} />
+        <View className="w-10" />
       )}
 
       {title ? (
-        <Text style={[styles.title, { color: textColor }, titleStyle]}>
+        <Text
+          className="text-center flex-1 font-semibold text-lg"
+          style={{ color: textColor }}
+        >
           {title}
         </Text>
       ) : (
-        <View style={styles.titlePlaceholder} />
+        <View className="flex-1" />
       )}
 
       {rightIconName && onRightPress ? (
         <TouchableOpacity
           onPress={onRightPress}
-          style={styles.rightButton}
+          className="w-10 justify-center items-end"
           accessibilityLabel="Right action"
           accessibilityRole="button"
         >
           <Ionicons name={rightIconName} size={iconSize} color={iconColor} />
         </TouchableOpacity>
       ) : (
-        <View style={styles.rightButtonPlaceholder} />
+        <View className="w-10" />
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    justifyContent: 'space-between',
-    // Shadow for iOS
-    shadowColor: COLORS.dark.background,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    // Elevation for Android
-    elevation: 3,
-  },
-  backButton: {
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  backButtonPlaceholder: {
-    width: 40, // To keep title centered
-  },
-  rightButton: {
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-  rightButtonPlaceholder: {
-    width: 40, // To keep title centered
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    flex: 1,
-  },
-  titlePlaceholder: {
-    flex: 1,
-  },
-});
 
 export default GoBack;

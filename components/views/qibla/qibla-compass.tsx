@@ -11,6 +11,7 @@ import { View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
 
 import { COLORS } from '@/constants/Colors';
 import { IMAGES } from '@/constants/images';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 
 interface State {
   loading: boolean;
@@ -53,7 +54,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const colors = useCurrentThemeColors();
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
     let angle = Math.atan2(y, x) * (180 / Math.PI);
     if (angle < 0) angle += 360;
@@ -148,7 +149,10 @@ const QiblaCompass: React.FC = () => {
           ]}
         >
           <Image source={IMAGES.kaaba} style={styles.kaaba} />
-          <Image source={IMAGES.compass} style={styles.arrow} />
+          <Image
+            source={IMAGES.compass}
+            style={[styles.arrow, { tintColor: colors['--primary'] }]}
+          />
         </View>
       </View>
 
@@ -200,7 +204,6 @@ const styles = StyleSheet.create({
     height: 60,
     position: 'absolute',
     zIndex: 1,
-    tintColor: COLORS.dark.primary,
     transform: [{ rotate: '35deg' }],
   },
   info: { fontSize: 16, marginTop: 20, color: 'white', textAlign: 'center' },

@@ -9,14 +9,14 @@ import GoBack from '@/components/shared/go-back';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
-import { COLORS } from '@/constants/Colors';
 import { FRIENDS } from '@/constants/images';
 import { useUpdateUser } from '@/hooks/auth/usePutUser';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { fireToast } from '@/providers/toaster';
 
 const EditProfile = () => {
   const { user } = useUser();
-
+  const colors = useCurrentThemeColors();
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
@@ -119,7 +119,7 @@ const EditProfile = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-background">
       <GoBack title="Edit Profile" />
       <ScrollView className="main-area pb-10" automaticallyAdjustKeyboardInsets>
         <View className="h-[240px] items-center justify-center space-y-3">
@@ -135,7 +135,7 @@ const EditProfile = () => {
               onPress={onPickImage} // Corrected function reference
               className="absolute p-1 rounded-full right-5 bottom-3 bg-light-orange"
             >
-              <Feather name="edit-3" size={24} color={COLORS.dark.primary} />
+              <Feather name="edit-3" size={24} color={colors['--primary']} />
               {/* Added color for better visibility */}
             </TouchableOpacity>
           </View>
@@ -146,7 +146,6 @@ const EditProfile = () => {
             <Text>User Name</Text>
             <Input
               placeholder="Your User Name"
-              className="px-3 py-2 border rounded-xl"
               value={username}
               onChangeText={setUserName}
               autoCapitalize="words"
@@ -157,7 +156,6 @@ const EditProfile = () => {
             <Text>First Name</Text>
             <Input
               placeholder="Your First Name"
-              className="px-3 py-2 border rounded-xl"
               value={firstName}
               onChangeText={setFirstName}
               autoCapitalize="words"
@@ -168,7 +166,6 @@ const EditProfile = () => {
             <Text>Last Name</Text>
             <Input
               placeholder="Your Last Name"
-              className="px-3 py-2 border rounded-xl"
               value={lastName}
               onChangeText={setLastName}
               autoCapitalize="words"
@@ -179,7 +176,6 @@ const EditProfile = () => {
             <Text>Current Password</Text>
             <Input
               placeholder="Your Current Password"
-              className="px-3 py-2 border rounded-xl"
               autoCapitalize="none"
               secureTextEntry
               value={currentPassword}
@@ -191,7 +187,6 @@ const EditProfile = () => {
             <Text>New Password</Text>
             <Input
               placeholder="Your New Password"
-              className="px-3 py-2 border rounded-xl"
               autoCapitalize="none"
               secureTextEntry
               value={newPassword}

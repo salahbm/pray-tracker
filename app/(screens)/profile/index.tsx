@@ -1,12 +1,12 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { LogOut } from '@/components/shared/icons';
 import { Language } from '@/components/shared/language';
 import { Button } from '@/components/ui/button';
-import { COLORS } from '@/constants/Colors';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 
 interface Props {
   onNavigate: () => void;
@@ -14,107 +14,118 @@ interface Props {
 
 const ProfilePage = ({ onNavigate }: Props) => {
   const { signOut } = useAuth();
+  const colors = useCurrentThemeColors();
 
   return (
     <View className="flex-1">
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
+      <View className="mb-5">
+        <Text className="text-xl font-bold text-muted-foreground">Profile</Text>
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View className="flex-1">
         {/* Edit Profile Section */}
         <TouchableOpacity
-          style={styles.section}
+          className="profile-section"
           onPress={() => {
             onNavigate();
             router.push('/(screens)/profile/edit-profile');
           }}
         >
-          <View style={styles.row}>
+          <View className="flex-row items-center">
             <Feather
               name="user"
               size={20}
-              color={COLORS.dark.muted_foreground}
+              color={colors['--muted-foreground']}
             />
-            <Text style={styles.sectionText}>Edit Profile</Text>
+            <Text className="text-base text-muted-foreground ml-2">
+              Edit Profile
+            </Text>
           </View>
           <Feather
             name="chevron-right"
             size={20}
-            color={COLORS.dark.muted_foreground}
+            color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
 
         {/* Notifications Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
+        <TouchableOpacity className="profile-section">
+          <View className="flex-row items-center">
             <Feather
               name="bell"
               size={20}
-              color={COLORS.dark.muted_foreground}
+              color={colors['--muted-foreground']}
             />
-            <Text style={styles.sectionText}>Notifications</Text>
+            <Text className="text-base text-muted-foreground ml-2">
+              Notifications
+            </Text>
           </View>
           <Feather
             name="chevron-right"
             size={20}
-            color={COLORS.dark.muted_foreground}
+            color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
 
         {/* Language Section */}
-        <View style={styles.section}>
-          <View style={styles.row}>
+        <View className="profile-section">
+          <View className="flex-row items-center">
             <Feather
               name="globe"
               size={20}
-              color={COLORS.dark.muted_foreground}
+              color={colors['--muted-foreground']}
             />
-            <Text style={styles.sectionText}>Languages</Text>
+            <Text className="text-base text-muted-foreground ml-2">
+              Languages
+            </Text>
           </View>
           <Language />
         </View>
 
         {/* Divider */}
-        <View style={styles.divider} />
+        <View className="h-px bg-border my-4" />
 
         {/* Privacy & Security Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
+        <TouchableOpacity className="profile-section">
+          <View className="flex-row items-center">
             <Feather
               name="lock"
               size={20}
-              color={COLORS.dark.muted_foreground}
+              color={colors['--muted-foreground']}
             />
-            <Text style={styles.sectionText}>Privacy & Security</Text>
+            <Text className="text-base text-muted-foreground ml-2">
+              Privacy & Security
+            </Text>
           </View>
           <Feather
             name="chevron-right"
             size={20}
-            color={COLORS.dark.muted_foreground}
+            color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
 
         {/* Terms & Conditions Section */}
-        <TouchableOpacity style={styles.section}>
-          <View style={styles.row}>
+        <TouchableOpacity className="profile-section">
+          <View className="flex-row items-center">
             <Feather
               name="file-text"
               size={20}
-              color={COLORS.dark.muted_foreground}
+              color={colors['--muted-foreground']}
             />
-            <Text style={styles.sectionText}>Terms & Conditions</Text>
+            <Text className="text-base text-muted-foreground ml-2">
+              Terms & Conditions
+            </Text>
           </View>
           <Feather
             name="chevron-right"
             size={20}
-            color={COLORS.dark.muted_foreground}
+            color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
 
         {/* Divider */}
-        <View style={styles.divider} className="mb-32" />
+        <View className="h-px bg-border mb-32" />
       </View>
 
       <Button
@@ -131,44 +142,5 @@ const ProfilePage = ({ onNavigate }: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    marginBottom: 20,
-  },
-
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.dark.foreground,
-  },
-  section: {
-    backgroundColor: COLORS.dark.muted,
-    borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: COLORS.dark.border,
-    width: '100%',
-  },
-  sectionText: {
-    fontSize: 16,
-    color: COLORS.dark.foreground,
-    marginLeft: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: COLORS.dark.border,
-    marginVertical: 16,
-  },
-});
 
 export default ProfilePage;

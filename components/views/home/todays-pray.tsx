@@ -3,8 +3,8 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS } from '@/constants/enums';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { cn } from '@/lib/utils';
 
 interface IPrayers {
@@ -13,6 +13,7 @@ interface IPrayers {
 }
 
 const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
+  const colors = useCurrentThemeColors();
   return (
     <React.Fragment>
       <View className="flex-row items-center justify-between mt-6 mb-2">
@@ -44,10 +45,10 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
                 color={
                   value === val
                     ? val === PRAYER_POINTS.ON_TIME
-                      ? COLORS.dark.primary
+                      ? colors['--primary']
                       : val === PRAYER_POINTS.LATE
-                        ? COLORS.dark.border
-                        : COLORS.dark.destructive
+                        ? colors['--secondary']
+                        : colors['--destructive']
                     : undefined
                 }
               />

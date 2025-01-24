@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import HeatMap from '@/components/shared/heat-map';
+import { MAX_DISPLAY_POINTS } from '@/components/shared/heat-map/constant';
 import { DayData } from '@/components/shared/heat-map/heat';
 import YearPicker from '@/components/shared/year-picker';
 import {
@@ -13,8 +14,8 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { COLORS } from '@/constants/Colors';
 import { PRAYER_POINTS } from '@/constants/enums';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 import { TransformedPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
 import { ClickedData } from '@/types/global';
@@ -44,7 +45,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     handleUpdateClickedDay,
     dispatch,
   } = params;
-
+  const colors = useCurrentThemeColors();
   // Example of toggling picker visibility
   const togglePicker = () => {
     dispatch({ type: 'TOGGLE_PICKER' });
@@ -87,6 +88,19 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
         />
         {/* HEAT MAP */}
         <HeatMap
+          color={{
+            theme: colors['--primary'],
+
+            opacity: [
+              { opacity: 0, limit: 0 },
+              { opacity: 0.1, limit: 1 },
+              { opacity: 0.2, limit: 2 },
+              { opacity: 0.4, limit: 4 },
+              { opacity: 0.6, limit: 6 },
+              { opacity: 0.8, limit: 8 },
+              { opacity: 1, limit: MAX_DISPLAY_POINTS },
+            ],
+          }}
           data={transformedData ?? null}
           year={year}
           onDayClick={handleDayClick}
@@ -143,10 +157,10 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                             color={
                               value === val
                                 ? val === PRAYER_POINTS.ON_TIME
-                                  ? COLORS.dark.primary
+                                  ? colors['--primary']
                                   : val === PRAYER_POINTS.LATE
-                                    ? COLORS.dark.border
-                                    : COLORS.dark.destructive
+                                    ? colors['--secondary']
+                                    : colors['--destructive']
                                 : undefined
                             }
                           />

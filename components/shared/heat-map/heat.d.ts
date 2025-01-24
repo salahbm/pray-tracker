@@ -1,7 +1,7 @@
 // Props for the HeatMap component
 export interface HeatMapProps {
   data: Record<string, DayData>; // Keyed by date in 'YYYY-MM-DD'
-  color?: ColorMap;
+  color?: ColorProps;
   defaultBackgroundColor?: string;
   year?: number;
   onDayClick?: (date: string, details: { data: DayData | null }) => void;

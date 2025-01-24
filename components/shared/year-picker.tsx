@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
-import { COLORS } from '@/constants/Colors';
+import { useCurrentThemeColors } from '@/hooks/common/useCurrentTheme';
 
 interface YearPickerProps {
   value: number;
@@ -23,6 +23,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
   minYear = 1900,
 }) => {
   const currentYear = new Date().getFullYear();
+  const colors = useCurrentThemeColors();
   const years = Array.from(
     { length: currentYear - minYear + 1 },
     (_, i) => (minYear + i).toString(), // Convert years to strings
@@ -37,14 +38,14 @@ const YearPicker: React.FC<YearPickerProps> = ({
       animationIn="zoomIn"
       animationOut="zoomOut"
     >
-      <View style={styles.modalContainer}>
+      <View style={styles.modalContainer} className="bg-muted">
         <Text style={styles.title}>Select a Year</Text>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={selectedYear}
             onValueChange={(itemValue) => setSelectedYear(itemValue)}
             style={styles.picker}
-            itemStyle={styles.pickerItem}
+            itemStyle={[styles.pickerItem, { color: colors['--foreground'] }]}
           >
             {years.map((year) => (
               <Picker.Item key={year} label={year} value={year} />
@@ -61,7 +62,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
               onBackdropPress();
             }}
           >
-            <Text className="text-secondary">Confirm</Text>
+            <Text>Confirm</Text>
           </Button>
         </View>
       </View>
@@ -71,7 +72,6 @@ const YearPicker: React.FC<YearPickerProps> = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    backgroundColor: COLORS.dark.muted,
     borderRadius: 10,
     padding: 20,
   },
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     height: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.dark.muted,
     borderRadius: 10,
   },
   picker: {
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
   },
   pickerItem: {
     fontSize: 16,
-    color: COLORS.dark.muted_foreground,
   },
 });
 
