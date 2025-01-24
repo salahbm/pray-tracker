@@ -7,9 +7,9 @@ import React, {
   useMemo,
   Reducer,
 } from 'react';
-import { View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, ActivityIndicator } from 'react-native';
 
-import { COLORS } from '@/constants/Colors';
+import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -55,6 +55,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { colors } = useThemeStore();
+
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
     let angle = Math.atan2(y, x) * (180 / Math.PI);
     if (angle < 0) angle += 360;
@@ -121,7 +122,7 @@ const QiblaCompass: React.FC = () => {
 
   if (state.loading) {
     return (
-      <View style={styles.center}>
+      <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" />
       </View>
     );
@@ -129,84 +130,49 @@ const QiblaCompass: React.FC = () => {
 
   if (state.error) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.error}>{state.error}</Text>
+      <View className="flex-1 justify-center items-center">
+        <Text className=" text-lg">{state.error}</Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 py-12">
-      <View style={styles.compass}>
-        <Text style={[styles.directionText, styles.north]}>N</Text>
-        <Text style={[styles.directionText, styles.east]}>E</Text>
-        <Text style={[styles.directionText, styles.south]}>S</Text>
-        <Text style={[styles.directionText, styles.west]}>W</Text>
-        <View
-          style={[
-            styles.centerContainer,
-            { transform: [{ rotate: `${arrowRotation}deg` }] },
-          ]}
-        >
-          <Image source={IMAGES.kaaba} style={styles.kaaba} />
-          <Image
-            source={IMAGES.compass}
-            style={[styles.arrow, { tintColor: colors['--primary'] }]}
-          />
-        </View>
-      </View>
-
-      <Text style={styles.info}>
+    <React.Fragment>
+      <Text className="text-lg font-medium mb-4">
         Heading: {state.magnetAngle}° | Qibla: {state.qiblaAngle.toFixed(2)}°
       </Text>
-    </View>
+      <View className="flex-1 justify-center items-center relative">
+        <View
+          className="w-64 h-64 rounded-full border-2 border-muted relative items-center justify-center"
+          style={{ transform: [{ rotate: `${arrowRotation}deg` }] }}
+        >
+          {/* Cardinal Directions */}
+          <Text className="absolute top-2 left-1/2 -translate-x-1/2 text-muted-foreground font-bold">
+            N
+          </Text>
+          <Text className="absolute bottom-2 left-1/2 -translate-x-1/2 text-muted-foreground font-bold">
+            S
+          </Text>
+          <Text className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">
+            W
+          </Text>
+          <Text className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">
+            E
+          </Text>
+
+          {/* Compass Image */}
+          <Image
+            source={IMAGES.compass}
+            className="w-12 h-12 absolute"
+            style={{ tintColor: colors['--primary'] }}
+          />
+
+          {/* Kaaba Icon */}
+          <Image source={IMAGES.kaaba} className="w-12 h-12 mb-32" />
+        </View>
+      </View>
+    </React.Fragment>
   );
 };
-
-const styles = StyleSheet.create({
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  error: { color: COLORS.dark.destructive, fontSize: 16 },
-  compass: {
-    height: 250,
-    position: 'relative',
-  },
-  directionText: {
-    position: 'absolute',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: COLORS.dark.muted_foreground,
-  },
-  north: { top: 5, left: '50%', marginLeft: -10 },
-  east: { right: 5, top: '50%', marginTop: -10 },
-  south: { bottom: 5, left: '50%', marginLeft: -10 },
-  west: { left: 5, top: '50%', marginTop: -10 },
-
-  centerContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    width: 60,
-    height: 60,
-    marginLeft: -30,
-    marginTop: -30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  kaaba: {
-    width: 40,
-    height: 40,
-    zIndex: 2,
-    marginRight: 7,
-    marginBottom: 160,
-  },
-  arrow: {
-    width: 60,
-    height: 60,
-    position: 'absolute',
-    zIndex: 1,
-    transform: [{ rotate: '35deg' }],
-  },
-  info: { fontSize: 16, marginTop: 20, color: 'white', textAlign: 'center' },
-});
 
 export default QiblaCompass;
