@@ -5,17 +5,20 @@ import BottomSheet from './bottom-sheet';
 import ClerkProviderWrapper from './clerk';
 import QueryProvider from './query';
 import ToastProvider from './toaster';
+import { ThemeProvider } from '@/styles/themes';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <GestureHandlerRootView>
-      <QueryProvider>
-        <ClerkProviderWrapper>
-          <BottomSheet>{children}</BottomSheet>
-        </ClerkProviderWrapper>
-        <ToastProvider />
-      </QueryProvider>
-    </GestureHandlerRootView>
+    <ThemeProvider>
+      <GestureHandlerRootView>
+        <QueryProvider>
+          <ClerkProviderWrapper>
+            <BottomSheet>{children}</BottomSheet>
+          </ClerkProviderWrapper>
+          <ToastProvider />
+        </QueryProvider>
+      </GestureHandlerRootView>
+    </ThemeProvider>
   );
 };
 

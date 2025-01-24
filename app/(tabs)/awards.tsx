@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ThemeSwitcher from 'components/shared/theme';
+import ThemeSwitcher from '@/styles/themes/theme-switcher';
 import { Button } from 'components/ui/button';
 import { Text } from 'components/ui/text';
 

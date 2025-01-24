@@ -9,10 +9,19 @@
         "ko": "Korean"
       }
     },
-    "Theme": {
+
+    "Themes": {
       "dark": "Dark",
-      "light": "Light"
+      "light": "Light",
+      "forest_green": "Forest Green",
+      "ocean_breeze": "Ocean Breeze",
+      "sunset": "Sunset",
+      "royal_purple": "Royal Purple",
+      "sunset_orange": "Sunset Orange",
+      "golden_desert": "Golden Desert",
+      "emerald_green": "Emerald Green"
     },
+
     "welcome": "Welcome to Expo localization!"
   }
 }
