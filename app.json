@@ -50,7 +50,8 @@
           "motionPermission": "Allow $(PRODUCT_NAME) to access your device motion"
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "@prisma/react-native"
     ],
     "experiments": {
       "typedRoutes": true

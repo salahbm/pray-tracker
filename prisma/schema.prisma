@@ -6,12 +6,13 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters","reactNative"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 
@@ -19,6 +20,7 @@ model User {
   id          String    @id @default(cuid())
   clerkId     String    @unique
   email       String    @unique
+  password    String    @unique
   username    String    @unique
   firstName   String?
   lastName    String?
