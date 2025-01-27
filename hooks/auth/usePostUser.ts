@@ -8,8 +8,9 @@ import { ErrorData } from '@/types/api';
 
 interface IUserPostParams {
   email: string;
-  clerkId: string;
+  supabaseId: string;
   username: string;
+  password: string;
 }
 
 const postUser = async (params: IUserPostParams) => {
@@ -18,7 +19,8 @@ const postUser = async (params: IUserPostParams) => {
     body: JSON.stringify({
       username: params.username,
       email: params.email,
-      clerkId: params.clerkId,
+      supabaseId: params.supabaseId,
+      password: params.password,
     }),
   });
   return response;

@@ -4,11 +4,11 @@ import { createResponse, StatusCode } from 'utils/status';
 
 export async function POST(request: Request) {
   try {
-    const { username, email, clerkId } = await request.json();
+    const { username, email, supabaseId, password } = await request.json();
 
-    if (!username || !email || !clerkId) {
+    if (!username || !email || !supabaseId) {
       throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { username, email, clerkId },
+        fields: { username, email, supabaseId },
       });
     }
 
@@ -16,7 +16,8 @@ export async function POST(request: Request) {
       data: {
         username,
         email,
-        clerkId,
+        supabaseId,
+        password,
       },
     });
 
@@ -37,7 +38,7 @@ export async function GET(request: Request) {
     const id = url.searchParams.get('id');
     const users = await prisma.user.findUnique({
       where: {
-        clerkId: id,
+        supabaseId: id,
       },
     });
     return createResponse(
@@ -57,14 +58,14 @@ export async function PUT(request: Request) {
 
     // Check if user exists
     const existingUser = await prisma.user.findUnique({
-      where: { clerkId: id },
+      where: { supabaseId: id },
     });
     if (!existingUser) {
       throw new ApiError('User not found', StatusCode.NOT_FOUND);
     }
 
     const updatedUser = await prisma.user.update({
-      where: { clerkId: id },
+      where: { supabaseId: id },
       data,
     });
     return createResponse(

@@ -6,7 +6,7 @@ const config = getDefaultConfig(__dirname);
 
 config.resolver = {
   ...config.resolver,
-  resolveRequest: (context, realModuleName, platform, moduleName) => {
+  resolveRequest: (context, realModuleName, platform, _moduleName) => {
     if (realModuleName.startsWith('#')) {
       const newModuleName = realModuleName.replace(
         '#main-entry-point',

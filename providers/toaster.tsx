@@ -10,12 +10,13 @@ export const fireToast = {
       icon: <Check size={24} color={COLORS.dark.primary} />,
       styles: {
         pressable: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderWidth: 1,
           borderColor: COLORS.dark.primary,
+          zIndex: 10000,
         },
         view: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderRadius: 8,
           padding: 16,
         },
@@ -35,12 +36,12 @@ export const fireToast = {
       icon: <Ban size={24} color={COLORS.dark.destructive} />,
       styles: {
         pressable: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderWidth: 1,
           borderColor: COLORS.dark.destructive,
         },
         view: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderRadius: 8,
           padding: 16,
         },
@@ -60,12 +61,12 @@ export const fireToast = {
       icon: <Info size={24} color={COLORS.dark.border} />,
       styles: {
         pressable: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderWidth: 1,
           borderColor: COLORS.dark.border,
         },
         view: {
-          backgroundColor: COLORS.dark.background,
+          backgroundColor: 'transparent',
           borderRadius: 8,
           padding: 16,
         },

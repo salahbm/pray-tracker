@@ -4,10 +4,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+import RootProvider from 'providers/root';
 import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
 import 'styles/global.css';
-import RootProvider from 'providers/root';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

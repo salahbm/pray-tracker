@@ -81,7 +81,7 @@ export const THEME_COLORS: AllThemes = {
     '--card-foreground': '#f5f5f5',
     '--border': '#6a5acd',
     '--input': '#6a5acd',
-    '--primary': '#a7ff07',
+    '--primary': '#9ef010',
     '--primary-foreground': '#ffffff',
     '--secondary': '#282828',
     '--secondary-foreground': '#e0e0e0',
