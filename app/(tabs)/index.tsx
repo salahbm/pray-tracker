@@ -1,4 +1,3 @@
-import { useUser } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import LottieView from 'lottie-react-native';
@@ -64,10 +63,12 @@ export default function HomeScreen() {
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
   // USER LOAD
-  const { user, isLoaded } = useUser();
-
+  const user = {
+    username: '',
+    imageUrl: '',
+  };
   // QUERIES
-  const { data: userData, isLoading } = useGetUser(user?.id);
+  const { data: userData, isLoading } = useGetUser('rwrwerf3wr');
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
     userData?.id,
     year,
@@ -182,11 +183,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="main-area">
-      <Loader
-        visible={
-          isLoading || isLoadingPrays || isLoadingTodaysPrays || !isLoaded
-        }
-      />
+      <Loader visible={isLoading || isLoadingPrays || isLoadingTodaysPrays} />
       <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
         {/* HEADER */}
         <HomeHeader

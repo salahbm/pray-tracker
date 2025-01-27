@@ -1,4 +1,3 @@
-import { useAuth, useUser } from '@clerk/clerk-expo';
 import { format } from 'date-fns';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -17,9 +16,8 @@ import { useGetUser } from '@/hooks/auth/useGetUser';
 import { fireToast } from '@/providers/toaster';
 
 const Account = () => {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = { user: null, isLoaded: false };
   const { data: userData, isLoading } = useGetUser(user?.id);
-  const { signOut } = useAuth();
   const { mutateAsync } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -29,7 +27,7 @@ const Account = () => {
         user.delete();
       })
       .then(() => {
-        signOut();
+        // signOut();
       })
       .finally(() => {
         setModalVisible(false);
@@ -89,7 +87,7 @@ const Account = () => {
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
         onPress={async () => {
-          await signOut();
+          // await signOut();
           router.replace('/(tabs)');
         }}
       >

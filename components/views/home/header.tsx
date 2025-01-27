@@ -1,4 +1,3 @@
-import { SignedIn, SignedOut } from '@clerk/clerk-expo';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import React, { forwardRef } from 'react';
@@ -36,37 +35,35 @@ const HomeHeader = forwardRef<
           {today.toDateString()}
         </Text>
       </View>
-      <SignedIn>
-        <TouchableOpacity
-          onPress={() => {
-            if (
-              profileSheetRef &&
-              'current' in profileSheetRef &&
-              profileSheetRef.current
-            ) {
-              profileSheetRef.current.snapToIndex(2);
-            }
+
+      {/* <TouchableOpacity
+        onPress={() => {
+          if (
+            profileSheetRef &&
+            'current' in profileSheetRef &&
+            profileSheetRef.current
+          ) {
+            profileSheetRef.current.snapToIndex(2);
+          }
+        }}
+      >
+        <Image
+          source={{
+            uri: user?.imageUrl,
           }}
-        >
-          <Image
-            source={{
-              uri: user?.imageUrl,
-            }}
-            className={cn('size-14 rounded-full')}
-          />
-        </TouchableOpacity>
-      </SignedIn>
-      <SignedOut>
-        <View className="flex-row justify-end gap-5 items-center">
-          <Button size="sm" onPress={handlePresentSignIn}>
-            <Text>Sign In</Text>
-          </Button>
-          <Image
-            source={FRIENDS.guest}
-            className={cn('size-14 rounded-full bg-foreground')}
-          />
-        </View>
-      </SignedOut>
+          className={cn('size-14 rounded-full')}
+        />
+      </TouchableOpacity> */}
+
+      <View className="flex-row justify-end gap-5 items-center">
+        <Button size="sm" onPress={handlePresentSignIn}>
+          <Text>Sign In</Text>
+        </Button>
+        <Image
+          source={FRIENDS.guest}
+          className={cn('size-14 rounded-full bg-foreground')}
+        />
+      </View>
     </View>
   );
 });

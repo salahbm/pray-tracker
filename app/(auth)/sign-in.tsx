@@ -1,4 +1,3 @@
-import { useSignIn } from '@clerk/clerk-expo';
 import { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,7 +14,7 @@ interface ISignIn {
 }
 
 export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
-  const { signIn, setActive, isLoaded } = useSignIn();
+  const { signIn, setActive } = { signIn: null, setActive: null };
   const [isLoading, setIsLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -24,7 +23,6 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   });
 
   const onSignInPress = useCallback(async () => {
-    if (!isLoaded) return;
     setIsLoading(true);
     try {
       const signInAttempt = await signIn.create({
@@ -43,7 +41,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, form, signIn, setActive, onSuccess]);
+  }, [form, signIn, setActive, onSuccess]);
 
   return (
     <SafeAreaView>

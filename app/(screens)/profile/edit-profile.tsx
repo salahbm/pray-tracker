@@ -1,4 +1,3 @@
-import { useUser } from '@clerk/clerk-expo';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
@@ -15,7 +14,14 @@ import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const EditProfile = () => {
-  const { user } = useUser();
+  const { user } = {
+    user: {
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'johndoe',
+      imageUrl: 'https://example.com/avatar.jpg',
+    },
+  };
   const { colors } = useThemeStore();
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
   const [username, setUserName] = useState<string>(user?.username || '');
@@ -34,40 +40,40 @@ const EditProfile = () => {
         lastName !== user?.lastName ||
         username !== user?.username
       ) {
-        await user?.update({
-          username,
-          firstName,
-          lastName,
-        });
+        // await user?.update({
+        //   username,
+        //   firstName,
+        //   lastName,
+        // });
       }
 
       // Update password if provided
       if (currentPassword && newPassword) {
-        await user?.updatePassword({
-          currentPassword,
-          newPassword,
-        });
+        // await user?.updatePassword({
+        //   currentPassword,
+        //   newPassword,
+        // });
       }
 
       // Update profile image if a new image is selected
       if (imageBase64 && imageBase64 !== user?.imageUrl) {
-        const { base64, mimeType } = imageBase64;
+        // const { base64, mimeType } = imageBase64;
 
         // Construct the data URI with the correct MIME type
-        const base64WithPrefix = `data:image/${mimeType};base64,${base64}`;
+        // const base64WithPrefix = `data:image/${mimeType};base64,${base64}`;
 
         // Send the base64 string to the API
-        await user?.setProfileImage({ file: base64WithPrefix });
+        // await user?.setProfileImage({ file: base64WithPrefix });
 
         // Clear the imageBase64 state
         setImageBase64(null);
         setImage(user.imageUrl);
       }
 
-      await user?.reload();
+      // await user?.reload();
 
       const payload = {
-        id: user?.id,
+        id: 'fdsfsdfsdfsdfsdfsd',
         username: user?.username,
         firstName: user?.firstName,
         lastName: user?.lastName,

@@ -1,8 +1,7 @@
-import React from 'react';
 import { SafeAreaView, View, ScrollView } from 'react-native';
 
-import { Text } from 'components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { Text } from 'components/ui/text';
 
 // Localization Example
 const LocalizationExample = () => {

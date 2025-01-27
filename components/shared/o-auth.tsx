@@ -1,4 +1,3 @@
-import { useOAuth } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
 import { Alert, Image, View } from 'react-native';
 
@@ -8,7 +7,7 @@ import { IMAGES } from '@/constants/images';
 import { googleOAuth } from '@/lib/auth';
 
 const OAuth = () => {
-  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' });
+  const { startOAuthFlow } = { startOAuthFlow: { strategy: 'oauth_google' } };
 
   const handleGoogleSignIn = async () => {
     const result = await googleOAuth(startOAuthFlow);

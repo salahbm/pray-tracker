@@ -1,7 +1,6 @@
 import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
