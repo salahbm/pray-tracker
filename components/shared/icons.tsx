@@ -9,6 +9,7 @@ import {
   Trophy,
   LogOut,
   ChevronDown,
+  X,
 } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
@@ -35,6 +36,7 @@ iconWithClassName(Users);
 iconWithClassName(UserPlus);
 iconWithClassName(Trophy);
 iconWithClassName(LogOut);
+iconWithClassName(X);
 
 export {
   Sun,
@@ -47,4 +49,5 @@ export {
   Trophy,
   LogOut,
   ChevronDown,
+  X,
 };

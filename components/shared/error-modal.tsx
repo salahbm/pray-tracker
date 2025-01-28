@@ -1,31 +1,22 @@
 // components/ErrorModal.tsx
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
-import { COLORS } from '@/constants/Colors';
+import { cn } from '@/lib/utils';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface ErrorModalProps {
   isVisible: boolean;
   title: string;
   description?: string;
   onClose: () => void;
-  // Optional styling props
-  modalStyle?: StyleProp<ViewStyle>;
-  titleStyle?: StyleProp<TextStyle>;
-  descriptionStyle?: StyleProp<TextStyle>;
-  buttonStyle?: StyleProp<ViewStyle>;
-  buttonTextStyle?: StyleProp<TextStyle>;
-  // Optional icon
+  modalStyle?: string;
+  titleStyle?: string;
+  descriptionStyle?: string;
+  buttonStyle?: string;
+  buttonTextStyle?: string;
   showIcon?: boolean;
   iconName?: React.ComponentProps<typeof Ionicons>['name'];
   iconSize?: number;
@@ -45,8 +36,9 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
   showIcon = true,
   iconName = 'alert-circle',
   iconSize = 50,
-  iconColor = COLORS.dark.destructive, // iOS default error color
+  iconColor,
 }) => {
+  const { colors } = useThemeStore();
   return (
     <Modal
       isVisible={isVisible}
@@ -55,85 +47,62 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
       useNativeDriver
       hideModalContentWhileAnimating
       backdropTransitionOutTiming={0}
-      style={styles.modalContainer}
+      className="flex items-center justify-center"
       accessibilityViewIsModal
       accessibilityLabel="Error Modal"
       accessibilityRole="alert"
     >
-      <View style={[styles.modalContent, modalStyle]}>
+      <View
+        className={cn(
+          'w-4/5  rounded-lg p-5 items-center shadow-lg bg-popover ',
+          modalStyle,
+        )}
+      >
         {showIcon && (
           <Ionicons
             name={iconName}
             size={iconSize}
-            color={iconColor}
-            style={styles.icon}
+            color={iconColor ?? colors['--primary']}
+            className="mb-4"
             accessibilityIgnoresInvertColors
           />
         )}
-        <Text style={[styles.title, titleStyle]}>{title}</Text>
-        {description ? (
-          <Text style={[styles.description, descriptionStyle]}>
+        <Text
+          className={cn(
+            'text-2xl font-semibold text-center mb-2 text-destructive',
+            titleStyle,
+          )}
+        >
+          {title}
+        </Text>
+        {description && (
+          <Text
+            className={cn(
+              'text-base text-popover-foreground text-center mb-4',
+              descriptionStyle,
+            )}
+          >
             {description}
           </Text>
-        ) : null}
+        )}
         <TouchableOpacity
-          style={[styles.button, buttonStyle]}
+          className={cn('bg-destructive py-2 px-6 rounded', buttonStyle)}
           onPress={onClose}
           accessibilityLabel="Close Error Modal"
           accessibilityRole="button"
         >
-          <Text style={[styles.buttonText, buttonTextStyle]}>Close</Text>
+          <Text
+            className={cn(
+              'text-base text-destructive-foreground font-semibold',
+              buttonTextStyle,
+            )}
+          >
+            Close
+          </Text>
         </TouchableOpacity>
       </View>
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: COLORS.dark.muted,
-    borderRadius: 12,
-    paddingVertical: 30,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5, // For Android shadow
-  },
-  icon: {
-    marginBottom: 15,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: COLORS.dark.destructive, // iOS default error color
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  description: {
-    fontSize: 16,
-    color: COLORS.dark.muted_foreground,
-    textAlign: 'center',
-    marginBottom: 25,
-  },
-  button: {
-    backgroundColor: COLORS.dark.destructive,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: COLORS.dark.muted,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
 
 export default ErrorModal;

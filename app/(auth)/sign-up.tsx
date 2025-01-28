@@ -3,10 +3,8 @@ import { Image, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { X } from '@/components/shared/icons';
 import { usePostUser } from '@/hooks/auth/usePostUser';
-import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
-import { hashPassword } from '@/utils/helpers';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Text } from 'components/ui/text';
@@ -18,111 +16,46 @@ interface ISignUp {
 }
 
 export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
-  const { mutateAsync: postUser } = usePostUser();
+  const {
+    supabaseSignUp,
+    onPressVerify,
+    // resendCode,
+    // isPendingResendCode,
+    isPendingSupabaseSignUp,
+    isPendingOnPressVerify,
+  } = usePostUser();
+
   const [form, setForm] = React.useState({
     email: '',
     username: '',
     password: '',
-  });
-  const [state, setState] = React.useState({
-    loading: 'default',
-    error: '',
-    code: '',
+    token: '',
   });
 
-  // Modals
+  const [error, setError] = React.useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
   const [showOtpModal, setShowOtpModal] = React.useState(false);
 
   // Handle sign-up process
   const onSignUpPress = async () => {
     try {
-      setState({
-        ...state,
-        loading: 'pending',
-      });
-
-      const { data, error } = await supabase.auth.signUp({
-        email: form.email,
-        password: form.password,
-        options: {
-          data: { username: form.username },
-        },
-      });
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      if (data.user) {
-        fireToast.success('Verification email sent.📥');
-        setShowOtpModal(true);
-        setState({
-          ...state,
-          loading: 'verification',
-        });
-      }
+      setError(null);
+      await supabaseSignUp(form);
+      setShowOtpModal(true);
     } catch (err) {
-      fireToast.error('Error: ' + err.message);
+      setError(err.message || 'Sign-up failed.');
     }
   };
 
   // Handle email verification
-  const onPressVerify = async () => {
+  const handlePressVerify = async () => {
     try {
-      const { data, error } = await supabase.auth.verifyOtp({
-        email: form.email,
-        token: state.code.toString(),
-        type: 'signup',
-      });
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      if (data?.user) {
-        const hashedPassword = await hashPassword(form.password); // Hash password
-        const payload = {
-          username: form.username,
-          email: form.email,
-          supabaseId: data.user.id,
-          password: hashedPassword,
-        };
-
-        await postUser(payload).then(() => {
-          setShowOtpModal(false);
-          setShowSuccessModal(true);
-          setState({
-            ...state,
-            loading: 'success',
-          });
-        });
-      }
+      setError(null);
+      await onPressVerify(form);
+      setShowOtpModal(false);
+      setShowSuccessModal(true);
     } catch (err) {
-      setState({
-        ...state,
-        error: err.message,
-        loading: 'failed',
-      });
-    }
-  };
-
-  // Resend OTP
-  const onResendOtp = async () => {
-    try {
-      const { error } = await supabase.auth.resend({
-        email: form.email,
-        type: 'signup',
-      });
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      fireToast.success('Verification code resent to your email. 📤');
-      setShowOtpModal(true);
-    } catch (err) {
-      fireToast.error('Error: ' + err.message);
+      setError(err.message || 'Verification failed.');
     }
   };
 
@@ -133,7 +66,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           Join Us
         </Text>
         <Text className="text-sm text-muted-foreground text-center mb-6">
-          Sign up with your email, username, and password
+          Create an account to continue
         </Text>
 
         <Input
@@ -164,18 +97,17 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         />
 
         <Button
-          onPress={
-            state.loading === 'verification' ? onResendOtp : onSignUpPress
-          }
+          onPress={onSignUpPress}
           className="p-4 rounded-lg bg-primary text-white"
-          disabled={state.loading === 'pending'}
+          disabled={isPendingSupabaseSignUp}
         >
           <Text>Sign Up</Text>
         </Button>
+        {error && <Text className="text-destructive mt-2">{error}</Text>}
       </View>
 
-      <View className="mt-8 flex flex-row justify-center items-center gap-4 ">
-        <Text className="text-sm text-muted-foreground text-center ">
+      <View className="mt-8 flex flex-row justify-center items-center gap-4">
+        <Text className="text-sm text-muted-foreground text-center">
           Already have an account?
         </Text>
         <Button variant="link" onPress={onNavigate}>
@@ -186,9 +118,17 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
       {/* VERIFICATION MODAL */}
       <ReactNativeModal
         isVisible={showOtpModal}
-        onBackdropPress={() => setShowOtpModal(false)}
+        backdropOpacity={0.4}
+        avoidKeyboard
       >
-        <View className="bg-muted px-7 py-14 rounded-2xl ">
+        <View className="bg-muted px-7 py-14 rounded-2xl relative border border-border">
+          <Button className="absolute top-2 right-0" variant="ghost">
+            <X
+              size={24}
+              onPress={() => setShowOtpModal(false)}
+              className="fill-white"
+            />
+          </Button>
           <Text className="text-2xl font-bold mb-2">Verification</Text>
           <Text className="text-gray-600 mb-5">
             We&apos;ve sent a verification code to {form.email}.
@@ -196,16 +136,29 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           <Input
             placeholder="12345"
             className="p-3 rounded-lg bg-surface border border-gray-200"
-            value={state.code}
+            value={form.token}
             keyboardType="numeric"
-            onChangeText={(code) => setState({ ...state, code })}
+            onChangeText={(token) => setForm({ ...form, token })}
           />
-          {state.error && (
-            <Text className="text-destructive text-sm mt-2">{state.error}</Text>
+          {error && (
+            <Text className="text-destructive text-sm mt-2">{error}</Text>
           )}
-          <Button onPress={onPressVerify} className="mt-5 p-4 rounded-lg">
+          <Button
+            onPress={handlePressVerify}
+            className="mt-5"
+            disabled={isPendingOnPressVerify}
+          >
             <Text>Verify Email</Text>
           </Button>
+
+          {/* <Button
+            onPress={handleResendCode}
+            variant="link"
+            className="mt-5"
+            disabled={isPendingResendCode}
+          >
+            <Text>Resend Code</Text>
+          </Button> */}
         </View>
       </ReactNativeModal>
 
