@@ -19,10 +19,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const {
     supabaseSignUp,
     onPressVerify,
-    // resendCode,
-    // isPendingResendCode,
+    postUser,
+    isPostUserSuccess,
     isPendingSupabaseSignUp,
     isPendingOnPressVerify,
+    isPendingPostUser,
   } = usePostUser();
 
   const [form, setForm] = React.useState({
@@ -33,7 +34,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   });
 
   const [error, setError] = React.useState<string | null>(null);
-  const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+  const [showSuccessModal, setShowSuccessModal] =
+    React.useState(isPostUserSuccess);
   const [showOtpModal, setShowOtpModal] = React.useState(false);
 
   // Handle sign-up process
@@ -51,7 +53,17 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const handlePressVerify = async () => {
     try {
       setError(null);
-      await onPressVerify(form);
+      const data = await onPressVerify(form);
+
+      const payload = {
+        email: form.email,
+        password: form.password,
+        username: form.username,
+        supabaseId: data.user.id,
+      };
+
+      await postUser(payload);
+
       setShowOtpModal(false);
       setShowSuccessModal(true);
     } catch (err) {
@@ -122,7 +134,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         avoidKeyboard
       >
         <View className="bg-muted px-7 py-14 rounded-2xl relative border border-border">
-          <Button className="absolute top-2 right-0" variant="ghost">
+          <Button
+            className="absolute top-2 right-0"
+            variant="ghost"
+            disabled={isPendingPostUser || isPendingOnPressVerify}
+          >
             <X
               size={24}
               onPress={() => setShowOtpModal(false)}
@@ -146,19 +162,10 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           <Button
             onPress={handlePressVerify}
             className="mt-5"
-            disabled={isPendingOnPressVerify}
+            disabled={isPendingOnPressVerify || isPendingPostUser}
           >
             <Text>Verify Email</Text>
           </Button>
-
-          {/* <Button
-            onPress={handleResendCode}
-            variant="link"
-            className="mt-5"
-            disabled={isPendingResendCode}
-          >
-            <Text>Resend Code</Text>
-          </Button> */}
         </View>
       </ReactNativeModal>
 
