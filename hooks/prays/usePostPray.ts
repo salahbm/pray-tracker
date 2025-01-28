@@ -1,7 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
-import { praysListKeys } from '@/constants/query-keys';
+import useMutation from '../common/useMutation';
+import { praysListKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponse } from '@/types/api';
@@ -39,13 +40,15 @@ export const useCreatePray = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createPray,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [praysListKeys],
-      });
-    },
-    onError: (error: ErrorData) => {
-      fireToast.error(error.message);
+    options: {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [praysListKeys, usersListKey],
+        });
+      },
+      onError: (error: ErrorData) => {
+        fireToast.error(error.message);
+      },
     },
   });
 };

@@ -16,12 +16,15 @@ async function signInWithEmail(prams: IUserLogin) {
     email: email,
     password: password,
   });
-
   if (error) {
     throw new Error(error.message);
   }
 
   if (data) {
+    await supabase.auth.setSession({
+      access_token: data.session.access_token,
+      refresh_token: data.session.refresh_token,
+    });
     await supabase.auth.refreshSession();
   }
 
@@ -36,7 +39,7 @@ export const useLoginUser = () => {
     options: {
       onSuccess: async () => {
         queryClient.invalidateQueries(userKeys);
-        fireToast.success('Check your email to verify your account.');
+        fireToast.success('Welcome back. ');
       },
     },
   });

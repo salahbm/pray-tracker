@@ -4,20 +4,17 @@ import { Alert, Image, View } from 'react-native';
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { IMAGES } from '@/constants/images';
-import { googleOAuth } from '@/lib/auth';
 
 const OAuth = () => {
   const { startOAuthFlow } = { startOAuthFlow: { strategy: 'oauth_google' } };
 
   const handleGoogleSignIn = async () => {
-    const result = await googleOAuth(startOAuthFlow);
-
-    if (result.code === 'session_exists') {
-      Alert.alert('Success', 'Session exists. Redirecting to home screen.');
-      router.replace('/(tabs)');
-    }
-
-    Alert.alert(result.success ? 'Success' : 'Error', result.message);
+    // const result = await googleOAuth(startOAuthFlow);
+    // if (result.code === 'session_exists') {
+    //   Alert.alert('Success', 'Session exists. Redirecting to home screen.');
+    //   router.replace('/(tabs)');
+    // }
+    // Alert.alert(result.success ? 'Success' : 'Error', result.message);
   };
 
   return (

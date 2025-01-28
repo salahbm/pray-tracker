@@ -1,6 +1,6 @@
 export type User = {
   id: string;
-  clerkId: string;
+  supabaseId: string;
   username: string;
   email: string;
   photo?: string;

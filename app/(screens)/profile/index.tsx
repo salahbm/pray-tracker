@@ -2,6 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import { SignedIn } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 interface Props {
@@ -17,45 +18,56 @@ const ProfilePage = ({ onNavigate }: Props) => {
       <View className="mb-5">
         <Text className="text-xl font-bold text-muted-foreground">Profile</Text>
       </View>
-
-      {/* Account*/}
-      <TouchableOpacity
-        className="profile-section"
-        onPress={() => {
-          onNavigate();
-          router.push('/(screens)/profile/account');
-        }}
-      >
-        <View className="flex-row items-center">
-          <Feather name="user" size={20} color={colors['--muted-foreground']} />
-          <Text className="text-base text-muted-foreground ml-2">Account</Text>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={20}
-          color={colors['--muted-foreground']}
-        />
-      </TouchableOpacity>
-      {/* Edit Profile Section */}
-      <TouchableOpacity
-        className="profile-section"
-        onPress={() => {
-          onNavigate();
-          router.push('/(screens)/profile/edit-profile');
-        }}
-      >
-        <View className="flex-row items-center">
-          <Feather name="edit" size={20} color={colors['--muted-foreground']} />
-          <Text className="text-base text-muted-foreground ml-2">
-            Edit Profile
-          </Text>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={20}
-          color={colors['--muted-foreground']}
-        />
-      </TouchableOpacity>
+      <SignedIn>
+        {/* Account*/}
+        <TouchableOpacity
+          className="profile-section"
+          onPress={() => {
+            onNavigate();
+            router.push('/(screens)/profile/account');
+          }}
+        >
+          <View className="flex-row items-center">
+            <Feather
+              name="user"
+              size={20}
+              color={colors['--muted-foreground']}
+            />
+            <Text className="text-base text-muted-foreground ml-2">
+              Account
+            </Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={colors['--muted-foreground']}
+          />
+        </TouchableOpacity>
+        {/* Edit Profile Section */}
+        <TouchableOpacity
+          className="profile-section"
+          onPress={() => {
+            onNavigate();
+            router.push('/(screens)/profile/edit-profile');
+          }}
+        >
+          <View className="flex-row items-center">
+            <Feather
+              name="edit"
+              size={20}
+              color={colors['--muted-foreground']}
+            />
+            <Text className="text-base text-muted-foreground ml-2">
+              Edit Profile
+            </Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={colors['--muted-foreground']}
+          />
+        </TouchableOpacity>
+      </SignedIn>
 
       {/* Notifications Section */}
       <TouchableOpacity

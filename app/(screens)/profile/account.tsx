@@ -13,59 +13,54 @@ import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useGetUser } from '@/hooks/auth/useGetUser';
+import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 
 const Account = () => {
-  const { user, isLoaded } = { user: null, isLoaded: false };
-  const { data: userData, isLoading } = useGetUser(user?.id);
-  const { mutateAsync } = useDeleteUser();
+  const { data: user, isLoading } = useGetUser();
+  const { mutateAsync: deleteUser } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
-    await mutateAsync({ id: userData.id })
-      .then(() => {
-        user.delete();
-      })
-      .then(() => {
-        // signOut();
-      })
-      .finally(() => {
+    await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(
+      () => {
         setModalVisible(false);
         fireToast.success('Account withdrawal initiated.');
         router.replace('/(tabs)');
-      });
+      },
+    );
   };
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isLoading || !isLoaded} />
+      <Loader visible={isLoading} />
       <GoBack title="Account" />
       <View className="main-area">
         <Image
           source={{
-            uri: user?.imageUrl || FRIENDS.guest,
+            uri: user?.photo || FRIENDS.guest,
           }}
           accessibilityLabel="Profile Photo"
-          className="w-[150px] h-[150px] rounded-full mx-auto"
+          className="w-[150px] h-[150px] rounded-full mx-auto border border-border"
         />
         {/* Account Info */}
         <View className="mt-12">
           <View className="flex-row justify-between items-center w-full mb-4">
             <Text className="text-base font-semibold">Email:</Text>
             <Text className="text-base font-semibold">
-              {userData?.email ? userData.email : '-'}
+              {user?.email ? user.email : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full mb-4">
             <Text className="text-base font-semibold">Created:</Text>
             <Text className="text-base font-semibold">
-              {userData?.createdAt ? format(userData.createdAt, 'PPpp') : '-'}
+              {user?.createdAt ? format(user.createdAt, 'PPpp') : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full">
             <Text className="text-base font-semibold">Last Updated:</Text>
             <Text className="text-base font-semibold">
-              {userData?.updatedAt ? format(userData.updatedAt, 'PPpp') : '-'}
+              {user?.updatedAt ? format(user.updatedAt, 'PPpp') : '-'}
             </Text>
           </View>
         </View>
@@ -87,7 +82,8 @@ const Account = () => {
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
         onPress={async () => {
-          // await signOut();
+          await supabase.auth.signOut();
+          await supabase.auth.refreshSession();
           router.replace('/(tabs)');
         }}
       >

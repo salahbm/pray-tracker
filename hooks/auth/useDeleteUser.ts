@@ -1,13 +1,14 @@
-// delete user
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
+import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
 
 interface IUserDelete {
   id: string;
+  supabaseId: string;
 }
 
 const deleteUser = async (params: IUserDelete) => {
@@ -17,6 +18,12 @@ const deleteUser = async (params: IUserDelete) => {
       id: params.id,
     }),
   });
+
+  if (response.ok) {
+    await supabase.auth.admin.deleteUser(params.supabaseId).then(() => {
+      supabase.auth.signOut();
+    });
+  }
   return response;
 };
 
