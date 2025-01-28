@@ -62,22 +62,18 @@ export default function HomeScreen() {
   // DATE STATE
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
-  // USER LOAD
-  const user = {
-    username: '',
-    imageUrl: '',
-  };
+
   // QUERIES
-  const { data: userData, isLoading } = useGetUser('rwrwerf3wr');
+  const { data: user, isLoading } = useGetUser();
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
-    userData?.id,
+    user?.id,
     year,
   );
   const {
     data: todaysPrays,
     refetch,
     isLoading: isLoadingTodaysPrays,
-  } = useGetTodayPrays(userData?.id);
+  } = useGetTodayPrays(user?.id);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -113,7 +109,7 @@ export default function HomeScreen() {
       const updatedPrayers = { ...prayers, [prayer]: value };
       dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       await createPray({
-        id: userData?.id,
+        id: user?.id,
         date: today,
         ...updatedPrayers,
       });
@@ -122,7 +118,7 @@ export default function HomeScreen() {
         confettiRef.current?.play(0);
       }
     },
-    [prayers, createPray, userData?.id, today],
+    [prayers, createPray, user?.id, today],
   );
 
   const handleDayClick = useCallback(
@@ -147,7 +143,7 @@ export default function HomeScreen() {
       if (!details || !details.data) return;
 
       await createPray({
-        id: userData?.id,
+        id: user?.id,
         date: new Date(date),
         ...details.data,
       });
@@ -156,7 +152,7 @@ export default function HomeScreen() {
       fireToast.info('Prayer updated successfully');
       refetch();
     },
-    [createPray, userData?.id, refetch],
+    [createPray, user?.id, refetch],
   );
 
   useEffect(() => {

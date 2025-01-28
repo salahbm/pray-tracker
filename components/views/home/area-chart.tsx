@@ -39,6 +39,7 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         showVerticalLines
         areaChart
         curved
+        isAnimated
         startFillColor={colors['--primary']}
         startOpacity={0.2}
         endFillColor={colors['--border']}

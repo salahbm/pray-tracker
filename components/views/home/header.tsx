@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';
+import { SignedOut } from '@/providers/session';
 
 interface HomeHeaderProps {
-  user?: { username: string; imageUrl: string }; // Add your user type here
+  user?: { username: string; photo?: string }; // Add your user type here
   today: Date;
   handlePresentSignIn: () => void;
 }
@@ -36,33 +37,30 @@ const HomeHeader = forwardRef<
         </Text>
       </View>
 
-      {/* <TouchableOpacity
-        onPress={() => {
-          if (
-            profileSheetRef &&
-            'current' in profileSheetRef &&
-            profileSheetRef.current
-          ) {
-            profileSheetRef.current.snapToIndex(2);
-          }
-        }}
-      >
-        <Image
-          source={{
-            uri: user?.imageUrl,
-          }}
-          className={cn('size-14 rounded-full')}
-        />
-      </TouchableOpacity> */}
-
       <View className="flex-row justify-end gap-5 items-center">
-        <Button size="sm" onPress={handlePresentSignIn}>
-          <Text>Sign In</Text>
-        </Button>
-        <Image
-          source={FRIENDS.guest}
-          className={cn('size-14 rounded-full bg-foreground')}
-        />
+        <SignedOut>
+          <Button size="sm" onPress={handlePresentSignIn}>
+            <Text>Sign In</Text>
+          </Button>
+        </SignedOut>
+        <TouchableOpacity
+          onPress={() => {
+            if (
+              profileSheetRef &&
+              'current' in profileSheetRef &&
+              profileSheetRef.current
+            ) {
+              profileSheetRef.current.snapToIndex(2);
+            }
+          }}
+        >
+          <Image
+            source={{
+              uri: user?.photo || FRIENDS.guest,
+            }}
+            className={cn('size-14 rounded-full border border-border')}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

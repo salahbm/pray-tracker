@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
-import { fireToast } from '@/providers/toaster';
+import { useLoginUser } from '@/hooks/auth/useLogin';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -14,8 +14,7 @@ interface ISignIn {
 }
 
 export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
-  const { signIn, setActive } = { signIn: null, setActive: null };
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: signIn, isPending } = useLoginUser();
 
   const [form, setForm] = useState({
     email: '',
@@ -23,25 +22,9 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   });
 
   const onSignInPress = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const signInAttempt = await signIn.create({
-        identifier: form.email,
-        password: form.password,
-      });
-
-      if (signInAttempt.status === 'complete') {
-        await setActive({ session: signInAttempt.createdSessionId });
-        onSuccess();
-      } else {
-        fireToast.error('Log in failed. Please try again.');
-      }
-    } catch (err) {
-      fireToast.error(err.errors[0].longMessage);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [form, signIn, setActive, onSuccess]);
+    await signIn(form);
+    onSuccess();
+  }, [signIn, form, onSuccess]);
 
   return (
     <SafeAreaView>
@@ -79,7 +62,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         <Text className="text-sm text-muted-foreground text-center ">
           Don&apos;t have an account?
         </Text>
-        <Button variant="link" onPress={onNavigate} disabled={isLoading}>
+        <Button variant="link" onPress={onNavigate} disabled={isPending}>
           <Text className="font-primary">Sign up</Text>
         </Button>
       </View>
