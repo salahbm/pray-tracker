@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as QueryParams from 'expo-auth-session/build/QueryParams';
+import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 
 import useMutation from '../common/useMutation';
@@ -44,6 +45,7 @@ const performOAuth = async () => {
   if (res.type === 'success') {
     const { url } = res;
     await createSessionFromUrl(url);
+    await supabase.auth.refreshSession();
   }
 };
 
@@ -55,7 +57,8 @@ export const useOAuth = () => {
     options: {
       onSuccess: async () => {
         queryClient.invalidateQueries(userKeys);
-        fireToast.success('Welcome back. ');
+        fireToast.success('Welcome back.');
+        router.replace('/(tabs)');
       },
     },
   });

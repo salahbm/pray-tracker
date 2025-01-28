@@ -18,7 +18,7 @@ import { fireToast } from '@/providers/toaster';
 
 const Account = () => {
   const { data: user, isLoading } = useGetUser();
-  const { mutateAsync: deleteUser } = useDeleteUser();
+  const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
@@ -110,7 +110,11 @@ const Account = () => {
             <Button variant="outline" onPress={() => setModalVisible(false)}>
               <Text>Cancel</Text>
             </Button>
-            <Button className="bg-destructive" onPress={handleWithdrawAccount}>
+            <Button
+              className="bg-destructive"
+              onPress={handleWithdrawAccount}
+              disabled={isDeleting}
+            >
               <Text>Yes, Withdraw</Text>
             </Button>
           </View>

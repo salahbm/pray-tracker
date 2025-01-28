@@ -1,20 +1,15 @@
-import { router } from 'expo-router';
-import { Alert, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { IMAGES } from '@/constants/images';
+import { useOAuth } from '@/hooks/auth/useOAuth';
 
 const OAuth = () => {
-  const { startOAuthFlow } = { startOAuthFlow: { strategy: 'oauth_google' } };
+  const { mutateAsync: startOAuthFlow } = useOAuth();
 
   const handleGoogleSignIn = async () => {
-    // const result = await googleOAuth(startOAuthFlow);
-    // if (result.code === 'session_exists') {
-    //   Alert.alert('Success', 'Session exists. Redirecting to home screen.');
-    //   router.replace('/(tabs)');
-    // }
-    // Alert.alert(result.success ? 'Success' : 'Error', result.message);
+    await startOAuthFlow();
   };
 
   return (

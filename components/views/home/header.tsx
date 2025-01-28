@@ -7,14 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';
-import { SignedOut } from '@/providers/session';
+import { SignedIn, SignedOut } from '@/providers/session';
 
 interface HomeHeaderProps {
   user?: { username: string; photo?: string }; // Add your user type here
   today: Date;
   handlePresentSignIn: () => void;
 }
-
 const HomeHeader = forwardRef<
   BottomSheetMethods | BottomSheet | null, // Correct type for the ref
   HomeHeaderProps & React.ComponentPropsWithoutRef<typeof View>
@@ -37,12 +36,7 @@ const HomeHeader = forwardRef<
         </Text>
       </View>
 
-      <View className="flex-row justify-end gap-5 items-center">
-        <SignedOut>
-          <Button size="sm" onPress={handlePresentSignIn}>
-            <Text>Sign In</Text>
-          </Button>
-        </SignedOut>
+      <SignedIn>
         <TouchableOpacity
           onPress={() => {
             if (
@@ -61,7 +55,33 @@ const HomeHeader = forwardRef<
             className={cn('size-14 rounded-full border border-border')}
           />
         </TouchableOpacity>
-      </View>
+      </SignedIn>
+
+      <SignedOut>
+        <View className="flex-row justify-end gap-5 items-center">
+          <Button size="sm" onPress={handlePresentSignIn}>
+            <Text>Sign In</Text>
+          </Button>
+          <TouchableOpacity
+            onPress={() => {
+              if (
+                profileSheetRef &&
+                'current' in profileSheetRef &&
+                profileSheetRef.current
+              ) {
+                profileSheetRef.current.snapToIndex(2);
+              }
+            }}
+          >
+            <Image
+              source={FRIENDS.guest}
+              className={cn(
+                'size-14 rounded-full bg-foreground border border-border',
+              )}
+            />
+          </TouchableOpacity>
+        </View>
+      </SignedOut>
     </View>
   );
 });

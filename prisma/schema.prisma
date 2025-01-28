@@ -24,7 +24,7 @@ model User {
   username    String    @unique
   firstName   String?
   lastName    String?
-  photo       String?
+  photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/sign/avatars/guest.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2d1ZXN0LnBuZyIsImlhdCI6MTczODAzNTI4MCwiZXhwIjo0ODYwMDk5MjgwfQ.SIhFeYv30hUehZy949AIpfvCdsneoCmR-WUrYgGABKk")
   prays       Prays[]
   totalPoints Int       @default(0)
 
