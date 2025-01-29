@@ -67,6 +67,30 @@ const ProfilePage = ({ onNavigate }: Props) => {
             color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
+        {/* Edit Password Section */}
+        <TouchableOpacity
+          className="profile-section"
+          onPress={() => {
+            onNavigate();
+            router.push('/(screens)/profile/edit-pwd');
+          }}
+        >
+          <View className="flex-row items-center">
+            <Feather
+              name="lock"
+              size={20}
+              color={colors['--muted-foreground']}
+            />
+            <Text className="text-base text-muted-foreground ml-2">
+              Edit Password
+            </Text>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={20}
+            color={colors['--muted-foreground']}
+          />
+        </TouchableOpacity>
       </SignedIn>
 
       {/* Notifications Section */}

@@ -16,6 +16,7 @@ import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { DayData } from '@/components/shared/heat-map/heat';
 import Loader from '@/components/shared/loader';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
@@ -122,8 +123,7 @@ export default function HomeScreen() {
   );
 
   const handleDayClick = useCallback(
-    (date, details) => {
-      if (!details || !details.data) return;
+    (date: string, details: { data: DayData }) => {
       // if today, scroll to top
       if (date === format(today, 'yyyy-MM-dd')) {
         return homeRef.current?.scrollTo({
@@ -132,7 +132,21 @@ export default function HomeScreen() {
         });
       }
 
-      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
+      const salahs = details || {
+        data: {
+          fajr: null,
+          dhuhr: null,
+          asr: null,
+          maghrib: null,
+          isha: null,
+          tahajjud: null,
+        },
+      };
+
+      dispatch({
+        type: 'SET_CLICKED_DATA',
+        payload: { date, details: salahs },
+      });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
     [today],

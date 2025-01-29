@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
 import useMutation from '../common/useMutation';
-import { praysListKeys, usersListKey } from '@/constants/query-keys';
+import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponse } from '@/types/api';
@@ -43,7 +43,7 @@ export const useCreatePray = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [praysListKeys, usersListKey],
+          queryKey: [praysListKeys],
         });
       },
       onError: (error: ErrorData) => {

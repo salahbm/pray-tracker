@@ -48,12 +48,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     minYear = 2000,
   } = params;
   const { colors } = useThemeStore();
-  // Example of toggling picker visibility
+
   const togglePicker = () => {
     dispatch({ type: 'TOGGLE_PICKER' });
   };
 
-  // Example of setting accordion state
   const setAccordionState = (newAccordion) => {
     dispatch({ type: 'SET_ACCORDION', payload: newAccordion });
   };
@@ -73,10 +72,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
       return acc;
     }, {});
   }, [data]);
+
   return (
     <React.Fragment>
       <View className="mt-6">
-        <View className="flex flex-row justify-between items-center  mb-4">
+        <View className="flex flex-row justify-between items-center mb-4">
           <Text className={cn('text-xl font-semibold')}>Prayer History</Text>
           <Button variant="outline" size="sm" onPress={togglePicker}>
             <Text>{year}</Text>
@@ -89,11 +89,9 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           isVisible={isPickerVisible}
           onBackdropPress={togglePicker}
         />
-        {/* HEAT MAP */}
         <HeatMap
           color={{
             theme: colors['--primary'],
-
             opacity: [
               { opacity: 0, limit: 0 },
               { opacity: 0.1, limit: 1 },
@@ -109,7 +107,6 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           onDayClick={handleDayClick}
         />
       </View>
-
       <Accordion
         type="single"
         value={accordion}
@@ -132,45 +129,51 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                   </Button>
                 </View>
                 {Object.entries(clickedData.details.data).map(
-                  ([prayer, value]) => (
-                    <View
-                      key={prayer}
-                      className="flex-row items-center justify-between mt-2"
-                    >
-                      <Text className={cn('capitalize font-semibold')}>
-                        {prayer}
-                      </Text>
-                      <View className="flex-row gap-8">
-                        {[
-                          PRAYER_POINTS.MISSED,
-                          PRAYER_POINTS.LATE,
-                          PRAYER_POINTS.ON_TIME,
-                        ].map((val) => (
-                          <Checkbox
-                            key={val}
-                            value={value === val}
-                            onValueChange={() =>
-                              handleUpdateClickedDay(clickedData.date, {
-                                data: {
-                                  ...clickedData.details.data,
-                                  [prayer]: val,
-                                },
-                              })
-                            }
-                            color={
-                              value === val
-                                ? val === PRAYER_POINTS.ON_TIME
-                                  ? colors['--primary']
-                                  : val === PRAYER_POINTS.LATE
-                                    ? colors['--secondary']
-                                    : colors['--destructive']
-                                : undefined
-                            }
-                          />
-                        ))}
+                  ([prayer, value]) => {
+                    const isDateAfterToday =
+                      new Date(clickedData.date) > new Date();
+                    return (
+                      <View
+                        key={prayer}
+                        className="flex-row items-center justify-between mt-2"
+                      >
+                        <Text className={cn('capitalize font-semibold')}>
+                          {prayer}
+                        </Text>
+                        {!isDateAfterToday && (
+                          <View className="flex-row gap-8">
+                            {[
+                              PRAYER_POINTS.MISSED,
+                              PRAYER_POINTS.LATE,
+                              PRAYER_POINTS.ON_TIME,
+                            ].map((val) => (
+                              <Checkbox
+                                key={val}
+                                value={value === val}
+                                onValueChange={() =>
+                                  handleUpdateClickedDay(clickedData.date, {
+                                    data: {
+                                      ...clickedData.details.data,
+                                      [prayer]: val,
+                                    },
+                                  })
+                                }
+                                color={
+                                  value === val
+                                    ? val === PRAYER_POINTS.ON_TIME
+                                      ? colors['--primary']
+                                      : val === PRAYER_POINTS.LATE
+                                        ? colors['--secondary']
+                                        : colors['--destructive']
+                                    : undefined
+                                }
+                              />
+                            ))}
+                          </View>
+                        )}
                       </View>
-                    </View>
-                  ),
+                    );
+                  },
                 )}
               </View>
             </AccordionContent>

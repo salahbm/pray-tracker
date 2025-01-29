@@ -10,6 +10,7 @@ interface IUserParams {
   firstName?: string;
   lastName?: string;
   photo?: string;
+  password?: string;
 }
 
 const updateUser = async (params: IUserParams) => {
@@ -21,6 +22,7 @@ const updateUser = async (params: IUserParams) => {
       firstName: params.firstName,
       lastName: params.lastName,
       photo: params.photo,
+      password: params.password,
     }),
   });
   return response;
