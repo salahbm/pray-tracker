@@ -4,7 +4,7 @@ import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
 import { User } from '@/types/user';
 
-const getUser = async (supabaseId?: string): Promise<User> => {
+const getUser = async (supabaseId: string): Promise<User> => {
   const data = await agent(`/user?id=${supabaseId}`, {
     method: 'GET',
   });

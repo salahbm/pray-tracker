@@ -39,8 +39,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         queryCache: new QueryCache({
           onError: (error, query) => {
             if (!isErrorData(error)) {
-              console.log('Unhandled error:', error);
-              fireToast.error('An unexpected error occurred.');
+              fireToast.error(error.message);
               return;
             }
 
@@ -57,9 +56,6 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
             }
 
             if (query.state.data !== undefined) {
-              console.log(
-                `Something went wrong on background fetching: ${error.message}`,
-              );
               fireToast.error(
                 `Something went wrong on background fetching: ${error.message}`,
               );
@@ -67,13 +63,10 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           },
         }),
         mutationCache: new MutationCache({
-          onError: (error, variables, context, mutation) => {
-            console.log('====================================');
-            console.log('mutation', mutation, variables, context);
-            console.log('====================================');
+          onError: (error) => {
             if (!isErrorData(error)) {
-              console.log('Unhandled mutation error:', error);
-              fireToast.error('An unexpected error occurred.');
+              console.log('error in mutation', error);
+              fireToast.error(error.message);
               return;
             }
 

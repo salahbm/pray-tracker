@@ -65,7 +65,6 @@ export default function HomeScreen() {
 
   // QUERIES
   const { user } = useAuthStore();
-  console.log('user index:', user);
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
     user?.id,
     year,

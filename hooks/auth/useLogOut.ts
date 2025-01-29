@@ -24,7 +24,7 @@ export const useLogoutUser = () => {
       await supabase.auth.refreshSession();
     },
     onSuccess: async () => {
-      queryClient.clear(); // ✅ Clear React Query cache
+      queryClient.clear();
       fireToast.success('Logged out successfully.');
       router.push('/(tabs)');
     },

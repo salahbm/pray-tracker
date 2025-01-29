@@ -1,10 +1,7 @@
 import { Session, User } from '@supabase/supabase-js';
-import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
-import { userKeys } from '@/constants/query-keys';
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 
 interface IUserLogin {
   email: string;
@@ -28,15 +25,7 @@ async function signInWithEmail(
 }
 
 export const useLoginUser = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: signInWithEmail,
-    options: {
-      onSuccess: async () => {
-        queryClient.invalidateQueries(userKeys);
-        fireToast.success('Welcome back. ');
-      },
-    },
   });
 };

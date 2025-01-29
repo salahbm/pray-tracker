@@ -18,8 +18,6 @@ const HomeHeader = forwardRef<
   BottomSheetMethods | BottomSheet | null, // Correct type for the ref
   HomeHeaderProps & React.ComponentPropsWithoutRef<typeof View>
 >(({ user, today, handlePresentSignIn }, profileSheetRef) => {
-  console.log('user:', user);
-
   return (
     <View
       className={cn(

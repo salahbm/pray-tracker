@@ -1,13 +1,16 @@
+import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
+import { userKeys } from '@/constants/query-keys';
 import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useLoginUser } from '@/hooks/auth/useLogin';
 import { supabase } from '@/lib/supabase';
+import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
@@ -18,37 +21,49 @@ interface ISignIn {
 }
 
 export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
-  const { mutateAsync: signIn, isPending, data: loginData } = useLoginUser();
-  const { data: user } = useGetUser(loginData?.user.id); // Fetch user data from API
-  const { setUser } = useAuthStore(); // Zustand for auth state
+  const { mutateAsync: signIn, isPending, data: supabaseUser } = useLoginUser();
+  const queryClient = useQueryClient();
+  const { setUser } = useAuthStore();
+  const hasUpdatedSession = useRef(false); // Prevent multiple updates
 
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
-  const onSignInPress = useCallback(async () => {
-    const userData = await signIn(form);
+  const { data, isLoading, refetch } = useGetUser(supabaseUser?.user.id);
 
-    if (userData) {
-      const { access_token, refresh_token } = userData.session;
+  useEffect(() => {
+    if (supabaseUser?.user.id) {
+      refetch(); // Fetch user data after login
+    }
+  }, [supabaseUser?.user.id, refetch]);
 
-      // Store tokens securely
+  useEffect(() => {
+    if (!supabaseUser || !data || hasUpdatedSession.current) return;
+
+    (async () => {
+      hasUpdatedSession.current = true; // Mark as updated to prevent looping
+
+      setUser(data);
+
+      const { access_token, refresh_token } = supabaseUser.session;
+
       await SecureStore.setItemAsync('access_token', access_token);
       await SecureStore.setItemAsync('refresh_token', refresh_token);
 
-      // Set session in Supabase
       await supabase.auth.setSession({ access_token, refresh_token });
-    }
-    onSuccess();
-  }, [signIn, form, onSuccess]);
 
-  // ✅ Update Zustand once user is fetched
-  useEffect(() => {
-    if (user) {
-      setUser(user);
-    }
-  }, [user, setUser]);
+      queryClient.invalidateQueries(userKeys);
+
+      onSuccess();
+      fireToast.success('Signed in successfully.');
+    })();
+  }, [supabaseUser, data, setUser, queryClient, onSuccess]);
+
+  const onSignInPress = useCallback(async () => {
+    await signIn(form);
+  }, [signIn, form]);
 
   return (
     <SafeAreaView>
@@ -75,6 +90,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         />
         <Button
           className="p-4 rounded-lg bg-primary text-white mb-4"
+          disabled={isPending || isLoading}
           onPress={onSignInPress}
         >
           <Text className="font-bold">Sign In</Text>
@@ -86,7 +102,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         <Text className="text-sm text-muted-foreground text-center ">
           Don&apos;t have an account?
         </Text>
-        <Button variant="link" onPress={onNavigate} disabled={isPending}>
+        <Button variant="link" onPress={onNavigate}>
           <Text className="font-primary">Sign up</Text>
         </Button>
       </View>

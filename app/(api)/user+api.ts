@@ -2,6 +2,7 @@ import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
 import { createResponse, StatusCode } from 'utils/status';
 
+// CREATE USER
 export async function POST(request: Request) {
   try {
     const { username, email, supabaseId, password } = await request.json();
@@ -32,11 +33,12 @@ export async function POST(request: Request) {
   }
 }
 
+// GET USER
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.searchParams.get('id');
-    const users = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         supabaseId: id,
       },
@@ -44,7 +46,7 @@ export async function GET(request: Request) {
     return createResponse(
       StatusCode.SUCCESS,
       'User fetched successfully',
-      users,
+      user,
     );
   } catch (error) {
     // Use handleError to standardize the response for all errors
@@ -52,6 +54,7 @@ export async function GET(request: Request) {
   }
 }
 
+// UPDATE USER
 export async function PUT(request: Request) {
   try {
     const { id, ...data } = await request.json();
