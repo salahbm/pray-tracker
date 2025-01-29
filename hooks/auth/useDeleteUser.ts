@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
 
 import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
@@ -12,6 +13,7 @@ interface IUserDelete {
 }
 
 const deleteUser = async (params: IUserDelete) => {
+  // Step 1: Delete user from your API
   const response = await agent('/user', {
     method: 'DELETE',
     body: JSON.stringify({
@@ -19,11 +21,22 @@ const deleteUser = async (params: IUserDelete) => {
     }),
   });
 
-  if (response.ok) {
-    await supabase.auth.admin.deleteUser(params.supabaseId).then(() => {
-      supabase.auth.signOut();
-    });
+  if (!response.ok) {
+    throw new Error('Failed to delete user from API');
   }
+
+  // Step 2: Delete user from Supabase Admin
+  const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
+
+  if (error) {
+    throw new Error(`Failed to delete user from Supabase: ${error.message}`);
+  }
+
+  // Step 3: Sign out & clear tokens
+  await supabase.auth.signOut();
+  await SecureStore.deleteItemAsync('access_token');
+  await SecureStore.deleteItemAsync('refresh_token');
+
   return response;
 };
 

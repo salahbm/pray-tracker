@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+import { useAuthStore } from '@/store/auth/auth-session';
 import RootProvider from 'providers/root';
 import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
@@ -13,9 +14,14 @@ import 'styles/global.css';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { loadSession } = useAuthStore();
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
+
+  useEffect(() => {
+    loadSession(); // Load user session
+  }, [loadSession]);
 
   useEffect(() => {
     if (loaded) {

@@ -1,10 +1,14 @@
-import { useCallback, useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
+import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useLoginUser } from '@/hooks/auth/useLogin';
+import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -14,7 +18,9 @@ interface ISignIn {
 }
 
 export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
-  const { mutateAsync: signIn, isPending } = useLoginUser();
+  const { mutateAsync: signIn, isPending, data: loginData } = useLoginUser();
+  const { data: user } = useGetUser(loginData?.user.id); // Fetch user data from API
+  const { setUser } = useAuthStore(); // Zustand for auth state
 
   const [form, setForm] = useState({
     email: '',
@@ -22,9 +28,27 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   });
 
   const onSignInPress = useCallback(async () => {
-    await signIn(form);
+    const userData = await signIn(form);
+
+    if (userData) {
+      const { access_token, refresh_token } = userData.session;
+
+      // Store tokens securely
+      await SecureStore.setItemAsync('access_token', access_token);
+      await SecureStore.setItemAsync('refresh_token', refresh_token);
+
+      // Set session in Supabase
+      await supabase.auth.setSession({ access_token, refresh_token });
+    }
     onSuccess();
   }, [signIn, form, onSuccess]);
+
+  // ✅ Update Zustand once user is fetched
+  useEffect(() => {
+    if (user) {
+      setUser(user);
+    }
+  }, [user, setUser]);
 
   return (
     <SafeAreaView>

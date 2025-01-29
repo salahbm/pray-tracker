@@ -22,11 +22,11 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
-import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 import confetti from 'assets/gif/confetti.json';
 
 const initialState = {
@@ -64,7 +64,8 @@ export default function HomeScreen() {
   const [year, setYear] = useState(today.getFullYear());
 
   // QUERIES
-  const { data: user, isLoading } = useGetUser();
+  const { user } = useAuthStore();
+  console.log('user index:', user);
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
     user?.id,
     year,
@@ -179,7 +180,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="main-area">
-      <Loader visible={isLoading || isLoadingPrays || isLoadingTodaysPrays} />
+      <Loader visible={isLoadingPrays || isLoadingTodaysPrays} />
       <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
         {/* HEADER */}
         <HomeHeader

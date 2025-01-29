@@ -2,28 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/fetch';
-import { supabase } from '@/lib/supabase';
 import { User } from '@/types/user';
 
-const getUser = async (): Promise<User> => {
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error) {
-    return null;
-  }
-
-  const data = await agent(`/user?id=${user.id}`, {
+const getUser = async (supabaseId?: string): Promise<User> => {
+  const data = await agent(`/user?id=${supabaseId}`, {
     method: 'GET',
   });
 
   return data.data;
 };
 
-export const useGetUser = () =>
+export const useGetUser = (supabaseId: string) =>
   useQuery({
     queryKey: [userKeys],
-    queryFn: () => getUser(),
+    queryFn: () => getUser(supabaseId),
+    enabled: !!supabaseId,
   });

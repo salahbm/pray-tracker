@@ -12,13 +12,14 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
-import { useGetUser } from '@/hooks/auth/useGetUser';
-import { supabase } from '@/lib/supabase';
+import { useLogoutUser } from '@/hooks/auth/useLogOut';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 const Account = () => {
-  const { data: user, isLoading } = useGetUser();
+  const { user } = useAuthStore();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
+  const { mutateAsync: logout, isPending: isLoggingOut } = useLogoutUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
@@ -33,7 +34,7 @@ const Account = () => {
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isLoading} />
+      <Loader visible={isDeleting || isLoggingOut} />
       <GoBack title="Account" />
       <View className="main-area">
         <Image
@@ -81,11 +82,7 @@ const Account = () => {
       <Button
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
-        onPress={async () => {
-          await supabase.auth.signOut();
-          await supabase.auth.refreshSession();
-          router.replace('/(tabs)');
-        }}
+        onPress={async () => await logout()}
       >
         <Text className="text-destructive font-bold">Logout</Text>
         <LogOut className="stroke-destructive" />

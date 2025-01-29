@@ -1,3 +1,4 @@
+import { Session, User } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
@@ -10,25 +11,20 @@ interface IUserLogin {
   password: string;
 }
 
-async function signInWithEmail(prams: IUserLogin) {
+async function signInWithEmail(
+  prams: IUserLogin,
+): Promise<{ user: User; session: Session }> {
   const { email, password } = prams;
   const { error, data } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
   });
+
   if (error) {
     throw new Error(error.message);
   }
 
-  if (data) {
-    await supabase.auth.setSession({
-      access_token: data.session.access_token,
-      refresh_token: data.session.refresh_token,
-    });
-    await supabase.auth.refreshSession();
-  }
-
-  return data;
+  return data as { user: User; session: Session };
 }
 
 export const useLoginUser = () => {
