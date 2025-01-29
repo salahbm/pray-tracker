@@ -3,6 +3,7 @@ export type User = {
   supabaseId: string;
   username: string;
   email: string;
+  password: string;
   photo?: string;
   totalPoints: number;
   firstName?: string;

@@ -31,13 +31,7 @@ export async function GET(request: Request, { id }: { id: string }) {
     });
 
     if (!pray) {
-      return new Response(
-        JSON.stringify({
-          status: StatusCode.NOT_FOUND,
-          message: 'No prayer data found for the given date',
-        }),
-        { status: StatusCode.NOT_FOUND },
-      );
+      return createResponse(StatusCode.SUCCESS, 'Today’s Pray not found');
     }
 
     return createResponse(

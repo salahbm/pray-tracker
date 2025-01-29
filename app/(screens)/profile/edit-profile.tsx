@@ -10,77 +10,91 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useUpdateUser } from '@/hooks/auth/usePutUser';
+import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { hashPassword } from '@/utils/helpers';
 
 const EditProfile = () => {
-  const { user } = {
-    user: {
-      firstName: 'John',
-      lastName: 'Doe',
-      username: 'johndoe',
-      imageUrl: 'https://example.com/avatar.jpg',
-    },
-  };
+  const { user, setUser } = useAuthStore();
   const { colors } = useThemeStore();
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
+
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
-  const [image, setImage] = useState<string>(user?.imageUrl || '');
-  const [imageBase64, setImageBase64] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [image, setImage] = useState<string>(user?.photo || '');
+  const [imageUploading, setImageUploading] = useState<boolean>(false);
+
+  const validatePasswords = () => {
+    if (newPassword && newPassword.length < 6) {
+      fireToast.error('Password must be at least 6 characters.');
+      return false;
+    }
+    if (newPassword && newPassword !== confirmPassword) {
+      fireToast.error('Passwords do not match.');
+      return false;
+    }
+    return true;
+  };
+
+  const uploadImageToSupabase = async (imageUri: string) => {
+    try {
+      setImageUploading(true);
+
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+
+      const fileExt = imageUri.split('.').pop();
+      const filePath = `${user?.id}.${fileExt}`;
+
+      const { error } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, blob, { upsert: true });
+
+      if (error) throw error;
+
+      const { data: publicUrl } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      setImage(publicUrl.publicUrl);
+      fireToast.success('Image uploaded successfully!');
+    } catch (error) {
+      fireToast.error(error.message);
+    } finally {
+      setImageUploading(false);
+    }
+  };
 
   const onUpdatePress = async () => {
     try {
-      // Update first and last name if they have changed
-      if (
-        firstName !== user?.firstName ||
-        lastName !== user?.lastName ||
-        username !== user?.username
-      ) {
-        // await user?.update({
-        //   username,
-        //   firstName,
-        //   lastName,
-        // });
-      }
+      if (!validatePasswords()) return;
 
-      // Update password if provided
       if (currentPassword && newPassword) {
-        // await user?.updatePassword({
-        //   currentPassword,
-        //   newPassword,
-        // });
+        const hashedPassword: string = await hashPassword(currentPassword);
+        if (hashedPassword !== user?.password) {
+          await supabase.auth?.updateUser({ password: newPassword });
+        }
       }
-
-      // Update profile image if a new image is selected
-      if (imageBase64 && imageBase64 !== user?.imageUrl) {
-        // const { base64, mimeType } = imageBase64;
-
-        // Construct the data URI with the correct MIME type
-        // const base64WithPrefix = `data:image/${mimeType};base64,${base64}`;
-
-        // Send the base64 string to the API
-        // await user?.setProfileImage({ file: base64WithPrefix });
-
-        // Clear the imageBase64 state
-        setImageBase64(null);
-        setImage(user.imageUrl);
-      }
-
-      // await user?.reload();
 
       const payload = {
-        id: 'fdsfsdfsdfsdfsdfsd',
-        username: user?.username,
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        photo: user?.imageUrl,
+        id: user?.id,
+        username,
+        firstName,
+        lastName,
+        photo: image,
       };
 
-      await updateUser(payload);
+      await updateUser(payload).then((res) => {
+        if (res) {
+          setUser(res.data);
+        }
+      });
     } catch (error) {
       fireToast.error(error.message);
     }
@@ -88,11 +102,10 @@ const EditProfile = () => {
 
   const onPickImage = async () => {
     try {
-      // Request permission to access media library
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (permissionResult.status !== 'granted') {
-        fireToast.error('Permission to access media library is required!');
+        fireToast.error('Permission required to access media.');
         return;
       }
 
@@ -100,112 +113,94 @@ const EditProfile = () => {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 4],
-        quality: 0.5, // Adjust as needed
-        base64: true, // Enable base64 encoding
+        quality: 0.5,
       });
 
       if (!result.canceled && result.assets.length > 0) {
         const selectedImage = result.assets[0];
-        if (selectedImage.base64 && selectedImage.type) {
-          // Optionally, store the MIME type if needed
-          setImageBase64({
-            base64: selectedImage.base64,
-            type: selectedImage.type,
-          });
-          setImage(selectedImage.uri);
-        } else {
-          fireToast.error(
-            'Failed to retrieve base64 data from the selected image.',
-          );
-        }
+        setImage(selectedImage.uri);
+        uploadImageToSupabase(selectedImage.uri);
       }
     } catch (e) {
-      fireToast.error('Failed: ' + e);
+      fireToast.error(e.message);
     }
   };
 
   return (
     <SafeAreaView className="safe-area">
       <GoBack title="Edit Profile" />
-      <ScrollView className="main-area" automaticallyAdjustKeyboardInsets>
+      <ScrollView
+        className="main-area"
+        automaticallyAdjustKeyboardInsets
+        showsVerticalScrollIndicator={false}
+      >
         <View className="h-[240px] items-center justify-center space-y-3">
           <View className="relative">
             <Image
-              source={{
-                uri: image || FRIENDS.guest,
-              }}
-              accessibilityLabel="Profile Photo" // Replaced 'alt' with 'accessibilityLabel'
-              className="w-[150px] h-[150px] rounded-full"
+              source={{ uri: image || FRIENDS.guest }}
+              accessibilityLabel="Profile Photo"
+              className="w-[150px] h-[150px] rounded-full border border-border"
             />
             <TouchableOpacity
-              onPress={onPickImage} // Corrected function reference
-              className="absolute p-1 rounded-full right-5 bottom-3 bg-light-orange"
+              onPress={onPickImage}
+              className="absolute p-1 rounded-full right-2 bottom-3"
             >
               <Feather name="edit-3" size={24} color={colors['--primary']} />
-              {/* Added color for better visibility */}
             </TouchableOpacity>
           </View>
         </View>
-        <View className="flex gap-4">
-          {/* User Name Field */}
-          <View className="gap-1">
-            <Text>User Name</Text>
-            <Input
-              placeholder="Your User Name"
-              value={username}
-              onChangeText={setUserName}
-              autoCapitalize="words"
-            />
-          </View>
-          {/* First Name Field */}
-          <View className="gap-1">
-            <Text>First Name</Text>
-            <Input
-              placeholder="Your First Name"
-              value={firstName}
-              onChangeText={setFirstName}
-              autoCapitalize="words"
-            />
-          </View>
-          {/* Last Name Field */}
-          <View className="gap-1">
-            <Text>Last Name</Text>
-            <Input
-              placeholder="Your Last Name"
-              value={lastName}
-              onChangeText={setLastName}
-              autoCapitalize="words"
-            />
-          </View>
-          {/* Current Password Field */}
-          <View className="gap-1">
-            <Text>Current Password</Text>
-            <Input
-              placeholder="Your Current Password"
-              autoCapitalize="none"
-              secureTextEntry
-              value={currentPassword}
-              onChangeText={setCurrentPassword}
-            />
-          </View>
-          {/* New Password Field */}
-          <View className="gap-1">
-            <Text>New Password</Text>
-            <Input
-              placeholder="Your New Password"
-              autoCapitalize="none"
-              secureTextEntry
-              value={newPassword}
-              onChangeText={setNewPassword}
-            />
-          </View>
+        <View className="flex gap-4 pb-12">
+          <Input
+            label="User Name"
+            placeholder="Your User Name"
+            value={username}
+            onChangeText={setUserName}
+            autoCapitalize="words"
+          />
+          <Input
+            label="First Name"
+            placeholder="Your First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+            autoCapitalize="words"
+          />
+          <Input
+            label="Last Name"
+            placeholder="Your Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+            autoCapitalize="words"
+          />
+          <View className="border-b border-border my-8" />
+          <Input
+            label="Current Password"
+            placeholder="Your Current Password"
+            autoCapitalize="none"
+            secureTextEntry
+            value={currentPassword}
+            onChangeText={setCurrentPassword}
+          />
+          <Input
+            label="New Password"
+            placeholder="Your New Password"
+            autoCapitalize="none"
+            secureTextEntry
+            value={newPassword}
+            onChangeText={setNewPassword}
+          />
+          <Input
+            label="Confirm Password"
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
         </View>
       </ScrollView>
-      {/* Update Button */}
-
       <View className="bg-background px-5 py-4">
-        <Button onPress={onUpdatePress} disabled={isLoading}>
-          <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
+        <Button onPress={onUpdatePress} disabled={isLoading || imageUploading}>
+          <Text>{isLoading || imageUploading ? 'Updating...' : 'Update'}</Text>
         </Button>
       </View>
     </SafeAreaView>

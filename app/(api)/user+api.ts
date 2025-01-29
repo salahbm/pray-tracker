@@ -61,14 +61,14 @@ export async function PUT(request: Request) {
 
     // Check if user exists
     const existingUser = await prisma.user.findUnique({
-      where: { supabaseId: id },
+      where: { id },
     });
     if (!existingUser) {
       throw new ApiError('User not found', StatusCode.NOT_FOUND);
     }
 
     const updatedUser = await prisma.user.update({
-      where: { supabaseId: id },
+      where: { id },
       data,
     });
     return createResponse(

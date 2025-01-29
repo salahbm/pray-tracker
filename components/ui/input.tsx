@@ -16,7 +16,7 @@ const Input = React.forwardRef<
   const { colors } = useThemeStore();
   const [secure, setSecure] = React.useState(secureTextEntry);
   return (
-    <React.Fragment>
+    <View>
       {label && (
         <Text className={cn('mb-2 block text-md font-medium text-foreground')}>
           {label}
@@ -60,7 +60,7 @@ const Input = React.forwardRef<
             ))}
         </View>
       </View>
-    </React.Fragment>
+    </View>
   );
 });
 
