@@ -4,6 +4,11 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+//  dotenv -e .env.local -- npx prisma migrate dev --name <name>
+
+
+
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["driverAdapters","reactNative"]
@@ -26,6 +31,7 @@ model User {
   lastName    String?
   photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/sign/avatars/guest.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2d1ZXN0LnBuZyIsImlhdCI6MTczODAzNTI4MCwiZXhwIjo0ODYwMDk5MjgwfQ.SIhFeYv30hUehZy949AIpfvCdsneoCmR-WUrYgGABKk")
   prays       Prays[]
+  awards      Award[]
   totalPoints Int       @default(0)
 
   createdAt   DateTime  @default(now())
@@ -49,4 +55,17 @@ model Prays {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, date]) // Ensure no duplicate date entries for a user
+}
+
+model Award {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String   // Award name
+  description String?
+  imageUrl    String?  // URL to the award image (can be from assets or generated dynamically)
+  achievedAt  DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title]) // Ensure the same award is not given multiple times
 }
