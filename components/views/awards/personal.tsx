@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import LottieView from 'lottie-react-native';
+import React, { useMemo, useRef, useState } from 'react';
 import { View, Image, FlatList, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 
@@ -10,6 +11,7 @@ import { IMAGES } from '@/constants/images';
 import { useAwards } from '@/hooks/awards/useGetAwards';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
+import prize from 'assets/gif/prize.json';
 
 export default function PersonalTab() {
   const { user } = useAuthStore();
@@ -18,7 +20,7 @@ export default function PersonalTab() {
     () => data?.map((award) => award.title) || [],
     [data],
   );
-
+  const prizeRef = useRef<LottieView>(null);
   const [selectedAward, setSelectedAward] = useState(null);
 
   return (
@@ -29,8 +31,22 @@ export default function PersonalTab() {
         keyExtractor={(award) => award.title}
         renderItem={({ item }) => {
           const isAchieved = obtainedAwards.includes(item.title);
+          const obtainedAward = data?.find(
+            (award) => award.title === item.title,
+          );
           return (
-            <TouchableOpacity onPress={() => setSelectedAward(item)}>
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedAward(
+                  obtainedAward
+                    ? { ...item, achievedAt: obtainedAward.achievedAt }
+                    : item,
+                );
+                setTimeout(() => {
+                  prizeRef.current?.play(0);
+                }, 200);
+              }}
+            >
               <View
                 className={cn(
                   'flex-row items-center mb-4 px-2 py-3 rounded-lg border',
@@ -77,21 +93,22 @@ export default function PersonalTab() {
             </TouchableOpacity>
           );
         }}
-        ListHeaderComponent={() => (
-          <Text className="text-2xl font-bold my-4 ">Your Achievements</Text>
-        )}
         ListEmptyComponent={() => <NoData />}
         contentContainerStyle={{ gap: 8 }}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={() => (
           <View className="my-4 mx-auto">
-            <Text className="text-lg font-semibold">
+            <Text className="text-lg font-semibold text-center">
+              {user?.totalPoints} Points
+            </Text>
+            <Text className="text-lg font-semibold text-center">
               {AWARDS.length - obtainedAwards.length === 0
                 ? '🎉'
                 : `${AWARDS.length - obtainedAwards.length} Awards to go!`}
             </Text>
           </View>
         )}
+        className="my-4"
       />
 
       {/* Award Details Modal */}
@@ -100,8 +117,25 @@ export default function PersonalTab() {
         onBackdropPress={() => setSelectedAward(null)}
       >
         <View className="p-6 bg-background rounded-lg border border-border">
-          <Text className="text-xl font-bold mb-2">{selectedAward?.title}</Text>
-          <Text className="text-md text-muted-foreground">
+          {selectedAward?.achievedAt && (
+            <LottieView
+              ref={prizeRef}
+              source={prize}
+              autoPlay={false}
+              loop={false}
+              resizeMode="cover"
+              style={{ width: 100, height: 100, alignSelf: 'center' }}
+            />
+          )}
+          <View className="flex-row items-center flex justify-between mb-4">
+            <Text className="text-xl font-bold ">{selectedAward?.title}</Text>
+            <Text className="text-md text-muted-foreground font-medium">
+              {selectedAward?.achievedAt
+                ? new Date(selectedAward.achievedAt).toLocaleDateString()
+                : 'Not obtained yet'}
+            </Text>
+          </View>
+          <Text className="text-md text-foreground font-semibold mb-2">
             {selectedAward?.description}
           </Text>
         </View>

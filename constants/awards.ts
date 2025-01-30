@@ -31,7 +31,7 @@ const AWARDS = [
   },
   {
     title: AWARD_TITLES.THOUSAND_PRAYERS,
-    description: 'You are a true prayer warrior with 1000 prayers completed!',
+    description: 'You are a true prayer warrior with 1000 prayers!',
   },
   {
     title: AWARD_TITLES.PERFECT_WEEK,
