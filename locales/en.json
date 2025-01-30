@@ -21,6 +21,7 @@
       "emerald_green": "Emerald Green",
       "Title": "Choose Theme"
     },
+    "noData": "No data available",
     "welcome": "Welcome to Expo localization!"
   }
 }

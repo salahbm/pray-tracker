@@ -8,12 +8,14 @@ import friend_5 from '../assets/images/friend_5.png';
 import google from '../assets/images/google.png';
 import guest from '../assets/images/guest.png';
 import kaaba from '../assets/images/kaaba.png';
+import no_data from '../assets/images/no-data.png';
 
 export const IMAGES = {
   check,
   google,
   compass,
   kaaba,
+  no_data,
 };
 
 export const FRIENDS = {
