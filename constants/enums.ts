@@ -14,4 +14,18 @@ enum PRAYER_POINTS {
   NOT_TOUCHED = null,
 }
 
-export { PRAYER_POINTS, SALAHS };
+enum AWARD_TITLES {
+  SEVEN_DAY_STREAK = '7-Day Devotion',
+  THIRTY_DAY_STREAK = '30-Day Warrior',
+  HUNDRED_PRAYERS = '100 Prayers Logged',
+  PUNCTUAL_WORSHIPPER = 'Punctual Worshipper',
+  DEDICATED_TAHAJJUD = 'Dedicated Worshipper',
+  // New Awards
+  FIFTY_PRAYERS = '50 Prayers Completed',
+  FIVE_HUNDRED_PRAYERS = '500 Prayers Devotee',
+  THOUSAND_PRAYERS = '1000 Prayers Master',
+  PERFECT_WEEK = 'Perfect Week',
+  FAJR_MASTER = 'Fajr Master',
+}
+
+export { PRAYER_POINTS, SALAHS, AWARD_TITLES };
