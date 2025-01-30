@@ -81,24 +81,24 @@ export async function checkAndAssignAwards(userId: string) {
   }
 
   // Assign and store new awards
-  for (const award of newAwards) {
-    // Upsert ensures we don't duplicate
-    const saved = await prisma.award.upsert({
-      where: {
-        userId_title: { userId, title: award.title },
-      },
-      update: {},
-      create: {
-        userId,
-        title: award.title,
-        description: award.description,
-        // Optional imageUrl if you have a dynamic or static URL
-        imageUrl: null,
-      },
-    });
+  //   for (const award of newAwards) {
+  //     // Upsert ensures we don't duplicate
+  //     const saved = await prisma.award.upsert({
+  //       where: {
+  //         userId_title: { userId, title: award.title },
+  //       },
+  //       update: {},
+  //       create: {
+  //         userId,
+  //         title: award.title,
+  //         description: award.description,
+  //         // Optional imageUrl if you have a dynamic or static URL
+  //         image: null,
+  //       },
+  //     });
 
-    // if (saved) {
-    //   await sendAwardNotification(userId, award.title);
-    // }
-  }
+  //     if (saved) {
+  //       await sendAwardNotification(userId, award.title);
+  //     }
+  //   }
 }

@@ -7,7 +7,11 @@ const usersListKey = {
   queryKey: ['usersList'],
 };
 
+const awards = {
+  queryKey: ['awards'],
+};
+
 const praysListKeys = 'praysListCache';
 const todaysPrayKey = 'todaysPrayCache';
 
-export { userKeys, praysListKeys, todaysPrayKey, usersListKey };
+export { userKeys, praysListKeys, todaysPrayKey, usersListKey, awards };

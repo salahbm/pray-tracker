@@ -62,7 +62,7 @@ model Award {
   userId      String
   title       String   // Award name
   description String?
-  imageUrl    String?  // URL to the award image (can be from assets or generated dynamically)
+  image       String? 
   achievedAt  DateTime @default(now())
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)

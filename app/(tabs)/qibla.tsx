@@ -17,7 +17,7 @@ const QiblaScreen = () => {
   const [nextPrayer, setNextPrayer] = useState('');
   const [value, setValue] = useState('qibla');
   const { data, isLoading } = usePrayerTimes(coords);
-  console.log('data:', JSON.stringify(data, null, 2));
+  // console.log('data:', JSON.stringify(data, null, 2));
 
   useEffect(() => {
     (async () => {

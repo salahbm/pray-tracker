@@ -29,7 +29,7 @@ export default function TabLayout() {
       { name: 'index', title: 'Home', Icon: Home },
       { name: 'qibla', title: 'Qibla', Icon: Compass },
       { name: 'awards', title: 'Awards', Icon: Award },
-      { name: 'sample', title: 'Friends', Icon: Users },
+      { name: 'friends', title: 'Friends', Icon: Users },
     ],
     [],
   );
