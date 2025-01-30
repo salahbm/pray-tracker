@@ -43,8 +43,8 @@ export default function PersonalTab() {
                     : item,
                 );
                 setTimeout(() => {
-                  prizeRef.current?.play(0);
-                }, 200);
+                  prizeRef.current?.play();
+                }, 100);
               }}
             >
               <View
@@ -114,17 +114,19 @@ export default function PersonalTab() {
       {/* Award Details Modal */}
       <Modal
         isVisible={!!selectedAward}
-        onBackdropPress={() => setSelectedAward(null)}
+        onBackdropPress={() => {
+          setSelectedAward(null);
+          prizeRef.current?.reset();
+        }}
       >
-        <View className="p-6 bg-background rounded-lg border border-border">
+        <View className="py-6 px-4 bg-background rounded-lg border border-border">
           {selectedAward?.achievedAt && (
             <LottieView
               ref={prizeRef}
               source={prize}
               autoPlay={false}
-              loop={false}
               resizeMode="cover"
-              style={{ width: 100, height: 100, alignSelf: 'center' }}
+              style={{ width: 130, height: 130, alignSelf: 'center' }}
             />
           )}
           <View className="flex-row items-center flex justify-between mb-4">
