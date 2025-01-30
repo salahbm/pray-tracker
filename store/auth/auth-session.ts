@@ -14,6 +14,8 @@ interface AuthState {
   loadSession: () => Promise<void>;
 }
 
+supabase.auth.getSession();
+
 export const useAuthStore = create<AuthState>()(
   persist<AuthState>(
     (set) => ({
@@ -28,12 +30,22 @@ export const useAuthStore = create<AuthState>()(
         const refreshToken = await SecureStore.getItemAsync('refresh_token');
 
         if (accessToken && refreshToken) {
-          await supabase.auth.setSession({
+          const { data } = await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
           });
 
-          set({ accessToken, refreshToken });
+          if (data?.session) {
+            const expiresIn = data.session.expires_in * 1000; // Convert to ms
+
+            // Set tokens in store
+            set({ accessToken, refreshToken });
+
+            // Schedule user removal when session expires
+            setTimeout(() => {
+              set({ user: null, accessToken: null, refreshToken: null });
+            }, expiresIn);
+          }
         }
       },
     }),

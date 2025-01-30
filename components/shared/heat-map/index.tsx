@@ -4,6 +4,7 @@ import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { defaultColorMap, MAX_DISPLAY_POINTS } from './constant';
 import { DateMap, HeatMapProps, ProcessedData, YearData } from './heat';
 import { arrToMatrix, getDaysInMonth, getOpacityByNumber } from './helpers';
+import { PRAYER_POINTS } from '@/constants/enums';
 import { cn } from '@/lib/utils';
 
 const HeatMap: React.FC<HeatMapProps> = (props) => {
@@ -95,8 +96,14 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
                       }}
                       onPress={() => {
                         if (onDayClick) {
-                          const detailedData =
-                            dateMap[selectedDate]?.data || {};
+                          const detailedData = dateMap[selectedDate]?.data || {
+                            fajr: PRAYER_POINTS.NOT_TOUCHED,
+                            dhuhr: PRAYER_POINTS.NOT_TOUCHED,
+                            asr: PRAYER_POINTS.NOT_TOUCHED,
+                            maghrib: PRAYER_POINTS.NOT_TOUCHED,
+                            isha: PRAYER_POINTS.NOT_TOUCHED,
+                            tahajjud: PRAYER_POINTS.NOT_TOUCHED,
+                          };
                           onDayClick(selectedDate, { data: detailedData });
                         }
                       }}

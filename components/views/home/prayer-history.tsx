@@ -90,6 +90,9 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           onBackdropPress={togglePicker}
         />
         <HeatMap
+          data={transformedData ?? null}
+          year={year}
+          onDayClick={handleDayClick}
           color={{
             theme: colors['--primary'],
             opacity: [
@@ -102,11 +105,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
               { opacity: 1, limit: MAX_DISPLAY_POINTS },
             ],
           }}
-          data={transformedData ?? null}
-          year={year}
-          onDayClick={handleDayClick}
         />
       </View>
+
+      {/* Past Prayer History */}
+
       <Accordion
         type="single"
         value={accordion}
@@ -129,51 +132,46 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                   </Button>
                 </View>
                 {Object.entries(clickedData.details.data).map(
-                  ([prayer, value]) => {
-                    const isDateAfterToday =
-                      new Date(clickedData.date) > new Date();
-                    return (
-                      <View
-                        key={prayer}
-                        className="flex-row items-center justify-between mt-2"
-                      >
-                        <Text className={cn('capitalize font-semibold')}>
-                          {prayer}
-                        </Text>
-                        {!isDateAfterToday && (
-                          <View className="flex-row gap-8">
-                            {[
-                              PRAYER_POINTS.MISSED,
-                              PRAYER_POINTS.LATE,
-                              PRAYER_POINTS.ON_TIME,
-                            ].map((val) => (
-                              <Checkbox
-                                key={val}
-                                value={value === val}
-                                onValueChange={() =>
-                                  handleUpdateClickedDay(clickedData.date, {
-                                    data: {
-                                      ...clickedData.details.data,
-                                      [prayer]: val,
-                                    },
-                                  })
-                                }
-                                color={
-                                  value === val
-                                    ? val === PRAYER_POINTS.ON_TIME
-                                      ? colors['--primary']
-                                      : val === PRAYER_POINTS.LATE
-                                        ? colors['--secondary']
-                                        : colors['--destructive']
-                                    : undefined
-                                }
-                              />
-                            ))}
-                          </View>
-                        )}
+                  ([prayer, value]) => (
+                    <View
+                      key={prayer}
+                      className="flex-row items-center justify-between mt-2"
+                    >
+                      <Text className={cn('capitalize font-semibold')}>
+                        {prayer}
+                      </Text>
+
+                      <View className="flex-row gap-8">
+                        {[
+                          PRAYER_POINTS.MISSED,
+                          PRAYER_POINTS.LATE,
+                          PRAYER_POINTS.ON_TIME,
+                        ].map((val) => (
+                          <Checkbox
+                            key={val}
+                            value={value === val}
+                            onValueChange={() =>
+                              handleUpdateClickedDay(clickedData.date, {
+                                data: {
+                                  ...clickedData.details.data,
+                                  [prayer]: val,
+                                },
+                              })
+                            }
+                            color={
+                              value === val
+                                ? val === PRAYER_POINTS.ON_TIME
+                                  ? colors['--primary']
+                                  : val === PRAYER_POINTS.LATE
+                                    ? colors['--secondary']
+                                    : colors['--destructive']
+                                : undefined
+                            }
+                          />
+                        ))}
                       </View>
-                    );
-                  },
+                    </View>
+                  ),
                 )}
               </View>
             </AccordionContent>

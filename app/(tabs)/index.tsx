@@ -124,6 +124,10 @@ export default function HomeScreen() {
 
   const handleDayClick = useCallback(
     (date: string, details: { data: DayData }) => {
+      // if date is after today, return toast
+      const isDateAfterToday = new Date(date) > today;
+      if (isDateAfterToday) return fireToast.info('Cannot view future dates');
+
       // if today, scroll to top
       if (date === format(today, 'yyyy-MM-dd')) {
         return homeRef.current?.scrollTo({
@@ -132,20 +136,9 @@ export default function HomeScreen() {
         });
       }
 
-      const salahs = details || {
-        data: {
-          fajr: null,
-          dhuhr: null,
-          asr: null,
-          maghrib: null,
-          isha: null,
-          tahajjud: null,
-        },
-      };
-
       dispatch({
         type: 'SET_CLICKED_DATA',
-        payload: { date, details: salahs },
+        payload: { date, details },
       });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
