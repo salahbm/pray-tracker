@@ -1,13 +1,16 @@
 import { Coordinates, Qibla } from 'adhan';
+import * as Haptics from 'expo-haptics';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
 import { RefreshCcw } from 'lucide-react-native';
 import React, { useEffect, useReducer, useCallback, Reducer } from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
 
 import Loader from '@/components/shared/loader';
+import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
+import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -52,7 +55,6 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const { colors } = useThemeStore();
 
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
@@ -65,10 +67,11 @@ const QiblaCompass: React.FC = () => {
     dispatch({ type: 'START_LOADING' });
     try {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
-      if (!isMagnetAvailable) throw new Error('Magnetometer not available.');
+      if (!isMagnetAvailable) fireToast.error('Magnetometer not available.');
 
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') throw new Error('Location permission denied.');
+      if (status !== 'granted')
+        fireToast.error('Location permission required.');
 
       const { coords } = await Location.getCurrentPositionAsync({});
       const userCoordinates = new Coordinates(
@@ -84,6 +87,11 @@ const QiblaCompass: React.FC = () => {
           type: 'SET_DATA',
           payload: { magnetAngle: angle, qiblaAngle },
         });
+
+        // Trigger haptic only 3 times if aligned
+        if (angle === Number(qiblaAngle.toFixed(0))) {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }
       });
 
       return () => magnetSub.remove();
@@ -105,42 +113,57 @@ const QiblaCompass: React.FC = () => {
   }, [state.error]);
 
   if (state.loading) {
-    return <Loader visible={state.loading} />;
+    return <Loader visible={state.loading} className="mt-[45%]" />;
   }
 
   return (
     <View className="items-center h-full">
       {/* Info Text */}
-      <Text className=" text-lg font-medium text-muted-foreground mt-16">
+      <Text
+        className={cn(
+          ' text-lg  d mt-16',
+          state.magnetAngle + 1 === Number(state.qiblaAngle.toFixed(0))
+            ? 'text-primary font-bold'
+            : 'text-muted-foreground font-medium',
+        )}
+      >
         Magnetic North: {state.magnetAngle}°
       </Text>
       <Text className="text-lg font-medium text-muted-foreground mb-2">
         Qibla: {state.qiblaAngle.toFixed(2)}°
       </Text>
+      {/* Description how to use */}
       <Text className="text-sm font-medium text-muted-foreground mb-[20%]">
-        Rotate to match Qibla, then tap to refresh
+        Rotate your phone, match the angle with the Qibla
       </Text>
       {/* Compass Container */}
       <View
         className="w-64 h-64 rounded-full border border-border relative items-center justify-center"
-        style={{ transform: [{ rotate: `${-state.magnetAngle}deg` }] }}
+        style={{ transform: [{ rotate: `${360 - state.magnetAngle}deg` }] }}
       >
-        {/* Compass Pointer */}
         <Image
           source={IMAGES.compass}
           className="w-10 h-10 absolute"
           tintColor={colors['--primary']}
-          style={{ transform: [{ rotate: `${state.magnetAngle}deg` }] }}
         />
-
-        {/* Qibla Arrow */}
-        <Image source={IMAGES.kaaba} className="w-10 h-10 absolute top-2" />
+        <Image
+          source={IMAGES.kaaba}
+          className="w-10 h-10 absolute top-2"
+          style={{ transform: [{ rotate: `${state.qiblaAngle}deg` }] }}
+        />
       </View>
 
       {/* Refresh Button */}
-      <TouchableOpacity className="mt-8" onPress={fetchQiblaAngle}>
+      <Button
+        className="mt-8 rounded-full"
+        variant="ghost"
+        onPress={() => {
+          fetchQiblaAngle();
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
+      >
         <RefreshCcw size={20} color={colors['--primary']} />
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 };

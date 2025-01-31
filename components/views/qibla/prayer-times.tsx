@@ -124,7 +124,7 @@ const PrayerTimer = () => {
             <View
               className={cn(
                 'flex-row justify-between items-center p-5 rounded-xl mb-3',
-                currentSalah ? 'bg-accent shadow-sm' : 'bg-border',
+                currentSalah ? 'bg-accent shadow-sm' : 'bg-popover',
               )}
             >
               <Icon
@@ -133,13 +133,13 @@ const PrayerTimer = () => {
                 color={
                   currentSalah
                     ? colors['--accent-foreground']
-                    : colors['--foreground']
+                    : colors['--secondary']
                 }
               />
               <Text
                 className={cn(
                   'text-lg font-semibold capitalize',
-                  currentSalah ? 'text-accent-foreground' : 'text-foreground',
+                  currentSalah ? 'text-accent-foreground' : 'text-secondary',
                 )}
               >
                 {item?.name}
@@ -147,7 +147,7 @@ const PrayerTimer = () => {
               <Text
                 className={cn(
                   'text-lg font-semibold',
-                  currentSalah ? 'text-accent-foreground' : 'text-foreground',
+                  currentSalah ? 'text-accent-foreground' : 'text-secondary',
                 )}
               >
                 {item?.time && format(item?.time, 'HH:mm')}

@@ -66,7 +66,6 @@ const scheduleSessionRefresh = () => {
   setInterval(
     async () => {
       const { data, error } = await supabase.auth.refreshSession();
-      console.log('REFRESHING SESSION');
 
       if (error) {
         useAuthStore.getState().logout();
