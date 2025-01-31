@@ -15,13 +15,11 @@ export default function Leaderboard() {
 
   return (
     <React.Fragment>
-      <Loader visible={isLoading} />
+      <Loader visible={isLoading} className="bg-transparent" />
 
       <FlatList
         data={data}
         keyExtractor={(user) => user.id.toString()}
-        ListEmptyComponent={() => <NoData />}
-        contentContainerStyle={{ gap: 8 }}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => setSelectedUser(item)}>
             <View
@@ -40,6 +38,8 @@ export default function Leaderboard() {
         )}
         showsVerticalScrollIndicator={false}
         className="my-4"
+        contentContainerStyle={{ gap: 8 }}
+        ListEmptyComponent={() => <NoData className="mt-[45%]" />}
       />
 
       {/* User Details Modal */}

@@ -1,13 +1,8 @@
+import { Coordinates, Qibla } from 'adhan';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
-import React, {
-  useEffect,
-  useReducer,
-  useCallback,
-  useMemo,
-  Reducer,
-} from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import React, { useEffect, useReducer, useCallback, Reducer } from 'react';
+import { View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
@@ -62,63 +57,42 @@ const QiblaCompass: React.FC = () => {
     return Math.round(angle);
   }, []);
 
-  const calculateQiblaAngle = useCallback((lat: number, lon: number) => {
-    const rad = Math.PI / 180;
-    const latK = 21.4225 * rad;
-    const lonK = 39.8264 * rad;
-    const userLat = lat * rad;
-    const userLon = lon * rad;
-    return (
-      (180 / Math.PI) *
-      Math.atan2(
-        Math.sin(lonK - userLon),
-        Math.cos(userLat) * Math.tan(latK) -
-          Math.sin(userLat) * Math.cos(lonK - userLon),
-      )
-    );
-  }, []);
+  const fetchQiblaAngle = useCallback(async () => {
+    dispatch({ type: 'START_LOADING' });
+    try {
+      const isMagnetAvailable = await Magnetometer.isAvailableAsync();
+      if (!isMagnetAvailable) throw new Error('Magnetometer not available.');
 
-  const arrowRotation = useMemo(() => {
-    const diff = state.qiblaAngle - state.magnetAngle;
-    return diff < 0 ? diff + 360 : diff;
-  }, [state.qiblaAngle, state.magnetAngle]);
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') throw new Error('Location permission denied.');
+
+      const { coords } = await Location.getCurrentPositionAsync({});
+      const userCoordinates = new Coordinates(
+        coords.latitude,
+        coords.longitude,
+      );
+      const qiblaAngle = Qibla(userCoordinates);
+
+      Magnetometer.setUpdateInterval(100);
+      const magnetSub = Magnetometer.addListener((data) => {
+        const angle = calculateMagnetAngle(data.x, data.y);
+        dispatch({
+          type: 'SET_DATA',
+          payload: { magnetAngle: angle, qiblaAngle },
+        });
+      });
+
+      return () => magnetSub.remove();
+    } catch (err: unknown) {
+      dispatch({ type: 'SET_ERROR', payload: (err as Error).message });
+    } finally {
+      dispatch({ type: 'STOP_LOADING' });
+    }
+  }, [calculateMagnetAngle]);
 
   useEffect(() => {
-    let magnetSub: { remove: () => void } | null = null;
-    (async () => {
-      dispatch({ type: 'START_LOADING' });
-      try {
-        const isMagnetAvailable = await Magnetometer.isAvailableAsync();
-        if (!isMagnetAvailable) throw new Error('Magnetometer not available.');
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted')
-          throw new Error('Location permission denied.');
-
-        const { coords } = await Location.getCurrentPositionAsync({});
-        const qiblaAngle = calculateQiblaAngle(
-          coords.latitude,
-          coords.longitude,
-        );
-
-        Magnetometer.setUpdateInterval(100);
-        magnetSub = Magnetometer.addListener((data) => {
-          const angle = calculateMagnetAngle(data.x, data.y);
-          dispatch({
-            type: 'SET_DATA',
-            payload: { magnetAngle: angle, qiblaAngle },
-          });
-        });
-      } catch (err: unknown) {
-        dispatch({ type: 'SET_ERROR', payload: (err as Error).message });
-      } finally {
-        dispatch({ type: 'STOP_LOADING' });
-      }
-    })();
-
-    return () => {
-      if (magnetSub) magnetSub.remove();
-    };
-  }, [calculateQiblaAngle, calculateMagnetAngle]);
+    fetchQiblaAngle();
+  }, [fetchQiblaAngle]);
 
   if (state.loading) {
     return (
@@ -131,47 +105,51 @@ const QiblaCompass: React.FC = () => {
   if (state.error) {
     return (
       <View className="flex-1 justify-center items-center">
-        <Text className=" text-lg">{state.error}</Text>
+        <Text className="text-lg">{state.error}</Text>
       </View>
     );
   }
 
   return (
-    <React.Fragment>
-      <Text className="text-lg font-medium mb-4">
-        Heading: {state.magnetAngle}° | Qibla: {state.qiblaAngle.toFixed(2)}°
-      </Text>
-      <View className="flex-1 justify-center items-center relative">
-        <View
-          className="w-64 h-64 rounded-full border-2 border-muted relative items-center justify-center"
-          style={{ transform: [{ rotate: `${arrowRotation}deg` }] }}
-        >
-          {/* Cardinal Directions */}
-          <Text className="absolute top-2 left-1/2 -translate-x-1/2 text-muted-foreground font-bold">
-            N
-          </Text>
-          <Text className="absolute bottom-2 left-1/2 -translate-x-1/2 text-muted-foreground font-bold">
-            S
-          </Text>
-          <Text className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">
-            W
-          </Text>
-          <Text className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">
-            E
-          </Text>
+    <View>
+      <View className="justify-center items-center mt-[40%]">
+        <Text className="text-lg font-medium mb-4">
+          Magnetic North: {state.magnetAngle}° | Qibla:{' '}
+          {state.qiblaAngle.toFixed(2)}°
+        </Text>
+        <Text className="text-sm text-center text-muted-foreground mb-2">
+          Rotate your device until the arrow points to Qibla.
+        </Text>
 
-          {/* Compass Image */}
+        {/* Compass Circle */}
+        <View
+          className="w-64 h-64 rounded-full border-2 border-muted relative items-center justify-center  shadow-md"
+          style={{
+            transform: [{ rotate: `${-state.magnetAngle}deg` }],
+          }}
+        >
+          {/* Magnetic Pointer */}
           <Image
             source={IMAGES.compass}
             className="w-12 h-12 absolute"
-            style={{ tintColor: colors['--primary'] }}
+            tintColor={colors['--primary']}
+            style={{
+              transform: [{ rotate: `${state.magnetAngle}deg` }],
+            }}
           />
 
-          {/* Kaaba Icon */}
-          <Image source={IMAGES.kaaba} className="w-12 h-12 mb-32" />
+          {/* Qibla Arrow */}
+          <Image source={IMAGES.kaaba} className="w-12 h-12 absolute top-3" />
         </View>
       </View>
-    </React.Fragment>
+
+      {/* refresh current position */}
+      <TouchableOpacity className="mt-8 items-center">
+        <Text className="text-lg font-semibold text-primary">
+          Refresh Position
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

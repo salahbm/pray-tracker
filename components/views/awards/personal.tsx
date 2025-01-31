@@ -25,7 +25,7 @@ export default function PersonalTab() {
 
   return (
     <React.Fragment>
-      <Loader visible={isLoading} />
+      <Loader visible={isLoading} className="bg-transparent" />
       <FlatList
         data={AWARDS}
         keyExtractor={(award) => award.title}
@@ -93,8 +93,9 @@ export default function PersonalTab() {
             </TouchableOpacity>
           );
         }}
-        ListEmptyComponent={() => <NoData />}
+        ListEmptyComponent={() => <NoData className="mt-[45%]" />}
         contentContainerStyle={{ gap: 8 }}
+        className="my-4"
         showsVerticalScrollIndicator={false}
         ListFooterComponent={() => (
           <View className="my-4 mx-auto">
@@ -108,7 +109,6 @@ export default function PersonalTab() {
             </Text>
           </View>
         )}
-        className="my-4"
       />
 
       {/* Award Details Modal */}

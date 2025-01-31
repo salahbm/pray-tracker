@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { supabase } from '@/lib/supabase';
+import { fireToast } from '@/providers/toaster';
 import { User } from '@/types/user';
 
 interface AuthState {
@@ -12,12 +13,11 @@ interface AuthState {
   refreshToken: string | null;
   setUser: (user: User | null) => void;
   loadSession: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
-supabase.auth.getSession();
-
 export const useAuthStore = create<AuthState>()(
-  persist<AuthState>(
+  persist(
     (set) => ({
       user: null,
       accessToken: null,
@@ -30,28 +30,59 @@ export const useAuthStore = create<AuthState>()(
         const refreshToken = await SecureStore.getItemAsync('refresh_token');
 
         if (accessToken && refreshToken) {
-          const { data } = await supabase.auth.setSession({
+          const { data, error } = await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
           });
 
-          if (data?.session) {
-            const expiresIn = data.session.expires_in * 1000; // Convert to ms
-
-            // Set tokens in store
-            set({ accessToken, refreshToken });
-
-            // Schedule user removal when session expires
-            setTimeout(() => {
-              set({ user: null, accessToken: null, refreshToken: null });
-            }, expiresIn);
+          if (error || !data?.session) {
+            return fireToast.error(error?.message || 'Something went wrong.');
           }
+
+          set({
+            accessToken: data.session.access_token,
+            refreshToken: data.session.refresh_token,
+          });
+
+          scheduleSessionRefresh();
         }
+      },
+
+      logout: async () => {
+        await supabase.auth.signOut();
+        set({ user: null, accessToken: null, refreshToken: null });
+        await SecureStore.deleteItemAsync('access_token');
+        await SecureStore.deleteItemAsync('refresh_token');
       },
     }),
     {
-      name: 'auth-store', // Key for persistence
-      storage: createJSONStorage(() => AsyncStorage), // Persist using AsyncStorage
+      name: 'auth-store',
+      storage: createJSONStorage(() => AsyncStorage),
     },
   ),
 );
+
+const scheduleSessionRefresh = () => {
+  setInterval(
+    async () => {
+      const { data, error } = await supabase.auth.refreshSession();
+      console.log('REFRESHING SESSION');
+
+      if (error) {
+        useAuthStore.getState().logout();
+        return fireToast.error(error.message);
+      }
+
+      if (data?.session) {
+        const { access_token, refresh_token } = data.session;
+        useAuthStore.setState({
+          accessToken: access_token,
+          refreshToken: refresh_token,
+        });
+        await SecureStore.setItemAsync('access_token', access_token);
+        await SecureStore.setItemAsync('refresh_token', refresh_token);
+      }
+    },
+    55 * 60 * 1000,
+  );
+};
