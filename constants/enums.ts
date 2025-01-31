@@ -1,5 +1,6 @@
 enum SALAHS {
   FAJR = 'fajr',
+  SUNRISE = 'sunrise',
   DHUHR = 'dhuhr',
   ASR = 'asr',
   MAGHRIB = 'maghrib',

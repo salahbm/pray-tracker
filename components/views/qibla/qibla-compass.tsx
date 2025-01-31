@@ -1,11 +1,14 @@
 import { Coordinates, Qibla } from 'adhan';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
+import { RefreshCcw } from 'lucide-react-native';
 import React, { useEffect, useReducer, useCallback, Reducer } from 'react';
-import { View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 
+import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
+import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 interface State {
@@ -49,6 +52,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const { colors } = useThemeStore();
 
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
@@ -94,60 +98,48 @@ const QiblaCompass: React.FC = () => {
     fetchQiblaAngle();
   }, [fetchQiblaAngle]);
 
-  if (state.loading) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  useEffect(() => {
+    if (state.error) {
+      fireToast.info(state.error);
+    }
+  }, [state.error]);
 
-  if (state.error) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-lg">{state.error}</Text>
-      </View>
-    );
+  if (state.loading) {
+    return <Loader visible={state.loading} />;
   }
 
   return (
-    <View>
-      <View className="justify-center items-center mt-[40%]">
-        <Text className="text-lg font-medium mb-4">
-          Magnetic North: {state.magnetAngle}° | Qibla:{' '}
-          {state.qiblaAngle.toFixed(2)}°
-        </Text>
-        <Text className="text-sm text-center text-muted-foreground mb-2">
-          Rotate your device until the arrow points to Qibla.
-        </Text>
+    <View className="items-center h-full">
+      {/* Info Text */}
+      <Text className=" text-lg font-medium text-muted-foreground mt-16">
+        Magnetic North: {state.magnetAngle}°
+      </Text>
+      <Text className="text-lg font-medium text-muted-foreground mb-2">
+        Qibla: {state.qiblaAngle.toFixed(2)}°
+      </Text>
+      <Text className="text-sm font-medium text-muted-foreground mb-[20%]">
+        Rotate to match Qibla, then tap to refresh
+      </Text>
+      {/* Compass Container */}
+      <View
+        className="w-64 h-64 rounded-full border border-border relative items-center justify-center"
+        style={{ transform: [{ rotate: `${-state.magnetAngle}deg` }] }}
+      >
+        {/* Compass Pointer */}
+        <Image
+          source={IMAGES.compass}
+          className="w-10 h-10 absolute"
+          tintColor={colors['--primary']}
+          style={{ transform: [{ rotate: `${state.magnetAngle}deg` }] }}
+        />
 
-        {/* Compass Circle */}
-        <View
-          className="w-64 h-64 rounded-full border-2 border-muted relative items-center justify-center  shadow-md"
-          style={{
-            transform: [{ rotate: `${-state.magnetAngle}deg` }],
-          }}
-        >
-          {/* Magnetic Pointer */}
-          <Image
-            source={IMAGES.compass}
-            className="w-12 h-12 absolute"
-            tintColor={colors['--primary']}
-            style={{
-              transform: [{ rotate: `${state.magnetAngle}deg` }],
-            }}
-          />
-
-          {/* Qibla Arrow */}
-          <Image source={IMAGES.kaaba} className="w-12 h-12 absolute top-3" />
-        </View>
+        {/* Qibla Arrow */}
+        <Image source={IMAGES.kaaba} className="w-10 h-10 absolute top-2" />
       </View>
 
-      {/* refresh current position */}
-      <TouchableOpacity className="mt-8 items-center">
-        <Text className="text-lg font-semibold text-primary">
-          Refresh Position
-        </Text>
+      {/* Refresh Button */}
+      <TouchableOpacity className="mt-8" onPress={fetchQiblaAngle}>
+        <RefreshCcw size={20} color={colors['--primary']} />
       </TouchableOpacity>
     </View>
   );
