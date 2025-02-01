@@ -2,8 +2,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/auth/auth-session';
 import RootProvider from 'providers/root';
 import 'react-native-reanimated';
@@ -18,6 +20,22 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
+
+  useEffect(() => {
+    const handleAppStateChange = (state: string) => {
+      if (state === 'active') {
+        supabase.auth.startAutoRefresh(); // Ensure auto-refresh runs
+      } else {
+        supabase.auth.stopAutoRefresh();
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     loadSession(); // Load user session

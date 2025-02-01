@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import { Coordinates, Qibla } from 'adhan';
 import * as Haptics from 'expo-haptics';
 import * as Location from 'expo-location';
@@ -56,6 +57,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 const QiblaCompass: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { colors } = useThemeStore();
+  const isFocused = useIsFocused();
 
   const calculateMagnetAngle = useCallback((x: number, y: number) => {
     let angle = Math.atan2(y, x) * (180 / Math.PI);
@@ -65,13 +67,21 @@ const QiblaCompass: React.FC = () => {
 
   const fetchQiblaAngle = useCallback(async () => {
     dispatch({ type: 'START_LOADING' });
+
     try {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
-      if (!isMagnetAvailable) fireToast.error('Magnetometer not available.');
+      if (!isMagnetAvailable) {
+        fireToast.error('Magnetometer not available.');
+        dispatch({ type: 'STOP_LOADING' });
+        return;
+      }
 
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted')
+      if (status !== 'granted') {
         fireToast.error('Location permission required.');
+        dispatch({ type: 'STOP_LOADING' });
+        return;
+      }
 
       const { coords } = await Location.getCurrentPositionAsync({});
       const userCoordinates = new Coordinates(
@@ -94,7 +104,10 @@ const QiblaCompass: React.FC = () => {
         }
       });
 
-      return () => magnetSub.remove();
+      return () => {
+        magnetSub.remove(); // Unsubscribe properly
+        Magnetometer.removeAllListeners();
+      };
     } catch (err: unknown) {
       dispatch({ type: 'SET_ERROR', payload: (err as Error).message });
     } finally {
@@ -103,8 +116,22 @@ const QiblaCompass: React.FC = () => {
   }, [calculateMagnetAngle]);
 
   useEffect(() => {
-    fetchQiblaAngle();
-  }, [fetchQiblaAngle]);
+    let cleanup: (() => void) | undefined;
+
+    if (isFocused) {
+      // Start your magnetometer subscription
+      fetchQiblaAngle().then((unsubscribe) => {
+        cleanup = unsubscribe;
+      });
+    } else {
+      // Stop subscription if it exists
+      if (cleanup) cleanup();
+    }
+
+    return () => {
+      if (cleanup) cleanup();
+    };
+  }, [isFocused, fetchQiblaAngle]);
 
   useEffect(() => {
     if (state.error) {
@@ -113,7 +140,7 @@ const QiblaCompass: React.FC = () => {
   }, [state.error]);
 
   if (state.loading) {
-    return <Loader visible={state.loading} className="mt-[45%]" />;
+    return <Loader visible={state.loading} className="mt-[55%]" />;
   }
 
   return (

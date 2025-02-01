@@ -1,4 +1,5 @@
 // theme.config.ts
+import { BlurTint } from 'expo-blur';
 import { StatusBarStyle } from 'expo-status-bar';
 import { vars } from 'nativewind';
 
@@ -50,46 +51,47 @@ export type AllThemes = Record<ThemesVariant, ThemeColors>;
 
 export const THEME_COLORS: AllThemes = {
   light: {
-    '--background': '#ffffff',
-    '--foreground': '#1e1e1e',
-    '--muted': '#f5f5f5',
-    '--muted-foreground': '#4e4e4e',
-    '--popover': '#eaeaea',
-    '--popover-foreground': '#1e1e1e',
-    '--card': '#f0f0f0',
-    '--card-foreground': '#1e1e1e',
-    '--border': '#d6d6d6',
-    '--input': '#eaeaea',
-    '--primary': '#3498db',
-    '--primary-foreground': '#ffffff',
-    '--secondary': '#95a5a6',
-    '--secondary-foreground': '#1e1e1e',
-    '--accent': '#e74c3c',
-    '--accent-foreground': '#ffffff',
-    '--destructive': '#e74c3c',
-    '--destructive-foreground': '#ffffff',
-    '--ring': '#3498db',
+    '--background': '#F9FAFB', // Softer white for better UX
+    '--foreground': '#181818', // Darker text for strong contrast
+    '--muted': '#E5E7EB', // Soft gray
+    '--muted-foreground': '#4B5563', // Better readability
+    '--popover': '#F3F4F6', // Slightly off-white for depth
+    '--popover-foreground': '#181818',
+    '--card': '#FFFFFF', // True white cards for modern look
+    '--card-foreground': '#181818',
+    '--border': '#D1D5DB', // Softer border
+    '--input': '#E5E7EB',
+    '--primary': '#3498db', // Vibrant blue
+    '--primary-foreground': '#FFFFFF',
+    '--secondary': '#6B7280', // Neutral gray
+    '--secondary-foreground': '#FFFFFF',
+    '--accent': '#FF5C5C', // More vibrant red
+    '--accent-foreground': '#FFFFFF',
+    '--destructive': '#E63946', // More modern danger color
+    '--destructive-foreground': '#FFFFFF',
+    '--ring': '#3B82F6', // Subtle yet distinct ring color
   },
+
   dark: {
-    '--background': '#000000',
-    '--foreground': '#f5f5f5',
-    '--muted': '#1e1e1e',
-    '--muted-foreground': '#adb3bf',
-    '--popover': '#252525',
-    '--popover-foreground': '#eaeaea',
-    '--card': '#858682',
-    '--card-foreground': '#f5f5f5',
-    '--border': '#6a5acd',
-    '--input': '#6a5acd',
-    '--primary': '#9ef010',
-    '--primary-foreground': '#ffffff',
-    '--secondary': '#282828',
-    '--secondary-foreground': '#e0e0e0',
-    '--accent': '#7c83db',
-    '--accent-foreground': '#ffffff',
-    '--destructive': '#fb0f50',
-    '--destructive-foreground': '#ffffff',
-    '--ring': '#00aaff',
+    '--background': '#121212', // Deeper black for true dark mode
+    '--foreground': '#E4E4E7', // Softer contrast than pure white
+    '--muted': '#1E1E1E', // Deep muted gray
+    '--muted-foreground': '#9CA3AF', // Readable gray
+    '--popover': '#252525', // Slightly lighter than background
+    '--popover-foreground': '#E4E4E7',
+    '--card': '#1F1F1F', // Darker card for a more immersive feel
+    '--card-foreground': '#E4E4E7',
+    '--border': '#30363D', // Modern soft-dark border
+    '--input': '#30363D',
+    '--primary': '#9EF010', // Keeping your requested primary color
+    '--primary-foreground': '#121212',
+    '--secondary': '#282828', // Deep dark secondary
+    '--secondary-foreground': '#E0E0E0',
+    '--accent': '#7C83DB', // Cool modern blue accent
+    '--accent-foreground': '#FFFFFF',
+    '--destructive': '#FB0F50', // Strong, eye-catching red
+    '--destructive-foreground': '#FFFFFF',
+    '--ring': '#3B82F6', // Matches accent for consistency
   },
   forest_green: {
     '--background': '#f0f7f4',
@@ -266,7 +268,7 @@ export const StatusBarTheme: StatusBarThemeStyle = {
     background: '#1b2e23',
   },
   ocean_breeze: {
-    style: 'light',
+    style: 'dark',
     background: '#1b2e23',
   },
   sunset: {
@@ -290,3 +292,20 @@ export const StatusBarTheme: StatusBarThemeStyle = {
     background: '#2e1a1a',
   },
 };
+
+export const TabTints: Record<THEMES, BlurTint> = {
+  // Light Themes
+  light: 'light',
+
+  // Regular Themes
+  forest_green: 'regular',
+
+  // Darker Themes
+  dark: 'default',
+  ocean_breeze: 'dark',
+  sunset: 'dark',
+  royal_purple: 'dark',
+  golden_desert: 'dark',
+  emerald_green: 'dark',
+  sunset_orange: 'dark',
+} as const;

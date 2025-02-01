@@ -64,22 +64,22 @@ const PrayerTimer = () => {
     {
       name: SALAHS.FAJR,
       time: prayerTimes?.fajr,
-      icon: 'weather-sunset-up',
+      icon: 'weather-night',
     },
     {
       name: SALAHS.SUNRISE,
       time: prayerTimes?.sunrise,
-      icon: 'weather-sunny',
+      icon: 'weather-sunset-up',
     },
     {
       name: SALAHS.DHUHR,
       time: prayerTimes?.dhuhr,
-      icon: 'weather-sunny-alert',
+      icon: 'weather-sunny',
     },
     {
       name: SALAHS.ASR,
       time: prayerTimes?.asr,
-      icon: 'weather-partly-cloudy',
+      icon: 'weather-sunny',
     },
     {
       name: SALAHS.MAGHRIB,
@@ -133,13 +133,15 @@ const PrayerTimer = () => {
                 color={
                   currentSalah
                     ? colors['--accent-foreground']
-                    : colors['--secondary']
+                    : colors['--muted-foreground']
                 }
               />
               <Text
                 className={cn(
                   'text-lg font-semibold capitalize',
-                  currentSalah ? 'text-accent-foreground' : 'text-secondary',
+                  currentSalah
+                    ? 'text-accent-foreground'
+                    : 'text-muted-foreground',
                 )}
               >
                 {item?.name}
@@ -147,7 +149,9 @@ const PrayerTimer = () => {
               <Text
                 className={cn(
                   'text-lg font-semibold',
-                  currentSalah ? 'text-accent-foreground' : 'text-secondary',
+                  currentSalah
+                    ? 'text-accent-foreground'
+                    : 'text-muted-foreground',
                 )}
               >
                 {item?.time && format(item?.time, 'HH:mm')}

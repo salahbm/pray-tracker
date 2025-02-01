@@ -36,7 +36,7 @@ export default function Leaderboard() {
           </TouchableOpacity>
         )}
         showsVerticalScrollIndicator={false}
-        className="my-4"
+        className="mt-4"
         contentContainerStyle={{ gap: 8 }}
       />
 

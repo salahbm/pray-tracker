@@ -13,7 +13,6 @@ interface AuthState {
   refreshToken: string | null;
   setUser: (user: User | null) => void;
   loadSession: () => Promise<void>;
-  logout: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -26,33 +25,34 @@ export const useAuthStore = create<AuthState>()(
       setUser: (user) => set({ user }),
 
       loadSession: async () => {
-        const accessToken = await SecureStore.getItemAsync('access_token');
-        const refreshToken = await SecureStore.getItemAsync('refresh_token');
+        try {
+          const accessToken = await SecureStore.getItemAsync('access_token');
+          const refreshToken = await SecureStore.getItemAsync('refresh_token');
 
-        if (accessToken && refreshToken) {
-          const { data, error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
+          if (accessToken && refreshToken) {
+            const { data, error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
 
-          if (error || !data?.session) {
-            return fireToast.error(error?.message || 'Something went wrong.');
+            if (error || !data?.session) {
+              fireToast.error(
+                error?.message || 'Session expired, please log in again.',
+              );
+              return;
+            }
+
+            set({
+              accessToken: data.session.access_token,
+              refreshToken: data.session.refresh_token,
+            });
+
+            // Ensure Supabase auto-refresh is running
+            supabase.auth.startAutoRefresh();
           }
-
-          set({
-            accessToken: data.session.access_token,
-            refreshToken: data.session.refresh_token,
-          });
-
-          scheduleSessionRefresh();
+        } catch (err) {
+          fireToast.error(err.message || 'Failed to load session.');
         }
-      },
-
-      logout: async () => {
-        await supabase.auth.signOut();
-        set({ user: null, accessToken: null, refreshToken: null });
-        await SecureStore.deleteItemAsync('access_token');
-        await SecureStore.deleteItemAsync('refresh_token');
       },
     }),
     {
@@ -61,27 +61,3 @@ export const useAuthStore = create<AuthState>()(
     },
   ),
 );
-
-const scheduleSessionRefresh = () => {
-  setInterval(
-    async () => {
-      const { data, error } = await supabase.auth.refreshSession();
-
-      if (error) {
-        useAuthStore.getState().logout();
-        return fireToast.error(error.message);
-      }
-
-      if (data?.session) {
-        const { access_token, refresh_token } = data.session;
-        useAuthStore.setState({
-          accessToken: access_token,
-          refreshToken: refresh_token,
-        });
-        await SecureStore.setItemAsync('access_token', access_token);
-        await SecureStore.setItemAsync('refresh_token', refresh_token);
-      }
-    },
-    55 * 60 * 1000,
-  );
-};

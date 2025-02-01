@@ -95,7 +95,7 @@ export default function PersonalTab() {
         }}
         ListEmptyComponent={() => <NoData className="mt-[45%]" />}
         contentContainerStyle={{ gap: 8 }}
-        className="my-4"
+        className="mt-4"
         showsVerticalScrollIndicator={false}
         ListFooterComponent={() => (
           <View className="my-4 mx-auto">
