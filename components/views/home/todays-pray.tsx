@@ -1,11 +1,11 @@
 import Checkbox from 'expo-checkbox';
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
-import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface IPrayers {
   prayers: Record<string, number>;
@@ -27,31 +27,34 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
         </View>
       </View>
       {Object.entries(prayers).map(([prayer, value]) => (
-        <View
-          key={prayer}
-          className="flex-row items-center justify-between mb-2"
-        >
+        <View key={prayer} className="flex-row items-center justify-between">
           <Text className={cn('capitalize font-semibold')}>{prayer}</Text>
-          <View className="flex-1 flex-row justify-end gap-10">
+          <View className="flex-1 flex-row justify-end">
             {[
               PRAYER_POINTS.MISSED,
               PRAYER_POINTS.LATE,
               PRAYER_POINTS.ON_TIME,
             ].map((val) => (
-              <Checkbox
+              <TouchableOpacity
                 key={val}
-                value={value === val}
-                onValueChange={() => handlePrayerChange(prayer, val)}
-                color={
-                  value === val
-                    ? val === PRAYER_POINTS.ON_TIME
-                      ? colors['--primary']
-                      : val === PRAYER_POINTS.LATE
-                        ? colors['--secondary']
-                        : colors['--destructive']
-                    : undefined
-                }
-              />
+                onPress={() => handlePrayerChange(prayer, val)}
+                activeOpacity={0.7}
+                className="px-4 py-2"
+              >
+                <Checkbox
+                  value={value === val}
+                  onValueChange={() => handlePrayerChange(prayer, val)}
+                  color={
+                    value === val
+                      ? val === PRAYER_POINTS.ON_TIME
+                        ? colors['--primary']
+                        : val === PRAYER_POINTS.LATE
+                          ? colors['--secondary']
+                          : colors['--destructive']
+                      : undefined
+                  }
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </View>

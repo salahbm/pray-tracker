@@ -3,7 +3,6 @@ import { View, FlatList, TouchableOpacity, Image } from 'react-native';
 import Modal from 'react-native-modal';
 
 import Loader from '@/components/shared/loader';
-import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
@@ -39,7 +38,6 @@ export default function Leaderboard() {
         showsVerticalScrollIndicator={false}
         className="my-4"
         contentContainerStyle={{ gap: 8 }}
-        ListEmptyComponent={() => <NoData className="mt-[45%]" />}
       />
 
       {/* User Details Modal */}

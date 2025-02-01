@@ -1,5 +1,6 @@
+import { format } from 'date-fns';
 import React, { useMemo } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 
 import { Text } from '@/components/ui/text';
@@ -20,6 +21,7 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         pray.isha +
         pray.maghrib +
         pray.tahajjud,
+      text: format(new Date(pray.date), 'dd.MM.yy'),
     }));
   }, [lineData]);
 
@@ -34,7 +36,6 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         endSpacing={0}
         spacing={30}
         thickness={3}
-        hideDataPoints
         hideRules
         showVerticalLines
         areaChart
@@ -54,6 +55,28 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         parentWidth={Dimensions.get('window').width * 0.85}
         width={Dimensions.get('window').width * 0.85}
         maxValue={12}
+        dataPointsRadius={1}
+        dataPointsColor={colors['--primary']}
+        pointerConfig={{
+          showPointerStrip: true,
+          pointerStripWidth: 2,
+          pointerStripHeight: 220,
+          pointerStripColor: colors['--border'],
+          pointerStripUptoDataPoint: true,
+          pointerColor: 'transparent',
+          radius: 6,
+          pointerLabelWidth: 120,
+          pointerLabelHeight: 30,
+          activatePointersDelay: 200,
+          autoAdjustPointerLabelPosition: true,
+          activatePointersOnLongPress: true,
+          pointerLabelComponent: (point) => (
+            <View className="flex-col items-start justify-center px-2 py-1 bg-background border border-border rounded-md">
+              <Text className="text-sm">Date: {point[0].text}</Text>
+              <Text className="text-sm">Point: {point[0].value}</Text>
+            </View>
+          ),
+        }}
       />
     </React.Fragment>
   );

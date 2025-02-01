@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
+import * as Haptics from 'expo-haptics';
 import LottieView from 'lottie-react-native';
 import {
   useState,
@@ -106,7 +107,7 @@ export default function HomeScreen() {
   const handlePrayerChange = useCallback(
     async (prayer, value) => {
       if (prayers[prayer] === value) return;
-
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       const updatedPrayers = { ...prayers, [prayer]: value };
       dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       await createPray({
