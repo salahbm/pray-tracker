@@ -30,9 +30,15 @@ model User {
   firstName   String?
   lastName    String?
   photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/sign/avatars/guest.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2d1ZXN0LnBuZyIsImlhdCI6MTczODAzNTI4MCwiZXhwIjo0ODYwMDk5MjgwfQ.SIhFeYv30hUehZy949AIpfvCdsneoCmR-WUrYgGABKk")
+
+  totalPoints Int       @default(0)
+  premium       Boolean  @default(false)
+  premiumExpiry DateTime? // Store the expiration date
+
   prays       Prays[]
   awards      Award[]
-  totalPoints Int       @default(0)
+  sentRequests  Friend[] @relation("user_friends")
+  receivedRequests Friend[] @relation("friend_friends")
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -69,3 +75,17 @@ model Award {
 
   @@unique([userId, title]) // Ensure the same award is not given multiple times
 }
+
+// bi-directional relationship
+model Friend {
+  id        String  @id @default(cuid())
+  userId    String
+  friendId  String
+  status    String  @default("pending") // pending, accepted, rejected
+
+  user      User    @relation(fields: [userId], references: [id], name: "user_friends")
+  friend    User    @relation(fields: [friendId], references: [id], name: "friend_friends")
+
+  @@unique([userId, friendId]) // Prevent duplicate friendships
+}
+
