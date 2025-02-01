@@ -2,16 +2,31 @@ import { toast, Toasts } from '@backpackapp-io/react-native-toast';
 import { Ban, Check, Info } from 'lucide-react-native';
 import { Easing } from 'react-native-reanimated';
 
-import { COLORS } from '@/constants/Colors';
 import { useThemeStore } from '@/store/defaults/theme';
+
+// Colors reference (initial fallback)
+let colorsRef = {
+  primary: '#000',
+  destructive: '#f00',
+  border: '#ccc',
+};
+
+// Function to update colors
+export const updateFireToastColors = (newColors: Record<string, string>) => {
+  colorsRef = {
+    primary: newColors['--primary'],
+    destructive: newColors['--destructive'],
+    border: newColors['--border'],
+  };
+};
 
 export const fireToast = {
   success: (message: string) => {
     toast(message, {
-      icon: <Check size={24} color={COLORS.dark.primary} />,
+      icon: <Check size={24} color={colorsRef.primary} />,
       styles: {
         text: {
-          color: COLORS.dark.primary,
+          color: colorsRef.primary,
           fontSize: 14,
           marginLeft: 8,
         },
@@ -20,10 +35,10 @@ export const fireToast = {
   },
   error: (message: string) => {
     toast(message, {
-      icon: <Ban size={24} color={COLORS.dark.destructive} />,
+      icon: <Ban size={24} color={colorsRef.destructive} />,
       styles: {
         text: {
-          color: COLORS.dark.destructive,
+          color: colorsRef.destructive,
           fontSize: 14,
           marginLeft: 8,
         },
@@ -32,10 +47,10 @@ export const fireToast = {
   },
   info: (message: string) => {
     toast(message, {
-      icon: <Info size={24} color={COLORS.dark.border} />,
+      icon: <Info size={24} color={colorsRef.border} />,
       styles: {
         text: {
-          color: COLORS.dark.border,
+          color: colorsRef.border,
           fontSize: 14,
           marginLeft: 8,
         },
@@ -46,6 +61,10 @@ export const fireToast = {
 
 const ToastProvider = () => {
   const { colors } = useThemeStore();
+
+  // Update colors for fireToast globally when ToastProvider mounts
+  updateFireToastColors(colors);
+
   return (
     <Toasts
       defaultStyle={{
