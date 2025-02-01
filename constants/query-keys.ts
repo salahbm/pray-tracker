@@ -14,4 +14,15 @@ const awards = {
 const praysListKeys = 'praysListCache';
 const todaysPrayKey = 'todaysPrayCache';
 
-export { userKeys, praysListKeys, todaysPrayKey, usersListKey, awards };
+const friendsList = {
+  queryKey: ['friendsList'],
+};
+
+export {
+  userKeys,
+  praysListKeys,
+  todaysPrayKey,
+  usersListKey,
+  awards,
+  friendsList,
+};
