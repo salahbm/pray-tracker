@@ -23,7 +23,7 @@ const getFriends = async (params: TParams): Promise<Friend[]> => {
 
 export const useGetFriends = (userId: string) =>
   useQuery({
-    queryKey: [friendsList, userId],
+    queryKey: [friendsList],
     queryFn: () => getFriends({ userId }),
     enabled: !!userId,
   });

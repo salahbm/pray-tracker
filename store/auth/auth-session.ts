@@ -13,6 +13,7 @@ interface AuthState {
   refreshToken: string | null;
   setUser: (user: User | null) => void;
   loadSession: () => Promise<void>;
+  logOut: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -21,7 +22,6 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       accessToken: null,
       refreshToken: null,
-
       setUser: (user) => set({ user }),
 
       loadSession: async () => {
@@ -37,8 +37,9 @@ export const useAuthStore = create<AuthState>()(
 
             if (error || !data?.session) {
               fireToast.error(
-                error?.message || 'Session expired, please log in again.',
+                error?.message || 'Session expired, logging out...',
               );
+              setTimeout(() => useAuthStore.getState().logOut(), 1000); // Log out after showing the error
               return;
             }
 
@@ -49,9 +50,23 @@ export const useAuthStore = create<AuthState>()(
 
             // Ensure Supabase auto-refresh is running
             supabase.auth.startAutoRefresh();
+          } else {
+            setTimeout(() => useAuthStore.getState().logOut(), 1000);
           }
         } catch (err) {
-          fireToast.error(err.message || 'Failed to load session.');
+          fireToast.error(err.message || 'Session error, logging out...');
+          setTimeout(() => useAuthStore.getState().logOut(), 1000);
+        }
+      },
+
+      logOut: async () => {
+        try {
+          await SecureStore.deleteItemAsync('access_token');
+          await SecureStore.deleteItemAsync('refresh_token');
+          await supabase.auth.signOut();
+          set({ accessToken: null, refreshToken: null, user: null });
+        } catch (err) {
+          fireToast.error(err.message || 'Failed to log out.');
         }
       },
     }),

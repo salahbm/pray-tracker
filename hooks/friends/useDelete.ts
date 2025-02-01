@@ -12,11 +12,11 @@ type TParams = {
   friendId: string;
 };
 
-const acceptRequest = async (
+const cancelRequest = async (
   data: TParams,
 ): Promise<IResponseArray<IFriend>> => {
-  const response = await agent('/friends/accept', {
-    method: 'POST',
+  const response = await agent('/friends/cancel', {
+    method: 'DELETE',
     body: JSON.stringify({
       userId: data.userId,
       friendId: data.friendId,
@@ -25,15 +25,16 @@ const acceptRequest = async (
   return response;
 };
 
-export const useAcceptRequest = () => {
+export const useCancelRequest = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: acceptRequest,
+    mutationFn: cancelRequest,
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
           queryKey: [friendsList],
         });
+        fireToast.success('Friend request canceled successfully.');
       },
       onError: (error: ErrorData) => {
         fireToast.error(error.message);

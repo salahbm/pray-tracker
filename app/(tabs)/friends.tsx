@@ -1,80 +1,123 @@
-import { SafeAreaView, View, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { View, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useLanguage } from '@/hooks/common/useTranslation';
-import { Text } from 'components/ui/text';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { useAcceptRequest } from '@/hooks/friends/useAccept';
+import { useGetFriends } from '@/hooks/friends/useGetFriends';
+import { useSendRequest } from '@/hooks/friends/useSendRequest';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useCancelRequest } from '@/hooks/friends/useDelete';
+import { Input } from '@/components/ui/input';
+import { fireToast } from '@/providers/toaster';
+import Loader from '@/components/shared/loader';
+import NoData from '@/components/shared/no-data';
 
-// Localization Example
-const LocalizationExample = () => {
-  const { currentLanguage } = useLanguage();
+const FriendsScreen = () => {
+  const { user } = useAuthStore();
+  const { data: friends, isLoading } = useGetFriends(user?.id);
+  const { mutateAsync: sendFriendRequest, isPending: isSending } =
+    useSendRequest();
+  const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
+    useAcceptRequest();
+  const { mutateAsync: cancelFriendRequest, isPending: isCancelling } =
+    useCancelRequest(); // Use cancel mutation
+
+  const [friendEmail, setFriendEmail] = useState('');
+
+  const handleSendRequest = async () => {
+    if (!friendEmail.trim()) {
+      fireToast.error('Please enter a valid email.');
+      return;
+    }
+
+    const payload = {
+      userId: user?.id,
+      friendEmail: friendEmail.trim(),
+    };
+    await sendFriendRequest(payload);
+    fireToast.success('Friend request sent successfully.');
+    setFriendEmail('');
+  };
+
+  const handleCancelRequest = async (friendId: string) => {
+    try {
+      await cancelFriendRequest({ userId: user?.id, friendId });
+      fireToast.success('Friend request canceled successfully.');
+    } catch (error) {
+      fireToast.error('Failed to cancel friend request.');
+    }
+  };
+
   return (
-    <View className="p-4">
-      <Text className="text-md ">Current Locale: {currentLanguage}</Text>
-    </View>
-  );
-};
+    <SafeAreaView className="main-area">
+      {/* Add Friend Section */}
+      <View className="mb-6">
+        <Text className="text-xl font-bold mb-2">Add a Friend</Text>
+        <Input
+          className="border p-2 rounded-lg mb-2"
+          placeholder="Enter email"
+          value={friendEmail}
+          onChangeText={setFriendEmail}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+        />
+        <Button disabled={isSending} onPress={handleSendRequest}>
+          <Text> {isSending ? 'Sending...' : 'Add Friend'}</Text>
+        </Button>
+      </View>
 
-const SampleScreen = () => {
-  return (
-    <SafeAreaView className="flex-1 bg-background">
-      <ScrollView className="p-4">
-        <Text className="text-2xl font-bold text-center ">
-          Project Documentation
-        </Text>
+      {/* Friends List */}
+      <View className="flex-1">
+        <Text className="text-xl font-bold mb-2">Your Friends</Text>
 
-        {/* NativeWind Example */}
-        <View className="mt-4">
-          <Text className="text-xl font-semibold text-gray-700">
-            NativeWind Example
-          </Text>
-        </View>
+        {isLoading ? (
+          <Loader visible className="bg-transparent" />
+        ) : friends?.length === 0 ? (
+          <NoData />
+        ) : (
+          <FlatList
+            data={friends}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View className="flex-row justify-between p-3 border-b items-center">
+                <Text className="text-lg">{item.username}</Text>
 
-        {/* Localization Example */}
-        <View className="mt-4">
-          <Text className="text-xl font-semibold text-gray-700">
-            Localization Example
-          </Text>
-          <LocalizationExample />
-        </View>
-
-        {/* Tools Information */}
-        <View className="mt-4 p-4 bg-gray-200 rounded-lg gap-4">
-          <Text className="text-lg font-semibold ">Project Tools</Text>
-          <Text className="mt-2 text-gray-700">
-            - <Text className="font-bold">NativeWind:</Text> Utility-first
-            styling for React Native.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">CZ (Commitizen):</Text> Standardized
-            commit messages.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">Husky:</Text> Git hooks for running
-            Prettier and ESLint.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">ESLint & Prettier:</Text> Code
-            formatting and linting.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">Versioning:</Text> Automated semantic
-            versioning.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">Changelog:</Text> Generated using
-            standard-version.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">Zustand:</Text> State management for
-            React Native.
-          </Text>
-          <Text className="text-gray-700">
-            - <Text className="font-bold">Expo-Localization:</Text> Detect
-            locale settings.
-          </Text>
-        </View>
-      </ScrollView>
+                {item.status === 'pending' ? (
+                  <View className="flex-row space-x-2">
+                    <Button
+                      disabled={isAccepting}
+                      onPress={() =>
+                        acceptFriendRequest({
+                          userId: user?.id,
+                          friendId: item.id,
+                        })
+                      }
+                    >
+                      <Text> {isAccepting ? 'Accepting...' : 'Accept'}</Text>
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      disabled={isCancelling}
+                      onPress={() => handleCancelRequest(item.id)}
+                    >
+                      <Text> {isCancelling ? 'Cancelling...' : 'Cancel'}</Text>
+                    </Button>
+                  </View>
+                ) : (
+                  <Text className="text-green-600">✔️ Accepted</Text>
+                )}
+              </View>
+            )}
+            ListFooterComponent={<View style={{ height: 50 }} />}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };
 
-export default SampleScreen;
+export default FriendsScreen;
