@@ -74,7 +74,7 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         <Input
           label="Email"
           autoCapitalize="none"
-          className="mb-4 p-3 rounded-lg bg-surface"
+          className="mb-4 p-3"
           value={form.email}
           placeholder="Enter your email"
           keyboardType="email-address"
@@ -82,14 +82,14 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         />
         <Input
           label="Password"
-          className="mb-10 p-3 rounded-lg bg-surface"
+          className="mb-10 p-3"
           value={form.password}
           placeholder="Enter your password"
           secureTextEntry
           onChangeText={(password) => setForm({ ...form, password })}
         />
         <Button
-          className="p-4 rounded-lg bg-primary text-white mb-4"
+          className="mb-4"
           disabled={isPending || isLoading}
           onPress={onSignInPress}
         >

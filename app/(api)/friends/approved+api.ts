@@ -16,14 +16,11 @@ export async function GET(request: Request) {
     // Fetch accepted friends in both directions
     const friends = await prisma.friend.findMany({
       where: {
-        OR: [
-          { userId, status: 'accepted' },
-          { friendId: userId, status: 'accepted' },
-        ],
+        OR: [{ userId }, { friendId: userId }],
       },
       select: {
-        friend: { select: { id: true, username: true } },
-        user: { select: { id: true, username: true } },
+        friend: { select: { id: true, username: true, status: 'accepted' } },
+        user: { select: { id: true, username: true, status: 'accepted' } },
       },
     });
 
@@ -62,7 +59,10 @@ export async function GET(request: Request) {
       status: StatusCode.SUCCESS,
       message: 'Friends fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: prayers,
+      data: {
+        friends,
+        prayers,
+      },
     });
   } catch (error) {
     return handleError(error);

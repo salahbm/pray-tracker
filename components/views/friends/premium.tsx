@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-
+import { View, FlatList } from 'react-native';
+import Modal from 'react-native-modal';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
 import { Button } from '@/components/ui/button';
@@ -9,108 +8,139 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useAcceptRequest } from '@/hooks/friends/useAccept';
 import { useCancelRequest } from '@/hooks/friends/useDelete';
-import { useGetFriends } from '@/hooks/friends/useGetFriends';
-import { useSendRequest } from '@/hooks/friends/useSendRequest';
+import { useRequest } from '@/hooks/friends/useRequest';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { useGetPendingFriends } from '@/hooks/friends/useGetPending';
+import { useGetApprovedFriends } from '@/hooks/friends/useGetApproved';
 
 const FriendsPremium = () => {
   const { user } = useAuthStore();
-  const { data: friends, isLoading } = useGetFriends(user?.id);
-  const { mutateAsync: sendFriendRequest, isPending: isSending } =
-    useSendRequest();
+  const {
+    data: pendingFriends,
+    isLoading: isLoadingPending,
+    refetch: refetchPending,
+  } = useGetPendingFriends(user?.id);
+  const {
+    data: approvedFriends,
+    isLoading: isLoadingApproved,
+    refetch: refetchApproved,
+  } = useGetApprovedFriends(user?.id);
+
+  console.log('pending', JSON.stringify(pendingFriends, null, 2));
+  console.log('approved', JSON.stringify(approvedFriends, null, 2));
+
+  const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
     useAcceptRequest();
   const { mutateAsync: cancelFriendRequest, isPending: isCancelling } =
-    useCancelRequest(); // Use cancel mutation
+    useCancelRequest();
 
   const [friendEmail, setFriendEmail] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const handleSendRequest = async () => {
     if (!friendEmail.trim()) {
       fireToast.error('Please enter a valid email.');
       return;
     }
-
-    const payload = {
+    await sendFriendRequest({
       userId: user?.id,
       friendEmail: friendEmail.trim(),
-    };
-    await sendFriendRequest(payload);
+    });
     fireToast.success('Friend request sent successfully.');
     setFriendEmail('');
-  };
-
-  const handleCancelRequest = async (friendId: string) => {
-    await cancelFriendRequest({ userId: user?.id, friendId });
+    setModalVisible(false);
   };
 
   return (
-    <React.Fragment>
-      {/* Add Friend Section */}
-      <View className="mb-6">
-        <Text className="text-xl font-bold mb-2">Add a Friend</Text>
-        <Input
-          className="border p-2 rounded-lg mb-2"
-          placeholder="Enter email"
-          value={friendEmail}
-          onChangeText={setFriendEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-        />
-        <Button disabled={isSending} onPress={handleSendRequest}>
-          <Text> {isSending ? 'Sending...' : 'Add Friend'}</Text>
-        </Button>
-      </View>
-
-      {/* Friends List */}
-      <View className="flex-1">
-        <Text className="text-xl font-bold mb-2">Your Friends</Text>
-
-        {isLoading ? (
-          <Loader visible className="bg-transparent" />
-        ) : friends?.length === 0 ? (
-          <NoData />
-        ) : (
-          <FlatList
-            data={friends}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View className="flex-row justify-between p-3 border-b items-center">
-                <Text className="text-lg">{item.username}</Text>
-
-                {item.status === 'pending' ? (
-                  <View className="flex-row space-x-2">
-                    <Button
-                      disabled={isAccepting}
-                      onPress={() =>
-                        acceptFriendRequest({
-                          userId: user?.id,
-                          friendId: item.id,
-                        })
-                      }
-                    >
-                      <Text> {isAccepting ? 'Accepting...' : 'Accept'}</Text>
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      disabled={isCancelling}
-                      onPress={() => handleCancelRequest(item.id)}
-                    >
-                      <Text> {isCancelling ? 'Cancelling...' : 'Cancel'}</Text>
-                    </Button>
-                  </View>
-                ) : (
-                  <Text className="text-green-600">✔️ Accepted</Text>
-                )}
-              </View>
-            )}
-            ListFooterComponent={<View style={{ height: 50 }} />}
+    <View className="p-4">
+      <Button onPress={() => setModalVisible(true)}>
+        <Text>Add Friend</Text>
+      </Button>
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+      >
+        <View className="bg-white p-4 rounded-lg">
+          <Text className="text-lg font-bold mb-2">Add a Friend</Text>
+          <Input
+            placeholder="Enter email"
+            value={friendEmail}
+            onChangeText={setFriendEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
           />
-        )}
-      </View>
-    </React.Fragment>
+          <Button disabled={isSending} onPress={handleSendRequest}>
+            <Text> {isSending ? 'Sending...' : 'Add Friend'}</Text>
+          </Button>
+        </View>
+      </Modal>
+
+      <Text className="text-xl font-bold mt-4">Pending Friends</Text>
+      {isLoadingPending ? (
+        <Loader visible />
+      ) : pendingFriends.length === 0 ? (
+        <NoData />
+      ) : (
+        <FlatList
+          data={pendingFriends}
+          keyExtractor={(item) => item.friendId}
+          renderItem={({ item }) => (
+            <View className="flex-row justify-between items-center p-3 border-b">
+              <Text>{item.friendUsername}</Text>
+              <View className="flex-row gap-2">
+                <Button
+                  disabled={isAccepting}
+                  size="sm"
+                  onPress={() =>
+                    acceptFriendRequest({
+                      userId: user?.id,
+                      friendId: item.friendId,
+                    })
+                  }
+                >
+                  <Text>Accept</Text>
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  disabled={isCancelling}
+                  onPress={() =>
+                    cancelFriendRequest({
+                      userId: user?.id,
+                      friendId: item.friendId,
+                    })
+                  }
+                >
+                  <Text>Decline</Text>
+                </Button>
+              </View>
+            </View>
+          )}
+        />
+      )}
+
+      <Text className="text-xl font-bold mt-4">Approved Friends</Text>
+      {isLoadingApproved ? (
+        <Loader visible />
+      ) : approvedFriends.length === 0 ? (
+        <NoData />
+      ) : (
+        <FlatList
+          data={approvedFriends}
+          keyExtractor={(item) => item.friendId}
+          renderItem={({ item }) => (
+            <View className="p-3 border-b">
+              <Text>{item.friendUsername}</Text>
+              <Text className="text-sm text-gray-500">
+                Prayers: {JSON.stringify(item.pray)}
+              </Text>
+            </View>
+          )}
+        />
+      )}
+    </View>
   );
 };
 

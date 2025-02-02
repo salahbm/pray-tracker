@@ -2,12 +2,9 @@ import prisma from '@/lib/prisma';
 import { handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
-export default async function POST(request: Request) {
-  console.log(`request:`, request);
+export async function POST(request: Request) {
   try {
     const { userId, friendEmail } = await request.json();
-    console.log(`friendEmail:`, friendEmail);
-    console.log(`userId:`, userId);
 
     if (!userId || !friendEmail) {
       return createResponse({
@@ -65,7 +62,6 @@ export default async function POST(request: Request) {
       data: [friendRequest],
     });
   } catch (error) {
-    console.error('Error sending friend request:', error);
     return handleError(error);
   }
 }

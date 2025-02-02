@@ -48,7 +48,7 @@ const Home = () => {
           <View key={item.id} className="flex items-center justify-center p-5">
             <Image
               source={item.image}
-              className="w-full aspect-square h-[300px] rounded-full"
+              className="w-full aspect-video h-[40%] rounded-md"
               resizeMode="contain"
             />
             <View className="flex flex-row items-center justify-center w-full mt-10">

@@ -29,7 +29,7 @@ export async function GET(request: Request, { id }: { id: string }) {
 
     if (!pray) {
       return createResponse({
-        status: StatusCode.NOT_FOUND,
+        status: StatusCode.SUCCESS,
         message: 'Today’s Pray not found',
         code: MessageCodes.PRAY_NOT_FOUND,
         data: [],

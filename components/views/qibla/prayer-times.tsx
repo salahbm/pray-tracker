@@ -118,6 +118,8 @@ const PrayerTimer = () => {
         data={prayers}
         keyExtractor={(item) => item.name}
         ListEmptyComponent={() => <NoData className="mt-[45%]" />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 200 }}
         renderItem={({ item }) => {
           const currentSalah = item?.name === currentPrayer;
           return (

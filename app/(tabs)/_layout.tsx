@@ -29,14 +29,14 @@ export default function TabLayout() {
           position: 'absolute',
           borderTopWidth: 0, // Remove any border
           bottom: 0, // Ensure correct positioning
-          height: 70,
+
           backgroundColor: 'transparent', // Prevent solid colors
           elevation: 0, // Remove Android shadow
           shadowOpacity: 0, // Remove iOS shadow
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={80} // Increase for better blur effect
+            intensity={90} // Increase for better blur effect
             tint={TabTints[currentTheme]}
             style={{
               ...StyleSheet.absoluteFillObject,

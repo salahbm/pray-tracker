@@ -2,7 +2,7 @@ import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
 import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
-export default async function DELETE(request: Request) {
+export async function DELETE(request: Request) {
   try {
     const { userId, friendId } = await request.json();
 

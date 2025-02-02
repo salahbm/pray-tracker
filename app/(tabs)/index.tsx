@@ -186,7 +186,7 @@ export default function HomeScreen() {
   }, [todaysPrays, user]);
 
   return (
-    <SafeAreaView className="main-area">
+    <SafeAreaView className="main-area pb-12">
       <Loader visible={isLoadingPrays || isLoadingTodaysPrays} />
       <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
         {/* HEADER */}
