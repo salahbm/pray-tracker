@@ -16,11 +16,14 @@ export async function GET(request: Request) {
     // Fetch accepted friends in both directions
     const friends = await prisma.friend.findMany({
       where: {
-        OR: [{ userId }, { friendId: userId }],
+        OR: [
+          { userId, status: 'APPROVED' },
+          { friendId: userId, status: 'APPROVED' },
+        ],
       },
       select: {
-        friend: { select: { id: true, username: true, status: 'accepted' } },
-        user: { select: { id: true, username: true, status: 'accepted' } },
+        friend: { select: { id: true, username: true, email: true } },
+        user: { select: { id: true, username: true } },
       },
     });
 

@@ -17,7 +17,7 @@ export async function DELETE(request: Request) {
       where: {
         userId,
         friendId,
-        status: 'pending',
+        status: 'PENDING',
       },
     });
 

@@ -31,6 +31,8 @@ export async function GET(request: Request) {
           select: {
             id: true,
             username: true,
+            email: true,
+            photo: true,
           },
         },
       },
@@ -42,6 +44,8 @@ export async function GET(request: Request) {
         status: friend.status,
         friendId: friend.friend.id,
         friendUsername: friend.friend.username,
+        friendEmail: friend.user.email,
+        friendAvatar: friend.user.photo,
       };
     });
 

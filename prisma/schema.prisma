@@ -81,7 +81,7 @@ model Friend {
   id        String  @id @default(cuid())
   userId    String
   friendId  String
-  status    String  @default("pending") // pending, accepted, rejected
+  status    FriendStatus @default(PENDING) // pending, accepted, rejected
 
   user      User    @relation(fields: [userId], references: [id], name: "user_friends")
   friend    User    @relation(fields: [friendId], references: [id], name: "friend_friends")
@@ -89,3 +89,9 @@ model Friend {
   @@unique([userId, friendId]) // Prevent duplicate friendships
 }
 
+
+enum FriendStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}

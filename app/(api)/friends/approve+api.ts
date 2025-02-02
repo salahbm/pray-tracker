@@ -17,13 +17,11 @@ export async function GET(request: Request) {
     const friends = await prisma.friend.findMany({
       where: {
         OR: [{ userId }, { friendId: userId }],
-        status: 'approved', // Ensure only approved friendships are fetched
+        status: 'APPROVED', // Fix: Use uppercase ENUM value
       },
       select: {
-        id: true, // Friendship ID
-        status: true, // Fetch status from Friend model (NOT user)
-        userId: true, // Ensure we have userId reference
-        friendId: true, // Ensure we have friendId reference
+        id: true,
+        status: true,
         friend: {
           select: {
             id: true,
