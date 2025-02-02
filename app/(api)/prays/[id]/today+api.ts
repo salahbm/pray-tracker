@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
-import { handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { ApiError, handleError } from '@/utils/error';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET(request: Request, { id }: { id: string }) {
   try {
@@ -8,12 +8,9 @@ export async function GET(request: Request, { id }: { id: string }) {
     const today = url.searchParams.get('today'); // yyyy-MM-dd
 
     if (!id) {
-      return new Response(
-        JSON.stringify({
-          status: StatusCode.UNAUTHORIZED,
-          message: 'Please, Sign In to fetch Today’s Pray',
-        }),
-        { status: StatusCode.UNAUTHORIZED },
+      return new ApiError(
+        'Please, Sign In to fetch Prays',
+        StatusCode.UNAUTHORIZED,
       );
     }
 
@@ -31,14 +28,20 @@ export async function GET(request: Request, { id }: { id: string }) {
     });
 
     if (!pray) {
-      return createResponse(StatusCode.SUCCESS, 'Today’s Pray not found');
+      return createResponse({
+        status: StatusCode.NOT_FOUND,
+        message: 'Today’s Pray not found',
+        code: MessageCodes.PRAY_NOT_FOUND,
+        data: [],
+      });
     }
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Today’s Pray fetched successfully',
-      pray,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Today’s Pray fetched successfully',
+      code: MessageCodes.PRAY_FETCHED,
+      data: pray,
+    });
   } catch (error) {
     return handleError(error);
   }

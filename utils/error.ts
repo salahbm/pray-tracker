@@ -1,3 +1,5 @@
+import { StatusCode } from './status';
+
 export class ApiError<T = unknown> extends Error {
   public status: number;
   public details?: T;
@@ -22,13 +24,13 @@ export function handleError(error: unknown) {
     );
   }
 
-  console.log('error:', error);
+  console.error('error:', error);
 
   return new Response(
     JSON.stringify({
-      status: 500,
+      status: StatusCode.INTERNAL_ERROR,
       message: 'An unexpected error occurred',
     }),
-    { status: 500 },
+    { status: StatusCode.INTERNAL_ERROR },
   );
 }

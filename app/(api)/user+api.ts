@@ -1,6 +1,6 @@
 import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
-import { createResponse, StatusCode } from 'utils/status';
+import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
 // CREATE USER
 export async function POST(request: Request) {
@@ -22,11 +22,12 @@ export async function POST(request: Request) {
       },
     });
 
-    return createResponse(
-      StatusCode.CREATED,
-      'User created successfully',
-      newUser,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'User created successfully',
+      code: MessageCodes.USER_CREATED,
+      data: newUser,
+    });
   } catch (error) {
     // Use handleError to standardize the response for all errors
     return handleError(error);
@@ -43,11 +44,12 @@ export async function GET(request: Request) {
         supabaseId: id,
       },
     });
-    return createResponse(
-      StatusCode.SUCCESS,
-      'User fetched successfully',
-      user,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'User fetched successfully',
+      code: MessageCodes.USER_FETCHED,
+      data: user,
+    });
   } catch (error) {
     // Use handleError to standardize the response for all errors
     return handleError(error);
@@ -71,11 +73,12 @@ export async function PUT(request: Request) {
       where: { id },
       data,
     });
-    return createResponse(
-      StatusCode.SUCCESS,
-      'User updated successfully',
-      updatedUser,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'User updated successfully',
+      code: MessageCodes.USER_UPDATED,
+      data: updatedUser,
+    });
   } catch (error) {
     return handleError(error);
   }
@@ -88,11 +91,12 @@ export async function DELETE(request: Request) {
     const deletedUser = await prisma.user.delete({
       where: { id },
     });
-    return createResponse(
-      StatusCode.SUCCESS,
-      'User deleted successfully',
-      deletedUser,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'User deleted successfully',
+      code: MessageCodes.USER_DELETED,
+      data: deletedUser,
+    });
   } catch (error) {
     return handleError(error);
   }

@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET(request: Request) {
   try {
@@ -28,11 +28,12 @@ export async function GET(request: Request) {
       },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Awards fetched successfully',
-      awards,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Awards fetched successfully',
+      code: MessageCodes.AWARD_FETCHED,
+      data: awards,
+    });
   } catch (error) {
     // Use handleError to standardize the response for all errors
     return handleError(error);

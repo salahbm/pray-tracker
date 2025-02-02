@@ -1,16 +1,20 @@
 import prisma from '@/lib/prisma';
-import { ApiError, handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { handleError } from '@/utils/error';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export default async function POST(request: Request) {
+  console.log(`request:`, request);
   try {
     const { userId, friendEmail } = await request.json();
     console.log(`friendEmail:`, friendEmail);
     console.log(`userId:`, userId);
 
     if (!userId || !friendEmail) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId, friendEmail },
+      return createResponse({
+        status: StatusCode.BAD_REQUEST,
+        message: 'Missing required fields',
+        code: MessageCodes.BAD_REQUEST,
+        data: [],
       });
     }
 
@@ -20,18 +24,33 @@ export default async function POST(request: Request) {
     });
 
     if (!friend) {
-      throw new ApiError('Friend not found', StatusCode.NOT_FOUND);
+      return createResponse({
+        status: StatusCode.NOT_FOUND,
+        message: 'Friend not found',
+        code: MessageCodes.FRIEND_NOT_FOUND,
+        data: [],
+      });
     }
 
     const friendId = friend.id;
 
-    // Check if friendship already exists
-    const existingFriendship = await prisma.friend.findUnique({
-      where: { userId_friendId: { userId, friendId } },
+    // **Fix: Use findFirst Instead of findUnique**
+    const existingFriendship = await prisma.friend.findFirst({
+      where: {
+        OR: [
+          { userId, friendId },
+          { userId: friendId, friendId: userId }, // Check both directions
+        ],
+      },
     });
 
     if (existingFriendship) {
-      throw new ApiError('Friend request already exists', StatusCode.CONFLICT);
+      return createResponse({
+        status: StatusCode.CONFLICT,
+        message: 'Friendship already exists',
+        code: MessageCodes.FRIEND_EXISTS,
+        data: [],
+      });
     }
 
     // Create friendship request
@@ -39,11 +58,12 @@ export default async function POST(request: Request) {
       data: { userId, friendId, status: 'pending' },
     });
 
-    return createResponse(
-      StatusCode.CREATED,
-      'Friend request sent successfully',
-      friendRequest,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Friend request sent successfully',
+      code: MessageCodes.FRIEND_REQUESTED,
+      data: [friendRequest],
+    });
   } catch (error) {
     console.error('Error sending friend request:', error);
     return handleError(error);

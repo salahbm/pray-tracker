@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { usersListKey } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { User } from '@/types/user';
 
 const getUsers = async (): Promise<User[]> => {

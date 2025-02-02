@@ -36,9 +36,6 @@ export const useAuthStore = create<AuthState>()(
             });
 
             if (error || !data?.session) {
-              fireToast.error(
-                error?.message || 'Session expired, logging out...',
-              );
               setTimeout(() => useAuthStore.getState().logOut(), 1000); // Log out after showing the error
               return;
             }
@@ -52,9 +49,10 @@ export const useAuthStore = create<AuthState>()(
             supabase.auth.startAutoRefresh();
           } else {
             setTimeout(() => useAuthStore.getState().logOut(), 1000);
+            return;
           }
         } catch (err) {
-          fireToast.error(err.message || 'Session error, logging out...');
+          fireToast.info(err.message || 'Failed to load session.');
           setTimeout(() => useAuthStore.getState().logOut(), 1000);
         }
       },

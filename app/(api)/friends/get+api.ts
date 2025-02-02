@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { ApiError, handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET(request: Request) {
   try {
@@ -27,13 +27,18 @@ export async function GET(request: Request) {
       },
     });
 
-    // Extract friend IDs (exclude current user)
-    const friendIds = friends.map((f) =>
-      f.friend.id === userId ? f.user.id : f.friend.id,
-    );
+    // Extract valid friend IDs (exclude current user)
+    const friendIds = friends
+      .filter((f) => f.friend && f.user) // Ensure no undefined values
+      .map((f) => (f.friend.id === userId ? f.user.id : f.friend.id));
 
     if (friendIds.length === 0) {
-      return createResponse(StatusCode.SUCCESS, 'No friends found.', []);
+      return createResponse({
+        status: StatusCode.SUCCESS,
+        message: 'No friends found',
+        code: MessageCodes.NOT_FOUND,
+        data: [],
+      });
     }
 
     // Get today's date in YYYY-MM-DD format (ignores time)
@@ -44,7 +49,7 @@ export async function GET(request: Request) {
     // Fetch today's prayers for friends
     const prayers = await prisma.prays.findMany({
       where: {
-        userId: { in: friendIds },
+        userId: { in: friendIds.length > 0 ? friendIds : null }, // Prevent Prisma empty list error
         date: {
           gte: startOfDay,
           lte: endOfDay,
@@ -53,13 +58,13 @@ export async function GET(request: Request) {
       include: { user: { select: { id: true, username: true } } },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Friends’ prayers fetched successfully',
-      prayers,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Friends fetched successfully',
+      code: MessageCodes.FRIEND_FETCHED,
+      data: prayers,
+    });
   } catch (error) {
-    console.error('Error fetching friends’ prayers:', error);
     return handleError(error);
   }
 }

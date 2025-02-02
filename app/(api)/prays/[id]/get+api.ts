@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET(request: Request, { id }: { id: string }) {
   try {
@@ -29,11 +29,12 @@ export async function GET(request: Request, { id }: { id: string }) {
       },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Prays fetched successfully',
-      prays,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Prays fetched successfully',
+      code: MessageCodes.PRAY_FETCHED,
+      data: prays,
+    });
   } catch (error) {
     // Use handleError to standardize the response for all errors
     return handleError(error);

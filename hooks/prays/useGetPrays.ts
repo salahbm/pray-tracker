@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { IPrays } from '@/types/prays';
 
 type TPraysParams = {

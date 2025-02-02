@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { friendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 
 interface Friend {
   id: string;
@@ -9,21 +9,17 @@ interface Friend {
   status: string;
 }
 
-type TParams = {
-  userId: string;
-};
-
-const getFriends = async (params: TParams): Promise<Friend[]> => {
-  const { data } = await agent(`/friends/get?userId=${params.userId}`, {
+const getFriends = async (userId: string): Promise<Friend[]> => {
+  const { data } = await agent(`/friends/get?userId=${userId}`, {
     method: 'GET',
   });
 
-  return data.data;
+  return data.data ?? [];
 };
 
 export const useGetFriends = (userId: string) =>
   useQuery({
-    queryKey: [friendsList],
-    queryFn: () => getFriends({ userId }),
+    queryKey: [friendsList, userId],
+    queryFn: () => getFriends(userId),
     enabled: !!userId,
   });

@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { handleError } from '@/utils/error';
-import { createResponse, StatusCode } from '@/utils/status';
+import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
   try {
@@ -73,11 +73,12 @@ export async function POST(request: Request) {
       },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Prays updated successfully',
-      updatedPrays,
-    );
+    return createResponse({
+      status: StatusCode.CREATED,
+      message: 'Pray created successfully',
+      code: MessageCodes.PRAY_CREATED,
+      data: updatedPrays,
+    });
   } catch (error) {
     return handleError(error);
   }

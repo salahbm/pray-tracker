@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 import useMutation from '../common/useMutation';
 import { praysListKeys } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponse } from '@/types/api';
 import { IPrays } from '@/types/prays';

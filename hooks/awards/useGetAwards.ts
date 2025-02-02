@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { awards } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { TAward } from '@/types/awards';
 
 const getAwards = async (userId: string): Promise<TAward[]> => {

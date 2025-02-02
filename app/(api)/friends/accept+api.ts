@@ -1,6 +1,6 @@
 import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
-import { createResponse, StatusCode } from 'utils/status';
+import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
 export async function GET(request: Request) {
   try {
@@ -17,13 +17,13 @@ export async function GET(request: Request) {
       include: { friend: true },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Friends fetched successfully',
-      friends,
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Friends fetched successfully',
+      code: MessageCodes.FRIEND_FETCHED,
+      data: friends,
+    });
   } catch (error) {
-    console.error(error);
     // Use handleError to standardize the response for all errors
     return handleError(error);
   }

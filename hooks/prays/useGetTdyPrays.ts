@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys, todaysPrayKey } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { IPrays } from '@/types/prays';
 
 type TPraysParams = {

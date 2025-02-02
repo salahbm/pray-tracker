@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import useMutation from '@/hooks/common/useMutation';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { hashPassword } from '@/utils/helpers';

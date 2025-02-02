@@ -1,6 +1,6 @@
 import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
-import { createResponse, StatusCode } from 'utils/status';
+import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
 export default async function DELETE(request: Request) {
   try {
@@ -33,12 +33,13 @@ export default async function DELETE(request: Request) {
       where: { id: friendRequest.id },
     });
 
-    return createResponse(
-      StatusCode.SUCCESS,
-      'Friend request canceled successfully.',
-    );
+    return createResponse({
+      status: StatusCode.SUCCESS,
+      message: 'Friend request canceled successfully',
+      code: MessageCodes.FRIEND_CANCELLED,
+      data: null,
+    });
   } catch (error) {
-    console.error(error);
     return handleError(error);
   }
 }

@@ -25,6 +25,9 @@ export const fireToast = {
     toast(message, {
       icon: <Check size={24} color={colorsRef.primary} />,
       styles: {
+        pressable: {
+          borderColor: colorsRef.primary,
+        },
         text: {
           color: colorsRef.primary,
           fontSize: 14,
@@ -37,6 +40,9 @@ export const fireToast = {
     toast(message, {
       icon: <Ban size={24} color={colorsRef.destructive} />,
       styles: {
+        pressable: {
+          borderColor: colorsRef.destructive,
+        },
         text: {
           color: colorsRef.destructive,
           fontSize: 14,
@@ -49,6 +55,9 @@ export const fireToast = {
     toast(message, {
       icon: <Info size={24} color={colorsRef.border} />,
       styles: {
+        pressable: {
+          borderColor: colorsRef.border,
+        },
         text: {
           color: colorsRef.border,
           fontSize: 14,
@@ -71,7 +80,6 @@ const ToastProvider = () => {
         pressable: {
           backgroundColor: colors['--background'],
           borderWidth: 1,
-          borderColor: colors['--border'],
           zIndex: 10000,
         },
         view: {

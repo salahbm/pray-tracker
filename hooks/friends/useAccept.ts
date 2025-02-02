@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
 import { friendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';

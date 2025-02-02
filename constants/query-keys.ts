@@ -15,7 +15,7 @@ const praysListKeys = 'praysListCache';
 const todaysPrayKey = 'todaysPrayCache';
 
 const friendsList = {
-  queryKey: ['friendsList'],
+  queryKey: ['friendsListCache'],
 };
 
 export {

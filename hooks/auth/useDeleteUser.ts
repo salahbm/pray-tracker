@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
 
 import { userKeys, usersListKey } from '@/constants/query-keys';
-import { agent } from '@/lib/fetch';
+import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
