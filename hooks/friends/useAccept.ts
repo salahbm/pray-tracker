@@ -1,7 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
-import { friendsList } from '@/constants/query-keys';
+import {
+  approvedFriendsList,
+  pendingFriendsList,
+} from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponseArray } from '@/types/api';
@@ -15,7 +18,7 @@ type TParams = {
 const acceptRequest = async (
   data: TParams,
 ): Promise<IResponseArray<IFriend>> => {
-  const response = await agent('/friends/accept', {
+  const response = await agent('/friends/approve', {
     method: 'POST',
     body: JSON.stringify({
       userId: data.userId,
@@ -32,8 +35,9 @@ export const useAcceptRequest = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [friendsList],
+          queryKey: [approvedFriendsList, pendingFriendsList],
         });
+        fireToast.success('Friend request accepted successfully.');
       },
       onError: (error: ErrorData) => {
         fireToast.error(error.message);

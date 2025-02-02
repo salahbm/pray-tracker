@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
-import { friendsList } from '@/constants/query-keys';
+import { pendingFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData, IResponseArray } from '@/types/api';
@@ -12,10 +12,10 @@ type TParams = {
   friendId: string;
 };
 
-const cancelRequest = async (
+const rejectRequest = async (
   data: TParams,
 ): Promise<IResponseArray<IFriend>> => {
-  const response = await agent('/friends/cancel', {
+  const response = await agent('/friends/reject', {
     method: 'DELETE',
     body: JSON.stringify({
       userId: data.userId,
@@ -25,14 +25,14 @@ const cancelRequest = async (
   return response;
 };
 
-export const useCancelRequest = () => {
+export const useRejectRequest = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: cancelRequest,
+    mutationFn: rejectRequest,
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [friendsList],
+          queryKey: [pendingFriendsList],
         });
         fireToast.success('Friend request canceled successfully.');
       },

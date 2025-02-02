@@ -2,73 +2,46 @@ import prisma from '@/lib/prisma';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
+    const { userId, friendId } = await request.json();
 
-    if (!userId) {
+    if (!userId || !friendId) {
       throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId },
+        fields: { userId, friendId },
       });
     }
 
-    // Fetch only approved friends
-    const friends = await prisma.friend.findMany({
+    // Check if the friend request exists and is pending
+    const existingFriendship = await prisma.friend.findFirst({
       where: {
-        OR: [{ userId }, { friendId: userId }],
-        status: 'APPROVED', // Fix: Use uppercase ENUM value
-      },
-      select: {
-        id: true,
-        status: true,
-        friend: {
-          select: {
-            id: true,
-            username: true,
-          },
-        },
-        user: {
-          select: {
-            id: true,
-            username: true,
-          },
-        },
+        OR: [
+          { userId, friendId, status: 'PENDING' },
+          { userId: friendId, friendId: userId, status: 'PENDING' }, // Check both directions
+        ],
       },
     });
 
-    // Extract friend user IDs
-    const friendIds = friends.map((f) =>
-      f.friend?.id === userId ? f.user.id : f.friend.id,
-    );
-
-    if (friendIds.length === 0) {
+    if (!existingFriendship) {
       return createResponse({
-        status: StatusCode.SUCCESS,
-        message: 'No approved friends found',
+        status: StatusCode.NOT_FOUND,
+        message: 'Friend request not found or already approved',
         code: MessageCodes.FRIEND_NOT_FOUND,
         data: [],
       });
     }
 
-    // Get today's date (without time)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to midnight
-
-    // Fetch today's prayers for friends
-    const prays = await prisma.prays.findMany({
-      where: {
-        userId: { in: friendIds },
-        date: { gte: today }, // Get prayers from today
-      },
-      orderBy: { date: 'asc' }, // Order prayers by date
+    // Approve the friend request
+    const updatedFriendship = await prisma.friend.update({
+      where: { id: existingFriendship.id }, // Use the found friendship ID
+      data: { status: 'APPROVED' }, // Update status to APPROVED
     });
 
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Friends and their prayers fetched successfully',
-      code: MessageCodes.FRIEND_FETCHED,
-      data: { friends, prays },
+      message: 'Friend request approved successfully',
+      code: MessageCodes.FRIEND_APPROVED,
+      data: updatedFriendship,
     });
   } catch (error) {
     return handleError(error);

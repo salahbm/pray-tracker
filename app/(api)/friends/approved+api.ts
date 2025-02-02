@@ -13,7 +13,7 @@ export async function GET(request: Request) {
       });
     }
 
-    // Fetch accepted friends in both directions
+    // Fetch approved friends including status
     const friends = await prisma.friend.findMany({
       where: {
         OR: [
@@ -22,26 +22,34 @@ export async function GET(request: Request) {
         ],
       },
       select: {
-        friend: { select: { id: true, username: true, email: true } },
+        status: true, // Include status field
+        friend: {
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            photo: true,
+          },
+        },
         user: { select: { id: true, username: true } },
       },
     });
 
-    // Extract valid friend IDs (exclude current user)
-    const friendIds = friends
-      .filter((f) => f.friend && f.user) // Ensure no undefined values
-      .map((f) => (f.friend.id === userId ? f.user.id : f.friend.id));
+    // Extract friend IDs (exclude current user)
+    const friendIds = friends.map((f) =>
+      f.friend.id === userId ? f.user.id : f.friend.id,
+    );
 
     if (friendIds.length === 0) {
       return createResponse({
         status: StatusCode.SUCCESS,
-        message: 'No friends found',
-        code: MessageCodes.NOT_FOUND,
-        data: [],
+        message: 'No approved friends found',
+        code: MessageCodes.FRIEND_NOT_FOUND,
+        data: { approved: { friends: [] } },
       });
     }
 
-    // Get today's date in YYYY-MM-DD format (ignores time)
+    // Get today's date range (ignores time)
     const today = new Date();
     const startOfDay = new Date(today.setHours(0, 0, 0, 0));
     const endOfDay = new Date(today.setHours(23, 59, 59, 999));
@@ -49,7 +57,7 @@ export async function GET(request: Request) {
     // Fetch today's prayers for friends
     const prayers = await prisma.prays.findMany({
       where: {
-        userId: { in: friendIds.length > 0 ? friendIds : null }, // Prevent Prisma empty list error
+        userId: { in: friendIds },
         date: {
           gte: startOfDay,
           lte: endOfDay,
@@ -58,14 +66,25 @@ export async function GET(request: Request) {
       include: { user: { select: { id: true, username: true } } },
     });
 
+    // Format data: group prayers with corresponding friend info
+    const approvedFriends = friends.map((f) => {
+      const friendInfo = f.friend.id === userId ? f.user : f.friend;
+      const friendPrays = prayers.filter((p) => p.userId === friendInfo.id);
+
+      return {
+        friend: {
+          ...friendInfo,
+          status: f.status, // Include status in response
+        },
+        prays: friendPrays,
+      };
+    });
+
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Friends fetched successfully',
+      message: 'Approved friends and their prayers fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: {
-        friends,
-        prayers,
-      },
+      data: approvedFriends,
     });
   } catch (error) {
     return handleError(error);

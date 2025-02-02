@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useAcceptRequest } from '@/hooks/friends/useAccept';
-import { useCancelRequest } from '@/hooks/friends/useDelete';
 import { useGetPendingFriends } from '@/hooks/friends/useGetPending';
+import { useRejectRequest } from '@/hooks/friends/useReject';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -25,8 +25,8 @@ const FriendsPending = () => {
 
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
     useAcceptRequest();
-  const { mutateAsync: cancelFriendRequest, isPending: isCancelling } =
-    useCancelRequest();
+  const { mutateAsync: rejectFriendRequest, isPending: isRejecting } =
+    useRejectRequest();
 
   return (
     <SafeAreaView className="safe-area">
@@ -45,9 +45,9 @@ const FriendsPending = () => {
         <Text className="text-lg font-semibold mb-3">Friendship Requests</Text>
 
         {isLoadingPending ? (
-          <Loader visible />
+          <Loader visible className="bg-transparent mt-[45%]" />
         ) : pendingFriends.length === 0 ? (
-          <NoData />
+          <NoData className="mt-[45%]" />
         ) : (
           <View className="space-y-3">
             {pendingFriends.map((item) => (
@@ -76,8 +76,8 @@ const FriendsPending = () => {
                   <Button
                     size="sm"
                     disabled={isAccepting}
-                    onPress={() =>
-                      acceptFriendRequest({
+                    onPress={async () =>
+                      await acceptFriendRequest({
                         userId: user?.id,
                         friendId: item.friendId,
                       })
@@ -88,9 +88,9 @@ const FriendsPending = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    disabled={isCancelling}
-                    onPress={() =>
-                      cancelFriendRequest({
+                    disabled={isRejecting}
+                    onPress={async () =>
+                      await rejectFriendRequest({
                         userId: user?.id,
                         friendId: item.friendId,
                       })

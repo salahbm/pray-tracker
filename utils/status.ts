@@ -1,4 +1,3 @@
-import { FRIENDS } from './../constants/images';
 // Enum for Status Codes
 export enum StatusCode {
   SUCCESS = 200,
@@ -45,7 +44,7 @@ export enum MessageCodes {
 
   // friend related
   FRIEND_NOT_FOUND = 5000,
-  FRIEND_CREATED = 5001,
+  FRIEND_APPROVED = 5001,
   FRIEND_DELETED = 5002,
   FRIEND_REQUESTED = 5003,
   FRIEND_FETCHED = 5004,

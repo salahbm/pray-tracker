@@ -19,12 +19,13 @@ const buttonVariants = cva(
         ghost:
           'web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent active:opacity-10',
         link: 'web:underline-offset-4 web:hover:underline web:focus:underline',
+        icon: 'bg-transparent active:bg-transparent active:opacity-100',
       },
       size: {
         default: 'h-10 px-4 py-2 native:h-12 native:px-5 native:py-3',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8 native:h-14',
-        icon: 'h-10 w-10',
+        icon: 'h-10 w-10 px-1',
       },
       width: {
         auto: 'w-auto',
@@ -54,6 +55,7 @@ const buttonTextVariants = cva(
           'text-secondary-foreground group-active:text-secondary-foreground',
         ghost: 'group-active:text-accent-foreground',
         link: 'text-primary group-active:underline',
+        icon: '',
       },
       size: {
         default: '',

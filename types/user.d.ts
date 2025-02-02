@@ -1,4 +1,4 @@
-export type User = {
+export type TUser = {
   id: string;
   supabaseId: string;
   username: string;

@@ -14,8 +14,12 @@ const awards = {
 const praysListKeys = 'praysListCache';
 const todaysPrayKey = 'todaysPrayCache';
 
-const friendsList = {
+const approvedFriendsList = {
   queryKey: ['friendsListCache'],
+};
+
+const pendingFriendsList = {
+  queryKey: ['pendingFriendsListCache'],
 };
 
 export {
@@ -24,5 +28,6 @@ export {
   todaysPrayKey,
   usersListKey,
   awards,
-  friendsList,
+  approvedFriendsList,
+  pendingFriendsList,
 };
