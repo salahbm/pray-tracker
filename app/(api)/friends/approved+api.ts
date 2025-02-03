@@ -31,7 +31,9 @@ export async function GET(request: Request) {
             photo: true,
           },
         },
-        user: { select: { id: true, username: true } },
+        user: {
+          select: { id: true, username: true, photo: true, email: true },
+        },
       },
     });
 

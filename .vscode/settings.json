@@ -13,6 +13,7 @@
     "nativewind",
     "pageable",
     "SUPABASE",
+    "Swipeable",
     "tahajjud"
   ],
   "i18n-ally.keystyle": "nested"
