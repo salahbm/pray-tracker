@@ -78,7 +78,22 @@ export async function GET(request: Request) {
           ...friendInfo,
           status: f.status, // Include status in response
         },
-        prays: friendPrays,
+        prays:
+          friendPrays.length > 0
+            ? friendPrays
+            : [
+                {
+                  userId: friendInfo.id,
+                  username: friendInfo.username,
+                  date: today,
+                  fajr: 0,
+                  dhuhr: 0,
+                  asr: 0,
+                  maghrib: 0,
+                  isha: 0,
+                  tahajjud: 0,
+                },
+              ],
       };
     });
 

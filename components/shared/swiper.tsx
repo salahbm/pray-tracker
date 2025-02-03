@@ -1,10 +1,13 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useRef } from 'react';
+import { Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+import ReanimatedSwipeable, {
+  SwipeableMethods,
+} from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated, {
   SharedValue,
   useAnimatedStyle,
+  useDerivedValue,
 } from 'react-native-reanimated';
 
 import { Button } from '../ui/button';
@@ -35,10 +38,16 @@ const RightAction = ({
   progress: SharedValue<number>;
   drag: SharedValue<number>;
 } & SwiperButtonProps) => {
+  const animatedDrag = useDerivedValue(() => drag.value);
+  const animatedProgress = useDerivedValue(() => progress.value);
+
   const styleAnimation = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: drag.value + 50 }],
-      opacity: progress.value > 0 ? 1 : 0, // Initially hide the button
+      transform: [{ translateX: animatedDrag.value + 100 }],
+      opacity: animatedProgress.value,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 100,
     };
   });
 
@@ -57,15 +66,21 @@ const RightAction = ({
 };
 
 const SwiperButton: React.FC<SwiperButtonProps> = (props) => {
-  const { children, containerStyle, gestureStyle, ...restProps } = props;
-
+  const {
+    children,
+    containerStyle,
+    gestureStyle = { flex: 1, gap: 100 },
+    ...restProps
+  } = props;
+  const reanimatedRef = useRef<SwipeableMethods>(null);
   return (
-    <GestureHandlerRootView style={[styles.container, containerStyle]}>
+    <GestureHandlerRootView style={[containerStyle]}>
       <ReanimatedSwipeable
+        ref={reanimatedRef}
         containerStyle={[gestureStyle]}
         friction={1}
         enableTrackpadTwoFingerGesture
-        rightThreshold={60}
+        rightThreshold={40}
         renderRightActions={(progress, dragX) => (
           <RightAction progress={progress} drag={dragX} {...restProps} />
         )}
@@ -76,11 +91,5 @@ const SwiperButton: React.FC<SwiperButtonProps> = (props) => {
     </GestureHandlerRootView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default SwiperButton;

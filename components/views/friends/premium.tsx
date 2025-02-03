@@ -33,7 +33,6 @@ const FriendsApproved = () => {
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
-  console.log('approvedFriends:', JSON.stringify(approvedFriends, null, 2));
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
   const [friendEmail, setFriendEmail] = useState('');
   const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
@@ -99,7 +98,10 @@ const FriendsApproved = () => {
         <NoData className="mt-[45%]" />
       ) : (
         approvedFriends.map(({ friend, prays }) => (
-          <SwiperButton key={friend.id}>
+          <SwiperButton
+            key={friend.id}
+            onPress={() => fireToast.success('Swiped')}
+          >
             <Accordion
               type="multiple"
               collapsible
