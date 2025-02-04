@@ -4,8 +4,7 @@ import { format } from 'date-fns';
 import useMutation from '../common/useMutation';
 import { praysListKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { fireToast } from '@/providers/toaster';
-import { ErrorData, IResponse } from '@/types/api';
+import { IResponse } from '@/types/api';
 import { IPrays } from '@/types/prays';
 
 type PrayData = {
@@ -45,9 +44,6 @@ export const useCreatePray = () => {
         await queryClient.invalidateQueries({
           queryKey: [praysListKeys],
         });
-      },
-      onError: (error: ErrorData) => {
-        fireToast.error(error.message);
       },
     },
   });

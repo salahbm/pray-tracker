@@ -114,11 +114,12 @@ export default function HomeScreen() {
       if (prayers[prayer] === value) return;
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       const updatedPrayers = { ...prayers, [prayer]: value };
-      dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       await createPray({
         id: user?.id,
         date: today,
         ...updatedPrayers,
+      }).then(() => {
+        dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       });
 
       if (value === PRAYER_POINTS.ON_TIME) {

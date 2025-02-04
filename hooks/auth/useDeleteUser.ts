@@ -5,7 +5,6 @@ import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
-import { ErrorData } from '@/types/api';
 
 interface IUserDelete {
   id: string;
@@ -49,9 +48,6 @@ export const useDeleteUser = () => {
         queryKey: [userKeys, usersListKey],
       });
       fireToast.success(data.message);
-    },
-    onError: (error: ErrorData) => {
-      fireToast.error(error.message);
     },
   });
 };

@@ -7,7 +7,7 @@ import {
 } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
-import { ErrorData, IResponseArray } from '@/types/api';
+import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
@@ -38,9 +38,6 @@ export const useAcceptRequest = () => {
           queryKey: [approvedFriendsList, pendingFriendsList],
         });
         fireToast.success('Friend request accepted successfully.');
-      },
-      onError: (error: ErrorData) => {
-        fireToast.error(error.message);
       },
     },
   });

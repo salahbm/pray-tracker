@@ -4,7 +4,7 @@ import useMutation from '../common/useMutation';
 import { pendingFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
-import { ErrorData, IResponseArray } from '@/types/api';
+import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
@@ -35,9 +35,6 @@ export const useRejectRequest = () => {
           queryKey: [pendingFriendsList],
         });
         fireToast.success('Friend request canceled successfully.');
-      },
-      onError: (error: ErrorData) => {
-        fireToast.error(error.message);
       },
     },
   });
