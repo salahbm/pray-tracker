@@ -1,3 +1,4 @@
+import { PortalHost } from '@rn-primitives/portal';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -15,6 +16,7 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
           <QueryProvider>
             <BottomSheet>{children}</BottomSheet>
             <ToastProvider />
+            <PortalHost />
           </QueryProvider>
         </AlertProvider>
       </GestureHandlerRootView>

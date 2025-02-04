@@ -3,13 +3,18 @@ import { Coordinates, Qibla } from 'adhan';
 import * as Haptics from 'expo-haptics';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
-import { RefreshCcw } from 'lucide-react-native';
+import { CircleHelp, RefreshCcw } from 'lucide-react-native';
 import React, { useEffect, useReducer, useCallback, Reducer } from 'react';
 import { View, Image } from 'react-native';
 
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { IMAGES } from '@/constants/images';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
@@ -66,6 +71,7 @@ const QiblaCompass: React.FC = () => {
   }, []);
 
   const fetchQiblaAngle = useCallback(async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     dispatch({ type: 'START_LOADING' });
 
     try {
@@ -145,27 +151,24 @@ const QiblaCompass: React.FC = () => {
 
   return (
     <View className="items-center h-full">
-      {/* Info Text */}
+      {/* Description how to use */}
       <Text
         className={cn(
-          ' text-lg  d mt-16',
+          'text-lg mt-20 text-muted-foreground',
           state.magnetAngle + 1 === Number(state.qiblaAngle.toFixed(0))
-            ? 'text-primary font-bold'
-            : 'text-muted-foreground font-medium',
+            ? 'font-bold'
+            : 'font-medium',
         )}
       >
         Magnetic North: {state.magnetAngle}°
       </Text>
-      <Text className="text-lg font-medium text-muted-foreground mb-2">
+      <Text className="text-lg font-medium text-primary">
         Qibla: {state.qiblaAngle.toFixed(2)}°
       </Text>
-      {/* Description how to use */}
-      <Text className="text-sm font-medium text-muted-foreground mb-[20%]">
-        Rotate your phone, match the angle with the Qibla
-      </Text>
+
       {/* Compass Container */}
       <View
-        className="w-64 h-64 rounded-full border border-border relative items-center justify-center"
+        className="w-64 h-64 rounded-full border border-border relative items-center justify-center my-20"
         style={{ transform: [{ rotate: `${360 - state.magnetAngle}deg` }] }}
       >
         <Image
@@ -181,16 +184,28 @@ const QiblaCompass: React.FC = () => {
       </View>
 
       {/* Refresh Button */}
-      <Button
-        className="mt-8 rounded-full"
-        variant="ghost"
-        onPress={() => {
-          fetchQiblaAngle();
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        }}
-      >
-        <RefreshCcw size={20} color={colors['--primary']} />
-      </Button>
+      <View className="flex-row items-center gap-2">
+        <Button
+          className="rounded-full"
+          variant="ghost"
+          onPress={fetchQiblaAngle}
+        >
+          <RefreshCcw size={20} color={colors['--primary']} />
+        </Button>
+
+        <Tooltip delayDuration={150}>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" className="rounded-full">
+              <CircleHelp size={20} color={colors['--primary']} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent className="p-2 w-72 justify-center items-center">
+            <Text className="text-sm font-medium text-muted-foreground text-center">
+              Rotate your phone and match Magnetic North with Qibla
+            </Text>
+          </TooltipContent>
+        </Tooltip>
+      </View>
     </View>
   );
 };
