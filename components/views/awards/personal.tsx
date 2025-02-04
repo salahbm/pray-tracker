@@ -2,6 +2,7 @@ import LottieView from 'lottie-react-native';
 import React, { useMemo, useRef, useState } from 'react';
 import { View, Image, FlatList, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
@@ -15,6 +16,7 @@ import prize from 'assets/gif/prize.json';
 
 export default function PersonalTab() {
   const { user } = useAuthStore();
+  const insets = useSafeAreaInsets();
   const { data, isLoading } = useAwards(user?.id);
   const obtainedAwards = useMemo(
     () => data?.map((award) => award.title) || [],
@@ -94,7 +96,7 @@ export default function PersonalTab() {
           );
         }}
         ListEmptyComponent={() => <NoData className="mt-[45%]" />}
-        contentContainerStyle={{ gap: 8 }}
+        contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
         className="mt-4"
         showsVerticalScrollIndicator={false}
         ListFooterComponent={() => (

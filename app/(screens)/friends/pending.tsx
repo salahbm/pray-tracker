@@ -1,6 +1,9 @@
 import { View, ScrollView, RefreshControl } from 'react-native';
 import { Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import Loader from '@/components/shared/loader';
@@ -18,6 +21,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 const FriendsPending = () => {
   const { user } = useAuthStore();
   const { colors } = useThemeStore();
+  const insets = useSafeAreaInsets();
   const {
     data: pendingFriends,
     isLoading: isLoadingPending,
@@ -40,6 +44,9 @@ const FriendsPending = () => {
             tintColor={colors['--primary']}
           />
         }
+        contentContainerStyle={{
+          paddingBottom: insets.bottom + 50,
+        }}
       >
         <GoBack title="Pending Requests" />
 
@@ -54,9 +61,7 @@ const FriendsPending = () => {
 
         {isLoadingPending ? (
           <Loader visible className="bg-transparent mt-[45%]" />
-        ) : !pendingFriends ? (
-          <NoData className="mt-[55%]" />
-        ) : (
+        ) : Array.isArray(pendingFriends) && pendingFriends.length > 0 ? (
           <View className="space-y-3">
             {pendingFriends &&
               pendingFriends?.map((item) => (
@@ -111,6 +116,8 @@ const FriendsPending = () => {
                 </View>
               ))}
           </View>
+        ) : (
+          <NoData title="No pending requests" className="mt-[55%]" />
         )}
       </ScrollView>
     </SafeAreaView>

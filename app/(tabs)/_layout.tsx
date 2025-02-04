@@ -1,7 +1,7 @@
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { useThemeStore } from '@/store/defaults/theme';
 import { TabTints } from '@/styles/theme.config';
@@ -31,16 +31,19 @@ export default function TabLayout() {
           bottom: 0, // Ensure correct positioning
 
           backgroundColor: 'transparent', // Prevent solid colors
-          elevation: 0, // Remove Android shadow
-          shadowOpacity: 0, // Remove iOS shadow
+          elevation: 5, // Remove Android shadow
+          shadowOpacity: 0.1, // Remove iOS shadow
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={80} // Increase for better blur effect
+            intensity={Platform.OS === 'ios' ? 30 : 200}
             tint={TabTints[currentTheme]}
             style={{
               ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(0, 0, 0, 0.05)', // Faint background to enhance blur
+              backgroundColor:
+                Platform.OS === 'android'
+                  ? 'rgba(0, 0, 0, 0.3)'
+                  : 'transparent',
               overflow: 'hidden',
             }}
           />

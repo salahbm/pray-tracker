@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Image } from 'react-native';
 import Modal from 'react-native-modal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
-import { User } from '@/types/user';
+import { TUser } from '@/types/user';
 
 export default function Leaderboard() {
   const { data, isLoading } = useGetUsersList();
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const insets = useSafeAreaInsets();
+  const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
   return (
     <React.Fragment>
@@ -37,7 +39,7 @@ export default function Leaderboard() {
         )}
         showsVerticalScrollIndicator={false}
         className="mt-4"
-        contentContainerStyle={{ gap: 8 }}
+        contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
       />
 
       {/* User Details Modal */}

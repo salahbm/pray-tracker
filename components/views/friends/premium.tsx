@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { Search, Users } from 'lucide-react-native';
 import { useState } from 'react';
 import { View, RefreshControl, ScrollView, Image } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
@@ -28,6 +29,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 const FriendsApproved = () => {
   const { user } = useAuthStore();
   const { colors } = useThemeStore();
+  const insets = useSafeAreaInsets();
   const {
     data: approvedFriends = [],
     isLoading: isLoadingApproved,
@@ -59,6 +61,7 @@ const FriendsApproved = () => {
           tintColor={colors['--primary']}
         />
       }
+      contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
     >
       {/* Header Buttons */}
       <View className="flex-row flex justify-between items-center mb-4 gap-4">

@@ -11,7 +11,10 @@ import {
   useReducer,
 } from 'react';
 import { ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
@@ -64,7 +67,7 @@ export default function HomeScreen() {
   // DATE STATE
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
-
+  const insets = useSafeAreaInsets();
   // QUERIES
   const { user } = useAuthStore();
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
@@ -189,9 +192,14 @@ export default function HomeScreen() {
   }, [todaysPrays, user]);
 
   return (
-    <SafeAreaView className="main-area pb-12">
+    <SafeAreaView className="safe-area">
       <Loader visible={isLoadingPrays || isLoadingTodaysPrays} />
-      <ScrollView showsVerticalScrollIndicator={false} ref={homeRef}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={homeRef}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
+        className="main-area"
+      >
         {/* HEADER */}
         <HomeHeader
           today={today}
@@ -232,7 +240,7 @@ export default function HomeScreen() {
             left: 0,
             right: 0,
             bottom: 0,
-            zIndex: 100,
+            zIndex: -1,
             pointerEvents: 'none',
           }}
         />
@@ -250,9 +258,8 @@ export default function HomeScreen() {
           onSuccess={() => signUpSheetRef.current?.close()}
           onNavigate={handlePresentSignIn}
         />
-
-        {/* PROFILE */}
       </CustomBottomSheet>
+      {/* PROFILE */}
       <CustomBottomSheet sheetRef={profileSheetRef}>
         <ProfilePage onNavigate={() => profileSheetRef.current?.close()} />
       </CustomBottomSheet>
