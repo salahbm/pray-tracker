@@ -29,7 +29,7 @@ const FriendsApproved = () => {
   const { user } = useAuthStore();
   const { colors } = useThemeStore();
   const {
-    data: approvedFriends,
+    data: approvedFriends = [],
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
@@ -61,43 +61,46 @@ const FriendsApproved = () => {
       }
     >
       {/* Header Buttons */}
-      <View className="flex-row flex justify-between items-center mb-4">
-        <Input
-          placeholder="Enter email"
-          value={friendEmail}
-          onChangeText={setFriendEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          returnKeyType="send"
-          onSubmitEditing={handleSendRequest}
-        />
-        <View className="flex-row gap-4">
+      <View className="flex-row flex justify-between items-center mb-4 gap-4">
+        <View className="flex-row items-center border border-border rounded-md flex-1">
+          <View className="flex-1">
+            <Input
+              className="px-4 py-2 border-0"
+              placeholder="Enter Friend's Email"
+              value={friendEmail}
+              onChangeText={setFriendEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              returnKeyType="send"
+              onSubmitEditing={handleSendRequest}
+            />
+          </View>
           <Button
             variant="link"
             size="icon"
             onPress={handleSendRequest}
             disabled={isSending}
+            className="px-3 border-l rounded-none border-input" // Left border to separate
           >
             <Search size={24} color="black" />
           </Button>
-          <Button
-            variant="link"
-            size="icon"
-            onPress={() => router.push('/(screens)/friends/pending')}
-          >
-            <Users size={24} color="black" />
-          </Button>
         </View>
+
+        <Button
+          variant="link"
+          size="icon"
+          onPress={() => router.push('/(screens)/friends/pending')}
+        >
+          <Users size={24} color="black" />
+        </Button>
       </View>
 
       {/* Approved Friends List */}
       <Text className="text-xl font-bold mb-3">Approved Friends</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[45%]" />
-      ) : approvedFriends.length === 0 ? (
-        <NoData className="mt-[45%]" />
-      ) : (
-        approvedFriends.map(({ friend, prays }) => (
+      ) : Array.isArray(approvedFriends) && approvedFriends.length > 0 ? (
+        approvedFriends?.map(({ friend, prays }) => (
           <SwiperButton
             key={friend.id}
             onPress={() => fireToast.success('Swiped')}
@@ -176,6 +179,8 @@ const FriendsApproved = () => {
             </Accordion>
           </SwiperButton>
         ))
+      ) : (
+        <NoData title="No approved friends found." className="mt-[45%]" />
       )}
     </ScrollView>
   );

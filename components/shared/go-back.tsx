@@ -39,7 +39,7 @@ const GoBack: React.FC<GoBackHeaderProps> = (props) => {
   const canGoBack = navigation.canGoBack();
 
   return (
-    <View className="flex-row items-center px-4 justify-between bg-background">
+    <View className="flex-row items-center justify-between bg-background mb-4">
       {canGoBack ? (
         <TouchableOpacity
           onPress={() => navigation.goBack()}

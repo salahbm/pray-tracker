@@ -94,11 +94,13 @@ export default function HomeScreen() {
 
   // Callbacks to present each sheet
   const handlePresentSignIn = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     signUpSheetRef.current?.close();
     signInSheetRef.current?.snapToIndex(2);
   }, []);
 
   const handlePresentSignUp = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     signInSheetRef.current?.close();
     signUpSheetRef.current?.snapToIndex(2);
   }, []);
@@ -136,6 +138,7 @@ export default function HomeScreen() {
           animated: true,
         });
       }
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
       dispatch({
         type: 'SET_CLICKED_DATA',

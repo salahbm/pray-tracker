@@ -119,9 +119,9 @@ const EditProfile = () => {
 
   return (
     <SafeAreaView className="safe-area">
-      <GoBack title="Edit Profile" />
       <View className="main-area">
-        <View className="h-[240px] items-center justify-center gap-3">
+        <GoBack title="Edit Profile" />
+        <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
             <Image
               source={{ uri: image || FRIENDS.guest }}

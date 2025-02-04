@@ -6,16 +6,22 @@ import { Text } from '../ui/text';
 import { IMAGES } from '@/constants/images';
 import { cn } from '@/lib/utils';
 
-const NoData = ({ className }: { className?: string }) => {
+const NoData = ({
+  className,
+  title,
+}: {
+  className?: string;
+  title?: string;
+}) => {
   const { t } = useTranslation();
   return (
-    <View className={cn('m-auto', className)}>
+    <View className={cn('m-auto flex flex-col items-center', className)}>
       <Image
         source={IMAGES.no_data}
         className="w-[130px] h-[130px] object-contain border border-border rounded-full bg-foreground"
       />
       <Text className="text-xl text-muted-foreground mt-2">
-        {t('Defaults.noData')}
+        {title || t('Defaults.noData')}
       </Text>
     </View>
   );

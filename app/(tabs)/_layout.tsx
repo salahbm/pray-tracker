@@ -36,11 +36,11 @@ export default function TabLayout() {
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={90} // Increase for better blur effect
+            intensity={80} // Increase for better blur effect
             tint={TabTints[currentTheme]}
             style={{
               ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(255, 255, 255, 0.1)', // Faint background to enhance blur
+              backgroundColor: 'rgba(0, 0, 0, 0.05)', // Faint background to enhance blur
               overflow: 'hidden',
             }}
           />

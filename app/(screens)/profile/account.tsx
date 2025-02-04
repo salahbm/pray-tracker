@@ -35,17 +35,17 @@ const Account = () => {
   return (
     <SafeAreaView className="safe-area">
       <Loader visible={isDeleting || isLoggingOut} />
-      <GoBack title="Account" />
       <View className="main-area">
+        <GoBack title="Account" />
         <Image
           source={{
             uri: user?.photo || FRIENDS.guest,
           }}
           accessibilityLabel="Profile Photo"
-          className="w-[150px] h-[150px] rounded-full mx-auto border border-border"
+          className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
         />
         {/* Account Info */}
-        <View className="mt-12">
+        <View className="mt-20">
           <View className="flex-row justify-between items-center w-full mb-4">
             <Text className="text-base font-semibold">Email:</Text>
             <Text className="text-base font-semibold">

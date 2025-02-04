@@ -54,14 +54,14 @@ const EditPwd = () => {
   };
 
   return (
-    <SafeAreaView className="safe-area">
+    <SafeAreaView className="main-area">
       <GoBack title="Edit Password" />
       <Image
         source={{ uri: user?.photo || FRIENDS.guest }}
         accessibilityLabel="Profile Photo"
-        className="w-[150px] h-[150px] rounded-full border border-border my-20 mx-auto"
+        className="w-[150px] h-[150px] rounded-full border border-border mb-20 mt-10 mx-auto"
       />
-      <View className="main-area gap-6">
+      <View className="flex-1 gap-6">
         <Input
           label="New Password"
           placeholder="Your New Password"
@@ -79,7 +79,7 @@ const EditPwd = () => {
           onChangeText={setConfirmPassword}
         />
       </View>
-      <View className="bg-background px-5 py-4">
+      <View className="pb-4">
         <Button onPress={handleUpdate} disabled={isLoading}>
           <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
         </Button>

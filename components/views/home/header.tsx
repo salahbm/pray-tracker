@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import * as Haptics from 'expo-haptics';
 import React, { forwardRef } from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 
@@ -44,6 +45,7 @@ const HomeHeader = forwardRef<
               'current' in profileSheetRef &&
               profileSheetRef.current
             ) {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               profileSheetRef.current.snapToIndex(2);
             }
           }}
@@ -69,6 +71,8 @@ const HomeHeader = forwardRef<
                 'current' in profileSheetRef &&
                 profileSheetRef.current
               ) {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
                 profileSheetRef.current.snapToIndex(2);
               }
             }}

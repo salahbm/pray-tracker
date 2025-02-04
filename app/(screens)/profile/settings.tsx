@@ -20,10 +20,10 @@ const Settings = () => {
   const { currentLanguage } = useLanguageStore();
   return (
     <SafeAreaView className="safe-area">
-      <GoBack title="Settings" />
       <View className="main-area">
+        <GoBack title="Settings" />
         <TouchableOpacity
-          className="touchable"
+          className="touchable mt-4"
           onPress={() => themeRef.current?.snapToIndex(2)}
         >
           <Text className="text-base text-muted-foreground ml-2">Theme</Text>
