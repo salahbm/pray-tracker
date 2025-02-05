@@ -65,7 +65,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         mutationCache: new MutationCache({
           onError: (error) => {
             if (!isErrorData(error)) {
-              console.log('error in mutation', error);
+              console.warn('error in mutation', error);
               fireToast.error(error.message);
               return;
             }

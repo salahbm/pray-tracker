@@ -10,7 +10,7 @@ import {
   useEffect,
   useReducer,
 } from 'react';
-import { ScrollView } from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -27,9 +27,11 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
+import { sendTestNotification } from '@/lib/notifications';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import confetti from 'assets/gif/confetti.json';
@@ -70,6 +72,8 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   // QUERIES
   const { user } = useAuthStore();
+  const { enableNotifications } = useNotificationSettings();
+
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
     user?.id,
     year,
@@ -79,6 +83,13 @@ export default function HomeScreen() {
     refetch,
     isLoading: isLoadingTodaysPrays,
   } = useGetTodayPrays(user?.id);
+
+  // Enable notifications when the user is logged in
+  useEffect(() => {
+    if (user) {
+      enableNotifications();
+    }
+  }, [user, enableNotifications]);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -208,10 +219,9 @@ export default function HomeScreen() {
           handlePresentSignIn={handlePresentSignIn}
           ref={profileSheetRef}
         />
-
+        <Button title="Send Notification" onPress={sendTestNotification} />
         {/* Today's Prayers */}
         <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
-
         {/* PRAYER HISTORY */}
         <PrayerHistory
           data={prays}
@@ -224,10 +234,8 @@ export default function HomeScreen() {
           handleDayClick={handleDayClick}
           handleUpdateClickedDay={handleUpdateClickedDay}
         />
-
         {/* CHARTS */}
         <AreaChart lineData={prays} />
-
         {/* LOTTIE CONFETTI */}
         <LottieView
           ref={confettiRef}

@@ -9,13 +9,21 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "salahdev.prayerTracker.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -51,7 +59,8 @@
         }
       ],
       "expo-localization",
-      "@prisma/react-native"
+      "@prisma/react-native",
+      "expo-notifications"
     ],
     "experiments": {
       "typedRoutes": true
@@ -63,7 +72,14 @@
       "ko": "./locales/ko.json"
     },
     "extra": {
-      "supportRTL": true
-    }
+      "supportRTL": true,
+      "router": {
+        "origin": "https://prayer-tracker.dev"
+      },
+      "eas": {
+        "projectId": "6199a50c-8940-4b44-bb6a-919736af63f6"
+      }
+    },
+    "owner": "salahbm_dev"
   }
 }

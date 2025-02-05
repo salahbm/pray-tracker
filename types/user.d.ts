@@ -6,6 +6,7 @@ export type TUser = {
   password: string;
   photo?: string;
   totalPoints: number;
+  deviceToken?: string;
   firstName?: string;
   lastName?: string;
   createdAt: string;

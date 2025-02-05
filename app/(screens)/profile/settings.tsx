@@ -1,7 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native';
+import { Switch, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
@@ -9,6 +9,8 @@ import GoBack from '@/components/shared/go-back';
 import { FLAGS, Language } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
+import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
+import { SignedIn } from '@/providers/session';
 import { useLanguageStore } from '@/store/defaults/language';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -18,6 +20,8 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguageStore();
+  const { disableNotifications, enableNotifications, isNotificationEnabled } =
+    useNotificationSettings();
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
@@ -80,6 +84,35 @@ const Settings = () => {
             {t('Defaults.Locales.languages.' + currentLanguage)}
           </Text>
         </TouchableOpacity>
+        <SignedIn>
+          <View className="touchable">
+            <Text className="text-base text-muted-foreground ml-2">
+              Notifications
+            </Text>
+
+            {/* Switch to enable / disable notifications */}
+            <Switch
+              trackColor={{
+                false: colors['--background'],
+                true: colors['--primary'],
+              }}
+              thumbColor={
+                enableNotifications
+                  ? colors['--primary']
+                  : colors['--background']
+              }
+              ios_backgroundColor={colors['--card']}
+              onValueChange={(value) => {
+                if (value) {
+                  enableNotifications();
+                } else {
+                  disableNotifications();
+                }
+              }}
+              value={isNotificationEnabled}
+            />
+          </View>
+        </SignedIn>
       </View>
 
       <CustomBottomSheet sheetRef={themeRef}>

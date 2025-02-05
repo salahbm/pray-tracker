@@ -5,13 +5,13 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
-import { User } from '@/types/user';
+import { TUser } from '@/types/user';
 
 interface AuthState {
-  user: User | null;
+  user: TUser | null;
   accessToken: string | null;
   refreshToken: string | null;
-  setUser: (user: User | null) => void;
+  setUser: (user: TUser | null) => void;
   loadSession: () => Promise<void>;
   logOut: () => void;
 }
