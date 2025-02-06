@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { awards } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
@@ -16,5 +16,6 @@ export const useAwards = (userId: string) =>
   useQuery({
     queryKey: [awards],
     queryFn: () => getAwards(userId),
+    placeholderData: keepPreviousData,
     enabled: !!userId,
   });

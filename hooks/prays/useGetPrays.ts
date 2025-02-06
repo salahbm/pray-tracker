@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { DayData } from '@/components/shared/heat-map/heat';
 import { praysListKeys } from '@/constants/query-keys';
@@ -24,5 +24,6 @@ export const useGetPrays = (id: string, year: number) =>
   useQuery({
     queryKey: [praysListKeys, id, year],
     queryFn: () => getPraysList({ id, year }),
+    placeholderData: keepPreviousData,
     enabled: !!id,
   });

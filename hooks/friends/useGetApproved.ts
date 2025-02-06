@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { approvedFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
@@ -16,5 +16,6 @@ export const useGetApprovedFriends = (userId: string) =>
   useQuery({
     queryKey: [approvedFriendsList, userId],
     queryFn: () => getFriends(userId),
+    placeholderData: keepPreviousData,
     enabled: !!userId,
   });
