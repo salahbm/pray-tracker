@@ -8,8 +8,14 @@ export async function DELETE(request: Request) {
     const { friendId, friendshipId } = await request.json();
 
     if (!friendId) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { friendId },
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          friendId,
+          friendshipId,
+        },
       });
     }
 
@@ -21,11 +27,14 @@ export async function DELETE(request: Request) {
     });
 
     if (!deletedFriendship) {
-      return createResponse({
-        status: StatusCode.NOT_FOUND,
+      throw new ApiError({
         message: 'Friendship not found',
-        code: MessageCodes.FRIEND_NOT_FOUND,
-        data: null,
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_FRIENDSHIP_NOT_FOUND,
+        details: {
+          friendId,
+          friendshipId,
+        },
       });
     }
 

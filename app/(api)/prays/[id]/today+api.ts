@@ -8,10 +8,10 @@ export async function GET(request: Request, { id }: { id: string }) {
     const today = url.searchParams.get('today'); // yyyy-MM-dd
 
     if (!id) {
-      return new ApiError(
-        'Please, Sign In to fetch Prays',
-        StatusCode.UNAUTHORIZED,
-      );
+      return new ApiError({
+        message: 'Please, Sign In to fetch Prays',
+        status: StatusCode.UNAUTHORIZED,
+      });
     }
 
     const startOfDay = new Date(`${today}T00:00:00.000Z`);
@@ -28,11 +28,14 @@ export async function GET(request: Request, { id }: { id: string }) {
     });
 
     if (!pray) {
-      return createResponse({
-        status: StatusCode.SUCCESS,
-        message: 'Today’s Pray not found',
+      throw new ApiError({
+        message: 'Pray not found',
+        status: StatusCode.NOT_FOUND,
         code: MessageCodes.PRAY_NOT_FOUND,
-        data: [],
+        details: {
+          userId: id,
+          date: today,
+        },
       });
     }
 

@@ -7,8 +7,15 @@ export async function POST(request: Request) {
     const { userId, friendId, friendshipId } = await request.json();
 
     if (!userId || !friendId) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId, friendId, friendshipId },
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          userId,
+          friendId,
+          friendshipId,
+        },
       });
     }
 
@@ -25,10 +32,16 @@ export async function POST(request: Request) {
     });
 
     if (!existingFriendship) {
-      throw new ApiError(
-        'Friend request not found or already approved',
-        StatusCode.NOT_FOUND,
-      );
+      throw new ApiError({
+        message: 'Friend request not found or not pending',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_NOT_FOUND,
+        details: {
+          userId,
+          friendId,
+          friendshipId,
+        },
+      });
     }
 
     // Approve the friend request

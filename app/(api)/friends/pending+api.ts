@@ -8,8 +8,11 @@ export async function GET(request: Request) {
     const userId = searchParams.get('userId');
 
     if (!userId) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId },
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: { userId },
       });
     }
 

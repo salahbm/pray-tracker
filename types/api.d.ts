@@ -1,12 +1,14 @@
 export interface IResponseArray<T> {
   status: number;
   message: string;
+  code: number;
   data: T[];
 }
 
 export interface IResponse<T> {
   status: StatusCode;
   message: string;
+  code: number;
   data: T;
 }
 

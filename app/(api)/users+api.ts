@@ -1,10 +1,17 @@
 import prisma from '@/lib/prisma';
-import { handleError } from '@/utils/error';
+import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET() {
   try {
     const users = await prisma.user.findMany();
+    if (!users) {
+      throw new ApiError({
+        message: 'Users not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.USER_NOT_FOUND,
+      });
+    }
     return createResponse({
       status: StatusCode.SUCCESS,
       message: 'Users fetched successfully',

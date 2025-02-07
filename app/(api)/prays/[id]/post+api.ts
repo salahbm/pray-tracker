@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { handleError } from '@/utils/error';
+import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
@@ -8,15 +8,21 @@ export async function POST(request: Request) {
     const { date, fajr, dhuhr, asr, maghrib, isha, tahajjud, userId } = body;
 
     if (!userId) {
-      return new Response(
-        JSON.stringify({
-          status: StatusCode.UNAUTHORIZED,
-          code: StatusCode.UNAUTHORIZED,
-          message: 'Please, Authenticate to create Prays',
-          details: { userId },
-        }),
-        { status: StatusCode.UNAUTHORIZED },
-      );
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          userId,
+          date,
+          fajr,
+          dhuhr,
+          asr,
+          maghrib,
+          isha,
+          tahajjud,
+        },
+      });
     }
 
     // Upsert Prays record for the given user and date

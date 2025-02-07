@@ -36,7 +36,6 @@ const FriendsApproved = () => {
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
-  console.log('approvedFriends:', approvedFriends);
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
   const { mutateAsync: deleteFriend, isPending: isDeleting } =
     useDeleteFriend();

@@ -1,6 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
-import * as Device from 'expo-device';
 import * as Haptics from 'expo-haptics';
 import LottieView from 'lottie-react-native';
 import {
@@ -11,7 +10,7 @@ import {
   useEffect,
   useReducer,
 } from 'react';
-import { Button, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -32,7 +31,6 @@ import { useNotificationSettings } from '@/hooks/notifications/useNotificationSe
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
-import { sendTestNotification } from '@/lib/notifications';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import confetti from 'assets/gif/confetti.json';
@@ -220,7 +218,6 @@ export default function HomeScreen() {
           handlePresentSignIn={handlePresentSignIn}
           ref={profileSheetRef}
         />
-        <Button title="Send Notification" onPress={sendTestNotification} />
         {/* Today's Prayers */}
         <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
         {/* PRAYER HISTORY */}

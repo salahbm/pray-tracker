@@ -2,42 +2,62 @@ import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
 import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
+// REJECT FRIEND REQUEST
+
 export async function DELETE(request: Request) {
   try {
-    const { userId, friendId } = await request.json();
+    const { userId, friendId, friendshipId } = await request.json();
 
     if (!userId || !friendId) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId, friendId },
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          userId,
+          friendId,
+          friendshipId,
+        },
       });
     }
 
-    // Find the pending friend request
-    const friendRequest = await prisma.friend.findFirst({
+    // Check if the friend request exists and is pending
+    const existingFriendship = await prisma.friend.findFirst({
       where: {
-        userId,
-        friendId,
-        status: 'PENDING',
+        id: friendshipId,
+        OR: [
+          { userId: userId, friendId, status: 'PENDING' },
+          { userId: friendId, friendId: userId, status: 'PENDING' },
+        ],
       },
+      select: { id: true }, // Ensure we only fetch the ID
     });
 
-    if (!friendRequest) {
-      throw new ApiError(
-        'Friend request not found or already accepted.',
-        StatusCode.NOT_FOUND,
-      );
+    if (!existingFriendship) {
+      throw new ApiError({
+        message: 'Friend request not found or already approved',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_FRIENDSHIP_NOT_FOUND,
+        details: {
+          userId,
+          friendId,
+          friendshipId,
+        },
+      });
     }
 
-    // Delete the pending request
-    await prisma.friend.delete({
-      where: { id: friendRequest.id },
+    // Reject the friend request
+    const updatedFriendship = await prisma.friend.delete({
+      where: {
+        id: existingFriendship.id,
+      },
     });
 
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Friend request canceled successfully',
-      code: MessageCodes.FRIEND_CANCELLED,
-      data: null,
+      message: 'Friend request rejected successfully',
+      code: MessageCodes.FRIEND_REJECTED,
+      data: updatedFriendship,
     });
   } catch (error) {
     return handleError(error);

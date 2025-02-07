@@ -8,8 +8,15 @@ export async function POST(request: Request) {
     const { username, email, supabaseId, password } = await request.json();
 
     if (!username || !email || !supabaseId) {
-      throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { username, email, supabaseId },
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          username,
+          email,
+          supabaseId,
+        },
       });
     }
 
@@ -39,6 +46,14 @@ export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.searchParams.get('id');
+
+    if (!id) {
+      throw new ApiError({
+        message: 'Please, Sign In to fetch User',
+        status: StatusCode.UNAUTHORIZED,
+      });
+    }
+
     const user = await prisma.user.findUnique({
       where: {
         supabaseId: id,
@@ -61,12 +76,28 @@ export async function PUT(request: Request) {
   try {
     const { id, ...data } = await request.json();
 
+    if (!id) {
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          id,
+          data,
+        },
+      });
+    }
+
     // Check if user exists
     const existingUser = await prisma.user.findUnique({
       where: { id },
     });
     if (!existingUser) {
-      throw new ApiError('User not found', StatusCode.NOT_FOUND);
+      throw new ApiError({
+        message: 'User not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.USER_NOT_FOUND,
+      });
     }
 
     const updatedUser = await prisma.user.update({
@@ -88,6 +119,17 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
+
+    if (!id) {
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: {
+          id,
+        },
+      });
+    }
     const deletedUser = await prisma.user.delete({
       where: { id },
     });

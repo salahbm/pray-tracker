@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { handleError } from '@/utils/error';
+import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
@@ -7,11 +7,14 @@ export async function POST(request: Request) {
     const { userId, friendEmail } = await request.json();
 
     if (!userId || !friendEmail) {
-      return createResponse({
-        status: StatusCode.BAD_REQUEST,
+      throw new ApiError({
         message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
         code: MessageCodes.BAD_REQUEST,
-        data: [],
+        details: {
+          userId,
+          friendEmail,
+        },
       });
     }
 
@@ -21,11 +24,13 @@ export async function POST(request: Request) {
     });
 
     if (!friend) {
-      return createResponse({
-        status: StatusCode.NOT_FOUND,
+      throw new ApiError({
         message: 'Friend not found',
+        status: StatusCode.NOT_FOUND,
         code: MessageCodes.FRIEND_NOT_FOUND,
-        data: [],
+        details: {
+          friendEmail,
+        },
       });
     }
 
@@ -42,11 +47,14 @@ export async function POST(request: Request) {
     });
 
     if (existingFriendship) {
-      return createResponse({
-        status: StatusCode.CONFLICT,
-        message: 'Friendship already exists',
+      throw new ApiError({
+        message: 'Friend request already sent',
+        status: StatusCode.BAD_REQUEST,
         code: MessageCodes.FRIEND_EXISTS,
-        data: [],
+        details: {
+          userId,
+          friendId,
+        },
       });
     }
 

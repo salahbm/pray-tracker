@@ -3,13 +3,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import useMutation from '../common/useMutation';
 import { pendingFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { fireToast } from '@/providers/toaster';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
-  userId: string;
+  friendshipId: string;
   friendId: string;
+  userId: string;
 };
 
 const rejectRequest = async (
@@ -20,6 +20,7 @@ const rejectRequest = async (
     body: JSON.stringify({
       userId: data.userId,
       friendId: data.friendId,
+      friendshipId: data.friendshipId,
     }),
   });
   return response;
@@ -34,7 +35,6 @@ export const useRejectRequest = () => {
         await queryClient.invalidateQueries({
           queryKey: [pendingFriendsList],
         });
-        fireToast.success('Friend request canceled successfully.');
       },
     },
   });

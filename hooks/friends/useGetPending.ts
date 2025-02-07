@@ -17,7 +17,7 @@ const getFriends = async (userId: string): Promise<PendingFriendsList> => {
 
 export const useGetPendingFriends = (userId: string) =>
   useQuery({
-    queryKey: [approvedFriendsList, pendingFriendsList, userId],
+    queryKey: [approvedFriendsList, pendingFriendsList],
     queryFn: () => getFriends(userId),
     placeholderData: keepPreviousData,
     enabled: !!userId,
