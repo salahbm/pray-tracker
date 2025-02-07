@@ -16,12 +16,12 @@ export function Language() {
   const { changeLanguage, currentLanguage } = useLanguage();
   const { t } = useTranslation();
   // Fetch languages object
-  const languages = t('Defaults.Locales.languages', { returnObjects: true });
+  const languages = t('Commons.Locales.languages', { returnObjects: true });
   const locales = Object.keys(languages);
 
   return (
     <ScrollView contentContainerClassName="flex-1 flex  justify-between items-start gap-4 w-full pt-4">
-      <Text className="text-xl font-bold ">{t('Defaults.Locales.choose')}</Text>
+      <Text className="text-xl font-bold ">{t('Commons.Locales.choose')}</Text>
       {locales.map((lang) => (
         <TouchableOpacity
           key={lang}
@@ -31,7 +31,7 @@ export function Language() {
           <Text
             className={currentLanguage === lang && 'font-bold text-primary'}
           >
-            {t(`Defaults.Locales.languages.${lang}`)}
+            {t(`Commons.Locales.languages.${lang}`)}
           </Text>
           <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
         </TouchableOpacity>

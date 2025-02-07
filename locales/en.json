@@ -1,5 +1,48 @@
 {
-  "Defaults": {
+  "Responses": {
+    "9999": "Something went wrong",
+    "1000": "Success",
+    "1001": "Created successfully",
+    "1002": "Bad request",
+    "1003": "Unauthorized",
+    "1004": "Forbidden",
+    "1005": "Not found",
+    "1006": "Internal error",
+    "1007": "Conflict",
+    "1008": "Unprocessable entity",
+    "1009": "Too many requests",
+
+    "3000": "User not found",
+    "3001": "User already exists",
+    "3002": "User created",
+    "3003": "User deleted",
+    "3004": "User updated",
+    "3005": "User fetched",
+    "3006": "User unauthorized",
+
+    "4000": "Prayer not found",
+    "4001": "Prayer created",
+    "4002": "Prayer deleted",
+    "4003": "Prayer updated",
+    "4004": "Prayer fetched",
+
+    "5000": "Friend not found",
+    "5001": "Friend approved",
+    "5002": "Friend deleted",
+    "5003": "Friend request sent",
+    "5004": "Friend data fetched",
+    "5005": "Friend already exists",
+    "5006": "Friend request cancelled",
+    "5007": "Friend request rejected",
+    "5008": "Friendship not found",
+
+    "6000": "Award not found",
+    "6001": "Award created",
+    "6002": "Award deleted",
+    "6003": "Award updated",
+    "6004": "Award fetched"
+  },
+  "Commons": {
     "Locales": {
       "choose": "Choose a language",
       "languages": {
@@ -21,7 +64,9 @@
       "emerald_green": "Emerald Green",
       "Title": "Choose Theme"
     },
-    "noData": "No data available",
-    "welcome": "Welcome to Expo localization!"
+    "NotFound": {
+      "404": "Page not found",
+      "noData": "No data found"
+    }
   }
 }

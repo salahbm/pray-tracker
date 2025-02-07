@@ -81,7 +81,7 @@ const Settings = () => {
 
           <Text className="text-base text-muted-foreground ml-2">
             {FLAGS[currentLanguage]}{' '}
-            {t('Defaults.Locales.languages.' + currentLanguage)}
+            {t('Commons.Locales.languages.' + currentLanguage)}
           </Text>
         </TouchableOpacity>
         <SignedIn>

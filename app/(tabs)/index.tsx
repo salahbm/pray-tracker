@@ -11,6 +11,7 @@ import {
   useReducer,
 } from 'react';
 import { ScrollView } from 'react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -33,6 +34,7 @@ import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
 import confetti from 'assets/gif/confetti.json';
 
 const initialState = {
@@ -69,14 +71,16 @@ export default function HomeScreen() {
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
   const insets = useSafeAreaInsets();
+  const { colors } = useThemeStore();
   // QUERIES
   const { user } = useAuthStore();
   const { enableNotifications } = useNotificationSettings();
 
-  const { data: prays, isLoading: isLoadingPrays } = useGetPrays(
-    user?.id,
-    year,
-  );
+  const {
+    data: prays,
+    isLoading: isLoadingPrays,
+    refetch: refetchPrays,
+  } = useGetPrays(user?.id, year);
   const {
     data: todaysPrays,
     refetch,
@@ -210,6 +214,16 @@ export default function HomeScreen() {
         ref={homeRef}
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         className="main-area"
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoadingPrays || isLoadingTodaysPrays}
+            onRefresh={() => {
+              refetch();
+              refetchPrays();
+            }}
+            tintColor={colors['--primary']}
+          />
+        }
       >
         {/* HEADER */}
         <HomeHeader

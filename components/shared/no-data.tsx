@@ -21,7 +21,7 @@ const NoData = ({
         className="w-[130px] h-[130px] object-contain border border-border rounded-full bg-foreground"
       />
       <Text className="text-xl text-muted-foreground mt-2">
-        {title || t('Defaults.noData')}
+        {title || t('Commons.noData')}
       </Text>
     </View>
   );

@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { IPrays } from '@/types/prays';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
@@ -17,7 +18,7 @@ export async function GET(request: Request, { id }: { id: string }) {
     const startOfDay = new Date(`${today}T00:00:00.000Z`);
     const endOfDay = new Date(`${today}T23:59:59.999Z`);
 
-    const pray = await prisma.prays.findFirst({
+    const pray: IPrays = await prisma.prays.findFirst({
       where: {
         userId: id,
         date: {
@@ -28,14 +29,11 @@ export async function GET(request: Request, { id }: { id: string }) {
     });
 
     if (!pray) {
-      throw new ApiError({
-        message: 'Pray not found',
-        status: StatusCode.NOT_FOUND,
+      return createResponse({
+        status: StatusCode.SUCCESS,
+        message: 'No Pray found for today',
         code: MessageCodes.PRAY_NOT_FOUND,
-        details: {
-          userId: id,
-          date: today,
-        },
+        data: null,
       });
     }
 

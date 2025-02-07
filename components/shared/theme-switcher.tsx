@@ -44,7 +44,7 @@ const ThemeSwitcher = () => {
   return (
     <View className="flex flex-col gap-2 pt-8 text-left">
       <Text className="font-bold text-xl mb-4">
-        {t('Defaults.Themes.Title')}
+        {t('Commons.Themes.Title')}
       </Text>
       {Object.values(THEMES).map((theme) => {
         const themeStyles = THEME_COLORS[theme] || THEME_COLORS[THEMES.light];
@@ -66,7 +66,7 @@ const ThemeSwitcher = () => {
                   isActive ? 'font-bold  text-xl' : 'font-normal text-lg',
                 )}
               >
-                {t(`Defaults.Themes.${theme}`)}
+                {t(`Commons.Themes.${theme}`)}
               </Text>
             </View>
             <Pressable onPress={() => handlePress(theme)}>
