@@ -27,7 +27,6 @@ const FriendsPending = () => {
     isLoading: isLoadingPending,
     refetch: refetchPending,
   } = useGetPendingFriends(user?.id);
-  console.log('pendingFriends:', pendingFriends);
 
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
     useAcceptRequest();
@@ -54,7 +53,7 @@ const FriendsPending = () => {
         <Text
           className={cn(
             'text-lg font-semibold mb-3',
-            pendingFriends?.length > 0 ? 'block' : 'hidden',
+            pendingFriends?.data.length > 0 ? 'block' : 'hidden',
           )}
         >
           Friendship Requests

@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { ApprovedFriend } from '@/types/friends';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
@@ -75,7 +76,7 @@ export async function GET(request: Request) {
     });
 
     // Format data: group prayers with corresponding friend info
-    const approvedFriends = friends.map((f) => {
+    const approvedFriends: ApprovedFriend[] = friends.map((f) => {
       const friendInfo = f.friend.id === userId ? f.user : f.friend;
       const friendPrays = prayers.filter(
         (salah) => salah.userId === friendInfo.id,
@@ -113,7 +114,7 @@ export async function GET(request: Request) {
       status: StatusCode.SUCCESS,
       message: 'Approved friends and their prayers fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: approvedFriends,
+      data: approvedFriends ?? [],
     });
   } catch (error) {
     return handleError(error);

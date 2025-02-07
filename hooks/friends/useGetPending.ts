@@ -5,14 +5,17 @@ import {
   pendingFriendsList,
 } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { PendingFriendsList } from '@/types/friends';
+import { IResponseArray } from '@/types/api';
+import { PendingFriend } from '@/types/friends';
 
-const getFriends = async (userId: string): Promise<PendingFriendsList> => {
-  const { data } = await agent(`/friends/pending?userId=${userId}`, {
+const getFriends = async (
+  userId: string,
+): Promise<IResponseArray<PendingFriend>> => {
+  const response = await agent(`/friends/pending?userId=${userId}`, {
     method: 'GET',
   });
 
-  return data;
+  return response;
 };
 
 export const useGetPendingFriends = (userId: string) =>

@@ -2,14 +2,15 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { awards } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
+import { IResponseArray } from '@/types/api';
 import { TAward } from '@/types/awards';
 
-const getAwards = async (userId: string): Promise<TAward[]> => {
-  const data = await agent(`/awards/get?id=${userId}`, {
+const getAwards = async (userId: string): Promise<IResponseArray<TAward>> => {
+  const response = await agent(`/awards/get?id=${userId}`, {
     method: 'GET',
   });
 
-  return data.data;
+  return response;
 };
 
 export const useAwards = (userId: string) =>

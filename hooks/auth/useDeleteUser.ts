@@ -4,7 +4,6 @@ import * as SecureStore from 'expo-secure-store';
 import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 
 interface IUserDelete {
   id: string;
@@ -43,11 +42,10 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteUser,
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: [userKeys, usersListKey],
       });
-      fireToast.success(data.message);
     },
   });
 };

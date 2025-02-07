@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import useMutation from '../common/useMutation';
 import { approvedFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { fireToast } from '@/providers/toaster';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
@@ -34,7 +33,6 @@ export const useDeleteFriend = () => {
         await queryClient.invalidateQueries({
           queryKey: [approvedFriendsList],
         });
-        fireToast.success('Friend request deleted successfully.');
       },
     },
   });

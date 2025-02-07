@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { fireToast } from '@/providers/toaster';
 
 interface IUserParams {
   id: string;
@@ -35,11 +34,10 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateUser,
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: [userKeys],
       });
-      fireToast.success(data.message);
     },
   });
 };

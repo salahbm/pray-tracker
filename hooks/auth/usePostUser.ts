@@ -4,7 +4,6 @@ import { userKeys } from '@/constants/query-keys';
 import useMutation from '@/hooks/common/useMutation';
 import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 import { hashPassword } from '@/utils/helpers';
 
 interface IUserPostParams {
@@ -81,11 +80,6 @@ export const usePostUser = () => {
 
   const mutationSupabaseSignUp = useMutation({
     mutationFn: supabaseSignUp,
-    options: {
-      onSuccess: async () => {
-        fireToast.success('Check your email to verify your account.');
-      },
-    },
   });
   const mutationOnPressVerify = useMutation({
     mutationFn: onPressVerify,
@@ -96,7 +90,6 @@ export const usePostUser = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries(userKeys);
-        fireToast.success('User created successfully.');
       },
     },
   });

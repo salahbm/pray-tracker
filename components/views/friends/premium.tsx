@@ -32,7 +32,7 @@ const FriendsApproved = () => {
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
   const {
-    data: approvedFriends = [],
+    data: approvedFriends,
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
@@ -106,8 +106,8 @@ const FriendsApproved = () => {
       <Text className="text-xl font-bold mb-3">Approved Friends</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[45%]" />
-      ) : approvedFriends.length > 0 ? (
-        approvedFriends?.map((friend) => (
+      ) : approvedFriends?.data.length > 0 ? (
+        approvedFriends?.data.map((friend) => (
           <SwiperButton
             key={friend.friend.friendshipId}
             disabled={isDeleting || isSending}

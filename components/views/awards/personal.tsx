@@ -19,7 +19,7 @@ export default function PersonalTab() {
   const insets = useSafeAreaInsets();
   const { data, isLoading } = useAwards(user?.id);
   const obtainedAwards = useMemo(
-    () => data?.map((award) => award.title) || [],
+    () => data?.data?.map((award) => award.title) || [],
     [data],
   );
   const prizeRef = useRef<LottieView>(null);
@@ -33,7 +33,7 @@ export default function PersonalTab() {
         keyExtractor={(award) => award.title}
         renderItem={({ item }) => {
           const isAchieved = obtainedAwards.includes(item.title);
-          const obtainedAward = data?.find(
+          const obtainedAward = data?.data?.find(
             (award) => award.title === item.title,
           );
           return (

@@ -19,7 +19,7 @@ export default function Leaderboard() {
       <Loader visible={isLoading} className="bg-transparent" />
 
       <FlatList
-        data={data}
+        data={data.data}
         keyExtractor={(user) => user.id.toString()}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => setSelectedUser(item)}>

@@ -4,7 +4,6 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 export const useLogoutUser = () => {
@@ -25,7 +24,6 @@ export const useLogoutUser = () => {
     },
     onSuccess: async () => {
       queryClient.clear();
-      fireToast.success('Logged out successfully.');
       router.push('/(tabs)');
     },
   });

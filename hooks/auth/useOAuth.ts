@@ -7,7 +7,6 @@ import * as WebBrowser from 'expo-web-browser';
 import useMutation from '../common/useMutation';
 import { userKeys } from '@/constants/query-keys';
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 
 WebBrowser.maybeCompleteAuthSession(); // required for web only
 const redirectTo = makeRedirectUri();
@@ -57,7 +56,6 @@ export const useOAuth = () => {
     options: {
       onSuccess: async () => {
         queryClient.invalidateQueries(userKeys);
-        fireToast.success('Welcome back.');
         router.replace('/(tabs)');
       },
     },

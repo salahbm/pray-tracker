@@ -6,8 +6,7 @@ import {
   pendingFriendsList,
 } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-import { fireToast } from '@/providers/toaster';
-import { IResponseArray } from '@/types/api';
+import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
@@ -18,7 +17,7 @@ type TParams = {
 
 const acceptRequest = async (
   data: TParams,
-): Promise<IResponseArray<IFriend>> => {
+): Promise<IResponseArray<IResponse<IFriend>>> => {
   const response = await agent('/friends/approve', {
     method: 'POST',
     body: JSON.stringify({
@@ -39,7 +38,6 @@ export const useAcceptRequest = () => {
         await queryClient.invalidateQueries({
           queryKey: [approvedFriendsList, pendingFriendsList],
         });
-        fireToast.success('Friend request accepted successfully.');
       },
     },
   });

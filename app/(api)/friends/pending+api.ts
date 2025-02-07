@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { PendingFriend } from '@/types/friends';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
@@ -44,7 +45,7 @@ export async function GET(request: Request) {
       },
     });
 
-    const friendArray = friends.map((friend) => {
+    const friendArray: PendingFriend[] = friends.map((friend) => {
       return {
         id: friend.id,
         friendId: friend.friend.id,
@@ -60,7 +61,7 @@ export async function GET(request: Request) {
       status: StatusCode.SUCCESS,
       message: 'Friends fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: friendArray,
+      data: friendArray ?? [],
     });
   } catch (error) {
     return handleError(error);

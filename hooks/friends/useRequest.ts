@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import useMutation from '../common/useMutation';
 import { API_BASE_URL } from '@/constants/config';
 import { pendingFriendsList } from '@/constants/query-keys';
-import { fireToast } from '@/providers/toaster';
 
 type TParams = {
   userId: string;
@@ -37,7 +36,6 @@ export const useRequest = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: [pendingFriendsList] });
-        fireToast.success('Friend request sent successfully.');
       },
     },
   });

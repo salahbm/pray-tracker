@@ -9,13 +9,15 @@ import { PropsWithChildren, useState } from 'react';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 const isErrorData = (error: unknown): error is ErrorData => {
   return (
     typeof error === 'object' &&
     error !== null &&
     'code' in error &&
-    'description' in error
+    'description' in error &&
+    'message' in error
   );
 };
 
@@ -65,7 +67,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         mutationCache: new MutationCache({
           onError: (error) => {
             if (!isErrorData(error)) {
-              console.warn('error in mutation', error);
+              console.error('error in mutation', error);
               fireToast.error(error.message);
               return;
             }
@@ -74,6 +76,17 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
 
             if (error.description) {
               errorHandler(error);
+            }
+          },
+          onSuccess: (response: {
+            status: StatusCode;
+            message: string;
+            code: MessageCodes;
+          }) => {
+            console.log('mutation success', response);
+
+            if (response?.message) {
+              fireToast.success(`${response.message}: ${response.code}`);
             }
           },
         }),

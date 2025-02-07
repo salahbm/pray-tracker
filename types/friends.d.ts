@@ -11,12 +11,10 @@ export interface IFriend {
   status: string;
 }
 
-type ApprovedFriend = {
+export type ApprovedFriend = {
   friend: IFriend;
   prays: IPrays[];
 };
-
-type ApprovedFriendsList = ApprovedFriend[];
 
 // Pending Friends
 
@@ -29,5 +27,3 @@ export interface PendingFriend {
   id: string;
   status: keyof typeof FriendStatus;
 }
-
-export type PendingFriendsList = PendingFriend[];
