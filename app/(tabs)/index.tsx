@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
+import * as Device from 'expo-device';
 import * as Haptics from 'expo-haptics';
 import LottieView from 'lottie-react-native';
 import {
@@ -86,7 +87,7 @@ export default function HomeScreen() {
 
   // Enable notifications when the user is logged in
   useEffect(() => {
-    if (user) {
+    if (user && Device.isDevice) {
       enableNotifications();
     }
   }, [user, enableNotifications]);

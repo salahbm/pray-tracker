@@ -85,7 +85,7 @@ const FriendsApproved = () => {
             disabled={isSending}
             className="px-3 border-l rounded-none border-input" // Left border to separate
           >
-            <Search size={24} color="black" />
+            <Search size={24} color={colors['--foreground']} />
           </Button>
         </View>
 
@@ -94,7 +94,7 @@ const FriendsApproved = () => {
           size="icon"
           onPress={() => router.push('/(screens)/friends/pending')}
         >
-          <Users size={24} color="black" />
+          <Users size={24} color={colors['--foreground']} />
         </Button>
       </View>
 

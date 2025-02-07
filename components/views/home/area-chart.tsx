@@ -13,16 +13,18 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
 
-    return lineData.map((pray) => ({
-      value:
-        pray.asr +
-        pray.dhuhr +
-        pray.fajr +
-        pray.isha +
-        pray.maghrib +
-        pray.tahajjud,
-      text: format(new Date(pray.date), 'dd.MM.yy'),
-    }));
+    return [...lineData]
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .map((pray) => ({
+        value:
+          pray.asr +
+          pray.dhuhr +
+          pray.fajr +
+          pray.isha +
+          pray.maghrib +
+          pray.tahajjud,
+        text: format(new Date(pray.date), 'dd.MM.yy'),
+      }));
   }, [lineData]);
 
   return (
