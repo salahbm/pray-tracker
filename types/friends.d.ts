@@ -1,3 +1,5 @@
+import { FriendStatus } from '@prisma/client';
+
 import { IPrays } from './prays';
 import { TUser } from './user';
 
@@ -14,3 +16,14 @@ type ApprovedFriend = {
 };
 
 type ApprovedFriendsList = ApprovedFriend[];
+
+// Pending Friends
+
+export interface PendingFriend {
+  friendAvatar: string;
+  friendEmail: string;
+  friendId: string;
+  friendUsername: string;
+  id: string;
+  status: keyof typeof FriendStatus;
+}

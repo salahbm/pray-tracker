@@ -86,11 +86,11 @@ export default function HomeScreen() {
   } = useGetTodayPrays(user?.id);
 
   // Enable notifications when the user is logged in
-  useEffect(() => {
-    if (user && Device.isDevice) {
-      enableNotifications();
-    }
-  }, [user, enableNotifications]);
+  // useEffect(() => {
+  //   if (user && Device.isDevice) {
+  //     enableNotifications();
+  //   }
+  // }, [user, enableNotifications]);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();

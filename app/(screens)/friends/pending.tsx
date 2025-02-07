@@ -27,6 +27,7 @@ const FriendsPending = () => {
     isLoading: isLoadingPending,
     refetch: refetchPending,
   } = useGetPendingFriends(user?.id);
+  console.log('pendingFriends:', pendingFriends);
 
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
     useAcceptRequest();
@@ -67,7 +68,7 @@ const FriendsPending = () => {
               pendingFriends?.map((item) => (
                 <View
                   key={item.friendId}
-                  className="flex-row items-center justify-between p-3 bg-card rounded-lg shadow-sm"
+                  className="flex-col items-start justify-between p-3 bg-card rounded-lg shadow-sm gap-3"
                 >
                   <View className="flex-row items-center gap-3">
                     <Image
@@ -86,31 +87,31 @@ const FriendsPending = () => {
                     </View>
                   </View>
 
-                  <View className="flex-row gap-x-2">
+                  <View className="flex-row gap-x-2 justify-end w-full">
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      disabled={isRejecting}
+                      onPress={async () =>
+                        await rejectFriendRequest({
+                          userId: user?.id,
+                          friendId: item.id,
+                        })
+                      }
+                    >
+                      <Text>Reject</Text>
+                    </Button>
                     <Button
                       size="sm"
                       disabled={isAccepting}
                       onPress={async () =>
                         await acceptFriendRequest({
-                          userId: user?.id,
+                          id: item.id,
                           friendId: item.friendId,
                         })
                       }
                     >
-                      <Text>Confirm</Text>
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      disabled={isRejecting}
-                      onPress={async () =>
-                        await rejectFriendRequest({
-                          userId: user?.id,
-                          friendId: item.friendId,
-                        })
-                      }
-                    >
-                      <Text className="text-gray-600">Delete</Text>
+                      <Text>Accept</Text>
                     </Button>
                   </View>
                 </View>

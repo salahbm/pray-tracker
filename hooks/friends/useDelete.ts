@@ -1,43 +1,40 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
-import {
-  approvedFriendsList,
-  pendingFriendsList,
-} from '@/constants/query-keys';
+import { approvedFriendsList } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { fireToast } from '@/providers/toaster';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
-  id: string;
+  userId: string;
   friendId: string;
 };
 
-const acceptRequest = async (
+const deleteFriend = async (
   data: TParams,
 ): Promise<IResponseArray<IFriend>> => {
-  const response = await agent('/friends/approve', {
-    method: 'POST',
+  const response = await agent('/friends/delete', {
+    method: 'DELETE',
     body: JSON.stringify({
-      id: data.id,
+      userId: data.userId,
       friendId: data.friendId,
     }),
   });
   return response;
 };
 
-export const useAcceptRequest = () => {
+export const useDeleteFriend = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: acceptRequest,
+    mutationFn: deleteFriend,
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [approvedFriendsList, pendingFriendsList],
+          queryKey: [approvedFriendsList],
         });
-        fireToast.success('Friend request accepted successfully.');
+        fireToast.success('Friend request deleted successfully.');
       },
     },
   });

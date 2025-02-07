@@ -23,6 +23,7 @@ interface SwiperButtonProps {
   textClassName?: string;
   containerStyle?: object;
   gestureStyle?: object;
+  disabled?: boolean;
 }
 
 const RightAction = ({
@@ -34,6 +35,7 @@ const RightAction = ({
   size,
   className,
   textClassName,
+  disabled,
 }: {
   progress: SharedValue<number>;
   drag: SharedValue<number>;
@@ -58,6 +60,7 @@ const RightAction = ({
         variant={variant}
         size={size}
         onPress={onPress}
+        disabled={disabled}
       >
         <Text className={textClassName}>{title}</Text>
       </Button>

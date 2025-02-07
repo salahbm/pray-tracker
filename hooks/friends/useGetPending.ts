@@ -5,8 +5,9 @@ import {
   pendingFriendsList,
 } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
+import { PendingFriend } from '@/types/friends';
 
-const getFriends = async (userId: string) => {
+const getFriends = async (userId: string): Promise<PendingFriend[]> => {
   const { data } = await agent(`/friends/pending?userId=${userId}`, {
     method: 'GET',
   });

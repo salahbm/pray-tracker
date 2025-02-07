@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
+import { useDeleteFriend } from '@/hooks/friends/useDelete';
 import { useGetApprovedFriends } from '@/hooks/friends/useGetApproved';
 import { useRequest } from '@/hooks/friends/useRequest';
 import { cn } from '@/lib/utils';
@@ -36,6 +37,8 @@ const FriendsApproved = () => {
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
+  const { mutateAsync: deleteFriend, isPending: isDeleting } =
+    useDeleteFriend();
   const [friendEmail, setFriendEmail] = useState('');
   const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
 
@@ -75,6 +78,7 @@ const FriendsApproved = () => {
               autoCapitalize="none"
               keyboardType="email-address"
               returnKeyType="send"
+              autoCorrect={false}
               onSubmitEditing={handleSendRequest}
             />
           </View>
@@ -106,7 +110,13 @@ const FriendsApproved = () => {
         approvedFriends?.map(({ friend, prays }) => (
           <SwiperButton
             key={friend.id}
-            onPress={() => fireToast.success('Swiped')}
+            disabled={isDeleting || isSending}
+            onPress={() =>
+              deleteFriend({
+                userId: user?.id,
+                friendId: friend.id,
+              })
+            }
           >
             <Accordion
               type="multiple"

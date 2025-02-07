@@ -4,11 +4,13 @@ import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
   try {
-    const { userId, friendId } = await request.json();
+    const { id, friendId } = await request.json();
 
-    if (!userId || !friendId) {
+    console.log('friendId:', friendId);
+    console.log('id:', id);
+    if (!id || !friendId) {
       throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId, friendId },
+        fields: { id, friendId },
       });
     }
 
@@ -16,25 +18,25 @@ export async function POST(request: Request) {
     const existingFriendship = await prisma.friend.findFirst({
       where: {
         OR: [
-          { userId, friendId, status: 'PENDING' },
-          { userId: friendId, friendId: userId, status: 'PENDING' }, // Check both directions
+          { id, friendId, status: 'PENDING' },
+          { id: friendId, friendId: id, status: 'PENDING' },
         ],
       },
+      select: { id: true }, // Ensure we only fetch the ID
     });
+    console.log('existingFriendship:', existingFriendship);
 
     if (!existingFriendship) {
-      return createResponse({
-        status: StatusCode.NOT_FOUND,
-        message: 'Friend request not found or already approved',
-        code: MessageCodes.FRIEND_NOT_FOUND,
-        data: [],
-      });
+      throw new ApiError(
+        'Friend request not found or already approved',
+        StatusCode.NOT_FOUND,
+      );
     }
 
     // Approve the friend request
     const updatedFriendship = await prisma.friend.update({
-      where: { id: existingFriendship.id }, // Use the found friendship ID
-      data: { status: 'APPROVED' }, // Update status to APPROVED
+      where: { id: existingFriendship.id }, // Ensure Prisma uses the correct unique ID
+      data: { status: 'APPROVED' },
     });
 
     return createResponse({

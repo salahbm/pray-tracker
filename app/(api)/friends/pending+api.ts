@@ -44,8 +44,9 @@ export async function GET(request: Request) {
     const friendArray = friends.map((friend) => {
       return {
         id: friend.id,
-        status: friend.status,
         friendId: friend.friend.id,
+        userId: friend.user.id,
+        status: friend.status,
         friendUsername: friend.friend.username,
         friendEmail: friend.user.email,
         friendAvatar: friend.user.photo,
