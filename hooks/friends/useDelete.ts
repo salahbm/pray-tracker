@@ -8,8 +8,8 @@ import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
-  userId: string;
   friendId: string;
+  friendshipId: string;
 };
 
 const deleteFriend = async (
@@ -18,8 +18,8 @@ const deleteFriend = async (
   const response = await agent('/friends/delete', {
     method: 'DELETE',
     body: JSON.stringify({
-      userId: data.userId,
       friendId: data.friendId,
+      friendshipId: data.friendshipId,
     }),
   });
   return response;

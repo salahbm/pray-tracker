@@ -36,6 +36,7 @@ const FriendsApproved = () => {
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
+  console.log('approvedFriends:', approvedFriends);
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
   const { mutateAsync: deleteFriend, isPending: isDeleting } =
     useDeleteFriend();
@@ -106,15 +107,15 @@ const FriendsApproved = () => {
       <Text className="text-xl font-bold mb-3">Approved Friends</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[45%]" />
-      ) : Array.isArray(approvedFriends) && approvedFriends.length > 0 ? (
-        approvedFriends?.map(({ friend, prays }) => (
+      ) : approvedFriends.length > 0 ? (
+        approvedFriends?.map((friend) => (
           <SwiperButton
-            key={friend.id}
+            key={friend.friend.friendshipId}
             disabled={isDeleting || isSending}
             onPress={() =>
               deleteFriend({
-                userId: user?.id,
-                friendId: friend.id,
+                friendshipId: friend.friend.friendshipId,
+                friendId: friend.friend.friendId,
               })
             }
           >
@@ -124,23 +125,27 @@ const FriendsApproved = () => {
               value={accordionValue}
               onValueChange={setAccordionValue}
             >
-              <AccordionItem value={friend.id}>
+              <AccordionItem value={friend.friend.friendId}>
                 <AccordionTrigger>
                   <View className="flex-row items-center gap-3">
                     <Image
-                      source={{ uri: friend.photo || FRIENDS.guest }}
+                      source={{
+                        uri: friend.friend.friendPhoto || FRIENDS.guest,
+                      }}
                       className="size-14 rounded-full bg-muted"
                     />
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">
-                        {friend.username}
+                        {friend.friend.friendUsername}
                       </Text>
-                      <Text className="text-sm">{friend.email}</Text>
+                      <Text className="text-sm">
+                        {friend.friend.friendEmail}
+                      </Text>
                     </View>
                   </View>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {prays.map((salah) => {
+                  {friend.prays.map((salah) => {
                     // Extract only the prayer-related fields
                     const prayerEntries = Object.entries(salah).filter(
                       ([key]) =>

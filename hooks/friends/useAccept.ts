@@ -11,8 +11,9 @@ import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 type TParams = {
-  id: string;
+  friendshipId: string;
   friendId: string;
+  userId: string;
 };
 
 const acceptRequest = async (
@@ -21,8 +22,9 @@ const acceptRequest = async (
   const response = await agent('/friends/approve', {
     method: 'POST',
     body: JSON.stringify({
-      id: data.id,
+      userId: data.userId,
       friendId: data.friendId,
+      friendshipId: data.friendshipId,
     }),
   });
   return response;

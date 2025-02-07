@@ -106,8 +106,9 @@ const FriendsPending = () => {
                       disabled={isAccepting}
                       onPress={async () =>
                         await acceptFriendRequest({
-                          id: item.id,
+                          friendshipId: item.id,
                           friendId: item.friendId,
+                          userId: item.userId,
                         })
                       }
                     >

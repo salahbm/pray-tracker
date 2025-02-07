@@ -4,27 +4,25 @@ import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
   try {
-    const { id, friendId } = await request.json();
+    const { userId, friendId, friendshipId } = await request.json();
 
-    console.log('friendId:', friendId);
-    console.log('id:', id);
-    if (!id || !friendId) {
+    if (!userId || !friendId) {
       throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { id, friendId },
+        fields: { userId, friendId, friendshipId },
       });
     }
 
     // Check if the friend request exists and is pending
     const existingFriendship = await prisma.friend.findFirst({
       where: {
+        id: friendshipId,
         OR: [
-          { id, friendId, status: 'PENDING' },
-          { id: friendId, friendId: id, status: 'PENDING' },
+          { userId: userId, friendId, status: 'PENDING' },
+          { userId: friendId, friendId: userId, status: 'PENDING' },
         ],
       },
       select: { id: true }, // Ensure we only fetch the ID
     });
-    console.log('existingFriendship:', existingFriendship);
 
     if (!existingFriendship) {
       throw new ApiError(

@@ -22,6 +22,7 @@ export async function GET(request: Request) {
         ],
       },
       select: {
+        id: true, // Friendship ID
         status: true, // Include status field
         friend: {
           select: {
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
           },
         },
         user: {
-          select: { id: true, username: true, photo: true, email: true },
+          select: { id: true, username: true, email: true, photo: true },
         },
       },
     });
@@ -53,8 +54,10 @@ export async function GET(request: Request) {
 
     // Get today's date range (ignores time)
     const today = new Date();
-    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+    const startOfDay = new Date(today);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(today);
+    endOfDay.setHours(23, 59, 59, 999);
 
     // Fetch today's prayers for friends
     const prayers = await prisma.prays.findMany({
@@ -71,11 +74,17 @@ export async function GET(request: Request) {
     // Format data: group prayers with corresponding friend info
     const approvedFriends = friends.map((f) => {
       const friendInfo = f.friend.id === userId ? f.user : f.friend;
-      const friendPrays = prayers.filter((p) => p.userId === friendInfo.id);
+      const friendPrays = prayers.filter(
+        (salah) => salah.userId === friendInfo.id,
+      );
 
       return {
         friend: {
-          ...friendInfo,
+          friendshipId: f.id, // Fix missing assignment
+          friendId: friendInfo.id,
+          friendUsername: friendInfo.username,
+          friendEmail: friendInfo.email,
+          friendPhoto: friendInfo.photo,
           status: f.status, // Include status in response
         },
         prays:
@@ -85,7 +94,7 @@ export async function GET(request: Request) {
                 {
                   userId: friendInfo.id,
                   username: friendInfo.username,
-                  date: today,
+                  date: new Date(), // Ensure correct date assignment
                   fajr: 0,
                   dhuhr: 0,
                   asr: 0,

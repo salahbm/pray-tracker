@@ -2,36 +2,32 @@ import prisma from 'lib/prisma';
 import { ApiError, handleError } from 'utils/error';
 import { createResponse, MessageCodes, StatusCode } from 'utils/status';
 
+// DELETE APPROVED FRIENDSHIP
 export async function DELETE(request: Request) {
   try {
-    const { userId, friendId } = await request.json();
+    const { friendId, friendshipId } = await request.json();
 
-    if (!userId || !friendId) {
+    if (!friendId) {
       throw new ApiError('Missing required fields', StatusCode.BAD_REQUEST, {
-        fields: { userId, friendId },
+        fields: { friendId },
       });
     }
 
-    // Find the approved friend request
-    const deleteFriend = await prisma.friend.findFirst({
+    const deletedFriendship = await prisma.friend.delete({
       where: {
-        userId,
-        friendId,
-        status: 'APPROVED',
+        id: friendshipId,
+        OR: [{ userId: friendId }, { friendId: friendId }],
       },
     });
 
-    if (!deleteFriend) {
-      throw new ApiError(
-        'Friend request not found or already removed.',
-        StatusCode.NOT_FOUND,
-      );
+    if (!deletedFriendship) {
+      return createResponse({
+        status: StatusCode.NOT_FOUND,
+        message: 'Friendship not found',
+        code: MessageCodes.FRIEND_NOT_FOUND,
+        data: null,
+      });
     }
-
-    // Delete the approved request
-    await prisma.friend.delete({
-      where: { id: deleteFriend.id },
-    });
 
     return createResponse({
       status: StatusCode.SUCCESS,
