@@ -43,7 +43,7 @@ const FreemiumFriends = () => {
       >
         <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
-        <Text className="text-xl font-bold mb-3">Your Friends</Text>
+        <Text className="text-xl font-bold mb-3"> Friends</Text>
 
         {FRIENDS_DATA.map((friend) => (
           <SwiperButton

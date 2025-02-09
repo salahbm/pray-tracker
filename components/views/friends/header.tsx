@@ -66,7 +66,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, unknown>((props, ref) => {
 
       {/* Button */}
       <Button
-        className="mt-8 rounded-full mx-8"
+        className="mt-8 rounded-full mx-8 shadow-lg"
         size="lg"
         width="full"
         onPress={() => {
