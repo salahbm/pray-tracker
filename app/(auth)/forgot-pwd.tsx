@@ -1,5 +1,8 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { X } from 'lucide-react-native';
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 
@@ -7,45 +10,65 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
+import { userKeys } from '@/constants/query-keys';
 import { useResetPwd } from '@/hooks/auth/useForgotPwd';
+import { useGetUser } from '@/hooks/auth/useGetUser';
+import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 export default function ForgotPasswordScreen({
   onNavigate,
-  onSuccess,
 }: {
   onNavigate: () => void;
-  onSuccess: () => void;
 }) {
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
-  const { verifyRequest, sendRequest, isRequestPending, isVerifyPending } =
-    useResetPwd();
-
-  // Modals
+  const [supabaseUser, setSupabaseUser] = useState(null);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+  const queryClient = useQueryClient();
+  const { setUser } = useAuthStore();
+  const { verifyRequest, sendRequest, isRequestPending, isVerifyPending } =
+    useResetPwd();
+  const { data, refetch } = useGetUser(supabaseUser?.id);
+
+  useEffect(() => {
+    if (supabaseUser?.id) {
+      refetch();
+    }
+  }, [supabaseUser?.id, refetch]);
+
   const onResetPassword = useCallback(async () => {
-    await sendRequest.mutateAsync(email).then(() => {
-      setShowOtpModal(true);
-    });
+    await sendRequest.mutateAsync(email);
+    setShowOtpModal(true);
   }, [email, sendRequest]);
 
-  // Handle email verification
-  const handlePressVerify = async () => {
-    await verifyRequest.mutateAsync({
-      email,
-      token,
+  const handlePressVerify = useCallback(async () => {
+    const { session, user } = await verifyRequest.mutateAsync({ email, token });
+    if (!session || !user) return;
+
+    await SecureStore.setItemAsync('access_token', session.access_token);
+    await SecureStore.setItemAsync('refresh_token', session.refresh_token);
+
+    await supabase.auth.setSession({
+      access_token: session.access_token,
+      refresh_token: session.refresh_token,
     });
 
+    setSupabaseUser(user);
+
+    setUser(data);
+    queryClient.invalidateQueries(userKeys);
+
+    setShowSuccessModal(true);
     setEmail('');
     setToken('');
     setShowOtpModal(false);
-    setShowSuccessModal(true);
-  };
+  }, [email, token, verifyRequest, queryClient, setUser, data]);
 
   return (
-    <React.Fragment>
+    <>
       <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
           Reset Password
@@ -58,6 +81,9 @@ export default function ForgotPasswordScreen({
           placeholder="Enter your email"
           keyboardType="email-address"
           onChangeText={setEmail}
+          autoCorrect={false}
+          textContentType="emailAddress"
+          spellCheck={false}
         />
         <Button
           className="mb-4"
@@ -92,12 +118,9 @@ export default function ForgotPasswordScreen({
             className="absolute top-2 right-0"
             variant="ghost"
             disabled={isRequestPending || isVerifyPending}
+            onPress={() => setShowOtpModal(false)}
           >
-            <X
-              size={24}
-              onPress={() => setShowOtpModal(false)}
-              className="fill-white"
-            />
+            <X size={24} className="fill-white" />
           </Button>
           <Text className="text-2xl font-bold mb-2">Verification</Text>
           <Text className=" mb-5">
@@ -125,7 +148,7 @@ export default function ForgotPasswordScreen({
         isVisible={showSuccessModal}
         onBackdropPress={() => {
           setShowSuccessModal(false);
-          onSuccess();
+          router.push('/(screens)/profile/edit-pwd');
         }}
       >
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
@@ -140,14 +163,14 @@ export default function ForgotPasswordScreen({
           <Button
             onPress={() => {
               setShowSuccessModal(false);
-              onSuccess();
+              router.push('/(screens)/profile/edit-pwd');
             }}
             className="mt-5"
           >
-            <Text>Browse Home</Text>
+            <Text>Update Password</Text>
           </Button>
         </View>
       </ReactNativeModal>
-    </React.Fragment>
+    </>
   );
 }
