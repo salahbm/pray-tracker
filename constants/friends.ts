@@ -1,0 +1,130 @@
+import { FRIENDS } from './images';
+import { ApprovedFriend } from '@/types/friends';
+
+export const FRIENDS_DATA: ApprovedFriend[] = [
+  {
+    friend: {
+      friendshipId: '1',
+      friendId: '2',
+      friendUsername: 'Ahmed Ali',
+      friendEmail: 'ahmed.ali@naver.kr',
+      friendPhoto: FRIENDS.friend_1,
+      status: 'APPROVED',
+    },
+    prays: [
+      {
+        fajr: 2,
+        dhuhr: 1,
+        asr: 2,
+        maghrib: 1,
+        isha: 0,
+        tahajjud: 1,
+        id: '1',
+        userId: '1',
+        date: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+  {
+    friend: {
+      friendshipId: '2',
+      friendId: '3',
+      friendUsername: 'Aisha Khan',
+      friendEmail: 'aisha.khan@gmail.com',
+      friendPhoto: FRIENDS.friend_5,
+      status: 'APPROVED',
+    },
+    prays: [
+      {
+        fajr: 1,
+        dhuhr: 2,
+        asr: 0,
+        maghrib: 1,
+        isha: 2,
+        tahajjud: 0,
+        id: '2',
+        userId: '1',
+        date: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+  {
+    friend: {
+      friendshipId: '3',
+      friendId: '4',
+      friendUsername: 'Mohamed Yusuf',
+      friendEmail: 'mohamed.yusuf@mail.ru',
+      friendPhoto: FRIENDS.friend_3,
+      status: 'APPROVED',
+    },
+    prays: [
+      {
+        fajr: 0,
+        dhuhr: 1,
+        asr: 1,
+        maghrib: 2,
+        isha: 1,
+        tahajjud: 2,
+        id: '3',
+        userId: '1',
+        date: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+  {
+    friend: {
+      friendshipId: '4',
+      friendId: '5',
+      friendUsername: 'Fatima Zahra',
+      friendEmail: 'fatima.zahra@gmail.com',
+      friendPhoto: FRIENDS.friend_4,
+      status: 'APPROVED',
+    },
+    prays: [
+      {
+        fajr: 2,
+        dhuhr: 2,
+        asr: 0,
+        maghrib: 1,
+        isha: 1,
+        tahajjud: 0,
+        id: '4',
+        userId: '1',
+        date: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+  {
+    friend: {
+      friendshipId: '5',
+      friendId: '6',
+      friendUsername: 'Omar Salahiddin',
+      friendEmail: 'omar.salah@yahoo.com',
+      friendPhoto: FRIENDS.friend_2,
+      status: 'APPROVED',
+    },
+    prays: [
+      {
+        fajr: 1,
+        dhuhr: 0,
+        asr: 2,
+        maghrib: 2,
+        isha: 1,
+        tahajjud: 2,
+        id: '5',
+        userId: '1',
+        date: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+];

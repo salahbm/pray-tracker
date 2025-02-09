@@ -105,7 +105,7 @@ const FriendsApproved = () => {
       {/* Approved Friends List */}
       <Text className="text-xl font-bold mb-3">Approved Friends</Text>
       {isLoadingApproved ? (
-        <Loader visible className="mt-[45%]" />
+        <Loader visible className="mt-[100%] bg-transparent" />
       ) : approvedFriends?.data.length > 0 ? (
         approvedFriends?.data.map((friend) => (
           <SwiperButton

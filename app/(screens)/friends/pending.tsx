@@ -60,7 +60,7 @@ const FriendsPending = () => {
         </Text>
 
         {isLoadingPending ? (
-          <Loader visible className="bg-transparent mt-[45%]" />
+          <Loader visible className="bg-transparent mt-[100%]" />
         ) : Array.isArray(pendingFriends) && pendingFriends.length > 0 ? (
           <View className="space-y-3">
             {pendingFriends &&
