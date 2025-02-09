@@ -1,8 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
@@ -18,9 +17,14 @@ import { Input } from 'components/ui/input';
 interface ISignIn {
   onSuccess: () => void;
   onNavigate: () => void;
+  onForgotPassword: () => void;
 }
 
-export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
+export default function SignInScreen({
+  onSuccess,
+  onNavigate,
+  onForgotPassword,
+}: ISignIn) {
   const { mutateAsync: signIn, isPending, data: supabaseUser } = useLoginUser();
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
@@ -66,8 +70,8 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
   }, [signIn, form]);
 
   return (
-    <SafeAreaView>
-      <View className="w-full max-w-md">
+    <React.Fragment>
+      <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
           Welcome back
         </Text>
@@ -95,10 +99,11 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
         >
           <Text className="font-bold">Sign In</Text>
         </Button>
+        {/* OAuth */}
         <OAuth />
       </View>
 
-      <View className="mt-8 flex flex-row justify-center items-center gap-4">
+      <View className="mt-8 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center ">
           Don&apos;t have an account?
         </Text>
@@ -106,6 +111,12 @@ export default function SignInScreen({ onSuccess, onNavigate }: ISignIn) {
           <Text className="font-primary">Sign up</Text>
         </Button>
       </View>
-    </SafeAreaView>
+
+      <View className="justify-center items-center mt-24">
+        <TouchableOpacity onPress={onForgotPassword}>
+          <Text className="font-primary underline">Forgot your password?</Text>
+        </TouchableOpacity>
+      </View>
+    </React.Fragment>
   );
 }

@@ -15,20 +15,20 @@ const OAuth = () => {
   return (
     <View>
       <View className="flex flex-row justify-center items-center mt-4 gap-x-3">
-        <View className="flex-1 h-[1px] bg-general-100" />
+        <View className="flex-1 h-[1px] bg-border" />
         <Text className="text-lg my-4">Or</Text>
-        <View className="flex-1 h-[1px] bg-general-100" />
+        <View className="flex-1 h-[1px] bg-border" />
       </View>
 
       <Button
         onPress={handleGoogleSignIn}
         variant="outline"
-        className="flex flex-row justify-center items-center gap-2"
+        className="flex-row justify-center items-center gap-2 bg-popover"
       >
         <Image
           source={IMAGES.google}
           resizeMode="contain"
-          className="w-5 h-5 mx-2"
+          className="size-5 mx-2"
         />
         <Text>Continue with Google</Text>
       </Button>

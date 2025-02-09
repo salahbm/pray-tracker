@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { X } from '@/components/shared/icons';
 import { usePostUser } from '@/hooks/auth/usePostUser';
@@ -72,8 +71,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   };
 
   return (
-    <SafeAreaView>
-      <View className="w-full max-w-md">
+    <React.Fragment>
+      <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-2 text-center">
           Join Us
         </Text>
@@ -84,7 +83,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         <Input
           label="Email"
           autoCapitalize="none"
-          className="mb-4 p-3 rounded-lg bg-surface"
+          className="mb-4"
           value={form.email}
           placeholder="Enter your email"
           keyboardType="email-address"
@@ -93,7 +92,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
         <Input
           label="Username"
-          className="mb-4 p-3 rounded-lg bg-surface"
+          className="mb-4"
           value={form.username}
           placeholder="Enter your username"
           onChangeText={(username) => setForm({ ...form, username })}
@@ -101,7 +100,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
         <Input
           label="Password"
-          className="mb-10 p-3 rounded-lg bg-surface"
+          className="mb-10"
           value={form.password}
           placeholder="Enter your password"
           secureTextEntry
@@ -197,6 +196,6 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           </Button>
         </View>
       </ReactNativeModal>
-    </SafeAreaView>
+    </React.Fragment>
   );
 }

@@ -45,7 +45,6 @@ const EditPwd = () => {
           password: newPassword,
         });
       }
-      fireToast.success('Password updated successfully.');
       // Log out the user after updating password
       await logoutUser();
     } catch (error) {

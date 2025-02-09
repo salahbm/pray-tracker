@@ -85,7 +85,9 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           }) => {
             console.log('mutation success', response);
             if (response) {
-              fireToast.success(`${response.message}: ${response.code}`);
+              fireToast.success(
+                `${response.message}: ${response.code ?? 'SUCCESS'}`,
+              );
             }
           },
         }),

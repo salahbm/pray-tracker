@@ -17,6 +17,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+import ForgotPasswordScreen from '../(auth)/forgot-pwd';
 import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
@@ -100,6 +101,7 @@ export default function HomeScreen() {
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
   const signUpSheetRef = useRef<BottomSheet>(null);
+  const forgotPwdRef = useRef<BottomSheet>(null);
   const profileSheetRef = useRef<BottomSheet>(null);
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
@@ -112,6 +114,7 @@ export default function HomeScreen() {
   // Callbacks to present each sheet
   const handlePresentSignIn = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    forgotPwdRef.current?.close();
     signUpSheetRef.current?.close();
     signInSheetRef.current?.snapToIndex(2);
   }, []);
@@ -120,6 +123,12 @@ export default function HomeScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     signInSheetRef.current?.close();
     signUpSheetRef.current?.snapToIndex(2);
+  }, []);
+
+  const handlePresentForgotPwd = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    signInSheetRef.current?.close();
+    forgotPwdRef.current?.snapToIndex(2);
   }, []);
 
   // FUNCTIONS
@@ -271,12 +280,20 @@ export default function HomeScreen() {
         <SignInScreen
           onSuccess={() => signInSheetRef.current?.close()}
           onNavigate={handlePresentSignUp}
+          onForgotPassword={handlePresentForgotPwd}
         />
       </CustomBottomSheet>
       {/* SIGN UP SHEET */}
       <CustomBottomSheet sheetRef={signUpSheetRef}>
         <SignUpScreen
           onSuccess={() => signUpSheetRef.current?.close()}
+          onNavigate={handlePresentSignIn}
+        />
+      </CustomBottomSheet>
+      {/* FORGOT  PASSWORD  SHEET */}
+      <CustomBottomSheet sheetRef={forgotPwdRef}>
+        <ForgotPasswordScreen
+          onSuccess={() => forgotPwdRef.current?.close()}
           onNavigate={handlePresentSignIn}
         />
       </CustomBottomSheet>
