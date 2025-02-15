@@ -14,6 +14,8 @@ import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { ApiError } from '@/utils/error';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
@@ -25,41 +27,6 @@ const EditProfile = () => {
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [image, setImage] = useState<string>(user?.photo || '');
   const [imageUploading, setImageUploading] = useState<boolean>(false);
-
-  const uploadImageToSupabase = async (imageUri: string) => {
-    try {
-      setImageUploading(true);
-
-      // UPLOAD NEW IMAGE TO SUPABASE
-      const response = await fetch(imageUri);
-      const arrayBuffer = await response.arrayBuffer();
-
-      const fileExt = imageUri.split('.').pop()?.toLowerCase() ?? 'jpeg';
-      const filePath = `avatars/${Date.now()}.${fileExt}`;
-
-      const { error } = await supabase.storage
-        .from('avatars')
-        .upload(filePath, arrayBuffer, {
-          contentType: `image/${fileExt}`,
-          upsert: true,
-        });
-
-      if (error) throw error;
-
-      // // Get public URL of new image
-      // const { data: publicUrlData } = supabase.storage
-      //   .from('avatars')
-      //   .getPublicUrl(filePath);
-
-      // // Set new image URL
-      // setImage(publicUrlData.publicUrl);
-    } catch (error) {
-      fireToast.error(error.message);
-    } finally {
-      setImageUploading(false);
-    }
-  };
-
   const onPickImage = async () => {
     try {
       const permissionResult =
@@ -70,7 +37,7 @@ const EditProfile = () => {
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 4],
         quality: 0.5,
@@ -78,7 +45,6 @@ const EditProfile = () => {
 
       if (!result.canceled && result.assets.length > 0) {
         const selectedImage = result.assets[0];
-        setImage(selectedImage.uri);
         await uploadImageToSupabase(selectedImage.uri);
       }
     } catch (e) {
@@ -86,8 +52,42 @@ const EditProfile = () => {
     }
   };
 
+  const uploadImageToSupabase = async (imageUri: string) => {
+    try {
+      setImageUploading(true);
+
+      const response = await fetch(imageUri);
+      const arrayBuffer = await response.arrayBuffer();
+      const fileExt = imageUri.split('.').pop()?.toLowerCase() ?? 'jpeg';
+
+      const fileName = `${Date.now()}.${fileExt}`;
+
+      const { error } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, arrayBuffer, {
+          contentType: `image/${fileExt}`,
+          upsert: true,
+        });
+
+      if (error) throw error;
+
+      // Fetch new public URL
+      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+
+      // Immediately update local image state
+      setImage(data.publicUrl);
+    } catch (error) {
+      fireToast.error(error.message);
+    } finally {
+      setImageUploading(false);
+    }
+  };
+
   const handleUpdate = async () => {
     try {
+      // Save the old image path before updating user
+      const oldImagePath = user?.photo ? user.photo.split('/').pop() : null;
+
       // Prepare updated user payload
       const payload = {
         id: user?.id,
@@ -104,12 +104,19 @@ const EditProfile = () => {
         setUser(res.data);
 
         // ✅ DELETE OLD IMAGE **AFTER** SUCCESSFUL UPDATE
-        if (user?.photo) {
+        if (oldImagePath) {
           const { error } = await supabase.storage
             .from('avatars')
-            .remove([user.photo]);
+            .remove([oldImagePath]);
 
-          if (error) throw error;
+          if (error) {
+            throw new ApiError({
+              message: error.message,
+              status: StatusCode.INTERNAL_ERROR,
+              code: MessageCodes.SOMETHING_WENT_WRONG,
+              details: null,
+            });
+          }
         }
       }
     } catch (error) {
@@ -123,11 +130,15 @@ const EditProfile = () => {
         <GoBack title="Edit Profile" />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
-            <Image
-              source={{ uri: image || FRIENDS.guest }}
-              accessibilityLabel="Profile Photo"
-              className="w-[150px] h-[150px] rounded-full border border-border"
-            />
+            {imageUploading ? (
+              <View className="w-[150px] h-[150px] rounded-full border border-border bg-primary opacity-80 animate-pulse" />
+            ) : (
+              <Image
+                source={{ uri: image || FRIENDS.guest }}
+                accessibilityLabel="Profile Photo"
+                className="w-[150px] h-[150px] rounded-full border border-border"
+              />
+            )}
             <TouchableOpacity
               onPress={onPickImage}
               disabled={imageUploading}
