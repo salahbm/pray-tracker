@@ -2,6 +2,8 @@ import { Session, User } from '@supabase/supabase-js';
 
 import useMutation from '../common/useMutation';
 import { supabase } from '@/lib/supabase';
+import { ApiError } from '@/utils/error';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 interface IUserLogin {
   email: string;
@@ -18,7 +20,11 @@ async function signInWithEmail(
   });
 
   if (error) {
-    throw new Error(error.message);
+    throw new ApiError({
+      message: error.message,
+      status: StatusCode.INTERNAL_ERROR,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
   }
 
   return data as { user: User; session: Session };

@@ -41,53 +41,51 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         queryCache: new QueryCache({
           onError: (error, query) => {
             if (!isErrorData(error)) {
-              fireToast.error(error.message);
+              fireToast.error(
+                error instanceof Error
+                  ? error.message
+                  : 'An unknown error occurred',
+              );
               return;
             }
 
-            if (error.code === 1001) return;
-
-            if (error.code === 9999) {
+            if (error.code === MessageCodes.SOMETHING_WENT_WRONG) {
               errorHandler(error);
               return;
             }
 
-            if (query.state.data === undefined) {
-              fireToast.error(`Something went wrong: ${error.message}`);
-              return;
-            }
+            const errorMessage =
+              query.state.data === undefined
+                ? `Something went wrong: ${error.message}`
+                : `Background fetching error: ${error.message}`;
 
-            if (query.state.data !== undefined) {
-              fireToast.error(
-                `Something went wrong on background fetching: ${error.message}`,
-              );
-            }
+            fireToast.error(errorMessage);
           },
         }),
         mutationCache: new MutationCache({
           onError: (error) => {
             if (!isErrorData(error)) {
-              console.error('error in mutation', error);
-              fireToast.error(error.message);
+              console.error('Error in mutation:', error);
+              fireToast.error(
+                error instanceof Error ? error.message : 'Mutation error',
+              );
               return;
             }
 
-            if (error.code === 1001) return;
-
-            if (error.description) {
+            if (error.code !== MessageCodes.CREATED) {
               errorHandler(error);
             }
           },
-          onSuccess: (response: {
+          onSuccess: ({
+            message,
+            code,
+          }: {
             status: StatusCode;
             message: string;
             code: MessageCodes;
           }) => {
-            console.log('mutation success', response);
-            if (response) {
-              fireToast.success(
-                `${response.message}: ${response.code ?? 'SUCCESS'}`,
-              );
+            if (message && code) {
+              fireToast.success(`Responses.MessageCodes.${code}`);
             }
           },
         }),

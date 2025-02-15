@@ -2,52 +2,59 @@ import bigDecimal from 'js-big-decimal';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAlert } from '@/providers/alert';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
+import { StatusCode, MessageCodes } from '@/utils/status';
 
 export const useError = () => {
-  const { showAlert } = useAlert();
   const { t } = useTranslation();
+  const statusPath = 'Responses.StatusCode';
+  const messagesPath = 'Responses.MessageCodes';
 
   const errorHandler = useCallback(
-    (error: ErrorData, isToast?: boolean) => {
+    (error: ErrorData) => {
       const { description, message, code, status } = error;
 
-      if (status === 500) {
-        return showAlert(t('Errors.wrong'), '500 ERROR');
+      if (status === StatusCode.INTERNAL_ERROR) {
+        fireToast.error(
+          t(`${statusPath}.${status}`, { defaultValue: message }),
+        );
+        return;
       }
 
-      const error_code = code;
-      const error_detail = description;
+      const errorCode = new bigDecimal(code || 0);
 
-      // Errors related to orders (4000-5000 range)
-      const errorCode = new bigDecimal(error_code || 0);
       if (
         errorCode.compareTo(new bigDecimal(4000)) >= 0 &&
         errorCode.compareTo(new bigDecimal(5000)) < 0
       ) {
-        return fireToast.error(error_detail || message);
+        fireToast.error(
+          t(`${messagesPath}.${code}`, { defaultValue: message }),
+        );
+        return;
       }
 
-      // Reset password token expired
-      if (error_code === 2105) {
-        return showAlert(t('Errors.wrong'), t(`Errors.${error_code}`));
+      if (code === MessageCodes.TOO_MANY_REQUESTS) {
+        fireToast.error(
+          t(`${messagesPath}.${code}`, { defaultValue: message }),
+        );
+        return;
       }
 
-      // No action for error code 3700
-      if (error_code === 3700) {
-        return null;
+      if (code === 2105) {
+        fireToast.error(
+          t(`${messagesPath}.${code}`, { defaultValue: message }),
+        );
+        return;
       }
 
-      // Handle errors based on isToast
-      if (isToast) {
-        return fireToast.error(t(`Errors.${error_code} ${error_detail}`));
-      }
+      if (code === 3700) return;
 
-      return showAlert(t('Errors.wrong'), t(`Errors.${error_code}`));
+      fireToast.error(
+        t(`${statusPath}.${status}`, { defaultValue: description }),
+      );
     },
-    [showAlert, t],
+    [t],
   );
 
   return { errorHandler };

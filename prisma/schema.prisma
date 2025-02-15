@@ -29,7 +29,7 @@ model User {
   username    String    @unique
   firstName   String?
   lastName    String?
-  photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/sign/avatars/guest.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2d1ZXN0LnBuZyIsImlhdCI6MTczODAzNTI4MCwiZXhwIjo0ODYwMDk5MjgwfQ.SIhFeYv30hUehZy949AIpfvCdsneoCmR-WUrYgGABKk")
+  photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/public/avatars//guest.png")
 
   totalPoints Int       @default(0)
   premium       Boolean  @default(false)
@@ -83,9 +83,9 @@ model Friend {
   userId    String
   friendId  String
   status    FriendStatus @default(PENDING) // pending, accepted, rejected
-
-  user      User    @relation(fields: [userId], references: [id], name: "user_friends")
-  friend    User    @relation(fields: [friendId], references: [id], name: "friend_friends")
+  
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User    @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
 
   @@unique([userId, friendId]) // Prevent duplicate friendships
 }

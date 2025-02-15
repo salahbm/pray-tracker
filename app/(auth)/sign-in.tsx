@@ -83,6 +83,8 @@ export default function SignInScreen({
           placeholder="Enter your email"
           keyboardType="email-address"
           onChangeText={(email) => setForm({ ...form, email })}
+          autoCorrect={false}
+          spellCheck={false}
         />
         <Input
           label="Password"

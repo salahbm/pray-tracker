@@ -286,7 +286,7 @@ export default function HomeScreen() {
       {/* SIGN UP SHEET */}
       <CustomBottomSheet sheetRef={signUpSheetRef}>
         <SignUpScreen
-          onSuccess={() => signUpSheetRef.current?.close()}
+          onSuccess={handlePresentSignIn}
           onNavigate={handlePresentSignIn}
         />
       </CustomBottomSheet>

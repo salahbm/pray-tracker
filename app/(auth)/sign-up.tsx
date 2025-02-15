@@ -1,9 +1,11 @@
-import React from 'react';
+import { User } from '@supabase/supabase-js';
+import React, { useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
 
 import { X } from '@/components/shared/icons';
 import Modal from '@/components/shared/modal';
 import { usePostUser } from '@/hooks/auth/usePostUser';
+import { useThemeStore } from '@/store/defaults/theme';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Text } from 'components/ui/text';
@@ -24,14 +26,14 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     isPendingOnPressVerify,
     isPendingPostUser,
   } = usePostUser();
-
+  const { colors } = useThemeStore();
   const [form, setForm] = React.useState({
     email: '',
     username: '',
     password: '',
     token: '',
   });
-
+  const [data, setData] = React.useState<User | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] =
     React.useState(isPostUserSuccess);
@@ -48,27 +50,50 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     }
   };
 
+  const handlePostUser = useCallback(async () => {
+    const payload = {
+      email: form.email,
+      password: form.password,
+      username: form.username,
+      supabaseId: data.id,
+    };
+
+    await postUser(payload);
+
+    setShowOtpModal(false);
+    setTimeout(() => {
+      setShowSuccessModal(true);
+    }, 150);
+
+    // Clear input fields
+    setData(null);
+    setForm({
+      email: '',
+      username: '',
+      password: '',
+      token: '',
+    });
+  }, [data, form, postUser, setShowOtpModal, setShowSuccessModal]);
+
   // Handle email verification
   const handlePressVerify = async () => {
     try {
       setError(null);
-      const data = await onPressVerify(form);
+      const res = await onPressVerify(form);
 
-      const payload = {
-        email: form.email,
-        password: form.password,
-        username: form.username,
-        supabaseId: data.user.id,
-      };
-
-      await postUser(payload);
-
-      setShowOtpModal(false);
-      setShowSuccessModal(true);
+      if (res) {
+        setData(res.user);
+      }
     } catch (err) {
       setError(err.message || 'Verification failed.');
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      handlePostUser();
+    }
+  }, [data, handlePostUser]);
 
   return (
     <React.Fragment>
@@ -107,11 +132,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           onChangeText={(password) => setForm({ ...form, password })}
         />
 
-        <Button
-          onPress={onSignUpPress}
-          className="p-4 rounded-lg bg-primary text-white"
-          disabled={isPendingSupabaseSignUp}
-        >
+        <Button onPress={onSignUpPress} disabled={isPendingSupabaseSignUp}>
           <Text>Sign Up</Text>
         </Button>
         {error && <Text className="text-destructive mt-2">{error}</Text>}
@@ -137,7 +158,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             <X
               size={24}
               onPress={() => setShowOtpModal(false)}
-              className="fill-white"
+              color={colors['--primary']}
             />
           </Button>
           <Text className="text-2xl font-bold mb-2">Verification</Text>
@@ -146,7 +167,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           </Text>
           <Input
             placeholder="12345"
-            className="p-3 rounded-lg bg-surface border border-gray-200"
+            className="p-3 rounded-lg bg-surface border border-border"
             value={form.token}
             keyboardType="numeric"
             onChangeText={(token) => setForm({ ...form, token })}
@@ -168,8 +189,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
       <Modal
         isVisible={showSuccessModal}
         onBackdropPress={() => {
-          setShowSuccessModal(false);
           onSuccess();
+          setShowSuccessModal(false);
         }}
       >
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
@@ -183,12 +204,12 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           </Text>
           <Button
             onPress={() => {
-              setShowSuccessModal(false);
               onSuccess();
+              setShowSuccessModal(false);
             }}
             className="mt-5"
           >
-            <Text>Browse Home</Text>
+            <Text>Sign In</Text>
           </Button>
         </View>
       </Modal>

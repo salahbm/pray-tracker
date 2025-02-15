@@ -19,10 +19,6 @@ const deleteUser = async (params: IUserDelete) => {
     }),
   });
 
-  if (!response.ok) {
-    throw new Error('Failed to delete user from API');
-  }
-
   // Step 2: Delete user from Supabase Admin
   const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
 

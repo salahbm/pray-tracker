@@ -13,7 +13,6 @@ import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useLogoutUser } from '@/hooks/auth/useLogOut';
-import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const Account = () => {
@@ -26,7 +25,6 @@ const Account = () => {
     await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(
       () => {
         setModalVisible(false);
-        fireToast.success('Account withdrawal initiated.');
         router.replace('/(tabs)');
       },
     );
