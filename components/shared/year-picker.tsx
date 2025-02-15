@@ -1,8 +1,8 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import Modal from 'react-native-modal';
 
+import Modal from './modal';
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -32,12 +32,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
   const [selectedYear, setSelectedYear] = useState(value.toString()); // Store as string
 
   return (
-    <Modal
-      isVisible={isVisible}
-      onBackdropPress={onBackdropPress}
-      animationIn="zoomIn"
-      animationOut="zoomOut"
-    >
+    <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
       <View style={styles.modalContainer} className="bg-muted">
         <Text style={styles.title}>Select a Year</Text>
         <View style={styles.pickerContainer}>

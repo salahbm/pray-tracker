@@ -1,10 +1,10 @@
 import LottieView from 'lottie-react-native';
 import React, { useMemo, useRef, useState } from 'react';
 import { View, Image, FlatList, TouchableOpacity } from 'react-native';
-import Modal from 'react-native-modal';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
+import Modal from '@/components/shared/modal';
 import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
 import { AWARDS } from '@/constants/awards';

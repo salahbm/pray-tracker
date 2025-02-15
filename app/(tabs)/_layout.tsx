@@ -36,13 +36,13 @@ export default function TabLayout() {
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={Platform.OS === 'ios' ? 30 : 200}
+            intensity={Platform.OS === 'ios' ? 30 : 100}
             tint={TabTints[currentTheme]}
             style={{
               ...StyleSheet.absoluteFillObject,
               backgroundColor:
                 Platform.OS === 'android'
-                  ? 'rgba(0, 0, 0, 0.3)'
+                  ? 'rgba(255, 255, 255, 1)'
                   : 'transparent',
               overflow: 'hidden',
             }}

@@ -112,9 +112,11 @@ export default function SignInScreen({
         </Button>
       </View>
 
-      <View className="justify-center items-center mt-24">
+      <View className="justify-center items-center">
         <TouchableOpacity onPress={onForgotPassword}>
-          <Text className="font-primary underline">Forgot your password?</Text>
+          <Text className="font-primary underline text-sm">
+            Forgot your password?
+          </Text>
         </TouchableOpacity>
       </View>
     </React.Fragment>

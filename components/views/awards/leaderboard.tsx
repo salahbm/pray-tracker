@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Image } from 'react-native';
-import Modal from 'react-native-modal';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
+import Modal from '@/components/shared/modal';
 import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';

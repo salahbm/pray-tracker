@@ -4,8 +4,8 @@ import * as SecureStore from 'expo-secure-store';
 import { X } from 'lucide-react-native';
 import { useState, useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 
+import Modal from '@/components/shared/modal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
@@ -61,10 +61,10 @@ export default function ForgotPasswordScreen({
     setUser(data);
     queryClient.invalidateQueries(userKeys);
 
+    setShowOtpModal(false);
     setShowSuccessModal(true);
     setEmail('');
     setToken('');
-    setShowOtpModal(false);
   }, [email, token, verifyRequest, queryClient, setUser, data]);
 
   return (
@@ -108,11 +108,7 @@ export default function ForgotPasswordScreen({
       </View>
 
       {/* VERIFICATION MODAL */}
-      <ReactNativeModal
-        isVisible={showOtpModal}
-        backdropOpacity={0.4}
-        avoidKeyboard
-      >
+      <Modal isVisible={showOtpModal}>
         <View className="bg-muted px-7 py-14 rounded-2xl relative border border-border">
           <Button
             className="absolute top-2 right-0"
@@ -141,10 +137,10 @@ export default function ForgotPasswordScreen({
             <Text>Verify Email</Text>
           </Button>
         </View>
-      </ReactNativeModal>
+      </Modal>
 
       {/* SUCCESS MODAL */}
-      <ReactNativeModal
+      <Modal
         isVisible={showSuccessModal}
         onBackdropPress={() => {
           setShowSuccessModal(false);
@@ -170,7 +166,7 @@ export default function ForgotPasswordScreen({
             <Text>Update Password</Text>
           </Button>
         </View>
-      </ReactNativeModal>
+      </Modal>
     </>
   );
 }

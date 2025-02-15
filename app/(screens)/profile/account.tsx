@@ -2,12 +2,12 @@ import { format } from 'date-fns';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { View, Image } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import { LogOut } from '@/components/shared/icons';
 import Loader from '@/components/shared/loader';
+import Modal from '@/components/shared/modal';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
@@ -89,11 +89,9 @@ const Account = () => {
       </Button>
 
       {/* Withdraw Account Modal */}
-      <ReactNativeModal
+      <Modal
         isVisible={modalVisible}
         onBackdropPress={() => setModalVisible(false)}
-        animationIn="zoomIn"
-        animationOut="zoomOut"
       >
         <View className="bg-popover rounded-lg p-6">
           <Text className="text-lg font-bold mb-4 text-center">
@@ -116,7 +114,7 @@ const Account = () => {
             </Button>
           </View>
         </View>
-      </ReactNativeModal>
+      </Modal>
     </SafeAreaView>
   );
 };

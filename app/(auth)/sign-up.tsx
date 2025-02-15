@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, View } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 
 import { X } from '@/components/shared/icons';
+import Modal from '@/components/shared/modal';
 import { usePostUser } from '@/hooks/auth/usePostUser';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
@@ -127,11 +127,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
       </View>
 
       {/* VERIFICATION MODAL */}
-      <ReactNativeModal
-        isVisible={showOtpModal}
-        backdropOpacity={0.4}
-        avoidKeyboard
-      >
+      <Modal isVisible={showOtpModal}>
         <View className="bg-muted px-7 py-14 rounded-2xl relative border border-border">
           <Button
             className="absolute top-2 right-0"
@@ -166,10 +162,10 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             <Text>Verify Email</Text>
           </Button>
         </View>
-      </ReactNativeModal>
+      </Modal>
 
       {/* SUCCESS MODAL */}
-      <ReactNativeModal
+      <Modal
         isVisible={showSuccessModal}
         onBackdropPress={() => {
           setShowSuccessModal(false);
@@ -195,7 +191,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             <Text>Browse Home</Text>
           </Button>
         </View>
-      </ReactNativeModal>
+      </Modal>
     </React.Fragment>
   );
 }

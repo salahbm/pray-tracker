@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
+import * as Haptics from 'expo-haptics';
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
@@ -49,7 +50,8 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
   } = params;
   const { colors } = useThemeStore();
 
-  const togglePicker = () => {
+  const togglePicker = async () => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     dispatch({ type: 'TOGGLE_PICKER' });
   };
 
