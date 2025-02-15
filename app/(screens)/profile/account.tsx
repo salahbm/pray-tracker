@@ -37,6 +37,7 @@ const Account = () => {
       <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
         <GoBack title="Account" />
+
         <Image
           source={{
             uri: user?.photo || FRIENDS.guest,
@@ -44,6 +45,7 @@ const Account = () => {
           accessibilityLabel="Profile Photo"
           className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
         />
+
         {/* Account Info */}
         <View className="mt-20">
           <View className="flex-row justify-between items-center w-full mb-4">

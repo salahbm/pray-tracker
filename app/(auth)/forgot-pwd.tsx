@@ -1,3 +1,4 @@
+import { User } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -14,30 +15,31 @@ import { userKeys } from '@/constants/query-keys';
 import { useResetPwd } from '@/hooks/auth/useForgotPwd';
 import { useGetUser } from '@/hooks/auth/useGetUser';
 import { supabase } from '@/lib/supabase';
+import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
+import { ApiError } from '@/utils/error';
+import { MessageCodes } from '@/utils/status';
 
 export default function ForgotPasswordScreen({
   onNavigate,
+  onSuccess,
 }: {
   onNavigate: () => void;
+  onSuccess: () => void;
 }) {
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
-  const [supabaseUser, setSupabaseUser] = useState(null);
+  const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
 
+  const { colors } = useThemeStore();
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
   const { verifyRequest, sendRequest, isRequestPending, isVerifyPending } =
     useResetPwd();
-  const { data, refetch } = useGetUser(supabaseUser?.id);
-
-  useEffect(() => {
-    if (supabaseUser?.id) {
-      refetch();
-    }
-  }, [supabaseUser?.id, refetch]);
+  const { refetch, data: userFromDB } = useGetUser(supabaseUser?.id);
 
   const onResetPassword = useCallback(async () => {
     await sendRequest.mutateAsync(email);
@@ -45,27 +47,62 @@ export default function ForgotPasswordScreen({
   }, [email, sendRequest]);
 
   const handlePressVerify = useCallback(async () => {
-    const { session, user } = await verifyRequest.mutateAsync({ email, token });
-    if (!session || !user) return;
+    try {
+      const { session, user } = await verifyRequest.mutateAsync({
+        email,
+        token,
+      });
 
-    await SecureStore.setItemAsync('access_token', session.access_token);
-    await SecureStore.setItemAsync('refresh_token', session.refresh_token);
+      if (!session || !user) {
+        throw new ApiError({
+          message: 'Failed to verify OTP.',
+          status: 500,
+          code: MessageCodes.SOMETHING_WENT_WRONG,
+          details: null,
+        });
+      }
 
-    await supabase.auth.setSession({
-      access_token: session.access_token,
-      refresh_token: session.refresh_token,
-    });
+      await SecureStore.setItemAsync('access_token', session.access_token);
+      await SecureStore.setItemAsync('refresh_token', session.refresh_token);
 
-    setSupabaseUser(user);
+      await supabase.auth.setSession({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token,
+      });
 
-    setUser(data);
-    queryClient.invalidateQueries(userKeys);
+      setSupabaseUser(user);
+    } catch (error) {
+      fireToast.error(error.message);
+    }
+  }, [email, token, verifyRequest]);
 
-    setShowOtpModal(false);
-    setShowSuccessModal(true);
-    setEmail('');
-    setToken('');
-  }, [email, token, verifyRequest, queryClient, setUser, data]);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (supabaseUser && supabaseUser.id) {
+        await refetch();
+
+        if (userFromDB) {
+          setUser(userFromDB);
+          queryClient.invalidateQueries(userKeys);
+          setShowOtpModal(false);
+          setSuccessModal(true);
+
+          // Clear input fields
+          setEmail('');
+          setToken('');
+        } else {
+          throw new ApiError({
+            message: 'Failed to fetch user data.',
+            status: 500,
+            code: MessageCodes.SOMETHING_WENT_WRONG,
+            details: null,
+          });
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [supabaseUser, refetch, userFromDB, queryClient, setUser]);
 
   return (
     <>
@@ -116,7 +153,7 @@ export default function ForgotPasswordScreen({
             disabled={isRequestPending || isVerifyPending}
             onPress={() => setShowOtpModal(false)}
           >
-            <X size={24} className="fill-white" />
+            <X size={24} color={colors['--muted-foreground']} />
           </Button>
           <Text className="text-2xl font-bold mb-2">Verification</Text>
           <Text className=" mb-5">
@@ -139,11 +176,11 @@ export default function ForgotPasswordScreen({
         </View>
       </Modal>
 
-      {/* SUCCESS MODAL */}
+      {/* PWD RESET SUCCESS MODAL */}
       <Modal
-        isVisible={showSuccessModal}
+        isVisible={successModal}
         onBackdropPress={() => {
-          setShowSuccessModal(false);
+          onSuccess();
           router.push('/(screens)/profile/edit-pwd');
         }}
       >
@@ -158,7 +195,7 @@ export default function ForgotPasswordScreen({
           </Text>
           <Button
             onPress={() => {
-              setShowSuccessModal(false);
+              onSuccess();
               router.push('/(screens)/profile/edit-pwd');
             }}
             className="mt-5"

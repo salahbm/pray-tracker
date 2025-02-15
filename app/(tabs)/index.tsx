@@ -292,7 +292,10 @@ export default function HomeScreen() {
       </CustomBottomSheet>
       {/* FORGOT  PASSWORD  SHEET */}
       <CustomBottomSheet sheetRef={forgotPwdRef}>
-        <ForgotPasswordScreen onNavigate={handlePresentSignIn} />
+        <ForgotPasswordScreen
+          onNavigate={handlePresentSignIn}
+          onSuccess={() => forgotPwdRef.current?.close()}
+        />
       </CustomBottomSheet>
       {/* PROFILE */}
       <CustomBottomSheet sheetRef={profileSheetRef}>
