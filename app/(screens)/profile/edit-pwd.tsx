@@ -7,17 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { useLogoutUser } from '@/hooks/auth/useLogOut';
 import { useUpdateUser } from '@/hooks/auth/usePutUser';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const EditPwd = () => {
-  const { user } = useAuthStore();
+  const { user, logOut } = useAuthStore();
 
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
-  const { mutateAsync: logoutUser } = useLogoutUser();
+
   //   States
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -46,7 +45,7 @@ const EditPwd = () => {
         });
       }
       // Log out the user after updating password
-      await logoutUser();
+      logOut();
     } catch (error) {
       fireToast.error(error.message);
     }

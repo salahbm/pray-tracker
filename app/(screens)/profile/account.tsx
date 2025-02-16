@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -12,13 +13,12 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
-import { useLogoutUser } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const Account = () => {
-  const { user } = useAuthStore();
+  const { user, logOut } = useAuthStore();
+  const queryClient = useQueryClient();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
-  const { mutateAsync: logout, isPending: isLoggingOut } = useLogoutUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
@@ -30,9 +30,15 @@ const Account = () => {
     );
   };
 
+  const handleLogOut = async () => {
+    logOut();
+    queryClient.clear();
+    router.push('/(tabs)');
+  };
+
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isDeleting || isLoggingOut} />
+      <Loader visible={isDeleting} />
       <View className="main-area">
         <GoBack title="Account" />
 
@@ -82,7 +88,7 @@ const Account = () => {
       <Button
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
-        onPress={async () => await logout()}
+        onPress={handleLogOut}
       >
         <Text className="text-destructive font-bold">Logout</Text>
         <LogOut className="stroke-destructive" />

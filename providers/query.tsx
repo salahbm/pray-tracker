@@ -64,12 +64,21 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         }),
         mutationCache: new MutationCache({
           onError: (error) => {
+            console.error('Mutation error:', error ?? 'Unknown error');
             if (!isErrorData(error)) {
-              console.error('Mutation error:', error);
-              const errData = error instanceof Error ? error : {};
-              return errorHandler(errData as ErrorData);
+              const errMessage =
+                error instanceof Error && error.message
+                  ? error.message
+                  : 'An unknown error occurred';
+
+              return errorHandler({
+                message: errMessage,
+                code: MessageCodes.SOMETHING_WENT_WRONG,
+                status: StatusCode.INTERNAL_ERROR,
+              } as ErrorData);
             }
           },
+
           onSuccess: ({
             message,
             code,

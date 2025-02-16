@@ -6,6 +6,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { TUser } from '@/types/user';
+import { ApiError } from '@/utils/error';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 interface AuthState {
   user: TUser | null;
@@ -64,7 +66,11 @@ export const useAuthStore = create<AuthState>()(
           await supabase.auth.signOut();
           set({ accessToken: null, refreshToken: null, user: null });
         } catch (err) {
-          fireToast.error(err.message || 'Failed to log out.');
+          throw new ApiError({
+            message: err ?? 'Failed to log out',
+            status: StatusCode.INTERNAL_ERROR,
+            code: MessageCodes.INTERNAL_ERROR,
+          });
         }
       },
     }),
