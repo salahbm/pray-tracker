@@ -1,4 +1,3 @@
-import bigDecimal from 'js-big-decimal';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,40 +14,25 @@ export const useError = () => {
     (error: ErrorData) => {
       const { description, message, code, status } = error;
 
-      if (status === StatusCode.INTERNAL_ERROR) {
-        fireToast.error(
-          t(`${statusPath}.${status}`, { defaultValue: message }),
-        );
-        return;
-      }
-
-      const errorCode = new bigDecimal(code || 0);
+      if (!status && !code) return;
 
       if (
-        errorCode.compareTo(new bigDecimal(4000)) >= 0 &&
-        errorCode.compareTo(new bigDecimal(5000)) < 0
+        status === StatusCode.INTERNAL_ERROR ||
+        code === MessageCodes.TOO_MANY_REQUESTS ||
+        code === 2105
       ) {
         fireToast.error(
-          t(`${messagesPath}.${code}`, { defaultValue: message }),
+          t(`${messagesPath}.${code || status}`, { defaultValue: message }),
         );
         return;
       }
 
-      if (code === MessageCodes.TOO_MANY_REQUESTS) {
+      if (code >= 2000 && code < 7000) {
         fireToast.error(
           t(`${messagesPath}.${code}`, { defaultValue: message }),
         );
         return;
       }
-
-      if (code === 2105) {
-        fireToast.error(
-          t(`${messagesPath}.${code}`, { defaultValue: message }),
-        );
-        return;
-      }
-
-      if (code === 3700) return;
 
       fireToast.error(
         t(`${statusPath}.${status}`, { defaultValue: description }),

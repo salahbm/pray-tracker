@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import OAuth from '@/components/shared/o-auth';
@@ -11,6 +12,7 @@ import { useLoginUser } from '@/hooks/auth/useLogin';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { MessageCodes } from '@/utils/status';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -28,6 +30,7 @@ export default function SignInScreen({
   const { mutateAsync: signIn, isPending, data: supabaseUser } = useLoginUser();
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
+  const { t } = useTranslation();
   const hasUpdatedSession = useRef(false); // Prevent multiple updates
 
   const [form, setForm] = useState({
@@ -61,9 +64,12 @@ export default function SignInScreen({
       queryClient.invalidateQueries(userKeys);
 
       onSuccess();
-      fireToast.success('Signed in successfully.');
+      fireToast.success(
+        t(`Responses.MessageCodes.${MessageCodes.SIGN_IN_SUCCESSFULLY}`),
+      );
+      setForm({ email: '', password: '' });
     })();
-  }, [supabaseUser, data, setUser, queryClient, onSuccess]);
+  }, [supabaseUser, data, setUser, queryClient, onSuccess, t]);
 
   const onSignInPress = useCallback(async () => {
     await signIn(form);
@@ -102,7 +108,7 @@ export default function SignInScreen({
           <Text className="font-bold">Sign In</Text>
         </Button>
         {/* OAuth */}
-        <OAuth />
+        <OAuth onSuccess={onSuccess} />
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center">

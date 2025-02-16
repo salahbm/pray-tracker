@@ -14,6 +14,15 @@ async function signInWithEmail(
   prams: IUserLogin,
 ): Promise<{ user: User; session: Session }> {
   const { email, password } = prams;
+
+  if (!email || !password) {
+    throw new ApiError({
+      message: 'Missing required fields',
+      status: StatusCode.BAD_REQUEST,
+      code: MessageCodes.MISSING_REQUIRED_FIELDS,
+    });
+  }
+
   const { error, data } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
@@ -23,7 +32,8 @@ async function signInWithEmail(
     throw new ApiError({
       message: error.message,
       status: StatusCode.INTERNAL_ERROR,
-      code: MessageCodes.INTERNAL_ERROR,
+      code: MessageCodes.SIGN_IN_FAILED,
+      details: error,
     });
   }
 

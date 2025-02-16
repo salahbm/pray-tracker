@@ -1,16 +1,59 @@
+import { User } from '@supabase/supabase-js';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { IMAGES } from '@/constants/images';
+import { userKeys } from '@/constants/query-keys';
+import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useOAuth } from '@/hooks/auth/useOAuth';
+import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { MessageCodes } from '@/utils/status';
 
-const OAuth = () => {
+const OAuth = ({ onSuccess }: { onSuccess: () => void }) => {
+  const { t } = useTranslation();
+  const { setUser } = useAuthStore();
+  const queryClient = useQueryClient();
   const { mutateAsync: startOAuthFlow } = useOAuth();
-
+  const [data, setData] = useState<User | null>(null);
+  const { data: userData, refetch, isFetching } = useGetUser(data?.id);
+  const hasUpdatedSession = useRef(false); // Prevent multiple updates
+  // Handle Google sign-in
   const handleGoogleSignIn = async () => {
-    await startOAuthFlow();
+    const newData = await startOAuthFlow();
+
+    if (newData && newData.id !== data?.id) {
+      // Only update if newData is different
+      setData(newData);
+    }
   };
+
+  useEffect(() => {
+    if (data) {
+      refetch(); // Fetch user data after login
+    }
+  }, [data, refetch]);
+
+  useEffect(() => {
+    if (!data || hasUpdatedSession.current || isFetching) return;
+
+    (async () => {
+      hasUpdatedSession.current = true; // Mark as updated to prevent looping
+
+      setUser(userData);
+
+      queryClient.invalidateQueries(userKeys);
+
+      onSuccess();
+      fireToast.success(
+        t(`Responses.MessageCodes.${MessageCodes.SIGN_IN_SUCCESSFULLY}`),
+      );
+    })();
+  }, [data, setUser, queryClient, onSuccess, t, userData, isFetching]);
 
   return (
     <View>

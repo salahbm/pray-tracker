@@ -65,15 +65,9 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         mutationCache: new MutationCache({
           onError: (error) => {
             if (!isErrorData(error)) {
-              console.error('Error in mutation:', error);
-              fireToast.error(
-                error instanceof Error ? error.message : 'Mutation error',
-              );
-              return;
-            }
-
-            if (error.code !== MessageCodes.CREATED) {
-              errorHandler(error);
+              console.error('Mutation error:', error);
+              const errData = error instanceof Error ? error : {};
+              return errorHandler(errData as ErrorData);
             }
           },
           onSuccess: ({

@@ -39,7 +39,7 @@ export async function GET(request: Request, { id }: { id: string }) {
 
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Today’s Pray fetched successfully',
+      message: 'Today`s Pray fetched successfully',
       code: MessageCodes.PRAY_FETCHED,
       data: pray,
     });

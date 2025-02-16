@@ -1,6 +1,7 @@
 {
   "Responses": {
     "StatusCode": {
+      "undefined": "Something went wrong",
       "100": "Continue",
       "101": "Switching Protocols",
       "102": "Processing",
@@ -69,6 +70,14 @@
       "3004": "User Updated",
       "3005": "User Fetched",
       "3006": "User Unauthorized",
+      "3007": "Sign In Successfully",
+      "3008": "Sign Out Successfully",
+      "3009": "Sign Up Successfully",
+      "3010": "Sign In Failed",
+      "3011": "Sign Up Failed",
+      "3012": "Sign Out Failed",
+      "3013": "Withdraw Successfully",
+      "3014": "Withdraw Failed",
       "4000": "Pray Not Found",
       "4001": "Pray Created",
       "4002": "Pray Deleted",

@@ -1,63 +1,95 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as QueryParams from 'expo-auth-session/build/QueryParams';
-import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser';
 
 import useMutation from '../common/useMutation';
-import { userKeys } from '@/constants/query-keys';
 import { supabase } from '@/lib/supabase';
+import { ApiError } from '@/utils/error';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
-WebBrowser.maybeCompleteAuthSession(); // required for web only
-const redirectTo = makeRedirectUri();
+WebBrowser.maybeCompleteAuthSession(); // Required for web only
+
+const redirectTo = makeRedirectUri({
+  scheme: 'salahdev-prayer-tracker', // Your deep link scheme
+  preferLocalhost: true, // Helps in local development
+});
 
 const createSessionFromUrl = async (url: string) => {
   const { params, errorCode } = QueryParams.getQueryParams(url);
 
-  if (errorCode) throw new Error(errorCode);
+  if (errorCode) {
+    throw new ApiError({
+      message: errorCode,
+      status: StatusCode.UNAUTHORIZED,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
+  }
+
   const { access_token, refresh_token } = params;
 
-  if (!access_token) return;
+  if (!access_token) {
+    throw new ApiError({
+      message: 'Missing access token',
+      status: StatusCode.UNAUTHORIZED,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
+  }
 
+  // Set session with Supabase
   const { data, error } = await supabase.auth.setSession({
     access_token,
     refresh_token,
   });
-  if (error) throw error;
-  return data.session;
+  await SecureStore.setItemAsync('access_token', access_token);
+  await SecureStore.setItemAsync('refresh_token', refresh_token);
+
+  if (error) {
+    throw new ApiError({
+      message: error?.message || 'Session refresh failed',
+      status: StatusCode.INTERNAL_ERROR,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
+  }
+
+  return data;
 };
 
 const performOAuth = async () => {
+  await supabase.auth.signOut(); // Ensure no stale session
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
+      redirectTo,
       skipBrowserRedirect: true,
     },
   });
-  if (error) throw error;
+
+  if (error || !data?.url) {
+    throw new ApiError({
+      message: error?.message || 'OAuth URL is missing',
+      status: StatusCode.INTERNAL_ERROR,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
+  }
 
   const res = await WebBrowser.openAuthSessionAsync(
     data?.url ?? '',
     redirectTo,
   );
+  if (res.type === 'success' && res.url) {
+    const signedIn = await createSessionFromUrl(res.url);
 
-  if (res.type === 'success') {
-    const { url } = res;
-    await createSessionFromUrl(url);
-    await supabase.auth.refreshSession();
+    // ✅ Explicitly set the session in Supabase
+    await supabase.auth.setSession(signedIn.session);
+
+    return signedIn.user;
   }
 };
 
 export const useOAuth = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: performOAuth,
-    options: {
-      onSuccess: async () => {
-        queryClient.invalidateQueries(userKeys);
-        router.replace('/(tabs)');
-      },
-    },
+    mutationFn: () => performOAuth(),
   });
 };

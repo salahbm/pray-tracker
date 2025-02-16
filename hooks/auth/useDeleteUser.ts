@@ -4,6 +4,8 @@ import * as SecureStore from 'expo-secure-store';
 import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
+import { ApiError } from '@/utils/error';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 interface IUserDelete {
   id: string;
@@ -19,17 +21,21 @@ const deleteUser = async (params: IUserDelete) => {
     }),
   });
 
-  // Step 2: Delete user from Supabase Admin
-  const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
-
-  if (error) {
-    throw new Error(`Failed to delete user from Supabase: ${error.message}`);
-  }
-
-  // Step 3: Sign out & clear tokens
+  // Step 2: Sign out & clear tokens
   await supabase.auth.signOut();
   await SecureStore.deleteItemAsync('access_token');
   await SecureStore.deleteItemAsync('refresh_token');
+
+  // Step 3: Delete user from Supabase Admin
+  const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
+
+  if (error) {
+    throw new ApiError({
+      message: error.message,
+      status: StatusCode.INTERNAL_ERROR,
+      code: MessageCodes.INTERNAL_ERROR,
+    });
+  }
 
   return response;
 };
