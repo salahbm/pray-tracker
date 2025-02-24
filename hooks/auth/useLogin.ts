@@ -3,7 +3,12 @@ import { Session, User } from '@supabase/supabase-js';
 import useMutation from '../common/useMutation';
 import { supabase } from '@/lib/supabase';
 import { ApiError } from '@/utils/error';
-import { MessageCodes, StatusCode } from '@/utils/status';
+import {
+  DEFAULT_MESSAGE_CODE,
+  MessageCodes,
+  StatusCode,
+  SupabaseErrorMap,
+} from '@/utils/status';
 
 interface IUserLogin {
   email: string;
@@ -29,10 +34,12 @@ async function signInWithEmail(
   });
 
   if (error) {
+    // Get the message code from the error map, default to UNKNOWN_ERROR if not found
+    const messageCode = SupabaseErrorMap[error?.code] || DEFAULT_MESSAGE_CODE;
     throw new ApiError({
-      message: error.message,
+      message: error?.message,
       status: StatusCode.INTERNAL_ERROR,
-      code: MessageCodes.SIGN_IN_FAILED,
+      code: messageCode,
       details: error,
     });
   }

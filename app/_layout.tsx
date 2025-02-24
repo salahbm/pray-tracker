@@ -7,7 +7,6 @@ import { AppState } from 'react-native';
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
 import { useNotificationListeners } from '@/hooks/notifications/useNotificationListener';
 import { supabase } from '@/lib/supabase';
-import { useAuthStore } from '@/store/auth/auth-session';
 import RootProvider from 'providers/root';
 import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
@@ -18,7 +17,6 @@ import 'reanimated.config';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { loadSession } = useAuthStore();
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
@@ -39,11 +37,6 @@ export default function RootLayout() {
     );
     return () => subscription.remove();
   }, []);
-
-  // Load user session
-  useEffect(() => {
-    loadSession(); // Load user session
-  }, [loadSession]);
 
   // Hide the splash screen once fonts are loaded
   useEffect(() => {

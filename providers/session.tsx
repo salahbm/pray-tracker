@@ -1,41 +1,60 @@
-import { Session } from '@supabase/supabase-js';
-import { useState, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/auth/auth-session';
 
-const SignedOut = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuthStore();
-  const [session, setSession] = useState<Session | null>(null);
+interface SignedProps {
+  children: ReactNode;
+}
+
+export function SignedOut({ children }: SignedProps) {
+  const { user, session, setSession } = useAuthStore();
+
+  // Listen for auth changes & update Zustand store
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        setSession(data.session);
+      }
+    };
+
+    fetchSession(); // Initial session fetch
+
+    // Listen for session changes & update Zustand store
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      },
+    );
+
+    return () => authListener.subscription.unsubscribe();
+  }, [setSession]);
+
+  return user && session ? null : <>{children}</>;
+}
+
+export function SignedIn({ children }: SignedProps) {
+  const { user, session, setSession } = useAuthStore();
 
   useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => setSession(session));
+    const fetchSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        setSession(data.session);
+      }
+    };
+
+    fetchSession();
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, s) => setSession(s),
+      (_event, session) => {
+        setSession(session);
+      },
     );
+
     return () => authListener.subscription.unsubscribe();
-  }, []);
+  }, [setSession]);
 
-  return session && user ? null : <>{children}</>;
-};
-
-const SignedIn = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuthStore();
-  const [session, setSession] = useState<Session | null>(null);
-
-  useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => setSession(session));
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, s) => setSession(s),
-    );
-    return () => authListener.subscription.unsubscribe();
-  }, []);
-
-  return session && user ? <>{children}</> : null;
-};
-
-export { SignedOut, SignedIn };
+  return user && session ? <>{children}</> : null;
+}

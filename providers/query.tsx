@@ -9,6 +9,7 @@ import { PropsWithChildren, useState } from 'react';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
+import { ApiError } from '@/utils/error';
 import { MessageCodes, StatusCode } from '@/utils/status';
 
 const isErrorData = (error: unknown): error is ErrorData => {
@@ -64,19 +65,30 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         }),
         mutationCache: new MutationCache({
           onError: (error) => {
-            console.error('Mutation error:', error ?? 'Unknown error');
-            if (!isErrorData(error)) {
-              const errMessage =
-                error instanceof Error && error.message
-                  ? error.message
-                  : 'An unknown error occurred';
+            console.warn('Mutation error:', error ?? 'Unknown error');
 
+            // Ensure error is an instance of ApiError
+            if (error instanceof ApiError) {
               return errorHandler({
-                message: errMessage,
-                code: MessageCodes.SOMETHING_WENT_WRONG,
-                status: StatusCode.INTERNAL_ERROR,
-              } as ErrorData);
+                message: error.message,
+                code: error?.code,
+                status: error?.status,
+                description: error.details,
+              });
             }
+
+            // If error is not ApiError, handle it as a generic error
+            const errMessage =
+              error instanceof Error && error.message
+                ? error.message
+                : 'An unknown error occurred';
+
+            return errorHandler({
+              message: errMessage,
+              code: MessageCodes.SOMETHING_WENT_WRONG,
+              status: StatusCode.INTERNAL_ERROR,
+              description: errMessage,
+            });
           },
 
           onSuccess: ({
