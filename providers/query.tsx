@@ -79,8 +79,8 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
 
             // If error is not ApiError, handle it as a generic error
             const errMessage =
-              error instanceof Error && error.message
-                ? error.message
+              error instanceof Error && error?.message
+                ? error?.message
                 : 'An unknown error occurred';
 
             return errorHandler({
@@ -91,16 +91,14 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
             });
           },
 
-          onSuccess: ({
-            message,
-            code,
-          }: {
+          onSuccess: (res: {
             status: StatusCode;
             message: string;
             code: MessageCodes;
           }) => {
-            if (message && code) {
-              fireToast.success(`Responses.MessageCodes.${code}`);
+            console.log('Mutation success:', res);
+            if (res && 'code' in res) {
+              fireToast.success(`Responses.MessageCodes.${res?.code}`);
             }
           },
         }),

@@ -1,5 +1,5 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { View, Image } from 'react-native';
@@ -13,15 +13,17 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
+import { useLogout } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const Account = () => {
-  const { user, logOut } = useAuthStore();
-  const queryClient = useQueryClient();
+  const { user } = useAuthStore();
+  const { mutate: logOut, isPending } = useLogout();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(
       () => {
         setModalVisible(false);
@@ -31,14 +33,13 @@ const Account = () => {
   };
 
   const handleLogOut = async () => {
-    logOut();
-    queryClient.clear();
-    router.push('/(tabs)');
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    logOut(undefined);
   };
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isDeleting} />
+      <Loader visible={isDeleting || isPending} />
       <View className="main-area">
         <GoBack title="Account" />
 
@@ -89,6 +90,7 @@ const Account = () => {
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
         onPress={handleLogOut}
+        disabled={isPending || isDeleting}
       >
         <Text className="text-destructive font-bold">Logout</Text>
         <LogOut className="stroke-destructive" />

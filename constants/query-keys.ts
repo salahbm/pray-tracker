@@ -11,8 +11,12 @@ const awards = {
   queryKey: ['awards'],
 };
 
-const praysListKeys = 'praysListCache';
-const todaysPrayKey = 'todaysPrayCache';
+const praysListKeys = {
+  queryKey: ['praysListCache'],
+};
+const todaysPrayKey = {
+  queryKey: ['todaysPrayCache'],
+};
 
 const approvedFriendsList = {
   queryKey: ['friendsListCache'],

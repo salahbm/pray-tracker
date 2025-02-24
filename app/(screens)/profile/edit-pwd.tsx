@@ -7,13 +7,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
+import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdateUser } from '@/hooks/auth/usePutUser';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const EditPwd = () => {
-  const { user, logOut } = useAuthStore();
+  const { user } = useAuthStore();
+  const { mutate: logOut, isPending } = useLogout();
 
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
 
@@ -45,7 +47,7 @@ const EditPwd = () => {
         });
       }
       // Log out the user after updating password
-      logOut();
+      logOut(undefined);
     } catch (error) {
       fireToast.error(error.message);
     }
@@ -78,7 +80,7 @@ const EditPwd = () => {
         />
       </View>
       <View className="pb-4">
-        <Button onPress={handleUpdate} disabled={isLoading}>
+        <Button onPress={handleUpdate} disabled={isLoading || isPending}>
           <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
         </Button>
       </View>

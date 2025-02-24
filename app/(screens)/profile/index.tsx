@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-import { SignedIn } from '@/providers/session';
+import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 interface Props {
@@ -18,7 +18,7 @@ const ProfilePage = ({ onNavigate }: Props) => {
       <View className="mb-5">
         <Text className="text-xl font-bold text-muted-foreground">Profile</Text>
       </View>
-      <SignedIn>
+      <AuthWrapper mode="signedIn">
         {/* Account*/}
         <TouchableOpacity
           className="profile-section"
@@ -91,7 +91,7 @@ const ProfilePage = ({ onNavigate }: Props) => {
             color={colors['--muted-foreground']}
           />
         </TouchableOpacity>
-      </SignedIn>
+      </AuthWrapper>
 
       {/* Notifications Section */}
       <TouchableOpacity

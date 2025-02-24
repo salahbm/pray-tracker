@@ -10,7 +10,7 @@ import { FLAGS, Language } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
 import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
-import { SignedIn } from '@/providers/session';
+import { AuthWrapper } from '@/providers/session';
 import { useLanguageStore } from '@/store/defaults/language';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -84,7 +84,7 @@ const Settings = () => {
             {t('Commons.Locales.languages.' + currentLanguage)}
           </Text>
         </TouchableOpacity>
-        <SignedIn>
+        <AuthWrapper mode="signedIn">
           <View className="touchable">
             <Text className="text-base text-muted-foreground ml-2">
               Notifications
@@ -112,7 +112,7 @@ const Settings = () => {
               value={isNotificationEnabled}
             />
           </View>
-        </SignedIn>
+        </AuthWrapper>
       </View>
 
       <CustomBottomSheet sheetRef={themeRef}>

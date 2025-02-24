@@ -4,15 +4,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
+import Loader from '@/components/shared/loader';
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
 import { userKeys } from '@/constants/query-keys';
 import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useLoginUser } from '@/hooks/auth/useLogin';
 import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { MessageCodes } from '@/utils/status';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -64,9 +63,6 @@ export default function SignInScreen({
       queryClient.invalidateQueries(userKeys);
 
       onSuccess();
-      fireToast.success(
-        t(`Responses.MessageCodes.${MessageCodes.SIGN_IN_SUCCESSFULLY}`),
-      );
       setForm({ email: '', password: '' });
     })();
   }, [supabaseUser, data, setUser, queryClient, onSuccess, t]);
@@ -105,6 +101,7 @@ export default function SignInScreen({
           disabled={isPending || isLoading}
           onPress={onSignInPress}
         >
+          <Loader visible={isPending || isLoading} className="bg-transparent" />
           <Text className="font-bold">Sign In</Text>
         </Button>
         {/* OAuth */}

@@ -5,9 +5,11 @@ import { cn } from '@/lib/utils';
 const Loader = ({
   visible,
   className,
+  size = 'large',
 }: {
   visible: boolean;
   className?: string;
+  size?: 'large' | 'small';
 }) => {
   if (!visible) return null;
   return (
@@ -17,7 +19,7 @@ const Loader = ({
         className,
       )}
     >
-      <ActivityIndicator size="large" className="text-primary" />
+      <ActivityIndicator size={size} className="text-primary" />
     </View>
   );
 };
