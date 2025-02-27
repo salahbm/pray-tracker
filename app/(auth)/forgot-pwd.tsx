@@ -1,7 +1,6 @@
 import { User } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 import { X } from 'lucide-react-native';
 import { useState, useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
@@ -61,9 +60,6 @@ export default function ForgotPasswordScreen({
           details: null,
         });
       }
-
-      await SecureStore.setItemAsync('access_token', session.access_token);
-      await SecureStore.setItemAsync('refresh_token', session.refresh_token);
 
       await supabase.auth.setSession({
         access_token: session.access_token,

@@ -1,8 +1,9 @@
-import { InvalidateQueryFilters } from '@tanstack/react-query';
-
-const userKeys: InvalidateQueryFilters = {
-  queryKey: ['users'],
+const userKeys = {
+  queryKey: ['user'],
+  all: ['users'] as const,
+  detail: (id: string) => ['users', id] as const,
 };
+
 const usersListKey = {
   queryKey: ['usersList'],
 };

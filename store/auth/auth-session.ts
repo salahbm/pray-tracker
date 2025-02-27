@@ -10,6 +10,7 @@ interface AuthState {
   session: Session | null;
   setUser: (user: TUser | null) => void;
   setSession: (session: Session | null) => void;
+  clearUserAndSession: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -19,6 +20,7 @@ export const useAuthStore = create<AuthState>()(
       session: null,
       setUser: (user) => set({ user }),
       setSession: (session) => set({ session }),
+      clearUserAndSession: () => set({ user: null, session: null }),
     }),
     {
       name: 'auth-store',

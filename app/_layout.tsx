@@ -18,7 +18,7 @@ import 'reanimated.config';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { setSession } = useAuthStore();
+  const { setSession, clearUserAndSession } = useAuthStore();
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
@@ -41,14 +41,35 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Function to handle session changes
+    const handleAuthStateChange = (event, session) => {
       setSession(session);
-    });
+      if (session === null) {
+        clearUserAndSession();
+      }
+    };
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, [setSession]);
+    // Fetch the initial session
+    const fetchInitialSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      handleAuthStateChange(null, session);
+    };
+
+    // Subscribe to auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      handleAuthStateChange,
+    );
+
+    // Fetch the initial session
+    fetchInitialSession();
+
+    // Cleanup the auth listener on unmount
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [setSession, clearUserAndSession]);
 
   // Hide the splash screen once fonts are loaded
   useEffect(() => {

@@ -1,8 +1,8 @@
 import { makeRedirectUri } from 'expo-auth-session';
 import * as QueryParams from 'expo-auth-session/build/QueryParams';
-import * as SecureStore from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser';
 
+import useMutation from '../common/useMutation';
 import { supabase } from '@/lib/supabase';
 import { ApiError } from '@/utils/error';
 import { MessageCodes, StatusCode } from '@/utils/status';
@@ -40,8 +40,6 @@ const createSessionFromUrl = async (url: string) => {
     access_token,
     refresh_token,
   });
-  await SecureStore.setItemAsync('access_token', access_token);
-  await SecureStore.setItemAsync('refresh_token', refresh_token);
 
   if (error) {
     throw new ApiError({
@@ -95,10 +93,10 @@ const performOAuth = async () => {
   }
 };
 
-// export const useOAuth = () => {
-//   return useMutation({
-//     mutationFn:  performOAuth,
-//   });
-// };
+export const useOAuth = () => {
+  return useMutation({
+    mutationFn: performOAuth,
+  });
+};
 
 export { performOAuth };

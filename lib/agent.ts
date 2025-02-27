@@ -5,12 +5,9 @@ import { API_BASE_URL } from '@/constants/config';
 export const agent = async (url: string, options?: RequestInit) => {
   const fullURL = `${API_BASE_URL}${url}`;
 
-  const accessToken = await AsyncStorage.getItem('ACCESS_TOKEN');
-
   const headers: HeadersInit = {
     'Content-Type': 'application/json; charset=utf-8',
     ...(options?.headers || {}),
-    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
   };
 
   const response = await fetch(fullURL, {

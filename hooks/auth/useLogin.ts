@@ -1,7 +1,12 @@
 import { Session, User } from '@supabase/supabase-js';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
+import { useGetUser } from './useGetUser';
 import useMutation from '../common/useMutation';
+import { userKeys } from '@/constants/query-keys';
 import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { ApiError } from '@/utils/error';
 import {
   DEFAULT_MESSAGE_CODE,
@@ -48,7 +53,30 @@ async function signInWithEmail(
 }
 
 export const useLoginUser = () => {
+  const queryClient = useQueryClient();
+  const { setUser } = useAuthStore();
+  const [id, setId] = useState<string | null>(null);
+  const { refetch } = useGetUser(id);
   return useMutation({
     mutationFn: signInWithEmail,
+    options: {
+      onSuccess: async (data) => {
+        // Set the user ID after successful login
+        setId(data.user.id);
+
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(true);
+          }, 200);
+        });
+
+        const { data: fetchedUserData } = await refetch();
+
+        if (fetchedUserData) {
+          setUser(fetchedUserData);
+          queryClient.invalidateQueries(userKeys);
+        }
+      },
+    },
   });
 };

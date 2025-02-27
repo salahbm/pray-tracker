@@ -1,17 +1,10 @@
-import { useQueryClient } from '@tanstack/react-query';
-import * as SecureStore from 'expo-secure-store';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
 import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
-import { userKeys } from '@/constants/query-keys';
-import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useLoginUser } from '@/hooks/auth/useLogin';
-import { supabase } from '@/lib/supabase';
-import { useAuthStore } from '@/store/auth/auth-session';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 
@@ -26,50 +19,26 @@ export default function SignInScreen({
   onNavigate,
   onForgotPassword,
 }: ISignIn) {
-  const { mutateAsync: signIn, isPending, data: supabaseUser } = useLoginUser();
-  const queryClient = useQueryClient();
-  const { setUser } = useAuthStore();
-  const { t } = useTranslation();
-  const hasUpdatedSession = useRef(false); // Prevent multiple updates
+  // HOOKS and STATES
+  const { mutateAsync: signIn, isPending } = useLoginUser();
 
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
-  const { data, isLoading, refetch } = useGetUser(supabaseUser?.user.id);
-
-  useEffect(() => {
-    if (supabaseUser?.user.id) {
-      refetch(); // Fetch user data after login
-    }
-  }, [supabaseUser?.user.id, refetch]);
-
-  useEffect(() => {
-    if (!supabaseUser || !data || hasUpdatedSession.current) return;
-
-    (async () => {
-      hasUpdatedSession.current = true; // Mark as updated to prevent looping
-
-      setUser(data);
-
-      const { access_token, refresh_token } = supabaseUser.session;
-
-      await SecureStore.setItemAsync('access_token', access_token);
-      await SecureStore.setItemAsync('refresh_token', refresh_token);
-
-      await supabase.auth.setSession({ access_token, refresh_token });
-
-      queryClient.invalidateQueries(userKeys);
-
-      onSuccess();
-      setForm({ email: '', password: '' });
-    })();
-  }, [supabaseUser, data, setUser, queryClient, onSuccess, t]);
-
   const onSignInPress = useCallback(async () => {
     await signIn(form);
-  }, [signIn, form]);
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+
+    setForm({ email: '', password: '' });
+    onSuccess();
+  }, [form, signIn, onSuccess]);
 
   return (
     <React.Fragment>
@@ -96,12 +65,8 @@ export default function SignInScreen({
           secureTextEntry
           onChangeText={(password) => setForm({ ...form, password })}
         />
-        <Button
-          className="mb-4"
-          disabled={isPending || isLoading}
-          onPress={onSignInPress}
-        >
-          <Loader visible={isPending || isLoading} className="bg-transparent" />
+        <Button className="mb-4" disabled={isPending} onPress={onSignInPress}>
+          <Loader visible={isPending} className="bg-transparent" />
           <Text className="font-bold">Sign In</Text>
         </Button>
         {/* OAuth */}
