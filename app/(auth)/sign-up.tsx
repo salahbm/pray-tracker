@@ -107,12 +107,14 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
         <Input
           label="Email"
-          autoCapitalize="none"
-          className="mb-4"
           value={form.email}
+          onChangeText={(email) => setForm({ ...form, email })}
+          autoCapitalize="none"
+          className="mb-4 p-3"
           placeholder="Enter your email"
           keyboardType="email-address"
-          onChangeText={(email) => setForm({ ...form, email })}
+          autoCorrect={false}
+          spellCheck={false}
         />
 
         <Input

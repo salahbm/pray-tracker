@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import * as SecureStore from 'expo-secure-store';
 
+import { useLogout } from './useLogOut';
 import { userKeys, usersListKey } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { supabase } from '@/lib/supabase';
@@ -13,38 +13,32 @@ interface IUserDelete {
 }
 
 const deleteUser = async (params: IUserDelete) => {
-  // Step 1: Delete user from your API
-  const response = await agent('/user', {
-    method: 'DELETE',
-    body: JSON.stringify({
-      id: params.id,
-    }),
-  });
-
-  // Step 2: Sign out & clear tokens
-  await supabase.auth.signOut();
-  await SecureStore.deleteItemAsync('access_token');
-  await SecureStore.deleteItemAsync('refresh_token');
-
-  // Step 3: Delete user from Supabase Admin
+  // Step 2: Delete user from Supabase Admin
   const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
 
-  if (error) {
+  if (error.code !== 'user_not_found') {
     throw new ApiError({
       message: error.message,
       status: StatusCode.INTERNAL_ERROR,
       code: MessageCodes.INTERNAL_ERROR,
     });
   }
+  // Step 1: Delete user from your API
+  const response = await agent('/user', {
+    method: 'DELETE',
+    body: JSON.stringify({ id: params.id }),
+  });
 
   return response;
 };
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
+  const { mutateAsync: logout } = useLogout();
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: async () => {
+      await logout(undefined);
       await queryClient.invalidateQueries({
         queryKey: [userKeys, usersListKey],
       });

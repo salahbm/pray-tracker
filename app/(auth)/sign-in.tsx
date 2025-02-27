@@ -48,12 +48,12 @@ export default function SignInScreen({
         </Text>
         <Input
           label="Email"
+          value={form.email}
+          onChangeText={(email) => setForm({ ...form, email })}
           autoCapitalize="none"
           className="mb-4 p-3"
-          value={form.email}
           placeholder="Enter your email"
           keyboardType="email-address"
-          onChangeText={(email) => setForm({ ...form, email })}
           autoCorrect={false}
           spellCheck={false}
         />

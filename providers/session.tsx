@@ -8,14 +8,14 @@ interface AuthWrapperProps {
 }
 
 export function AuthWrapper({ mode, children }: AuthWrapperProps) {
-  const { session } = useAuthStore();
+  const { user, session } = useAuthStore();
   // If mode === 'signedIn', we only render children if we have a user + session
-  if (mode === 'signedIn' && session) {
+  if (mode === 'signedIn' && user && session) {
     return <>{children}</>;
   }
 
   // If mode === 'signedOut', we only render children if user/session are not present
-  if (mode === 'signedOut' && !session) {
+  if (mode === 'signedOut' && (!user || !session)) {
     return <>{children}</>;
   }
 

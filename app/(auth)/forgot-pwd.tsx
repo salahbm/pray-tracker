@@ -18,7 +18,7 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { ApiError } from '@/utils/error';
-import { MessageCodes } from '@/utils/status';
+import { MessageCodes, StatusCode } from '@/utils/status';
 
 export default function ForgotPasswordScreen({
   onNavigate,
@@ -38,12 +38,45 @@ export default function ForgotPasswordScreen({
   const { setUser } = useAuthStore();
   const { verifyRequest, sendRequest, isRequestPending, isVerifyPending } =
     useResetPwd();
-  const { refetch, data: userFromDB } = useGetUser(supabaseUser?.id);
+  const { refetch } = useGetUser(supabaseUser?.id);
 
   const onResetPassword = useCallback(async () => {
-    await sendRequest.mutateAsync(email);
-    setShowOtpModal(true);
+    try {
+      await sendRequest.mutateAsync(email);
+      setShowOtpModal(true);
+    } catch (error) {
+      fireToast.error(error.message);
+    }
   }, [email, sendRequest]);
+
+  const fetchUserData = useCallback(async () => {
+    if (!supabaseUser?.id) return;
+
+    try {
+      const { data } = await refetch();
+      if (!data) {
+        throw new ApiError({
+          message: 'User not found',
+          status: StatusCode.NOT_FOUND,
+          code: MessageCodes.USER_NOT_FOUND,
+        });
+      }
+      setShowOtpModal(false);
+      setSuccessModal(true);
+      setUser(data);
+      queryClient.invalidateQueries(userKeys);
+      setEmail('');
+      setToken('');
+    } catch (error) {
+      fireToast.error(error.message);
+    }
+  }, [refetch, setUser, queryClient, supabaseUser]);
+
+  useEffect(() => {
+    if (supabaseUser) {
+      fetchUserData();
+    }
+  }, [supabaseUser, fetchUserData]);
 
   const handlePressVerify = useCallback(async () => {
     try {
@@ -51,15 +84,7 @@ export default function ForgotPasswordScreen({
         email,
         token,
       });
-
-      if (!session || !user) {
-        throw new ApiError({
-          message: 'Failed to verify OTP.',
-          status: 500,
-          code: MessageCodes.SOMETHING_WENT_WRONG,
-          details: null,
-        });
-      }
+      if (!session || !user) throw new Error('Failed to verify OTP.');
 
       await supabase.auth.setSession({
         access_token: session.access_token,
@@ -71,34 +96,6 @@ export default function ForgotPasswordScreen({
       fireToast.error(error.message);
     }
   }, [email, token, verifyRequest]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (supabaseUser && supabaseUser.id) {
-        await refetch();
-
-        if (userFromDB) {
-          setUser(userFromDB);
-          queryClient.invalidateQueries(userKeys);
-          setShowOtpModal(false);
-          setSuccessModal(true);
-
-          // Clear input fields
-          setEmail('');
-          setToken('');
-        } else {
-          throw new ApiError({
-            message: 'Failed to fetch user data.',
-            status: 500,
-            code: MessageCodes.SOMETHING_WENT_WRONG,
-            details: null,
-          });
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [supabaseUser, refetch, userFromDB, queryClient, setUser]);
 
   return (
     <>

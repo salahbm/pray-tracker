@@ -125,14 +125,20 @@ export async function DELETE(request: Request) {
         message: 'Missing required fields',
         status: StatusCode.BAD_REQUEST,
         code: MessageCodes.BAD_REQUEST,
-        details: {
-          id,
-        },
       });
     }
-    const deletedUser = await prisma.user.delete({
-      where: { id },
-    });
+
+    const existingUser = await prisma.user.findUnique({ where: { id } });
+    if (!existingUser) {
+      throw new ApiError({
+        message: 'User not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.USER_NOT_FOUND,
+      });
+    }
+
+    const deletedUser = await prisma.user.delete({ where: { id } });
+
     return createResponse({
       status: StatusCode.SUCCESS,
       message: 'User deleted successfully',

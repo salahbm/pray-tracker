@@ -48,8 +48,5 @@ export const useLogout = () => {
         });
       }
     },
-    options: {
-      onSuccess() {},
-    },
   });
 };
