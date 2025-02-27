@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
 
 import { X } from '@/components/shared/icons';
+import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import { usePostUser } from '@/hooks/auth/usePostUser';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -34,20 +35,14 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     token: '',
   });
   const [data, setData] = React.useState<User | null>(null);
-  const [error, setError] = React.useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] =
     React.useState(isPostUserSuccess);
   const [showOtpModal, setShowOtpModal] = React.useState(false);
 
   // Handle sign-up process
   const onSignUpPress = async () => {
-    try {
-      setError(null);
-      await supabaseSignUp(form);
-      setShowOtpModal(true);
-    } catch (err) {
-      setError(err.message || 'Sign-up failed.');
-    }
+    await supabaseSignUp(form);
+    setShowOtpModal(true);
   };
 
   const handlePostUser = useCallback(async () => {
@@ -77,15 +72,10 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
   // Handle email verification
   const handlePressVerify = async () => {
-    try {
-      setError(null);
-      const res = await onPressVerify(form);
+    const res = await onPressVerify(form);
 
-      if (res) {
-        setData(res.user);
-      }
-    } catch (err) {
-      setError(err.message || 'Verification failed.');
+    if (res) {
+      setData(res.user);
     }
   };
 
@@ -135,9 +125,9 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         />
 
         <Button onPress={onSignUpPress} disabled={isPendingSupabaseSignUp}>
+          <Loader visible={isPendingSupabaseSignUp} size="small" />
           <Text>Sign Up</Text>
         </Button>
-        {error && <Text className="text-destructive mt-2">{error}</Text>}
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center gap-4">
@@ -174,31 +164,23 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             keyboardType="numeric"
             onChangeText={(token) => setForm({ ...form, token })}
           />
-          {error && (
-            <Text className="text-destructive text-sm mt-2">{error}</Text>
-          )}
           <Button
             onPress={handlePressVerify}
             className="mt-5"
             disabled={isPendingOnPressVerify || isPendingPostUser}
           >
+            <Loader visible={isPendingOnPressVerify || isPendingPostUser} />
             <Text>Verify Email</Text>
           </Button>
         </View>
       </Modal>
 
       {/* SUCCESS MODAL */}
-      <Modal
-        isVisible={showSuccessModal}
-        onBackdropPress={() => {
-          onSuccess();
-          setShowSuccessModal(false);
-        }}
-      >
+      <Modal isVisible={showSuccessModal}>
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
             source={IMAGES.check}
-            className="w-[110px] h-[110px] mx-auto my-5"
+            className="w-[80px] h-[80px] mx-auto my-5"
           />
           <Text className="text-3xl font-bold text-center">Verified</Text>
           <Text className="text-base text-muted-foreground text-center mt-2">

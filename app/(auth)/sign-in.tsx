@@ -66,7 +66,7 @@ export default function SignInScreen({
           onChangeText={(password) => setForm({ ...form, password })}
         />
         <Button className="mb-4" disabled={isPending} onPress={onSignInPress}>
-          <Loader visible={isPending} className="bg-transparent" />
+          <Loader visible={isPending} size="small" />
           <Text className="font-bold">Sign In</Text>
         </Button>
         {/* OAuth */}

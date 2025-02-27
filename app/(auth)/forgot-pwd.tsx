@@ -2,9 +2,10 @@ import { User } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { X } from 'lucide-react-native';
-import { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Image, View } from 'react-native';
 
+import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,35 +42,29 @@ export default function ForgotPasswordScreen({
   const { refetch } = useGetUser(supabaseUser?.id);
 
   const onResetPassword = useCallback(async () => {
-    try {
-      await sendRequest.mutateAsync(email);
-      setShowOtpModal(true);
-    } catch (error) {
-      fireToast.error(error.message);
-    }
+    await sendRequest.mutateAsync(email);
+    setShowOtpModal(true);
   }, [email, sendRequest]);
 
   const fetchUserData = useCallback(async () => {
     if (!supabaseUser?.id) return;
 
-    try {
-      const { data } = await refetch();
-      if (!data) {
-        throw new ApiError({
-          message: 'User not found',
-          status: StatusCode.NOT_FOUND,
-          code: MessageCodes.USER_NOT_FOUND,
-        });
-      }
-      setShowOtpModal(false);
-      setSuccessModal(true);
-      setUser(data);
-      queryClient.invalidateQueries(userKeys);
-      setEmail('');
-      setToken('');
-    } catch (error) {
-      fireToast.error(error.message);
+    const { data } = await refetch();
+    if (!data) {
+      throw new ApiError({
+        message: 'User not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.USER_NOT_FOUND,
+      });
     }
+    setShowOtpModal(false);
+    setTimeout(() => {
+      setSuccessModal(true);
+    }, 150);
+    setUser(data);
+    queryClient.invalidateQueries(userKeys);
+    setEmail('');
+    setToken('');
   }, [refetch, setUser, queryClient, supabaseUser]);
 
   useEffect(() => {
@@ -98,7 +93,7 @@ export default function ForgotPasswordScreen({
   }, [email, token, verifyRequest]);
 
   return (
-    <>
+    <React.Fragment>
       <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
           Reset Password
@@ -120,6 +115,7 @@ export default function ForgotPasswordScreen({
           onPress={onResetPassword}
           disabled={isRequestPending || isVerifyPending}
         >
+          <Loader visible={isRequestPending} size="small" />
           <Text className="font-bold">Send Verification</Text>
         </Button>
       </View>
@@ -164,23 +160,18 @@ export default function ForgotPasswordScreen({
             className="mt-5"
             disabled={isRequestPending || isVerifyPending}
           >
+            <Loader visible={isVerifyPending} size="small" />
             <Text>Verify Email</Text>
           </Button>
         </View>
       </Modal>
 
       {/* PWD RESET SUCCESS MODAL */}
-      <Modal
-        isVisible={successModal}
-        onBackdropPress={() => {
-          onSuccess();
-          router.push('/(screens)/profile/edit-pwd');
-        }}
-      >
+      <Modal isVisible={successModal}>
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
             source={IMAGES.check}
-            className="w-[110px] h-[110px] mx-auto my-5"
+            className="w-[80px] h-[80px] mx-auto my-5"
           />
           <Text className="text-3xl font-bold text-center">Verified</Text>
           <Text className="text-base text-muted-foreground text-center mt-2">
@@ -188,6 +179,7 @@ export default function ForgotPasswordScreen({
           </Text>
           <Button
             onPress={() => {
+              setSuccessModal(false);
               onSuccess();
               router.push('/(screens)/profile/edit-pwd');
             }}
@@ -197,6 +189,6 @@ export default function ForgotPasswordScreen({
           </Button>
         </View>
       </Modal>
-    </>
+    </React.Fragment>
   );
 }

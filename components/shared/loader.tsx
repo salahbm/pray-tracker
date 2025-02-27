@@ -6,10 +6,12 @@ const Loader = ({
   visible,
   className,
   size = 'large',
+  color = 'text-primary',
 }: {
   visible: boolean;
   className?: string;
   size?: 'large' | 'small';
+  color?: string;
 }) => {
   if (!visible) return null;
   return (
@@ -19,7 +21,7 @@ const Loader = ({
         className,
       )}
     >
-      <ActivityIndicator size={size} className="text-primary" />
+      <ActivityIndicator size={size} className={color} />
     </View>
   );
 };
