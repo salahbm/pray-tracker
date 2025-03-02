@@ -66,7 +66,7 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
 const AwardCategory = ({ title, earnedAwards, onPressAward }) => {
   const { t } = useTranslation();
   const categoryAwards = AWARDS.filter((award) =>
-    award.title.startsWith(title + '_')
+    award.title.startsWith(title + '_'),
   );
 
   if (categoryAwards.length === 0) return null;
@@ -210,7 +210,10 @@ export default function PersonalTab() {
                 )}
               </View>
               <Text className="text-lg font-semibold text-foreground mb-2">
-                {t(`Awards.${selectedAward.title}`).split(' ').slice(1).join(' ')}
+                {t(`Awards.${selectedAward.title}`)
+                  .split(' ')
+                  .slice(1)
+                  .join(' ')}
               </Text>
               <Text className="text-base text-muted-foreground mt-2">
                 {t(`Awards.Descriptions.${selectedAward.title}`)}

@@ -16,11 +16,11 @@ enum PRAYER_POINTS {
 }
 
 enum AWARD_POINTS {
-  BASIC = 5,      // First steps, basic achievements
-  REGULAR = 10,   // Regular prayer habits
-  ADVANCED = 20,  // Consistent streaks, quality prayers
-  EXPERT = 30,    // Long-term dedication
-  MASTER = 50     // Exceptional achievements
+  BASIC = 5, // First steps, basic achievements
+  REGULAR = 10, // Regular prayer habits
+  ADVANCED = 20, // Consistent streaks, quality prayers
+  EXPERT = 30, // Long-term dedication
+  MASTER = 50, // Exceptional achievements
 }
 
 enum AWARD_TITLES {

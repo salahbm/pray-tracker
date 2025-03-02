@@ -19,15 +19,15 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
 
   // Get or create PrayerStats
   let prayerStats = await prisma.prayerStats.findUnique({
-    where: { userId }
+    where: { userId },
   });
 
   if (!prayerStats || isStatsOutdated(prayerStats.lastCalculated)) {
     // Fetch only recent prayers for performance
     const recentPrayers = await prisma.prays.findMany({
-      where: { 
+      where: {
         userId,
-        date: { gte: thirtyDaysAgo }
+        date: { gte: thirtyDaysAgo },
       },
       orderBy: { date: 'desc' },
     });
@@ -40,26 +40,38 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
   const stats: UserStats = {
     ...prayerStats,
     // Add calculated fields
-    onTimePercentage: calculatePercentage(prayerStats.onTimePrayers, prayerStats.totalPrayers),
+    onTimePercentage: calculatePercentage(
+      prayerStats.onTimePrayers,
+      prayerStats.totalPrayers,
+    ),
     earlyFajrPercentage: await calculateFajrPercentage(userId),
     // Add other calculated fields...
     totalPrayers: prayerStats.totalPrayers,
-    totalDays: new Set(prayerStats.prayers.map((p) => p.date.toDateString())).size,
+    totalDays: new Set(prayerStats.prayers.map((p) => p.date.toDateString()))
+      .size,
     currentStreak: prayerStats.currentStreak,
     daysWithAllPrayers: prayerStats.daysWithAllPrayers,
-    consecutivePerfectDays: calculateConsecutivePerfectDays(prayerStats.prayers),
+    consecutivePerfectDays: calculateConsecutivePerfectDays(
+      prayerStats.prayers,
+    ),
     onTimePrayers: prayerStats.onTimePrayers,
     jamaatCount: prayerStats.jamaatPrayers,
     monthlyTahajjudCount: calculateMonthlyTahajjud(prayerStats.prayers),
     consecutiveFajrDays: calculateConsecutiveFajrDays(prayerStats.prayers),
     fajrOnTimePercentage: await calculateFajrPercentage(userId),
     tahajjudCount: calculateTotalTahajjud(prayerStats.prayers),
-    consecutiveTahajjudNights: calculateConsecutiveTahajjudNights(prayerStats.prayers),
+    consecutiveTahajjudNights: calculateConsecutiveTahajjudNights(
+      prayerStats.prayers,
+    ),
     consecutiveSunnahDays: calculateConsecutiveSunnahDays(prayerStats.prayers),
-    duhaCount: await prisma.sunnahPrays.count({ where: { userId, type: 'duha' } }),
+    duhaCount: await prisma.sunnahPrays.count({
+      where: { userId, type: 'duha' },
+    }),
     morningAdhkarDays: calculateAdhkarDays(prayerStats.dhikrRecords, 'morning'),
     eveningAdhkarDays: calculateAdhkarDays(prayerStats.dhikrRecords, 'evening'),
-    consecutiveDhikrDays: calculateConsecutiveDhikrDays(prayerStats.dhikrRecords),
+    consecutiveDhikrDays: calculateConsecutiveDhikrDays(
+      prayerStats.dhikrRecords,
+    ),
     weeklyQuranDays: calculateQuranDays(prayerStats.quranRecords, 7),
     monthlyQuranDays: calculateQuranDays(prayerStats.quranRecords, 30),
     ramadanPrayerCount: prayerStats.ramadanPrayerCount,
@@ -71,11 +83,21 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
     prayerCircleMembers: prayerStats.prayerCircleMembers,
     learningSessionsCount: prayerStats.learningSessionsCount,
     helpedUsers: prayerStats.helpedUsers,
-    monthlyMasjidVisits: calculateMasjidVisits(prayerStats.prayers, thirtyDaysAgo),
+    monthlyMasjidVisits: calculateMasjidVisits(
+      prayerStats.prayers,
+      thirtyDaysAgo,
+    ),
     dailyIstighfarCount: calculateDailyIstighfar(prayerStats.dhikrRecords),
     gratitudeDhikrCount: calculateGratitudeDhikr(prayerStats.dhikrRecords),
-    sunnahAdherenceScore: calculateSunnahAdherence(prayerStats.prayers, prayerStats.sunnahPrayersCount),
-    spiritualityScore: calculateSpiritualityScore(prayerStats.prayers, prayerStats.dhikrRecords, prayerStats.quranRecords),
+    sunnahAdherenceScore: calculateSunnahAdherence(
+      prayerStats.prayers,
+      prayerStats.sunnahPrayersCount,
+    ),
+    spiritualityScore: calculateSpiritualityScore(
+      prayerStats.prayers,
+      prayerStats.dhikrRecords,
+      prayerStats.quranRecords,
+    ),
   };
 
   // Cache the results
@@ -86,51 +108,55 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
 
 export async function checkAndAssignAwards(userId: string): Promise<string[]> {
   const stats = await calculateUserStats(userId);
-  
+
   // Batch fetch existing awards
   const existingAwards = await prisma.award.findMany({
     where: { userId },
-    select: { title: true }
+    select: { title: true },
   });
 
-  const existingAwardTitles = new Set(existingAwards.map(a => a.title));
-  
+  const existingAwardTitles = new Set(existingAwards.map((a) => a.title));
+
   // Filter eligible awards
-  const eligibleAwards = AWARDS.filter(award => 
-    !existingAwardTitles.has(award.title) &&
-    award.criteria(stats) &&
-    award.requiredStats.every(stat => stats[stat] !== undefined)
+  const eligibleAwards = AWARDS.filter(
+    (award) =>
+      !existingAwardTitles.has(award.title) &&
+      award.criteria(stats) &&
+      award.requiredStats.every((stat) => stats[stat] !== undefined),
   );
 
   if (eligibleAwards.length === 0) return [];
 
   // Calculate points for each award
-  const awardsWithPoints = eligibleAwards.map(award => ({
+  const awardsWithPoints = eligibleAwards.map((award) => ({
     ...award,
-    points: getAwardPoints(award.title)
+    points: getAwardPoints(award.title),
   }));
 
   // Batch create new awards
   await prisma.$transaction([
     prisma.award.createMany({
-      data: awardsWithPoints.map(award => ({
+      data: awardsWithPoints.map((award) => ({
         userId,
         title: award.title,
         points: award.points,
-        awardedAt: new Date()
-      }))
+        awardedAt: new Date(),
+      })),
     }),
     prisma.user.update({
       where: { id: userId },
       data: {
         totalPoints: {
-          increment: awardsWithPoints.reduce((sum, award) => sum + award.points, 0)
-        }
-      }
-    })
+          increment: awardsWithPoints.reduce(
+            (sum, award) => sum + award.points,
+            0,
+          ),
+        },
+      },
+    }),
   ]);
 
-  return eligibleAwards.map(award => award.title);
+  return eligibleAwards.map((award) => award.title);
 }
 
 // Helper function to determine award points
@@ -139,27 +165,30 @@ function getAwardPoints(title: string): number {
   if (title.startsWith('first_')) {
     return AWARD_POINTS.BASIC;
   }
-  
+
   // Regular Achievements
   if (title.startsWith('fifty_') || title.startsWith('hundred_')) {
     return AWARD_POINTS.REGULAR;
   }
-  
+
   // Advanced Achievements
   if (title.includes('streak') || title.includes('master')) {
     return AWARD_POINTS.ADVANCED;
   }
-  
+
   // Expert Achievements
   if (title.includes('perfect_month') || title.includes('devotee')) {
     return AWARD_POINTS.EXPERT;
   }
-  
+
   // Master Achievements
-  if (title.includes('spiritual_excellence') || title.includes('prophetic_way')) {
+  if (
+    title.includes('spiritual_excellence') ||
+    title.includes('prophetic_way')
+  ) {
     return AWARD_POINTS.MASTER;
   }
-  
+
   // Default to regular points
   return AWARD_POINTS.REGULAR;
 }
@@ -167,9 +196,11 @@ function getAwardPoints(title: string): number {
 // Helper functions
 function isStatsOutdated(lastCalculated: Date): boolean {
   const now = new Date();
-  return now.getDate() !== lastCalculated.getDate() ||
-         now.getMonth() !== lastCalculated.getMonth() ||
-         now.getFullYear() !== lastCalculated.getFullYear();
+  return (
+    now.getDate() !== lastCalculated.getDate() ||
+    now.getMonth() !== lastCalculated.getMonth() ||
+    now.getFullYear() !== lastCalculated.getFullYear()
+  );
 }
 
 async function updatePrayerStats(userId: string, prayers: any[]) {
@@ -177,34 +208,48 @@ async function updatePrayerStats(userId: string, prayers: any[]) {
     totalPrayers: prayers.length,
     currentStreak: calculateCurrentStreak(prayers),
     daysWithAllPrayers: calculateDaysWithAllPrayers(prayers),
-    onTimePrayers: prayers.filter(p => p.onTime).length,
-    jamaatPrayers: prayers.filter(p => p.inJamaat).length,
+    onTimePrayers: prayers.filter((p) => p.onTime).length,
+    jamaatPrayers: prayers.filter((p) => p.inJamaat).length,
     ramadanPrayerCount: calculateRamadanPrayerCount(prayers),
     ramadanPerfectDays: calculateRamadanPerfectDays(prayers),
     prayers,
     dhikrRecords: await prisma.dhikr.findMany({
-      where: { userId, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
+      where: {
+        userId,
+        createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+      },
     }),
     quranRecords: await prisma.quranReading.findMany({
-      where: { userId, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
+      where: {
+        userId,
+        createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+      },
     }),
     sunnahPrayersCount: await prisma.sunnahPrays.count({ where: { userId } }),
-    menteeCount: await prisma.userCommunity.findUnique({
-      where: { userId },
-      select: { menteeCount: true },
-    }).then((community) => community?.menteeCount || 0),
-    prayerCircleMembers: await prisma.userCommunity.findUnique({
-      where: { userId },
-      select: { circleMembers: true },
-    }).then((community) => community?.circleMembers || 0),
-    learningSessionsCount: await prisma.userCommunity.findUnique({
-      where: { userId },
-      select: { learningSessions: true },
-    }).then((community) => community?.learningSessions || 0),
-    helpedUsers: await prisma.userCommunity.findUnique({
-      where: { userId },
-      select: { helpedUsers: true },
-    }).then((community) => community?.helpedUsers || 0),
+    menteeCount: await prisma.userCommunity
+      .findUnique({
+        where: { userId },
+        select: { menteeCount: true },
+      })
+      .then((community) => community?.menteeCount || 0),
+    prayerCircleMembers: await prisma.userCommunity
+      .findUnique({
+        where: { userId },
+        select: { circleMembers: true },
+      })
+      .then((community) => community?.circleMembers || 0),
+    learningSessionsCount: await prisma.userCommunity
+      .findUnique({
+        where: { userId },
+        select: { learningSessions: true },
+      })
+      .then((community) => community?.learningSessions || 0),
+    helpedUsers: await prisma.userCommunity
+      .findUnique({
+        where: { userId },
+        select: { helpedUsers: true },
+      })
+      .then((community) => community?.helpedUsers || 0),
   };
 
   return prisma.prayerStats.upsert({
@@ -212,12 +257,12 @@ async function updatePrayerStats(userId: string, prayers: any[]) {
     create: {
       userId,
       ...stats,
-      lastCalculated: new Date()
+      lastCalculated: new Date(),
     },
     update: {
       ...stats,
-      lastCalculated: new Date()
-    }
+      lastCalculated: new Date(),
+    },
   });
 }
 
@@ -229,19 +274,19 @@ async function calculateFajrPercentage(userId: string): Promise<number> {
   const fajrStats = await prisma.prays.aggregate({
     where: {
       userId,
-      type: SALAHS.FAJR
+      type: SALAHS.FAJR,
     },
     _count: {
-      id: true
+      id: true,
     },
     _sum: {
-      onTime: true
-    }
+      onTime: true,
+    },
   });
 
   return calculatePercentage(
     fajrStats._sum?.onTime || 0,
-    fajrStats._count?.id || 0
+    fajrStats._count?.id || 0,
   );
 }
 
