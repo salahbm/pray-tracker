@@ -54,7 +54,9 @@ export default function RootLayout() {
     // Fetch the initial session
     const fetchInitialSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         if (session) {
           setSession(session);
         }

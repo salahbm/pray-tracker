@@ -1,149 +1,177 @@
-import LottieView from 'lottie-react-native';
-import React, { useMemo, useRef, useState } from 'react';
-import { View, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-import Loader from '@/components/shared/loader';
-import Modal from '@/components/shared/modal';
-import NoData from '@/components/shared/no-data';
+import React from 'react';
+import { View, FlatList, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from '@/components/ui/text';
-import { AWARDS } from '@/constants/awards';
-import { IMAGES } from '@/constants/images';
+import AWARDS from '@/constants/awards';
 import { useAwards } from '@/hooks/awards/useGetAwards';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
-import prize from 'assets/gif/prize.json';
+import { env } from 'process';
+import Loader from '@/components/shared/loader';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+interface Award {
+  title: string;
+  awardedAt: Date;
+}
+
+const AwardCard = ({ award, isEarned, earnedDate }) => {
+  const { t } = useTranslation();
+  const awardText = t(`Awards.${award.title}`);
+  const [emoji, ...descriptionParts] = awardText.split(' ');
+  const description = descriptionParts.join(' ');
+
+  return (
+    <TouchableOpacity 
+      className={cn(
+        "w-[48%] mb-3 rounded-xl overflow-hidden",
+        "bg-card border border-border",
+        isEarned ? "opacity-100" : "opacity-60"
+      )}
+      activeOpacity={0.8}
+    >
+      <View className={cn(
+        "p-4 min-h-[140px] justify-between",
+        isEarned ? "bg-primary/10" : "bg-muted/30"
+      )}>
+        <Text className="text-3xl mb-2">{emoji}</Text>
+        <Text className={cn(
+          "text-sm font-medium mb-2",
+          isEarned ? "text-primary" : "text-muted-foreground"
+        )} numberOfLines={2}>
+          {description}
+        </Text>
+        {isEarned && (
+          <Text className="text-xs text-muted-foreground">
+            {new Date(earnedDate).toLocaleDateString()}
+          </Text>
+        )}
+        {!isEarned && (
+          <View className="absolute top-2 right-2">
+            <Text className="text-base opacity-80">🔒</Text>
+          </View>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const AwardCategory = ({ title, earnedAwards }) => {
+  const { t } = useTranslation();
+  const categoryAwards = AWARDS.filter(award => 
+    award.title.toLowerCase().startsWith(title.toLowerCase())
+  );
+
+  if (categoryAwards.length === 0) return null;
+
+  return (
+    <View className="mb-6 px-4">
+      <Text className="text-xl font-semibold text-foreground mb-3 capitalize">
+        {t(`Awards.Categories.${title}`)}
+      </Text>
+      <View className="flex-row flex-wrap justify-between">
+        {categoryAwards.map((award) => {
+          const earnedAward = earnedAwards?.find(earned => earned.title === award.title);
+          return (
+            <AwardCard
+              key={award.title}
+              award={award}
+              isEarned={!!earnedAward}
+              earnedDate={earnedAward?.awardedAt}
+            />
+          );
+        })}
+      </View>
+    </View>
+  );
+};
+
+const ListHeader = ({ earnedCount, totalAwards }) => {
+  const { t } = useTranslation();
+  return (
+    <View className="px-4 py-6">
+      <Text className="text-2xl font-bold text-foreground mb-2">
+        {t('Awards.YourAwards')}
+      </Text>
+      <Text className="text-base text-muted-foreground">
+        {t('Awards.Completed')}: {earnedCount}/{totalAwards}
+      </Text>
+    </View>
+  );
+};
+
+const ListFooter = ({ earnedCount, score }) => {
+  const { t } = useTranslation();
+  return (
+    <View className="p-4 py-6 border-t border-border">
+      <View className="flex-row justify-between items-center">
+        <Text className="text-base text-foreground font-medium">
+          {t('Awards.CurrentScore')}
+        </Text>
+        <View className="flex-row items-center">
+          <Text className="text-2xl font-bold text-primary mr-1">
+            {score}
+          </Text>
+          <Text className="text-base text-muted-foreground">%</Text>
+        </View>
+      </View>
+      <Text className="text-sm text-muted-foreground mt-1">
+        {earnedCount} {t('Awards.AwardsEarned')}
+      </Text>
+    </View>
+  );
+};
 
 export default function PersonalTab() {
   const { user } = useAuthStore();
-  const insets = useSafeAreaInsets();
   const { data, isLoading } = useAwards(user?.id);
-  const obtainedAwards = useMemo(
-    () => data?.data?.map((award) => award.title) || [],
-    [data],
-  );
-  const prizeRef = useRef<LottieView>(null);
-  const [selectedAward, setSelectedAward] = useState(null);
+  const insets = useSafeAreaInsets();
+
+  const categories = [
+    'first',
+    'streak',
+    'prayer_count',
+    'fajr',
+    'prayer_quality',
+    'sunnah',
+    'dhikr_quran',
+    'special_times',
+    'community',
+    'milestone',
+    'special'
+  ];
+
+  const earnedAwards = data?.data || [];
+  const totalAwards = AWARDS.length;
+  const earnedCount = earnedAwards.length;
+  const score = Math.round((earnedCount / totalAwards) * 100);
+
+  if (isLoading) {
+    return <Loader visible={isLoading} className="bg-transparent" />
+  }
 
   return (
-    <React.Fragment>
-      <Loader visible={isLoading} className="bg-transparent" />
+    <View className="flex-1 bg-background">
       <FlatList
-        data={AWARDS}
-        keyExtractor={(award) => award.title}
-        renderItem={({ item }) => {
-          const isAchieved = obtainedAwards.includes(item.title);
-          const obtainedAward = data?.data?.find(
-            (award) => award.title === item.title,
-          );
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                setSelectedAward(
-                  obtainedAward
-                    ? { ...item, achievedAt: obtainedAward.achievedAt }
-                    : item,
-                );
-                setTimeout(() => {
-                  prizeRef.current?.play();
-                }, 100);
-              }}
-            >
-              <View
-                className={cn(
-                  'flex-row items-center mb-4 px-2 py-3 rounded-lg border',
-                  isAchieved
-                    ? 'bg-accent border-primary'
-                    : 'bg-popover border-border opacity-50',
-                )}
-              >
-                {/* Badge Icon */}
-                <View className="w-16 h-16 rounded-full border border-border flex items-center justify-center">
-                  {isAchieved ? (
-                    <Image source={IMAGES.check} className="w-14 h-14" />
-                  ) : (
-                    <Text>🏆</Text>
-                  )}
-                </View>
-
-                {/* Award Info */}
-                <View className="ml-4">
-                  <Text
-                    className={cn(
-                      'text-lg font-semibold',
-                      isAchieved
-                        ? 'text-accent-foreground font-bold'
-                        : 'text-popover-foreground',
-                    )}
-                  >
-                    {item.title}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                    className={cn(
-                      'text-sm text-muted-foreground truncate',
-                      isAchieved
-                        ? 'text-accent-foreground'
-                        : 'text-muted-foreground',
-                    )}
-                  >
-                    {item.description}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-        ListEmptyComponent={() => <NoData className="mt-[45%]" />}
-        contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
-        className="mt-4"
-        showsVerticalScrollIndicator={false}
-        ListFooterComponent={() => (
-          <View className="my-4 mx-auto">
-            <Text className="text-lg font-semibold text-center">
-              {user?.totalPoints} Points
-            </Text>
-            <Text className="text-lg font-semibold text-center">
-              {AWARDS.length - obtainedAwards.length === 0
-                ? '🎉'
-                : `${AWARDS.length - obtainedAwards.length} Awards to go!`}
-            </Text>
-          </View>
+        data={categories}
+        keyExtractor={(item) => item}
+        ListHeaderComponent={
+          <ListHeader earnedCount={earnedCount} totalAwards={totalAwards} />
+        }
+        renderItem={({ item: category }) => (
+          <AwardCategory
+            title={category}
+            earnedAwards={earnedAwards}
+          />
         )}
-      />
-
-      {/* Award Details Modal */}
-      <Modal
-        isVisible={!!selectedAward}
-        onBackdropPress={() => {
-          setSelectedAward(null);
-          prizeRef.current?.reset();
+        ListFooterComponent={
+          <ListFooter earnedCount={earnedCount} score={score} />
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: insets.bottom + 50
         }}
-      >
-        <View className="py-6 px-4 bg-background rounded-lg border border-border">
-          {selectedAward?.achievedAt && (
-            <LottieView
-              ref={prizeRef}
-              source={prize}
-              autoPlay={false}
-              resizeMode="cover"
-              style={{ width: 130, height: 130, alignSelf: 'center' }}
-            />
-          )}
-          <View className="flex-row items-center flex justify-between mb-4">
-            <Text className="text-xl font-bold ">{selectedAward?.title}</Text>
-            <Text className="text-md text-muted-foreground font-medium">
-              {selectedAward?.achievedAt
-                ? new Date(selectedAward.achievedAt).toLocaleDateString()
-                : 'Not obtained yet'}
-            </Text>
-          </View>
-          <Text className="text-md text-foreground font-semibold mb-2">
-            {selectedAward?.description}
-          </Text>
-        </View>
-      </Modal>
-    </React.Fragment>
+      />
+    </View>
   );
 }

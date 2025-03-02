@@ -4,10 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
-//  dotenv -e .env.local -- npx prisma migrate dev --name <name>
-
-
+//  dotenv -e .env.local -- npx prisma migrate dev --name <n>
 
 generator client {
   provider = "prisma-client-js"
@@ -17,9 +14,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
-
 
 model User {
   id          String    @id @default(cuid())
@@ -54,7 +49,7 @@ model Prays {
   asr       Int  @default(0)
   maghrib   Int  @default(0)
   isha      Int  @default(0)
-  nafl  Int  @default(0)
+  nafl      Int  @default(0)
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -72,9 +67,60 @@ model Award {
   image       String? 
   achievedAt  DateTime @default(now())
 
+  // New relations for award tracking
+  sunnahPrays    SunnahPrays[]
+  dhikr          Dhikr[]
+  quranReading   QuranReading[]
+  community      UserCommunity?
+
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, title]) // Ensure the same award is not given multiple times
+}
+
+model SunnahPrays {
+  id        String   @id @default(cuid())
+  awardId   String
+  type      String
+  prayedAt  DateTime
+
+  award     Award    @relation(fields: [awardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dhikr {
+  id        String   @id @default(cuid())
+  awardId   String
+  type      String
+  count     Int
+  createdAt DateTime @default(now())
+
+  award     Award    @relation(fields: [awardId], references: [id], onDelete: Cascade)
+}
+
+model QuranReading {
+  id        String   @id @default(cuid())
+  awardId   String
+  duration  Int
+  createdAt DateTime @default(now())
+
+  award     Award    @relation(fields: [awardId], references: [id], onDelete: Cascade)
+}
+
+model UserCommunity {
+  id               String   @id @default(cuid())
+  awardId          String   @unique
+  menteeCount      Int      @default(0)
+  circleMembers    Int      @default(0)
+  learningSessions Int      @default(0)
+  helpedUsers      Int      @default(0)
+
+  award            Award    @relation(fields: [awardId], references: [id], onDelete: Cascade)
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 // bi-directional relationship
@@ -89,7 +135,6 @@ model Friend {
 
   @@unique([userId, friendId]) // Prevent duplicate friendships
 }
-
 
 enum FriendStatus {
   PENDING
