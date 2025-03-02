@@ -215,6 +215,7 @@
     "Completed": "Awards Completed",
     "CurrentScore": "Journey Progress",
     "AwardsEarned": "achievements unlocked",
+    "KeepGoing": "Keep striving to unlock this achievement!",
     "Categories": {
       "first": "First Steps",
       "streak": "Prayer Streaks",
@@ -227,6 +228,71 @@
       "community": "Community",
       "milestone": "Journey Milestones",
       "special": "Special Achievements"
+    },
+    "Descriptions": {
+      "first_prayer": "Begin your spiritual journey by recording your first prayer.",
+      "first_full_day": "Complete all five daily prayers in one day.",
+      "first_week": "Track your prayers consistently for a full week.",
+      "first_month": "Maintain prayer tracking for an entire month.",
+      
+      "seven_day_streak": "Maintain consistent prayers for 7 consecutive days.",
+      "fifteen_day_streak": "Keep up your prayers for 15 days straight.",
+      "thirty_day_streak": "Achieve a remarkable 30-day prayer streak.",
+      "sixty_day_streak": "Demonstrate unwavering commitment for 60 days.",
+      "ninety_day_streak": "Reach an impressive 90-day prayer streak.",
+      "perfect_week": "Complete all prayers on time for a full week.",
+      "perfect_month": "Achieve perfect prayer attendance for a month.",
+      
+      "fifty_prayers": "Record your first 50 prayers.",
+      "hundred_prayers": "Reach the milestone of 100 recorded prayers.",
+      "five_hundred_prayers": "Complete 500 prayers in your journey.",
+      "thousand_prayers": "Achieve the remarkable milestone of 1000 prayers.",
+      "two_thousand_prayers": "Reach 2000 prayers in your spiritual journey.",
+      "five_thousand_prayers": "Complete an extraordinary 5000 prayers.",
+      
+      "fajr_master": "Consistently pray Fajr on time for a month.",
+      "early_bird": "Regularly pray Fajr in its earliest time.",
+      "dawn_seeker": "Maintain excellent Fajr prayer timing.",
+      "tahajjud_warrior": "Regularly perform the blessed Tahajjud prayer.",
+      
+      "punctual_worshipper": "Maintain excellent prayer timing.",
+      "jamaat_regular": "Regularly pray in congregation.",
+      "jamaat_devotee": "Frequently join congregational prayers.",
+      "dedicated_tahajjud": "Consistently perform Tahajjud prayers.",
+      
+      "sunnah_beginner": "Start incorporating Sunnah prayers.",
+      "sunnah_devotee": "Regularly perform Sunnah prayers.",
+      "sunnah_master": "Excel in maintaining Sunnah prayers.",
+      "duha_regular": "Consistently perform the Duha prayer.",
+      
+      "morning_adhkar": "Practice morning remembrance regularly.",
+      "evening_adhkar": "Maintain evening dhikr consistently.",
+      "consistent_dhikr": "Keep up daily remembrance of Allah.",
+      "quran_companion": "Read Quran after prayers regularly.",
+      "quran_devotee": "Maintain daily Quran recitation.",
+      
+      "ramadan_warrior": "Complete all prayers during Ramadan.",
+      "ramadan_champion": "Achieve perfect Ramadan prayers.",
+      "laylatul_qadr": "Dedicate yourself in the last 10 nights.",
+      "eid_prayers": "Never miss Eid prayers.",
+      "jumuah_regular": "Regularly attend Friday prayers.",
+      
+      "prayer_mentor": "Help others in their prayer journey.",
+      "community_builder": "Build a supportive prayer community.",
+      "knowledge_seeker": "Learn and share prayer knowledge.",
+      "spiritual_guide": "Guide others in their spiritual path.",
+      
+      "three_month_milestone": "Track prayers for three months.",
+      "six_month_milestone": "Maintain six months of dedication.",
+      "spiritual_milestone": "Complete one year of tracking.",
+      "two_year_devotion": "Achieve two years of dedication.",
+      
+      "night_devotee": "Pray Tahajjud consistently.",
+      "masjid_regular": "Regularly visit the mosque.",
+      "istighfar_constant": "Practice regular istighfar.",
+      "gratitude_master": "Express gratitude in worship.",
+      "prophetic_way": "Follow the Prophetic way in prayer.",
+      "spiritual_excellence": "Achieve spiritual excellence."
     },
     "first_prayer": "🌟 First prayer recorded - Beginning of your journey!",
     "first_full_day": "📅 Completed your first full day of prayers!",

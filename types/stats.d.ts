@@ -3,6 +3,7 @@ export interface UserStats {
   totalPrayers: number;
   totalDays: number;
   currentStreak: number;
+  longestStreak: number;
   daysWithAllPrayers: number;
   consecutivePerfectDays: number;
 

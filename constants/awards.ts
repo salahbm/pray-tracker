@@ -1,7 +1,6 @@
 import { UserStats } from '@/types/stats';
 import { AWARD_TITLES } from './enums';
 
-
 interface Award {
   title: AWARD_TITLES;
   requiredStats: (keyof UserStats)[];

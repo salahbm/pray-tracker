@@ -33,6 +33,7 @@ model User {
 
   prays       Prays[]
   awards      Award[]
+  prayerStats PrayerStats?
   sentRequests  Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
 
@@ -63,19 +64,31 @@ model Award {
   id          String   @id @default(cuid())
   userId      String
   title       String   // Award name
-  description String?
-  image       String? 
-  achievedAt  DateTime @default(now())
+  awardedAt   DateTime @default(now())
+  points      Int      @default(10)  // Points awarded for achieving this award
 
-  // New relations for award tracking
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   sunnahPrays    SunnahPrays[]
   dhikr          Dhikr[]
   quranReading   QuranReading[]
-  community      UserCommunity?
-
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userCommunity  UserCommunity?
 
   @@unique([userId, title]) // Ensure the same award is not given multiple times
+}
+
+model PrayerStats {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  totalPrayers          Int      @default(0)
+  currentStreak         Int      @default(0)
+  longestStreak         Int      @default(0)
+  daysWithAllPrayers    Int      @default(0)
+  onTimePrayers         Int      @default(0)
+  jamaatPrayers         Int      @default(0)
+  sunnahPrayers         Int      @default(0)
+  lastCalculated        DateTime @default(now())
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SunnahPrays {

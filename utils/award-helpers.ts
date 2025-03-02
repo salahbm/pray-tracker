@@ -1,150 +1,248 @@
-
+import { UserStats } from '@/types/stats';
 import { AWARDS } from '../constants/awards';
-import { UserStats } from '../types/stats';
-import { SALAHS } from '../constants/enums';
+import { SALAHS, AWARD_POINTS } from '../constants/enums';
 import prisma from '@/lib/prisma';
 
+// Cache for stats to avoid recalculating within the same day
+const statsCache = new Map<string, { stats: UserStats; timestamp: number }>();
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
 export async function calculateUserStats(userId: string): Promise<UserStats> {
+  // Check cache first
+  const cached = statsCache.get(userId);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    return cached.stats;
+  }
+
   const today = new Date();
   const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const ninetyDaysAgo = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000);
 
-  // Fetch user's prayers
-  const prayers = await prisma.prays.findMany({
-    where: { userId },
-    orderBy: { prayedAt: 'desc' },
-  });
-
-  // Calculate basic stats
-  const totalPrayers = prayers.length;
-  const uniqueDays = new Set(prayers.map(p => p.prayedAt.toDateString())).size;
-  const currentStreak = calculateCurrentStreak(prayers);
-  
-  // Calculate prayer quality stats
-  const onTimePrayers = prayers.filter(p => p.onTime).length;
-  const onTimePercentage = totalPrayers > 0 ? (onTimePrayers / totalPrayers) * 100 : 0;
-  const jamaatPrayers = prayers.filter(p => p.inJamaat).length;
-  
-  // Calculate Fajr stats
-  const fajrPrayers = prayers.filter(p => p.type === SALAHS.FAJR);
-  const onTimeFajr = fajrPrayers.filter(p => p.onTime).length;
-  const earlyFajr = fajrPrayers.filter(p => p.earlyPrayer).length;
-  const fajrPercentage = fajrPrayers.length > 0 ? (onTimeFajr / fajrPrayers.length) * 100 : 0;
-  
-  // Get Sunnah and additional prayers
-  const sunnahPrayers = await prisma.sunnahPrays.count({ where: { userId } });
-  const duhaPrayers = await prisma.sunnahPrays.count({
-    where: { userId, type: 'duha' }
-  });
-
-  // Get Dhikr and Quran stats
-  const dhikrRecords = await prisma.dhikr.findMany({
-    where: { userId, createdAt: { gte: thirtyDaysAgo } }
-  });
-  const quranRecords = await prisma.quranReading.findMany({
-    where: { userId, createdAt: { gte: thirtyDaysAgo } }
-  });
-
-  // Calculate Ramadan stats
-  const ramadanPrayers = prayers.filter(p => isRamadan(p.prayedAt));
-  const ramadanDays = calculateRamadanDays(ramadanPrayers);
-
-  // Community stats
-  const communityStats = await prisma.userCommunity.findUnique({
+  // Get or create PrayerStats
+  let prayerStats = await prisma.prayerStats.findUnique({
     where: { userId }
   });
 
-  return {
-    // Basic Stats
-    totalPrayers,
-    totalDays: uniqueDays,
-    currentStreak,
-    daysWithAllPrayers: calculateDaysWithAllPrayers(prayers),
-    consecutivePerfectDays: calculateConsecutivePerfectDays(prayers),
+  if (!prayerStats || isStatsOutdated(prayerStats.lastCalculated)) {
+    // Fetch only recent prayers for performance
+    const recentPrayers = await prisma.prays.findMany({
+      where: { 
+        userId,
+        date: { gte: thirtyDaysAgo }
+      },
+      orderBy: { date: 'desc' },
+    });
 
-    // Prayer Quality
-    onTimePercentage,
-    jamaatCount: jamaatPrayers,
-    monthlyTahajjudCount: calculateMonthlyTahajjud(prayers),
+    // Update prayer stats
+    prayerStats = await updatePrayerStats(userId, recentPrayers);
+  }
 
-    // Fajr Stats
-    consecutiveFajrDays: calculateConsecutiveFajrDays(prayers),
-    earlyFajrPercentage: fajrPrayers.length > 0 ? (earlyFajr / fajrPrayers.length) * 100 : 0,
-    fajrOnTimePercentage: fajrPercentage,
-    tahajjudCount: calculateTotalTahajjud(prayers),
-    consecutiveTahajjudNights: calculateConsecutiveTahajjudNights(prayers),
-
-    // Sunnah & Additional Prayers
-    sunnahPrayersCount: sunnahPrayers,
-    consecutiveSunnahDays: calculateConsecutiveSunnahDays(prayers),
-    duhaCount: duhaPrayers,
-
-    // Dhikr & Quran
-    morningAdhkarDays: calculateAdhkarDays(dhikrRecords, 'morning'),
-    eveningAdhkarDays: calculateAdhkarDays(dhikrRecords, 'evening'),
-    consecutiveDhikrDays: calculateConsecutiveDhikrDays(dhikrRecords),
-    weeklyQuranDays: calculateQuranDays(quranRecords, 7),
-    monthlyQuranDays: calculateQuranDays(quranRecords, 30),
-
-    // Ramadan & Special Times
-    ramadanPrayerCount: ramadanPrayers.length,
-    ramadanPerfectDays: ramadanDays.perfect,
-    lastTenNightsPrayers: calculateLastTenNightsPrayers(prayers),
-    eidPrayersCount: calculateEidPrayers(prayers),
-    consecutiveJumuahCount: calculateConsecutiveJumuah(prayers),
-
-    // Community & Learning
-    menteeCount: communityStats?.menteeCount || 0,
-    prayerCircleMembers: communityStats?.circleMembers || 0,
-    learningSessionsCount: communityStats?.learningSessions || 0,
-    helpedUsers: communityStats?.helpedUsers || 0,
-
-    // Spiritual Progress
-    monthlyMasjidVisits: calculateMasjidVisits(prayers, thirtyDaysAgo),
-    dailyIstighfarCount: calculateDailyIstighfar(dhikrRecords),
-    gratitudeDhikrCount: calculateGratitudeDhikr(dhikrRecords),
-    sunnahAdherenceScore: calculateSunnahAdherence(prayers, sunnahPrayers),
-    spiritualityScore: calculateSpiritualityScore(prayers, dhikrRecords, quranRecords),
+  // Calculate current stats
+  const stats: UserStats = {
+    ...prayerStats,
+    // Add calculated fields
+    onTimePercentage: calculatePercentage(prayerStats.onTimePrayers, prayerStats.totalPrayers),
+    earlyFajrPercentage: await calculateFajrPercentage(userId),
+    // Add other calculated fields...
+    totalPrayers: prayerStats.totalPrayers,
+    totalDays: new Set(prayerStats.prayers.map((p) => p.date.toDateString())).size,
+    currentStreak: prayerStats.currentStreak,
+    daysWithAllPrayers: prayerStats.daysWithAllPrayers,
+    consecutivePerfectDays: calculateConsecutivePerfectDays(prayerStats.prayers),
+    onTimePrayers: prayerStats.onTimePrayers,
+    jamaatCount: prayerStats.jamaatPrayers,
+    monthlyTahajjudCount: calculateMonthlyTahajjud(prayerStats.prayers),
+    consecutiveFajrDays: calculateConsecutiveFajrDays(prayerStats.prayers),
+    fajrOnTimePercentage: await calculateFajrPercentage(userId),
+    tahajjudCount: calculateTotalTahajjud(prayerStats.prayers),
+    consecutiveTahajjudNights: calculateConsecutiveTahajjudNights(prayerStats.prayers),
+    consecutiveSunnahDays: calculateConsecutiveSunnahDays(prayerStats.prayers),
+    duhaCount: await prisma.sunnahPrays.count({ where: { userId, type: 'duha' } }),
+    morningAdhkarDays: calculateAdhkarDays(prayerStats.dhikrRecords, 'morning'),
+    eveningAdhkarDays: calculateAdhkarDays(prayerStats.dhikrRecords, 'evening'),
+    consecutiveDhikrDays: calculateConsecutiveDhikrDays(prayerStats.dhikrRecords),
+    weeklyQuranDays: calculateQuranDays(prayerStats.quranRecords, 7),
+    monthlyQuranDays: calculateQuranDays(prayerStats.quranRecords, 30),
+    ramadanPrayerCount: prayerStats.ramadanPrayerCount,
+    ramadanPerfectDays: prayerStats.ramadanPerfectDays,
+    lastTenNightsPrayers: calculateLastTenNightsPrayers(prayerStats.prayers),
+    eidPrayersCount: calculateEidPrayers(prayerStats.prayers),
+    consecutiveJumuahCount: calculateConsecutiveJumuah(prayerStats.prayers),
+    menteeCount: prayerStats.menteeCount,
+    prayerCircleMembers: prayerStats.prayerCircleMembers,
+    learningSessionsCount: prayerStats.learningSessionsCount,
+    helpedUsers: prayerStats.helpedUsers,
+    monthlyMasjidVisits: calculateMasjidVisits(prayerStats.prayers, thirtyDaysAgo),
+    dailyIstighfarCount: calculateDailyIstighfar(prayerStats.dhikrRecords),
+    gratitudeDhikrCount: calculateGratitudeDhikr(prayerStats.dhikrRecords),
+    sunnahAdherenceScore: calculateSunnahAdherence(prayerStats.prayers, prayerStats.sunnahPrayersCount),
+    spiritualityScore: calculateSpiritualityScore(prayerStats.prayers, prayerStats.dhikrRecords, prayerStats.quranRecords),
   };
+
+  // Cache the results
+  statsCache.set(userId, { stats, timestamp: Date.now() });
+
+  return stats;
 }
 
 export async function checkAndAssignAwards(userId: string): Promise<string[]> {
   const stats = await calculateUserStats(userId);
-  const existingAwards = await prisma.userAwards.findMany({
+  
+  // Batch fetch existing awards
+  const existingAwards = await prisma.award.findMany({
     where: { userId },
     select: { title: true }
   });
-  
+
   const existingAwardTitles = new Set(existingAwards.map(a => a.title));
   
-  const newAwards = AWARDS.filter(award => 
-    !existingAwardTitles.has(award.title) && 
-    award.criteria(stats) && 
+  // Filter eligible awards
+  const eligibleAwards = AWARDS.filter(award => 
+    !existingAwardTitles.has(award.title) &&
+    award.criteria(stats) &&
     award.requiredStats.every(stat => stats[stat] !== undefined)
   );
 
-  if (newAwards.length > 0) {
-    await prisma.userAwards.createMany({
-      data: newAwards.map(award => ({
+  if (eligibleAwards.length === 0) return [];
+
+  // Calculate points for each award
+  const awardsWithPoints = eligibleAwards.map(award => ({
+    ...award,
+    points: getAwardPoints(award.title)
+  }));
+
+  // Batch create new awards
+  await prisma.$transaction([
+    prisma.award.createMany({
+      data: awardsWithPoints.map(award => ({
         userId,
         title: award.title,
+        points: award.points,
         awardedAt: new Date()
       }))
-    });
+    }),
+    prisma.user.update({
+      where: { id: userId },
+      data: {
+        totalPoints: {
+          increment: awardsWithPoints.reduce((sum, award) => sum + award.points, 0)
+        }
+      }
+    })
+  ]);
+
+  return eligibleAwards.map(award => award.title);
+}
+
+// Helper function to determine award points
+function getAwardPoints(title: string): number {
+  // First Steps Awards
+  if (title.startsWith('first_')) {
+    return AWARD_POINTS.BASIC;
   }
-
-  return newAwards.map(award => award.title);
+  
+  // Regular Achievements
+  if (title.startsWith('fifty_') || title.startsWith('hundred_')) {
+    return AWARD_POINTS.REGULAR;
+  }
+  
+  // Advanced Achievements
+  if (title.includes('streak') || title.includes('master')) {
+    return AWARD_POINTS.ADVANCED;
+  }
+  
+  // Expert Achievements
+  if (title.includes('perfect_month') || title.includes('devotee')) {
+    return AWARD_POINTS.EXPERT;
+  }
+  
+  // Master Achievements
+  if (title.includes('spiritual_excellence') || title.includes('prophetic_way')) {
+    return AWARD_POINTS.MASTER;
+  }
+  
+  // Default to regular points
+  return AWARD_POINTS.REGULAR;
 }
 
-// Helper functions for stats calculation
-function calculateCurrentStreak(prayers: any[]): number {
-  // Implementation
-  return 0;
+// Helper functions
+function isStatsOutdated(lastCalculated: Date): boolean {
+  const now = new Date();
+  return now.getDate() !== lastCalculated.getDate() ||
+         now.getMonth() !== lastCalculated.getMonth() ||
+         now.getFullYear() !== lastCalculated.getFullYear();
 }
 
-function calculateDaysWithAllPrayers(prayers: any[]): number {
-  // Implementation
-  return 0;
+async function updatePrayerStats(userId: string, prayers: any[]) {
+  const stats = {
+    totalPrayers: prayers.length,
+    currentStreak: calculateCurrentStreak(prayers),
+    daysWithAllPrayers: calculateDaysWithAllPrayers(prayers),
+    onTimePrayers: prayers.filter(p => p.onTime).length,
+    jamaatPrayers: prayers.filter(p => p.inJamaat).length,
+    ramadanPrayerCount: calculateRamadanPrayerCount(prayers),
+    ramadanPerfectDays: calculateRamadanPerfectDays(prayers),
+    prayers,
+    dhikrRecords: await prisma.dhikr.findMany({
+      where: { userId, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
+    }),
+    quranRecords: await prisma.quranReading.findMany({
+      where: { userId, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
+    }),
+    sunnahPrayersCount: await prisma.sunnahPrays.count({ where: { userId } }),
+    menteeCount: await prisma.userCommunity.findUnique({
+      where: { userId },
+      select: { menteeCount: true },
+    }).then((community) => community?.menteeCount || 0),
+    prayerCircleMembers: await prisma.userCommunity.findUnique({
+      where: { userId },
+      select: { circleMembers: true },
+    }).then((community) => community?.circleMembers || 0),
+    learningSessionsCount: await prisma.userCommunity.findUnique({
+      where: { userId },
+      select: { learningSessions: true },
+    }).then((community) => community?.learningSessions || 0),
+    helpedUsers: await prisma.userCommunity.findUnique({
+      where: { userId },
+      select: { helpedUsers: true },
+    }).then((community) => community?.helpedUsers || 0),
+  };
+
+  return prisma.prayerStats.upsert({
+    where: { userId },
+    create: {
+      userId,
+      ...stats,
+      lastCalculated: new Date()
+    },
+    update: {
+      ...stats,
+      lastCalculated: new Date()
+    }
+  });
+}
+
+function calculatePercentage(value: number, total: number): number {
+  return total > 0 ? (value / total) * 100 : 0;
+}
+
+async function calculateFajrPercentage(userId: string): Promise<number> {
+  const fajrStats = await prisma.prays.aggregate({
+    where: {
+      userId,
+      type: SALAHS.FAJR
+    },
+    _count: {
+      id: true
+    },
+    _sum: {
+      onTime: true
+    }
+  });
+
+  return calculatePercentage(
+    fajrStats._sum?.onTime || 0,
+    fajrStats._count?.id || 0
+  );
 }
 
 function calculateConsecutivePerfectDays(prayers: any[]): number {
@@ -227,17 +325,31 @@ function calculateSunnahAdherence(prayers: any[], sunnahCount: number): number {
   return 0;
 }
 
-function calculateSpiritualityScore(prayers: any[], dhikr: any[], quran: any[]): number {
+function calculateSpiritualityScore(
+  prayers: any[],
+  dhikr: any[],
+  quran: any[],
+): number {
   // Implementation
   return 0;
 }
 
-function calculateRamadanDays(prayers: any[]): { total: number; perfect: number } {
+function calculateRamadanPrayerCount(prayers: any[]): number {
   // Implementation
-  return { total: 0, perfect: 0 };
+  return 0;
 }
 
-function isRamadan(date: Date): boolean {
+function calculateRamadanPerfectDays(prayers: any[]): number {
   // Implementation
-  return false;
+  return 0;
+}
+
+function calculateCurrentStreak(prayers: any[]): number {
+  // Implementation
+  return 0;
+}
+
+function calculateDaysWithAllPrayers(prayers: any[]): number {
+  // Implementation
+  return 0;
 }
