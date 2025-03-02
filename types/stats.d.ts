@@ -20,7 +20,7 @@ export interface UserStats {
   consecutiveTahajjudNights: number;
 
   // Sunnah & Additional Prayers
-  sunnahPrayersCount: number;
+  sunnahPrayers: number;
   consecutiveSunnahDays: number;
   duhaCount: number;
 

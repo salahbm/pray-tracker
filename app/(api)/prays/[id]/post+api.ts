@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
+import { checkAndAssignAwards } from '@/utils/award-helpers';
 
 export async function POST(request: Request) {
   try {
@@ -53,37 +54,17 @@ export async function POST(request: Request) {
       },
     });
 
-    // Recalculate total points for the user
-    const userTotalPoints = await prisma.prays.aggregate({
-      _sum: {
-        fajr: true,
-        dhuhr: true,
-        asr: true,
-        maghrib: true,
-        isha: true,
-        nafl: true,
-      },
-      where: {
-        userId,
-      },
-    });
-
-    // Update user's totalPoints
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
-        totalPoints: Object.values(userTotalPoints._sum).reduce(
-          (acc: number, val: number) => acc + (val || 0),
-          0,
-        ),
-      },
-    });
+    // Check and assign any new awards
+    const newAwards = await checkAndAssignAwards(userId);
 
     return createResponse({
-      status: StatusCode.CREATED,
-      message: 'Pray created successfully',
-      code: MessageCodes.PRAY_CREATED,
-      data: updatedPrays,
+      status: StatusCode.SUCCESS,
+      message: 'Prayer record updated successfully',
+      code: MessageCodes.PRAY_UPDATED,
+      data: {
+        prays: updatedPrays,
+        newAwards: newAwards.length > 0 ? newAwards : null
+      },
     });
   } catch (error) {
     return handleError(error);

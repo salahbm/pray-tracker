@@ -15,7 +15,6 @@ export type TUser = {
   updatedAt: string;
 };
 
-
 // Type for stored user without password
 export type TStoredUser = Omit<TUser, 'password'>;
 

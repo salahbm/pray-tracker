@@ -1,298 +1,293 @@
 import { UserStats } from '@/types/stats';
-import { AWARD_TITLES } from './enums';
 
 interface Award {
-  title: AWARD_TITLES;
+  title: string;
+  category: string;
   requiredStats: (keyof UserStats)[];
   criteria: (stats: UserStats) => boolean;
 }
 
 export const AWARDS: Award[] = [
-  // First Steps Awards
+  // First Steps
   {
-    title: AWARD_TITLES.FIRST_PRAYER,
+    title: 'first_prayer',
+    category: 'first',
     requiredStats: ['totalPrayers'],
-    criteria: (stats) => stats.totalPrayers >= 1,
+    criteria: (stats) => stats.totalPrayers > 0,
   },
   {
-    title: AWARD_TITLES.FIRST_FULL_DAY,
+    title: 'first_full_day',
+    category: 'first',
     requiredStats: ['daysWithAllPrayers'],
-    criteria: (stats) => stats.daysWithAllPrayers >= 1,
+    criteria: (stats) => stats.daysWithAllPrayers > 0,
   },
   {
-    title: AWARD_TITLES.FIRST_WEEK,
+    title: 'first_week',
+    category: 'first',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 7,
   },
   {
-    title: AWARD_TITLES.FIRST_MONTH,
+    title: 'first_month',
+    category: 'first',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 30,
   },
 
-  // Streak Awards
+  // Prayer Streaks
   {
-    title: AWARD_TITLES.SEVEN_DAY_STREAK,
+    title: 'seven_day_streak',
+    category: 'streak',
     requiredStats: ['currentStreak'],
     criteria: (stats) => stats.currentStreak >= 7,
   },
   {
-    title: AWARD_TITLES.FIFTEEN_DAY_STREAK,
+    title: 'fifteen_day_streak',
+    category: 'streak',
     requiredStats: ['currentStreak'],
     criteria: (stats) => stats.currentStreak >= 15,
   },
   {
-    title: AWARD_TITLES.THIRTY_DAY_STREAK,
+    title: 'thirty_day_streak',
+    category: 'streak',
     requiredStats: ['currentStreak'],
     criteria: (stats) => stats.currentStreak >= 30,
   },
   {
-    title: AWARD_TITLES.SIXTY_DAY_STREAK,
+    title: 'sixty_day_streak',
+    category: 'streak',
     requiredStats: ['currentStreak'],
     criteria: (stats) => stats.currentStreak >= 60,
   },
   {
-    title: AWARD_TITLES.NINETY_DAY_STREAK,
+    title: 'ninety_day_streak',
+    category: 'streak',
     requiredStats: ['currentStreak'],
     criteria: (stats) => stats.currentStreak >= 90,
   },
   {
-    title: AWARD_TITLES.PERFECT_WEEK,
-    requiredStats: ['consecutivePerfectDays'],
-    criteria: (stats) => stats.consecutivePerfectDays >= 7,
+    title: 'perfect_week',
+    category: 'streak',
+    requiredStats: ['daysWithAllPrayers', 'onTimePercentage'],
+    criteria: (stats) => stats.daysWithAllPrayers >= 7 && stats.onTimePercentage >= 90,
   },
   {
-    title: AWARD_TITLES.PERFECT_MONTH,
-    requiredStats: ['consecutivePerfectDays'],
-    criteria: (stats) => stats.consecutivePerfectDays >= 30,
+    title: 'perfect_month',
+    category: 'streak',
+    requiredStats: ['daysWithAllPrayers', 'onTimePercentage'],
+    criteria: (stats) => stats.daysWithAllPrayers >= 30 && stats.onTimePercentage >= 90,
   },
 
-  // Prayer Count Awards
+  // Prayer Milestones
   {
-    title: AWARD_TITLES.FIFTY_PRAYERS,
+    title: 'fifty_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 50,
   },
   {
-    title: AWARD_TITLES.HUNDRED_PRAYERS,
+    title: 'hundred_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 100,
   },
   {
-    title: AWARD_TITLES.FIVE_HUNDRED_PRAYERS,
+    title: 'five_hundred_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 500,
   },
   {
-    title: AWARD_TITLES.THOUSAND_PRAYERS,
+    title: 'thousand_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 1000,
   },
   {
-    title: AWARD_TITLES.TWO_THOUSAND_PRAYERS,
+    title: 'two_thousand_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 2000,
   },
   {
-    title: AWARD_TITLES.FIVE_THOUSAND_PRAYERS,
+    title: 'five_thousand_prayers',
+    category: 'prayer_count',
     requiredStats: ['totalPrayers'],
     criteria: (stats) => stats.totalPrayers >= 5000,
   },
 
-  // Fajr Excellence Awards
+  // Fajr Excellence
   {
-    title: AWARD_TITLES.FAJR_MASTER,
+    title: 'fajr_master',
+    category: 'fajr',
     requiredStats: ['consecutiveFajrDays'],
     criteria: (stats) => stats.consecutiveFajrDays >= 30,
   },
   {
-    title: AWARD_TITLES.EARLY_BIRD,
+    title: 'early_bird',
+    category: 'fajr',
     requiredStats: ['earlyFajrPercentage'],
     criteria: (stats) => stats.earlyFajrPercentage >= 80,
   },
   {
-    title: AWARD_TITLES.DAWN_SEEKER,
+    title: 'dawn_seeker',
+    category: 'fajr',
     requiredStats: ['fajrOnTimePercentage'],
     criteria: (stats) => stats.fajrOnTimePercentage >= 90,
   },
   {
-    title: AWARD_TITLES.TAHAJJUD_WARRIOR,
+    title: 'tahajjud_warrior',
+    category: 'fajr',
     requiredStats: ['tahajjudCount'],
-    criteria: (stats) => stats.tahajjudCount >= 20,
+    criteria: (stats) => stats.tahajjudCount >= 30,
   },
 
-  // Prayer Quality Awards
+  // Prayer Quality
   {
-    title: AWARD_TITLES.PUNCTUAL_WORSHIPPER,
+    title: 'punctual_worshipper',
+    category: 'prayer_quality',
     requiredStats: ['onTimePercentage'],
     criteria: (stats) => stats.onTimePercentage >= 90,
   },
   {
-    title: AWARD_TITLES.JAMAAT_REGULAR,
+    title: 'jamaat_regular',
+    category: 'prayer_quality',
     requiredStats: ['jamaatCount'],
     criteria: (stats) => stats.jamaatCount >= 50,
   },
   {
-    title: AWARD_TITLES.JAMAAT_DEVOTEE,
+    title: 'jamaat_devotee',
+    category: 'prayer_quality',
     requiredStats: ['jamaatCount'],
     criteria: (stats) => stats.jamaatCount >= 100,
   },
   {
-    title: AWARD_TITLES.DEDICATED_TAHAJJUD,
+    title: 'dedicated_tahajjud',
+    category: 'prayer_quality',
     requiredStats: ['monthlyTahajjudCount'],
     criteria: (stats) => stats.monthlyTahajjudCount >= 15,
   },
 
-  // Sunnah Excellence Awards
+  // Special Times
   {
-    title: AWARD_TITLES.SUNNAH_BEGINNER,
-    requiredStats: ['sunnahPrayersCount'],
-    criteria: (stats) => stats.sunnahPrayersCount >= 30,
-  },
-  {
-    title: AWARD_TITLES.SUNNAH_DEVOTEE,
-    requiredStats: ['consecutiveSunnahDays'],
-    criteria: (stats) => stats.consecutiveSunnahDays >= 30,
-  },
-  {
-    title: AWARD_TITLES.SUNNAH_MASTER,
-    requiredStats: ['consecutiveSunnahDays'],
-    criteria: (stats) => stats.consecutiveSunnahDays >= 90,
-  },
-  {
-    title: AWARD_TITLES.DUHA_REGULAR,
-    requiredStats: ['duhaCount'],
-    criteria: (stats) => stats.duhaCount >= 20,
-  },
-
-  // Dhikr & Quran Awards
-  {
-    title: AWARD_TITLES.MORNING_ADHKAR,
-    requiredStats: ['morningAdhkarDays'],
-    criteria: (stats) => stats.morningAdhkarDays >= 30,
-  },
-  {
-    title: AWARD_TITLES.EVENING_ADHKAR,
-    requiredStats: ['eveningAdhkarDays'],
-    criteria: (stats) => stats.eveningAdhkarDays >= 30,
-  },
-  {
-    title: AWARD_TITLES.CONSISTENT_DHIKR,
-    requiredStats: ['consecutiveDhikrDays'],
-    criteria: (stats) => stats.consecutiveDhikrDays >= 30,
-  },
-  {
-    title: AWARD_TITLES.QURAN_COMPANION,
-    requiredStats: ['weeklyQuranDays'],
-    criteria: (stats) => stats.weeklyQuranDays >= 7,
-  },
-  {
-    title: AWARD_TITLES.QURAN_DEVOTEE,
-    requiredStats: ['monthlyQuranDays'],
-    criteria: (stats) => stats.monthlyQuranDays >= 30,
-  },
-
-  // Special Times Awards
-  {
-    title: AWARD_TITLES.RAMADAN_WARRIOR,
+    title: 'ramadan_warrior',
+    category: 'special_times',
     requiredStats: ['ramadanPrayerCount'],
     criteria: (stats) => stats.ramadanPrayerCount >= 150,
   },
   {
-    title: AWARD_TITLES.RAMADAN_CHAMPION,
+    title: 'ramadan_champion',
+    category: 'special_times',
     requiredStats: ['ramadanPerfectDays'],
     criteria: (stats) => stats.ramadanPerfectDays >= 30,
   },
   {
-    title: AWARD_TITLES.LAYLATUL_QADR,
+    title: 'laylatul_qadr',
+    category: 'special_times',
     requiredStats: ['lastTenNightsPrayers'],
     criteria: (stats) => stats.lastTenNightsPrayers >= 50,
   },
   {
-    title: AWARD_TITLES.EID_PRAYERS,
+    title: 'eid_prayers',
+    category: 'special_times',
     requiredStats: ['eidPrayersCount'],
     criteria: (stats) => stats.eidPrayersCount >= 2,
   },
   {
-    title: AWARD_TITLES.JUMUAH_REGULAR,
+    title: 'jumuah_regular',
+    category: 'special_times',
     requiredStats: ['consecutiveJumuahCount'],
     criteria: (stats) => stats.consecutiveJumuahCount >= 4,
   },
 
-  // Community & Growth Awards
+  // Community
   {
-    title: AWARD_TITLES.PRAYER_MENTOR,
+    title: 'prayer_mentor',
+    category: 'community',
     requiredStats: ['menteeCount'],
     criteria: (stats) => stats.menteeCount >= 1,
   },
   {
-    title: AWARD_TITLES.COMMUNITY_BUILDER,
+    title: 'community_builder',
+    category: 'community',
     requiredStats: ['prayerCircleMembers'],
     criteria: (stats) => stats.prayerCircleMembers >= 5,
   },
   {
-    title: AWARD_TITLES.KNOWLEDGE_SEEKER,
+    title: 'knowledge_seeker',
+    category: 'community',
     requiredStats: ['learningSessionsCount'],
-    criteria: (stats) => stats.learningSessionsCount >= 10,
+    criteria: (stats) => stats.learningSessionsCount >= 5,
   },
   {
-    title: AWARD_TITLES.SPIRITUAL_GUIDE,
+    title: 'spiritual_guide',
+    category: 'community',
     requiredStats: ['helpedUsers'],
     criteria: (stats) => stats.helpedUsers >= 10,
   },
 
-  // Milestone Awards
+  // Journey Milestones
   {
-    title: AWARD_TITLES.THREE_MONTH_MILESTONE,
+    title: 'three_month_milestone',
+    category: 'milestone',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 90,
   },
   {
-    title: AWARD_TITLES.SIX_MONTH_MILESTONE,
+    title: 'six_month_milestone',
+    category: 'milestone',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 180,
   },
   {
-    title: AWARD_TITLES.SPIRITUAL_MILESTONE,
+    title: 'spiritual_milestone',
+    category: 'milestone',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 365,
   },
   {
-    title: AWARD_TITLES.TWO_YEAR_DEVOTION,
+    title: 'two_year_devotion',
+    category: 'milestone',
     requiredStats: ['totalDays'],
     criteria: (stats) => stats.totalDays >= 730,
   },
 
-  // Special Achievement Awards
+  // Special Achievements
   {
-    title: AWARD_TITLES.NIGHT_DEVOTEE,
+    title: 'night_devotee',
+    category: 'special',
     requiredStats: ['consecutiveTahajjudNights'],
     criteria: (stats) => stats.consecutiveTahajjudNights >= 10,
   },
   {
-    title: AWARD_TITLES.MASJID_REGULAR,
+    title: 'masjid_regular',
+    category: 'special',
     requiredStats: ['monthlyMasjidVisits'],
     criteria: (stats) => stats.monthlyMasjidVisits >= 20,
   },
   {
-    title: AWARD_TITLES.ISTIGHFAR_CONSTANT,
+    title: 'istighfar_constant',
+    category: 'special',
     requiredStats: ['dailyIstighfarCount'],
     criteria: (stats) => stats.dailyIstighfarCount >= 100,
   },
   {
-    title: AWARD_TITLES.GRATITUDE_MASTER,
+    title: 'gratitude_master',
+    category: 'special',
     requiredStats: ['gratitudeDhikrCount'],
-    criteria: (stats) => stats.gratitudeDhikrCount >= 1000,
+    criteria: (stats) => stats.gratitudeDhikrCount >= 100,
   },
   {
-    title: AWARD_TITLES.PROPHETIC_WAY,
+    title: 'prophetic_way',
+    category: 'special',
     requiredStats: ['sunnahAdherenceScore'],
     criteria: (stats) => stats.sunnahAdherenceScore >= 90,
   },
   {
-    title: AWARD_TITLES.SPIRITUAL_EXCELLENCE,
+    title: 'spiritual_excellence',
+    category: 'special',
     requiredStats: ['spiritualityScore'],
-    criteria: (stats) => stats.spiritualityScore >= 95,
+    criteria: (stats) => stats.spiritualityScore >= 90,
   },
 ];
 
