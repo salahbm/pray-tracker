@@ -13,6 +13,7 @@ import 'react-native-reanimated';
 import 'i18n.config'; // Import the i18n config
 import 'styles/global.css';
 import 'reanimated.config';
+import { fireToast } from '@/providers/toaster';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -42,19 +43,24 @@ export default function RootLayout() {
 
   useEffect(() => {
     // Function to handle session changes
-    const handleAuthStateChange = (event, session) => {
-      setSession(session);
-      if (session === null) {
+    const handleAuthStateChange = async (event, session) => {
+      if (session) {
+        setSession(session);
+      } else {
         clearUserAndSession();
       }
     };
 
     // Fetch the initial session
     const fetchInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      handleAuthStateChange(null, session);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          setSession(session);
+        }
+      } catch (error) {
+        fireToast.error(error?.message ?? 'Failed to get session');
+      }
     };
 
     // Subscribe to auth state changes
