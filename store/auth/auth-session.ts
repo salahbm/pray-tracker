@@ -3,10 +3,10 @@ import { Session } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-import { TUser } from '@/types/user';
+import { TUser, TStoredUser } from '@/types/user';
 
 interface AuthState {
-  user: TUser | null;
+  user: TStoredUser | null; // Changed from TUser to TStoredUser
   session: Session | null;
   setUser: (user: TUser | null) => void;
   setSession: (session: Session | null) => void;
@@ -18,8 +18,16 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       session: null,
-      setUser: (user) => set({ user }),
-      setSession: (session) => set({ session }),
+      setUser: (user: TUser | null) => {
+        if (!user) {
+          set({ user: null });
+          return;
+        }
+        // Omit password when storing user
+        const { password, ...storedUser } = user;
+        set({ user: storedUser });
+      },
+      setSession: (session: Session | null) => set({ session }),
       clearUserAndSession: () => set({ user: null, session: null }),
     }),
     {

@@ -14,6 +14,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -64,8 +65,8 @@ model Award {
   id          String   @id @default(cuid())
   userId      String
   title       String   // Award name
-  awardedAt   DateTime @default(now())
-  points      Int      @default(10)  // Points awarded for achieving this award
+  awardedAt   DateTime @default(now())  // Keep this for sorting
+  points      Int      @default(10)     // Points awarded for achieving this award
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   sunnahPrays    SunnahPrays[]
@@ -73,7 +74,7 @@ model Award {
   quranReading   QuranReading[]
   userCommunity  UserCommunity?
 
-  @@unique([userId, title]) // Ensure the same award is not given multiple times
+  @@unique([userId, title])
 }
 
 model PrayerStats {

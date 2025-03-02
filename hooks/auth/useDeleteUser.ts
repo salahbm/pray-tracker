@@ -16,7 +16,7 @@ const deleteUser = async (params: IUserDelete) => {
   // Step 2: Delete user from Supabase Admin
   const { error } = await supabase.auth.admin.deleteUser(params.supabaseId);
 
-  if (error.code !== 'user_not_found') {
+  if ('code' in error && error?.code !== 'user_not_found') {
     throw new ApiError({
       message: error.message,
       status: StatusCode.INTERNAL_ERROR,

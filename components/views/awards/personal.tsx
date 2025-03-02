@@ -133,6 +133,7 @@ const ListFooter = ({ earnedCount, score }) => {
 export default function PersonalTab() {
   const { user } = useAuthStore();
   const { data, isLoading } = useAwards(user?.id);
+  console.log('data:', data);
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const [selectedAward, setSelectedAward] = useState(null);

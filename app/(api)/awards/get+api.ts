@@ -24,7 +24,7 @@ export async function GET(request: Request) {
         user: true,
       },
       orderBy: {
-        achievedAt: 'desc',
+        awardedAt: 'desc',
       },
     });
 
