@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       code: MessageCodes.PRAY_UPDATED,
       data: {
         prays: updatedPrays,
-        newAwards: newAwards.length > 0 ? newAwards : null
+        newAwards: newAwards.length > 0 ? newAwards : null,
       },
     });
   } catch (error) {

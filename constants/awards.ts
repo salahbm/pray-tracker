@@ -69,13 +69,15 @@ export const AWARDS: Award[] = [
     title: 'perfect_week',
     category: 'streak',
     requiredStats: ['daysWithAllPrayers', 'onTimePercentage'],
-    criteria: (stats) => stats.daysWithAllPrayers >= 7 && stats.onTimePercentage >= 90,
+    criteria: (stats) =>
+      stats.daysWithAllPrayers >= 7 && stats.onTimePercentage >= 90,
   },
   {
     title: 'perfect_month',
     category: 'streak',
     requiredStats: ['daysWithAllPrayers', 'onTimePercentage'],
-    criteria: (stats) => stats.daysWithAllPrayers >= 30 && stats.onTimePercentage >= 90,
+    criteria: (stats) =>
+      stats.daysWithAllPrayers >= 30 && stats.onTimePercentage >= 90,
   },
 
   // Prayer Milestones

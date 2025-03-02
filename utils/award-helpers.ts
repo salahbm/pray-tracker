@@ -71,7 +71,10 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
     monthlyMasjidVisits: calculateMasjidVisits(prayers, thirtyDaysAgo),
     dailyIstighfarCount: 0, // To be implemented
     gratitudeDhikrCount: 0, // To be implemented
-    sunnahAdherenceScore: calculateSunnahAdherence(prayers, prayerStats.sunnahPrayers),
+    sunnahAdherenceScore: calculateSunnahAdherence(
+      prayers,
+      prayerStats.sunnahPrayers,
+    ),
     spiritualityScore: 0, // To be implemented
     consecutivePerfectDays: calculateConsecutivePerfectDays(prayers),
   };
@@ -181,31 +184,51 @@ function isStatsOutdated(lastCalculated: Date): boolean {
 
 async function updatePrayerStats(userId: string, prayers: any[]) {
   // Calculate basic stats
-  const totalPrayers = prayers.reduce((sum, p) => 
-    sum + p.fajr + p.dhuhr + p.asr + p.maghrib + p.isha + p.nafl, 0);
+  const totalPrayers = prayers.reduce(
+    (sum, p) => sum + p.fajr + p.dhuhr + p.asr + p.maghrib + p.isha + p.nafl,
+    0,
+  );
 
-  const daysWithAllPrayers = prayers.filter(p => 
-    p.fajr > 0 && p.dhuhr > 0 && p.asr > 0 && p.maghrib > 0 && p.isha > 0
+  const daysWithAllPrayers = prayers.filter(
+    (p) =>
+      p.fajr > 0 && p.dhuhr > 0 && p.asr > 0 && p.maghrib > 0 && p.isha > 0,
   ).length;
 
   // Calculate on-time percentages
-  const onTimeCount = prayers.reduce((sum, p) => 
-    sum + (p.fajr === 2 ? 1 : 0) + (p.dhuhr === 2 ? 1 : 0) + 
-    (p.asr === 2 ? 1 : 0) + (p.maghrib === 2 ? 1 : 0) + (p.isha === 2 ? 1 : 0), 0);
-  
-  const onTimePercentage = totalPrayers > 0 ? (onTimeCount / totalPrayers) * 100 : 0;
+  const onTimeCount = prayers.reduce(
+    (sum, p) =>
+      sum +
+      (p.fajr === 2 ? 1 : 0) +
+      (p.dhuhr === 2 ? 1 : 0) +
+      (p.asr === 2 ? 1 : 0) +
+      (p.maghrib === 2 ? 1 : 0) +
+      (p.isha === 2 ? 1 : 0),
+    0,
+  );
+
+  const onTimePercentage =
+    totalPrayers > 0 ? (onTimeCount / totalPrayers) * 100 : 0;
 
   // Calculate Jamaat prayers
-  const jamaatCount = prayers.reduce((sum, p) => 
-    sum + (p.fajr === 3 ? 1 : 0) + (p.dhuhr === 3 ? 1 : 0) + 
-    (p.asr === 3 ? 1 : 0) + (p.maghrib === 3 ? 1 : 0) + (p.isha === 3 ? 1 : 0), 0);
+  const jamaatCount = prayers.reduce(
+    (sum, p) =>
+      sum +
+      (p.fajr === 3 ? 1 : 0) +
+      (p.dhuhr === 3 ? 1 : 0) +
+      (p.asr === 3 ? 1 : 0) +
+      (p.maghrib === 3 ? 1 : 0) +
+      (p.isha === 3 ? 1 : 0),
+    0,
+  );
 
   // Calculate Fajr-specific stats
-  const fajrPrayers = prayers.filter(p => p.fajr > 0).length;
-  const fajrOnTime = prayers.filter(p => p.fajr >= 2).length;
-  const earlyFajr = prayers.filter(p => p.fajr === 2).length;
-  const fajrOnTimePercentage = fajrPrayers > 0 ? (fajrOnTime / fajrPrayers) * 100 : 0;
-  const earlyFajrPercentage = fajrPrayers > 0 ? (earlyFajr / fajrPrayers) * 100 : 0;
+  const fajrPrayers = prayers.filter((p) => p.fajr > 0).length;
+  const fajrOnTime = prayers.filter((p) => p.fajr >= 2).length;
+  const earlyFajr = prayers.filter((p) => p.fajr === 2).length;
+  const fajrOnTimePercentage =
+    fajrPrayers > 0 ? (fajrOnTime / fajrPrayers) * 100 : 0;
+  const earlyFajrPercentage =
+    fajrPrayers > 0 ? (earlyFajr / fajrPrayers) * 100 : 0;
 
   // Calculate streaks
   const currentStreak = calculateCurrentStreak(prayers);
@@ -224,7 +247,7 @@ async function updatePrayerStats(userId: string, prayers: any[]) {
       jamaatCount,
       sunnahPrayers: prayers.reduce((sum, p) => sum + (p.nafl || 0), 0),
       duhaCount: 0, // To be implemented with SunnahPrays
-      tahajjudCount: prayers.filter(p => p.nafl > 0).length,
+      tahajjudCount: prayers.filter((p) => p.nafl > 0).length,
       fajrOnTimePercentage,
       earlyFajrPercentage,
       ramadanPrayerCount: calculateRamadanPrayerCount(prayers),
@@ -244,7 +267,7 @@ async function updatePrayerStats(userId: string, prayers: any[]) {
       jamaatCount,
       sunnahPrayers: prayers.reduce((sum, p) => sum + (p.nafl || 0), 0),
       duhaCount: 0, // To be implemented with SunnahPrays
-      tahajjudCount: prayers.filter(p => p.nafl > 0).length,
+      tahajjudCount: prayers.filter((p) => p.nafl > 0).length,
       fajrOnTimePercentage,
       earlyFajrPercentage,
       ramadanPrayerCount: calculateRamadanPrayerCount(prayers),
@@ -266,15 +289,17 @@ function calculateCurrentStreak(prayers: any[]): number {
   today.setHours(0, 0, 0, 0);
 
   // Sort prayers by date in descending order
-  const sortedPrayers = [...prayers].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
+  const sortedPrayers = [...prayers].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   // Check if the most recent prayer was today or yesterday
   const mostRecentDate = new Date(sortedPrayers[0].date);
   mostRecentDate.setHours(0, 0, 0, 0);
-  const daysDiff = Math.floor((today.getTime() - mostRecentDate.getTime()) / (1000 * 60 * 60 * 24));
-  
+  const daysDiff = Math.floor(
+    (today.getTime() - mostRecentDate.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
   if (daysDiff > 1) return 0; // Streak is broken if more than 1 day gap
 
   // Count consecutive days with all prayers
@@ -287,7 +312,7 @@ function calculateCurrentStreak(prayers: any[]): number {
       // Check if this is the next consecutive day
       const expectedPrevDate = new Date(currentDate);
       expectedPrevDate.setDate(expectedPrevDate.getDate() - 1);
-      
+
       if (prayerDate.getTime() !== expectedPrevDate.getTime()) {
         break; // Streak is broken
       }
@@ -295,8 +320,13 @@ function calculateCurrentStreak(prayers: any[]): number {
     }
 
     // Check if all prayers were performed
-    if (prayer.fajr > 0 && prayer.dhuhr > 0 && prayer.asr > 0 && 
-        prayer.maghrib > 0 && prayer.isha > 0) {
+    if (
+      prayer.fajr > 0 &&
+      prayer.dhuhr > 0 &&
+      prayer.asr > 0 &&
+      prayer.maghrib > 0 &&
+      prayer.isha > 0
+    ) {
       streak++;
     } else {
       break; // Streak is broken if any prayer is missed
@@ -310,12 +340,12 @@ function calculateDaysWithAllPrayers(prayers: any[]): number {
   if (!prayers.length) return 0;
 
   return prayers.filter(
-    prayer => 
-      prayer.fajr && 
-      prayer.dhuhr && 
-      prayer.asr && 
-      prayer.maghrib && 
-      prayer.isha
+    (prayer) =>
+      prayer.fajr &&
+      prayer.dhuhr &&
+      prayer.asr &&
+      prayer.maghrib &&
+      prayer.isha,
   ).length;
 }
 
@@ -335,15 +365,15 @@ async function calculateFajrPercentage(userId: string): Promise<number> {
     where: {
       userId,
       fajr: {
-        gt: 0  // Count only days where Fajr was prayed
-      }
-    }
+        gt: 0, // Count only days where Fajr was prayed
+      },
+    },
   });
 
   // Calculate percentage of on-time or jamaat prayers (values 2 or 3)
   const totalFajr = fajrStats._count.fajr || 0;
   const fajrPoints = fajrStats._sum.fajr || 0;
-  
+
   // If no prayers, return 0
   if (totalFajr === 0) return 0;
 
@@ -368,8 +398,6 @@ function calculateConsecutiveFajrDays(prayers: any[]): number {
   return 0;
 }
 
-
-
 function calculateConsecutiveTahajjudNights(prayers: any[]): number {
   // Implementation
   return 0;
@@ -380,12 +408,10 @@ function calculateConsecutiveSunnahDays(prayers: any[]): number {
   return 0;
 }
 
-
 function calculateLastTenNightsPrayers(prayers: any[]): number {
   // Implementation
   return 0;
 }
-
 
 function calculateConsecutiveJumuah(prayers: any[]): number {
   // Implementation
@@ -401,8 +427,6 @@ function calculateSunnahAdherence(prayers: any[], sunnahCount: number): number {
   // Implementation
   return 0;
 }
-
-
 
 function calculateRamadanPrayerCount(prayers: any[]): number {
   // Implementation
