@@ -20,7 +20,7 @@ export async function checkAndAssignAwards(userId: string) {
       (key) => prayer[key] === PRAYER_POINTS.ON_TIME,
     ).length;
 
-    if (prayer.tahajjud === PRAYER_POINTS.ON_TIME) {
+    if (prayer.nafl === PRAYER_POINTS.ON_TIME) {
       tahajjudCount++;
     }
 

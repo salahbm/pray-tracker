@@ -45,7 +45,7 @@ const initialState = {
     [SALAHS.ASR]: null,
     [SALAHS.MAGHRIB]: null,
     [SALAHS.ISHA]: null,
-    [SALAHS.TAHAJJUD]: null,
+    [SALAHS.NAFL]: null,
   },
   isPickerVisible: false,
   clickedData: null,
@@ -210,7 +210,7 @@ export default function HomeScreen() {
         [SALAHS.ASR]: todaysPrays?.asr ?? null,
         [SALAHS.MAGHRIB]: todaysPrays?.maghrib ?? null,
         [SALAHS.ISHA]: todaysPrays?.isha ?? null,
-        [SALAHS.TAHAJJUD]: todaysPrays?.tahajjud ?? null,
+        [SALAHS.NAFL]: todaysPrays?.nafl ?? null,
       },
     });
   }, [todaysPrays, user]);

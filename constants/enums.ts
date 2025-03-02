@@ -5,7 +5,7 @@ enum SALAHS {
   ASR = 'asr',
   MAGHRIB = 'maghrib',
   ISHA = 'isha',
-  TAHAJJUD = 'tahajjud',
+  NAFL = 'nafl',
 }
 
 enum PRAYER_POINTS {

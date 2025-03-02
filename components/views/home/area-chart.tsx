@@ -22,7 +22,7 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
           pray.fajr +
           pray.isha +
           pray.maghrib +
-          pray.tahajjud,
+          pray.nafl,
         text: format(new Date(pray.date), 'dd.MM.yy'),
       }));
   }, [lineData]);

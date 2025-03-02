@@ -5,7 +5,7 @@ import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { date, fajr, dhuhr, asr, maghrib, isha, tahajjud, userId } = body;
+    const { date, fajr, dhuhr, asr, maghrib, isha, nafl, userId } = body;
 
     if (!userId) {
       throw new ApiError({
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
           asr,
           maghrib,
           isha,
-          tahajjud,
+          nafl,
         },
       });
     }
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         asr: asr || 0,
         maghrib: maghrib || 0,
         isha: isha || 0,
-        tahajjud: tahajjud || 0,
+        nafl: nafl || 0,
       },
       create: {
         userId,
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
         asr: asr || 0,
         maghrib: maghrib || 0,
         isha: isha || 0,
-        tahajjud: tahajjud || 0,
+        nafl: nafl || 0,
       },
     });
 
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
         asr: true,
         maghrib: true,
         isha: true,
-        tahajjud: true,
+        nafl: true,
       },
       where: {
         userId,

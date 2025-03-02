@@ -69,7 +69,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
         asr: pray.asr,
         maghrib: pray.maghrib,
         isha: pray.isha,
-        tahajjud: pray.tahajjud,
+        nafl: pray.nafl,
       };
       return acc;
     }, {});

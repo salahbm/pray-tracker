@@ -102,7 +102,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
                             asr: PRAYER_POINTS.NOT_TOUCHED,
                             maghrib: PRAYER_POINTS.NOT_TOUCHED,
                             isha: PRAYER_POINTS.NOT_TOUCHED,
-                            tahajjud: PRAYER_POINTS.NOT_TOUCHED,
+                            nafl: PRAYER_POINTS.NOT_TOUCHED,
                           };
                           onDayClick(selectedDate, { data: detailedData });
                         }

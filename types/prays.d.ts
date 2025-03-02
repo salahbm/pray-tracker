@@ -7,7 +7,7 @@ export interface IPrays {
   asr: number;
   maghrib: number;
   isha: number;
-  tahajjud: number;
+  nafl: number;
 
   createdAt: Date;
   updatedAt: Date;

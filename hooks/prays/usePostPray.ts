@@ -15,7 +15,7 @@ type PrayData = {
   asr?: number;
   maghrib?: number;
   isha?: number;
-  tahajjud?: number;
+  nafl?: number;
 };
 
 const createPray = async (data: PrayData): Promise<IResponse<IPrays>> => {
@@ -29,7 +29,7 @@ const createPray = async (data: PrayData): Promise<IResponse<IPrays>> => {
       asr: data.asr,
       maghrib: data.maghrib,
       isha: data.isha,
-      tahajjud: data.tahajjud,
+      nafl: data.nafl,
     }),
   });
   return response;

@@ -154,7 +154,7 @@ const FriendsApproved = () => {
                           SALAHS.ASR,
                           SALAHS.MAGHRIB,
                           SALAHS.ISHA,
-                          SALAHS.TAHAJJUD,
+                          SALAHS.NAFL,
                         ].includes(key as SALAHS),
                     );
 

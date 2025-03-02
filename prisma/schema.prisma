@@ -54,7 +54,7 @@ model Prays {
   asr       Int  @default(0)
   maghrib   Int  @default(0)
   isha      Int  @default(0)
-  tahajjud  Int  @default(0)
+  nafl  Int  @default(0)
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
