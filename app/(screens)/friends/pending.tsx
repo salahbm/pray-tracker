@@ -61,10 +61,10 @@ const FriendsPending = () => {
 
         {isLoadingPending ? (
           <Loader visible className="bg-transparent mt-[100%]" />
-        ) : Array.isArray(pendingFriends) && pendingFriends.length > 0 ? (
+        ) : Array.isArray(pendingFriends?.data) && pendingFriends?.data.length > 0 ? (
           <View className="space-y-3">
             {pendingFriends &&
-              pendingFriends?.map((item) => (
+              pendingFriends?.data?.map((item) => (
                 <View
                   key={item.friendId}
                   className="flex-col items-start justify-between p-3 bg-card rounded-lg shadow-sm gap-3"

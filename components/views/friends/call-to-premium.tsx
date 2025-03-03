@@ -33,7 +33,7 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
           value={`${feature}-${index}`}
         >
           <AccordionTrigger className="py-1">
-            <Text className="text-card-foreground font-normal tracking-tight">
+            <Text className="text-accent-foreground font-normal tracking-tight">
               {t(`Premium.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
@@ -88,28 +88,28 @@ const CallToAction = () => {
         </Text>
 
         {/* Welcome Section */}
-        <View className="bg-card rounded-2xl mt-6 w-full p-6">
-          <Text className="text-card-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-accent rounded-2xl mt-6 w-full p-6">
+          <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
             {t('Premium.WelcomeTitle')}
           </Text>
-          <Text className="text-muted-foreground text-center mt-3 text-base">
+          <Text className="text-secondary text-center mt-3 text-base">
             {t('Premium.WelcomeMessage')}
           </Text>
         </View>
 
         {/* Team Section */}
-        <View className="bg-card rounded-2xl mt-6 w-full p-6">
-          <Text className="text-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-accent rounded-2xl mt-6 w-full p-6">
+          <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
             {t('Premium.TeamTitle')}
           </Text>
-          <Text className="text-muted-foreground text-center mt-3 text-base">
+          <Text className="text-secondary text-center mt-3 text-base">
             {t('Premium.TeamMessage')}
           </Text>
         </View>
 
         {/* Features Section */}
         <View className="bg-accent rounded-2xl mt-6 w-full p-6">
-          <Text className="text-card-foreground text-xl font-semibold text-center mb-4 tracking-tight">
+          <Text className="text-accent-foreground text-xl font-semibold text-center mb-4 tracking-tight">
             {t('Premium.FeaturesTitle')}
           </Text>
 
@@ -135,7 +135,7 @@ const CallToAction = () => {
             </View>
           )}
 
-          <Text className="text-muted-foreground text-sm text-center mt-4 italic">
+          <Text className="text-secondary text-sm text-center mt-4 italic">
             {t('Premium.Future')}
           </Text>
         </View>
@@ -156,13 +156,13 @@ const CallToAction = () => {
           onPress={handleRestore}
           disabled={isLoading}
         >
-          <Text className="text-muted-foreground underline text-center font-medium text-base">
+          <Text className="text-secondary underline text-center font-medium text-base">
             {t('Premium.RestoreButton')}
           </Text>
         </TouchableOpacity>
       </ScrollView>
       {/* BOTTOM SHEET */}
-      <CustomBottomSheet sheetRef={ref} snapPoints={['40%']}>
+      <CustomBottomSheet sheetRef={ref} snapPoints={['40%', '60%']}>
         <PurchaseSheet />
       </CustomBottomSheet>
     </React.Fragment>

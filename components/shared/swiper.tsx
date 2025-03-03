@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ReanimatedSwipeable, {
   SwipeableMethods,
@@ -11,6 +10,7 @@ import Reanimated, {
 } from 'react-native-reanimated';
 
 import { Button } from '../ui/button';
+import { Text } from '../ui/text';
 
 // Define props for the SwiperButton
 interface SwiperButtonProps {

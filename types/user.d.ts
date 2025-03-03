@@ -9,8 +9,6 @@ export type TUser = {
   deviceToken?: string;
   firstName?: string;
   lastName?: string;
-  premium: boolean;
-  premiumExpiry: Date | null;
   createdAt: string;
   updatedAt: string;
 };

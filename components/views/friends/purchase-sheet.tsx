@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View,  TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   getSubscriptionPlans,
@@ -9,6 +9,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text } from '@/components/ui/text';
 
 export default function PurchaseSheet() {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ export default function PurchaseSheet() {
         {t('Premium.ChoosePlan')}
       </Text>
 
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <Tabs value={selectedTab} onValueChange={setSelectedTab} className='bg-card'>
         <TabsList className="flex-row w-full">
           <TabsTrigger value="monthly" className="flex-1">
             <Text>{t('Premium.Monthly')}</Text>

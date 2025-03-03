@@ -10,8 +10,8 @@ export enum THEMES {
   ocean_breeze = 'ocean_breeze',
   sunset = 'sunset',
   royal_purple = 'royal_purple',
-  sunset_orange = 'sunset_orange',
-  golden_desert = 'golden_desert',
+  pink_rose = 'pink_rose',
+  vibrant_orange = 'vibrant_orange',
   emerald_green = 'emerald_green',
 }
 
@@ -177,47 +177,47 @@ export const THEME_COLORS: AllThemes = {
     '--destructive-foreground': '#ffffff',
     '--ring': '#a386b6',
   },
-  golden_desert: {
-    '--background': '#fdf9f2',
-    '--foreground': '#5a422f',
-    '--muted': '#ede3d5',
-    '--muted-foreground': '#bfa58d',
-    '--popover': '#f7f1e8',
-    '--popover-foreground': '#5a422f',
-    '--card': '#ead8c4',
-    '--card-foreground': '#5a422f',
-    '--border': '#cfb599',
-    '--input': '#cfb599',
-    '--primary': '#b8987e',
-    '--primary-foreground': '#ffffff',
-    '--secondary': '#e3c9b0',
-    '--secondary-foreground': '#5a422f',
-    '--accent': '#d4b195',
-    '--accent-foreground': '#ffffff',
-    '--destructive': '#b35f5f',
-    '--destructive-foreground': '#ffffff',
-    '--ring': '#b8987e',
+  vibrant_orange: {
+    '--background': '#FFF5F0', // Light orange background
+    '--foreground': '#4A3328', // Deep orange-brown text
+    '--muted': '#FFE0D1', // Soft orange
+    '--muted-foreground': '#C79580', // Muted orange
+    '--popover': '#FFEAE0', // Light peach popover
+    '--popover-foreground': '#4A3328',
+    '--card': '#FFE0D1', // Soft orange cards
+    '--card-foreground': '#4A3328',
+    '--border': '#FFBEA3', // Orange border
+    '--input': '#FFBEA3',
+    '--primary': '#FF8C5A', // Vibrant orange
+    '--primary-foreground': '#FFFFFF',
+    '--secondary': '#FFC7B0', // Light orange secondary
+    '--secondary-foreground': '#4A3328',
+    '--accent': '#FFA07D', // Medium orange accent
+    '--accent-foreground': '#FFFFFF',
+    '--destructive': '#E63946', // Red for destructive actions
+    '--destructive-foreground': '#FFFFFF',
+    '--ring': '#FF8C5A',
   },
-  sunset_orange: {
-    '--background': '#fdf5f2',
-    '--foreground': '#5a2d2a',
-    '--muted': '#e8cfc8',
-    '--muted-foreground': '#b78679',
-    '--popover': '#f6e4de',
-    '--popover-foreground': '#5a2d2a',
-    '--card': '#eed0c5',
-    '--card-foreground': '#5a2d2a',
-    '--border': '#dba797',
-    '--input': '#dba797',
-    '--primary': '#c98b7d',
-    '--primary-foreground': '#ffffff',
-    '--secondary': '#e2b3a3',
-    '--secondary-foreground': '#5a2d2a',
-    '--accent': '#d4a192',
-    '--accent-foreground': '#ffffff',
-    '--destructive': '#b35f5f',
-    '--destructive-foreground': '#ffffff',
-    '--ring': '#c98b7d',
+  pink_rose: {
+    '--background': '#FFF0F3', // Light pink background
+    '--foreground': '#4A2B32', // Deep rose text
+    '--muted': '#FFD6E0', // Soft pink
+    '--muted-foreground': '#C7899B', // Muted rose
+    '--popover': '#FFE8ED', // Light rose popover
+    '--popover-foreground': '#4A2B32',
+    '--card': '#FFD6E0', // Soft pink cards
+    '--card-foreground': '#4A2B32',
+    '--border': '#FFADC4', // Pink border
+    '--input': '#FFADC4',
+    '--primary': '#FF6B95', // Vibrant pink
+    '--primary-foreground': '#FFFFFF',
+    '--secondary': '#FFB7CC', // Light pink secondary
+    '--secondary-foreground': '#4A2B32',
+    '--accent': '#FF8CAB', // Medium pink accent
+    '--accent-foreground': '#FFFFFF',
+    '--destructive': '#E63946', // Red for destructive actions
+    '--destructive-foreground': '#FFFFFF',
+    '--ring': '#FF6B95',
   },
   emerald_green: {
     '--background': '#f2f9f4',
@@ -249,9 +249,9 @@ export const Themes = {
   ocean_breeze: vars(THEME_COLORS.ocean_breeze),
   sunset: vars(THEME_COLORS.sunset),
   royal_purple: vars(THEME_COLORS.royal_purple),
-  golden_desert: vars(THEME_COLORS.golden_desert),
+  pink_rose: vars(THEME_COLORS.pink_rose),
+  vibrant_orange: vars(THEME_COLORS.vibrant_orange),
   emerald_green: vars(THEME_COLORS.emerald_green),
-  sunset_orange: vars(THEME_COLORS.sunset_orange),
 };
 
 export const StatusBarTheme: StatusBarThemeStyle = {
@@ -279,15 +279,15 @@ export const StatusBarTheme: StatusBarThemeStyle = {
     style: 'dark',
     background: '#1a0e2a',
   },
-  golden_desert: {
+  vibrant_orange: {
     style: 'dark',
-    background: '#3e2f1b',
+    background: '#2e1a1a',
   },
   emerald_green: {
     style: 'dark',
     background: '#1b2e23',
   },
-  sunset_orange: {
+  pink_rose: {
     style: 'dark',
     background: '#2e1a1a',
   },
@@ -305,7 +305,7 @@ export const TabTints: Record<THEMES, BlurTint> = {
   ocean_breeze: 'dark',
   sunset: 'dark',
   royal_purple: 'dark',
-  golden_desert: 'dark',
+  vibrant_orange: 'dark',
   emerald_green: 'dark',
-  sunset_orange: 'dark',
+  pink_rose: 'dark',
 } as const;

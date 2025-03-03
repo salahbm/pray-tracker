@@ -8,7 +8,7 @@ const FriendsScreen = () => {
   const { isLoading, isPremium } = useSubscription();
   return (
     <SafeAreaView className="main-area">
-      {isPremium || !isLoading ? <FriendsPremium /> : <FreemiumFriends />}
+      {isPremium ? <FriendsPremium /> : <FreemiumFriends />}
     </SafeAreaView>
   );
 };
