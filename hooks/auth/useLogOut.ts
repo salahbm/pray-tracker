@@ -17,8 +17,9 @@ export const useLogout = () => {
       try {
         // Ensure Supabase logs out first
         const { error } = await supabase.auth.signOut();
+        console.log('error:', error);
 
-        if (error)
+        if (error && error?.message !== 'Auth session missing!')
           throw new ApiError({
             message: error?.message || 'Failed to log out',
             status: error.status,

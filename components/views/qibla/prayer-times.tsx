@@ -16,7 +16,9 @@ import { useThemeStore } from '@/store/defaults/theme';
 const PrayerTimer = () => {
   const { t } = useTranslation();
   const [prayerTimes, setPrayerTimes] = useState(null);
-  const [location, setLocation] = useState(t('Qibla.PrayerTimes.Location.Fetching'));
+  const [location, setLocation] = useState(
+    t('Qibla.PrayerTimes.Location.Fetching'),
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { colors } = useThemeStore();

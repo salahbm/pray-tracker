@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { X } from 'lucide-react-native';
 import React, { useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
@@ -28,6 +29,7 @@ export default function ForgotPasswordScreen({
   onNavigate: () => void;
   onSuccess: () => void;
 }) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
   const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
@@ -96,14 +98,14 @@ export default function ForgotPasswordScreen({
     <React.Fragment>
       <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
-          Reset Password
+          {t('Auth.ForgotPassword.Title')}
         </Text>
         <Input
-          label="Email"
+          label={t('Auth.Email.Label')}
           autoCapitalize="none"
           className="mb-4 p-3"
           value={email}
-          placeholder="Enter your email"
+          placeholder={t('Auth.Email.Placeholder')}
           keyboardType="email-address"
           onChangeText={setEmail}
           autoCorrect={false}
@@ -116,20 +118,20 @@ export default function ForgotPasswordScreen({
           disabled={isRequestPending || isVerifyPending}
         >
           <Loader visible={isRequestPending} size="small" />
-          <Text className="font-bold">Send Verification</Text>
+          <Text className="font-bold">{t('Auth.ForgotPassword.Button')}</Text>
         </Button>
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center">
-          Remembered your password?
+          {t('Auth.ForgotPassword.RememberedPassword')}
         </Text>
         <Button
           variant="link"
           onPress={onNavigate}
           disabled={isRequestPending || isVerifyPending}
         >
-          <Text className="font-primary">Sign In</Text>
+          <Text className="font-primary">{t('Auth.ForgotPassword.SignInLink')}</Text>
         </Button>
       </View>
 
@@ -144,12 +146,14 @@ export default function ForgotPasswordScreen({
           >
             <X size={24} color={colors['--muted-foreground']} />
           </Button>
-          <Text className="text-2xl font-bold mb-2">Verification</Text>
+          <Text className="text-2xl font-bold mb-2">
+            {t('Auth.ForgotPassword.Verification.Title')}
+          </Text>
           <Text className=" mb-5">
-            We&apos;ve sent a verification code to {email}.
+            {t('Auth.ForgotPassword.Verification.Message', { email })}
           </Text>
           <Input
-            placeholder="Enter Code"
+            placeholder={t('Auth.ForgotPassword.Verification.Placeholder')}
             value={token}
             keyboardType="numeric"
             onChangeText={setToken}
@@ -161,7 +165,7 @@ export default function ForgotPasswordScreen({
             disabled={isRequestPending || isVerifyPending}
           >
             <Loader visible={isVerifyPending} size="small" />
-            <Text>Verify Email</Text>
+            <Text>{t('Auth.ForgotPassword.Verification.Button')}</Text>
           </Button>
         </View>
       </Modal>
@@ -173,9 +177,11 @@ export default function ForgotPasswordScreen({
             source={IMAGES.check}
             className="w-[80px] h-[80px] mx-auto my-5"
           />
-          <Text className="text-3xl font-bold text-center">Verified</Text>
+          <Text className="text-3xl font-bold text-center">
+            {t('Auth.ForgotPassword.Success.Title')}
+          </Text>
           <Text className="text-base text-muted-foreground text-center mt-2">
-            You have successfully verified your account.
+            {t('Auth.ForgotPassword.Success.Message')}
           </Text>
           <Button
             onPress={() => {
@@ -185,7 +191,7 @@ export default function ForgotPasswordScreen({
             }}
             className="mt-5"
           >
-            <Text>Update Password</Text>
+            <Text>{t('Auth.ForgotPassword.Success.Button')}</Text>
           </Button>
         </View>
       </Modal>

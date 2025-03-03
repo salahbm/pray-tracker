@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
@@ -10,6 +11,7 @@ import { onboarding } from 'constants/onboarding';
 import { useOnboarding } from 'store/defaults/onboarding';
 
 const Home = () => {
+  const { t } = useTranslation();
   const swiperRef = useRef<Swiper>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { setVisited } = useOnboarding();
@@ -64,13 +66,13 @@ const Home = () => {
       </Swiper>
 
       <Button onPress={onNextPress} className="w-11/12 mt-10 mb-5">
-        <Text>{isLastSlide ? 'Get Started' : 'Next'}</Text>
+        <Text>{isLastSlide ? t('Auth.Welcome.GetStarted') : t('Auth.Welcome.Next')}</Text>
       </Button>
       <TouchableOpacity
         onPress={onSkipPress}
         className="w-full flex justify-center items-center p-5"
       >
-        <Text className="text-foreground text-md">Skip</Text>
+        <Text className="text-foreground text-md">{t('Auth.Welcome.Skip')}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -1,5 +1,6 @@
 import { User } from '@supabase/supabase-js';
 import React, { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 
 import { X } from '@/components/shared/icons';
@@ -18,6 +19,7 @@ interface ISignUp {
 }
 
 export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
+  const { t } = useTranslation();
   const {
     supabaseSignUp,
     onPressVerify,
@@ -89,53 +91,53 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     <React.Fragment>
       <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-2 text-center">
-          Join Us
+          {t('Auth.SignUp.Title')}
         </Text>
         <Text className="text-sm text-muted-foreground text-center mb-6">
-          Create an account to continue
+          {t('Auth.SignUp.Subtitle')}
         </Text>
 
         <Input
-          label="Email"
+          label={t('Auth.Email.Label')}
           value={form.email}
           onChangeText={(email) => setForm({ ...form, email })}
           autoCapitalize="none"
           className="mb-4 p-3"
-          placeholder="Enter your email"
+          placeholder={t('Auth.Email.Placeholder')}
           keyboardType="email-address"
           autoCorrect={false}
           spellCheck={false}
         />
 
         <Input
-          label="Username"
+          label={t('Auth.Username.Label')}
           className="mb-4"
           value={form.username}
-          placeholder="Enter your username"
+          placeholder={t('Auth.Username.Placeholder')}
           onChangeText={(username) => setForm({ ...form, username })}
         />
 
         <Input
-          label="Password"
+          label={t('Auth.Password.Label')}
           className="mb-10"
           value={form.password}
-          placeholder="Enter your password"
+          placeholder={t('Auth.Password.Placeholder')}
           secureTextEntry
           onChangeText={(password) => setForm({ ...form, password })}
         />
 
         <Button onPress={onSignUpPress} disabled={isPendingSupabaseSignUp}>
           <Loader visible={isPendingSupabaseSignUp} size="small" />
-          <Text>Sign Up</Text>
+          <Text>{t('Auth.SignUp.Button')}</Text>
         </Button>
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center gap-4">
         <Text className="text-sm text-muted-foreground text-center">
-          Already have an account?
+          {t('Auth.SignUp.HasAccount')}
         </Text>
         <Button variant="link" onPress={onNavigate}>
-          <Text>Sign In</Text>
+          <Text>{t('Auth.SignUp.SignInLink')}</Text>
         </Button>
       </View>
 
@@ -153,12 +155,14 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               color={colors['--primary']}
             />
           </Button>
-          <Text className="text-2xl font-bold mb-2">Verification</Text>
+          <Text className="text-2xl font-bold mb-2">
+            {t('Auth.SignUp.Verification.Title')}
+          </Text>
           <Text className="text-gray-600 mb-5">
-            We&apos;ve sent a verification code to {form.email}.
+            {t('Auth.SignUp.Verification.Message', { email: form.email })}
           </Text>
           <Input
-            placeholder="12345"
+            placeholder={t('Auth.SignUp.Verification.Placeholder')}
             className="p-3 rounded-lg bg-surface border border-border"
             value={form.token}
             keyboardType="numeric"
@@ -170,7 +174,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             disabled={isPendingOnPressVerify || isPendingPostUser}
           >
             <Loader visible={isPendingOnPressVerify || isPendingPostUser} />
-            <Text>Verify Email</Text>
+            <Text>{t('Auth.SignUp.Verification.Button')}</Text>
           </Button>
         </View>
       </Modal>
@@ -182,9 +186,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             source={IMAGES.check}
             className="w-[80px] h-[80px] mx-auto my-5"
           />
-          <Text className="text-3xl font-bold text-center">Verified</Text>
+          <Text className="text-3xl font-bold text-center">
+            {t('Auth.SignUp.Success.Title')}
+          </Text>
           <Text className="text-base text-muted-foreground text-center mt-2">
-            You have successfully verified your account.
+            {t('Auth.SignUp.Success.Message')}
           </Text>
           <Button
             onPress={() => {
@@ -193,7 +199,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             }}
             className="mt-5"
           >
-            <Text>Sign In</Text>
+            <Text>{t('Auth.SignUp.Success.Button')}</Text>
           </Button>
         </View>
       </Modal>

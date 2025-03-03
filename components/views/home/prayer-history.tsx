@@ -95,16 +95,11 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           isVisible={isPickerVisible}
           onBackdropPress={togglePicker}
         />
-        {Object.keys(transformedData).length === 0 ? (
-          <Text className="text-center text-muted-foreground mt-4">
-            {t('Home.PrayerHistory.NoData')}
-          </Text>
-        ) : (
-          <HeatMap
-            data={transformedData ?? null}
-            year={year}
-            onDayClick={handleDayClick}
-            color={{
+        <HeatMap
+          data={transformedData ?? null}
+          year={year}
+          onDayClick={handleDayClick}
+          color={{
               theme: colors['--primary'],
               opacity: [
                 { opacity: 0, limit: 0 },
@@ -117,7 +112,6 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
               ],
             }}
           />
-        )}
       </View>
 
       {/* Past Prayer History */}

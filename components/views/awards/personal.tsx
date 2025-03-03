@@ -139,7 +139,7 @@ export default function PersonalTab() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const [selectedAward, setSelectedAward] = useState< IAward| null>(null);
+  const [selectedAward, setSelectedAward] = useState<IAward | null>(null);
 
   const categories = [
     'first',

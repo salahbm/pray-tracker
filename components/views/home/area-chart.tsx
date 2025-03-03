@@ -29,20 +29,7 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         text: format(new Date(pray.date), 'dd.MM.yy'),
       }));
   }, [lineData]);
-
-  if (!lineData || lineData.length === 0) {
-    return (
-      <View className="mt-6">
-        <Text className={cn('text-xl font-semibold mb-4')}>
-          {t('Home.Charts.Title')}
-        </Text>
-        <Text className="text-center text-muted-foreground">
-          {t('Home.Charts.NoData')}
-        </Text>
-      </View>
-    );
-  }
-
+  
   return (
     <React.Fragment>
       <Text className={cn('text-xl font-semibold mt-6 mb-4')}>

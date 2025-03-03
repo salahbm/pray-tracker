@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
@@ -19,6 +20,7 @@ export default function SignInScreen({
   onNavigate,
   onForgotPassword,
 }: ISignIn) {
+  const { t } = useTranslation();
   // HOOKS and STATES
   const { mutateAsync: signIn, isPending } = useLoginUser();
 
@@ -44,30 +46,30 @@ export default function SignInScreen({
     <React.Fragment>
       <View className="w-full max-w-md mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
-          Welcome back
+          {t('Auth.SignIn.Title')}
         </Text>
         <Input
-          label="Email"
+          label={t('Auth.Email.Label')}
           value={form.email}
           onChangeText={(email) => setForm({ ...form, email })}
           autoCapitalize="none"
           className="mb-4 p-3"
-          placeholder="Enter your email"
+          placeholder={t('Auth.Email.Placeholder')}
           keyboardType="email-address"
           autoCorrect={false}
           spellCheck={false}
         />
         <Input
-          label="Password"
+          label={t('Auth.Password.Label')}
           className="mb-10 p-3"
           value={form.password}
-          placeholder="Enter your password"
+          placeholder={t('Auth.Password.Placeholder')}
           secureTextEntry
           onChangeText={(password) => setForm({ ...form, password })}
         />
         <Button className="mb-4" disabled={isPending} onPress={onSignInPress}>
           <Loader visible={isPending} size="small" />
-          <Text className="font-bold">Sign In</Text>
+          <Text className="font-bold">{t('Auth.SignIn.Button')}</Text>
         </Button>
         {/* OAuth */}
         <OAuth onSuccess={onSuccess} />
@@ -75,17 +77,17 @@ export default function SignInScreen({
 
       <View className="mt-8 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center ">
-          Don&apos;t have an account?
+          {t('Auth.SignIn.NoAccount')}
         </Text>
         <Button variant="link" onPress={onNavigate}>
-          <Text className="font-primary">Sign up</Text>
+          <Text className="font-primary">{t('Auth.SignIn.SignUpLink')}</Text>
         </Button>
       </View>
 
       <View className="justify-center items-center">
         <TouchableOpacity onPress={onForgotPassword}>
           <Text className="font-primary underline text-sm">
-            Forgot your password?
+            {t('Auth.SignIn.ForgotPassword')}
           </Text>
         </TouchableOpacity>
       </View>

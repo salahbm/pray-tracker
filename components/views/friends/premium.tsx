@@ -39,7 +39,8 @@ const FriendsApproved = () => {
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
-  const { mutateAsync: deleteFriend, isPending: isDeleting } = useDeleteFriend();
+  const { mutateAsync: deleteFriend, isPending: isDeleting } =
+    useDeleteFriend();
   const [friendEmail, setFriendEmail] = useState('');
   const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
 
@@ -104,7 +105,9 @@ const FriendsApproved = () => {
       </View>
 
       {/* Approved Friends List */}
-      <Text className="text-xl font-bold mb-3">{t('Friends.Premium.Title')}</Text>
+      <Text className="text-xl font-bold mb-3">
+        {t('Friends.Premium.Title')}
+      </Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[100%] bg-transparent" />
       ) : approvedFriends?.data.length > 0 ? (

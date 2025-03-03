@@ -17,7 +17,6 @@ export async function GET(request: Request) {
       );
     }
 
-    
     const awards = await prisma.award.findMany({
       where: {
         userId: id,

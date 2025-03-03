@@ -214,19 +214,20 @@
     "PrayerHistory": {
       "Title": "Prayer Journey",
       "SelectYear": "Select Hijri Year",
-      "NoData": "No prayers recorded yet, start your spiritual journey",
       "Details": "Prayer Details",
       "Date": "Date"
     },
     "Charts": {
       "Title": "Ibadah Progress",
       "YAxis": "Prayer Count",
-      "XAxis": "Time Period",
-      "NoData": "Start your prayer journey to see your progress"
+      "XAxis": "Time Period"
     },
     "TodaysPrayers": {
       "Title": "Today's Prayers",
       "SubTitle": "May Allah (ﷻ) accept your prayers"
+    },
+    "Errors":{
+      "FutureDate":"You cannot select a future date"
     }
   },
   "Awards": {
@@ -414,6 +415,67 @@
     }
   },
 
+  "Auth": {
+    "Email": {
+      "Label": "Email",
+      "Placeholder": "Enter your email"
+    },
+    "Username": {
+      "Label": "Username",
+      "Placeholder": "Enter your username"
+    },
+    "Password": {
+      "Label": "Password",
+      "Placeholder": "Enter your password"
+    },
+    "SignIn": {
+      "Title": "Welcome back",
+      "Button": "Sign In",
+      "NoAccount": "Don't have an account?",
+      "SignUpLink": "Sign up",
+      "ForgotPassword": "Forgot your password?"
+    },
+    "SignUp": {
+      "Title": "Join Us",
+      "Subtitle": "Create an account to continue",
+      "Button": "Sign Up",
+      "HasAccount": "Already have an account?",
+      "SignInLink": "Sign In",
+      "Verification": {
+        "Title": "Verification",
+        "Message": "We've sent a verification code to {{email}}.",
+        "Placeholder": "12345",
+        "Button": "Verify Email"
+      },
+      "Success": {
+        "Title": "Verified",
+        "Message": "You have successfully verified your account.",
+        "Button": "Sign In"
+      }
+    },
+    "ForgotPassword": {
+      "Title": "Reset Password",
+      "Button": "Send Verification",
+      "RememberedPassword": "Remembered your password?",
+      "SignInLink": "Sign In",
+      "Verification": {
+        "Title": "Verification",
+        "Message": "We've sent a verification code to {{email}}.",
+        "Placeholder": "Enter Code",
+        "Button": "Verify Email"
+      },
+      "Success": {
+        "Title": "Verified",
+        "Message": "You have successfully verified your account.",
+        "Button": "Update Password"
+      }
+    },
+    "Welcome": {
+      "Next": "Next",
+      "GetStarted": "Get Started",
+      "Skip": "Skip"
+    }
+  },
   "Friends": {
     "Title": "Friends",
     "Premium": {
