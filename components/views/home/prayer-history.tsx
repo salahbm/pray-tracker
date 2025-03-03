@@ -100,18 +100,18 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           year={year}
           onDayClick={handleDayClick}
           color={{
-              theme: colors['--primary'],
-              opacity: [
-                { opacity: 0, limit: 0 },
-                { opacity: 0.1, limit: 1 },
-                { opacity: 0.2, limit: 2 },
-                { opacity: 0.4, limit: 4 },
-                { opacity: 0.6, limit: 6 },
-                { opacity: 0.8, limit: 8 },
-                { opacity: 1, limit: MAX_DISPLAY_POINTS },
-              ],
-            }}
-          />
+            theme: colors['--primary'],
+            opacity: [
+              { opacity: 0, limit: 0 },
+              { opacity: 0.1, limit: 1 },
+              { opacity: 0.2, limit: 2 },
+              { opacity: 0.4, limit: 4 },
+              { opacity: 0.6, limit: 6 },
+              { opacity: 0.8, limit: 8 },
+              { opacity: 1, limit: MAX_DISPLAY_POINTS },
+            ],
+          }}
+        />
       </View>
 
       {/* Past Prayer History */}

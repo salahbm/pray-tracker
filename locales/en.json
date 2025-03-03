@@ -564,5 +564,125 @@
       "UpgradeButton": "Bismillah, I'm in",
       "UpgradePrompt": "Please, upgrade to a premium plan"
     }
+  },
+  "Profile": {
+    "Title": "Profile",
+    "Navigation": {
+      "Account": "Account",
+      "EditProfile": "Edit Profile",
+      "EditPassword": "Edit Password",
+      "Settings": "Settings",
+      "PrivacySecurity": "Privacy & Security",
+      "TermsConditions": "Terms & Conditions"
+    },
+    "Account": {
+      "Title": "Account",
+      "DeleteAccount": "Delete Account",
+      "DeleteConfirm": "Are you sure you want to delete your account?",
+      "DeleteMessage": "This action is irreversible, and we will be sad to see you go. All your data will be permanently deleted.",
+      "DeleteButton": "Yes, Delete My Account",
+      "CancelButton": "Cancel",
+      "LogoutButton": "Logout"
+    },
+    "EditProfile": {
+      "Title": "Edit Profile",
+      "Fields": {
+        "Username": {
+          "Label": "Username",
+          "Placeholder": "Enter your username"
+        },
+        "FirstName": {
+          "Label": "First Name",
+          "Placeholder": "Enter your first name"
+        },
+        "LastName": {
+          "Label": "Last Name",
+          "Placeholder": "Enter your last name"
+        }
+      },
+      "SaveButton": "Save Changes"
+    },
+    "EditPassword": {
+      "Title": "Edit Password",
+      "Fields": {
+        "CurrentPassword": {
+          "Label": "Current Password",
+          "Placeholder": "Enter your current password"
+        },
+        "NewPassword": {
+          "Label": "New Password",
+          "Placeholder": "Enter your new password"
+        },
+        "ConfirmPassword": {
+          "Label": "Confirm Password",
+          "Placeholder": "Confirm your new password"
+        }
+      },
+      "SaveButton": "Update Password"
+    },
+    "Settings": {
+      "Title": "Settings",
+      "Theme": "Theme",
+      "Language": "Language",
+      "Notifications": "Notifications"
+    },
+    "Terms": {
+      "Title": "Terms & Conditions",
+      "Agreement": {
+        "Title": "Agreement to Terms",
+        "Content": "By accessing and using the Pray Tracker app, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access the app."
+      },
+      "Usage": {
+        "Title": "Acceptable Use",
+        "Content": "You agree to use Pray Tracker only for its intended purpose of tracking and managing your daily prayers. You must not use the app in any way that causes, or may cause, damage to the app or impairment of the availability or accessibility of Pray Tracker."
+      },
+      "UserContent": {
+        "Title": "User Content",
+        "Content": "Any content you submit to Pray Tracker, including prayer records and personal information, remains your property. However, by submitting content, you grant us a license to use, modify, and display that content for the purpose of providing our services."
+      },
+      "Subscription": {
+        "Title": "Premium Subscription",
+        "Content": "Some features of Pray Tracker are available through a premium subscription. Subscription fees are non-refundable except where required by law. We reserve the right to modify subscription pricing with reasonable notice."
+      },
+      "Termination": {
+        "Title": "Account Termination",
+        "Content": "We may terminate or suspend your account immediately, without prior notice, for any breach of these Terms and Conditions. Upon termination, your right to use Pray Tracker will immediately cease."
+      },
+      "Changes": {
+        "Title": "Changes to Terms",
+        "Content": "We reserve the right to modify these terms at any time. We will notify users of any material changes. Your continued use of Pray Tracker following changes to these terms constitutes acceptance of those changes."
+      },
+      "Contact": {
+        "Title": "Contact Us",
+        "Content": "If you have any questions about these Terms and Conditions, please contact us at support@praytracker.com"
+      }
+    },
+    "Privacy": {
+      "Title": "Privacy Policy",
+      "DataCollection": {
+        "Title": "Information We Collect",
+        "Content": "We collect information you provide directly, including your name, email address, and prayer records. We also automatically collect certain information about your device and how you use Pray Tracker to improve your experience."
+      },
+      "DataUse": {
+        "Title": "How We Use Your Information",
+        "Content": "We use your information to provide and improve Pray Tracker services, communicate with you, and personalize your experience. Your prayer data is used to generate insights and statistics about your prayer habits to help you maintain consistency in your spiritual journey."
+      },
+      "DataSharing": {
+        "Title": "Information Sharing",
+        "Content": "We do not sell or share your personal information. Your data is strictly used within the Pray Tracker app to provide you with the best prayer tracking experience. Your privacy is our top priority."
+      },
+      "Security": {
+        "Title": "Data Security",
+        "Content": "We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security. We continuously work to protect your data using industry-standard security practices."
+      },
+      "Changes": {
+        "Title": "Changes to Privacy Policy",
+        "Content": "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the effective date."
+      },
+      "Contact": {
+        "Title": "Contact Us",
+        "Content": "If you have any questions about this Privacy Policy or our data practices, please contact us at privacy@praytracker.com"
+      }
+    }
   }
 }

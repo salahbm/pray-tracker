@@ -29,7 +29,7 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
         text: format(new Date(pray.date), 'dd.MM.yy'),
       }));
   }, [lineData]);
-  
+
   return (
     <React.Fragment>
       <Text className={cn('text-xl font-semibold mt-6 mb-4')}>

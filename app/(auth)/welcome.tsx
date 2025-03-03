@@ -66,13 +66,17 @@ const Home = () => {
       </Swiper>
 
       <Button onPress={onNextPress} className="w-11/12 mt-10 mb-5">
-        <Text>{isLastSlide ? t('Auth.Welcome.GetStarted') : t('Auth.Welcome.Next')}</Text>
+        <Text>
+          {isLastSlide ? t('Auth.Welcome.GetStarted') : t('Auth.Welcome.Next')}
+        </Text>
       </Button>
       <TouchableOpacity
         onPress={onSkipPress}
         className="w-full flex justify-center items-center p-5"
       >
-        <Text className="text-foreground text-md">{t('Auth.Welcome.Skip')}</Text>
+        <Text className="text-foreground text-md">
+          {t('Auth.Welcome.Skip')}
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

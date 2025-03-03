@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,6 +19,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 
 const Account = () => {
   const { user } = useAuthStore();
+  const { t } = useTranslation();
   const { mutate: logOut, isPending } = useLogout();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,7 +43,7 @@ const Account = () => {
     <SafeAreaView className="safe-area">
       <Loader visible={isDeleting || isPending} />
       <View className="main-area">
-        <GoBack title="Account" />
+        <GoBack title={t('Profile.Account.Title')} />
 
         <Image
           source={{
@@ -81,7 +83,7 @@ const Account = () => {
         onPress={() => setModalVisible(true)}
       >
         <Text className="text-muted-foreground underline font-thin">
-          Withdraw Account
+          {t('Profile.Account.DeleteAccount')}
         </Text>
       </Button>
 
@@ -92,7 +94,9 @@ const Account = () => {
         onPress={handleLogOut}
         disabled={isPending || isDeleting}
       >
-        <Text className="text-destructive font-bold">Logout</Text>
+        <Text className="text-destructive font-bold">
+          {t('Profile.Account.LogoutButton')}
+        </Text>
         <LogOut className="stroke-destructive" />
       </Button>
 
@@ -103,22 +107,21 @@ const Account = () => {
       >
         <View className="bg-popover rounded-lg p-6">
           <Text className="text-lg font-bold mb-4 text-center">
-            Are you sure you want to withdraw your account?
+            {t('Profile.Account.DeleteConfirm')}
           </Text>
           <Text className="text-sm text-center text-popover-foreground mb-6">
-            This action is irreversible, and we will be sad to see you go. All
-            your data will be permanently deleted.
+            {t('Profile.Account.DeleteMessage')}
           </Text>
           <View className="flex-row justify-center gap-4">
             <Button variant="outline" onPress={() => setModalVisible(false)}>
-              <Text>Cancel</Text>
+              <Text>{t('Profile.Account.CancelButton')}</Text>
             </Button>
             <Button
               className="bg-destructive"
               onPress={handleWithdrawAccount}
               disabled={isDeleting}
             >
-              <Text>Yes, Withdraw</Text>
+              <Text>{t('Profile.Account.DeleteButton')}</Text>
             </Button>
           </View>
         </View>

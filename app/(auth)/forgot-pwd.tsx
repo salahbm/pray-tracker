@@ -131,7 +131,9 @@ export default function ForgotPasswordScreen({
           onPress={onNavigate}
           disabled={isRequestPending || isVerifyPending}
         >
-          <Text className="font-primary">{t('Auth.ForgotPassword.SignInLink')}</Text>
+          <Text className="font-primary">
+            {t('Auth.ForgotPassword.SignInLink')}
+          </Text>
         </Button>
       </View>
 

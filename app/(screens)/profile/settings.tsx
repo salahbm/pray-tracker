@@ -22,15 +22,18 @@ const Settings = () => {
   const { currentLanguage } = useLanguageStore();
   const { disableNotifications, enableNotifications, isNotificationEnabled } =
     useNotificationSettings();
+
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
-        <GoBack title="Settings" />
+        <GoBack title={t('Profile.Settings.Title')} />
         <TouchableOpacity
           className="touchable mt-4"
           onPress={() => themeRef.current?.snapToIndex(2)}
         >
-          <Text className="text-base text-muted-foreground ml-2">Theme</Text>
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('Profile.Settings.Theme')}
+          </Text>
           <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
             <View
               style={{
@@ -77,7 +80,9 @@ const Settings = () => {
           className="touchable"
           onPress={() => langRef.current?.snapToIndex(2)}
         >
-          <Text className="text-base text-muted-foreground ml-2">Language</Text>
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('Profile.Settings.Language')}
+          </Text>
 
           <Text className="text-base text-muted-foreground ml-2">
             {FLAGS[currentLanguage]}{' '}
@@ -87,7 +92,7 @@ const Settings = () => {
         <AuthWrapper mode="signedIn">
           <View className="touchable">
             <Text className="text-base text-muted-foreground ml-2">
-              Notifications
+              {t('Profile.Settings.Notifications')}
             </Text>
 
             {/* Switch to enable / disable notifications */}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,6 +16,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 
 const EditPwd = () => {
   const { user } = useAuthStore();
+  const { t } = useTranslation();
   const { mutate: logOut, isPending } = useLogout();
 
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
@@ -55,7 +57,7 @@ const EditPwd = () => {
 
   return (
     <SafeAreaView className="main-area">
-      <GoBack title="Edit Password" />
+      <GoBack title={t('Profile.EditPassword.Title')} />
       <Image
         source={{ uri: user?.photo || FRIENDS.guest }}
         accessibilityLabel="Profile Photo"
@@ -63,16 +65,18 @@ const EditPwd = () => {
       />
       <View className="flex-1 gap-6">
         <Input
-          label="New Password"
-          placeholder="Your New Password"
+          label={t('Profile.EditPassword.Fields.NewPassword.Label')}
+          placeholder={t('Profile.EditPassword.Fields.NewPassword.Placeholder')}
           autoCapitalize="none"
           secureTextEntry
           value={newPassword}
           onChangeText={setNewPassword}
         />
         <Input
-          label="Confirm New Password"
-          placeholder="Confirm New Password"
+          label={t('Profile.EditPassword.Fields.ConfirmPassword.Label')}
+          placeholder={t(
+            'Profile.EditPassword.Fields.ConfirmPassword.Placeholder',
+          )}
           autoCapitalize="none"
           secureTextEntry
           value={confirmPassword}
@@ -81,7 +85,7 @@ const EditPwd = () => {
       </View>
       <View className="pb-4">
         <Button onPress={handleUpdate} disabled={isLoading || isPending}>
-          <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
+          <Text>{t('Profile.EditPassword.SaveButton')}</Text>
         </Button>
       </View>
     </SafeAreaView>

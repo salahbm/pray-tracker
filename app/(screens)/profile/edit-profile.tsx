@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -20,6 +21,7 @@ import { MessageCodes, StatusCode } from '@/utils/status';
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
   const { colors } = useThemeStore();
+  const { t } = useTranslation();
   const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
 
   const [username, setUserName] = useState<string>(user?.username || '');
@@ -27,6 +29,7 @@ const EditProfile = () => {
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [image, setImage] = useState<string>(user?.photo || '');
   const [imageUploading, setImageUploading] = useState<boolean>(false);
+
   const onPickImage = async () => {
     try {
       const permissionResult =
@@ -103,7 +106,7 @@ const EditProfile = () => {
       if (res) {
         setUser(res.data);
 
-        // ✅ DELETE OLD IMAGE **AFTER** SUCCESSFUL UPDATE
+        // DELETE OLD IMAGE **AFTER** SUCCESSFUL UPDATE
         if (oldImagePath) {
           const { error } = await supabase.storage
             .from('avatars')
@@ -127,7 +130,7 @@ const EditProfile = () => {
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
-        <GoBack title="Edit Profile" />
+        <GoBack title={t('Profile.EditProfile.Title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
             {imageUploading ? (
@@ -154,22 +157,22 @@ const EditProfile = () => {
         </View>
         <View className="flex gap-6 pb-12">
           <Input
-            label="User Name"
-            placeholder="Your User Name"
+            label={t('Profile.EditProfile.Fields.Username.Label')}
+            placeholder={t('Profile.EditProfile.Fields.Username.Placeholder')}
             value={username}
             onChangeText={setUserName}
             autoCapitalize="words"
           />
           <Input
-            label="First Name"
-            placeholder="Your First Name"
+            label={t('Profile.EditProfile.Fields.FirstName.Label')}
+            placeholder={t('Profile.EditProfile.Fields.FirstName.Placeholder')}
             value={firstName}
             onChangeText={setFirstName}
             autoCapitalize="words"
           />
           <Input
-            label="Last Name"
-            placeholder="Your Last Name"
+            label={t('Profile.EditProfile.Fields.LastName.Label')}
+            placeholder={t('Profile.EditProfile.Fields.LastName.Placeholder')}
             value={lastName}
             onChangeText={setLastName}
             autoCapitalize="words"
@@ -178,7 +181,7 @@ const EditProfile = () => {
       </View>
       <View className="bg-background px-5 py-4">
         <Button onPress={handleUpdate} disabled={isLoading || imageUploading}>
-          <Text>{isLoading ? 'Updating...' : 'Update'}</Text>
+          <Text>{t('Profile.EditProfile.SaveButton')}</Text>
         </Button>
       </View>
     </SafeAreaView>
