@@ -357,5 +357,50 @@
     "gratitude_master": "🙏 Master of gratitude in worship!",
     "prophetic_way": "👣 Following the Prophetic way in prayer!",
     "spiritual_excellence": "✨ Achieved spiritual excellence!"
+  },
+  "Premium": {
+    "Title": "Join Prayer Tracker Plus",
+    "Subtitle": "Elevate Your Spiritual Journey",
+    "WelcomeTitle": "As-salaam-alaikum! 🌟",
+    "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
+    "FeaturesTitle": "Premium Features",
+    "MoreFeatures": "See More Features",
+    "LessFeatures": "Show Less",
+    "Features": {
+      "Friends": {
+        "title": "Connect with Fellow Believers",
+        "description": "Build a supportive community, share prayer achievements, and encourage each other on the path of righteousness."
+      },
+      "Awards": {
+        "title": "Community Achievements",
+        "description": "Unlock special badges for praying in congregation, helping others maintain their prayers, and building a spiritual community."
+      },
+      "Widgets": {
+        "title": "Beautiful Prayer Widgets",
+        "description": "Elegant home screen widgets showing prayer times, Qibla direction, and your daily prayer progress."
+      },
+      "Analytics": {
+        "title": "Detailed Prayer Analytics",
+        "description": "Gain deeper insights into your prayer journey with comprehensive statistics and trends."
+      },
+      "Reminders": {
+        "title": "Advanced Prayer Reminders",
+        "description": "Customizable Adhan notifications, smart reminders based on your schedule, and Sunnah prayer alerts."
+      },
+      "Themes": {
+        "title": "Exclusive Islamic Themes",
+        "description": "Beautiful themes inspired by Islamic art and architecture to enhance your app experience."
+      },
+      "Support": {
+        "title": "Priority Support",
+        "description": "Get fast, dedicated support and help shape the future of Prayer Tracker with your feedback."
+      }
+    },
+    "Future": "And more features coming soon, In sha Allah",
+    "TeamTitle": "Meet the Team",
+    "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
+    "SubscribeButton": "Support Our Mission",
+    "RestoreButton": "Restore Subscription",
+    "BismillahMessage": "Bismillah, let's begin this blessed journey together"
   }
 }

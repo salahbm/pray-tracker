@@ -24,7 +24,6 @@ const isErrorData = (error: unknown): error is ErrorData => {
 };
 
 const QueryProvider = ({ children }: PropsWithChildren) => {
-
   const { t } = useTranslation();
   const { errorHandler } = useError();
 

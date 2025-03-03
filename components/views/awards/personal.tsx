@@ -11,7 +11,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Modal from '@/components/shared/modal';
 import { useThemeStore } from '@/store/defaults/theme';
 
-
 const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
   const { t } = useTranslation();
   const awardText = t(`Awards.${award.title}`);
@@ -126,10 +125,10 @@ const ListFooter = ({ earnedCount, score }) => {
 
 export default function PersonalTab() {
   const { user } = useAuthStore();
-  const { data, isLoading,refetch } = useAwards(user?.id);
+  const { data, isLoading, refetch } = useAwards(user?.id);
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
-  const {colors} = useThemeStore()
+  const { colors } = useThemeStore();
   const [selectedAward, setSelectedAward] = useState(null);
 
   const categories = [
