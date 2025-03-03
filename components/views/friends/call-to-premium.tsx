@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSubscription } from '@/hooks/use-subscription';
 
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
@@ -26,10 +27,10 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
       {features.map((feature,index) => (
         <AccordionItem 
           key={`${feature}-${index}`} 
-          value={`${feature}-${index}`} 
+          value={`${feature}-${index}`}
         >
           <AccordionTrigger className='py-1'>
-            <Text className="text-card-foreground font-normal  tracking-tight">
+            <Text className="text-card-foreground font-normal tracking-tight">
               {t(`Premium.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
@@ -48,6 +49,27 @@ const CallToAction = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const [showAllFeatures, setShowAllFeatures] = useState(false);
+  const { isLoading, plans, isPremium, error, purchase, restore } = useSubscription();
+
+  // Handle subscription purchase
+  const handleSubscribe = async (planId: string) => {
+    const success = await purchase(planId);
+    if (success) {
+      fireToast.success(t('Premium.SuccessMessage'));
+    } else {
+      fireToast.error(t('Premium.ErrorMessage'));
+    }
+  };
+
+  // Handle restore purchase
+  const handleRestore = async () => {
+    const success = await restore();
+    if (success) {
+      fireToast.success(t('Premium.RestoreSuccess'));
+    } else {
+      fireToast.error(t('Premium.RestoreError'));
+    }
+  };
 
   return (
     <ScrollView
@@ -98,10 +120,10 @@ const CallToAction = () => {
 
         {/* More Features Button */}
         <TouchableOpacity
-          className="mt-6 py-2"
+          className="mt-4 py-2"
           onPress={() => setShowAllFeatures(!showAllFeatures)}
         >
-          <Text className="text-primary text-center font-semibold">
+          <Text className="text-primary text-center font-medium">
             {showAllFeatures ? t('Premium.LessFeatures') : t('Premium.MoreFeatures')}
           </Text>
         </TouchableOpacity>
@@ -113,24 +135,46 @@ const CallToAction = () => {
           </View>
         )}
 
-        <Text className="text-muted-foreground text-sm text-center mt-6 italic">
+        <Text className="text-muted-foreground text-sm text-center mt-4 italic">
           {t('Premium.Future')}
         </Text>
       </View>
 
-      {/* Action Buttons */}
-      <Button
-        className="bg-primary rounded-full py-4 px-8 mt-8 w-full"
-        onPress={() => fireToast.info('Please, upgrade to a premium plan.')}
-      >
-        <Text className="text-primary-foreground font-bold text-center text-lg">
-          {t('Premium.SubscribeButton')} ❤️
-        </Text>
-      </Button>
+      {/* Subscription Plans */}
+      {isLoading ? (
+        <ActivityIndicator className="mt-8" color="var(--primary)" />
+      ) : error ? (
+        <Text className="text-destructive text-center mt-8">{error}</Text>
+      ) : (
+        <View className="mt-8 space-y-4">
+          {plans.map((plan) => (
+            <Button
+              key={plan.identifier}
+              className="bg-primary rounded-full py-4 px-8 w-full"
+              onPress={() => handleSubscribe(plan.identifier)}
+            >
+              <View>
+                <Text className="text-primary-foreground font-bold text-center text-lg">
+                  {plan.description}
+                </Text>
+                {plan.originalPrice && plan.originalPrice > plan.price && (
+                  <Text className="text-primary-foreground text-sm line-through">
+                    ${plan.originalPrice.toFixed(2)}
+                  </Text>
+                )}
+                <Text className="text-primary-foreground text-lg">
+                  ${plan.price.toFixed(2)} / {plan.period}
+                </Text>
+              </View>
+            </Button>
+          ))}
+        </View>
+      )}
 
+      {/* Restore Button */}
       <TouchableOpacity
         className="mt-4 mb-8"
-        onPress={() => fireToast.info('Restoring subscription...')}
+        onPress={handleRestore}
       >
         <Text className="text-muted-foreground underline text-center font-medium text-base">
           {t('Premium.RestoreButton')}
