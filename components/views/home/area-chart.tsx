@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, View } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
 
@@ -9,7 +10,9 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
 
 const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
+  const { t } = useTranslation();
   const { colors } = useThemeStore();
+
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
 
@@ -27,10 +30,23 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
       }));
   }, [lineData]);
 
+  if (!lineData || lineData.length === 0) {
+    return (
+      <View className="mt-6">
+        <Text className={cn('text-xl font-semibold mb-4')}>
+          {t('Home.Charts.Title')}
+        </Text>
+        <Text className="text-center text-muted-foreground">
+          {t('Home.Charts.NoData')}
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <React.Fragment>
       <Text className={cn('text-xl font-semibold mt-6 mb-4')}>
-        Prayer Stats
+        {t('Home.Charts.Title')}
       </Text>
       <LineChart
         data={transformPraysToLineData}
@@ -74,8 +90,12 @@ const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
           activatePointersOnLongPress: true,
           pointerLabelComponent: (point) => (
             <View className="flex-col items-start justify-center px-2 py-1 bg-background border border-border rounded-md">
-              <Text className="text-sm">Date: {point[0].text}</Text>
-              <Text className="text-sm">Point: {point[0].value}</Text>
+              <Text className="text-sm">
+                {t('Home.PrayerHistory.Date')}: {point[0].text}
+              </Text>
+              <Text className="text-sm">
+                {t('Home.Charts.YAxis')}: {point[0].value}
+              </Text>
             </View>
           ),
         }}

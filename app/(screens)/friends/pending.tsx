@@ -61,7 +61,8 @@ const FriendsPending = () => {
 
         {isLoadingPending ? (
           <Loader visible className="bg-transparent mt-[100%]" />
-        ) : Array.isArray(pendingFriends?.data) && pendingFriends?.data.length > 0 ? (
+        ) : Array.isArray(pendingFriends?.data) &&
+          pendingFriends?.data.length > 0 ? (
           <View className="space-y-3">
             {pendingFriends &&
               pendingFriends?.data?.map((item) => (

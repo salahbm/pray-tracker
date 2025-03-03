@@ -1,9 +1,10 @@
 import Checkbox from 'expo-checkbox';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { PRAYER_POINTS } from '@/constants/enums';
+import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -13,19 +14,24 @@ interface IPrayers {
 }
 
 const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
+  const { t } = useTranslation();
   const { colors } = useThemeStore();
+
   return (
     <React.Fragment>
       <View className="flex-row items-center justify-between mt-6 mb-2">
         <Text className={cn('text-xl font-semibold')}>
-          Today&apos;s Prayers
+          {t('Home.TodaysPrayers.Title')}
         </Text>
-        <View className="flex-1 flex-row justify-end gap-2">
+        <View className="flex-1 flex-row justify-end gap-4">
           <Text className={cn('text-sm font-bold text-center')}>Missed</Text>
           <Text className={cn('text-sm font-bold text-center')}>Late</Text>
           <Text className={cn('text-sm font-bold text-center')}>On Time</Text>
         </View>
       </View>
+      <Text className="text-sm text-muted-foreground mb-4">
+        {t('Home.TodaysPrayers.SubTitle')}
+      </Text>
       {Object.entries(prayers).map(([prayer, value]) => (
         <View key={prayer} className="flex-row items-center justify-between">
           <Text className={cn('capitalize font-semibold')}>{prayer}</Text>

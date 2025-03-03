@@ -210,6 +210,25 @@
       "noData": "No data found"
     }
   },
+  "Home": {
+    "PrayerHistory": {
+      "Title": "Prayer Journey",
+      "SelectYear": "Select Hijri Year",
+      "NoData": "No prayers recorded yet, start your spiritual journey",
+      "Details": "Prayer Details",
+      "Date": "Date"
+    },
+    "Charts": {
+      "Title": "Ibadah Progress",
+      "YAxis": "Prayer Count",
+      "XAxis": "Time Period",
+      "NoData": "Start your prayer journey to see your progress"
+    },
+    "TodaysPrayers": {
+      "Title": "Today's Prayers",
+      "SubTitle": "May Allah (ﷻ) accept your prayers"
+    }
+  },
   "Awards": {
     "YourAwards": "Your Prayer Journey",
     "Completed": "Awards Completed",
@@ -292,7 +311,7 @@
     "gratitude_master": "🙏 Master of gratitude in worship!",
     "prophetic_way": "👣 Following the Prophetic way in prayer!",
     "spiritual_excellence": "✨ Achieved spiritual excellence!",
- "Descriptions": {
+    "Descriptions": {
       "first_prayer": "Begin your spiritual journey by recording your first prayer.",
       "first_full_day": "Complete all five daily prayers in one day.",
       "first_week": "Track your prayers consistently for a full week.",

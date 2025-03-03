@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
 import * as Haptics from 'expo-haptics';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import HeatMap from '@/components/shared/heat-map';
@@ -36,6 +37,7 @@ interface PrayerHistoryProps {
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
+  const { t } = useTranslation();
   const {
     isPickerVisible,
     year,
@@ -79,7 +81,9 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     <React.Fragment>
       <View className="mt-6">
         <View className="flex flex-row justify-between items-center mb-4">
-          <Text className={cn('text-xl font-semibold')}>Prayer History</Text>
+          <Text className={cn('text-xl font-semibold')}>
+            {t('Home.PrayerHistory.Title')}
+          </Text>
           <Button variant="outline" size="sm" onPress={togglePicker}>
             <Text>{year}</Text>
           </Button>
@@ -91,27 +95,32 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
           isVisible={isPickerVisible}
           onBackdropPress={togglePicker}
         />
-        <HeatMap
-          data={transformedData ?? null}
-          year={year}
-          onDayClick={handleDayClick}
-          color={{
-            theme: colors['--primary'],
-            opacity: [
-              { opacity: 0, limit: 0 },
-              { opacity: 0.1, limit: 1 },
-              { opacity: 0.2, limit: 2 },
-              { opacity: 0.4, limit: 4 },
-              { opacity: 0.6, limit: 6 },
-              { opacity: 0.8, limit: 8 },
-              { opacity: 1, limit: MAX_DISPLAY_POINTS },
-            ],
-          }}
-        />
+        {Object.keys(transformedData).length === 0 ? (
+          <Text className="text-center text-muted-foreground mt-4">
+            {t('Home.PrayerHistory.NoData')}
+          </Text>
+        ) : (
+          <HeatMap
+            data={transformedData ?? null}
+            year={year}
+            onDayClick={handleDayClick}
+            color={{
+              theme: colors['--primary'],
+              opacity: [
+                { opacity: 0, limit: 0 },
+                { opacity: 0.1, limit: 1 },
+                { opacity: 0.2, limit: 2 },
+                { opacity: 0.4, limit: 4 },
+                { opacity: 0.6, limit: 6 },
+                { opacity: 0.8, limit: 8 },
+                { opacity: 1, limit: MAX_DISPLAY_POINTS },
+              ],
+            }}
+          />
+        )}
       </View>
 
       {/* Past Prayer History */}
-
       <Accordion
         type="single"
         value={accordion}
@@ -123,7 +132,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
               <View className={cn('p-4 bg-muted rounded-md')}>
                 <View className="w-full flex flex-row items-center justify-between">
                   <Text className={cn('text-md text-muted-foreground')}>
-                    {clickedData.date}
+                    {t('Home.PrayerHistory.Date')}: {clickedData.date}
                   </Text>
                   <Button
                     variant="outline"

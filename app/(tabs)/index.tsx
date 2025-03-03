@@ -10,6 +10,7 @@ import {
   useEffect,
   useReducer,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import {
@@ -68,6 +69,7 @@ function reducer(state, action) {
 }
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   // DATE STATE
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
@@ -156,7 +158,7 @@ export default function HomeScreen() {
     (date: string, details: { data: DayData }) => {
       // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
-      if (isDateAfterToday) return fireToast.info('Cannot view future dates');
+      if (isDateAfterToday) return fireToast.info(t('Home.Errors.FutureDate'));
 
       // if today, scroll to top
       if (date === format(today, 'yyyy-MM-dd')) {
@@ -173,7 +175,7 @@ export default function HomeScreen() {
       });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
-    [today],
+    [today, t],
   );
 
   const handleUpdateClickedDay = useCallback(
@@ -187,10 +189,9 @@ export default function HomeScreen() {
       });
 
       dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
-      fireToast.info('Prayer updated successfully');
       refetch();
     },
-    [createPray, user?.id, refetch],
+    [createPray, user?.id, refetch, t],
   );
 
   useEffect(() => {

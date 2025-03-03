@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View,  TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   getSubscriptionPlans,
@@ -62,7 +62,7 @@ export default function PurchaseSheet() {
         {t('Premium.ChoosePlan')}
       </Text>
 
-      <Tabs value={selectedTab} onValueChange={setSelectedTab} className='bg-card'>
+      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="flex-row w-full">
           <TabsTrigger value="monthly" className="flex-1">
             <Text>{t('Premium.Monthly')}</Text>
