@@ -18,7 +18,6 @@ export function Language() {
   // Fetch languages object
   const languages = t('Commons.Locales.languages', { returnObjects: true });
   const locales = Object.keys(languages);
-
   return (
     <ScrollView contentContainerClassName="flex-1 flex  justify-between items-start gap-4 w-full pt-4">
       <Text className="text-xl font-bold ">{t('Commons.Locales.choose')}</Text>

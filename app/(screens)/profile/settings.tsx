@@ -11,15 +11,15 @@ import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
 import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
 import { AuthWrapper } from '@/providers/session';
-import { useLanguageStore } from '@/store/defaults/language';
 import { useThemeStore } from '@/store/defaults/theme';
+import { useLanguage } from '@/hooks/common/useTranslation';
 
 const Settings = () => {
   const themeRef = useRef<BottomSheet>(null);
   const langRef = useRef<BottomSheet>(null);
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const { currentLanguage } = useLanguageStore();
+  const { currentLanguage } = useLanguage();
   const { disableNotifications, enableNotifications, isNotificationEnabled } =
     useNotificationSettings();
 
