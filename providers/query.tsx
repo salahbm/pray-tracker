@@ -11,6 +11,7 @@ import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
 import { ApiError } from '@/utils/error';
 import { MessageCodes, StatusCode } from '@/utils/status';
+import { useTranslation } from 'react-i18next';
 
 const isErrorData = (error: unknown): error is ErrorData => {
   return (
@@ -23,6 +24,8 @@ const isErrorData = (error: unknown): error is ErrorData => {
 };
 
 const QueryProvider = ({ children }: PropsWithChildren) => {
+
+  const { t } = useTranslation();
   const { errorHandler } = useError();
 
   const [queryClient] = useState(
@@ -47,11 +50,6 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
                   ? error.message
                   : 'An unknown error occurred',
               );
-              return;
-            }
-
-            if (error.code === MessageCodes.SOMETHING_WENT_WRONG) {
-              errorHandler(error);
               return;
             }
 
@@ -98,7 +96,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           }) => {
             console.log('Mutation success:', res);
             if (res && 'code' in res) {
-              fireToast.success(`Responses.MessageCodes.${res?.code}`);
+              fireToast.success(t(`Responses.MessageCodes.${res?.code}`));
             }
           },
         }),

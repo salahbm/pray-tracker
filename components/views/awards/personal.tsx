@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
-import { View, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from '@/components/ui/text';
 import AWARDS from '@/constants/awards';
 import { useAwards } from '@/hooks/awards/useGetAwards';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { env } from 'process';
 import Loader from '@/components/shared/loader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Modal from '@/components/shared/modal';
+import { useThemeStore } from '@/store/defaults/theme';
 
-interface Award {
-  title: string;
-  awardedAt: Date;
-}
 
 const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
   const { t } = useTranslation();
@@ -65,9 +61,7 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
 
 const AwardCategory = ({ title, earnedAwards, onPressAward }) => {
   const { t } = useTranslation();
-  const categoryAwards = AWARDS.filter((award) =>
-    award.title.startsWith(title + '_'),
-  );
+  const categoryAwards = AWARDS.filter((award) => award.category === title);
 
   if (categoryAwards.length === 0) return null;
 
@@ -132,10 +126,10 @@ const ListFooter = ({ earnedCount, score }) => {
 
 export default function PersonalTab() {
   const { user } = useAuthStore();
-  const { data, isLoading } = useAwards(user?.id);
-  console.log('data:', data);
+  const { data, isLoading,refetch } = useAwards(user?.id);
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const {colors} = useThemeStore()
   const [selectedAward, setSelectedAward] = useState(null);
 
   const categories = [
@@ -191,6 +185,13 @@ export default function PersonalTab() {
         contentContainerStyle={{
           paddingBottom: insets.bottom + 50,
         }}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={refetch}
+            tintColor={colors['--primary']}
+          />
+        }
       />
 
       <Modal

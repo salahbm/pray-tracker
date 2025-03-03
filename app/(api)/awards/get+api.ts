@@ -20,9 +20,6 @@ export async function GET(request: Request) {
       where: {
         userId: id,
       },
-      include: {
-        user: true,
-      },
       orderBy: {
         awardedAt: 'desc',
       },
