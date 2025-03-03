@@ -1,6 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import React, { useState, memo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image, ImageSourcePropType } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -23,6 +24,7 @@ import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const FreemiumFriends = () => {
+  const { t } = useTranslation();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
   // BOTTOM SHEETS REFERENCES
@@ -32,7 +34,7 @@ const FreemiumFriends = () => {
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
 
   const handleUpgrade = () => {
-    fireToast.info('Please, upgrade to a premium plan.');
+    fireToast.info(t('Friends.Freemium.UpgradePrompt'));
   };
   return (
     <React.Fragment>
@@ -43,7 +45,7 @@ const FreemiumFriends = () => {
       >
         <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
-        <Text className="text-xl font-bold mb-3"> Friends</Text>
+        <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
 
         {FRIENDS_DATA.map((friend) => (
           <SwiperButton

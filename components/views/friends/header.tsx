@@ -1,11 +1,14 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import React, { forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image, Text } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { FRIENDS } from '@/constants/images';
 
 const FreemiumTrackerIntro = forwardRef<BottomSheet, unknown>((props, ref) => {
+  const { t } = useTranslation();
+
   return (
     <React.Fragment>
       {/* Overlapping images with curved border */}
@@ -55,13 +58,12 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, unknown>((props, ref) => {
 
       {/* Text title */}
       <Text className="text-center text-md font-medium mt-4 text-secondary-foreground">
-        Prayer Tracker +
+        {t('Friends.Freemium.Title')}
       </Text>
 
       {/* Text description */}
       <Text className="text-center text-sm text-muted-foreground mt-2 px-8">
-        Join our Premium plan and unlock exclusive features, including the
-        ability to track your prayer progress and share it with your friends.
+        {t('Friends.Freemium.Description')}
       </Text>
 
       {/* Button */}
@@ -80,7 +82,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, unknown>((props, ref) => {
           }
         }}
       >
-        <Text>Bismillah, I&apos;m in</Text>
+        <Text>{t('Friends.Freemium.UpgradeButton')}</Text>
       </Button>
     </React.Fragment>
   );

@@ -2,6 +2,7 @@ import Checkbox from 'expo-checkbox';
 import { router } from 'expo-router';
 import { Search, Users } from 'lucide-react-native';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, RefreshControl, ScrollView, Image } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -28,6 +29,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const FriendsApproved = () => {
+  const { t } = useTranslation();
   const { user } = useAuthStore();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
@@ -37,14 +39,13 @@ const FriendsApproved = () => {
     refetch: refetchApproved,
   } = useGetApprovedFriends(user?.id);
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
-  const { mutateAsync: deleteFriend, isPending: isDeleting } =
-    useDeleteFriend();
+  const { mutateAsync: deleteFriend, isPending: isDeleting } = useDeleteFriend();
   const [friendEmail, setFriendEmail] = useState('');
   const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
 
   const handleSendRequest = async () => {
     if (!friendEmail.trim()) {
-      fireToast.error('Please enter a valid email.');
+      fireToast.error(t('Friends.Premium.InvalidEmail'));
       return;
     }
     await sendFriendRequest({
@@ -72,7 +73,7 @@ const FriendsApproved = () => {
           <View className="flex-1">
             <Input
               className="px-4 py-2 border-0"
-              placeholder="Enter Friend's Email"
+              placeholder={t('Friends.Premium.SearchPlaceholder')}
               value={friendEmail}
               onChangeText={setFriendEmail}
               autoCapitalize="none"
@@ -87,7 +88,7 @@ const FriendsApproved = () => {
             size="icon"
             onPress={handleSendRequest}
             disabled={isSending}
-            className="px-3 border-l rounded-none border-input" // Left border to separate
+            className="px-3 border-l rounded-none border-input"
           >
             <Search size={24} color={colors['--foreground']} />
           </Button>
@@ -103,7 +104,7 @@ const FriendsApproved = () => {
       </View>
 
       {/* Approved Friends List */}
-      <Text className="text-xl font-bold mb-3">Approved Friends</Text>
+      <Text className="text-xl font-bold mb-3">{t('Friends.Premium.Title')}</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[100%] bg-transparent" />
       ) : approvedFriends?.data.length > 0 ? (
@@ -145,7 +146,6 @@ const FriendsApproved = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   {friend.prays.map((salah) => {
-                    // Extract only the prayer-related fields
                     const prayerEntries = Object.entries(salah).filter(
                       ([key]) =>
                         [
@@ -164,7 +164,7 @@ const FriendsApproved = () => {
                         className="flex-row items-center justify-between py-1"
                       >
                         <Text className={cn('capitalize font-semibold')}>
-                          {prayer}
+                          {t(`Friends.Premium.PrayerTypes.${prayer}`)}
                         </Text>
 
                         <View className="flex-row gap-4">
@@ -197,7 +197,7 @@ const FriendsApproved = () => {
           </SwiperButton>
         ))
       ) : (
-        <NoData title="No approved friends found." className="mt-[45%]" />
+        <NoData title={t('Friends.Premium.NoFriends')} className="mt-[45%]" />
       )}
     </ScrollView>
   );

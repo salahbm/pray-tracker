@@ -413,8 +413,16 @@
       }
     }
   },
-  "Premium": {
-    "Title": "Join Prayer Tracker Plus",
+
+  "Friends": {
+    "Title": "Friends",
+    "Premium": {
+      "ApprovedFriends": "Approved Friends",
+      "SearchPlaceholder": "Enter Friend's Email",
+      "NoFriends": "No approved friends found",
+      "SendRequest": "Send Request",
+      "ViewPending": "View Pending Requests",
+      "Title": "Join Prayer Tracker Plus",
     "Subtitle": "Elevate Your Spiritual Journey",
     "WelcomeTitle": "As-salaam-alaikum! ",
     "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
@@ -487,5 +495,12 @@
     "SubscribeButton": "Support Our Mission",
     "RestoreButton": "Restore Subscription",
     "BismillahMessage": "Bismillah, let's begin this blessed journey together"
+    },
+    "Freemium": {
+      "Title": "Prayer Tracker +",
+      "Description": "Join our Premium plan and unlock exclusive features, including the ability to track your prayer progress and share it with your friends.",
+      "UpgradeButton": "Bismillah, I'm in",
+      "UpgradePrompt": "Please, upgrade to a premium plan"
+    }
   }
 }

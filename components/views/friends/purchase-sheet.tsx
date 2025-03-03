@@ -59,16 +59,16 @@ export default function PurchaseSheet() {
   return (
     <View>
       <Text className="text-2xl font-semibold mb-4 text-center">
-        {t('Premium.ChoosePlan')}
+        {t('Friends.Premium.ChoosePlan')}
       </Text>
 
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="flex-row w-full">
           <TabsTrigger value="monthly" className="flex-1">
-            <Text>{t('Premium.Monthly')}</Text>
+            <Text>{t('Friends.Premium.Monthly')}</Text>
           </TabsTrigger>
           <TabsTrigger value="yearly" className="flex-1">
-            <Text>{t('Premium.Yearly')}</Text>
+            <Text>{t('Friends.Premium.Yearly')}</Text>
           </TabsTrigger>
         </TabsList>
 
@@ -95,7 +95,7 @@ export default function PurchaseSheet() {
       </Tabs>
 
       <Text className="mt-6 text-center text-xs text-muted-foreground">
-        {t('Premium.AutoRenew')}
+        {t('Friends.Premium.AutoRenew')}
       </Text>
     </View>
   );
@@ -125,7 +125,7 @@ function PlanDetails({
 
       {savings && (
         <Text className="text-sm font-semibold text-green-500 mb-4">
-          {t('Premium.SavePerYear', { amount: savings })}
+          {t('Friends.Premium.SavePerYear', { amount: savings })}
         </Text>
       )}
 
@@ -141,7 +141,7 @@ function PlanDetails({
           <ActivityIndicator className="text-primary-foreground" />
         ) : (
           <Text className="text-base font-medium text-primary-foreground">
-            {t('Premium.SubscribeNow')}
+            {t('Friends.Premium.SubscribeNow')}
           </Text>
         )}
       </TouchableOpacity>
@@ -149,7 +149,7 @@ function PlanDetails({
       <View className="flex flex-row items-center justify-center gap-2 mt-4">
         <TouchableOpacity onPress={() => console.log('Terms of Use pressed')}>
           <Text className="text-xs text-muted-foreground underline">
-            {t('Premium.TermsButton')}
+            {t('Friends.Premium.TermsButton')}
           </Text>
         </TouchableOpacity>
         <Text className="text-muted-foreground">|</Text>
@@ -157,7 +157,7 @@ function PlanDetails({
           onPress={() => console.log('Restore purchases pressed')}
         >
           <Text className="text-xs text-muted-foreground underline">
-            {t('Premium.RestoreButton')}
+            {t('Friends.Premium.RestoreButton')}
           </Text>
         </TouchableOpacity>
       </View>

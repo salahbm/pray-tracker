@@ -34,12 +34,12 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
         >
           <AccordionTrigger className="py-1">
             <Text className="text-accent-foreground font-normal tracking-tight">
-              {t(`Premium.Features.${feature}.title`)}
+              {t(`Friends.Premium.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
           <AccordionContent className="px-1">
             <Text className="text-muted-foreground font-normal !text-sm leading-relaxed">
-              {t(`Premium.Features.${feature}.description`)}
+              {t(`Friends.Premium.Features.${feature}.description`)}
             </Text>
           </AccordionContent>
         </AccordionItem>
@@ -58,9 +58,9 @@ const CallToAction = () => {
   const handleRestore = async () => {
     const success = await restore();
     if (success) {
-      fireToast.success(t('Premium.RestoreSuccess'));
+      fireToast.success(t('Friends.Premium.RestoreSuccess'));
     } else {
-      fireToast.error(t('Premium.RestoreError'));
+      fireToast.error(t('Friends.Premium.RestoreError'));
     }
   };
 
@@ -76,41 +76,41 @@ const CallToAction = () => {
       >
         {/* Bismillah */}
         <Text className="text-muted-foreground text-center mt-6 text-sm font-medium">
-          {t('Premium.BismillahMessage')}
+          {t('Friends.Premium.BismillahMessage')}
         </Text>
 
         {/* Header Section */}
         <Text className="text-foreground text-2xl font-bold mt-4 text-center tracking-tight">
-          {t('Premium.Title')}
+          {t('Friends.Premium.Title')}
         </Text>
         <Text className="text-muted-foreground text-lg text-center mt-1 font-medium">
-          {t('Premium.Subtitle')}
+          {t('Friends.Premium.Subtitle')}
         </Text>
 
         {/* Welcome Section */}
         <View className="bg-accent rounded-2xl mt-6 w-full p-6">
           <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
-            {t('Premium.WelcomeTitle')}
+            {t('Friends.Premium.WelcomeTitle')}
           </Text>
           <Text className="text-secondary text-center mt-3 text-base">
-            {t('Premium.WelcomeMessage')}
+            {t('Friends.Premium.WelcomeMessage')}
           </Text>
         </View>
 
         {/* Team Section */}
         <View className="bg-accent rounded-2xl mt-6 w-full p-6">
           <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
-            {t('Premium.TeamTitle')}
+            {t('Friends.Premium.TeamTitle')}
           </Text>
           <Text className="text-secondary text-center mt-3 text-base">
-            {t('Premium.TeamMessage')}
+            {t('Friends.Premium.TeamMessage')}
           </Text>
         </View>
 
         {/* Features Section */}
         <View className="bg-accent rounded-2xl mt-6 w-full p-6">
           <Text className="text-accent-foreground text-xl font-semibold text-center mb-4 tracking-tight">
-            {t('Premium.FeaturesTitle')}
+            {t('Friends.Premium.FeaturesTitle')}
           </Text>
 
           {/* Main Features */}
@@ -123,8 +123,8 @@ const CallToAction = () => {
           >
             <Text className="text-secondary text-center font-normal text-sm">
               {showAllFeatures
-                ? t('Premium.LessFeatures')
-                : t('Premium.MoreFeatures')}
+                ? t('Friends.Premium.LessFeatures')
+                : t('Friends.Premium.MoreFeatures')}
             </Text>
           </TouchableOpacity>
 
@@ -136,7 +136,7 @@ const CallToAction = () => {
           )}
 
           <Text className="text-secondary text-sm text-center mt-4 italic">
-            {t('Premium.Future')}
+            {t('Friends.Premium.Future')}
           </Text>
         </View>
 
@@ -147,7 +147,7 @@ const CallToAction = () => {
           onPress={() => ref.current?.snapToIndex(1)}
           disabled={isLoading}
         >
-          <Text>{t('Premium.SubscribeButton')} ❤️</Text>
+          <Text>{t('Friends.Premium.SubscribeButton')} ❤️</Text>
         </Button>
 
         {/* Restore Button */}
@@ -157,7 +157,7 @@ const CallToAction = () => {
           disabled={isLoading}
         >
           <Text className="text-secondary underline text-center font-medium text-base">
-            {t('Premium.RestoreButton')}
+            {t('Friends.Premium.RestoreButton')}
           </Text>
         </TouchableOpacity>
       </ScrollView>

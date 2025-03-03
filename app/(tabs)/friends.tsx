@@ -5,7 +5,7 @@ import FriendsPremium from '@/components/views/friends/premium';
 import { useSubscription } from '@/hooks/use-subscription';
 
 const FriendsScreen = () => {
-  const { isLoading, isPremium } = useSubscription();
+  const { isPremium } = useSubscription();
   return (
     <SafeAreaView className="main-area">
       {isPremium ? <FriendsPremium /> : <FreemiumFriends />}
