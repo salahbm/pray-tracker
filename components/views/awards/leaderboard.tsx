@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { TUser } from '@/types/user';
 
 export default function Leaderboard() {
+  const { t } = useTranslation();
   const { data, isLoading } = useGetUsersList();
   const insets = useSafeAreaInsets();
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
@@ -33,7 +35,9 @@ export default function Leaderboard() {
             >
               <Text className="text-lg font-semibold">{index + 1}.</Text>
               <Text className="text-lg font-semibold">{item.username}</Text>
-              <Text className="text-lg">{item.totalPoints} pts</Text>
+              <Text className="text-lg">
+                {item.totalPoints} {t('Awards.Leaderboard.Points')}
+              </Text>
             </View>
           </TouchableOpacity>
         )}
@@ -55,7 +59,8 @@ export default function Leaderboard() {
           <View>
             <Text className="text-xl font-bold">{selectedUser?.username}</Text>
             <Text className="text-lg text-muted-foreground">
-              Points: {selectedUser?.totalPoints}
+              {t('Awards.Leaderboard.UserDetails.Points')}:{' '}
+              {selectedUser?.totalPoints}
             </Text>
             <Text className="text-sm text-muted-foreground">
               {selectedUser?.firstName} {selectedUser?.lastName}

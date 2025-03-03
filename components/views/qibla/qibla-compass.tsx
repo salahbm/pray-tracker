@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
 import { CircleHelp, RefreshCcw } from 'lucide-react-native';
 import React, { useEffect, useReducer, useCallback, Reducer } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image } from 'react-native';
 
 import Loader from '@/components/shared/loader';
@@ -60,6 +61,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
 };
 
 const QiblaCompass: React.FC = () => {
+  const { t } = useTranslation();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { colors } = useThemeStore();
   const isFocused = useIsFocused();
@@ -77,14 +79,14 @@ const QiblaCompass: React.FC = () => {
     try {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
       if (!isMagnetAvailable) {
-        fireToast.error('Magnetometer not available.');
+        fireToast.error(t('Qibla.Compass.Errors.Magnetometer'));
         dispatch({ type: 'STOP_LOADING' });
         return;
       }
 
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        fireToast.error('Location permission required.');
+        fireToast.error(t('Qibla.Compass.Errors.Location'));
         dispatch({ type: 'STOP_LOADING' });
         return;
       }
@@ -151,7 +153,6 @@ const QiblaCompass: React.FC = () => {
 
   return (
     <View className="items-center h-full">
-      {/* Description how to use */}
       <Text
         className={cn(
           'text-lg mt-20 text-muted-foreground',
@@ -160,10 +161,10 @@ const QiblaCompass: React.FC = () => {
             : 'font-medium',
         )}
       >
-        Magnetic North: {state.magnetAngle}°
+        {t('Qibla.Compass.MagneticNorth')}: {state.magnetAngle}°
       </Text>
       <Text className="text-lg font-medium text-primary">
-        Qibla: {state.qiblaAngle.toFixed(2)}°
+        {t('Qibla.Compass.QiblaDirection')}: {state.qiblaAngle.toFixed(2)}°
       </Text>
 
       {/* Compass Container */}
@@ -199,10 +200,8 @@ const QiblaCompass: React.FC = () => {
               <CircleHelp size={20} color={colors['--primary']} />
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="p-2 w-72 justify-center items-center">
-            <Text className="text-sm font-medium text-muted-foreground text-center">
-              Rotate your phone and match Magnetic North with Qibla
-            </Text>
+          <TooltipContent>
+            <Text className="text-sm">{t('Qibla.Compass.Help')}</Text>
           </TooltipContent>
         </Tooltip>
       </View>

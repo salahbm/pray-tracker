@@ -230,11 +230,14 @@
     }
   },
   "Awards": {
-    "YourAwards": "Your Prayer Journey",
-    "Completed": "Awards Completed",
-    "CurrentScore": "Journey Progress",
-    "AwardsEarned": "achievements unlocked",
-    "KeepGoing": "Keep striving to unlock this achievement!",
+    "Tabs": {
+      "Personal": "My Records",
+      "Leaderboard": "Leaderboard"
+    },
+    "YourAwards": "Your Awards",
+    "Completed": "Completed",
+    "CurrentScore": "Current Score",
+    "AwardsEarned": "awards earned",
     "Categories": {
       "first": "First Steps",
       "streak": "Prayer Streaks",
@@ -245,8 +248,14 @@
       "dhikr_quran": "Dhikr & Quran",
       "special_times": "Special Times",
       "community": "Community",
-      "milestone": "Journey Milestones",
-      "special": "Special Achievements"
+      "milestone": "Milestones",
+      "special": "Special Awards"
+    },
+    "Leaderboard": {
+      "Points": "pts",
+      "UserDetails": {
+        "Points": "Points"
+      }
     },
     "first_prayer": "🌟 First prayer recorded - Beginning of your journey!",
     "first_full_day": "📅 Completed your first full day of prayers!",
@@ -375,6 +384,33 @@
       "gratitude_master": "Express gratitude in worship.",
       "prophetic_way": "Follow the Prophetic way in prayer.",
       "spiritual_excellence": "Achieve spiritual excellence."
+    }
+  },
+  "Qibla": {
+    "Tabs": {
+      "Qibla": "Qibla Direction",
+      "Times": "Prayer Times"
+    },
+    "Compass": {
+      "MagneticNorth": "Magnetic North",
+      "QiblaDirection": "Qibla Direction",
+      "Degrees": "degrees",
+      "Help": "Point your phone towards Qibla and align with Kaaba",
+      "Errors": {
+        "Magnetometer": "Magnetometer not available",
+        "Location": "Location permission required"
+      }
+    },
+    "PrayerTimes": {
+      "Location": {
+        "Fetching": "Fetching location...",
+        "Unknown": "Unknown"
+      },
+      "TimeLeft": "left until next prayer",
+      "Errors": {
+        "Title": "Permission Denied",
+        "Message": "Location permission is required to calculate prayer times"
+      }
     }
   },
   "Premium": {

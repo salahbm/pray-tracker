@@ -16,6 +16,8 @@ export async function GET(request: Request) {
         { status: StatusCode.UNAUTHORIZED },
       );
     }
+
+    
     const awards = await prisma.award.findMany({
       where: {
         userId: id,

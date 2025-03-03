@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { useTranslation } from 'react-i18next';
+
 import { Text } from '@/components/ui/text';
 import AWARDS from '@/constants/awards';
 import { useAwards } from '@/hooks/awards/useGetAwards';
@@ -10,6 +11,13 @@ import Loader from '@/components/shared/loader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Modal from '@/components/shared/modal';
 import { useThemeStore } from '@/store/defaults/theme';
+
+interface IAward {
+  title: string;
+  description: string;
+  isEarned: boolean;
+  earnedDate: string;
+}
 
 const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
   const { t } = useTranslation();
@@ -44,12 +52,14 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
           {description}
         </Text>
         {isEarned && (
-          <Text className="text-xs text-muted-foreground">
-            {new Date(earnedDate).toLocaleDateString()}
-          </Text>
+          <View className="absolute top-5 right-2">
+            <Text className="text-xs text-muted-foreground">
+              {new Date(earnedDate).toLocaleDateString()}
+            </Text>
+          </View>
         )}
         {!isEarned && (
-          <View className="absolute top-2 right-2">
+          <View className="absolute top-5 right-2">
             <Text className="text-base opacity-80">🔒</Text>
           </View>
         )}
@@ -129,7 +139,7 @@ export default function PersonalTab() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const [selectedAward, setSelectedAward] = useState(null);
+  const [selectedAward, setSelectedAward] = useState< IAward| null>(null);
 
   const categories = [
     'first',
@@ -197,34 +207,21 @@ export default function PersonalTab() {
         isVisible={!!selectedAward}
         onBackdropPress={() => setSelectedAward(null)}
       >
-        <View className="bg-card p-6 rounded-2xl">
+        <View className="bg-card rounded-md relative">
           {selectedAward && (
-            <>
-              <View className="flex-row items-center justify-between mb-4">
-                <Text className="text-3xl">
-                  {t(`Awards.${selectedAward.title}`).split(' ')[0]}
-                </Text>
-                {selectedAward.isEarned && (
-                  <Text className="text-sm text-muted-foreground">
-                    {new Date(selectedAward.earnedDate).toLocaleDateString()}
-                  </Text>
-                )}
-              </View>
-              <Text className="text-lg font-semibold text-foreground mb-2">
-                {t(`Awards.${selectedAward.title}`)
-                  .split(' ')
-                  .slice(1)
-                  .join(' ')}
+            <View className="px-6 py-12">
+              <Text className="text-xl font-bold mb-3 mt-3">
+                {t(`Awards.${selectedAward.title}`)}
               </Text>
-              <Text className="text-base text-muted-foreground mt-2">
+              <Text className="text-sm text-muted-foreground mb-4">
                 {t(`Awards.Descriptions.${selectedAward.title}`)}
               </Text>
-              {!selectedAward.isEarned && (
-                <Text className="text-sm text-primary mt-4">
-                  {t('Awards.KeepGoing')}
+              {selectedAward.isEarned && (
+                <Text className="text-sm text-muted-foreground absolute top-4 right-4">
+                  {new Date(selectedAward.earnedDate).toLocaleDateString()}
                 </Text>
               )}
-            </>
+            </View>
           )}
         </View>
       </Modal>

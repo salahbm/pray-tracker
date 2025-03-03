@@ -3,6 +3,7 @@ import { Coordinates, CalculationMethod, PrayerTimes } from 'adhan';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Text, Alert, FlatList } from 'react-native';
 
 import Loader from '@/components/shared/loader';
@@ -13,8 +14,9 @@ import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const PrayerTimer = () => {
+  const { t } = useTranslation();
   const [prayerTimes, setPrayerTimes] = useState(null);
-  const [location, setLocation] = useState('Fetching location...');
+  const [location, setLocation] = useState(t('Qibla.PrayerTimes.Location.Fetching'));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { colors } = useThemeStore();
@@ -25,8 +27,8 @@ const PrayerTimer = () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert(
-          'Permission Denied',
-          'Location permission is required to calculate prayer times.',
+          t('Qibla.PrayerTimes.Errors.Title'),
+          t('Qibla.PrayerTimes.Errors.Message'),
         );
         setError(true);
         setLoading(false);
@@ -49,14 +51,15 @@ const PrayerTimer = () => {
 
       if (reverseGeocode.length > 0) {
         const { city, region, country } = reverseGeocode[0];
+        const unknown = t('Qibla.PrayerTimes.Location.Unknown');
         setLocation(
-          `${city || 'Unknown'}, ${region || 'Unknown'}, ${country || 'Unknown'}`,
+          `${city || unknown}, ${region || unknown}, ${country || unknown}`,
         );
       }
 
       setLoading(false);
     })();
-  }, []);
+  }, [t]);
 
   const { timeLeft, currentPrayer } = useTimeLeft(prayerTimes);
 
@@ -100,6 +103,7 @@ const PrayerTimer = () => {
   if (error || !prayerTimes) {
     return <NoData className="mt-[45%]" />;
   }
+
   return (
     <View className="py-4 h-full">
       <View className="bg-accent p-6 rounded-2xl mb-6 shadow-lg">
@@ -107,7 +111,7 @@ const PrayerTimer = () => {
           {timeLeft}
         </Text>
         <Text className="text-muted text-sm text-center">
-          left until next prayer
+          {t('Qibla.PrayerTimes.TimeLeft')}
         </Text>
         <Text className="text-foreground text-lg text-center mt-3">
           {location}

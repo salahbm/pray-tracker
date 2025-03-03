@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,6 +9,7 @@ import PrayerTimer from '@/components/views/qibla/prayer-times';
 import QiblaCompass from '@/components/views/qibla/qibla-compass';
 
 const QiblaScreen = () => {
+  const { t } = useTranslation();
   const [value, setValue] = useState('qibla');
 
   return (
@@ -20,10 +22,10 @@ const QiblaScreen = () => {
         >
           <TabsList className="flex-row w-full">
             <TabsTrigger value="qibla" className="flex-1">
-              <Text>Qibla</Text>
+              <Text>{t('Qibla.Tabs.Qibla')}</Text>
             </TabsTrigger>
             <TabsTrigger value="salahs" className="flex-1">
-              <Text>Times</Text>
+              <Text>{t('Qibla.Tabs.Times')}</Text>
             </TabsTrigger>
           </TabsList>
           <TabsContent value="qibla">

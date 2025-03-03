@@ -4,14 +4,15 @@ import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany();
-    if (!users) {
-      throw new ApiError({
-        message: 'Users not found',
-        status: StatusCode.NOT_FOUND,
-        code: MessageCodes.USER_NOT_FOUND,
-      });
-    }
+    // get 100 users with highest points
+    const users = await prisma.user.findMany({
+      orderBy: {
+        totalPoints: 'desc',
+      },
+      take: 100,
+    });
+
+    // return 100 users with highest points
     return createResponse({
       status: StatusCode.SUCCESS,
       message: 'Users fetched successfully',
