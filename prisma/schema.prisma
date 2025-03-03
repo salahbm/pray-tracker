@@ -28,10 +28,8 @@ model User {
   photo       String?   @default("https://dtjijnfmvwmpszagdtdt.supabase.co/storage/v1/object/public/avatars//guest.png")
 
   totalPoints Int       @default(0)
-  premium       Boolean  @default(false)
-  premiumExpiry DateTime? // Store the expiration date
   deviceToken String?  // Store the Expo push token
-
+  
   prays       Prays[]
   awards      Award[]
   prayerStats PrayerStats?

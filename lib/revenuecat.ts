@@ -1,17 +1,70 @@
-import Purchases, { LOG_LEVEL } from 'react-native-purchases';
-import * as Device from 'expo-device';
 import { Platform } from 'react-native';
-import { ApiError } from '@/utils/error';
-import { MessageCodes, StatusCode } from '@/utils/status';
+import * as Device from 'expo-device';
 
-// RevenueCat API keys
-const API_KEYS = {
-  apple: 'APPLE_API_KEY',
-  google: 'GOOGLE_API_KEY',
+// Mock implementation for Expo Go
+const MockPurchases = {
+  setLogLevel: () => {},
+  configure: async () => {},
+  getOfferings: async () => ({
+    current: {
+      availablePackages: [
+        {
+          identifier: 'monthly',
+          product: {
+            description: 'Monthly Premium',
+            price: 4.99,
+            subscriptionPeriod: 'P1M',
+          },
+        },
+        {
+          identifier: 'yearly',
+          product: {
+            description: 'Yearly Premium (Save 40%)',
+            price: 29.99,
+            subscriptionPeriod: 'P1Y',
+          },
+        },
+      ],
+    },
+  }),
+  purchasePackage: async (package_: any) => ({
+    customerInfo: {
+      entitlements: {
+        active: {
+          premium: {
+            isActive: true,
+            willRenew: true,
+            periodType: 'normal',
+            latestPurchaseDate: new Date().toISOString(),
+            originalPurchaseDate: new Date().toISOString(),
+            expirationDate: new Date(
+              Date.now() + 30 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
+          },
+        },
+      },
+    },
+  }),
+  getCustomerInfo: async () => ({
+    entitlements: {
+      active: {},
+    },
+  }),
+  restorePurchases: async () => ({
+    entitlements: {
+      active: {},
+    },
+  }),
 };
 
-export const OFFERING_IDENTIFIER = 'default';
+// Use mock in Expo Go, real implementation in development build
+const Purchases = Platform.select({
+  ios: MockPurchases,
+  android: MockPurchases,
+  default: MockPurchases,
+});
 
+export const OFFERING_IDENTIFIER = 'default';
 export const ENTITLEMENT_ID = 'premium';
 
 export type SubscriptionPlan = {
@@ -22,18 +75,10 @@ export type SubscriptionPlan = {
   originalPrice?: number;
 };
 
-// Initialize RevenueCat
+// Initialize RevenueCat or mock
 export async function initializePurchases() {
   if (Device.isDevice) {
-    const apiKey = Platform.select({
-      ios: API_KEYS.apple,
-      android: API_KEYS.google,
-    });
-
-    if (!apiKey) return;
-
-    Purchases.setLogLevel(LOG_LEVEL.DEBUG);
-    await Purchases.configure({ apiKey });
+    await Purchases.configure();
   }
 }
 
@@ -62,15 +107,11 @@ export async function purchasePackage(packageIdentifier: string) {
   try {
     const offerings = await Purchases.getOfferings();
     const package_ = offerings.current?.availablePackages.find(
-      (p) => p.identifier === packageIdentifier
+      (p) => p.identifier === packageIdentifier,
     );
 
     if (!package_) {
-      throw new ApiError({
-        message: 'Package not found',
-        status: StatusCode.NOT_FOUND,
-        code: MessageCodes.PACKAGE_NOT_FOUND,
-      })
+      throw new Error('Package not found');
     }
 
     const { customerInfo } = await Purchases.purchasePackage(package_);

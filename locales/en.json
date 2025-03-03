@@ -229,7 +229,70 @@
       "milestone": "Journey Milestones",
       "special": "Special Achievements"
     },
-    "Descriptions": {
+    "first_prayer": "🌟 First prayer recorded - Beginning of your journey!",
+    "first_full_day": "📅 Completed your first full day of prayers!",
+    "first_week": "🎯 Completed your first week of prayer tracking!",
+    "first_month": "🌙 One month of dedicated prayer tracking!",
+    
+    "seven_day_streak": "🔥 You prayed for 7 consecutive days!",
+    "fifteen_day_streak": "⚡ 15 days of consistent prayers!",
+    "thirty_day_streak": "🌟 You prayed for 30 consecutive days!",
+    "sixty_day_streak": "💫 60 days of unwavering dedication!",
+    "ninety_day_streak": "🌈 90 days of spiritual consistency!",
+    "perfect_week": "✨ You prayed all 5 daily prayers for a full week!",
+    "perfect_month": "🎯 Perfect attendance for an entire month!",
+    
+    "fifty_prayers": "🕌 You have recorded 50 prayers in total!",
+    "hundred_prayers": "💯 You have recorded 100 prayers in total!",
+    "five_hundred_prayers": "🏆 You have completed 500 prayers in your journey!",
+    "thousand_prayers": "👑 You are a true prayer warrior with 1000 prayers!",
+    "two_thousand_prayers": "🌟 2000 prayers milestone achieved!",
+    "five_thousand_prayers": "🎊 5000 prayers - Extraordinary dedication!",
+    
+    "fajr_master": "🌅 You prayed Fajr on time for 30 days in a row!",
+    "early_bird": "🐦 You consistently prayed Fajr in the first third of its time!",
+    "dawn_seeker": "🌄 Early morning prayers champion - 90% of Fajr prayers on time!",
+    "tahajjud_warrior": "🌙 Regular performer of Tahajjud prayers!",
+    
+    "punctual_worshipper": "⏰ 90% of your prayers were on time this month!",
+    "jamaat_regular": "👥 You prayed in congregation 50 times!",
+    "jamaat_devotee": "🕌 100 prayers in congregation - Amazing!",
+    "dedicated_tahajjud": "🌙 You prayed Tahajjud 15 times this month!",
+    
+    "sunnah_beginner": "🌱 Started following the Sunnah prayers!",
+    "sunnah_devotee": "🌿 You consistently performed Sunnah prayers for a month!",
+    "sunnah_master": "🌳 Three months of consistent Sunnah prayers!",
+    "duha_regular": "☀️ Regular performer of Duha prayer!",
+    
+    "morning_adhkar": "🌅 Consistent with morning remembrance!",
+    "evening_adhkar": "🌆 Regular evening remembrance practitioner!",
+    "consistent_dhikr": "📿 You maintained daily dhikr for 30 days!",
+    "quran_companion": "📖 You read Quran after each prayer for a week!",
+    "quran_devotee": "📗 Daily Quran recitation for a month!",
+    
+    "ramadan_warrior": "🌙 You completed all prayers during Ramadan!",
+    "ramadan_champion": "⭐ Perfect prayer record in Ramadan!",
+    "laylatul_qadr": "✨ Dedicated worship in the last 10 nights!",
+    "eid_prayers": "🎊 Never missed an Eid prayer!",
+    "jumuah_regular": "🕌 Regular attendance at Friday prayers!",
+    
+    "prayer_mentor": "👨‍🏫 You helped others track their prayers!",
+    "community_builder": "🤝 Built a prayer circle of 5 friends!",
+    "knowledge_seeker": "📚 Learned and shared prayer knowledge!",
+    "spiritual_guide": "🌟 Helped 10 others in their prayer journey!",
+    
+    "three_month_milestone": "🎯 Three months of consistent tracking!",
+    "six_month_milestone": "🏆 Six months of dedicated worship!",
+    "spiritual_milestone": "🌟 One year of consistent prayer tracking!",
+    "two_year_devotion": "👑 Two years of unwavering dedication!",
+    
+    "night_devotee": "🌙 You prayed Tahajjud for 10 consecutive nights!",
+    "masjid_regular": "🕌 Regular mosque attendee!",
+    "istighfar_constant": "💫 Consistent in seeking forgiveness!",
+    "gratitude_master": "🙏 Master of gratitude in worship!",
+    "prophetic_way": "👣 Following the Prophetic way in prayer!",
+    "spiritual_excellence": "✨ Achieved spiritual excellence!",
+ "Descriptions": {
       "first_prayer": "Begin your spiritual journey by recording your first prayer.",
       "first_full_day": "Complete all five daily prayers in one day.",
       "first_week": "Track your prayers consistently for a full week.",
@@ -293,76 +356,55 @@
       "gratitude_master": "Express gratitude in worship.",
       "prophetic_way": "Follow the Prophetic way in prayer.",
       "spiritual_excellence": "Achieve spiritual excellence."
-    },
-    "first_prayer": " First prayer recorded - Beginning of your journey!",
-    "first_full_day": " Completed your first full day of prayers!",
-    "first_week": " Completed your first week of prayer tracking!",
-    "first_month": " One month of dedicated prayer tracking!",
-    
-    "seven_day_streak": " You prayed for 7 consecutive days!",
-    "fifteen_day_streak": " 15 days of consistent prayers!",
-    "thirty_day_streak": " You prayed for 30 consecutive days!",
-    "sixty_day_streak": " 60 days of unwavering dedication!",
-    "ninety_day_streak": " 90 days of spiritual consistency!",
-    "perfect_week": " You prayed all 5 daily prayers for a full week!",
-    "perfect_month": " Perfect attendance for an entire month!",
-    
-    "fifty_prayers": " You have recorded 50 prayers in total!",
-    "hundred_prayers": " You have recorded 100 prayers in total!",
-    "five_hundred_prayers": " You have completed 500 prayers in your journey!",
-    "thousand_prayers": " You are a true prayer warrior with 1000 prayers!",
-    "two_thousand_prayers": " 2000 prayers milestone achieved!",
-    "five_thousand_prayers": " 5000 prayers - Extraordinary dedication!",
-    
-    "fajr_master": " You prayed Fajr on time for 30 days in a row!",
-    "early_bird": " You consistently prayed Fajr in the first third of its time!",
-    "dawn_seeker": " Early morning prayers champion - 90% of Fajr prayers on time!",
-    "tahajjud_warrior": " Regular performer of Tahajjud prayers!",
-    
-    "punctual_worshipper": " 90% of your prayers were on time this month!",
-    "jamaat_regular": " You prayed in congregation 50 times!",
-    "jamaat_devotee": " 100 prayers in congregation - Amazing!",
-    "dedicated_tahajjud": " You prayed Tahajjud 15 times this month!",
-    
-    "sunnah_beginner": " Started following the Sunnah prayers!",
-    "sunnah_devotee": " You consistently performed Sunnah prayers for a month!",
-    "sunnah_master": " Three months of consistent Sunnah prayers!",
-    "duha_regular": " Regular performer of Duha prayer!",
-    
-    "morning_adhkar": " Consistent with morning remembrance!",
-    "evening_adhkar": " Regular evening remembrance practitioner!",
-    "consistent_dhikr": " You maintained daily dhikr for 30 days!",
-    "quran_companion": " You read Quran after each prayer for a week!",
-    "quran_devotee": " Daily Quran recitation for a month!",
-    
-    "ramadan_warrior": " You completed all prayers during Ramadan!",
-    "ramadan_champion": " Perfect prayer record in Ramadan!",
-    "laylatul_qadr": " Dedicated worship in the last 10 nights!",
-    "eid_prayers": " Never missed an Eid prayer!",
-    "jumuah_regular": " Regular attendance at Friday prayers!",
-    
-    "prayer_mentor": " You helped others track their prayers!",
-    "community_builder": " Built a prayer circle of 5 friends!",
-    "knowledge_seeker": " Learned and shared prayer knowledge!",
-    "spiritual_guide": " Helped 10 others in their prayer journey!",
-    
-    "three_month_milestone": " Three months of consistent tracking!",
-    "six_month_milestone": " Six months of dedicated worship!",
-    "spiritual_milestone": " One year of consistent prayer tracking!",
-    "two_year_devotion": " Two years of unwavering dedication!",
-    
-    "night_devotee": " You prayed Tahajjud for 10 consecutive nights!",
-    "masjid_regular": " Regular mosque attendee!",
-    "istighfar_constant": " Consistent in seeking forgiveness!",
-    "gratitude_master": " Master of gratitude in worship!",
-    "prophetic_way": " Following the Prophetic way in prayer!",
-    "spiritual_excellence": " Achieved spiritual excellence!"
+    }
   },
   "Premium": {
     "Title": "Join Prayer Tracker Plus",
     "Subtitle": "Elevate Your Spiritual Journey",
     "WelcomeTitle": "As-salaam-alaikum! ",
     "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
+    "ChoosePlan": "Choose Your Plan",
+    "Monthly": "Monthly",
+    "Yearly": "Yearly",
+    "SubscribeNow": "Subscribe Now",
+    "TermsButton": "Terms of Use",
+    "Features": {
+      "UnlimitedFriends": "Unlimited Friends",
+      "PrayerTracking": "Prayer Tracking",
+      "PrayerAwards": "Prayer Awards",
+      "CustomWidgets": "Custom Widgets",
+      "PremiumSupport": "Premium Support",
+      "Friends": {
+        "title": "Prayer Circle & Friends",
+        "description": "Connect with friends, share prayer achievements, and motivate each other in your spiritual journey. Build a supportive community that helps everyone stay consistent in their prayers."
+      },
+      "Awards": {
+        "title": "Special Prayer Awards",
+        "description": "Unlock exclusive awards and achievements that recognize your dedication to prayer. Track your progress and celebrate your spiritual milestones."
+      },
+      "Widgets": {
+        "title": "Custom Prayer Widgets",
+        "description": "Beautiful, customizable widgets for your home screen to keep track of prayer times and your daily spiritual goals."
+      },
+      "Analytics": {
+        "title": "Detailed Prayer Analytics",
+        "description": "Get insights into your prayer habits with detailed statistics, trends, and personalized recommendations to improve your consistency."
+      },
+      "Reminders": {
+        "title": "Smart Prayer Reminders",
+        "description": "Personalized, location-aware prayer notifications that adapt to your schedule and help you never miss a prayer."
+      },
+      "Themes": {
+        "title": "Beautiful Themes",
+        "description": "Choose from a variety of beautiful, carefully crafted themes to personalize your prayer tracking experience."
+      },
+      "Support": {
+        "title": "Priority Support",
+        "description": "Get priority access to our support team and be the first to try new features as they're released."
+      }
+    },
+    "SavePerYear": "Save ${{amount}} per year",
+    "AutoRenew": "Subscription will automatically renew. Cancel anytime.",
     "FeaturesTitle": "Premium Features",
     "MoreFeatures": "See More Features",
     "LessFeatures": "Show Less",

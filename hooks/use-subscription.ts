@@ -10,12 +10,12 @@ import {
 
 // Define discount rates for different regions
 const REGIONAL_DISCOUNTS: Record<string, number> = {
-  'TR': 0.5,  // 50% discount for Turkey
-  'EG': 0.4,  // 40% discount for Egypt
-  'ID': 0.3,  // 30% discount for Indonesia
-  'US': 0.2,  // 20% discount for the US
-  'GB': 0.2,  // 20% discount for the UK
-  'KR': 0.2,  // 20% discount for the KOREA
+  TR: 0.5, // 50% discount for Turkey
+  EG: 0.4, // 40% discount for Egypt
+  ID: 0.3, // 30% discount for Indonesia
+  US: 0.2, // 20% discount for the US
+  GB: 0.2, // 20% discount for the UK
+  KR: 0.2, // 20% discount for the KOREA
   // Add more countries as needed
 };
 
@@ -40,16 +40,16 @@ export function useSubscription() {
     try {
       setIsLoading(true);
       const fetchedPlans = await getSubscriptionPlans();
-      
+
       // Apply regional discounts
-      const adjustedPlans = fetchedPlans.map(plan => ({
+      const adjustedPlans = fetchedPlans.map((plan) => ({
         ...plan,
         price: applyRegionalDiscount(plan.price),
         originalPrice: plan.price, // Keep original price for reference
       }));
 
       setPlans(adjustedPlans);
-      
+
       // Check current subscription status
       const status = await checkSubscriptionStatus();
       setIsPremium(status);

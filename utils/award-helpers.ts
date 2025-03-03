@@ -1,23 +1,34 @@
+/**
+ * Award Helper System
+ * This module manages the prayer tracking, stats calculation, and award system.
+ * It includes caching mechanisms, stat calculations, and award assignment logic.
+ */
+
 import { UserStats } from '@/types/stats';
 import { AWARDS } from '../constants/awards';
-import { SALAHS, AWARD_POINTS } from '../constants/enums';
+import { AWARD_POINTS } from '../constants/enums';
 import prisma from '@/lib/prisma';
 
-// Cache for stats to avoid recalculating within the same day
+// Cache system to optimize performance by storing user stats temporarily
 const statsCache = new Map<string, { stats: UserStats; timestamp: number }>();
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // Cache stats for 24 hours
 
+/**
+ * Calculates comprehensive statistics for a user's prayer activity
+ * Uses caching to avoid frequent recalculations within the same day
+ */
 export async function calculateUserStats(userId: string): Promise<UserStats> {
-  // Check cache first
+  // Check if we have valid cached stats
   const cached = statsCache.get(userId);
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
     return cached.stats;
   }
 
+  // Calculate stats for the last 30 days
   const today = new Date();
   const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-  // Get all prayers for the user
+  // Fetch user's prayer records
   const prayers = await prisma.prays.findMany({
     where: {
       userId,
@@ -26,17 +37,17 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
     orderBy: { date: 'desc' },
   });
 
-  // Get or create PrayerStats
+  // Get or create prayer statistics record
   let prayerStats = await prisma.prayerStats.findUnique({
     where: { userId },
   });
 
+  // Update stats if they're outdated or don't exist
   if (!prayerStats || isStatsOutdated(prayerStats.lastCalculated)) {
-    // Update prayer stats
     prayerStats = await updatePrayerStats(userId, prayers);
   }
 
-  // Calculate current stats
+  // Compile all user statistics
   const stats: UserStats = {
     totalPrayers: prayerStats.totalPrayers,
     totalDays: new Set(prayers.map((p) => p.date.toDateString())).size,
@@ -79,41 +90,47 @@ export async function calculateUserStats(userId: string): Promise<UserStats> {
     consecutivePerfectDays: calculateConsecutivePerfectDays(prayers),
   };
 
-  // Cache the results
+  // Update cache with new stats
   statsCache.set(userId, { stats, timestamp: Date.now() });
 
   return stats;
 }
 
+/**
+ * Main award checking and assignment function
+ * Evaluates user's stats against award criteria and assigns new awards
+ * Returns array of newly awarded achievement titles
+ */
 export async function checkAndAssignAwards(userId: string): Promise<string[]> {
+  // Get current user stats
   const stats = await calculateUserStats(userId);
 
-  // Batch fetch existing awards
+  // Get user's existing awards to prevent duplicates
   const existingAwards = await prisma.award.findMany({
     where: { userId },
     select: { title: true },
   });
-
   const existingAwardTitles = new Set(existingAwards.map((a) => a.title));
 
-  // Filter eligible awards
+  // Find all awards the user is eligible for
   const eligibleAwards = AWARDS.filter(
     (award) =>
-      !existingAwardTitles.has(award.title) &&
-      award.criteria(stats) &&
-      award.requiredStats.every((stat) => stats[stat] !== undefined),
+      !existingAwardTitles.has(award.title) && // Not already earned
+      award.criteria(stats) && // Meets the criteria
+      award.requiredStats.every((stat) => stats[stat] !== undefined), // Has required stats
   );
 
   if (eligibleAwards.length === 0) return [];
 
-  // Calculate points for each award
+  // Calculate points for each eligible award
   const awardsWithPoints = eligibleAwards.map((award) => ({
     ...award,
     points: getAwardPoints(award.title),
   }));
 
-  // Batch create new awards
+  // Atomic transaction to assign awards and update points
   await prisma.$transaction([
+    // Create all new awards
     prisma.award.createMany({
       data: awardsWithPoints.map((award) => ({
         userId,
@@ -122,6 +139,7 @@ export async function checkAndAssignAwards(userId: string): Promise<string[]> {
         awardedAt: new Date(),
       })),
     }),
+    // Update user's total points
     prisma.user.update({
       where: { id: userId },
       data: {
@@ -138,29 +156,37 @@ export async function checkAndAssignAwards(userId: string): Promise<string[]> {
   return eligibleAwards.map((award) => award.title);
 }
 
-// Helper function to determine award points
+/**
+ * Determines points for different award types
+ * Awards are categorized into tiers with different point values:
+ * - Basic (First Steps)
+ * - Regular (Numerical achievements)
+ * - Advanced (Streaks and mastery)
+ * - Expert (Perfect months and devotion)
+ * - Master (Spiritual excellence)
+ */
 function getAwardPoints(title: string): number {
-  // First Steps Awards
+  // First Steps Awards (Basic tier)
   if (title.startsWith('first_')) {
     return AWARD_POINTS.BASIC;
   }
 
-  // Regular Achievements
+  // Regular Achievements (Regular tier)
   if (title.startsWith('fifty_') || title.startsWith('hundred_')) {
     return AWARD_POINTS.REGULAR;
   }
 
-  // Advanced Achievements
+  // Advanced Achievements (Advanced tier)
   if (title.includes('streak') || title.includes('master')) {
     return AWARD_POINTS.ADVANCED;
   }
 
-  // Expert Achievements
+  // Expert Achievements (Expert tier)
   if (title.includes('perfect_month') || title.includes('devotee')) {
     return AWARD_POINTS.EXPERT;
   }
 
-  // Master Achievements
+  // Master Achievements (Master tier)
   if (
     title.includes('spiritual_excellence') ||
     title.includes('prophetic_way')
@@ -168,11 +194,10 @@ function getAwardPoints(title: string): number {
     return AWARD_POINTS.MASTER;
   }
 
-  // Default to regular points
-  return AWARD_POINTS.REGULAR;
+  return AWARD_POINTS.REGULAR; // Default to regular points
 }
 
-// Helper functions
+// Helper function to determine award points
 function isStatsOutdated(lastCalculated: Date): boolean {
   const now = new Date();
   return (
@@ -334,53 +359,6 @@ function calculateCurrentStreak(prayers: any[]): number {
   }
 
   return streak;
-}
-
-function calculateDaysWithAllPrayers(prayers: any[]): number {
-  if (!prayers.length) return 0;
-
-  return prayers.filter(
-    (prayer) =>
-      prayer.fajr &&
-      prayer.dhuhr &&
-      prayer.asr &&
-      prayer.maghrib &&
-      prayer.isha,
-  ).length;
-}
-
-function calculatePercentage(value: number, total: number): number {
-  if (total === 0 || value === 0) return 0;
-  return Math.round((value / total) * 100);
-}
-
-async function calculateFajrPercentage(userId: string): Promise<number> {
-  const fajrStats = await prisma.prays.aggregate({
-    _count: {
-      fajr: true,
-    },
-    _sum: {
-      fajr: true,
-    },
-    where: {
-      userId,
-      fajr: {
-        gt: 0, // Count only days where Fajr was prayed
-      },
-    },
-  });
-
-  // Calculate percentage of on-time or jamaat prayers (values 2 or 3)
-  const totalFajr = fajrStats._count.fajr || 0;
-  const fajrPoints = fajrStats._sum.fajr || 0;
-
-  // If no prayers, return 0
-  if (totalFajr === 0) return 0;
-
-  // Calculate percentage of on-time/jamaat prayers (values 2 or 3)
-  // Each prayer worth 1 point, on-time worth 2, jamaat worth 3
-  const onTimeOrJamaatCount = fajrPoints - totalFajr;
-  return Math.round((onTimeOrJamaatCount / totalFajr) * 100);
 }
 
 function calculateConsecutivePerfectDays(prayers: any[]): number {
