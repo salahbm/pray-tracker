@@ -573,7 +573,8 @@
       "EditPassword": "Edit Password",
       "Settings": "Settings",
       "PrivacySecurity": "Privacy & Security",
-      "TermsConditions": "Terms & Conditions"
+      "TermsConditions": "Terms & Conditions",
+      "About": "About"
     },
     "Account": {
       "Title": "Account",
@@ -683,6 +684,28 @@
         "Title": "Contact Us",
         "Content": "If you have any questions about this Privacy Policy or our data practices, please contact us at privacy@praytracker.com"
       }
+    },
+    "About": {
+      "Title": "About",
+      "Version": {
+        "Title": "Version Info",
+        "Number": "Version: {{version}}",
+        "Build": "Build: {{buildNumber}}",
+        "Released": "Released: March 2024"
+      },
+      "Mission": {
+        "Title": "Our Mission",
+        "Description": "Pray Tracker is dedicated to helping Muslims maintain their daily prayers, track their spiritual journey, and build a stronger connection with Allah. Our goal is to make prayer tracking simple, meaningful, and rewarding."
+      },
+      "Credits": {
+        "Title": "Credits",
+        "Description": "Developed with love and dedication by the Pray Tracker team. Special thanks to our community for their continuous support and feedback."
+      },
+      "Contact": {
+        "Title": "Connect With Us"
+      },
+      "BuyMeDates": "Buy Me Dates 🌴",
+      "Feedback": "Send Feedback"
     }
   }
 }

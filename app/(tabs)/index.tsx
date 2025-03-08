@@ -300,7 +300,7 @@ export default function HomeScreen() {
       </CustomBottomSheet>
       {/* PROFILE */}
       <CustomBottomSheet sheetRef={profileSheetRef}>
-        <ProfilePage onNavigate={() => profileSheetRef.current?.close()} />
+        <ProfilePage  />
       </CustomBottomSheet>
     </SafeAreaView>
   );
