@@ -28,6 +28,7 @@ interface IBottomSheet {
     >
   >;
   scrollStyle?: StyleProp<ViewStyle> | undefined;
+  opacity?: number;
 }
 
 const CustomBottomSheet = ({
@@ -38,23 +39,31 @@ const CustomBottomSheet = ({
   bottomSheetStyle,
   scrollStyle,
   index = -1,
+  opacity = 0.4,
 }: IBottomSheet) => {
   return (
     <BottomSheet
       ref={sheetRef}
       index={index} // Start closed
       snapPoints={snapPoints}
+      backgroundStyle={{
+        backgroundColor: 'white',
+      }}
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
       style={bottomSheetStyle}
       containerStyle={{ zIndex: 10000 }}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={(backdropProps) => (
-        <BottomSheetBackdrop {...backdropProps} enableTouchThrough={true} />
+        <BottomSheetBackdrop
+          {...backdropProps}
+          enableTouchThrough={true}
+          opacity={opacity}
+        />
       )}
       handleComponent={() => (
-        <View className="bg-muted  flex justify-center rounded-t-lg py-4">
-          <View className="h-2 w-[60px] rounded-[3px] bg-muted-foreground self-center" />
+        <View className="bg-muted flex justify-center rounded-t-md py-4">
+          <View className="h-2 w-[60px] rounded bg-muted-foreground self-center" />
         </View>
       )}
     >

@@ -33,12 +33,12 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
           value={`${feature}-${index}`}
         >
           <AccordionTrigger className="py-1">
-            <Text className="text-card-foreground font-normal tracking-tight">
+            <Text className="text-popover-foreground font-normal tracking-tight">
               {t(`Friends.Premium.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
           <AccordionContent className="px-1">
-            <Text className="text-muted-foreground font-normal !text-sm leading-relaxed">
+            <Text className="text-popover-foreground font-normal !text-sm leading-relaxed">
               {t(`Friends.Premium.Features.${feature}.description`)}
             </Text>
           </AccordionContent>
@@ -88,28 +88,28 @@ const CallToAction = () => {
         </Text>
 
         {/* Welcome Section */}
-        <View className="bg-card rounded-2xl mt-6 w-full p-6">
-          <Text className="text-card-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-popover rounded-2xl mt-6 w-full p-6">
+          <Text className="text-popover-foreground text-xl font-semibold text-center tracking-tight">
             {t('Friends.Premium.WelcomeTitle')}
           </Text>
-          <Text className="text-secondary text-center mt-3 text-base">
+          <Text className="text-foreground text-center mt-3 text-base">
             {t('Friends.Premium.WelcomeMessage')}
           </Text>
         </View>
 
         {/* Team Section */}
-        <View className="bg-card rounded-2xl mt-6 w-full p-6">
-          <Text className="text-card-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-popover rounded-2xl mt-6 w-full p-6">
+          <Text className="text-popover-foreground text-xl font-semibold text-center tracking-tight">
             {t('Friends.Premium.TeamTitle')}
           </Text>
-          <Text className="text-secondary text-center mt-3 text-base">
+          <Text className="text-foreground text-center mt-3 text-base">
             {t('Friends.Premium.TeamMessage')}
           </Text>
         </View>
 
         {/* Features Section */}
-        <View className="bg-card rounded-2xl mt-6 w-full p-6">
-          <Text className="text-card-foreground text-xl font-semibold text-center mb-4 tracking-tight">
+        <View className="bg-popover rounded-2xl mt-6 w-full p-6">
+          <Text className="text-popover-foreground text-xl font-semibold text-center mb-4 tracking-tight">
             {t('Friends.Premium.FeaturesTitle')}
           </Text>
 
@@ -121,7 +121,7 @@ const CallToAction = () => {
             className="mt-4 py-2"
             onPress={() => setShowAllFeatures(!showAllFeatures)}
           >
-            <Text className="text-secondary text-center font-normal text-sm">
+            <Text className="text-primary text-center font-normal text-sm">
               {showAllFeatures
                 ? t('Friends.Premium.LessFeatures')
                 : t('Friends.Premium.MoreFeatures')}
@@ -156,13 +156,13 @@ const CallToAction = () => {
           onPress={handleRestore}
           disabled={isLoading}
         >
-          <Text className="text-secondary underline text-center font-medium text-base">
+          <Text className="text-foreground underline text-center font-medium text-base">
             {t('Friends.Premium.RestoreButton')}
           </Text>
         </TouchableOpacity>
       </ScrollView>
       {/* BOTTOM SHEET */}
-      <CustomBottomSheet sheetRef={ref} snapPoints={['40%', '60%']}>
+      <CustomBottomSheet sheetRef={ref} snapPoints={['40%', '60%']} opacity={0}>
         <PurchaseSheet />
       </CustomBottomSheet>
     </React.Fragment>

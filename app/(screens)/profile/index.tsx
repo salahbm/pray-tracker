@@ -152,25 +152,6 @@ const ProfilePage = () => {
           color={colors['--muted-foreground']}
         />
       </TouchableOpacity>
-
-      {/* About Section */}
-      <TouchableOpacity
-        className="profile-section"
-        onPress={() => router.push('/(screens)/profile/about')}
-      >
-        <View className="flex-row items-center">
-          <Feather name="info" size={20} color={colors['--muted-foreground']} />
-          <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.About')}
-          </Text>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={20}
-          color={colors['--muted-foreground']}
-        />
-      </TouchableOpacity>
-
       {/* Feedback Section */}
       <TouchableOpacity
         className="profile-section"
@@ -184,6 +165,23 @@ const ProfilePage = () => {
           />
           <Text className="text-base text-muted-foreground ml-2">
             {t('Profile.Navigation.Feedback')}
+          </Text>
+        </View>
+        <Feather
+          name="chevron-right"
+          size={20}
+          color={colors['--muted-foreground']}
+        />
+      </TouchableOpacity>
+      {/* About Section */}
+      <TouchableOpacity
+        className="profile-section"
+        onPress={() => router.push('/(screens)/profile/about')}
+      >
+        <View className="flex-row items-center">
+          <Feather name="info" size={20} color={colors['--muted-foreground']} />
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('Profile.Navigation.About')}
           </Text>
         </View>
         <Feather

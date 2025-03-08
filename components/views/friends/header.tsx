@@ -58,7 +58,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, unknown>((props, ref) => {
 
       {/* Text title */}
       <Text className="text-center text-md font-medium mt-4 text-secondary-foreground">
-        {t('Friends.Freemium.Title')}
+        Prayer Tracker +
       </Text>
 
       {/* Text description */}
