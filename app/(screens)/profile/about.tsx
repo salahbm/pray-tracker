@@ -14,7 +14,9 @@ const About = () => {
   const buildNumber = Constants.expoConfig?.ios?.buildNumber || '100';
 
   const handleLink = (url: string) => {
-    Linking.openURL(url).catch((err) => console.error('Error opening link:', err));
+    Linking.openURL(url).catch((err) =>
+      console.error('Error opening link:', err),
+    );
   };
 
   return (
@@ -34,7 +36,9 @@ const About = () => {
 
           {/* Version Info */}
           <View className="bg-card p-4 rounded-lg">
-            <Text className="text-xl font-bold">{t('Profile.About.Version.Title')}</Text>
+            <Text className="text-xl font-bold">
+              {t('Profile.About.Version.Title')}
+            </Text>
             <View className="mt-2 gap-1">
               <Text className="text-muted-foreground">
                 {t('Profile.About.Version.Number', { version })}
@@ -42,13 +46,17 @@ const About = () => {
               <Text className="text-muted-foreground">
                 {t('Profile.About.Version.Build', { buildNumber })}
               </Text>
-              <Text className="text-muted-foreground">{t('Profile.About.Version.Released')}</Text>
+              <Text className="text-muted-foreground">
+                {t('Profile.About.Version.Released')}
+              </Text>
             </View>
           </View>
 
           {/* Mission */}
           <View className="gap-2">
-            <Text className="text-xl font-bold">{t('Profile.About.Mission.Title')}</Text>
+            <Text className="text-xl font-bold">
+              {t('Profile.About.Mission.Title')}
+            </Text>
             <Text className="text-muted-foreground">
               {t('Profile.About.Mission.Description')}
             </Text>
@@ -56,7 +64,9 @@ const About = () => {
 
           {/* Credits */}
           <View className="gap-2">
-            <Text className="text-xl font-bold">{t('Profile.About.Credits.Title')}</Text>
+            <Text className="text-xl font-bold">
+              {t('Profile.About.Credits.Title')}
+            </Text>
             <Text className="text-muted-foreground">
               {t('Profile.About.Credits.Description')}
             </Text>
@@ -64,11 +74,15 @@ const About = () => {
 
           {/* Contact & Support */}
           <View className="gap-4">
-            <Text className="text-xl font-bold">{t('Profile.About.Contact.Title')}</Text>
-            
+            <Text className="text-xl font-bold">
+              {t('Profile.About.Contact.Title')}
+            </Text>
+
             <View className="flex-row gap-4 justify-center">
               <TouchableOpacity
-                onPress={() => handleLink('https://github.com/salahbm/pray-tracker')}
+                onPress={() =>
+                  handleLink('https://github.com/salahbm/pray-tracker')
+                }
                 className="items-center"
               >
                 <View className="w-12 h-12 bg-secondary rounded-full items-center justify-center">
@@ -101,22 +115,14 @@ const About = () => {
 
           {/* Buy Me Dates */}
           <TouchableOpacity
-            onPress={() => handleLink('https://www.buymeacoffee.com/praytracker')}
+            onPress={() =>
+              handleLink('https://www.buymeacoffee.com/praytracker')
+            }
             className="bg-accent p-4 rounded-lg items-center flex-row justify-center gap-2"
           >
             <Ionicons name="gift-outline" size={24} color="white" />
             <Text className="text-accent-foreground font-bold">
               {t('Profile.About.BuyMeDates')}
-            </Text>
-          </TouchableOpacity>
-
-          {/* Support/Feedback */}
-          <TouchableOpacity
-            onPress={() => handleLink('https://forms.gle/yourFeedbackFormUrl')}
-            className="bg-primary p-4 rounded-lg items-center mt-4"
-          >
-            <Text className="text-primary-foreground font-bold">
-              {t('Profile.About.Feedback')}
             </Text>
           </TouchableOpacity>
         </View>

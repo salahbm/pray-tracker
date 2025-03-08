@@ -10,6 +10,10 @@ const ProfilePage = () => {
   const { colors } = useThemeStore();
   const { t } = useTranslation();
 
+  const handleLink = (url: string) => {
+    // implement link handling logic here
+  };
+
   return (
     <View className="flex-1">
       {/* Header */}
@@ -155,13 +159,31 @@ const ProfilePage = () => {
         onPress={() => router.push('/(screens)/profile/about')}
       >
         <View className="flex-row items-center">
+          <Feather name="info" size={20} color={colors['--muted-foreground']} />
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('Profile.Navigation.About')}
+          </Text>
+        </View>
+        <Feather
+          name="chevron-right"
+          size={20}
+          color={colors['--muted-foreground']}
+        />
+      </TouchableOpacity>
+
+      {/* Feedback Section */}
+      <TouchableOpacity
+        className="profile-section"
+        onPress={() => handleLink('https://forms.gle/yourFeedbackFormUrl')}
+      >
+        <View className="flex-row items-center">
           <Feather
-            name="info"
+            name="message-square"
             size={20}
             color={colors['--muted-foreground']}
           />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.About')}
+            {t('Profile.Navigation.Feedback')}
           </Text>
         </View>
         <Feather
