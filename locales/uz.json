@@ -141,6 +141,11 @@
         "emerald_green": "Zumrad Yashil",
         "Title": "Mavzuni Tanlang"
       },
+      "YearPicker": {
+        "Title": "Yilni tanlang",
+        "Cancel": "Bekor qilish",
+        "Confirm": "Tasdiqlash"
+      },
       "NotFound": {
         "404": "Sahifa topilmadi",
         "noData": "Ma'lumot topilmadi"
@@ -214,7 +219,7 @@
       "fajr_master": "🌅 Siz Fajrni 30 kundan beri vaqtida o'qib keldingiz!",
       "early_bird": "🐦 Siz Fajrni doimiy ravishda uning birinchi uchdan birida o'qib keldingiz!",
       "dawn_seeker": "🌄 Ertalabki namozlar chempioni - 90% Fajr namozlari vaqtida!",
-      "tahajjud_warrior": "🌙 Tahajjud namozini muntazam bajaruvchi!",
+      "tahajjud_warrior": "Barakali Tahajjud namozini muntazam bajaruvchi!",
       "punctual_worshipper": "⏰ Oyning 90% namozlari vaqtida edi!",
       "jamaat_regular": "👥 Siz 50 marta jamoat bilan namoz o'qib keldingiz!",
       "jamaat_devotee": "🕌 100 marta jamoat bilan namoz o'qish - Ajoyib!",
@@ -233,10 +238,10 @@
       "laylatul_qadr": "✨ Oxirgi 10 kechada bag'rikenglik bilan ibodat qildingiz!",
       "eid_prayers": "🎊 Hech qachon Hayit namozini o'tkazib yubormadingiz!",
       "jumuah_regular": "🕌 Juma namoziga muntazam qatnashuvchi!",
-      "prayer_mentor": "👨‍🏫 Siz boshqalarning namozlarini kuzatishda yordam bering!",
+      "prayer_mentor": "👨‍🏫 Siz boshqalarning namoz yo'lida yordam bering!",
       "community_builder": "🤝 5 ta do'stingiz bilan namoz doirasi yaratdingiz!",
       "knowledge_seeker": "📚 Namoz haqida bilim olib, ulashdingiz!",
-      "spiritual_guide": "🌟 10 kishining namoz yo'lida yordam bering!",
+      "spiritual_guide": "🌟 10 kishining namoz yo'lida yo'l-yo'riq bo'ling!",
       "three_month_milestone": "🎯 Uch oylik doimiy kuzatuv!",
       "six_month_milestone": "🏆 Olti oylik bag'rikenglik!",
       "spiritual_milestone": "🌟 Bir yillik doimiy namoz kuzatuvi!",
@@ -399,7 +404,7 @@
         "NoFriends": "Tasdiqlangan do'stlar topilmadi",
         "SendRequest": "So'rovni yuborish",
         "ViewPending": "Kutilayotgan so'rovlarni ko'rish",
-        "Title": "Namozni Kuzatuvchi Plusga Qo'shiling",
+        "Title": "Namozni Kuzatuvchi +",
         "Subtitle": "Ruhiy Safaringizni Oshiring",
         "WelcomeTitle": "As-salaam-alaikum! ",
         "WelcomeMessage": "Sizning qo'llab-quvvatlashingiz bizga xayr (yaxshilik) tarqatishga va Ummatga Alloh (SWT) bilan bog'lanishlarini mustahkamlashga yordam beradi.",
@@ -483,12 +488,14 @@
     "Profile": {
       "Title": "Profil",
       "Navigation": {
-        "Account": "Akkaunt",
-        "EditProfile": "Profilni Tahrirlash",
-        "EditPassword": "Parolni Tahrirlash",
+        "Account": "Hisob",
+        "EditProfile": "Profilni tahrirlash",
+        "EditPassword": "Parolni o'zgartirish",
         "Settings": "Sozlamalar",
-        "PrivacySecurity": "Maxfiylik va Xavfsizlik",
-        "TermsConditions": "Shartlar va Shartlar"
+        "PrivacySecurity": "Maxfiylik va xavfsizlik",
+        "TermsConditions": "Foydalanish shartlari",
+        "About": "Ilova haqida",
+        "Feedback": "Fikr-mulohaza"
       },
       "Account": {
         "Title": "Akkaunt",

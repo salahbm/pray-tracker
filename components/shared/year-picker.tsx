@@ -1,8 +1,9 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import Modal from 'react-native-modal';
 
-import Modal from './modal';
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -22,6 +23,7 @@ const YearPicker: React.FC<YearPickerProps> = ({
   onBackdropPress,
   minYear = 1900,
 }) => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   const { colors } = useThemeStore();
   const years = Array.from(
@@ -29,16 +31,16 @@ const YearPicker: React.FC<YearPickerProps> = ({
     (_, i) => (minYear + i).toString(), // Convert years to strings
   );
 
-  const [selectedYear, setSelectedYear] = useState(value.toString()); // Store as string
+  const [localSelectedYear, setLocalSelectedYear] = useState(value.toString()); // Store as string
 
   return (
     <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
       <View style={styles.modalContainer} className="bg-muted">
-        <Text style={styles.title}>Select a Year</Text>
+        <Text style={styles.title}>{t('Commons.YearPicker.Title')}</Text>
         <View style={styles.pickerContainer}>
           <Picker
-            selectedValue={selectedYear}
-            onValueChange={(itemValue) => setSelectedYear(itemValue)}
+            selectedValue={localSelectedYear}
+            onValueChange={(itemValue) => setLocalSelectedYear(itemValue)}
             style={styles.picker}
             itemStyle={[styles.pickerItem, { color: colors['--foreground'] }]}
           >
@@ -49,15 +51,15 @@ const YearPicker: React.FC<YearPickerProps> = ({
         </View>
         <View className="flex-row flex gap-2 mt-8 justify-end">
           <Button onPress={onBackdropPress} variant="destructive">
-            <Text>Cancel</Text>
+            <Text>{t('Commons.YearPicker.Cancel')}</Text>
           </Button>
           <Button
             onPress={() => {
-              onChangeValue(Number(selectedYear)); // Convert back to number
+              onChangeValue(Number(localSelectedYear)); // Convert back to number
               onBackdropPress();
             }}
           >
-            <Text>Confirm</Text>
+            <Text>{t('Commons.YearPicker.Confirm')}</Text>
           </Button>
         </View>
       </View>

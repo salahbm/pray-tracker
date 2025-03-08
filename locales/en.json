@@ -205,6 +205,11 @@
       "emerald_green": "Emerald Green",
       "Title": "Choose Theme"
     },
+    "YearPicker": {
+      "Title": "Select a Year",
+      "Cancel": "Cancel",
+      "Confirm": "Confirm"
+    },
     "NotFound": {
       "404": "Page not found",
       "noData": "No data found"

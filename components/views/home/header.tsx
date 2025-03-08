@@ -30,7 +30,7 @@ const HomeHeader = forwardRef<
           numberOfLines={1}
           className={cn('text-xl font-bold max-w-[250px] truncate')}
         >
-          {user ? `Welcome, ${user.username} 👋` : 'Welcome, Guest 👋'}
+          {user ? `Salaam, ${user.username} 👋` : 'Salaam, Guest 👋'}
         </Text>
         <Text className={cn('text-muted-foreground')}>
           {today.toDateString()}

@@ -33,7 +33,7 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
           value={`${feature}-${index}`}
         >
           <AccordionTrigger className="py-1">
-            <Text className="text-accent-foreground font-normal tracking-tight">
+            <Text className="text-card-foreground font-normal tracking-tight">
               {t(`Friends.Premium.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
@@ -88,8 +88,8 @@ const CallToAction = () => {
         </Text>
 
         {/* Welcome Section */}
-        <View className="bg-accent rounded-2xl mt-6 w-full p-6">
-          <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-card rounded-2xl mt-6 w-full p-6">
+          <Text className="text-card-foreground text-xl font-semibold text-center tracking-tight">
             {t('Friends.Premium.WelcomeTitle')}
           </Text>
           <Text className="text-secondary text-center mt-3 text-base">
@@ -98,8 +98,8 @@ const CallToAction = () => {
         </View>
 
         {/* Team Section */}
-        <View className="bg-accent rounded-2xl mt-6 w-full p-6">
-          <Text className="text-accent-foreground text-xl font-semibold text-center tracking-tight">
+        <View className="bg-card rounded-2xl mt-6 w-full p-6">
+          <Text className="text-card-foreground text-xl font-semibold text-center tracking-tight">
             {t('Friends.Premium.TeamTitle')}
           </Text>
           <Text className="text-secondary text-center mt-3 text-base">
@@ -108,8 +108,8 @@ const CallToAction = () => {
         </View>
 
         {/* Features Section */}
-        <View className="bg-accent rounded-2xl mt-6 w-full p-6">
-          <Text className="text-accent-foreground text-xl font-semibold text-center mb-4 tracking-tight">
+        <View className="bg-card rounded-2xl mt-6 w-full p-6">
+          <Text className="text-card-foreground text-xl font-semibold text-center mb-4 tracking-tight">
             {t('Friends.Premium.FeaturesTitle')}
           </Text>
 
