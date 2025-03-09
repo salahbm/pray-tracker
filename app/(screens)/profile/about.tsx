@@ -115,9 +115,7 @@ const About = () => {
 
           {/* Buy Me Dates */}
           <TouchableOpacity
-            onPress={() =>
-              handleLink('https://www.buymeacoffee.com/praytracker')
-            }
+            onPress={() => handleLink('https://buymeacoffee.com/salahbm')}
             className="bg-accent p-4 rounded-lg items-center flex-row justify-center gap-2"
           >
             <Ionicons name="gift-outline" size={24} color="white" />

@@ -9,10 +9,10 @@ import GoBack from '@/components/shared/go-back';
 import { FLAGS, Language } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
-import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
+import { usePushNotifications } from '@/hooks/common/useNotifications';
+import { useLanguage } from '@/hooks/common/useTranslation';
 import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
-import { useLanguage } from '@/hooks/common/useTranslation';
 
 const Settings = () => {
   const themeRef = useRef<BottomSheet>(null);
@@ -20,8 +20,7 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
-  const { disableNotifications, enableNotifications, isNotificationEnabled } =
-    useNotificationSettings();
+  const { isNotificationEnabled } = usePushNotifications();
 
   return (
     <SafeAreaView className="safe-area">
@@ -102,19 +101,13 @@ const Settings = () => {
                 true: colors['--primary'],
               }}
               thumbColor={
-                enableNotifications
+                isNotificationEnabled
                   ? colors['--primary']
                   : colors['--background']
               }
               ios_backgroundColor={colors['--card']}
-              onValueChange={(value) => {
-                if (value) {
-                  enableNotifications();
-                } else {
-                  disableNotifications();
-                }
-              }}
-              value={isNotificationEnabled}
+              onValueChange={(_value) => {}}
+              value={Boolean(isNotificationEnabled)}
             />
           </View>
         </AuthWrapper>

@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { AuthWrapper } from '@/providers/session';
@@ -11,7 +11,9 @@ const ProfilePage = () => {
   const { t } = useTranslation();
 
   const handleLink = (url: string) => {
-    // implement link handling logic here
+    Linking.openURL(url).catch((err) =>
+      console.error('Error opening link:', err),
+    );
   };
 
   return (
@@ -155,7 +157,11 @@ const ProfilePage = () => {
       {/* Feedback Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() => handleLink('https://forms.gle/yourFeedbackFormUrl')}
+        onPress={() =>
+          handleLink(
+            'https://docs.google.com/forms/d/1dbjL6wQoh2MwQQChIGiWpSEOaFmWvCaC9w3iDaBZmjE/edit',
+          )
+        }
       >
         <View className="flex-row items-center">
           <Feather

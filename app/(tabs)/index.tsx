@@ -30,7 +30,6 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
-import { useNotificationSettings } from '@/hooks/notifications/useNotificationSettings';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
@@ -77,7 +76,6 @@ export default function HomeScreen() {
   const { colors } = useThemeStore();
   // QUERIES
   const { user } = useAuthStore();
-  const { enableNotifications } = useNotificationSettings();
 
   const {
     data: prays,
@@ -89,13 +87,6 @@ export default function HomeScreen() {
     refetch,
     isLoading: isLoadingTodaysPrays,
   } = useGetTodayPrays(user?.id);
-
-  // Enable notifications when the user is logged in
-  // useEffect(() => {
-  //   if (user && Device.isDevice) {
-  //     enableNotifications();
-  //   }
-  // }, [user, enableNotifications]);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -191,7 +182,7 @@ export default function HomeScreen() {
       dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
       refetch();
     },
-    [createPray, user?.id, refetch, t],
+    [createPray, user?.id, refetch],
   );
 
   useEffect(() => {
