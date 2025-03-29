@@ -1,5 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
+import useMutation from '../common/useMutation';
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 
@@ -30,14 +31,16 @@ const updateUser = async (params: IUserParams) => {
   return response;
 };
 
-export const useUpdateUser = () => {
+export const usePutUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateUser,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [userKeys],
-      });
+    options: {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [userKeys],
+        });
+      },
     },
   });
 };

@@ -1,17 +1,9 @@
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import { AppState } from 'react-native';
 
-import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
-import { usePushNotifications } from '@/hooks/common/useNotifications';
-import { supabase } from '@/lib/supabase';
-import { fireToast } from '@/providers/toaster';
-import { useAuthStore } from '@/store/auth/auth-session';
-import RootProvider from 'providers/root';
+import App from './App';
+import RootProvider from '@/providers/root';
 import 'react-native-reanimated';
-import 'i18n.config'; // Import the i18n config
+import 'i18n.config';
 import 'styles/global.css';
 import 'reanimated.config';
 
@@ -19,88 +11,9 @@ import 'reanimated.config';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { setSession, clearUserAndSession } = useAuthStore();
-  const { expoPushToken, notification } = usePushNotifications();
-  const data = JSON.stringify(notification, undefined, 2);
-  console.log('data:', data);
-  console.log('expoPushToken:', expoPushToken);
-  const [loaded] = useFonts({
-    SpaceMono: spaceMono,
-  });
-
-  // Start auto-refresh when the app becomes active
-  useEffect(() => {
-    const handleAppStateChange = (state: string) => {
-      if (state === 'active') {
-        supabase.auth.startAutoRefresh(); // Ensure auto-refresh runs
-      } else {
-        supabase.auth.stopAutoRefresh();
-      }
-    };
-
-    const subscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    );
-    return () => subscription.remove();
-  }, []);
-
-  useEffect(() => {
-    // Function to handle session changes
-    const handleAuthStateChange = async (event, session) => {
-      if (session) {
-        setSession(session);
-      } else {
-        clearUserAndSession();
-      }
-    };
-
-    // Fetch the initial session
-    const fetchInitialSession = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session) {
-          setSession(session);
-        }
-      } catch (error) {
-        fireToast.error(error?.message ?? 'Failed to get session');
-      }
-    };
-
-    // Subscribe to auth state changes
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      handleAuthStateChange,
-    );
-
-    // Fetch the initial session
-    fetchInitialSession();
-
-    // Cleanup the auth listener on unmount
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [setSession, clearUserAndSession]);
-
-  // Hide the splash screen once fonts are loaded
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <RootProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <App />
     </RootProvider>
   );
 }

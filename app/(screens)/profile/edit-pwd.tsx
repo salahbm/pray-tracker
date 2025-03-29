@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useLogout } from '@/hooks/auth/useLogOut';
-import { useUpdateUser } from '@/hooks/auth/usePutUser';
+import { usePutUser } from '@/hooks/auth/usePutUser';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -19,7 +19,7 @@ const EditPwd = () => {
   const { t } = useTranslation();
   const { mutate: logOut, isPending } = useLogout();
 
-  const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
+  const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
 
   //   States
   const [newPassword, setNewPassword] = useState<string>('');

@@ -4,7 +4,7 @@ import * as Notifications from 'expo-notifications';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Platform } from 'react-native';
 
-import { useUpdateUser } from '../auth/usePutUser';
+import { usePutUser } from '../auth/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -44,7 +44,7 @@ export const usePushNotifications = (): PushNotificationState & {
 
   // HOOKS
   const { colors } = useThemeStore();
-  const { mutateAsync: updateUser } = useUpdateUser();
+  const { mutateAsync: updateUser } = usePutUser();
   const { user, setUser } = useAuthStore(); // Retrieve user from Zustand store
 
   // CALLBACKS
@@ -103,7 +103,7 @@ export const usePushNotifications = (): PushNotificationState & {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.info(response);
       });
 
     return () => {

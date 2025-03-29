@@ -9,15 +9,15 @@ import ToastProvider from './toaster';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ThemeProvider>
-      <GestureHandlerRootView>
-        <QueryProvider>
+    <QueryProvider>
+      <ThemeProvider>
+        <GestureHandlerRootView>
           <BottomSheet>{children}</BottomSheet>
           <ToastProvider />
           <PortalHost />
-        </QueryProvider>
-      </GestureHandlerRootView>
-    </ThemeProvider>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    </QueryProvider>
   );
 };
 

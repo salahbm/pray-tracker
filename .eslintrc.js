@@ -33,7 +33,7 @@ module.exports = {
     '@typescript-eslint/no-require-imports': 'warn',
 
     // General ESLint rules
-    'no-console': 'warn',
+    'no-console': ['warn', { allow: ['error','info'] }],
     'semi': ['warn', 'always'],
     'quotes': ['warn', 'single'],
     'comma-dangle': ['warn', 'always-multiline'],

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { useUpdateUser } from '@/hooks/auth/usePutUser';
+import { usePutUser } from '@/hooks/auth/usePutUser';
 import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -22,7 +22,7 @@ const EditProfile = () => {
   const { user, setUser } = useAuthStore();
   const { colors } = useThemeStore();
   const { t } = useTranslation();
-  const { mutateAsync: updateUser, isPending: isLoading } = useUpdateUser();
+  const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
 
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');

@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
 import { Redirect } from 'expo-router';
+import { useEffect } from 'react';
+
 import { initializePurchases } from '@/lib/revenuecat';
 import { useOnboarding } from 'store/defaults/onboarding';
 
