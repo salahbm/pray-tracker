@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Text } from '@/components/ui/text';
 import {
   getSubscriptionPlans,
   purchasePackage,
   SubscriptionPlan,
 } from '@/lib/revenuecat';
 import { cn } from '@/lib/utils';
-import { useTranslation } from 'react-i18next';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text } from '@/components/ui/text';
 
 export default function PurchaseSheet() {
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
@@ -86,8 +85,8 @@ export default function PurchaseSheet() {
             onPurchase={handlePurchase}
             purchasing={purchasing}
             savings={
-              yearlyPlan.originalPrice
-                ? (yearlyPlan.originalPrice - yearlyPlan.price).toFixed(2)
+              monthlyPlan && yearlyPlan
+                ? (monthlyPlan.price * 12 - yearlyPlan.price).toFixed(2)
                 : undefined
             }
           />

@@ -1,17 +1,26 @@
 import { Platform } from 'react-native';
-import * as Device from 'expo-device';
 
-// Mock implementation for Expo Go
+// Mock implementation for non-iOS/Android environments or Expo Go
+// Explanation: react-native-purchases does NOT work on the web or in Expo Go, so we provide a fallback.
 const MockPurchases = {
-  setLogLevel: () => {},
-  configure: async () => {},
+  PURCHASES_ERROR_CODE: {
+    PURCHASE_CANCELLED_ERROR: 'PURCHASE_CANCELLED_ERROR',
+  },
+  LOG_LEVEL: {
+    DEBUG: 'DEBUG',
+  },
+  configure: async (_: { apiKey: string }) => {},
+  getCustomerInfo: async () => ({
+    entitlements: { active: {} },
+  }),
   getOfferings: async () => ({
     current: {
       availablePackages: [
         {
           identifier: 'monthly',
           product: {
-            description: 'Monthly Premium',
+            identifier: 'monthly',
+            description: 'Monthly Premium Subscription',
             price: 4.99,
             subscriptionPeriod: 'P1M',
           },
@@ -19,129 +28,160 @@ const MockPurchases = {
         {
           identifier: 'yearly',
           product: {
-            description: 'Yearly Premium (Save 40%)',
-            price: 29.99,
+            identifier: 'yearly',
+            description: 'Yearly Premium Subscription',
+            price: 39.99,
             subscriptionPeriod: 'P1Y',
           },
         },
       ],
     },
   }),
-  purchasePackage: async (package_: any) => ({
-    customerInfo: {
-      entitlements: {
-        active: {
-          premium: {
-            isActive: true,
-            willRenew: true,
-            periodType: 'normal',
-            latestPurchaseDate: new Date().toISOString(),
-            originalPurchaseDate: new Date().toISOString(),
-            expirationDate: new Date(
-              Date.now() + 30 * 24 * 60 * 60 * 1000,
-            ).toISOString(),
+  purchasePackage: async (_package) => {
+    // Simulate purchase success
+    return {
+      customerInfo: {
+        entitlements: {
+          active: {
+            premium: {
+              isActive: true,
+            },
           },
         },
       },
-    },
-  }),
-  getCustomerInfo: async () => ({
-    entitlements: {
-      active: {},
-    },
-  }),
+    };
+  },
   restorePurchases: async () => ({
-    entitlements: {
-      active: {},
-    },
+    entitlements: { active: { premium: { isActive: true } } },
   }),
+  setLogLevel: async (_level: string) => {},
 };
 
-// Use mock in Expo Go, real implementation in development build
-const Purchases = Platform.select({
-  ios: MockPurchases,
-  android: MockPurchases,
-  default: MockPurchases,
-});
+let Purchases: typeof MockPurchases = MockPurchases;
 
-export const OFFERING_IDENTIFIER = 'default';
-export const ENTITLEMENT_ID = 'premium';
+// Initialize the real Purchases library for iOS/Android
+const initializePurchasesLibrary = async () => {
+  if (Platform.OS === 'ios' || Platform.OS === 'android') {
+    const RNPurchases = await import('react-native-purchases');
+    Purchases = RNPurchases.default;
+  }
+};
 
-export type SubscriptionPlan = {
+// Call initialization immediately
+initializePurchasesLibrary();
+
+// RevenueCat API keys
+const REVENUECAT_API_KEYS = {
+  ios: 'YOUR_IOS_API_KEY',
+  android: 'YOUR_ANDROID_API_KEY',
+};
+
+// Types
+export interface SubscriptionPlan {
   identifier: string;
   description: string;
   price: number;
   period: string;
-  originalPrice?: number;
-};
-
-// Initialize RevenueCat or mock
-export async function initializePurchases() {
-  if (Device.isDevice) {
-    await Purchases.configure();
-  }
 }
 
-// Get available packages
-export async function getSubscriptionPlans(): Promise<SubscriptionPlan[]> {
+// Initialize Purchases
+export const initializePurchases = async () => {
+  try {
+    const apiKey = Platform.select(REVENUECAT_API_KEYS);
+    if (!apiKey) {
+      throw new Error('No API key found for this platform');
+    }
+
+    // Configure RevenueCat
+    await Purchases.configure({ apiKey });
+
+    // Enable debug logs in development builds only
+    if (__DEV__) {
+      // Ensure that LOG_LEVEL exists on whichever object we’re using
+      Purchases.setLogLevel?.(Purchases.LOG_LEVEL.DEBUG);
+    }
+    return true;
+  } catch (error) {
+    console.error('Failed to initialize RevenueCat:', error);
+    return false;
+  }
+};
+
+// Get customer info
+export const getCustomerInfo = async () => {
+  try {
+    return await Purchases.getCustomerInfo();
+  } catch (error) {
+    console.error('Failed to get customer info:', error);
+    return null;
+  }
+};
+
+// Get available subscription plans
+export const getSubscriptionPlans = async (): Promise<SubscriptionPlan[]> => {
   try {
     const offerings = await Purchases.getOfferings();
-    const current = offerings.current;
+    if (!offerings.current) {
+      throw new Error('No offerings available');
+    }
 
-    if (!current) return [];
-
-    return current.availablePackages.map((pkg) => ({
+    return offerings.current.availablePackages.map((pkg) => ({
       identifier: pkg.identifier,
       description: pkg.product.description,
       price: pkg.product.price,
       period: pkg.product.subscriptionPeriod,
     }));
   } catch (error) {
-    console.error('Error fetching subscription plans:', error);
+    console.error('Failed to get subscription plans:', error);
     return [];
   }
-}
+};
 
 // Purchase a package
-export async function purchasePackage(packageIdentifier: string) {
+export const purchasePackage = async (packageIdentifier: string) => {
   try {
     const offerings = await Purchases.getOfferings();
-    const package_ = offerings.current?.availablePackages.find(
-      (p) => p.identifier === packageIdentifier,
+    const packageToPurchase = offerings.current?.availablePackages.find(
+      (pkg) => pkg.identifier === packageIdentifier,
     );
 
-    if (!package_) {
+    if (!packageToPurchase) {
       throw new Error('Package not found');
     }
 
-    const { customerInfo } = await Purchases.purchasePackage(package_);
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
-  } catch (error: any) {
-    if (!error.userCancelled) {
-      console.error('Error purchasing package:', error);
-    }
-    return false;
-  }
-}
-
-// Check subscription status
-export async function checkSubscriptionStatus(): Promise<boolean> {
-  try {
-    const customerInfo = await Purchases.getCustomerInfo();
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    const { customerInfo } = await Purchases.purchasePackage(packageToPurchase);
+    return { customerInfo };
   } catch (error) {
-    console.error('Error checking subscription status:', error);
-    return false;
+    // Check for user cancellation
+    if (
+      error?.code === Purchases.PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR
+    ) {
+      throw new Error('Purchase cancelled');
+    }
+
+    console.error('Failed to purchase package:', error);
+    throw error;
   }
-}
+};
 
 // Restore purchases
-export async function restorePurchases(): Promise<boolean> {
+export const restorePurchases = async (): Promise<boolean> => {
   try {
     const customerInfo = await Purchases.restorePurchases();
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    return Object.keys(customerInfo.entitlements.active).length > 0;
   } catch (error) {
-    console.error('Error restoring purchases:', error);
+    console.error('Failed to restore purchases:', error);
     return false;
   }
-}
+};
+
+// Check if user has an active subscription
+export const checkSubscriptionStatus = async (): Promise<boolean> => {
+  try {
+    const customerInfo = await Purchases.getCustomerInfo();
+    return customerInfo.entitlements.active['premium']?.isActive ?? false;
+  } catch (error) {
+    console.error('Failed to check subscription status:', error);
+    return false;
+  }
+};

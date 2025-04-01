@@ -1,21 +1,21 @@
+import BottomSheet from '@gorhom/bottom-sheet';
 import React, { useRef, useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSubscription } from '@/hooks/use-subscription';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { fireToast } from '@/providers/toaster';
+import PurchaseSheet from './purchase-sheet';
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import PurchaseSheet from './purchase-sheet';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { usePurchases } from '@/hooks/use-purchases';
+import { fireToast } from '@/providers/toaster';
 
 // Main features to show initially
 const MAIN_FEATURES = ['Friends', 'Awards', 'Widgets'] as const;
@@ -52,7 +52,7 @@ const CallToAction = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const [showAllFeatures, setShowAllFeatures] = useState(false);
-  const { isLoading, restore } = useSubscription();
+  const { isLoading, restore } = usePurchases();
 
   // Handle restore purchase
   const handleRestore = async () => {
