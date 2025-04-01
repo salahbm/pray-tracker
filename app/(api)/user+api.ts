@@ -74,7 +74,7 @@ export async function GET(request: Request) {
 // UPDATE USER
 export async function PUT(request: Request) {
   try {
-    const { id, ...data } = await request.json();
+    const { id, toast, ...data } = await request.json();
 
     if (!id) {
       throw new ApiError({
@@ -107,7 +107,7 @@ export async function PUT(request: Request) {
     return createResponse({
       status: StatusCode.SUCCESS,
       message: 'User updated successfully',
-      code: MessageCodes.USER_UPDATED,
+      code: toast === undefined ? MessageCodes.USER_UPDATED : undefined,
       data: updatedUser,
     });
   } catch (error) {

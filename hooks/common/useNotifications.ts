@@ -81,7 +81,11 @@ export const usePushNotifications = (): PushNotificationState & {
       }
 
       if (user?.id && token.data && token.data !== user.deviceToken) {
-        await updateUser({ id: user.id, deviceToken: token.data }).catch(() => {
+        await updateUser({
+          id: user.id,
+          deviceToken: token.data,
+          toast: false,
+        }).catch(() => {
           fireToast.error('Server update failed');
         });
         setUser({ ...user, deviceToken: token.data, password: '' });
@@ -123,7 +127,11 @@ export const usePushNotifications = (): PushNotificationState & {
     async (enabled: boolean) => {
       if (!user?.id) return;
       if (!enabled) {
-        await updateUser({ id: user.id, deviceToken: null }).catch(() => {
+        await updateUser({
+          id: user.id,
+          deviceToken: null,
+          toast: false,
+        }).catch(() => {
           fireToast.error('Failed to remove token');
         });
         setUser({ ...user, deviceToken: null, password: '' });

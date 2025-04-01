@@ -1,50 +1,144 @@
-# Welcome to your Expo app 👋
+# 🕌 Pray Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<div align="center">
 
-## Get started
+![Version](https://img.shields.io/badge/version-1.1.0--alpha.1-blue)
+![Platform - Android](https://img.shields.io/badge/platform-Android-green)
+![Platform - iOS](https://img.shields.io/badge/platform-iOS-black)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-1. Install dependencies
+A comprehensive mobile application designed to help Muslims track and maintain their daily prayers with smart features and beautiful UI.
 
-   ```bash
-   npm install
-   ```
+</div>
 
-2. Start the app
+## ✨ Features
 
-   ```bash
-    npx expo start
-   ```
+### 🕌 Core Prayer Features
+- **Prayer Time Tracking**: Accurate prayer times based on your location
+- **Qibla Direction**: Built-in Qibla compass
+- **Prayer Logging**: Track your daily prayers with ease
+- **Streak System**: Maintain and track your prayer consistency
 
-In the output, you'll find options to open the app in a
+### 📱 Smart Notifications
+- Customizable prayer time reminders
+- Streak maintenance alerts
+- Friend activity notifications
+- Rich notifications with quick actions
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 🌍 Location Services
+- Automatic prayer time adjustments
+- Location-based Qibla direction
+- Smart timezone handling
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 🌐 Premium Features
+- Enhanced statistics and analytics
+- Advanced prayer tracking features
+- Customizable themes and UI options
+- Ad-free experience
 
-## Get a fresh project
+### 🔤 Internationalization
+- Multi-language support
+- RTL layout support
+- Localized content and prayer times
 
-When you're ready, run:
+## 🛠 Tech Stack
 
+### Core Technologies
+- **Framework**: React Native with Expo (v52)
+- **Language**: TypeScript
+- **Routing**: Expo Router (file-based)
+- **Styling**: TailwindCSS (NativeWind v4)
+- **Database**: PostgreSQL with Prisma
+- **Backend**: Supabase
+
+### State Management
+- Zustand (Global State)
+- React Query (Server State)
+
+### Key Libraries
+- `adhan`: Prayer time calculations
+- `@react-navigation`: Navigation system
+- `react-native-purchases`: In-app purchases
+- `@gorhom/bottom-sheet`: Interactive bottom sheets
+- `react-native-reanimated`: Smooth animations
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js >= 18
+- npm or yarn
+- iOS/Android development environment
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/pray-tracker.git
+cd pray-tracker
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies
+```bash
+npm install
+```
 
-## Learn more
+3. Set up environment variables
+```bash
+cp .env.example .env.local
+# Edit .env.local with your configuration
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+4. Start the development server
+```bash
+npx expo start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📱 Development
 
-## Join the community
+### Available Scripts
+- `npm start`: Start the Expo development server
+- `npm run ios`: Start iOS simulator
+- `npm run android`: Start Android emulator
+- `npm run lint`: Run ESLint
+- `npm run format`: Format code with Prettier
+- `npm run test`: Run tests
+- `npm run commit`: Create a formatted commit message
 
-Join our community of developers creating universal apps.
+### Project Structure
+```
+pray-tracker/
+├── app/                 # Main application code
+├── components/          # Reusable UI components
+├── constants/          # App configurations
+├── hooks/              # Custom React hooks
+├── lib/               # Core integrations
+├── locales/           # i18n files
+├── providers/         # Context providers
+├── store/            # State management
+├── styles/           # Global styles
+└── utils/            # Utility functions
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes using conventional commits (`npm run commit`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Adhan.js](https://github.com/batoulapps/adhan-js) for prayer time calculations
+- [Expo](https://expo.dev) for the amazing development platform
+- [Supabase](https://supabase.com) for backend services
+
+---
+
+<div align="center">
+Made with ❤️ for the Muslim community
+</div>

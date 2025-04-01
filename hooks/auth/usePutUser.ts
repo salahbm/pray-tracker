@@ -13,6 +13,7 @@ interface IUserParams {
   password?: string;
 
   deviceToken?: string;
+  toast?: boolean;
 }
 
 const updateUser = async (params: IUserParams) => {
@@ -26,6 +27,7 @@ const updateUser = async (params: IUserParams) => {
       photo: params.photo,
       password: params.password,
       deviceToken: params.deviceToken,
+      toast: params.toast,
     }),
   });
   return response;
