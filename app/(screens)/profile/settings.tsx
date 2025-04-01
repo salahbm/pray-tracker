@@ -20,7 +20,7 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
-  const { isNotificationEnabled } = usePushNotifications();
+  const { isNotificationEnabled, toggleNotifications } = usePushNotifications();
 
   return (
     <SafeAreaView className="safe-area">
@@ -97,17 +97,16 @@ const Settings = () => {
             {/* Switch to enable / disable notifications */}
             <Switch
               trackColor={{
-                false: colors['--background'],
-                true: colors['--primary'],
+                false: colors['--muted'],
+                true: colors['--muted'],
               }}
               thumbColor={
                 isNotificationEnabled
                   ? colors['--primary']
-                  : colors['--background']
+                  : colors['--muted-foreground']
               }
-              ios_backgroundColor={colors['--card']}
-              onValueChange={(_value) => {}}
-              value={Boolean(isNotificationEnabled)}
+              value={isNotificationEnabled}
+              onValueChange={(enabled) => toggleNotifications(enabled)}
             />
           </View>
         </AuthWrapper>

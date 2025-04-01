@@ -24,7 +24,8 @@ export const useAuthStore = create<AuthState>()(
           return;
         }
         // Omit password when storing user
-        const { password, ...storedUser } = user;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: _, ...storedUser } = user;
         set({ user: storedUser });
       },
       setSession: (session: Session | null) => set({ session }),

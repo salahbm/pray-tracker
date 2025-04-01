@@ -15,12 +15,12 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const { setSession, clearUserAndSession } = useAuthStore();
-  const { expoPushToken, notification } = usePushNotifications();
-  const data = JSON.stringify(notification, undefined, 2);
-  console.log('data:', data, expoPushToken);
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
+
+  /// Initialize notifications system
+  usePushNotifications();
 
   // Start auto-refresh when the app becomes active
   useEffect(() => {
