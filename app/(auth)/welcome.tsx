@@ -162,11 +162,11 @@ const Welcome = () => {
                   </View>
                 )}
                 <View className="flex flex-row items-center justify-center w-full">
-                  <Text className="text-foreground text-3xl font-bold mx-10 text-center">
+                  <Text className="text-foreground text-3xl font-bold  text-center">
                     {t(item.titleKey)}
                   </Text>
                 </View>
-                <Text className="text-md text-center mx-10 mt-10 text-muted-foreground">
+                <Text className="text-md text-center mt-10 mb-20 text-muted-foreground">
                   {t(item.descriptionKey)}
                 </Text>
               </View>

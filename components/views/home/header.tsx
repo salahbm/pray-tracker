@@ -2,6 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import * as Haptics from 'expo-haptics';
 import React, { forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, Image } from 'react-native';
 
 import { Button } from '@/components/ui/button';
@@ -21,6 +22,7 @@ const HomeHeader = forwardRef<
   HomeHeaderProps & React.ComponentPropsWithoutRef<typeof View>
 >(({ user, today, handlePresentSignIn }, profileSheetRef) => {
   const { currentLanguage } = useLanguage();
+  const { t } = useTranslation();
   return (
     <View
       className={cn(
@@ -32,7 +34,9 @@ const HomeHeader = forwardRef<
           numberOfLines={1}
           className={cn('text-xl font-bold max-w-[250px] truncate')}
         >
-          {user ? `Salaam, ${user.username} 👋` : 'Salaam, Guest 👋'}
+          {user
+            ? `Salaam, ${user.username} 👋`
+            : `Salaam, ${t('Auth.Welcome.Guest')} 👋`}
         </Text>
         <Text className={cn('text-muted-foreground')}>
           {today.toLocaleDateString(currentLanguage)}
@@ -64,7 +68,7 @@ const HomeHeader = forwardRef<
       <AuthWrapper mode="signedOut">
         <View className="flex-row justify-end gap-5 items-center">
           <Button size="sm" onPress={handlePresentSignIn}>
-            <Text>Sign In</Text>
+            <Text>{t('Auth.SignUp.SignInLink')}</Text>
           </Button>
           <TouchableOpacity
             onPress={() => {
