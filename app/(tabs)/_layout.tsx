@@ -12,10 +12,10 @@ export default function TabLayout() {
 
   const screens = useMemo(
     () => [
-      { name: 'index', title: 'Home', Icon: Home },
-      { name: 'qibla', title: 'Qibla', Icon: Compass },
-      { name: 'awards', title: 'Awards', Icon: Award },
-      { name: 'friends', title: 'Friends', Icon: Users },
+      { name: 'index', Icon: Home },
+      { name: 'qibla', Icon: Compass },
+      { name: 'awards', Icon: Award },
+      { name: 'friends', Icon: Users },
     ],
     [],
   );
@@ -25,6 +25,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: colors['--primary'],
         headerShown: false,
+        tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
           borderTopWidth: 0, // Remove any border
@@ -50,13 +51,14 @@ export default function TabLayout() {
         ),
       }}
     >
-      {screens.map(({ name, title, Icon }) => (
+      {screens.map(({ name, Icon }) => (
         <Tabs.Screen
           key={name}
           name={name}
           options={{
-            title,
-            tabBarIcon: ({ color }) => <Icon color={color} size={24} />,
+            tabBarIcon: ({ color }) => (
+              <Icon color={color} size={25} style={{ marginBottom: -5 }} />
+            ),
           }}
         />
       ))}

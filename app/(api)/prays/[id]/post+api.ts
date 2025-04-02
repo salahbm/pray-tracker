@@ -1,7 +1,6 @@
 import prisma from '@/lib/prisma';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
-import { checkAndAssignAwards } from '@/utils/award-helpers';
 
 export async function POST(request: Request) {
   try {
@@ -55,7 +54,8 @@ export async function POST(request: Request) {
     });
 
     // Check and assign any new awards
-    const newAwards = await checkAndAssignAwards(userId);
+    // const newAwards = await checkAndAssignAwards(userId);
+    const newAwards = [];
 
     return createResponse({
       status: StatusCode.SUCCESS,
