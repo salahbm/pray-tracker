@@ -46,7 +46,7 @@ const FriendsApproved = () => {
 
   const handleSendRequest = async () => {
     if (!friendEmail.trim()) {
-      fireToast.error(t('Friends.Premium.InvalidEmail'));
+      fireToast.error(t('Friends.Pro.InvalidEmail'));
       return;
     }
     await sendFriendRequest({
@@ -74,7 +74,7 @@ const FriendsApproved = () => {
           <View className="flex-1">
             <Input
               className="px-4 py-2 border-0"
-              placeholder={t('Friends.Premium.SearchPlaceholder')}
+              placeholder={t('Friends.Pro.SearchPlaceholder')}
               value={friendEmail}
               onChangeText={setFriendEmail}
               autoCapitalize="none"
@@ -105,9 +105,7 @@ const FriendsApproved = () => {
       </View>
 
       {/* Approved Friends List */}
-      <Text className="text-xl font-bold mb-3">
-        {t('Friends.Premium.Title')}
-      </Text>
+      <Text className="text-xl font-bold mb-3">{t('Friends.Pro.Title')}</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[100%] bg-transparent" />
       ) : approvedFriends?.data.length > 0 ? (
@@ -167,7 +165,7 @@ const FriendsApproved = () => {
                         className="flex-row items-center justify-between py-1"
                       >
                         <Text className={cn('capitalize font-semibold')}>
-                          {t(`Friends.Premium.PrayerTypes.${prayer}`)}
+                          {t(`Friends.Pro.PrayerTypes.${prayer}`)}
                         </Text>
 
                         <View className="flex-row gap-4">
@@ -200,7 +198,7 @@ const FriendsApproved = () => {
           </SwiperButton>
         ))
       ) : (
-        <NoData title={t('Friends.Premium.NoFriends')} className="mt-[45%]" />
+        <NoData title={t('Friends.Pro.NoFriends')} className="mt-[45%]" />
       )}
     </ScrollView>
   );

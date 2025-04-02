@@ -5,6 +5,7 @@ export interface HeatMapProps {
   defaultBackgroundColor?: string;
   year?: number;
   onDayClick?: (date: string, details: { data: DayData | null }) => void;
+  locale?: string;
 }
 
 // Data structure for a single day's data

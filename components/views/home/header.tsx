@@ -7,6 +7,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
+import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
 
@@ -19,6 +20,7 @@ const HomeHeader = forwardRef<
   BottomSheetMethods | BottomSheet | null, // Correct type for the ref
   HomeHeaderProps & React.ComponentPropsWithoutRef<typeof View>
 >(({ user, today, handlePresentSignIn }, profileSheetRef) => {
+  const { currentLanguage } = useLanguage();
   return (
     <View
       className={cn(
@@ -33,7 +35,7 @@ const HomeHeader = forwardRef<
           {user ? `Salaam, ${user.username} 👋` : 'Salaam, Guest 👋'}
         </Text>
         <Text className={cn('text-muted-foreground')}>
-          {today.toDateString()}
+          {today.toLocaleDateString(currentLanguage)}
         </Text>
       </View>
 

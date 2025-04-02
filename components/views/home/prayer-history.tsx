@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
+import { useLanguage } from '@/hooks/common/useTranslation';
 import { TransformedPrays } from '@/hooks/prays/useGetPrays';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -38,6 +39,7 @@ interface PrayerHistoryProps {
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
   const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
   const {
     isPickerVisible,
     year,
@@ -98,6 +100,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
         <HeatMap
           data={transformedData ?? null}
           year={year}
+          locale={currentLanguage}
           onDayClick={handleDayClick}
           color={{
             theme: colors['--primary'],

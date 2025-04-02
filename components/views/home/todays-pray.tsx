@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { PRAYER_POINTS } from '@/constants/enums';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -24,9 +24,27 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
           {t('Home.TodaysPrayers.Title')}
         </Text>
         <View className="flex-1 flex-row justify-end gap-4">
-          <Text className={cn('text-sm font-bold text-center')}>Missed</Text>
-          <Text className={cn('text-sm font-bold text-center')}>Late</Text>
-          <Text className={cn('text-sm font-bold text-center')}>On Time</Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            className={cn('text-sm font-bold text-center max-w-14')}
+          >
+            {t('Home.TodaysPrayers.Missed')}
+          </Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            className={cn('text-sm font-bold text-center max-w-14')}
+          >
+            {t('Home.TodaysPrayers.Late')}
+          </Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            className={cn('text-sm font-bold text-center max-w-14')}
+          >
+            {t('Home.TodaysPrayers.OnTime')}
+          </Text>
         </View>
       </View>
       <Text className="text-sm text-muted-foreground mb-4">

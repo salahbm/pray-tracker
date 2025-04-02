@@ -1,11 +1,8 @@
-import BottomSheet from '@gorhom/bottom-sheet';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import PurchaseSheet from './purchase-sheet';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import {
   Accordion,
   AccordionContent,
@@ -14,8 +11,6 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { usePurchases } from '@/hooks/use-purchases';
-import { fireToast } from '@/providers/toaster';
 
 // Main features to show initially
 const MAIN_FEATURES = ['Friends', 'Awards', 'Widgets'] as const;
@@ -34,12 +29,12 @@ const FeatureAccordion = ({ features }: { features: readonly string[] }) => {
         >
           <AccordionTrigger className="py-1">
             <Text className="text-popover-foreground font-normal tracking-tight">
-              {t(`Friends.Premium.Features.${feature}.title`)}
+              {t(`Friends.Pro.Features.${feature}.title`)}
             </Text>
           </AccordionTrigger>
           <AccordionContent className="px-1">
             <Text className="text-popover-foreground font-normal !text-sm leading-relaxed">
-              {t(`Friends.Premium.Features.${feature}.description`)}
+              {t(`Friends.Pro.Features.${feature}.description`)}
             </Text>
           </AccordionContent>
         </AccordionItem>
@@ -52,20 +47,6 @@ const CallToAction = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const [showAllFeatures, setShowAllFeatures] = useState(false);
-  const { isLoading, restore } = usePurchases();
-
-  // Handle restore purchase
-  const handleRestore = async () => {
-    const success = await restore();
-    if (success) {
-      fireToast.success(t('Friends.Premium.RestoreSuccess'));
-    } else {
-      fireToast.error(t('Friends.Premium.RestoreError'));
-    }
-  };
-
-  // BOTTOM SHEETS REFERENCES
-  const ref = useRef<BottomSheet>(null);
 
   return (
     <React.Fragment>
@@ -76,41 +57,41 @@ const CallToAction = () => {
       >
         {/* Bismillah */}
         <Text className="text-muted-foreground text-center mt-6 text-sm font-medium">
-          {t('Friends.Premium.BismillahMessage')}
+          {t('Friends.Pro.BismillahMessage')}
         </Text>
 
         {/* Header Section */}
         <Text className="text-foreground text-2xl font-bold mt-4 text-center tracking-tight">
-          {t('Friends.Premium.Title')}
+          {t('Friends.Pro.Title')}
         </Text>
         <Text className="text-muted-foreground text-lg text-center mt-1 font-medium">
-          {t('Friends.Premium.Subtitle')}
+          {t('Friends.Pro.Subtitle')}
         </Text>
 
         {/* Welcome Section */}
         <View className="bg-popover rounded-2xl mt-6 w-full p-6">
           <Text className="text-popover-foreground text-xl font-semibold text-center tracking-tight">
-            {t('Friends.Premium.WelcomeTitle')}
+            {t('Friends.Pro.WelcomeTitle')}
           </Text>
           <Text className="text-foreground text-center mt-3 text-base">
-            {t('Friends.Premium.WelcomeMessage')}
+            {t('Friends.Pro.WelcomeMessage')}
           </Text>
         </View>
 
         {/* Team Section */}
         <View className="bg-popover rounded-2xl mt-6 w-full p-6">
           <Text className="text-popover-foreground text-xl font-semibold text-center tracking-tight">
-            {t('Friends.Premium.TeamTitle')}
+            {t('Friends.Pro.TeamTitle')}
           </Text>
           <Text className="text-foreground text-center mt-3 text-base">
-            {t('Friends.Premium.TeamMessage')}
+            {t('Friends.Pro.TeamMessage')}
           </Text>
         </View>
 
         {/* Features Section */}
         <View className="bg-popover rounded-2xl mt-6 w-full p-6">
           <Text className="text-popover-foreground text-xl font-semibold text-center mb-4 tracking-tight">
-            {t('Friends.Premium.FeaturesTitle')}
+            {t('Friends.Pro.FeaturesTitle')}
           </Text>
 
           {/* Main Features */}
@@ -123,8 +104,8 @@ const CallToAction = () => {
           >
             <Text className="text-primary text-center font-normal text-sm">
               {showAllFeatures
-                ? t('Friends.Premium.LessFeatures')
-                : t('Friends.Premium.MoreFeatures')}
+                ? t('Friends.Pro.LessFeatures')
+                : t('Friends.Pro.MoreFeatures')}
             </Text>
           </TouchableOpacity>
 
@@ -136,35 +117,16 @@ const CallToAction = () => {
           )}
 
           <Text className="text-secondary text-sm text-center mt-4 italic">
-            {t('Friends.Premium.Future')}
+            {t('Friends.Pro.Future')}
           </Text>
         </View>
 
         {/* Subscription Plans */}
 
-        <Button
-          className="bg-primary rounded-full py-4 px-8 w-full mt-8"
-          onPress={() => ref.current?.snapToIndex(1)}
-          disabled={isLoading}
-        >
-          <Text>{t('Friends.Premium.SubscribeButton')} ❤️</Text>
+        <Button className="bg-primary rounded-full py-4 px-8 w-full mt-8">
+          <Text>{t('Friends.Pro.SubscribeButton')} ❤️</Text>
         </Button>
-
-        {/* Restore Button */}
-        <TouchableOpacity
-          className="mt-4 mb-8"
-          onPress={handleRestore}
-          disabled={isLoading}
-        >
-          <Text className="text-foreground underline text-center font-medium text-base">
-            {t('Friends.Premium.RestoreButton')}
-          </Text>
-        </TouchableOpacity>
       </ScrollView>
-      {/* BOTTOM SHEET */}
-      <CustomBottomSheet sheetRef={ref} snapPoints={['40%', '60%']} opacity={0}>
-        <PurchaseSheet />
-      </CustomBottomSheet>
     </React.Fragment>
   );
 };

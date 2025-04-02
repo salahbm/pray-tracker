@@ -193,7 +193,10 @@
     },
     "TodaysPrayers": {
       "Title": "오늘의 기도",
-      "SubTitle": "알라(ﷻ)께서 당신의 기도를 받아주시기를 바랍니다"
+      "SubTitle": "알라(ﷻ)께서 당신의 기도를 받아주시기를 바랍니다",
+      "Missed": "미트",
+      "Late": "녢",
+      "OnTime": "영통"
     },
     "Errors": {
       "FutureDate": "미래 날짜는 선택할 수 없습니다"
@@ -231,7 +234,7 @@
     "first_full_day": "📅 첫 하루치 기도를 완수했습니다!",
     "first_week": "🎯 첫 일주일 동안 기도 기록 완료!",
     "first_month": "🌙 한 달 동안 꾸준히 기도 기록!",
-    
+
     "seven_day_streak": "🔥 7일 연속 기도를 수행했습니다!",
     "fifteen_day_streak": "⚡ 15일 동안 기도를 지속했습니다!",
     "thirty_day_streak": "🌟 30일 연속 기도를 수행했습니다!",
@@ -239,95 +242,94 @@
     "ninety_day_streak": "🌈 90일 동안 영적인 지속성!",
     "perfect_week": "✨ 일주일 동안 5번의 기도를 모두 완료했습니다!",
     "perfect_month": "🎯 한 달 동안 완벽한 기도 출석!",
-    
+
     "fifty_prayers": "🕌 총 50번의 기도를 기록했습니다!",
     "hundred_prayers": "💯 총 100번의 기도를 기록했습니다!",
     "five_hundred_prayers": "🏆 500번의 기도를 완료했습니다!",
     "thousand_prayers": "👑 1000번의 기도를 수행한 진정한 기도 전사!",
     "two_thousand_prayers": "🌟 2000번의 기도를 달성했습니다!",
     "five_thousand_prayers": "🎊 5000번의 기도 - 놀라운 헌신!",
-    
+
     "fajr_master": "🌅 30일 연속으로 파즈르 기도를 시간 내에 수행했습니다!",
     "early_bird": "🐦 파즈르 기도를 첫 번째 시간 내에 수행했습니다!",
     "dawn_seeker": "🌄 90%의 파즈르 기도를 시간 내에 수행했습니다!",
     "tahajjud_warrior": "🌙 타하쥬드 기도를 꾸준히 수행했습니다!",
-    
+
     "punctual_worshipper": "⏰ 이번 달에 90%의 기도를 시간 내에 수행했습니다!",
     "jamaat_regular": "👥 50번의 회중 기도를 수행했습니다!",
     "jamaat_devotee": "🕌 100번의 회중 기도를 수행했습니다 - 놀랍습니다!",
     "dedicated_tahajjud": "🌙 이번 달에 15번의 타하쥬드 기도를 수행했습니다!",
-    
+
     "ramadan_warrior": "🌙 라마단 동안 모든 기도를 완수했습니다!",
     "ramadan_champion": "⭐ 라마단 동안 완벽한 기도 기록!",
     "laylatul_qadr": "✨ 마지막 10일 밤 동안 헌신적인 기도!",
     "eid_prayers": "🎊 이드 기도를 한 번도 빠뜨리지 않았습니다!",
     "jumuah_regular": "🕌 매주 금요일 기도를 꾸준히 수행했습니다!",
     "Descriptions": {
-  "first_prayer": "첫 번째 기도를 기록하며 영적 여정을 시작하세요.",
-  "first_full_day": "하루 동안 다섯 번의 기도를 모두 완료하세요.",
-  "first_week": "일주일 동안 꾸준히 기도를 기록하세요.",
-  "first_month": "한 달 동안 기도 추적을 유지하세요.",
-  
-  "seven_day_streak": "7일 연속으로 꾸준히 기도하세요.",
-  "fifteen_day_streak": "15일 연속으로 기도를 이어가세요.",
-  "thirty_day_streak": "30일 기도 연속 기록을 달성하세요.",
-  "sixty_day_streak": "60일 동안 변함없는 헌신을 보여주세요.",
-  "ninety_day_streak": "90일 기도 연속 기록을 달성하세요.",
-  "perfect_week": "일주일 동안 모든 기도를 제시간에 완료하세요.",
-  "perfect_month": "한 달 동안 완벽한 기도 출석을 달성하세요.",
-  
-  "fifty_prayers": "처음 50번의 기도를 기록하세요.",
-  "hundred_prayers": "100번의 기도 기록을 달성하세요.",
-  "five_hundred_prayers": "500번의 기도를 완수하세요.",
-  "thousand_prayers": "1000번의 기도를 이루는 놀라운 업적을 달성하세요.",
-  "two_thousand_prayers": "2000번의 기도를 달성하세요.",
-  "five_thousand_prayers": "5000번의 기도를 완수하는 위대한 목표를 이루세요.",
-  
-  "fajr_master": "한 달 동안 파즈르(Fajr) 기도를 꾸준히 제시간에 수행하세요.",
-  "early_bird": "파즈르(Fajr) 기도를 가장 이른 시간에 꾸준히 수행하세요.",
-  "dawn_seeker": "파즈르(Fajr) 기도를 훌륭한 타이밍으로 유지하세요.",
-  "tahajjud_warrior": "타하쥣(Tahajjud) 기도를 정기적으로 수행하세요.",
-  
-  "punctual_worshipper": "기도 시간을 철저히 지키세요.",
-  "jamaat_regular": "정기적으로 집단 기도(Jamaat)에 참여하세요.",
-  "jamaat_devotee": "자주 집단 기도(Jamaat)에 참석하세요.",
-  "dedicated_tahajjud": "타하쥣(Tahajjud) 기도를 꾸준히 수행하세요.",
-  
-  "sunnah_beginner": "수난(Sunnah) 기도를 시작하세요.",
-  "sunnah_devotee": "수난(Sunnah) 기도를 정기적으로 수행하세요.",
-  "sunnah_master": "수난(Sunnah) 기도를 철저히 실천하세요.",
-  "duha_regular": "두하(Duha) 기도를 꾸준히 수행하세요.",
-  
-  "morning_adhkar": "아침 아드카르(Adhkar)를 정기적으로 실천하세요.",
-  "evening_adhkar": "저녁 아드카르(Adhkar)를 꾸준히 유지하세요.",
-  "consistent_dhikr": "매일 꾸준히 알라(Allah)를 기억하세요.",
-  "quran_companion": "기도 후 꾸란(Quran)을 정기적으로 읽으세요.",
-  "quran_devotee": "매일 꾸란(Quran) 낭독을 유지하세요.",
-  
-  "ramadan_warrior": "라마단(Ramadan) 동안 모든 기도를 완수하세요.",
-  "ramadan_champion": "라마단(Ramadan) 동안 완벽한 기도 출석을 달성하세요.",
-  "laylatul_qadr": "마지막 10일 밤에 헌신하세요.",
-  "eid_prayers": "이드(Eid) 기도를 빠짐없이 수행하세요.",
-  "jumuah_regular": "금요일 기도(Jumuah)에 정기적으로 참석하세요.",
-  
-  "prayer_mentor": "다른 사람들의 기도 여정을 돕세요.",
-  "community_builder": "지지하는 기도 커뮤니티를 만드세요.",
-  "knowledge_seeker": "기도에 대한 지식을 배우고 공유하세요.",
-  "spiritual_guide": "다른 사람들의 영적 길을 안내하세요.",
-  
-  "three_month_milestone": "3개월 동안 기도를 추적하세요.",
-  "six_month_milestone": "6개월 동안 꾸준한 기도를 유지하세요.",
-  "spiritual_milestone": "1년 동안 기도 추적을 완료하세요.",
-  "two_year_devotion": "2년 동안 기도를 꾸준히 실천하세요.",
-  
-  "night_devotee": "타하쥣(Tahajjud) 기도를 꾸준히 수행하세요.",
-  "masjid_regular": "정기적으로 모스크(Masjid)를 방문하세요.",
-  "istighfar_constant": "이스티그파르(Istighfar)를 꾸준히 실천하세요.",
-  "gratitude_master": "기도를 통해 감사의 마음을 표현하세요.",
-  "prophetic_way": "기도에서 예언자의 방법(Prophetic Way)을 따르세요.",
-  "spiritual_excellence": "영적 탁월함을 달성하세요."
-}
+      "first_prayer": "첫 번째 기도를 기록하며 영적 여정을 시작하세요.",
+      "first_full_day": "하루 동안 다섯 번의 기도를 모두 완료하세요.",
+      "first_week": "일주일 동안 꾸준히 기도를 기록하세요.",
+      "first_month": "한 달 동안 기도 추적을 유지하세요.",
 
+      "seven_day_streak": "7일 연속으로 꾸준히 기도하세요.",
+      "fifteen_day_streak": "15일 연속으로 기도를 이어가세요.",
+      "thirty_day_streak": "30일 기도 연속 기록을 달성하세요.",
+      "sixty_day_streak": "60일 동안 변함없는 헌신을 보여주세요.",
+      "ninety_day_streak": "90일 기도 연속 기록을 달성하세요.",
+      "perfect_week": "일주일 동안 모든 기도를 제시간에 완료하세요.",
+      "perfect_month": "한 달 동안 완벽한 기도 출석을 달성하세요.",
+
+      "fifty_prayers": "처음 50번의 기도를 기록하세요.",
+      "hundred_prayers": "100번의 기도 기록을 달성하세요.",
+      "five_hundred_prayers": "500번의 기도를 완수하세요.",
+      "thousand_prayers": "1000번의 기도를 이루는 놀라운 업적을 달성하세요.",
+      "two_thousand_prayers": "2000번의 기도를 달성하세요.",
+      "five_thousand_prayers": "5000번의 기도를 완수하는 위대한 목표를 이루세요.",
+
+      "fajr_master": "한 달 동안 파즈르(Fajr) 기도를 꾸준히 제시간에 수행하세요.",
+      "early_bird": "파즈르(Fajr) 기도를 가장 이른 시간에 꾸준히 수행하세요.",
+      "dawn_seeker": "파즈르(Fajr) 기도를 훌륭한 타이밍으로 유지하세요.",
+      "tahajjud_warrior": "타하쥣(Tahajjud) 기도를 정기적으로 수행하세요.",
+
+      "punctual_worshipper": "기도 시간을 철저히 지키세요.",
+      "jamaat_regular": "정기적으로 집단 기도(Jamaat)에 참여하세요.",
+      "jamaat_devotee": "자주 집단 기도(Jamaat)에 참석하세요.",
+      "dedicated_tahajjud": "타하쥣(Tahajjud) 기도를 꾸준히 수행하세요.",
+
+      "sunnah_beginner": "수난(Sunnah) 기도를 시작하세요.",
+      "sunnah_devotee": "수난(Sunnah) 기도를 정기적으로 수행하세요.",
+      "sunnah_master": "수난(Sunnah) 기도를 철저히 실천하세요.",
+      "duha_regular": "두하(Duha) 기도를 꾸준히 수행하세요.",
+
+      "morning_adhkar": "아침 아드카르(Adhkar)를 정기적으로 실천하세요.",
+      "evening_adhkar": "저녁 아드카르(Adhkar)를 꾸준히 유지하세요.",
+      "consistent_dhikr": "매일 꾸준히 알라(Allah)를 기억하세요.",
+      "quran_companion": "기도 후 꾸란(Quran)을 정기적으로 읽으세요.",
+      "quran_devotee": "매일 꾸란(Quran) 낭독을 유지하세요.",
+
+      "ramadan_warrior": "라마단(Ramadan) 동안 모든 기도를 완수하세요.",
+      "ramadan_champion": "라마단(Ramadan) 동안 완벽한 기도 출석을 달성하세요.",
+      "laylatul_qadr": "마지막 10일 밤에 헌신하세요.",
+      "eid_prayers": "이드(Eid) 기도를 빠짐없이 수행하세요.",
+      "jumuah_regular": "금요일 기도(Jumuah)에 정기적으로 참석하세요.",
+
+      "prayer_mentor": "다른 사람들의 기도 여정을 돕세요.",
+      "community_builder": "지지하는 기도 커뮤니티를 만드세요.",
+      "knowledge_seeker": "기도에 대한 지식을 배우고 공유하세요.",
+      "spiritual_guide": "다른 사람들의 영적 길을 안내하세요.",
+
+      "three_month_milestone": "3개월 동안 기도를 추적하세요.",
+      "six_month_milestone": "6개월 동안 꾸준한 기도를 유지하세요.",
+      "spiritual_milestone": "1년 동안 기도 추적을 완료하세요.",
+      "two_year_devotion": "2년 동안 기도를 꾸준히 실천하세요.",
+
+      "night_devotee": "타하쥣(Tahajjud) 기도를 꾸준히 수행하세요.",
+      "masjid_regular": "정기적으로 모스크(Masjid)를 방문하세요.",
+      "istighfar_constant": "이스티그파르(Istighfar)를 꾸준히 실천하세요.",
+      "gratitude_master": "기도를 통해 감사의 마음을 표현하세요.",
+      "prophetic_way": "기도에서 예언자의 방법(Prophetic Way)을 따르세요.",
+      "spiritual_excellence": "영적 탁월함을 달성하세요."
+    }
   },
   "Qibla": {
     "Tabs": {
@@ -363,7 +365,7 @@
   },
   "Friends": {
     "Title": "친구",
-    "Premium": {
+    "Pro": {
       "ApprovedFriends": "승인된 친구",
       "SearchPlaceholder": "친구의 이메일을 입력하세요",
       "NoFriends": "승인된 친구가 없습니다",
@@ -383,7 +385,7 @@
         "PrayerTracking": "기도 추적",
         "PrayerAwards": "기도 상",
         "CustomWidgets": "맞춤형 위젯",
-        "PremiumSupport": "프리미엄 지원",
+        "PremiumSupport": "프로 지원",
         "Friends": {
           "title": "기도 모임 & 친구",
           "description": "친구들과 연결하고, 기도 성과를 공유하며 서로 영적 여정을 격려하세요. 모두가 기도를 지속할 수 있도록 돕는 지원적인 커뮤니티를 구축하세요."
@@ -415,25 +417,25 @@
       },
       "SavePerYear": "연간 ${{amount}} 절약",
       "AutoRenew": "구독은 자동으로 갱신됩니다. 언제든지 취소할 수 있습니다.",
-      "FeaturesTitle": "프리미엄 기능",
+      "FeaturesTitle": "프로 기능",
       "MoreFeatures": "더 많은 기능 보기",
       "LessFeatures": "기능 줄이기",
       "SuccessMessage": "알함둘릴라! 프리미엄에 오신 것을 환영합니다",
       "ErrorMessage": "문제가 발생했습니다. 다시 시도해주세요.",
-      "RestoreSuccess": "프리미엄 기능이 복원되었습니다!",
+      "RestoreSuccess": "프로 기능이 복원되었습니다!",
       "RestoreError": "이전 구매 내역이 없습니다.",
       "Plans": {
         "monthly": {
           "title": "월간 플랜",
-          "description": "1개월 프리미엄 이용권"
+          "description": "1개월 프로 이용권"
         },
         "quarterly": {
           "title": "분기별 플랜",
-          "description": "3개월 프리미엄 이용권"
+          "description": "3개월 프로 이용권"
         },
         "yearly": {
           "title": "연간 플랜",
-          "description": "1년 프리미엄 이용권"
+          "description": "1년 프로 이용권"
         }
       },
       "Future": "추가 기능이 곧 제공될 예정입니다, 인샬라",
@@ -445,9 +447,9 @@
     },
     "Freemium": {
       "Title": "기도 추적기 +",
-      "Description": "프리미엄 플랜에 가입하고 기도 진행 상황을 추적하고 친구와 공유하는 기능을 포함한 독점 기능을 잠금 해제하세요.",
+      "Description": "프로 플랜에 가입하고 기도 진행 상황을 추적하고 친구와 공유하는 기능을 포함한 독점 기능을 잠금 해제하세요.",
       "UpgradeButton": "비스밀라, 가입하겠습니다",
-      "UpgradePrompt": "프리미엄 플랜으로 업그레이드하세요"
+      "UpgradePrompt": "프로 플랜으로 업그레이드하세요"
     }
   },
   "Profile": {
@@ -528,8 +530,8 @@
         "Content": "Pray Tracker에 제출한 기도 기록 및 개인 정보는 본인의 소유로 유지됩니다. 그러나, 서비스를 제공하기 위해 해당 콘텐츠를 사용, 수정, 표시할 수 있는 라이선스를 저희에게 부여합니다."
       },
       "Subscription": {
-        "Title": "프리미엄 구독",
-        "Content": "일부 기능은 프리미엄 구독을 통해 제공됩니다. 구독 요금은 법률에서 요구하는 경우를 제외하고 환불되지 않습니다. 구독 요금은 합리적인 사전 통지 후 변경될 수 있습니다."
+        "Title": "프로 구독",
+        "Content": "일부 기능은 프로 구독을 통해 제공됩니다. 구독 요금은 법률에서 요구하는 경우를 제외하고 환불되지 않습니다. 구독 요금은 합리적인 사전 통지 후 변경될 수 있습니다."
       },
       "Termination": {
         "Title": "계정 해지",

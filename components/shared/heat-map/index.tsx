@@ -14,6 +14,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
     defaultBackgroundColor = '#858682',
     year = new Date().getFullYear(),
     onDayClick,
+    locale = 'en',
   } = props;
 
   // Process data
@@ -23,7 +24,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
 
     for (let month = 0; month < 12; month++) {
       const daysInMonth = getDaysInMonth(month, year);
-      const monthName = new Date(year, month).toLocaleString('default', {
+      const monthName = new Date(year, month).toLocaleString(locale, {
         month: 'short',
       });
 
@@ -62,7 +63,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
     }
 
     return { yearData, dateMap };
-  }, [data, year]);
+  }, [data, year, locale]);
 
   const { yearData, dateMap } = processedData;
 
@@ -72,7 +73,7 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
 
       return (
         <View key={month} className="mr-4">
-          <Text className="text-sm font-semibold text-foreground mb-2">
+          <Text className="text-sm font-semibold text-foreground mb-2 capitalize">
             {month}
           </Text>
           <View className={cn('grid grid-cols-7 gap-1')}>

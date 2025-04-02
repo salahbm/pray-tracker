@@ -2,609 +2,610 @@
   "Responses": {
     "StatusCode": {
       "undefined": "Nimadir noto‘g‘ri ketdi",
-        "100": "Davom etish",
-        "101": "Protokollarni almashtirish",
-        "102": "Qayta ishlash",
-        "103": "Dastlabki maslahatlar",
-        "200": "Muvaffaqiyat",
-        "201": "Yaratildi",
-        "202": "Qabul qilindi",
-        "203": "Norasmaniy ma'lumot",
-        "204": "Mazmun yo‘q",
-        "206": "Qisman mazmun",
-        "300": "Bir nechta tanlov",
-        "301": "Doimiy ko‘chirildi",
-        "302": "Topildi",
-        "303": "Boshqa joyni ko‘ring",
-        "304": "O‘zgartirilmagan",
-        "307": "Vaqtinchalik yo‘naltirish",
-        "308": "Doimiy yo‘naltirish",
-        "400": "Noto‘g‘ri so‘rov",
-        "401": "Avtorizatsiyadan o‘tmagan",
-        "403": "Taqiqlangan",
-        "404": "Topilmadi",
-        "405": "Usul ruxsat etilmagan",
-        "406": "Qabul qilib bo‘lmaydi",
-        "407": "Proksi avtorizatsiyasi talab qilinadi",
-        "408": "So‘rov muddati tugadi",
-        "409": "Nizolar",
-        "410": "Yo‘q qilingan",
-        "411": "Uzunlik talab qilinadi",
-        "412": "Old shart bajarilmadi",
-        "413": "Yuk hajmi juda katta",
-        "414": "URI juda uzun",
-        "415": "Qo‘llab-quvvatlanmaydigan media turi",
-        "416": "Oraliq qanoatlantirilmaydi",
-        "417": "Kutilgan natija bajarilmadi",
-        "422": "Qayta ishlash imkonsiz",
-        "429": "Juda ko‘p so‘rovlar",
-        "500": "Ichki server xatosi",
-        "501": "Amalga oshirilmagan",
-        "502": "Yomon shlyuz",
-        "503": "Xizmat mavjud emas",
-        "504": "Shlyuz vaqti tugadi",
-        "505": "HTTP versiyasi qo‘llab-quvvatlanmaydi",
-        "506": "Variant kelishiladi",
-        "507": "Yetarlicha xotira yo‘q",
-        "508": "Aylana aniqlandi",
-        "510": "Kengaytirilmagan",
-        "511": "Tarmoq avtorizatsiyasi talab qilinadi",
-        "599": "Tarmoq vaqti tugadi"
+      "100": "Davom etish",
+      "101": "Protokollarni almashtirish",
+      "102": "Qayta ishlash",
+      "103": "Dastlabki maslahatlar",
+      "200": "Muvaffaqiyat",
+      "201": "Yaratildi",
+      "202": "Qabul qilindi",
+      "203": "Norasmaniy ma'lumot",
+      "204": "Mazmun yo‘q",
+      "206": "Qisman mazmun",
+      "300": "Bir nechta tanlov",
+      "301": "Doimiy ko‘chirildi",
+      "302": "Topildi",
+      "303": "Boshqa joyni ko‘ring",
+      "304": "O‘zgartirilmagan",
+      "307": "Vaqtinchalik yo‘naltirish",
+      "308": "Doimiy yo‘naltirish",
+      "400": "Noto‘g‘ri so‘rov",
+      "401": "Avtorizatsiyadan o‘tmagan",
+      "403": "Taqiqlangan",
+      "404": "Topilmadi",
+      "405": "Usul ruxsat etilmagan",
+      "406": "Qabul qilib bo‘lmaydi",
+      "407": "Proksi avtorizatsiyasi talab qilinadi",
+      "408": "So‘rov muddati tugadi",
+      "409": "Nizolar",
+      "410": "Yo‘q qilingan",
+      "411": "Uzunlik talab qilinadi",
+      "412": "Old shart bajarilmadi",
+      "413": "Yuk hajmi juda katta",
+      "414": "URI juda uzun",
+      "415": "Qo‘llab-quvvatlanmaydigan media turi",
+      "416": "Oraliq qanoatlantirilmaydi",
+      "417": "Kutilgan natija bajarilmadi",
+      "422": "Qayta ishlash imkonsiz",
+      "429": "Juda ko‘p so‘rovlar",
+      "500": "Ichki server xatosi",
+      "501": "Amalga oshirilmagan",
+      "502": "Yomon shlyuz",
+      "503": "Xizmat mavjud emas",
+      "504": "Shlyuz vaqti tugadi",
+      "505": "HTTP versiyasi qo‘llab-quvvatlanmaydi",
+      "506": "Variant kelishiladi",
+      "507": "Yetarlicha xotira yo‘q",
+      "508": "Aylana aniqlandi",
+      "510": "Kengaytirilmagan",
+      "511": "Tarmoq avtorizatsiyasi talab qilinadi",
+      "599": "Tarmoq vaqti tugadi"
+    },
+    "MessageCodes": {
+      "9999": "Umumiy xato",
+      "1000": "Muvaffaqiyat",
+      "1001": "Yaratildi",
+      "1002": "Noto‘g‘ri so‘rov",
+      "1003": "Avtorizatsiyadan o‘tmagan",
+      "1004": "Taqiqlangan",
+      "1005": "Topilmadi",
+      "1006": "Ichki xato",
+      "1007": "Nizolar",
+      "1008": "Qayta ishlash imkonsiz",
+      "1009": "Juda ko‘p so‘rovlar",
+      "3000": "Foydalanuvchi topilmadi",
+      "3001": "Foydalanuvchi allaqachon mavjud",
+      "3002": "Foydalanuvchi muvaffaqiyatli yaratildi",
+      "3003": "Foydalanuvchi o‘chirildi",
+      "3004": "Foydalanuvchi yangilandi",
+      "3005": "Foydalanuvchi olindi",
+      "3006": "Foydalanuvchi avtorizatsiyadan o‘tmagan",
+      "3007": "Muvaffaqiyatli kirish",
+      "3008": "Muvaffaqiyatli chiqish",
+      "3009": "Muvaffaqiyatli ro‘yxatdan o‘tish",
+      "3010": "Kirish xatosi",
+      "3011": "Ro‘yxatdan o‘tish xatosi",
+      "3012": "Chiqish xatosi",
+      "3013": "Muvaffaqiyatli yechib olish",
+      "3014": "Yechib olish xatosi",
+      "3015": "Talab qilinadigan maydonlar yetishmayapti",
+      "3100": "Kutilmagan xato",
+      "3101": "Tasdiqlash xatosi",
+      "3102": "Noto‘g‘ri JSON formati",
+      "3103": "Email allaqachon mavjud",
+      "3104": "Telefon raqami allaqachon mavjud",
+      "3105": "Yaroqsiz JWT token",
+      "3106": "Administrator emas",
+      "3107": "Avtorizatsiya yo‘q",
+      "3108": "Sessiya topilmadi",
+      "3109": "Sessiya muddati tugagan",
+      "3110": "Yangilash tokeni topilmadi",
+      "3111": "Yangilash tokeni allaqachon ishlatilgan",
+      "3112": "Oqim holati topilmadi",
+      "3113": "Oqim holati muddati tugagan",
+      "3114": "Ro‘yxatdan o‘tish o‘chirib qo‘yilgan",
+      "3115": "Foydalanuvchi akkaunti bloklangan",
+      "3116": "Email tasdiqlanishi kerak",
+      "3117": "Taklif topilmadi",
+      "3118": "Yaroqsiz OAuth holati",
+      "3119": "Yaroqsiz OAuth chaqiruvi",
+      "3120": "OAuth provayderi qo‘llab-quvvatlanmaydi",
+      "3999": "Noma’lum xato yuz berdi",
+      "4000": "Namoz topilmadi",
+      "4001": "Namoz yaratildi",
+      "4002": "Namoz o‘chirildi",
+      "4003": "Namoz yangilandi",
+      "4004": "Namoz olindi",
+      "5000": "Do‘st topilmadi",
+      "5001": "Do‘st tasdiqlandi",
+      "5002": "Do‘st o‘chirildi",
+      "5003": "Do‘stlik so‘rovi yuborildi",
+      "5004": "Do‘st olindi",
+      "5005": "Do‘st mavjud",
+      "5006": "Do‘stlik so‘rovi bekor qilindi",
+      "5007": "Do‘stlik so‘rovi rad etildi",
+      "5008": "Do‘stlik yo‘q"
+    }
+  },
+  "Commons": {
+    "Locales": {
+      "choose": "Tilni tanlang",
+      "languages": {
+        "en": "Ingliz tili",
+        "ru": "Rus tili",
+        "uz": "O'zbek tili",
+        "ko": "Koreys tili"
+      }
+    },
+    "Themes": {
+      "dark": "Qorong'u",
+      "light": "Yorug'",
+      "forest_green": "O'rmon Yashil",
+      "ocean_breeze": "Okean Shabadasi",
+      "sunset": "Quyosh Botishi",
+      "royal_purple": "Qirollik Binafsha",
+      "pink_rose": "Pushti Gul",
+      "vibrant_orange": "Jonli Apelsin",
+      "emerald_green": "Zumrad Yashil",
+      "Title": "Mavzuni Tanlang"
+    },
+    "YearPicker": {
+      "Title": "Yilni tanlang",
+      "Cancel": "Bekor qilish",
+      "Confirm": "Tasdiqlash"
+    },
+    "NotFound": {
+      "404": "Sahifa topilmadi",
+      "noData": "Ma'lumot topilmadi"
+    }
+  },
+  "Home": {
+    "PrayerHistory": {
+      "Title": "Namozlar Tarixi",
+      "SelectYear": "Hijri Yilni Tanlang",
+      "Details": "Namoz Tafsilotlari",
+      "Date": "Sana"
+    },
+    "Charts": {
+      "Title": "Namozlar Statistikasi",
+      "YAxis": "Namozlar Soni",
+      "XAxis": "Vaqt Davri"
+    },
+    "TodaysPrayers": {
+      "Title": "Bugungi Namozlar",
+      "SubTitle": "Alloh (ﷻ) sizning namozingizni qabul qilsin",
+      "Missed": "O'tdi",
+      "Late": "Kech",
+      "OnTime": "Vaqtida"
+    },
+    "Errors": {
+      "FutureDate": "Siz kelajakdagi sanani tanlay olmaysiz"
+    }
+  },
+  "Awards": {
+    "Tabs": {
+      "Personal": "Mening Yutuqlarim",
+      "Leaderboard": "Yetakchilar Jadvali"
+    },
+    "YourAwards": "Sizning Mukofotlaringiz",
+    "Completed": "Tugallangan",
+    "CurrentScore": "Joriy Ball",
+    "AwardsEarned": "yutuq olgan mukofotlar",
+    "Categories": {
+      "first": "Birinchi Qadamlar",
+      "streak": "Namoz Seriyalari",
+      "prayer_count": "Namoz Bosqichlari",
+      "fajr": "Fajr Mukammalligi",
+      "prayer_quality": "Namoz Sifati",
+      "sunnah": "Sunnat Namozlari",
+      "dhikr_quran": "Zikr va Qur'on",
+      "special_times": "Maxsus Vaqtlar",
+      "community": "Jamiyat",
+      "milestone": "Muhim Bosqichlar",
+      "special": "Maxsus Mukofotlar"
+    },
+    "Leaderboard": {
+      "Points": "ball",
+      "UserDetails": {
+        "Points": "Ballar"
+      }
+    },
+    "first_prayer": "🌟 Birinchi namoz yozib qoling - safaringizning boshlanishi!",
+    "first_full_day": "📅 Kun davomida barcha beshta namozni bajardingiz!",
+    "first_week": "🎯 Bir hafta davomida namozlaringizni kuzatib boringiz!",
+    "first_month": "🌙 Bir oy davomida namozlaringizni kuzatib boringiz!",
+    "seven_day_streak": "🔥 Siz 7 kundan beri ketma-ket namoz o'qidingiz!",
+    "fifteen_day_streak": "⚡ 15 kundan beri doimiy namoz o'qidingiz!",
+    "thirty_day_streak": "🌟 Siz 30 kundan beri ketma-ket namoz o'qidingiz!",
+    "sixty_day_streak": "💫 60 kundan beri o'zgarmas sadoqat bilan!",
+    "ninety_day_streak": "🌈 90 kundan beri ruhiy doimiy!",
+    "perfect_week": "✨ Siz bir hafta davomida barcha 5 kunlik namozlarni o'qib chiqardingiz!",
+    "perfect_month": "🎯 Bir oy davomida mukammal ishtirok!",
+    "fifty_prayers": "🕌 Siz jami 50 ta namoz yozib qoldingiz!",
+    "hundred_prayers": "💯 Siz jami 100 ta namoz yozib qoldingiz!",
+    "five_hundred_prayers": "🏆 Siz safaringizda 500 ta namozni yakunladingiz!",
+    "thousand_prayers": "👑 Siz 1000 ta namoz bilan haqiqiy namoz jangchisisiz!",
+    "two_thousand_prayers": "🌟 2000 ta namoz bosqichiga erishildi!",
+    "five_thousand_prayers": "🎊 5000 ta namoz - Ajoyib sadoqat!",
+    "fajr_master": "🌅 Siz Fajrni 30 kundan beri vaqtida o'qib keldingiz!",
+    "early_bird": "🐦 Siz Fajrni doimiy ravishda uning birinchi uchdan birida o'qib keldingiz!",
+    "dawn_seeker": "🌄 Ertalabki namozlar chempioni - 90% Fajr namozlari vaqtida!",
+    "tahajjud_warrior": "Barakali Tahajjud namozini muntazam bajaruvchi!",
+    "punctual_worshipper": "⏰ Oyning 90% namozlari vaqtida edi!",
+    "jamaat_regular": "👥 Siz 50 marta jamoat bilan namoz o'qib keldingiz!",
+    "jamaat_devotee": "🕌 100 marta jamoat bilan namoz o'qish - Ajoyib!",
+    "dedicated_tahajjud": "🌙 Siz oyiga 15 marta Tahajjud namozini o'qib keldingiz!",
+    "sunnah_beginner": "🌱 Sunnat namozlarini boshladingiz!",
+    "sunnah_devotee": "🌿 Siz bir oy davomida doimiy ravishda Sunnat namozlarini bajardingiz!",
+    "sunnah_master": "🌳 Uch oy davomida doimiy Sunnat namozlari!",
+    "duha_regular": "☀️ Duha namozini muntazam bajaruvchi!",
+    "morning_adhkar": "🌅 Ertalabki zikrga sodiqlik!",
+    "evening_adhkar": "🌆 Kechki zikrni muntazam amalga oshiruvchi!",
+    "consistent_dhikr": "📿 Siz 30 kundan beri kunlik zikrni saqlab keldingiz!",
+    "quran_companion": "📖 Har bir namozdan keyin bir hafta davomida Qur'on o'qib keldingiz!",
+    "quran_devotee": "📗 Kuniga Qur'on o'qishni bir oy davomida saqlab keldingiz!",
+    "ramadan_warrior": "🌙 Ramazonda barcha namozlarni bajardingiz!",
+    "ramadan_champion": "⭐ Ramazonda mukammal namoz rekordi!",
+    "laylatul_qadr": "✨ Oxirgi 10 kechada bag'rikenglik bilan ibodat qildingiz!",
+    "eid_prayers": "🎊 Hech qachon Hayit namozini o'tkazib yubormadingiz!",
+    "jumuah_regular": "🕌 Juma namoziga muntazam qatnashuvchi!",
+    "prayer_mentor": "👨‍🏫 Siz boshqalarning namoz yo'lida yordam bering!",
+    "community_builder": "🤝 5 ta do'stingiz bilan namoz doirasi yaratdingiz!",
+    "knowledge_seeker": "📚 Namoz haqida bilim olib, ulashdingiz!",
+    "spiritual_guide": "🌟 10 kishining namoz yo'lida yo'l-yo'riq bo'ling!",
+    "three_month_milestone": "🎯 Uch oylik doimiy kuzatuv!",
+    "six_month_milestone": "🏆 Olti oylik bag'rikenglik!",
+    "spiritual_milestone": "🌟 Bir yillik doimiy namoz kuzatuvi!",
+    "two_year_devotion": "👑 Ikki yillik o'zgarmas sadoqat!",
+    "night_devotee": "🌙 Siz 10 kechalik Tahajjud namozini o'qib keldingiz!",
+    "masjid_regular": "🕌 Masjidga muntazam tashrif buyuruvchi!",
+    "istighfar_constant": "💫 Doimiy ravishda kechirim so'rash!",
+    "gratitude_master": "🙏 Ibodatda minnatdorchilikning ustasi!",
+    "prophetic_way": "👣 Namozda Payg'ambar yo'lidan borasiz!",
+    "spiritual_excellence": "✨ Ruhiy mukammallikka erishildi!",
+    "Descriptions": {
+      "first_prayer": "Birinchi namozingizni yozib qo'ying va ruhiy safaringizni boshlang.",
+      "first_full_day": "Bir kunda barcha beshta namozni bajaring.",
+      "first_week": "Bir hafta davomida namozlaringizni kuzatib boring.",
+      "first_month": "Bir oy davomida namozlaringizni kuzatib boring.",
+      "seven_day_streak": "7 kundan beri doimiy namoz o'qing.",
+      "fifteen_day_streak": "15 kundan beri namozingizni davom ettiring.",
+      "thirty_day_streak": "30 kundan beri ajoyib namoz seriyasiga erishing.",
+      "sixty_day_streak": "60 kundan beri o'zgarmas sadoqat ko'rsating.",
+      "ninety_day_streak": "90 kundan beri ajoyib namoz seriyasiga erishing.",
+      "perfect_week": "Bir hafta davomida barcha namozlarni vaqtida bajaring.",
+      "perfect_month": "Bir oy davomida mukammal namoz ishtirokiga erishing.",
+      "fifty_prayers": "Birinchi 50 ta namozingizni yozib qo'ying.",
+      "hundred_prayers": "100 ta namoz yozib qolganingizga erishing.",
+      "five_hundred_prayers": "Safaringizda 500 ta namozni yakunlang.",
+      "thousand_prayers": "1000 ta namozga erishib, ajoyib natijaga erishing.",
+      "two_thousand_prayers": "2000 ta namozga erishing.",
+      "five_thousand_prayers": "5000 ta namozni mukammal yakunlang.",
+      "fajr_master": "Bir oy davomida Fajrni doimiy ravishda vaqtida o'qing.",
+      "early_bird": "Fajrni uning eng erta vaqtida muntazam o'qing.",
+      "dawn_seeker": "Fajr namozining ajoyib vaqtini saqlang.",
+      "tahajjud_warrior": "Barakali Tahajjud namozini muntazam bajaring.",
+      "punctual_worshipper": "Namoz vaqtini ajoyib saqlang.",
+      "jamaat_regular": "Doimiy ravishda jamoat bilan namoz o'qing.",
+      "jamaat_devotee": "Jamoat namozlariga tez-tez qo'shiling.",
+      "dedicated_tahajjud": "Doimiy ravishda Tahajjud namozini bajaring.",
+      "sunnah_beginner": "Sunnat namozlarini joriy qiling.",
+      "sunnah_devotee": "Sunnat namozlarini muntazam bajaring.",
+      "sunnah_master": "Sunnat namozlarini saqlashda muvaffaqiyat qozoning.",
+      "duha_regular": "Duha namozini doimiy ravishda bajaring.",
+      "morning_adhkar": "Ertalabki zikrni muntazam amalga oshiring.",
+      "evening_adhkar": "Kechki zikrni doimiy ravishda saqlang.",
+      "consistent_dhikr": "Allohni eslashni kunlik saqlang.",
+      "quran_companion": "Namozlardan keyin Qur'onni muntazam o'qing.",
+      "quran_devotee": "Kuniga Qur'on o'qishni saqlang.",
+      "ramadan_warrior": "Ramazonda barcha namozlarni bajaring.",
+      "ramadan_champion": "Ramazonda mukammal namoz rekordiga erishing.",
+      "laylatul_qadr": "Oxirgi 10 kechada o'zingizni bag'rikenglik bilan bag'ishlang.",
+      "eid_prayers": "Hayit namozlarini hech qachon o'tkazib yubormang.",
+      "jumuah_regular": "Juma namoziga muntazam qatnashing.",
+      "prayer_mentor": "Boshqalarning namoz yo'lida yordam bering.",
+      "community_builder": "Qo'llab-quvvatlovchi namoz jamiyatini yarating.",
+      "knowledge_seeker": "Namoz haqida bilim olib, ulash.",
+      "spiritual_guide": "Boshqalarning ruhiy yo'lida yo'l-yo'riq bo'ling.",
+      "three_month_milestone": "Uch oylik namozlaringizni kuzating.",
+      "six_month_milestone": "Olti oylik sadoqatni saqlang.",
+      "spiritual_milestone": "Bir yillik kuzatuvni yakunlang.",
+      "two_year_devotion": "Ikki yillik sadoqatga erishing.",
+      "night_devotee": "Tahajjud namozini muntazam o'qing.",
+      "masjid_regular": "Masjidga muntazam tashrif buyuring.",
+      "istighfar_constant": "Doimiy ravishda kechirim so'rang.",
+      "gratitude_master": "Ibodatda minnatdorchilikni namoyish eting.",
+      "prophetic_way": "Namozda Payg'ambar yo'lidan borasiz.",
+      "spiritual_excellence": "Ruhiy mukammallikka erishing."
+    }
+  },
+  "Qibla": {
+    "Tabs": {
+      "Qibla": "Qibla Yo'nalishi",
+      "Times": "Namoz Vaqtlari"
+    },
+    "Compass": {
+      "MagneticNorth": "Magnit Shimol",
+      "QiblaDirection": "Qibla Yo'nalishi",
+      "Degrees": "gradus",
+      "Help": "Telefoningizni Qibla tomon yo'naltiring va Ka'baga moslashtiring",
+      "Errors": {
+        "Magnetometer": "Magnitometr mavjud emas",
+        "Location": "Joylashuvga ruxsat kerak"
+      }
+    },
+    "PrayerTimes": {
+      "Location": {
+        "Fetching": "Joylashuv olinmoqda...",
+        "Unknown": "Noma'lum"
       },
-      "MessageCodes": {
-        "9999": "Umumiy xato",
-        "1000": "Muvaffaqiyat",
-        "1001": "Yaratildi",
-        "1002": "Noto‘g‘ri so‘rov",
-        "1003": "Avtorizatsiyadan o‘tmagan",
-        "1004": "Taqiqlangan",
-        "1005": "Topilmadi",
-        "1006": "Ichki xato",
-        "1007": "Nizolar",
-        "1008": "Qayta ishlash imkonsiz",
-        "1009": "Juda ko‘p so‘rovlar",
-        "3000": "Foydalanuvchi topilmadi",
-        "3001": "Foydalanuvchi allaqachon mavjud",
-        "3002": "Foydalanuvchi muvaffaqiyatli yaratildi",
-        "3003": "Foydalanuvchi o‘chirildi",
-        "3004": "Foydalanuvchi yangilandi",
-        "3005": "Foydalanuvchi olindi",
-        "3006": "Foydalanuvchi avtorizatsiyadan o‘tmagan",
-        "3007": "Muvaffaqiyatli kirish",
-        "3008": "Muvaffaqiyatli chiqish",
-        "3009": "Muvaffaqiyatli ro‘yxatdan o‘tish",
-        "3010": "Kirish xatosi",
-        "3011": "Ro‘yxatdan o‘tish xatosi",
-        "3012": "Chiqish xatosi",
-        "3013": "Muvaffaqiyatli yechib olish",
-        "3014": "Yechib olish xatosi",
-        "3015": "Talab qilinadigan maydonlar yetishmayapti",
-        "3100": "Kutilmagan xato",
-        "3101": "Tasdiqlash xatosi",
-        "3102": "Noto‘g‘ri JSON formati",
-        "3103": "Email allaqachon mavjud",
-        "3104": "Telefon raqami allaqachon mavjud",
-        "3105": "Yaroqsiz JWT token",
-        "3106": "Administrator emas",
-        "3107": "Avtorizatsiya yo‘q",
-        "3108": "Sessiya topilmadi",
-        "3109": "Sessiya muddati tugagan",
-        "3110": "Yangilash tokeni topilmadi",
-        "3111": "Yangilash tokeni allaqachon ishlatilgan",
-        "3112": "Oqim holati topilmadi",
-        "3113": "Oqim holati muddati tugagan",
-        "3114": "Ro‘yxatdan o‘tish o‘chirib qo‘yilgan",
-        "3115": "Foydalanuvchi akkaunti bloklangan",
-        "3116": "Email tasdiqlanishi kerak",
-        "3117": "Taklif topilmadi",
-        "3118": "Yaroqsiz OAuth holati",
-        "3119": "Yaroqsiz OAuth chaqiruvi",
-        "3120": "OAuth provayderi qo‘llab-quvvatlanmaydi",
-        "3999": "Noma’lum xato yuz berdi",
-        "4000": "Namoz topilmadi",
-        "4001": "Namoz yaratildi",
-        "4002": "Namoz o‘chirildi",
-        "4003": "Namoz yangilandi",
-        "4004": "Namoz olindi",
-        "5000": "Do‘st topilmadi",
-        "5001": "Do‘st tasdiqlandi",
-        "5002": "Do‘st o‘chirildi",
-        "5003": "Do‘stlik so‘rovi yuborildi",
-        "5004": "Do‘st olindi",
-        "5005": "Do‘st mavjud",
-        "5006": "Do‘stlik so‘rovi bekor qilindi",
-        "5007": "Do‘stlik so‘rovi rad etildi",
-        "5008": "Do‘stlik yo‘q"
+      "TimeLeft": "keyingi namozga qolgan vaqt",
+      "Errors": {
+        "Title": "Ruxsat Berilmadi",
+        "Message": "Namoz vaqtlarini hisoblash uchun joylashuvga ruxsat kerak"
       }
     }
-  ,  
-  
-    "Commons": {
-      "Locales": {
-        "choose": "Tilni tanlang",
-        "languages": {
-          "en": "Ingliz tili",
-          "ru": "Rus tili",
-          "uz": "O'zbek tili",
-          "ko": "Koreys tili"
-        }
+  },
+  "Auth": {
+    "Email": {
+      "Label": "Elektron pochta",
+      "Placeholder": "Elektron pochtangizni kiriting"
+    },
+    "Username": {
+      "Label": "Foydalanuvchi nomi",
+      "Placeholder": "Foydalanuvchi nomingizni kiriting"
+    },
+    "Password": {
+      "Label": "Parol",
+      "Placeholder": "Parolingizni kiriting"
+    },
+    "SignIn": {
+      "Title": "Qaytib keldingiz",
+      "Button": "Kirish",
+      "NoAccount": "Akkountingiz yo'qmi?",
+      "SignUpLink": "Ro'yxatdan o'ting",
+      "ForgotPassword": "Parolingizni unutdingizmi?"
+    },
+    "SignUp": {
+      "Title": "Bizga Qo'shiling",
+      "Subtitle": "Davom etish uchun akkaunt yarating",
+      "Button": "Ro'yxatdan o'tish",
+      "HasAccount": "Allaqachon akkauntingiz bormi?",
+      "SignInLink": "Kirish",
+      "Verification": {
+        "Title": "Tekshirish",
+        "Message": "Biz {{email}} ga tekshiruv kodini yubordik.",
+        "Placeholder": "12345",
+        "Button": "Elektron pochtani tekshirish"
       },
-      "Themes": {
-        "dark": "Qorong'u",
-        "light": "Yorug'",
-        "forest_green": "O'rmon Yashil",
-        "ocean_breeze": "Okean Shabadasi",
-        "sunset": "Quyosh Botishi",
-        "royal_purple": "Qirollik Binafsha",
-        "pink_rose": "Pushti Gul",
-        "vibrant_orange": "Jonli Apelsin",
-        "emerald_green": "Zumrad Yashil",
-        "Title": "Mavzuni Tanlang"
-      },
-      "YearPicker": {
-        "Title": "Yilni tanlang",
-        "Cancel": "Bekor qilish",
-        "Confirm": "Tasdiqlash"
-      },
-      "NotFound": {
-        "404": "Sahifa topilmadi",
-        "noData": "Ma'lumot topilmadi"
+      "Success": {
+        "Title": "Tasdiqlangan",
+        "Message": "Siz akkauntingizni muvaffaqiyatli tasdiqladingiz.",
+        "Button": "Kirish"
       }
     },
-    "Home": {
-      "PrayerHistory": {
-        "Title": "Namoz Safari",
-        "SelectYear": "Hijri Yilni Tanlang",
-        "Details": "Namoz Tafsilotlari",
-        "Date": "Sana"
+    "ForgotPassword": {
+      "Title": "Parolni Tiklash",
+      "Button": "Tekshiruvni yuborish",
+      "RememberedPassword": "Parolingizni eslaysizmi?",
+      "SignInLink": "Kirish",
+      "Verification": {
+        "Title": "Tekshirish",
+        "Message": "Biz {{email}} ga tekshiruv kodini yubordik.",
+        "Placeholder": "Kodni kiriting",
+        "Button": "Elektron pochtani tekshirish"
       },
-      "Charts": {
-        "Title": "Ibodat Taraqqiyoti",
-        "YAxis": "Namozlar Soni",
-        "XAxis": "Vaqt Davri"
-      },
-      "TodaysPrayers": {
-        "Title": "Bugungi Namozlar",
-        "SubTitle": "Alloh (ﷻ) sizning namozingizni qabul qilsin"
-      },
-      "Errors": {
-        "FutureDate": "Siz kelajakdagi sanani tanlay olmaysiz"
+      "Success": {
+        "Title": "Tasdiqlangan",
+        "Message": "Siz akkauntingizni muvaffaqiyatli tasdiqladingiz.",
+        "Button": "Parolni Yangilash"
       }
     },
-    "Awards": {
-      "Tabs": {
-        "Personal": "Mening Yutuqlarim",
-        "Leaderboard": "Yetakchilar Jadvali"
-      },
-      "YourAwards": "Sizning Mukofotlaringiz",
-      "Completed": "Tugallangan",
-      "CurrentScore": "Joriy Ball",
-      "AwardsEarned": "yutuq olgan mukofotlar",
-      "Categories": {
-        "first": "Birinchi Qadamlar",
-        "streak": "Namoz Seriyalari",
-        "prayer_count": "Namoz Bosqichlari",
-        "fajr": "Fajr Mukammalligi",
-        "prayer_quality": "Namoz Sifati",
-        "sunnah": "Sunnat Namozlari",
-        "dhikr_quran": "Zikr va Qur'on",
-        "special_times": "Maxsus Vaqtlar",
-        "community": "Jamiyat",
-        "milestone": "Muhim Bosqichlar",
-        "special": "Maxsus Mukofotlar"
-      },
-      "Leaderboard": {
-        "Points": "ball",
-        "UserDetails": {
-          "Points": "Ballar"
+    "Welcome": {
+      "Next": "Keyingisi",
+      "GetStarted": "Boshlash",
+      "Skip": "O'tkazib yuborish"
+    }
+  },
+  "Friends": {
+    "Title": "Do'stlar",
+    "Pro": {
+      "ApprovedFriends": "Tasdiqlangan Do'stlar",
+      "SearchPlaceholder": "Do'stingizning elektron pochtasini kiriting",
+      "NoFriends": "Tasdiqlangan do'stlar topilmadi",
+      "SendRequest": "So'rovni yuborish",
+      "ViewPending": "Kutilayotgan so'rovlarni ko'rish",
+      "Title": "Namozni Kuzatuvchi +",
+      "Subtitle": "Ruhiy Safaringizni Oshiring",
+      "WelcomeTitle": "As-salaam-alaikum! ",
+      "WelcomeMessage": "Sizning qo'llab-quvvatlashingiz bizga xayr (yaxshilik) tarqatishga va Ummatga Alloh (SWT) bilan bog'lanishlarini mustahkamlashga yordam beradi.",
+      "ChoosePlan": "Rejangizni Tanlang",
+      "Monthly": "Oylik",
+      "Yearly": "Yillik",
+      "SubscribeNow": "Hozir Obuna Bo'ling",
+      "TermsButton": "Foydalanish Shartlari",
+      "Features": {
+        "UnlimitedFriends": "Cheklanmagan Do'stlar",
+        "PrayerTracking": "Namozni Kuzatish",
+        "PrayerAwards": "Namoz Mukofotlari",
+        "CustomWidgets": "Maxsus Vidjetlar",
+        "PremiumSupport": "Pro Qo'llab-quvvatlash",
+        "Friends": {
+          "title": "Namoz Doirasi va Do'stlar",
+          "description": "Do'stlaringiz bilan bog'laning, namoz yutuqlaringizni baham ko'ring va bir-birini ruhiy safarda qo'llab-quvvatlang. Barchani namozda doimiy bo'lishiga yordam beradigan qo'llab-quvvatlovchi jamiyat yarating."
+        },
+        "Awards": {
+          "title": "Maxsus Namoz Mukofotlari",
+          "description": "Namozga bo'lgan sadoqatingizni tan oladigan maxsus mukofot va yutuqlarni oching. Taraqqiyotingizni kuzating va ruhiy bosqichlaringizni nishonlang."
+        },
+        "Widgets": {
+          "title": "Maxsus Namoz Vidjetlari",
+          "description": "Namoz vaqtlarini va kunlik ruhiy maqsadlaringizni kuzatish uchun bosh ekraningiz uchun go'zal, sozlanishi mumkin bo'lgan vidjetlar."
+        },
+        "Analytics": {
+          "title": "Batafsil Namoz Analitikasi",
+          "description": "Namoz odatlaringiz haqida ma'lumot olish uchun batafsil statistika va tendentsiyalarni oling. Sizning doimiy bo'lishingizni yaxshilash uchun shaxsiy tavsiyalarni oling."
+        },
+        "Reminders": {
+          "title": "Aqlli Namoz Eslatmalari",
+          "description": "Joylashuvingizga mos keladigan va jadvalingizga mos keladigan shaxsiy eslatmalar. Hech qachon namozni o'tkazib yubormang."
+        },
+        "Themes": {
+          "title": "Go'zal Mavzular",
+          "description": "Namozni kuzatish tajribangizni shaxsiylashtirish uchun turli xil go'zal va ehtiyotkorlik bilan yaratilgan mavzularni tanlang."
+        },
+        "Support": {
+          "title": "Ustuvor Yordam",
+          "description": "Yangi funksiyalar chiqarilganda birinchi bo'lib sinab ko'rish imkoniyatiga ega bo'ling va qo'llab-quvvatlash jamoamizga ustuvor kirish huquqiga ega bo'ling."
         }
       },
-      "first_prayer": "🌟 Birinchi namoz yozib qoling - safaringizning boshlanishi!",
-      "first_full_day": "📅 Kun davomida barcha beshta namozni bajardingiz!",
-      "first_week": "🎯 Bir hafta davomida namozlaringizni kuzatib boringiz!",
-      "first_month": "🌙 Bir oy davomida namozlaringizni kuzatib boringiz!",
-      "seven_day_streak": "🔥 Siz 7 kundan beri ketma-ket namoz o'qidingiz!",
-      "fifteen_day_streak": "⚡ 15 kundan beri doimiy namoz o'qidingiz!",
-      "thirty_day_streak": "🌟 Siz 30 kundan beri ketma-ket namoz o'qidingiz!",
-      "sixty_day_streak": "💫 60 kundan beri o'zgarmas sadoqat bilan!",
-      "ninety_day_streak": "🌈 90 kundan beri ruhiy doimiy!",
-      "perfect_week": "✨ Siz bir hafta davomida barcha 5 kunlik namozlarni o'qib chiqardingiz!",
-      "perfect_month": "🎯 Bir oy davomida mukammal ishtirok!",
-      "fifty_prayers": "🕌 Siz jami 50 ta namoz yozib qoldingiz!",
-      "hundred_prayers": "💯 Siz jami 100 ta namoz yozib qoldingiz!",
-      "five_hundred_prayers": "🏆 Siz safaringizda 500 ta namozni yakunladingiz!",
-      "thousand_prayers": "👑 Siz 1000 ta namoz bilan haqiqiy namoz jangchisisiz!",
-      "two_thousand_prayers": "🌟 2000 ta namoz bosqichiga erishildi!",
-      "five_thousand_prayers": "🎊 5000 ta namoz - Ajoyib sadoqat!",
-      "fajr_master": "🌅 Siz Fajrni 30 kundan beri vaqtida o'qib keldingiz!",
-      "early_bird": "🐦 Siz Fajrni doimiy ravishda uning birinchi uchdan birida o'qib keldingiz!",
-      "dawn_seeker": "🌄 Ertalabki namozlar chempioni - 90% Fajr namozlari vaqtida!",
-      "tahajjud_warrior": "Barakali Tahajjud namozini muntazam bajaruvchi!",
-      "punctual_worshipper": "⏰ Oyning 90% namozlari vaqtida edi!",
-      "jamaat_regular": "👥 Siz 50 marta jamoat bilan namoz o'qib keldingiz!",
-      "jamaat_devotee": "🕌 100 marta jamoat bilan namoz o'qish - Ajoyib!",
-      "dedicated_tahajjud": "🌙 Siz oyiga 15 marta Tahajjud namozini o'qib keldingiz!",
-      "sunnah_beginner": "🌱 Sunnat namozlarini boshladingiz!",
-      "sunnah_devotee": "🌿 Siz bir oy davomida doimiy ravishda Sunnat namozlarini bajardingiz!",
-      "sunnah_master": "🌳 Uch oy davomida doimiy Sunnat namozlari!",
-      "duha_regular": "☀️ Duha namozini muntazam bajaruvchi!",
-      "morning_adhkar": "🌅 Ertalabki zikrga sodiqlik!",
-      "evening_adhkar": "🌆 Kechki zikrni muntazam amalga oshiruvchi!",
-      "consistent_dhikr": "📿 Siz 30 kundan beri kunlik zikrni saqlab keldingiz!",
-      "quran_companion": "📖 Har bir namozdan keyin bir hafta davomida Qur'on o'qib keldingiz!",
-      "quran_devotee": "📗 Kuniga Qur'on o'qishni bir oy davomida saqlab keldingiz!",
-      "ramadan_warrior": "🌙 Ramazonda barcha namozlarni bajardingiz!",
-      "ramadan_champion": "⭐ Ramazonda mukammal namoz rekordi!",
-      "laylatul_qadr": "✨ Oxirgi 10 kechada bag'rikenglik bilan ibodat qildingiz!",
-      "eid_prayers": "🎊 Hech qachon Hayit namozini o'tkazib yubormadingiz!",
-      "jumuah_regular": "🕌 Juma namoziga muntazam qatnashuvchi!",
-      "prayer_mentor": "👨‍🏫 Siz boshqalarning namoz yo'lida yordam bering!",
-      "community_builder": "🤝 5 ta do'stingiz bilan namoz doirasi yaratdingiz!",
-      "knowledge_seeker": "📚 Namoz haqida bilim olib, ulashdingiz!",
-      "spiritual_guide": "🌟 10 kishining namoz yo'lida yo'l-yo'riq bo'ling!",
-      "three_month_milestone": "🎯 Uch oylik doimiy kuzatuv!",
-      "six_month_milestone": "🏆 Olti oylik bag'rikenglik!",
-      "spiritual_milestone": "🌟 Bir yillik doimiy namoz kuzatuvi!",
-      "two_year_devotion": "👑 Ikki yillik o'zgarmas sadoqat!",
-      "night_devotee": "🌙 Siz 10 kechalik Tahajjud namozini o'qib keldingiz!",
-      "masjid_regular": "🕌 Masjidga muntazam tashrif buyuruvchi!",
-      "istighfar_constant": "💫 Doimiy ravishda kechirim so'rash!",
-      "gratitude_master": "🙏 Ibodatda minnatdorchilikning ustasi!",
-      "prophetic_way": "👣 Namozda Payg'ambar yo'lidan borasiz!",
-      "spiritual_excellence": "✨ Ruhiy mukammallikka erishildi!",
-      "Descriptions": {
-        "first_prayer": "Birinchi namozingizni yozib qo'ying va ruhiy safaringizni boshlang.",
-        "first_full_day": "Bir kunda barcha beshta namozni bajaring.",
-        "first_week": "Bir hafta davomida namozlaringizni kuzatib boring.",
-        "first_month": "Bir oy davomida namozlaringizni kuzatib boring.",
-        "seven_day_streak": "7 kundan beri doimiy namoz o'qing.",
-        "fifteen_day_streak": "15 kundan beri namozingizni davom ettiring.",
-        "thirty_day_streak": "30 kundan beri ajoyib namoz seriyasiga erishing.",
-        "sixty_day_streak": "60 kundan beri o'zgarmas sadoqat ko'rsating.",
-        "ninety_day_streak": "90 kundan beri ajoyib namoz seriyasiga erishing.",
-        "perfect_week": "Bir hafta davomida barcha namozlarni vaqtida bajaring.",
-        "perfect_month": "Bir oy davomida mukammal namoz ishtirokiga erishing.",
-        "fifty_prayers": "Birinchi 50 ta namozingizni yozib qo'ying.",
-        "hundred_prayers": "100 ta namoz yozib qolganingizga erishing.",
-        "five_hundred_prayers": "Safaringizda 500 ta namozni yakunlang.",
-        "thousand_prayers": "1000 ta namozga erishib, ajoyib natijaga erishing.",
-        "two_thousand_prayers": "2000 ta namozga erishing.",
-        "five_thousand_prayers": "5000 ta namozni mukammal yakunlang.",
-        "fajr_master": "Bir oy davomida Fajrni doimiy ravishda vaqtida o'qing.",
-        "early_bird": "Fajrni uning eng erta vaqtida muntazam o'qing.",
-        "dawn_seeker": "Fajr namozining ajoyib vaqtini saqlang.",
-        "tahajjud_warrior": "Barakali Tahajjud namozini muntazam bajaring.",
-        "punctual_worshipper": "Namoz vaqtini ajoyib saqlang.",
-        "jamaat_regular": "Doimiy ravishda jamoat bilan namoz o'qing.",
-        "jamaat_devotee": "Jamoat namozlariga tez-tez qo'shiling.",
-        "dedicated_tahajjud": "Doimiy ravishda Tahajjud namozini bajaring.",
-        "sunnah_beginner": "Sunnat namozlarini joriy qiling.",
-        "sunnah_devotee": "Sunnat namozlarini muntazam bajaring.",
-        "sunnah_master": "Sunnat namozlarini saqlashda muvaffaqiyat qozoning.",
-        "duha_regular": "Duha namozini doimiy ravishda bajaring.",
-        "morning_adhkar": "Ertalabki zikrni muntazam amalga oshiring.",
-        "evening_adhkar": "Kechki zikrni doimiy ravishda saqlang.",
-        "consistent_dhikr": "Allohni eslashni kunlik saqlang.",
-        "quran_companion": "Namozlardan keyin Qur'onni muntazam o'qing.",
-        "quran_devotee": "Kuniga Qur'on o'qishni saqlang.",
-        "ramadan_warrior": "Ramazonda barcha namozlarni bajaring.",
-        "ramadan_champion": "Ramazonda mukammal namoz rekordiga erishing.",
-        "laylatul_qadr": "Oxirgi 10 kechada o'zingizni bag'rikenglik bilan bag'ishlang.",
-        "eid_prayers": "Hayit namozlarini hech qachon o'tkazib yubormang.",
-        "jumuah_regular": "Juma namoziga muntazam qatnashing.",
-        "prayer_mentor": "Boshqalarning namoz yo'lida yordam bering.",
-        "community_builder": "Qo'llab-quvvatlovchi namoz jamiyatini yarating.",
-        "knowledge_seeker": "Namoz haqida bilim olib, ulash.",
-        "spiritual_guide": "Boshqalarning ruhiy yo'lida yo'l-yo'riq bo'ling.",
-        "three_month_milestone": "Uch oylik namozlaringizni kuzating.",
-        "six_month_milestone": "Olti oylik sadoqatni saqlang.",
-        "spiritual_milestone": "Bir yillik kuzatuvni yakunlang.",
-        "two_year_devotion": "Ikki yillik sadoqatga erishing.",
-        "night_devotee": "Tahajjud namozini muntazam o'qing.",
-        "masjid_regular": "Masjidga muntazam tashrif buyuring.",
-        "istighfar_constant": "Doimiy ravishda kechirim so'rang.",
-        "gratitude_master": "Ibodatda minnatdorchilikni namoyish eting.",
-        "prophetic_way": "Namozda Payg'ambar yo'lidan borasiz.",
-        "spiritual_excellence": "Ruhiy mukammallikka erishing."
+      "SavePerYear": "Yiliga ${{amount}} tejang",
+      "AutoRenew": "Obuna avtomatik ravishda yangilanadi. Istasangiz, istalgan vaqtda bekor qilishingiz mumkin.",
+      "FeaturesTitle": "Pro Xususiyatlari",
+      "MoreFeatures": "Ko'proq Xususiyatlarni Ko'rish",
+      "LessFeatures": "Kamroq Ko'rsatish",
+      "SuccessMessage": "Alhamdulillah! Premiumga xush kelibsiz ",
+      "ErrorMessage": "Nimadir xato ketdi. Iltimos, qaytadan urinib ko'ring.",
+      "RestoreSuccess": "Pro xususiyatlaringiz tiklandi!",
+      "RestoreError": "Oldingi xaridlar topilmadi.",
+      "Plans": {
+        "monthly": {
+          "title": "Oylik Reja",
+          "description": "1 Oy Pro Kirish"
+        },
+        "quarterly": {
+          "title": "Choraklik Reja",
+          "description": "3 Oy Pro Kirish"
+        },
+        "yearly": {
+          "title": "Yillik Reja",
+          "description": "1 Yil Pro Kirish"
+        }
+      },
+      "Future": "In sha Alloh, tez orada ko'proq xususiyatlar keladi",
+      "TeamTitle": "Jamoa Bilan Tanishing",
+      "TeamMessage": "Alhamdulillah, bu loyiha bag'rikenglik va muhabbat bilan qurilgan va saqlanib kelinmoqda. Biz sizga namozlaringizni saqlab qolishga va ruhiy jihatdan o'sishga yordam berishga intilamiz, har bir funksiyamizda Allohning roziligini izlaymiz.",
+      "SubscribeButton": "Missiyamizni Qo'llab-quvvatlang",
+      "RestoreButton": "Obunani Tiklash",
+      "BismillahMessage": "Bismillah, bu barakali safarni birga boshlaymiz"
+    },
+    "Freemium": {
+      "Title": "Namozni Kuzatuvchi +",
+      "Description": "Pro rejamizga qo'shiling va do'stlaringiz bilan namoz taraqqiyotingizni kuzatish imkoniyatiga ega bo'ling.",
+      "UpgradeButton": "Bismillah, men ham",
+      "UpgradePrompt": "Iltimos, pro rejaga o'ting"
+    }
+  },
+  "Profile": {
+    "Title": "Profil",
+    "Navigation": {
+      "Account": "Hisob",
+      "EditProfile": "Profilni tahrirlash",
+      "EditPassword": "Parolni o'zgartirish",
+      "Settings": "Sozlamalar",
+      "PrivacySecurity": "Maxfiylik va xavfsizlik",
+      "TermsConditions": "Foydalanish shartlari",
+      "About": "Ilova haqida",
+      "Feedback": "Fikr-mulohaza"
+    },
+    "Account": {
+      "Title": "Akkaunt",
+      "DeleteAccount": "Akkauntni O'chirish",
+      "DeleteConfirm": "Akkauntingizni o'chirib tashlamoqchimisiz?",
+      "DeleteMessage": "Bu amal qaytarib bo'lmaydi va biz sizni yo'qotishdan afsuslanamiz. Barcha ma'lumotlaringiz butunlay o'chiriladi.",
+      "DeleteButton": "Ha, Akkauntimni O'chirib Tashlang",
+      "CancelButton": "Bekor qilish",
+      "LogoutButton": "Chiqish"
+    },
+    "EditProfile": {
+      "Title": "Profilni Tahrirlash",
+      "Fields": {
+        "Username": {
+          "Label": "Foydalanuvchi nomi",
+          "Placeholder": "Foydalanuvchi nomingizni kiriting"
+        },
+        "FirstName": {
+          "Label": "Ism",
+          "Placeholder": "Ismingizni kiriting"
+        },
+        "LastName": {
+          "Label": "Familiya",
+          "Placeholder": "Familiyangizni kiriting"
+        }
+      },
+      "SaveButton": "O'zgarishlarni Saqlash"
+    },
+    "EditPassword": {
+      "Title": "Parolni Tahrirlash",
+      "Fields": {
+        "CurrentPassword": {
+          "Label": "Joriy Parol",
+          "Placeholder": "Joriy parolingizni kiriting"
+        },
+        "NewPassword": {
+          "Label": "Yangi Parol",
+          "Placeholder": "Yangi parolingizni kiriting"
+        },
+        "ConfirmPassword": {
+          "Label": "Parolni Tasdiqlash",
+          "Placeholder": "Yangi parolingizni tasdiqlang"
+        }
+      },
+      "SaveButton": "Parolni Yangilash"
+    },
+    "Settings": {
+      "Title": "Sozlamalar",
+      "Theme": "Mavzu",
+      "Language": "Til",
+      "Notifications": "Bildirishnomalar"
+    },
+    "Terms": {
+      "Title": "Shartlar va Shartlar",
+      "Agreement": {
+        "Title": "Shartlarga Rozilik",
+        "Content": "Namozni Kuzatuvchi ilovasidan foydalanish va uni ishlatish orqali siz ushbu Shartlar va Shartlarga rozilik bildirasiz. Agar siz ushbu shartlarning qaysi bir qismiga rozi bo'lmasangiz, ilovaga kirish huquqingiz yo'q."
+      },
+      "Usage": {
+        "Title": "Qabul Qilinadigan Foydalanish",
+        "Content": "Siz Namozni Kuzatuvchi ilovasidan faqat uning mo'ljallangan maqsadi - kunlik namozlaringizni kuzatish va boshqarish uchun foydalanishingiz kerak. Ilovadan hech qanday tarzda zarar yetkazish yoki uning mavjudligi yoki kirish imkoniyatini buzishga yo'l qo'ymasligingiz kerak."
+      },
+      "UserContent": {
+        "Title": "Foydalanuvchi Kontenti",
+        "Content": "Namozni Kuzatuvchi ilovasiga yuborgan har qanday kontent, jumladan, namoz yozuvlari va shaxsiy ma'lumotlar sizning mulkingizdir. Ammo, kontentni yuborganingizda, bizga ushbu kontentni xizmatlarimizni taqdim etish uchun ishlatish, o'zgartirish va ko'rsatish huquqini berasiz."
+      },
+      "Subscription": {
+        "Title": "Pro Obuna",
+        "Content": "Namozni Kuzatuvchi ilovasining ba'zi funksiyalari pro obuna orqali mavjud. Obuna to'lovlari qonun talab qilmagan hollarda qaytarib berilmaydi. Biz obuna narxini oldindan ogohlantirish bilan o'zgartirish huquqiga egamiz."
+      },
+      "Termination": {
+        "Title": "Akkauntni Bekor Qilish",
+        "Content": "Biz ushbu Shartlar va Shartlarga rioya qilmaslik uchun oldindan ogohlantirishsiz darhol akkauntingizni bekor qilishimiz yoki to'xtatib qo'yishimiz mumkin. Akkauntingiz bekor qilinganidan so'ng, Namozni Kuzatuvchi ilovasidan foydalanish huquqingiz darhol bekor qilinadi."
+      },
+      "Changes": {
+        "Title": "Shartlarga O'zgartirishlar",
+        "Content": "Biz ushbu shartlarni istalgan vaqtda o'zgartirish huquqiga egamiz. Biz foydalanuvchilarni muhim o'zgarishlar haqida ogohlantiramiz. Siz ushbu shartlarga kiritilgan o'zgarishlarni qabul qilgan hisoblansangiz, o'zgarishlar kiritilganidan keyin Namozni Kuzatuvchi ilovasidan foydalaning."
+      },
+      "Contact": {
+        "Title": "Biz bilan Bog'lanish",
+        "Content": "Agar ushbu Shartlar va Shartlar haqida savollar bo'lsa, iltimos, bizga support@praytracker.com manziliga murojaat qiling."
       }
     },
-    "Qibla": {
-      "Tabs": {
-        "Qibla": "Qibla Yo'nalishi",
-        "Times": "Namoz Vaqtlari"
+    "Privacy": {
+      "Title": "Maxfiylik Siyosati",
+      "DataCollection": {
+        "Title": "Biz Yig'ayotgan Ma'lumotlar",
+        "Content": "Biz to'g'ridan-to'g'ri taqdim etgan ma'lumotlarni, jumladan, ismingiz, elektron pochta manzilingiz va namoz yozuvlarini yig'amiz. Biz qurilma haqida va Namozni Kuzatuvchi ilovasidan foydalanish haqida avtomatik ravishda ba'zi ma'lumotlarni yig'amiz, bu tajribangizni yaxshilashga yordam beradi."
       },
-      "Compass": {
-        "MagneticNorth": "Magnit Shimol",
-        "QiblaDirection": "Qibla Yo'nalishi",
-        "Degrees": "gradus",
-        "Help": "Telefoningizni Qibla tomon yo'naltiring va Ka'baga moslashtiring",
-        "Errors": {
-          "Magnetometer": "Magnitometr mavjud emas",
-          "Location": "Joylashuvga ruxsat kerak"
-        }
+      "DataUse": {
+        "Title": "Ma'lumotlardan Foydalanish",
+        "Content": "Biz ma'lumotlaringizni Namozni Kuzatuvchi xizmatlarini taqdim etish va yaxshilash, siz bilan aloqa o'rnatish va tajribangizni shaxsiylashtirish uchun ishlatamiz. Namoz odatlaringiz haqidagi ma'lumotlar ruhiy safaringizda doimiy bo'lishingizga yordam berish uchun tahlil qilinadi va statistika yaratiladi."
       },
-      "PrayerTimes": {
-        "Location": {
-          "Fetching": "Joylashuv olinmoqda...",
-          "Unknown": "Noma'lum"
-        },
-        "TimeLeft": "keyingi namozga qolgan vaqt",
-        "Errors": {
-          "Title": "Ruxsat Berilmadi",
-          "Message": "Namoz vaqtlarini hisoblash uchun joylashuvga ruxsat kerak"
-        }
-      }
-    },
-    "Auth": {
-      "Email": {
-        "Label": "Elektron pochta",
-        "Placeholder": "Elektron pochtangizni kiriting"
+      "DataSharing": {
+        "Title": "Ma'lumotlarni Ulashish",
+        "Content": "Biz shaxsiy ma'lumotlaringizni sotmaymiz yoki ulashmaymiz. Ma'lumotlar faqat Namozni Kuzatuvchi ilovasi ichida sizga eng yaxshi namozni kuzatish tajribasini taqdim etish uchun ishlatiladi. Sizning maxfiyligingiz biz uchun eng muhim ahamiyatga ega."
       },
-      "Username": {
-        "Label": "Foydalanuvchi nomi",
-        "Placeholder": "Foydalanuvchi nomingizni kiriting"
+      "Security": {
+        "Title": "Ma'lumotlar Xavfsizligi",
+        "Content": "Biz shaxsiy ma'lumotlaringizni himoya qilish uchun mos keladigan texnik va tashkiliy choralarni amalga oshiramiz. Ammo, internet orqali ma'lumotlarni uzatishning hech qanday usuli 100% xavfsiz emas va biz mutlaq xavfsizlikni kafolatlay olmaymiz. Biz sizning ma'lumotlaringizni sanoat standartlari bo'yicha xavfsizlik amaliyotidan foydalangan holda doimiy ravishda himoya qilishga intilamiz."
       },
-      "Password": {
-        "Label": "Parol",
-        "Placeholder": "Parolingizni kiriting"
+      "Changes": {
+        "Title": "Maxfiylik Siyosatiga O'zgartirishlar",
+        "Content": "Biz vaqt-vaqti bilan Maxfiylik Siyosatimizni yangilashimiz mumkin. Biz yangilangan Maxfiylik Siyosatini ushbu sahifada joylashtirib, amal qilish sanasini yangilaymiz."
       },
-      "SignIn": {
-        "Title": "Qaytib keldingiz",
-        "Button": "Kirish",
-        "NoAccount": "Akkountingiz yo'qmi?",
-        "SignUpLink": "Ro'yxatdan o'ting",
-        "ForgotPassword": "Parolingizni unutdingizmi?"
-      },
-      "SignUp": {
-        "Title": "Bizga Qo'shiling",
-        "Subtitle": "Davom etish uchun akkaunt yarating",
-        "Button": "Ro'yxatdan o'tish",
-        "HasAccount": "Allaqachon akkauntingiz bormi?",
-        "SignInLink": "Kirish",
-        "Verification": {
-          "Title": "Tekshirish",
-          "Message": "Biz {{email}} ga tekshiruv kodini yubordik.",
-          "Placeholder": "12345",
-          "Button": "Elektron pochtani tekshirish"
-        },
-        "Success": {
-          "Title": "Tasdiqlangan",
-          "Message": "Siz akkauntingizni muvaffaqiyatli tasdiqladingiz.",
-          "Button": "Kirish"
-        }
-      },
-      "ForgotPassword": {
-        "Title": "Parolni Tiklash",
-        "Button": "Tekshiruvni yuborish",
-        "RememberedPassword": "Parolingizni eslaysizmi?",
-        "SignInLink": "Kirish",
-        "Verification": {
-          "Title": "Tekshirish",
-          "Message": "Biz {{email}} ga tekshiruv kodini yubordik.",
-          "Placeholder": "Kodni kiriting",
-          "Button": "Elektron pochtani tekshirish"
-        },
-        "Success": {
-          "Title": "Tasdiqlangan",
-          "Message": "Siz akkauntingizni muvaffaqiyatli tasdiqladingiz.",
-          "Button": "Parolni Yangilash"
-        }
-      },
-      "Welcome": {
-        "Next": "Keyingisi",
-        "GetStarted": "Boshlash",
-        "Skip": "O'tkazib yuborish"
-      }
-    },
-    "Friends": {
-      "Title": "Do'stlar",
-      "Premium": {
-        "ApprovedFriends": "Tasdiqlangan Do'stlar",
-        "SearchPlaceholder": "Do'stingizning elektron pochtasini kiriting",
-        "NoFriends": "Tasdiqlangan do'stlar topilmadi",
-        "SendRequest": "So'rovni yuborish",
-        "ViewPending": "Kutilayotgan so'rovlarni ko'rish",
-        "Title": "Namozni Kuzatuvchi +",
-        "Subtitle": "Ruhiy Safaringizni Oshiring",
-        "WelcomeTitle": "As-salaam-alaikum! ",
-        "WelcomeMessage": "Sizning qo'llab-quvvatlashingiz bizga xayr (yaxshilik) tarqatishga va Ummatga Alloh (SWT) bilan bog'lanishlarini mustahkamlashga yordam beradi.",
-        "ChoosePlan": "Rejangizni Tanlang",
-        "Monthly": "Oylik",
-        "Yearly": "Yillik",
-        "SubscribeNow": "Hozir Obuna Bo'ling",
-        "TermsButton": "Foydalanish Shartlari",
-        "Features": {
-          "UnlimitedFriends": "Cheklanmagan Do'stlar",
-          "PrayerTracking": "Namozni Kuzatish",
-          "PrayerAwards": "Namoz Mukofotlari",
-          "CustomWidgets": "Maxsus Vidjetlar",
-          "PremiumSupport": "Premium Qo'llab-quvvatlash",
-          "Friends": {
-            "title": "Namoz Doirasi va Do'stlar",
-            "description": "Do'stlaringiz bilan bog'laning, namoz yutuqlaringizni baham ko'ring va bir-birini ruhiy safarda qo'llab-quvvatlang. Barchani namozda doimiy bo'lishiga yordam beradigan qo'llab-quvvatlovchi jamiyat yarating."
-          },
-          "Awards": {
-            "title": "Maxsus Namoz Mukofotlari",
-            "description": "Namozga bo'lgan sadoqatingizni tan oladigan maxsus mukofot va yutuqlarni oching. Taraqqiyotingizni kuzating va ruhiy bosqichlaringizni nishonlang."
-          },
-          "Widgets": {
-            "title": "Maxsus Namoz Vidjetlari",
-            "description": "Namoz vaqtlarini va kunlik ruhiy maqsadlaringizni kuzatish uchun bosh ekraningiz uchun go'zal, sozlanishi mumkin bo'lgan vidjetlar."
-          },
-          "Analytics": {
-            "title": "Batafsil Namoz Analitikasi",
-            "description": "Namoz odatlaringiz haqida ma'lumot olish uchun batafsil statistika va tendentsiyalarni oling. Sizning doimiy bo'lishingizni yaxshilash uchun shaxsiy tavsiyalarni oling."
-          },
-          "Reminders": {
-            "title": "Aqlli Namoz Eslatmalari",
-            "description": "Joylashuvingizga mos keladigan va jadvalingizga mos keladigan shaxsiy eslatmalar. Hech qachon namozni o'tkazib yubormang."
-          },
-          "Themes": {
-            "title": "Go'zal Mavzular",
-            "description": "Namozni kuzatish tajribangizni shaxsiylashtirish uchun turli xil go'zal va ehtiyotkorlik bilan yaratilgan mavzularni tanlang."
-          },
-          "Support": {
-            "title": "Ustuvor Yordam",
-            "description": "Yangi funksiyalar chiqarilganda birinchi bo'lib sinab ko'rish imkoniyatiga ega bo'ling va qo'llab-quvvatlash jamoamizga ustuvor kirish huquqiga ega bo'ling."
-          }
-        },
-        "SavePerYear": "Yiliga ${{amount}} tejang",
-        "AutoRenew": "Obuna avtomatik ravishda yangilanadi. Istasangiz, istalgan vaqtda bekor qilishingiz mumkin.",
-        "FeaturesTitle": "Premium Xususiyatlari",
-        "MoreFeatures": "Ko'proq Xususiyatlarni Ko'rish",
-        "LessFeatures": "Kamroq Ko'rsatish",
-        "SuccessMessage": "Alhamdulillah! Premiumga xush kelibsiz ",
-        "ErrorMessage": "Nimadir xato ketdi. Iltimos, qaytadan urinib ko'ring.",
-        "RestoreSuccess": "Premium xususiyatlaringiz tiklandi!",
-        "RestoreError": "Oldingi xaridlar topilmadi.",
-        "Plans": {
-          "monthly": {
-            "title": "Oylik Reja",
-            "description": "1 Oy Premium Kirish"
-          },
-          "quarterly": {
-            "title": "Choraklik Reja",
-            "description": "3 Oy Premium Kirish"
-          },
-          "yearly": {
-            "title": "Yillik Reja",
-            "description": "1 Yil Premium Kirish"
-          }
-        },
-        "Future": "In sha Alloh, tez orada ko'proq xususiyatlar keladi",
-        "TeamTitle": "Jamoa Bilan Tanishing",
-        "TeamMessage": "Alhamdulillah, bu loyiha bag'rikenglik va muhabbat bilan qurilgan va saqlanib kelinmoqda. Biz sizga namozlaringizni saqlab qolishga va ruhiy jihatdan o'sishga yordam berishga intilamiz, har bir funksiyamizda Allohning roziligini izlaymiz.",
-        "SubscribeButton": "Missiyamizni Qo'llab-quvvatlang",
-        "RestoreButton": "Obunani Tiklash",
-        "BismillahMessage": "Bismillah, bu barakali safarni birga boshlaymiz"
-      },
-      "Freemium": {
-        "Title": "Namozni Kuzatuvchi +",
-        "Description": "Premium rejamizga qo'shiling va do'stlaringiz bilan namoz taraqqiyotingizni kuzatish imkoniyatiga ega bo'ling.",
-        "UpgradeButton": "Bismillah, men ham",
-        "UpgradePrompt": "Iltimos, premium rejaga o'ting"
-      }
-    },
-    "Profile": {
-      "Title": "Profil",
-      "Navigation": {
-        "Account": "Hisob",
-        "EditProfile": "Profilni tahrirlash",
-        "EditPassword": "Parolni o'zgartirish",
-        "Settings": "Sozlamalar",
-        "PrivacySecurity": "Maxfiylik va xavfsizlik",
-        "TermsConditions": "Foydalanish shartlari",
-        "About": "Ilova haqida",
-        "Feedback": "Fikr-mulohaza"
-      },
-      "Account": {
-        "Title": "Akkaunt",
-        "DeleteAccount": "Akkauntni O'chirish",
-        "DeleteConfirm": "Akkauntingizni o'chirib tashlamoqchimisiz?",
-        "DeleteMessage": "Bu amal qaytarib bo'lmaydi va biz sizni yo'qotishdan afsuslanamiz. Barcha ma'lumotlaringiz butunlay o'chiriladi.",
-        "DeleteButton": "Ha, Akkauntimni O'chirib Tashlang",
-        "CancelButton": "Bekor qilish",
-        "LogoutButton": "Chiqish"
-      },
-      "EditProfile": {
-        "Title": "Profilni Tahrirlash",
-        "Fields": {
-          "Username": {
-            "Label": "Foydalanuvchi nomi",
-            "Placeholder": "Foydalanuvchi nomingizni kiriting"
-          },
-          "FirstName": {
-            "Label": "Ism",
-            "Placeholder": "Ismingizni kiriting"
-          },
-          "LastName": {
-            "Label": "Familiya",
-            "Placeholder": "Familiyangizni kiriting"
-          }
-        },
-        "SaveButton": "O'zgarishlarni Saqlash"
-      },
-      "EditPassword": {
-        "Title": "Parolni Tahrirlash",
-        "Fields": {
-          "CurrentPassword": {
-            "Label": "Joriy Parol",
-            "Placeholder": "Joriy parolingizni kiriting"
-          },
-          "NewPassword": {
-            "Label": "Yangi Parol",
-            "Placeholder": "Yangi parolingizni kiriting"
-          },
-          "ConfirmPassword": {
-            "Label": "Parolni Tasdiqlash",
-            "Placeholder": "Yangi parolingizni tasdiqlang"
-          }
-        },
-        "SaveButton": "Parolni Yangilash"
-      },
-      "Settings": {
-        "Title": "Sozlamalar",
-        "Theme": "Mavzu",
-        "Language": "Til",
-        "Notifications": "Bildirishnomalar"
-      },
-      "Terms": {
-        "Title": "Shartlar va Shartlar",
-        "Agreement": {
-          "Title": "Shartlarga Rozilik",
-          "Content": "Namozni Kuzatuvchi ilovasidan foydalanish va uni ishlatish orqali siz ushbu Shartlar va Shartlarga rozilik bildirasiz. Agar siz ushbu shartlarning qaysi bir qismiga rozi bo'lmasangiz, ilovaga kirish huquqingiz yo'q."
-        },
-        "Usage": {
-          "Title": "Qabul Qilinadigan Foydalanish",
-          "Content": "Siz Namozni Kuzatuvchi ilovasidan faqat uning mo'ljallangan maqsadi - kunlik namozlaringizni kuzatish va boshqarish uchun foydalanishingiz kerak. Ilovadan hech qanday tarzda zarar yetkazish yoki uning mavjudligi yoki kirish imkoniyatini buzishga yo'l qo'ymasligingiz kerak."
-        },
-        "UserContent": {
-          "Title": "Foydalanuvchi Kontenti",
-          "Content": "Namozni Kuzatuvchi ilovasiga yuborgan har qanday kontent, jumladan, namoz yozuvlari va shaxsiy ma'lumotlar sizning mulkingizdir. Ammo, kontentni yuborganingizda, bizga ushbu kontentni xizmatlarimizni taqdim etish uchun ishlatish, o'zgartirish va ko'rsatish huquqini berasiz."
-        },
-        "Subscription": {
-          "Title": "Premium Obuna",
-          "Content": "Namozni Kuzatuvchi ilovasining ba'zi funksiyalari premium obuna orqali mavjud. Obuna to'lovlari qonun talab qilmagan hollarda qaytarib berilmaydi. Biz obuna narxini oldindan ogohlantirish bilan o'zgartirish huquqiga egamiz."
-        },
-        "Termination": {
-          "Title": "Akkauntni Bekor Qilish",
-          "Content": "Biz ushbu Shartlar va Shartlarga rioya qilmaslik uchun oldindan ogohlantirishsiz darhol akkauntingizni bekor qilishimiz yoki to'xtatib qo'yishimiz mumkin. Akkauntingiz bekor qilinganidan so'ng, Namozni Kuzatuvchi ilovasidan foydalanish huquqingiz darhol bekor qilinadi."
-        },
-        "Changes": {
-          "Title": "Shartlarga O'zgartirishlar",
-          "Content": "Biz ushbu shartlarni istalgan vaqtda o'zgartirish huquqiga egamiz. Biz foydalanuvchilarni muhim o'zgarishlar haqida ogohlantiramiz. Siz ushbu shartlarga kiritilgan o'zgarishlarni qabul qilgan hisoblansangiz, o'zgarishlar kiritilganidan keyin Namozni Kuzatuvchi ilovasidan foydalaning."
-        },
-        "Contact": {
-          "Title": "Biz bilan Bog'lanish",
-          "Content": "Agar ushbu Shartlar va Shartlar haqida savollar bo'lsa, iltimos, bizga support@praytracker.com manziliga murojaat qiling."
-        }
-      },
-      "Privacy": {
-        "Title": "Maxfiylik Siyosati",
-        "DataCollection": {
-          "Title": "Biz Yig'ayotgan Ma'lumotlar",
-          "Content": "Biz to'g'ridan-to'g'ri taqdim etgan ma'lumotlarni, jumladan, ismingiz, elektron pochta manzilingiz va namoz yozuvlarini yig'amiz. Biz qurilma haqida va Namozni Kuzatuvchi ilovasidan foydalanish haqida avtomatik ravishda ba'zi ma'lumotlarni yig'amiz, bu tajribangizni yaxshilashga yordam beradi."
-        },
-        "DataUse": {
-          "Title": "Ma'lumotlardan Foydalanish",
-          "Content": "Biz ma'lumotlaringizni Namozni Kuzatuvchi xizmatlarini taqdim etish va yaxshilash, siz bilan aloqa o'rnatish va tajribangizni shaxsiylashtirish uchun ishlatamiz. Namoz odatlaringiz haqidagi ma'lumotlar ruhiy safaringizda doimiy bo'lishingizga yordam berish uchun tahlil qilinadi va statistika yaratiladi."
-        },
-        "DataSharing": {
-          "Title": "Ma'lumotlarni Ulashish",
-          "Content": "Biz shaxsiy ma'lumotlaringizni sotmaymiz yoki ulashmaymiz. Ma'lumotlar faqat Namozni Kuzatuvchi ilovasi ichida sizga eng yaxshi namozni kuzatish tajribasini taqdim etish uchun ishlatiladi. Sizning maxfiyligingiz biz uchun eng muhim ahamiyatga ega."
-        },
-        "Security": {
-          "Title": "Ma'lumotlar Xavfsizligi",
-          "Content": "Biz shaxsiy ma'lumotlaringizni himoya qilish uchun mos keladigan texnik va tashkiliy choralarni amalga oshiramiz. Ammo, internet orqali ma'lumotlarni uzatishning hech qanday usuli 100% xavfsiz emas va biz mutlaq xavfsizlikni kafolatlay olmaymiz. Biz sizning ma'lumotlaringizni sanoat standartlari bo'yicha xavfsizlik amaliyotidan foydalangan holda doimiy ravishda himoya qilishga intilamiz."
-        },
-        "Changes": {
-          "Title": "Maxfiylik Siyosatiga O'zgartirishlar",
-          "Content": "Biz vaqt-vaqti bilan Maxfiylik Siyosatimizni yangilashimiz mumkin. Biz yangilangan Maxfiylik Siyosatini ushbu sahifada joylashtirib, amal qilish sanasini yangilaymiz."
-        },
-        "Contact": {
-          "Title": "Biz bilan Bog'lanish",
-          "Content": "Agar ushbu Maxfiylik Siyosati yoki ma'lumotlar bilan bog'liq savollar bo'lsa, iltimos, bizga privacy@praytracker.com manziliga murojaat qiling."
-        }
+      "Contact": {
+        "Title": "Biz bilan Bog'lanish",
+        "Content": "Agar ushbu Maxfiylik Siyosati yoki ma'lumotlar bilan bog'liq savollar bo'lsa, iltimos, bizga privacy@praytracker.com manziliga murojaat qiling."
       }
     }
   }
+}

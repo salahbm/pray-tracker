@@ -14,29 +14,34 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 ## ✨ Features
 
 ### 🕌 Core Prayer Features
+
 - **Prayer Time Tracking**: Accurate prayer times based on your location
 - **Qibla Direction**: Built-in Qibla compass
 - **Prayer Logging**: Track your daily prayers with ease
 - **Streak System**: Maintain and track your prayer consistency
 
 ### 📱 Smart Notifications
+
 - Customizable prayer time reminders
 - Streak maintenance alerts
 - Friend activity notifications
 - Rich notifications with quick actions
 
 ### 🌍 Location Services
+
 - Automatic prayer time adjustments
 - Location-based Qibla direction
 - Smart timezone handling
 
-### 🌐 Premium Features
+### 🌐 Pro Features
+
 - Enhanced statistics and analytics
 - Advanced prayer tracking features
 - Customizable themes and UI options
 - Ad-free experience
 
 ### 🔤 Internationalization
+
 - Multi-language support
 - RTL layout support
 - Localized content and prayer times
@@ -44,6 +49,7 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 ## 🛠 Tech Stack
 
 ### Core Technologies
+
 - **Framework**: React Native with Expo (v52)
 - **Language**: TypeScript
 - **Routing**: Expo Router (file-based)
@@ -52,10 +58,12 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 - **Backend**: Supabase
 
 ### State Management
+
 - Zustand (Global State)
 - React Query (Server State)
 
 ### Key Libraries
+
 - `adhan`: Prayer time calculations
 - `@react-navigation`: Navigation system
 - `react-native-purchases`: In-app purchases
@@ -65,6 +73,7 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js >= 18
 - npm or yarn
 - iOS/Android development environment
@@ -72,23 +81,27 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/pray-tracker.git
 cd pray-tracker
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables
+
 ```bash
 cp .env.example .env.local
 # Edit .env.local with your configuration
 ```
 
 4. Start the development server
+
 ```bash
 npx expo start
 ```
@@ -96,6 +109,7 @@ npx expo start
 ## 📱 Development
 
 ### Available Scripts
+
 - `npm start`: Start the Expo development server
 - `npm run ios`: Start iOS simulator
 - `npm run android`: Start Android emulator
@@ -105,6 +119,7 @@ npx expo start
 - `npm run commit`: Create a formatted commit message
 
 ### Project Structure
+
 ```
 pray-tracker/
 ├── app/                 # Main application code
