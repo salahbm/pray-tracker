@@ -23,25 +23,25 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
         <Text className={cn('text-xl font-semibold')}>
           {t('Home.TodaysPrayers.Title')}
         </Text>
-        <View className="flex-1 flex-row justify-end gap-4">
+        <View className="flex-1 flex-row justify-end gap-3">
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className={cn('text-sm font-bold text-center max-w-14')}
+            className={cn('text-sm font-bold text-center max-w-16')}
           >
             {t('Home.TodaysPrayers.Missed')}
           </Text>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className={cn('text-sm font-bold text-center max-w-14')}
+            className={cn('text-sm font-bold text-center max-w-16')}
           >
             {t('Home.TodaysPrayers.Late')}
           </Text>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className={cn('text-sm font-bold text-center max-w-14')}
+            className={cn('text-sm font-bold text-center max-w-16')}
           >
             {t('Home.TodaysPrayers.OnTime')}
           </Text>

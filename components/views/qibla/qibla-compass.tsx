@@ -79,7 +79,6 @@ const QiblaCompass: React.FC = () => {
     try {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
       if (!isMagnetAvailable) {
-        fireToast.error(t('Qibla.Compass.Errors.Magnetometer'));
         dispatch({ type: 'STOP_LOADING' });
         return;
       }
@@ -121,7 +120,7 @@ const QiblaCompass: React.FC = () => {
     } finally {
       dispatch({ type: 'STOP_LOADING' });
     }
-  }, [calculateMagnetAngle]);
+  }, [calculateMagnetAngle, t]);
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;

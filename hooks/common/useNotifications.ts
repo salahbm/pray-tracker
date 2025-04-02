@@ -52,7 +52,6 @@ export const usePushNotifications = (): PushNotificationState & {
   const registerForPushNotificationsAsync = useCallback(async () => {
     try {
       if (!Device.isDevice) {
-        fireToast.error('Physical device required for notifications');
         setNotificationEnabled(false);
         return;
       }
