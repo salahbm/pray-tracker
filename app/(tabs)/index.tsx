@@ -30,6 +30,7 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { useGetUser } from '@/hooks/auth/useGetUser';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
@@ -75,7 +76,12 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   // QUERIES
-  const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
+  const {
+    data: userDB,
+    refetch: refetchUser,
+    isFetching: isUserFetching,
+  } = useGetUser(user?.supabaseId);
 
   const {
     data: prays,
@@ -207,9 +213,15 @@ export default function HomeScreen() {
     });
   }, [todaysPrays, user]);
 
+  useEffect(() => {
+    setUser(userDB);
+  }, [userDB, setUser]);
+
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isLoadingPrays || isLoadingTodaysPrays} />
+      <Loader
+        visible={isLoadingPrays || isLoadingTodaysPrays || isUserFetching}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}
@@ -217,10 +229,13 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            refreshing={isLoadingPrays || isLoadingTodaysPrays}
+            refreshing={
+              isLoadingPrays || isLoadingTodaysPrays || isUserFetching
+            }
             onRefresh={() => {
               refetch();
               refetchPrays();
+              refetchUser();
             }}
             tintColor={colors['--primary']}
           />

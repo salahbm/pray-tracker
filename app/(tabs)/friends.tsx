@@ -8,8 +8,7 @@ const FriendsScreen = () => {
   const { user } = useAuthStore();
   return (
     <SafeAreaView className="main-area">
-      {/* {isPremium ? <FriendsPremium /> : <FreemiumFriends />} */}
-      <FreemiumFriends />
+      {user?.isPro ? <FriendsPremium /> : <FreemiumFriends />}
     </SafeAreaView>
   );
 };

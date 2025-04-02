@@ -41,7 +41,6 @@ export async function POST(request: Request) {
   }
 }
 
-// GET USER
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
@@ -54,11 +53,32 @@ export async function GET(request: Request) {
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: {
-        supabaseId: id,
-      },
+    let user = await prisma.user.findUnique({
+      where: { supabaseId: id },
     });
+
+    if (!user) {
+      throw new ApiError({
+        message: 'User not found',
+        status: StatusCode.NOT_FOUND,
+      });
+    }
+
+    // ⏳ Check for expired premium
+    if (user.isPro && user?.proUntil && user?.proUntil < new Date()) {
+      await prisma.user.update({
+        where: { supabaseId: id },
+        data: {
+          isPro: false,
+          proUntil: null,
+        },
+      });
+
+      user = await prisma.user.findUnique({
+        where: { supabaseId: id },
+      });
+    }
+
     return createResponse({
       status: StatusCode.SUCCESS,
       message: 'User fetched successfully',
@@ -66,7 +86,6 @@ export async function GET(request: Request) {
       data: user,
     });
   } catch (error) {
-    // Use handleError to standardize the response for all errors
     return handleError(error);
   }
 }
