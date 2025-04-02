@@ -394,7 +394,29 @@
     "Welcome": {
       "Next": "Keyingisi",
       "GetStarted": "Boshlash",
-      "Skip": "O'tkazib yuborish"
+      "Skip": "Oʻtkazib yuborish",
+      "Onboarding": {
+        "Track": {
+          "title": "Namozlaringizni osongina kuzating",
+          "description": "Kundalik namozingizni qulay kuzatib, ibodatda izchil bo‘ling."
+        },
+        "Share": {
+          "title": "Do‘stlaringiz bilan yutuqlaringizni ulashing",
+          "description": "O‘zingiz va boshqalarni rag‘batlantirish uchun namoz jarayoningizni ulashing."
+        },
+        "Remind": {
+          "title": "Hech qachon namozni qoldirmang",
+          "description": "Namozni esdan chiqarmaslik uchun o‘z vaqtida eslatmalar va bildirishnomalar oling."
+        },
+        "Journey": {
+          "title": "Namoz safaringizni ko‘rib chiqing",
+          "description": "Qanchalik yutuqqa erishganingizni ko‘rish va namozni muntazam o‘qishdagi rivojlanishingizni kuzating."
+        },
+        "Aware": {
+          "title": "Oxirgi namozingizdan xabardor bo‘ling",
+          "description": "Oxirgi namozingizni yodda tuting va kuningizni namoz vaqtlariga moslang."
+        }
+      }
     }
   },
   "Friends": {

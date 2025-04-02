@@ -15,37 +15,32 @@ export const images = {
 export const onboarding = [
   {
     id: 1,
-    title: 'Track Your Prayers with Ease',
-    description:
-      'Keep a record of your daily prayers effortlessly and stay consistent in your ibadah.',
+    titleKey: 'Auth.Welcome.Onboarding.Track.title',
+    descriptionKey: 'Auth.Welcome.Onboarding.Track.description',
     image: images.onboarding1,
   },
   {
     id: 2,
-    title: 'Share Your Progress with Friends',
-    description:
-      'Motivate others and yourself by sharing your prayer journey with your loved ones.',
+    titleKey: 'Auth.Welcome.Onboarding.Share.title',
+    descriptionKey: 'Auth.Welcome.Onboarding.Share.description',
     image: images.onboarding2,
   },
   {
     id: 3,
-    title: 'Never Miss a Prayer Again',
-    description:
-      'Get timely notifications and reminders to ensure you never miss your Salah.',
+    titleKey: 'Auth.Welcome.Onboarding.Remind.title',
+    descriptionKey: 'Auth.Welcome.Onboarding.Remind.description',
     image: images.onboarding3,
   },
   {
     id: 4,
-    title: 'Check Your Prayer Journey',
-    description:
-      "Reflect on your progress and see how far you've come in maintaining regular prayers.",
+    titleKey: 'Auth.Welcome.Onboarding.Journey.title',
+    descriptionKey: 'Auth.Welcome.Onboarding.Journey.description',
     image: images.onboarding4,
   },
   {
     id: 5,
-    title: 'Stay Aware of Your Last Prayer',
-    description:
-      'Keep track of your last prayer and plan your day around your Salah schedule.',
+    titleKey: 'Auth.Welcome.Onboarding.Aware.title',
+    descriptionKey: 'Auth.Welcome.Onboarding.Aware.description',
     image: images.onboarding5,
   },
 ];

@@ -361,6 +361,33 @@
       "Button": "로그인",
       "NoAccount": "계정이 없으신가요?",
       "SignUpLink": "가입하기"
+    },
+    "Welcome": {
+      "Next": "다음",
+      "GetStarted": "시작하기",
+      "Skip": "건너뛰기",
+      "Onboarding": {
+        "Track": {
+          "title": "기도를 손쉽게 추적하세요",
+          "description": "매일의 기도를 손쉽게 기록하고 예배를 꾸준히 지키세요."
+        },
+        "Share": {
+          "title": "친구와 진행 상황을 공유하세요",
+          "description": "기도 여정을 주변 사람들과 나누어 서로 격려하고 동기를 부여하세요."
+        },
+        "Remind": {
+          "title": "기도 시간을 놓치지 마세요",
+          "description": "알림을 받아 항상 제때 기도를 드릴 수 있도록 하세요."
+        },
+        "Journey": {
+          "title": "기도 여정을 확인하세요",
+          "description": "규칙적으로 기도하면서 얼마나 성장했는지 돌아보세요."
+        },
+        "Aware": {
+          "title": "마지막 기도를 기억하세요",
+          "description": "마지막 기도를 파악하고 하루 일정을 기도 시간에 맞춰 계획하세요."
+        }
+      }
     }
   },
   "Friends": {

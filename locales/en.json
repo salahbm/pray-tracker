@@ -481,7 +481,29 @@
     "Welcome": {
       "Next": "Next",
       "GetStarted": "Get Started",
-      "Skip": "Skip"
+      "Skip": "Skip",
+      "Onboarding": {
+        "Track": {
+          "title": "Track Your Prayers with Ease",
+          "description": "Keep a record of your daily prayers effortlessly and stay consistent in your ibadah."
+        },
+        "Share": {
+          "title": "Share Your Progress with Friends",
+          "description": "Motivate others and yourself by sharing your prayer journey with your loved ones."
+        },
+        "Remind": {
+          "title": "Never Miss a Prayer Again",
+          "description": "Get timely notifications and reminders to ensure you never miss your Salah."
+        },
+        "Journey": {
+          "title": "Check Your Prayer Journey",
+          "description": "Reflect on your progress and see how far you've come in maintaining regular prayers."
+        },
+        "Aware": {
+          "title": "Stay Aware of Your Last Prayer",
+          "description": "Keep track of your last prayer and plan your day around your Salah schedule."
+        }
+      }
     }
   },
   "Friends": {
