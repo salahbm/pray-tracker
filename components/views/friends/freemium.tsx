@@ -3,7 +3,7 @@ import Checkbox from 'expo-checkbox';
 import React, { useState, memo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Image, ImageSourcePropType } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CallToAction from './call-to-premium';
@@ -19,11 +19,13 @@ import {
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS_DATA } from '@/constants/friends';
+import { useGetPro } from '@/hooks/common/usPro';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const FreemiumFriends = () => {
+  const { data: pro, refetch, isFetching } = useGetPro();
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
@@ -42,8 +44,11 @@ const FreemiumFriends = () => {
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
         className="w-full"
+        refreshControl={
+          <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+        }
       >
-        <FreemiumTrackerIntro ref={ref} />
+        <FreemiumTrackerIntro ref={ref} isProVisible={pro?.isProVisible} />
         <View className="border-b border-border my-8" />
         <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
 

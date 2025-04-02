@@ -27,6 +27,10 @@ const pendingFriendsList = {
   queryKey: ['pendingFriendsListCache'],
 };
 
+const proKeys = {
+  queryKey: ['pro'],
+};
+
 export {
   userKeys,
   praysListKeys,
@@ -35,4 +39,5 @@ export {
   awards,
   approvedFriendsList,
   pendingFriendsList,
+  proKeys,
 };

@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { ApiError, handleError } from '@/utils/error';
+import { handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function GET() {
