@@ -1,17 +1,19 @@
-import { View, Image, Linking, TouchableOpacity } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
+import { useTranslation } from 'react-i18next';
+import { View, Image, Linking, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import { Text } from '@/components/ui/text';
-import { ScrollView } from 'react-native-gesture-handler';
+import { IMAGES } from '@/constants/images';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const About = () => {
   const { t } = useTranslation();
+  const { currentTheme } = useThemeStore();
   const version = Constants.expoConfig?.version || '1.0.0';
-  const buildNumber = Constants.expoConfig?.ios?.buildNumber || '100';
 
   const handleLink = (url: string) => {
     Linking.openURL(url).catch((err) =>
@@ -28,28 +30,15 @@ const About = () => {
           {/* App Logo */}
           <View className="items-center">
             <Image
-              source={require('@/assets/images/icon.png')}
-              className="w-24 h-24 rounded-2xl"
+              source={
+                currentTheme === 'light' ? IMAGES.icon_light : IMAGES.icon_dark
+              }
+              className="w-32 h-32 rounded-full"
             />
             <Text className="mt-2 text-2xl font-bold">Pray Tracker</Text>
-          </View>
-
-          {/* Version Info */}
-          <View className="bg-card p-4 rounded-lg">
-            <Text className="text-xl font-bold">
-              {t('Profile.About.Version.Title')}
+            <Text className="text-muted-foreground text-sm mt-2">
+              V {version}
             </Text>
-            <View className="mt-2 gap-1">
-              <Text className="text-muted-foreground">
-                {t('Profile.About.Version.Number', { version })}
-              </Text>
-              <Text className="text-muted-foreground">
-                {t('Profile.About.Version.Build', { buildNumber })}
-              </Text>
-              <Text className="text-muted-foreground">
-                {t('Profile.About.Version.Released')}
-              </Text>
-            </View>
           </View>
 
           {/* Mission */}
@@ -78,7 +67,7 @@ const About = () => {
               {t('Profile.About.Contact.Title')}
             </Text>
 
-            <View className="flex-row gap-4 justify-center">
+            <View className="flex-row gap-8 mt-4 justify-center">
               <TouchableOpacity
                 onPress={() =>
                   handleLink('https://github.com/salahbm/pray-tracker')
@@ -92,23 +81,13 @@ const About = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => handleLink('mailto:support@praytracker.app')}
+                onPress={() => handleLink('mailto:salahbm.dev@gmail.com')}
                 className="items-center"
               >
                 <View className="w-12 h-12 bg-secondary rounded-full items-center justify-center">
                   <Ionicons name="mail" size={24} />
                 </View>
                 <Text className="mt-1 text-sm">Email</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => handleLink('https://t.me/praytracker')}
-                className="items-center"
-              >
-                <View className="w-12 h-12 bg-secondary rounded-full items-center justify-center">
-                  <Ionicons name="paper-plane" size={24} />
-                </View>
-                <Text className="mt-1 text-sm">Telegram</Text>
               </TouchableOpacity>
             </View>
           </View>

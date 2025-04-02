@@ -1,7 +1,13 @@
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  TouchableOpacity,
+  View,
+  Animated,
+  useWindowDimensions,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 
@@ -10,11 +16,15 @@ import { Text } from 'components/ui/text';
 import { onboarding } from 'constants/onboarding';
 import { useOnboarding } from 'store/defaults/onboarding';
 
-const Home = () => {
+const BANNER_HEIGHT = 400;
+
+const Welcome = () => {
   const { t } = useTranslation();
   const swiperRef = useRef<Swiper>(null);
+  const scrollY = useRef(new Animated.Value(0)).current;
   const [activeIndex, setActiveIndex] = useState(0);
   const { setVisited } = useOnboarding();
+  const { height: windowHeight } = useWindowDimensions();
 
   const isLastSlide = activeIndex === onboarding.length - 1;
 
@@ -33,11 +43,11 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-between bg-background">
+    <SafeAreaView className="flex-1 bg-background" edges={['bottom']}>
       <Swiper
         ref={swiperRef}
         loop={false}
-        className="bg-background mt-10"
+        className="bg-transparent"
         dot={
           <View className="w-[32px] h-[4px] mx-1 bg-gray-300 rounded-full" />
         }
@@ -47,25 +57,57 @@ const Home = () => {
         onIndexChanged={(index) => setActiveIndex(index)}
       >
         {onboarding.map((item) => (
-          <View key={item.id} className="flex items-center justify-center p-5">
-            <Image
-              source={item.image}
-              className="w-full aspect-video h-[40%] rounded-md"
-              resizeMode="contain"
-            />
-            <View className="flex flex-row items-center justify-center w-full mt-10">
-              <Text className="text-foreground text-3xl font-bold mx-10 text-center">
-                {item.title}
-              </Text>
-            </View>
-            <Text className="text-md text-center mx-10 mt-3 text-muted-foreground">
-              {item.description}
-            </Text>
+          <View key={item.id} className="flex-1 bg-background">
+            <Animated.ScrollView
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                { useNativeDriver: true },
+              )}
+              scrollEventThrottle={16}
+            >
+              <Animated.View
+                style={{
+                  transform: [
+                    {
+                      translateY: scrollY.interpolate({
+                        inputRange: [-BANNER_HEIGHT, 0, BANNER_HEIGHT],
+                        outputRange: [
+                          -BANNER_HEIGHT / 2,
+                          0,
+                          BANNER_HEIGHT * 0.75,
+                        ],
+                      }),
+                    },
+                  ],
+                }}
+              >
+                <Image
+                  source={item.image}
+                  className="w-full"
+                  style={{ height: BANNER_HEIGHT }}
+                  resizeMode="cover"
+                />
+              </Animated.View>
+
+              <View
+                style={{ minHeight: windowHeight - BANNER_HEIGHT }}
+                className="bg-background rounded-t-3xl -mt-5 px-5 pt-10"
+              >
+                <View className="flex flex-row items-center justify-center w-full">
+                  <Text className="text-foreground text-3xl font-bold mx-10 text-center">
+                    {item.title}
+                  </Text>
+                </View>
+                <Text className="text-md text-center mx-10 mt-10 text-muted-foreground">
+                  {item.description}
+                </Text>
+              </View>
+            </Animated.ScrollView>
           </View>
         ))}
       </Swiper>
 
-      <Button onPress={onNextPress} className="w-11/12 mt-10 mb-5">
+      <Button onPress={onNextPress} className="w-11/12 mx-auto mb-2">
         <Text>
           {isLastSlide ? t('Auth.Welcome.GetStarted') : t('Auth.Welcome.Next')}
         </Text>
@@ -82,4 +124,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Welcome;
