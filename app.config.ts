@@ -2,8 +2,6 @@ import 'dotenv/config';
 import { ExpoConfig, ConfigContext } from '@expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
-  const APP_VARIANT = process.env.APP_VARIANT ?? 'development';
-
   return {
     ...config,
     name: 'Pray Tracker',
@@ -21,23 +19,21 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
     ios: {
       supportsTablet: true,
-      bundleIdentifier:
-        APP_VARIANT === 'development'
-          ? 'com.salahdev.prayerTracker.dev'
-          : 'com.salahdev.prayerTracker',
+      bundleIdentifier: 'com.salahdev.prayerTracker',
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
+      },
+      icon: {
+        dark: './assets/images/icon-dark.png',
+        light: './assets/images/icon-light.png',
       },
     },
 
     android: {
-      package:
-        APP_VARIANT === 'development'
-          ? 'com.salahdev.prayerTracker.dev'
-          : 'com.salahdev.prayerTracker',
+      package: 'com.salahdev.prayerTracker',
       adaptiveIcon: {
         foregroundImage: './assets/images/icon-light.png',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F9FAFB',
       },
     },
 
@@ -57,13 +53,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       [
         'expo-splash-screen',
         {
-          image: './assets/images/icon-light.png',
-          imageWidth: 200,
+          image: './assets/images/icon-light-rounded.png',
+          imageWidth: 150,
           resizeMode: 'contain',
-          backgroundColor: '#ffffff',
+          backgroundColor: '#F9FAFB',
           dark: {
-            image: './assets/images/icon-dark.png',
-            backgroundColor: '#000000',
+            image: './assets/images/icon-dark-rounded.png',
+            backgroundColor: '#121212',
           },
         },
       ],
@@ -119,7 +115,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
       supabaseRoleKey: process.env.SUPABASE_ROLE_KEY,
       baseUrl: process.env.BASE_URL,
-      APP_VARIANT: APP_VARIANT,
     },
 
     owner: 'salahbm_dev',

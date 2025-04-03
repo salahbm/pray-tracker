@@ -54,7 +54,6 @@ const EditProfile = () => {
       fireToast.error(e.message);
     }
   };
-
   const uploadImageToSupabase = async (imageUri: string) => {
     try {
       setImageUploading(true);
@@ -78,7 +77,7 @@ const EditProfile = () => {
       const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
 
       // Immediately update local image state
-      setImage(data.publicUrl);
+      setImage(data.publicUrl.replace(/([^:]\/)\/+/g, '$1'));
     } catch (error) {
       fireToast.error(error.message);
     } finally {
@@ -137,7 +136,9 @@ const EditProfile = () => {
               <View className="w-[150px] h-[150px] rounded-full border border-border bg-primary opacity-80 animate-pulse" />
             ) : (
               <Image
-                source={{ uri: image || FRIENDS.guest }}
+                source={{
+                  uri: image ? image : FRIENDS.guest,
+                }}
                 accessibilityLabel="Profile Photo"
                 className="w-[150px] h-[150px] rounded-full border border-border"
               />
