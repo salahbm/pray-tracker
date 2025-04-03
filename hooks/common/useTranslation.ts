@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export function useLanguage() {
   const { i18n } = useTranslation();
-  const currentLanguage = i18n.language.split('-')[0]; // normalize
+  const currentLanguage = i18n.language?.split('-')[0] ?? 'en'; // normalize
 
   useEffect(() => {
     const loadLanguage = async () => {

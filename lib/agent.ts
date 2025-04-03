@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { API_BASE_URL } from '@/constants/config';
 
 export const agent = async (url: string, options?: RequestInit) => {
