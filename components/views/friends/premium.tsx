@@ -105,7 +105,7 @@ const FriendsApproved = () => {
       </View>
 
       {/* Approved Friends List */}
-      <Text className="text-xl font-bold mb-3">{t('Friends.Pro.Title')}</Text>
+      <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[100%] bg-transparent" />
       ) : approvedFriends?.data.length > 0 ? (
@@ -165,7 +165,7 @@ const FriendsApproved = () => {
                         className="flex-row items-center justify-between py-1"
                       >
                         <Text className={cn('capitalize font-semibold')}>
-                          {t(`Friends.Pro.PrayerTypes.${prayer}`)}
+                          {prayer}
                         </Text>
 
                         <View className="flex-row gap-4">

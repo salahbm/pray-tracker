@@ -11,7 +11,7 @@ import icon_dark from '../assets/images/icon-dark.png';
 import icon_light from '../assets/images/icon-light.png';
 import kaaba from '../assets/images/kaaba.png';
 import no_data from '../assets/images/no-data.png';
-
+import no_result from '../assets/images/no-result.png';
 export const IMAGES = {
   check,
   google,
@@ -20,6 +20,7 @@ export const IMAGES = {
   no_data,
   icon_light,
   icon_dark,
+  no_result,
 };
 
 export const FRIENDS = {

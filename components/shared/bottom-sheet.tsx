@@ -46,9 +46,6 @@ const CustomBottomSheet = ({
       ref={sheetRef}
       index={index} // Start closed
       snapPoints={snapPoints}
-      backgroundStyle={{
-        backgroundColor: 'white',
-      }}
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
       style={bottomSheetStyle}

@@ -17,8 +17,8 @@ const NoData = ({
   return (
     <View className={cn('m-auto flex flex-col items-center', className)}>
       <Image
-        source={IMAGES.no_data}
-        className="w-[130px] h-[130px] object-contain border border-border rounded-full bg-foreground"
+        source={IMAGES.no_result}
+        className="w-[130px] h-[130px] object-contain"
       />
       <Text className="text-xl text-muted-foreground mt-2">
         {title || t('Commons.noData')}
