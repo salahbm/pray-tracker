@@ -95,7 +95,7 @@ const About = () => {
           {/* Buy Me Dates */}
           <TouchableOpacity
             onPress={() => handleLink('https://buymeacoffee.com/salahbm')}
-            className="bg-accent p-4 rounded-lg items-center flex-row justify-center gap-2"
+            className="bg-accent p-4 rounded-lg items-center flex-row justify-center gap-2 mb-10"
           >
             <Ionicons name="gift-outline" size={24} color="white" />
             <Text className="text-accent-foreground font-bold">

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Text } from '@/components/ui/text';
 import GoBack from '@/components/shared/go-back';
+import { Text } from '@/components/ui/text';
 
 export default function PrivacyScreen() {
   const { t } = useTranslation();
@@ -61,7 +61,7 @@ export default function PrivacyScreen() {
             </Text>
           </View>
 
-          <View>
+          <View className="mb-10">
             <Text className="text-lg font-semibold mb-2">
               {t('Profile.Privacy.Contact.Title')}
             </Text>
