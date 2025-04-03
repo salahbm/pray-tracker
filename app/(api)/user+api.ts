@@ -65,18 +65,13 @@ export async function GET(request: Request) {
     }
 
     // ⏳ Check for expired premium
-    if (user.isPro && user?.proUntil && user?.proUntil < new Date()) {
+    if (user.isPro && user.proUntil && user.proUntil < new Date()) {
       await prisma.user.update({
         where: { supabaseId: id },
-        data: {
-          isPro: false,
-          proUntil: null,
-        },
+        data: { isPro: false, proUntil: null },
       });
 
-      user = await prisma.user.findUnique({
-        where: { supabaseId: id },
-      });
+      user = await prisma.user.findUnique({ where: { supabaseId: id } });
     }
 
     return createResponse({

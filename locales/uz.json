@@ -147,14 +147,23 @@
     "NotFound": {
       "404": "Sahifa topilmadi",
       "noData": "Ma'lumot topilmadi"
-    }
+    },
+    "Salahs": {
+  "fajr": "Bomdod",
+  "dhuhr": "Peshin",
+  "asr": "Asr",
+  "maghrib": "Shom",
+  "isha": "Xufton",
+  "nafl": "Nafl"
+}
   },
   "Home": {
     "PrayerHistory": {
       "Title": "Namozlar Tarixi",
       "SelectYear": "Hijri Yilni Tanlang",
       "Details": "Namoz Tafsilotlari",
-      "Date": "Sana"
+      "Date": "Sana",
+      "Close": "Yopish"
     },
     "Charts": {
       "Title": "Namozlar Statistikasi",
@@ -526,7 +535,7 @@
       "DeleteAccount": "Akkauntni O'chirish",
       "DeleteConfirm": "Akkauntingizni o'chirib tashlamoqchimisiz?",
       "DeleteMessage": "Bu amal qaytarib bo'lmaydi va biz sizni yo'qotishdan afsuslanamiz. Barcha ma'lumotlaringiz butunlay o'chiriladi.",
-      "DeleteButton": "Ha, Akkauntimni O'chirib Tashlang",
+      "DeleteButton": "Ha, O'chirish",
       "CancelButton": "Bekor qilish",
       "LogoutButton": "Chiqish"
     },

@@ -211,11 +211,6 @@ export default function HomeScreen() {
     });
   }, [todaysPrays, user]);
 
-  useEffect(() => {
-    if (!userDB || !user) return;
-    if (userDB?.id !== user?.id) setUser(userDB);
-  }, [userDB, user, setUser]);
-
   return (
     <SafeAreaView className="safe-area">
       <Loader visible={isLoadingPrays || isUserFetching} />
@@ -230,7 +225,9 @@ export default function HomeScreen() {
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
-              refetchUser();
+              refetchUser().then(() => {
+                setUser(userDB);
+              });
             }}
             tintColor={colors['--primary']}
           />

@@ -136,7 +136,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                     size="sm"
                     onPress={setAccordionState}
                   >
-                    <Text>Close</Text>
+                    <Text>{t('Home.PrayerHistory.Close')}</Text>
                   </Button>
                 </View>
                 {Object.entries(clickedData.details.data).map(
@@ -146,7 +146,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                       className="flex-row items-center justify-between mt-2"
                     >
                       <Text className={cn('capitalize font-semibold')}>
-                        {prayer}
+                        {t(`Commons.Salahs.${prayer}`)}
                       </Text>
 
                       <View className="flex-row gap-8">

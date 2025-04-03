@@ -213,6 +213,14 @@
     "NotFound": {
       "404": "Page not found",
       "noData": "No data found"
+    },
+    "Salahs":{
+      "fajr":"Fajr",
+      "dhuhr":"Dhuhr",
+      "asr":"Asr",
+      "maghrib":"Maghrib",
+      "isha":"Isha",
+      "nafl":"Nafl"
     }
   },
   "Home": {
@@ -220,7 +228,8 @@
       "Title": "Prayer Journey",
       "SelectYear": "Select Hijri Year",
       "Details": "Prayer Details",
-      "Date": "Date"
+      "Date": "Date",
+      "Close": "Close"
     },
     "Charts": {
       "Title": "Ibadah Progress",

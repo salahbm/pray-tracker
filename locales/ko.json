@@ -177,14 +177,23 @@
     "NotFound": {
       "404": "페이지를 찾을 수 없습니다",
       "noData": "데이터를 찾을 수 없습니다"
-    }
+    },
+    "Salahs": {
+      "fajr": "파즈르",
+      "dhuhr": "주후르",
+      "asr": "아스르",
+      "maghrib": "마그리브",
+      "isha": "이샤",
+      "nafl": "나플"
+}
   },
   "Home": {
     "PrayerHistory": {
       "Title": "기도 여정",
       "SelectYear": "히즈리 연도 선택",
       "Details": "기도 상세",
-      "Date": "날짜"
+      "Date": "날짜",
+      "Close": "취소"
     },
     "Charts": {
       "Title": "이바다 진행 상황",
@@ -194,9 +203,9 @@
     "TodaysPrayers": {
       "Title": "오늘의 기도",
       "SubTitle": "알라(ﷻ)께서 당신의 기도를 받아주시기를 바랍니다",
-      "Missed": "미트",
-      "Late": "녢",
-      "OnTime": "영통"
+      "Missed": "결석",
+      "Late": "지각",
+      "OnTime": "정각"
     },
     "Errors": {
       "FutureDate": "미래 날짜는 선택할 수 없습니다"

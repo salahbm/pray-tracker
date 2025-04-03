@@ -52,7 +52,9 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
       </Text>
       {Object.entries(prayers).map(([prayer, value]) => (
         <View key={prayer} className="flex-row items-center justify-between">
-          <Text className={cn('capitalize font-semibold')}>{prayer}</Text>
+          <Text className={cn('capitalize font-semibold')}>
+            {t(`Commons.Salahs.${prayer}`)}
+          </Text>
           <View className="flex-1 flex-row justify-end">
             {[
               PRAYER_POINTS.MISSED,

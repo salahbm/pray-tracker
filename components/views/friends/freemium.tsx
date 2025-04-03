@@ -97,7 +97,7 @@ const FreemiumFriends = () => {
                         className="flex-row items-center justify-between py-1"
                       >
                         <Text className={cn('capitalize font-semibold')}>
-                          {prayer}
+                          {t(`Commons.Salahs.${prayer}`)}
                         </Text>
 
                         <View className="flex-row gap-4">
