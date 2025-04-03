@@ -137,11 +137,12 @@ model PrayerStats {
   consistencyPercentage  Float    @default(0) // % of days with all 5 prayers
   lastActiveDay          DateTime? // Last day user logged a prayer
   lastFajrTime           DateTime? // Helps calculate early fajr stat
-  lastTahajjudDate       DateTime? // For gamification or reminders
+  lastNaflDate       DateTime? // For gamification or reminders
   missedPrayerStreak     Int      @default(0) // e.g. 3 days without full prayer
 
   // Gamification
   level                  Int      @default(1)
+  totalXP               Int      @default(0)
 
   // Meta
   lastCalculated         DateTime @default(now())

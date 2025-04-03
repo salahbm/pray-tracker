@@ -1,30 +1,49 @@
-// NOTIFICATION
+export const sendPushNotification = async ({
+  to,
+  title,
+  body,
+}: {
+  to: string;
+  title: string;
+  body: string;
+}) => {
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-Encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      to,
+      sound: 'default',
+      title,
+      body,
+    }),
+  });
+};
 
-// async function registerForPushNotificationsAsync() {
-//   const { status: existingStatus } = await Notifications.getPermissionsAsync();
-//   let finalStatus = existingStatus;
-//   if (existingStatus !== 'granted') {
-//     const { status } = await Notifications.requestPermissionsAsync();
-//     finalStatus = status;
-//   }
-//   if (finalStatus !== 'granted') {
-//     alert('Failed to get push token for push notification!');
-//     return;
-//   }
-//   const token = (await Notifications.getExpoPushTokenAsync()).data;
-//   return token;
-// }
-
-// // This function calls Expo push API:
-// export async function sendAwardNotification(userId: string, awardTitle: string) {
-//   // Usually you'll store user push tokens in your DB. Retrieve user push token:
-//   const user = await prisma.user.findUnique({ where: { id: userId } });
-//   if (!user || !user.expoPushToken) return;
-
-//   await axios.post('https://exp.host/--/api/v2/push/send', {
-//     to: user.expoPushToken,
-//     title: '🎉 New Achievement!',
-//     body: `You've earned the '${awardTitle}' award! Keep going!`,
-//     sound: 'default',
-//   });
-// }
+export const sendCustomNotification = async ({
+  to,
+  title,
+  body,
+}: {
+  to: string;
+  title: string;
+  body: string;
+}) => {
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-Encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      to,
+      sound: 'default',
+      title,
+      body,
+    }),
+  });
+};

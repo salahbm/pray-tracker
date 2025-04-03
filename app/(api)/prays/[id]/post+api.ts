@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { checkAndAssignAwards, type AwardCheckResult } from '@/utils/award-helpers';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
@@ -53,9 +54,8 @@ export async function POST(request: Request) {
       },
     });
 
-    // Check and assign any new awards
-    // const newAwards = await checkAndAssignAwards(userId);
-    const newAwards = [];
+    // Check and assign any new awards and update level
+    const result: AwardCheckResult = await checkAndAssignAwards(userId);
 
     return createResponse({
       status: StatusCode.SUCCESS,
@@ -63,7 +63,8 @@ export async function POST(request: Request) {
       code: MessageCodes.PRAY_UPDATED,
       data: {
         prays: updatedPrays,
-        newAwards: newAwards.length > 0 ? newAwards : null,
+        newAwards: result.awards.length > 0 ? result.awards : null,
+        levelInfo: result.levelInfo,
       },
     });
   } catch (error) {
