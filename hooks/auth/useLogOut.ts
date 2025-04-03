@@ -15,25 +15,31 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: async () => {
       try {
-        // Ensure Supabase logs out first
-        const { error } = await supabase.auth.signOut();
-        console.log('error:', error);
+        // Prevent refetch by setting global default before anything else
+        queryClient.setQueryDefaults(['*'], {
+          enabled: false,
+          staleTime: Infinity,
+        });
 
-        if (error && error?.message !== 'Auth session missing!')
+        await queryClient.cancelQueries(); // then cancel all
+        queryClient.removeQueries();
+        queryClient.clear();
+
+        // Reset Zustand store
+        clearUserAndSession();
+
+        // Sign out from Supabase
+        const { error } = await supabase.auth.signOut();
+        if (error && error?.message !== 'Auth session missing!') {
           throw new ApiError({
             message: error?.message || 'Failed to log out',
             status: error.status,
             code: MessageCodes.SIGN_OUT_FAILED,
           });
+        }
 
-        // Reset Zustand store
-        clearUserAndSession();
-
-        // Clear React Query cache
-        queryClient.clear();
-        queryClient.resetQueries();
-
-        router.push('/(tabs)');
+        // Navigate after everything is cleared
+        router.replace('/(tabs)');
 
         return createResponse({
           status: StatusCode.SUCCESS,

@@ -88,11 +88,9 @@ export default function HomeScreen() {
     isLoading: isLoadingPrays,
     refetch: refetchPrays,
   } = useGetPrays(user?.id, year);
-  const {
-    data: todaysPrays,
-    refetch,
-    isLoading: isLoadingTodaysPrays,
-  } = useGetTodayPrays(user?.id);
+  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(
+    user?.id,
+  );
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -186,9 +184,9 @@ export default function HomeScreen() {
       });
 
       dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
-      refetch();
+      refetchTodaysPrays();
     },
-    [createPray, user?.id, refetch],
+    [createPray, user?.id, refetchTodaysPrays],
   );
 
   useEffect(() => {
@@ -214,14 +212,13 @@ export default function HomeScreen() {
   }, [todaysPrays, user]);
 
   useEffect(() => {
-    setUser(userDB);
-  }, [userDB, setUser]);
+    if (!userDB || !user) return;
+    if (userDB?.id !== user?.id) setUser(userDB);
+  }, [userDB, user, setUser]);
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader
-        visible={isLoadingPrays || isLoadingTodaysPrays || isUserFetching}
-      />
+      <Loader visible={isLoadingPrays || isUserFetching} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}
@@ -229,11 +226,9 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            refreshing={
-              isLoadingPrays || isLoadingTodaysPrays || isUserFetching
-            }
+            refreshing={isLoadingPrays || isUserFetching}
             onRefresh={() => {
-              refetch();
+              refetchTodaysPrays();
               refetchPrays();
               refetchUser();
             }}
