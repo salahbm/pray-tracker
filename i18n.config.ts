@@ -16,10 +16,12 @@ const resources = {
 };
 
 const initI18n = async () => {
+  if (typeof window === 'undefined') return;
+
   let savedLanguage = await AsyncStorage.getItem('language');
 
   if (!savedLanguage) {
-    savedLanguage = Localization.locale;
+    savedLanguage = Localization.getLocales()[0].languageCode;
   }
 
   i18n.use(initReactI18next).init({

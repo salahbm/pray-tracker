@@ -45,15 +45,6 @@ export default function TermsScreen() {
 
           <View>
             <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Terms.Subscription.Title')}
-            </Text>
-            <Text className="text-muted-foreground">
-              {t('Profile.Terms.Subscription.Content')}
-            </Text>
-          </View>
-
-          <View>
-            <Text className="text-lg font-semibold mb-2">
               {t('Profile.Terms.Termination.Title')}
             </Text>
             <Text className="text-muted-foreground">

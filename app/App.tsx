@@ -1,8 +1,8 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import { AppState } from 'react-native';
+import { Suspense, useEffect } from 'react';
+import { ActivityIndicator, AppState } from 'react-native';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
 import { usePushNotifications } from '@/hooks/common/useNotifications';
@@ -89,10 +89,12 @@ export default function App() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <Suspense fallback={<ActivityIndicator />}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </Suspense>
   );
 }

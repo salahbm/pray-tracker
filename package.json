@@ -60,7 +60,7 @@
     "expo-checkbox": "~4.0.1",
     "expo-constants": "~17.0.5",
     "expo-crypto": "~14.0.2",
-    "expo-dev-client": "~5.0.12",
+    "expo-dev-client": "~5.0.18",
     "expo-device": "~7.0.2",
     "expo-font": "~13.0.2",
     "expo-haptics": "~14.0.0",
