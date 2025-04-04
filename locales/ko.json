@@ -482,12 +482,12 @@
       "RestoreButton": "구독 복원하기",
       "BismillahMessage": "비스밀라, 함께 이 축복된 여정을 시작합시다"
     },
-    "Freemium": {
-      "Title": "기도 추적기 +",
-      "Description": "프로 플랜에 가입하고 기도 진행 상황을 추적하고 친구와 공유하는 기능을 포함한 독점 기능을 잠금 해제하세요.",
-      "UpgradeButton": "비스밀라, 가입하겠습니다",
-      "UpgradePrompt": "프로 플랜으로 업그레이드하세요"
-    }
+"Freemium": {
+  "Title": "Prayer Tracker +",
+  "Description": "기도 습관을 꾸준히 유지할 수 있도록 도와주는 특별한 기능들을 만나보세요 — 진행 상황을 확인하고 친구들과 나눌 수 있어요.",
+  "UpgradeButton": "비스밀라, 시작해요",
+  "UpgradePrompt": "이 기능을 사용하려면 접근 권한이 필요합니다"
+}
   },
   "Profile": {
     "Title": "프로필",

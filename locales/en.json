@@ -598,12 +598,12 @@
       "RestoreButton": "Restore Subscription",
       "BismillahMessage": "Bismillah, let's begin this blessed journey together"
     },
-    "Freemium": {
-      "Title": "Prayer Tracker +",
-      "Description": "Join our Pro plan and unlock exclusive features, including the ability to track your prayer progress and share it with your friends.",
-      "UpgradeButton": "Bismillah, I'm in",
-      "UpgradePrompt": "Please, upgrade to a pro plan"
-    }
+"Freemium": {
+  "Title": "Prayer Tracker +",
+  "Description": "Enjoy enhanced features to support your prayer journey — track progress, stay consistent, and connect with your circle.",
+  "UpgradeButton": "Bismillah, I'm in",
+  "UpgradePrompt": "Access this feature to enhance your experience"
+}
   },
   "Profile": {
     "Title": "Profile",

@@ -1,7 +1,7 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 
 import { Button } from '../ui/button';

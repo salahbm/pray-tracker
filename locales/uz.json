@@ -511,12 +511,12 @@
       "RestoreButton": "Obunani Tiklash",
       "BismillahMessage": "Bismillah, bu barakali safarni birga boshlaymiz"
     },
-    "Freemium": {
-      "Title": "Namozni Kuzatuvchi +",
-      "Description": "Pro rejamizga qo'shiling va do'stlaringiz bilan namoz taraqqiyotingizni kuzatish imkoniyatiga ega bo'ling.",
-      "UpgradeButton": "Bismillah, men ham",
-      "UpgradePrompt": "Iltimos, pro rejaga o'ting"
-    }
+   "Freemium": {
+  "Title": "Prayer Tracker +",
+  "Description": "Namozni muntazam ado etishga yordam beradigan qo‘shimcha imkoniyatlardan foydalaning — yutuqlaringizni kuzating va do‘stlaringiz bilan ulashing.",
+  "UpgradeButton": "Bismillah, boshladik",
+  "UpgradePrompt": "Bu funksiyadan foydalanish uchun ruxsat kerak"
+}
   },
   "Profile": {
     "Title": "Profil",
