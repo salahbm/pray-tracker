@@ -56,12 +56,19 @@ const HomeHeader = forwardRef<
             }
           }}
         >
-          <Image
-            source={{
-              uri: user?.photo || FRIENDS.guest,
-            }}
-            className={cn('size-14 rounded-full border border-border')}
-          />
+          {user?.photo ? (
+            <Image
+              source={{
+                uri: user?.photo,
+              }}
+              className={cn('size-14 rounded-full border border-border')}
+            />
+          ) : (
+            <Image
+              source={FRIENDS.guest}
+              className={cn('size-14 rounded-full border border-border')}
+            />
+          )}
         </TouchableOpacity>
       </AuthWrapper>
 

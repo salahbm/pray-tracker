@@ -162,6 +162,7 @@ const ListFooter = ({ earnedCount, score }) => {
 export default function PersonalTab() {
   const { user } = useAuthStore();
   const { data, isLoading, refetch } = useAwards(user?.id);
+  console.log('data:', data);
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { colors } = useThemeStore();

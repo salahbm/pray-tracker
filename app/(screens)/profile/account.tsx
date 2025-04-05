@@ -45,13 +45,19 @@ const Account = () => {
       <View className="main-area">
         <GoBack title={t('Profile.Account.Title')} />
 
-        <Image
-          source={{
-            uri: user?.photo || FRIENDS.guest,
-          }}
-          accessibilityLabel="Profile Photo"
-          className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
-        />
+        {user?.photo ? (
+          <Image
+            source={{ uri: user.photo }}
+            accessibilityLabel="Profile Photo"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+          />
+        ) : (
+          <Image
+            source={FRIENDS.guest}
+            accessibilityLabel="Guest Profile"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+          />
+        )}
 
         {/* Account Info */}
         <View className="mt-20">

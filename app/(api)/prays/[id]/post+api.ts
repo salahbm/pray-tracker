@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma';
 import { checkAndAssignAwards } from '@/utils/check-awards';
 import { ApiError, handleError } from '@/utils/error';
+import { recalculateStats } from '@/utils/recalculate-stats';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
@@ -8,25 +9,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { date, fajr, dhuhr, asr, maghrib, isha, nafl, userId } = body;
 
-    if (!userId) {
+    if (!userId || !date) {
       throw new ApiError({
         message: 'Missing required fields',
         status: StatusCode.BAD_REQUEST,
         code: MessageCodes.BAD_REQUEST,
-        details: {
-          userId,
-          date,
-          fajr,
-          dhuhr,
-          asr,
-          maghrib,
-          isha,
-          nafl,
-        },
+        details: { userId, date },
       });
     }
 
-    // Upsert Prays record for the given user and date
     const updatedPrays = await prisma.prays.upsert({
       where: {
         userId_date: {
@@ -54,17 +45,25 @@ export async function POST(request: Request) {
       },
     });
 
-    // Check and assign any new awards and update level
-    const { awards: newAwards, levelInfo } = await checkAndAssignAwards(userId);
+    // ⏱️ Run heavy logic AFTER sending the response (non-blocking)
+    void (async () => {
+      try {
+        await recalculateStats(userId);
+        await checkAndAssignAwards(userId);
+      } catch (e) {
+        console.error('[Background task failed]', e);
+      }
+    })();
 
+    // ✅ Return fast response first
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Prayer record updated successfully',
+      message: 'Prayer record saved',
       code: MessageCodes.PRAY_UPDATED,
       data: {
         prays: updatedPrays,
-        newAwards: newAwards.length > 0 ? newAwards : null,
-        levelInfo: levelInfo,
+        newAwards: null,
+        levelInfo: null,
       },
     });
   } catch (error) {
