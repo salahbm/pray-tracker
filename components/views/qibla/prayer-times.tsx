@@ -2,7 +2,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { Coordinates, CalculationMethod, PrayerTimes } from 'adhan';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Text, Alert, FlatList } from 'react-native';
 
@@ -64,39 +64,41 @@ const PrayerTimer = () => {
   }, [t]);
 
   const { timeLeft, currentPrayer } = useTimeLeft(prayerTimes);
-
-  const prayers = [
-    {
-      name: SALAHS.FAJR,
-      time: prayerTimes?.fajr,
-      icon: 'weather-night',
-    },
-    {
-      name: SALAHS.SUNRISE,
-      time: prayerTimes?.sunrise,
-      icon: 'weather-sunset-up',
-    },
-    {
-      name: SALAHS.DHUHR,
-      time: prayerTimes?.dhuhr,
-      icon: 'weather-sunny',
-    },
-    {
-      name: SALAHS.ASR,
-      time: prayerTimes?.asr,
-      icon: 'weather-sunny',
-    },
-    {
-      name: SALAHS.MAGHRIB,
-      time: prayerTimes?.maghrib,
-      icon: 'weather-sunset-down',
-    },
-    {
-      name: SALAHS.ISHA,
-      time: prayerTimes?.isha,
-      icon: 'weather-night',
-    },
-  ];
+  const prayers = useMemo(
+    () => [
+      {
+        name: SALAHS.FAJR,
+        time: prayerTimes?.fajr,
+        icon: 'weather-night',
+      },
+      {
+        name: SALAHS.SUNRISE,
+        time: prayerTimes?.sunrise,
+        icon: 'weather-sunset-up',
+      },
+      {
+        name: SALAHS.DHUHR,
+        time: prayerTimes?.dhuhr,
+        icon: 'weather-sunny',
+      },
+      {
+        name: SALAHS.ASR,
+        time: prayerTimes?.asr,
+        icon: 'weather-sunny',
+      },
+      {
+        name: SALAHS.MAGHRIB,
+        time: prayerTimes?.maghrib,
+        icon: 'weather-sunset-down',
+      },
+      {
+        name: SALAHS.ISHA,
+        time: prayerTimes?.isha,
+        icon: 'weather-night',
+      },
+    ],
+    [prayerTimes],
+  );
 
   if (loading) {
     return <Loader visible className="mt-[45%]" />;

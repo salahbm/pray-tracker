@@ -1,11 +1,26 @@
 import { PrayerTimes } from 'adhan';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SALAHS } from '@/constants/enums';
+import { scheduleNextPrayerNotification } from '@/utils/notification';
 
 const useTimeLeft = (prayerTimes) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [currentPrayer, setCurrentPrayer] = useState('');
+  const { t } = useTranslation();
+
+  const prayers = useMemo(
+    () => [
+      { name: SALAHS.FAJR, time: prayerTimes?.fajr },
+      { name: SALAHS.SUNRISE, time: prayerTimes?.sunrise },
+      { name: SALAHS.DHUHR, time: prayerTimes?.dhuhr },
+      { name: SALAHS.ASR, time: prayerTimes?.asr },
+      { name: SALAHS.MAGHRIB, time: prayerTimes?.maghrib },
+      { name: SALAHS.ISHA, time: prayerTimes?.isha },
+    ],
+    [prayerTimes],
+  );
 
   const updatePrayerStatus = useCallback(() => {
     if (!prayerTimes) return;
@@ -13,15 +28,6 @@ const useTimeLeft = (prayerTimes) => {
     const now = new Date();
     let current = '';
     let nextPrayerTime = null;
-
-    const prayers = [
-      { name: SALAHS.FAJR, time: prayerTimes.fajr },
-      { name: SALAHS.SUNRISE, time: prayerTimes.sunrise },
-      { name: SALAHS.DHUHR, time: prayerTimes.dhuhr },
-      { name: SALAHS.ASR, time: prayerTimes.asr },
-      { name: SALAHS.MAGHRIB, time: prayerTimes.maghrib },
-      { name: SALAHS.ISHA, time: prayerTimes.isha },
-    ];
 
     for (let i = 0; i < prayers.length; i++) {
       if (now >= prayers[i].time) {
@@ -46,19 +52,37 @@ const useTimeLeft = (prayerTimes) => {
       0,
       Math.floor((nextPrayerTime - now.getTime()) / 1000),
     );
+
     const hours = String(Math.floor(diff / 3600)).padStart(2, '0');
     const minutes = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
     const seconds = String(Math.floor(diff % 60)).padStart(2, '0');
 
     setTimeLeft(`${hours}:${minutes}:${seconds}`);
     setCurrentPrayer(current);
-  }, [prayerTimes]);
+  }, [prayerTimes, prayers]);
 
   useEffect(() => {
     updatePrayerStatus();
     const interval = setInterval(updatePrayerStatus, 1000);
     return () => clearInterval(interval);
   }, [updatePrayerStatus]);
+
+  // 📆 Schedule local notifications once on load
+  useEffect(() => {
+    if (!prayerTimes) return;
+
+    prayers.forEach(({ name, time }) => {
+      if (time > new Date()) {
+        scheduleNextPrayerNotification(
+          t(`Commons.Salahs.${name}`),
+          t('Commons.Notifications.Description', {
+            salah: name.toLocaleUpperCase(),
+          }),
+          time,
+        );
+      }
+    });
+  }, [prayerTimes, prayers, t]);
 
   return { timeLeft, currentPrayer };
 };

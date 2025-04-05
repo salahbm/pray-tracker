@@ -57,8 +57,8 @@ export function ThemeProvider(props: ThemeProps) {
       <ThemeProviderValues.Provider value={{ theme }}>
         <ThemeProviderActions.Provider value={{ handleThemeSwitch }}>
           <StatusBar
-            style={StatusBarTheme[theme].style}
-            backgroundColor={StatusBarTheme[theme].background}
+            style={StatusBarTheme[theme]?.style}
+            backgroundColor={StatusBarTheme[theme]?.background}
           />
           {props.children}
         </ThemeProviderActions.Provider>

@@ -149,13 +149,16 @@
       "noData": "Ma'lumot topilmadi"
     },
     "Salahs": {
-  "fajr": "Bomdod",
-  "dhuhr": "Peshin",
-  "asr": "Asr",
-  "maghrib": "Shom",
-  "isha": "Xufton",
-  "nafl": "Nafl"
-}
+      "fajr": "Bomdod",
+      "dhuhr": "Peshin",
+      "asr": "Asr",
+      "maghrib": "Shom",
+      "isha": "Xufton",
+      "nafl": "Nafl"
+    },
+    "Notifications": {
+      "Description": "{{salah}} namozi kirdi :"
+    }
   },
   "Home": {
     "PrayerHistory": {
@@ -511,12 +514,12 @@
       "RestoreButton": "Obunani Tiklash",
       "BismillahMessage": "Bismillah, bu barakali safarni birga boshlaymiz"
     },
-   "Freemium": {
-  "Title": "Prayer Tracker +",
-  "Description": "Namozni muntazam ado etishga yordam beradigan qo‘shimcha imkoniyatlardan foydalaning — yutuqlaringizni kuzating va do‘stlaringiz bilan ulashing.",
-  "UpgradeButton": "Bismillah, boshladik",
-  "UpgradePrompt": "Bu funksiyadan foydalanish uchun ruxsat kerak"
-}
+    "Freemium": {
+      "Title": "Prayer Tracker +",
+      "Description": "Namozni muntazam ado etishga yordam beradigan qo‘shimcha imkoniyatlardan foydalaning — yutuqlaringizni kuzating va do‘stlaringiz bilan ulashing.",
+      "UpgradeButton": "Bismillah, boshladik",
+      "UpgradePrompt": "Bu funksiyadan foydalanish uchun ruxsat kerak"
+    }
   },
   "Profile": {
     "Title": "Profil",
@@ -581,63 +584,63 @@
       "Language": "Til",
       "Notifications": "Bildirishnomalar"
     },
-"Terms": {
-  "Title": "Foydalanish Shartlari",
-  "Agreement": {
-    "Title": "Shartlarga Rozilik",
-    "Content": "Pray Tracker ilovasidan foydalangan holda, ushbu Foydalanish Shartlariga rozilik bildirasiz. Agar bu shartlarga rozi bo'lmasangiz, ilovadan foydalanmang."
-  },
-  "Usage": {
-    "Title": "Qabul Qilinarli Foydalanish",
-    "Content": "Pray Tracker ilovasidan faqat kunlik ibodatlaringizni kuzatish va boshqarish uchun mo'ljallangan maqsadda foydalanishga rozilik bildirasiz. Ilovaga, uning xizmatlariga yoki boshqa foydalanuvchilarga zarar yetkazadigan tarzda foydalanmang."
-  },
-  "UserContent": {
-    "Title": "Foydalanuvchi Mazmuni",
-    "Content": "Siz tomonidan yuborilgan ma'lumotlar, jumladan ibodat yozuvlari va profil ma'lumotlari, sizning mulkingiz hisoblanadi. Ushbu ma'lumotlarni faqat ilova tajribasini yaxshilash va xizmatlarni taqdim etish uchun ishlatamiz."
-  },
-  "Termination": {
-    "Title": "Hisobni Bekor Qilish",
-    "Content": "Istalgan vaqtda ilova sozlamalari orqali hisobingizni o'chirishingiz mumkin. Ushbu Shartlarni buzgan taqdiringizda, hisobingizni to'xtatish yoki o'chirish huquqini saqlab qolamiz."
-  },
-  "Changes": {
-    "Title": "Shartlardagi O'zgarishlar",
-    "Content": "Vaqti-vaqti bilan ushbu Shartlarni yangilashimiz mumkin. Agar muhim o'zgarishlar bo'lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishni davom ettirishingiz yangilangan Shartlarga roziligingizni bildiradi."
-  },
-  "Contact": {
-    "Title": "Biz bilan Bog'lanish",
-    "Content": "Agar ushbu Shartlar bo'yicha savollar yoki tashvishlaringiz bo'lsa, iltimos, bizga salahbm.dev@gmail.com manziliga elektron pochta orqali murojaat qiling."
-  }
-},
+    "Terms": {
+      "Title": "Foydalanish Shartlari",
+      "Agreement": {
+        "Title": "Shartlarga Rozilik",
+        "Content": "Pray Tracker ilovasidan foydalangan holda, ushbu Foydalanish Shartlariga rozilik bildirasiz. Agar bu shartlarga rozi bo'lmasangiz, ilovadan foydalanmang."
+      },
+      "Usage": {
+        "Title": "Qabul Qilinarli Foydalanish",
+        "Content": "Pray Tracker ilovasidan faqat kunlik ibodatlaringizni kuzatish va boshqarish uchun mo'ljallangan maqsadda foydalanishga rozilik bildirasiz. Ilovaga, uning xizmatlariga yoki boshqa foydalanuvchilarga zarar yetkazadigan tarzda foydalanmang."
+      },
+      "UserContent": {
+        "Title": "Foydalanuvchi Mazmuni",
+        "Content": "Siz tomonidan yuborilgan ma'lumotlar, jumladan ibodat yozuvlari va profil ma'lumotlari, sizning mulkingiz hisoblanadi. Ushbu ma'lumotlarni faqat ilova tajribasini yaxshilash va xizmatlarni taqdim etish uchun ishlatamiz."
+      },
+      "Termination": {
+        "Title": "Hisobni Bekor Qilish",
+        "Content": "Istalgan vaqtda ilova sozlamalari orqali hisobingizni o'chirishingiz mumkin. Ushbu Shartlarni buzgan taqdiringizda, hisobingizni to'xtatish yoki o'chirish huquqini saqlab qolamiz."
+      },
+      "Changes": {
+        "Title": "Shartlardagi O'zgarishlar",
+        "Content": "Vaqti-vaqti bilan ushbu Shartlarni yangilashimiz mumkin. Agar muhim o'zgarishlar bo'lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishni davom ettirishingiz yangilangan Shartlarga roziligingizni bildiradi."
+      },
+      "Contact": {
+        "Title": "Biz bilan Bog'lanish",
+        "Content": "Agar ushbu Shartlar bo'yicha savollar yoki tashvishlaringiz bo'lsa, iltimos, bizga salahbm.dev@gmail.com manziliga elektron pochta orqali murojaat qiling."
+      }
+    },
     "Privacy": {
-  "Title": "Maxfiylik Siyosati",
-  "DataCollection": {
-    "Title": "Yig'iladigan Ma'lumotlar",
-    "Content": "Biz faqat xizmatlarimizni taqdim etish uchun zarur bo‘lgan ma’lumotlarni yig‘amiz: ism, familiya, foydalanuvchi nomi, elektron pochta manzili, profil rasmi, parol va ibodat yozuvlari."
-  },
-  "DataUse": {
-    "Title": "Ma'lumotlardan Foydalanish",
-    "Content": "Sizning ma'lumotlaringiz faqat asosiy funksiyalarni ta'minlash va tajribangizni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizni reklama yoki uchinchi shaxslar bilan bo‘lishmaymiz."
-  },
-  "DataSharing": {
-    "Title": "Ma'lumotlarni Ulashish",
-    "Content": "Biz shaxsiy ma'lumotlaringizni uchinchi tomonlarga sotmaymiz yoki ulashmaymiz. Barcha ma’lumotlar faqat Pray Tracker doirasida saqlanadi."
-  },
-  "Security": {
-    "Title": "Ma'lumotlar Xavfsizligi",
-    "Content": "Biz ma'lumotlaringizni himoya qilish uchun sanoat standartlariga mos xavfsizlik choralari ko‘ramiz. Hech bir tizim to‘liq xavfsiz bo‘lmasa-da, biz ma’lumotlaringizni himoya qilishga sodiqmiz."
-  },
-  "UserControl": {
-    "Title": "Foydalanuvchi Nazorati",
-    "Content": "Siz o‘z ma’lumotlaringiz ustidan to‘liq nazoratga egasiz. Istalgan paytda profilingizni o‘zgartirishingiz yoki butunlay o‘chirishingiz mumkin."
-  },
-  "Changes": {
-    "Title": "Maxfiylik Siyosatidagi O'zgarishlar",
-    "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga rozilik bildirganingizni anglatadi."
-  },
-  "Contact": {
-    "Title": "Biz bilan bog'lanish",
-    "Content": "Maxfiylik siyosatiga oid savollar uchun biz bilan salahbm.dev@gmail.com manzili orqali bog‘laning."
-  }
-}
+      "Title": "Maxfiylik Siyosati",
+      "DataCollection": {
+        "Title": "Yig'iladigan Ma'lumotlar",
+        "Content": "Biz faqat xizmatlarimizni taqdim etish uchun zarur bo‘lgan ma’lumotlarni yig‘amiz: ism, familiya, foydalanuvchi nomi, elektron pochta manzili, profil rasmi, parol va ibodat yozuvlari."
+      },
+      "DataUse": {
+        "Title": "Ma'lumotlardan Foydalanish",
+        "Content": "Sizning ma'lumotlaringiz faqat asosiy funksiyalarni ta'minlash va tajribangizni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizni reklama yoki uchinchi shaxslar bilan bo‘lishmaymiz."
+      },
+      "DataSharing": {
+        "Title": "Ma'lumotlarni Ulashish",
+        "Content": "Biz shaxsiy ma'lumotlaringizni uchinchi tomonlarga sotmaymiz yoki ulashmaymiz. Barcha ma’lumotlar faqat Pray Tracker doirasida saqlanadi."
+      },
+      "Security": {
+        "Title": "Ma'lumotlar Xavfsizligi",
+        "Content": "Biz ma'lumotlaringizni himoya qilish uchun sanoat standartlariga mos xavfsizlik choralari ko‘ramiz. Hech bir tizim to‘liq xavfsiz bo‘lmasa-da, biz ma’lumotlaringizni himoya qilishga sodiqmiz."
+      },
+      "UserControl": {
+        "Title": "Foydalanuvchi Nazorati",
+        "Content": "Siz o‘z ma’lumotlaringiz ustidan to‘liq nazoratga egasiz. Istalgan paytda profilingizni o‘zgartirishingiz yoki butunlay o‘chirishingiz mumkin."
+      },
+      "Changes": {
+        "Title": "Maxfiylik Siyosatidagi O'zgarishlar",
+        "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga rozilik bildirganingizni anglatadi."
+      },
+      "Contact": {
+        "Title": "Biz bilan bog'lanish",
+        "Content": "Maxfiylik siyosatiga oid savollar uchun biz bilan salahbm.dev@gmail.com manzili orqali bog‘laning."
+      }
+    }
   }
 }

@@ -215,13 +215,16 @@
       "noData": "Данные не найдены"
     },
     "Salahs": {
-  "fajr": "Фаджр",
-  "dhuhr": "Зухр",
-  "asr": "Аср",
-  "maghrib": "Магриб",
-  "isha": "Иша",
-  "nafl": "Нафль"
-}
+      "fajr": "Фаджр",
+      "dhuhr": "Зухр",
+      "asr": "Аср",
+      "maghrib": "Магриб",
+      "isha": "Иша",
+      "nafl": "Нафль"
+    },
+    "Notifications": {
+      "Description": "Время для {{salah}} в :"
+    }
   },
   "Home": {
     "PrayerHistory": {
@@ -239,9 +242,9 @@
     "TodaysPrayers": {
       "Title": "Сегодняшние",
       "SubTitle": "Пусть Аллах (ﷻ) примет ваши молитвы",
- "Missed": "Пропуск",
-"Late": "Опоздано",
-"OnTime": "Вовремя"
+      "Missed": "Пропуск",
+      "Late": "Опоздано",
+      "OnTime": "Вовремя"
     },
     "Errors": {
       "FutureDate": "Вы не можете выбрать будущую дату"
@@ -577,12 +580,12 @@
       "RestoreButton": "Восстановить подписку",
       "BismillahMessage": "Бисмиллах, давайте начнем это благословенное путешествие вместе"
     },
- "Freemium": {
-  "Title": "Prayer Tracker +",
-  "Description": "Используйте дополнительные функции, чтобы укрепить свою молитвенную практику — отслеживайте прогресс и делитесь им с друзьями.",
-  "UpgradeButton": "Бисмиллях, начинаем",
-  "UpgradePrompt": "Для доступа к этой функции требуется разрешение"
-}
+    "Freemium": {
+      "Title": "Prayer Tracker +",
+      "Description": "Используйте дополнительные функции, чтобы укрепить свою молитвенную практику — отслеживайте прогресс и делитесь им с друзьями.",
+      "UpgradeButton": "Бисмиллях, начинаем",
+      "UpgradePrompt": "Для доступа к этой функции требуется разрешение"
+    }
   },
   "Profile": {
     "Title": "Профиль",
@@ -647,63 +650,63 @@
       "Language": "Язык",
       "Notifications": "Уведомления"
     },
-  "Terms": {
-  "Title": "Условия использования",
-  "Agreement": {
-    "Title": "Согласие с условиями",
-    "Content": "Используя приложение Pray Tracker, вы соглашаетесь с настоящими Условиями использования. Если вы не согласны с этими условиями, пожалуйста, не используйте приложение."
-  },
-  "Usage": {
-    "Title": "Допустимое использование",
-    "Content": "Вы соглашаетесь использовать приложение Pray Tracker исключительно для отслеживания и управления вашими ежедневными молитвами. Запрещается использовать приложение способом, который может нанести вред приложению, его сервисам или другим пользователям."
-  },
-  "UserContent": {
-    "Title": "Пользовательский контент",
-    "Content": "Любые данные, предоставленные вами, включая записи о молитвах и информацию профиля, остаются вашей собственностью. Мы используем эти данные исключительно для улучшения работы приложения и предоставления услуг."
-  },
-  "Termination": {
-    "Title": "Удаление аккаунта",
-    "Content": "Вы можете удалить свой аккаунт в любое время через настройки приложения. Мы оставляем за собой право приостановить или удалить аккаунты, нарушающие эти Условия."
-  },
-  "Changes": {
-    "Title": "Изменения условий",
-    "Content": "Мы можем время от времени обновлять эти Условия. В случае значительных изменений мы уведомим вас через приложение. Продолжение использования приложения означает ваше согласие с обновленными Условиями."
-  },
-  "Contact": {
-    "Title": "Свяжитесь с нами",
-    "Content": "Если у вас есть вопросы или опасения по поводу этих Условий, пожалуйста, свяжитесь с нами по адресу salahbm.dev@gmail.com."
-  }
-},
-  "Privacy": {
-  "Title": "Maxfiylik Siyosati",
-  "DataCollection": {
-    "Title": "Yig'iladigan Ma'lumotlar",
-    "Content": "Biz faqat xizmatlarimizni taqdim etish uchun zarur bo‘lgan ma’lumotlarni yig‘amiz: ism, familiya, foydalanuvchi nomi, elektron pochta manzili, profil rasmi, parol va ibodat yozuvlari."
-  },
-  "DataUse": {
-    "Title": "Ma'lumotlardan Foydalanish",
-    "Content": "Sizning ma'lumotlaringiz faqat asosiy funksiyalarni ta'minlash va tajribangizni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizni reklama yoki uchinchi shaxslar bilan bo‘lishmaymiz."
-  },
-  "DataSharing": {
-    "Title": "Ma'lumotlarni Ulashish",
-    "Content": "Biz shaxsiy ma'lumotlaringizni uchinchi tomonlarga sotmaymiz yoki ulashmaymiz. Barcha ma’lumotlar faqat Pray Tracker doirasida saqlanadi."
-  },
-  "Security": {
-    "Title": "Ma'lumotlar Xavfsizligi",
-    "Content": "Biz ma'lumotlaringizni himoya qilish uchun sanoat standartlariga mos xavfsizlik choralari ko‘ramiz. Hech bir tizim to‘liq xavfsiz bo‘lmasa-da, biz ma’lumotlaringizni himoya qilishga sodiqmiz."
-  },
-  "UserControl": {
-    "Title": "Foydalanuvchi Nazorati",
-    "Content": "Siz o‘z ma’lumotlaringiz ustidan to‘liq nazoratga egasiz. Istalgan paytda profilingizni o‘zgartirishingiz yoki butunlay o‘chirishingiz mumkin."
-  },
-  "Changes": {
-    "Title": "Maxfiylik Siyosatidagi O'zgarishlar",
-    "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga rozilik bildirganingizni anglatadi."
-  },
-  "Contact": {
-    "Title": "Biz bilan bog'lanish",
-    "Content": "Maxfiylik siyosatiga oid savollar uchun biz bilan salahbm.dev@gmail.com manzili orqali bog‘laning."
-  }
-}
+    "Terms": {
+      "Title": "Условия использования",
+      "Agreement": {
+        "Title": "Согласие с условиями",
+        "Content": "Используя приложение Pray Tracker, вы соглашаетесь с настоящими Условиями использования. Если вы не согласны с этими условиями, пожалуйста, не используйте приложение."
+      },
+      "Usage": {
+        "Title": "Допустимое использование",
+        "Content": "Вы соглашаетесь использовать приложение Pray Tracker исключительно для отслеживания и управления вашими ежедневными молитвами. Запрещается использовать приложение способом, который может нанести вред приложению, его сервисам или другим пользователям."
+      },
+      "UserContent": {
+        "Title": "Пользовательский контент",
+        "Content": "Любые данные, предоставленные вами, включая записи о молитвах и информацию профиля, остаются вашей собственностью. Мы используем эти данные исключительно для улучшения работы приложения и предоставления услуг."
+      },
+      "Termination": {
+        "Title": "Удаление аккаунта",
+        "Content": "Вы можете удалить свой аккаунт в любое время через настройки приложения. Мы оставляем за собой право приостановить или удалить аккаунты, нарушающие эти Условия."
+      },
+      "Changes": {
+        "Title": "Изменения условий",
+        "Content": "Мы можем время от времени обновлять эти Условия. В случае значительных изменений мы уведомим вас через приложение. Продолжение использования приложения означает ваше согласие с обновленными Условиями."
+      },
+      "Contact": {
+        "Title": "Свяжитесь с нами",
+        "Content": "Если у вас есть вопросы или опасения по поводу этих Условий, пожалуйста, свяжитесь с нами по адресу salahbm.dev@gmail.com."
+      }
+    },
+    "Privacy": {
+      "Title": "Maxfiylik Siyosati",
+      "DataCollection": {
+        "Title": "Yig'iladigan Ma'lumotlar",
+        "Content": "Biz faqat xizmatlarimizni taqdim etish uchun zarur bo‘lgan ma’lumotlarni yig‘amiz: ism, familiya, foydalanuvchi nomi, elektron pochta manzili, profil rasmi, parol va ibodat yozuvlari."
+      },
+      "DataUse": {
+        "Title": "Ma'lumotlardan Foydalanish",
+        "Content": "Sizning ma'lumotlaringiz faqat asosiy funksiyalarni ta'minlash va tajribangizni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizni reklama yoki uchinchi shaxslar bilan bo‘lishmaymiz."
+      },
+      "DataSharing": {
+        "Title": "Ma'lumotlarni Ulashish",
+        "Content": "Biz shaxsiy ma'lumotlaringizni uchinchi tomonlarga sotmaymiz yoki ulashmaymiz. Barcha ma’lumotlar faqat Pray Tracker doirasida saqlanadi."
+      },
+      "Security": {
+        "Title": "Ma'lumotlar Xavfsizligi",
+        "Content": "Biz ma'lumotlaringizni himoya qilish uchun sanoat standartlariga mos xavfsizlik choralari ko‘ramiz. Hech bir tizim to‘liq xavfsiz bo‘lmasa-da, biz ma’lumotlaringizni himoya qilishga sodiqmiz."
+      },
+      "UserControl": {
+        "Title": "Foydalanuvchi Nazorati",
+        "Content": "Siz o‘z ma’lumotlaringiz ustidan to‘liq nazoratga egasiz. Istalgan paytda profilingizni o‘zgartirishingiz yoki butunlay o‘chirishingiz mumkin."
+      },
+      "Changes": {
+        "Title": "Maxfiylik Siyosatidagi O'zgarishlar",
+        "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga rozilik bildirganingizni anglatadi."
+      },
+      "Contact": {
+        "Title": "Biz bilan bog'lanish",
+        "Content": "Maxfiylik siyosatiga oid savollar uchun biz bilan salahbm.dev@gmail.com manzili orqali bog‘laning."
+      }
+    }
   }
 }
