@@ -1,29 +1,58 @@
 import React, { useState } from 'react';
-import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import Loader from '@/components/shared/loader';
+import Modal from '@/components/shared/modal';
 import { Text } from '@/components/ui/text';
-import AWARDS from '@/constants/awards';
 import { useAwards } from '@/hooks/awards/useGetAwards';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
-import Loader from '@/components/shared/loader';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Modal from '@/components/shared/modal';
 import { useThemeStore } from '@/store/defaults/theme';
+import { awardRules } from '@/utils/award-helpers';
 
 interface IAward {
+  id?: string;
   title: string;
-  description: string;
-  isEarned: boolean;
-  earnedDate: string;
+  points: number;
+  awardedAt?: string;
+  isEarned?: boolean;
+  earnedDate?: string;
 }
 
+const getAwardEmoji = (title: string) => {
+  const emojiMap = {
+    'First Prayer Logged': '🌟',
+    'Completed First Full Day': '📅',
+    '7 Day Streak': '🔥',
+    '14 Day Streak': '🌋',
+    '30 Day Streak': '⚡️',
+    '90 Day Streak': '💫',
+    'Early Fajr Master': '🌅',
+    'On Time Warrior': '⚔️',
+    'Consistency Champ': '🏆',
+    'The Devoted': '👑',
+    'Nafl Initiator': '🌙',
+    'Bounce Back': '💪',
+  };
+
+  if (title.includes('Strike')) {
+    if (title.includes('Fajr')) return '🌄';
+    if (title.includes('Dhuhr')) return '☀️';
+    if (title.includes('Asr')) return '🌤️';
+    if (title.includes('Maghrib')) return '🌅';
+    if (title.includes('Isha')) return '🌙';
+    if (title.includes('Nafl')) return '✨';
+  }
+
+  if (title.includes('Level')) return '🎯';
+
+  return emojiMap[title] || '🏅';
+};
+
 const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
-  const { t } = useTranslation();
-  const awardText = t(`Awards.${award.title}`);
-  const [emoji, ...descriptionParts] = awardText.split(' ');
-  const description = descriptionParts.join(' ');
+  const emoji = getAwardEmoji(award.title);
 
   return (
     <TouchableOpacity
@@ -49,7 +78,7 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
           )}
           numberOfLines={2}
         >
-          {description}
+          {award.title}
         </Text>
         {isEarned && (
           <View className="absolute top-5 right-2">
@@ -63,6 +92,9 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
             <Text className="text-base opacity-80">🔒</Text>
           </View>
         )}
+        <Text className="text-xs text-muted-foreground">
+          {award.points} points
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -70,7 +102,19 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
 
 const AwardCategory = ({ title, earnedAwards, onPressAward }) => {
   const { t } = useTranslation();
-  const categoryAwards = AWARDS.filter((award) => award.category === title);
+  const categoryAwards = awardRules.filter((award) => {
+    if (title === 'first') return award.title.includes('First');
+    if (title === 'streak')
+      return award.title.includes('Streak') || award.title.includes('Strike');
+    if (title === 'prayer_quality')
+      return award.title.includes('On Time') || award.title.includes('Early');
+    if (title === 'milestone') return award.title.includes('Level');
+    if (title === 'special')
+      return (
+        award.title === 'The Devoted' || award.title === 'Consistency Champ'
+      );
+    return false;
+  });
 
   if (categoryAwards.length === 0) return null;
 
@@ -144,19 +188,13 @@ export default function PersonalTab() {
   const categories = [
     'first',
     'streak',
-    'prayer_count',
-    'fajr',
     'prayer_quality',
-    'sunnah',
-    'dhikr_quran',
-    'special_times',
-    'community',
     'milestone',
     'special',
   ];
 
   const earnedAwards = data?.data || [];
-  const totalAwards = AWARDS.length;
+  const totalAwards = awardRules.length;
   const earnedCount = earnedAwards.length;
   const score = Math.round((earnedCount / totalAwards) * 100);
 
@@ -211,10 +249,10 @@ export default function PersonalTab() {
           {selectedAward && (
             <View className="px-6 py-12">
               <Text className="text-xl font-bold mb-3 mt-3">
-                {t(`Awards.${selectedAward.title}`)}
+                {selectedAward.title}
               </Text>
               <Text className="text-sm text-muted-foreground mb-4">
-                {t(`Awards.Descriptions.${selectedAward.title}`)}
+                {selectedAward.points} points
               </Text>
               {selectedAward.isEarned && (
                 <Text className="text-sm text-muted-foreground absolute top-4 right-4">

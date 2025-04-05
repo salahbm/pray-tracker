@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { checkAndAssignAwards } from '@/utils/award-helpers';
+import { checkAndAssignAwards } from '@/utils/check-awards';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 

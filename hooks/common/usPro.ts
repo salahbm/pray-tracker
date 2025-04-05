@@ -16,4 +16,6 @@ export const useGetPro = () =>
     queryKey: [proKeys],
     queryFn: getPro,
     placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: 1, // avoid retry storms
   });
