@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { View, ScrollView, RefreshControl } from 'react-native';
 import { Image } from 'react-native';
 import {
@@ -19,6 +20,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const FriendsPending = () => {
+  const { t } = useTranslation();
   const { user } = useAuthStore();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
@@ -27,7 +29,6 @@ const FriendsPending = () => {
     isLoading: isLoadingPending,
     refetch: refetchPending,
   } = useGetPendingFriends(user?.id);
-
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } =
     useAcceptRequest();
   const { mutateAsync: rejectFriendRequest, isPending: isRejecting } =
@@ -56,7 +57,7 @@ const FriendsPending = () => {
             pendingFriends?.data.length > 0 ? 'block' : 'hidden',
           )}
         >
-          Friendship Requests
+          {t('Friends.Pro.ViewPending')}
         </Text>
 
         {isLoadingPending ? (
@@ -71,12 +72,21 @@ const FriendsPending = () => {
                   className="flex-col items-start justify-between p-3 bg-card rounded-lg shadow-sm gap-3"
                 >
                   <View className="flex-row items-center gap-3">
-                    <Image
-                      source={{
-                        uri: item.friendAvatar || FRIENDS.guest,
-                      }}
-                      className="w-12 h-12 rounded-full bg-muted"
-                    />
+                    {item.friendAvatar ? (
+                      <Image
+                        source={{
+                          uri: item.friendAvatar,
+                        }}
+                        className="w-12 h-12 rounded-full bg-muted"
+                      />
+                    ) : (
+                      <Image
+                        source={{
+                          uri: FRIENDS.guest,
+                        }}
+                        className="w-12 h-12 rounded-full bg-muted"
+                      />
+                    )}
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">
                         {item.friendUsername}

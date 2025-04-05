@@ -508,6 +508,7 @@
     "Pro": {
       "ApprovedFriends": "Approved Friends",
       "SearchPlaceholder": "Enter Friend's Email",
+      "InvalidEmail": "Please enter a valid email",
       "NoFriends": "No approved friends found",
       "SendRequest": "Send Request",
       "ViewPending": "View Pending Requests",

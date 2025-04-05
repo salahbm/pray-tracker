@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma';
 import { ApiError, handleError } from '@/utils/error';
+import { sendPushNotification } from '@/utils/notification';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
 
 export async function POST(request: Request) {
@@ -61,6 +62,15 @@ export async function POST(request: Request) {
     // Create friendship request
     const friendRequest = await prisma.friend.create({
       data: { userId, friendId, status: 'PENDING' },
+    });
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    await sendPushNotification({
+      to: friend.deviceToken,
+      title: 'Friend Request',
+      body: `You have a new friend request from ${user?.email}`,
     });
 
     return createResponse({

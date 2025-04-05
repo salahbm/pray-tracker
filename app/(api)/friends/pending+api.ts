@@ -32,6 +32,8 @@ export async function GET(request: Request) {
           select: {
             id: true,
             username: true,
+            photo: true,
+            email: true,
           },
         },
         user: {
@@ -52,8 +54,8 @@ export async function GET(request: Request) {
         userId: friend.user.id,
         status: friend.status,
         friendUsername: friend.friend.username,
-        friendEmail: friend.user.email,
-        friendAvatar: friend.user.photo,
+        friendEmail: friend.friend.email,
+        friendAvatar: friend.friend.photo,
       };
     });
 

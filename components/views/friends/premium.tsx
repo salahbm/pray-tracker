@@ -81,6 +81,8 @@ const FriendsApproved = () => {
               keyboardType="email-address"
               returnKeyType="send"
               autoCorrect={false}
+              textContentType="emailAddress"
+              autoComplete="email"
               onSubmitEditing={handleSendRequest}
             />
           </View>
@@ -129,12 +131,19 @@ const FriendsApproved = () => {
               <AccordionItem value={friend.friend.friendId}>
                 <AccordionTrigger>
                   <View className="flex-row items-center gap-3">
-                    <Image
-                      source={{
-                        uri: friend.friend.friendPhoto || FRIENDS.guest,
-                      }}
-                      className="size-14 rounded-full bg-muted"
-                    />
+                    {friend?.friend?.friendPhoto ? (
+                      <Image
+                        source={{
+                          uri: friend.friend.friendPhoto,
+                        }}
+                        className="size-14 rounded-full bg-muted"
+                      />
+                    ) : (
+                      <Image
+                        source={FRIENDS.guest}
+                        className="size-14 rounded-full bg-muted"
+                      />
+                    )}
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">
                         {friend.friend.friendUsername}
@@ -146,7 +155,7 @@ const FriendsApproved = () => {
                   </View>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {friend.prays.map((salah) => {
+                  {friend?.prays.map((salah) => {
                     const prayerEntries = Object.entries(salah).filter(
                       ([key]) =>
                         [

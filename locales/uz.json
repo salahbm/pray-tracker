@@ -421,6 +421,7 @@
     "Pro": {
       "ApprovedFriends": "Tasdiqlangan Do'stlar",
       "SearchPlaceholder": "Do'stingizning elektron pochtasini kiriting",
+      "InvalidEmail": "Xato elektron pochtasiz",
       "NoFriends": "Tasdiqlangan do'stlar topilmadi",
       "SendRequest": "So'rovni yuborish",
       "ViewPending": "Kutilayotgan so'rovlarni ko'rish",
