@@ -65,12 +65,17 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
             console.warn('Mutation error:', error ?? 'Unknown error');
 
             // Ensure error is an instance of ApiError
-            if (error instanceof ApiError) {
+            if (
+              error &&
+              'code' in error &&
+              'status' in error &&
+              'details' in error
+            ) {
               return errorHandler({
                 message: error.message,
-                code: error?.code,
-                status: error?.status,
-                description: error.details,
+                code: error?.code as number,
+                status: error?.status as StatusCode,
+                description: error.details as string,
               });
             }
 

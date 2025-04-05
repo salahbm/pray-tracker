@@ -18,8 +18,7 @@ export const useError = () => {
 
       if (
         status === StatusCode.INTERNAL_ERROR ||
-        code === MessageCodes.TOO_MANY_REQUESTS ||
-        code === 2105
+        code === MessageCodes.TOO_MANY_REQUESTS
       ) {
         fireToast.error(
           t(`${messagesPath}.${code || status}`, { defaultValue: message }),
@@ -27,7 +26,7 @@ export const useError = () => {
         return;
       }
 
-      if (code >= 2000 && code < 7000) {
+      if (code >= 999 && code < 7000) {
         fireToast.error(
           t(`${messagesPath}.${code}`, { defaultValue: message }),
         );

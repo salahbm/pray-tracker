@@ -43,7 +43,6 @@ const FriendsApproved = () => {
     useDeleteFriend();
   const [friendEmail, setFriendEmail] = useState('');
   const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
-
   const handleSendRequest = async () => {
     if (!friendEmail.trim()) {
       fireToast.error(t('Friends.Pro.InvalidEmail'));
@@ -118,7 +117,7 @@ const FriendsApproved = () => {
             onPress={() =>
               deleteFriend({
                 friendshipId: friend.friend.friendshipId,
-                friendId: friend.friend.friendId,
+                friendId: friend.friend.id,
               })
             }
           >
@@ -128,29 +127,22 @@ const FriendsApproved = () => {
               value={accordionValue}
               onValueChange={setAccordionValue}
             >
-              <AccordionItem value={friend.friend.friendId}>
+              <AccordionItem value={friend.friend.id}>
                 <AccordionTrigger>
                   <View className="flex-row items-center gap-3">
-                    {friend?.friend?.friendPhoto ? (
-                      <Image
-                        source={{
-                          uri: friend.friend.friendPhoto,
-                        }}
-                        className="size-14 rounded-full bg-muted"
-                      />
-                    ) : (
-                      <Image
-                        source={FRIENDS.guest}
-                        className="size-14 rounded-full bg-muted"
-                      />
-                    )}
+                    <Image
+                      source={{
+                        uri: friend.friend.photo,
+                      }}
+                      className="size-14 rounded-full bg-muted"
+                      defaultSource={FRIENDS.guest}
+                    />
+
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">
-                        {friend.friend.friendUsername}
+                        {friend.friend.username}
                       </Text>
-                      <Text className="text-sm">
-                        {friend.friend.friendEmail}
-                      </Text>
+                      <Text className="text-sm">{friend.friend.email}</Text>
                     </View>
                   </View>
                 </AccordionTrigger>

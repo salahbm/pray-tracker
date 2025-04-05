@@ -52,7 +52,6 @@
       "599": "Network Timeout"
     },
     "MessageCodes": {
-      "9999": "General Error",
       "1000": "Success",
       "1001": "Created",
       "1002": "Bad Request",
@@ -511,11 +510,28 @@
       "InvalidEmail": "Please enter a valid email",
       "NoFriends": "No approved friends found",
       "SendRequest": "Send Request",
+      "PendingTitle": "Pending Requests",
       "ViewPending": "View Pending Requests",
       "Title": "Join Prayer Tracker +",
       "Subtitle": "Elevate Your Spiritual Journey",
       "WelcomeTitle": "As-salaam-alaikum! ",
       "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
+      "FeaturesTitle": "Pro Features",
+      "MoreFeatures": "See More Features",
+      "LessFeatures": "Show Less",
+      "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
+      "Future": "And more features coming soon, In sha Allah",
+      "TeamTitle": "Meet the Team",
+      "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
+      "SubscribeButton": "Support Our Mission",
+      "BismillahMessage": "Bismillah, let's begin this blessed journey together",
+      "NoPending": "Pending requests not found",
+      "SentRequests": "Requests You've Sent",
+      "Accept": "Accept",
+      "Reject": "Reject",
+      "Cancel": "Cancel",
+      "RequestTitle": "Friend Request 🤝",
+      "RequestBody": "New friend request from {{email}}",
       "Features": {
         "UnlimitedFriends": "Unlimited Friends",
         "PrayerTracking": "Prayer Tracking",
@@ -550,16 +566,7 @@
           "title": "Priority Support",
           "description": "Get priority access to our support team and be the first to try new features as they're released."
         }
-      },
-      "FeaturesTitle": "Pro Features",
-      "MoreFeatures": "See More Features",
-      "LessFeatures": "Show Less",
-      "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
-      "Future": "And more features coming soon, In sha Allah",
-      "TeamTitle": "Meet the Team",
-      "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
-      "SubscribeButton": "Support Our Mission",
-      "BismillahMessage": "Bismillah, let's begin this blessed journey together"
+      }
     },
     "Freemium": {
       "Title": "Prayer Tracker +",

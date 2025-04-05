@@ -1,3 +1,5 @@
+import { FriendStatus } from '@prisma/client';
+
 import prisma from '@/lib/prisma';
 import { PendingFriend } from '@/types/friends';
 import { ApiError, handleError } from '@/utils/error';
@@ -17,17 +19,18 @@ export async function GET(request: Request) {
       });
     }
 
-    // Fetch accepted friends in both directions
     const friends = await prisma.friend.findMany({
       where: {
         OR: [
-          { userId, status: 'PENDING' },
-          { friendId: userId, status: 'PENDING' },
+          { userId, status: FriendStatus.PENDING },
+          { friendId: userId, status: FriendStatus.PENDING },
         ],
       },
       select: {
-        id: true, // Select the friendship ID
-        status: true, // Fetch status from Friend model
+        id: true,
+        status: true,
+        userId: true,
+        friendId: true,
         friend: {
           select: {
             id: true,
@@ -47,23 +50,36 @@ export async function GET(request: Request) {
       },
     });
 
-    const friendArray: PendingFriend[] = friends.map((friend) => {
-      return {
+    const sentBy: PendingFriend[] = [];
+    const requests: PendingFriend[] = [];
+
+    for (const friend of friends) {
+      const isUserSender = friend.userId === userId;
+
+      const otherUser = isUserSender ? friend.friend : friend.user;
+
+      const item: PendingFriend = {
         id: friend.id,
-        friendId: friend.friend.id,
-        userId: friend.user.id,
+        userId: friend.userId,
+        friendId: friend.friendId,
+        username: otherUser.username,
+        email: otherUser.email,
+        photo: otherUser.photo,
         status: friend.status,
-        friendUsername: friend.friend.username,
-        friendEmail: friend.friend.email,
-        friendAvatar: friend.friend.photo,
       };
-    });
+
+      if (isUserSender) {
+        requests.push(item); // I sent the request
+      } else {
+        sentBy.push(item); // I received the request
+      }
+    }
 
     return createResponse({
       status: StatusCode.SUCCESS,
-      message: 'Friends fetched successfully',
+      message: 'Pending friend requests fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: friendArray ?? [],
+      data: { sentBy, requests },
     });
   } catch (error) {
     return handleError(error);

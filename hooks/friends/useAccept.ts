@@ -1,7 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
-import { approvedFriendsList } from '@/constants/query-keys';
+import {
+  approvedFriendsList,
+  pendingFriendsList,
+} from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
@@ -32,6 +35,9 @@ export const useAcceptRequest = () => {
     mutationFn: acceptRequest,
     options: {
       onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [pendingFriendsList],
+        });
         await queryClient.invalidateQueries({
           queryKey: [approvedFriendsList],
         });

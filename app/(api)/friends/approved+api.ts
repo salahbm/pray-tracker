@@ -17,7 +17,6 @@ export async function GET(request: Request) {
       });
     }
 
-    // Fetch approved friends including status
     const friends = await prisma.friend.findMany({
       where: {
         OR: [
@@ -26,44 +25,46 @@ export async function GET(request: Request) {
         ],
       },
       select: {
-        id: true, // Friendship ID
-        status: true, // Include status field
+        id: true,
+        status: true,
         friend: {
           select: {
             id: true,
             username: true,
             email: true,
             photo: true,
+            deviceToken: true,
           },
         },
         user: {
-          select: { id: true, username: true, email: true, photo: true },
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            photo: true,
+            deviceToken: true,
+          },
         },
       },
     });
 
-    // Extract friend IDs (exclude current user)
     const friendIds = friends.map((f) =>
       f.friend.id === userId ? f.user.id : f.friend.id,
     );
 
     if (friendIds.length === 0) {
-      return createResponse({
+      return createResponse<ApprovedFriend[]>({
         status: StatusCode.SUCCESS,
         message: 'No approved friends found',
         code: MessageCodes.FRIEND_NOT_FOUND,
-        data: { approved: { friends: [] } },
+        data: [],
       });
     }
 
-    // Get today's date range (ignores time)
     const today = new Date();
-    const startOfDay = new Date(today);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(today);
-    endOfDay.setHours(23, 59, 59, 999);
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
-    // Fetch today's prayers for friends
     const prayers = await prisma.prays.findMany({
       where: {
         userId: { in: friendIds },
@@ -75,7 +76,6 @@ export async function GET(request: Request) {
       include: { user: { select: { id: true, username: true } } },
     });
 
-    // Format data: group prayers with corresponding friend info
     const approvedFriends: ApprovedFriend[] = friends.map((f) => {
       const friendInfo = f.friend.id === userId ? f.user : f.friend;
       const friendPrays = prayers.filter(
@@ -84,12 +84,13 @@ export async function GET(request: Request) {
 
       return {
         friend: {
-          friendshipId: f.id, // Fix missing assignment
-          friendId: friendInfo.id,
-          friendUsername: friendInfo.username,
-          friendEmail: friendInfo.email,
-          friendPhoto: friendInfo.photo,
-          status: f.status, // Include status in response
+          friendshipId: f.id,
+          id: friendInfo.id,
+          username: friendInfo.username,
+          email: friendInfo.email,
+          photo: friendInfo.photo,
+          status: f.status,
+          deviceToken: friendInfo.deviceToken,
         },
         prays:
           friendPrays.length > 0
@@ -98,7 +99,7 @@ export async function GET(request: Request) {
                 {
                   userId: friendInfo.id,
                   username: friendInfo.username,
-                  date: new Date(), // Ensure correct date assignment
+                  date: new Date(),
                   fajr: 0,
                   dhuhr: 0,
                   asr: 0,
@@ -110,11 +111,11 @@ export async function GET(request: Request) {
       };
     });
 
-    return createResponse({
+    return createResponse<ApprovedFriend[]>({
       status: StatusCode.SUCCESS,
       message: 'Approved friends and their prayers fetched successfully',
       code: MessageCodes.FRIEND_FETCHED,
-      data: approvedFriends ?? [],
+      data: approvedFriends,
     });
   } catch (error) {
     return handleError(error);

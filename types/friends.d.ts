@@ -4,26 +4,32 @@ import { IPrays } from './prays';
 
 export interface IFriend {
   friendshipId: string;
-  friendId: string;
-  friendUsername: string;
-  friendEmail: string;
-  friendPhoto: string;
+  id: string;
+  deviceToken: string;
+  username: string;
+  email: string;
+  photo: string;
   status: string;
 }
 
 export type ApprovedFriend = {
   friend: IFriend;
-  prays: IPrays[];
+  prays: Omit<IPrays, 'id' | 'createdAt' | 'updatedAt'>[];
 };
 
-// Pending Friends
-
+// Pending friend (before acceptance)
 export interface PendingFriend {
-  friendAvatar: string;
-  friendEmail: string;
-  friendId: string;
-  userId: string;
-  friendUsername: string;
-  id: string;
-  status: keyof typeof FriendStatus;
+  id: string; // friendship ID
+  userId: string; // sender
+  friendId: string; // receiver
+  username: string;
+  email: string;
+  photo: string;
+  status: FriendStatus;
+}
+
+// Final grouped pending response
+export interface FriendRequestResponse {
+  sentBy: PendingFriend[]; // requests received
+  requests: PendingFriend[]; // requests sent
 }
