@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -58,31 +58,43 @@ const EditPwd = () => {
   return (
     <SafeAreaView className="main-area">
       <GoBack title={t('Profile.EditPassword.Title')} />
-      <Image
-        source={{ uri: user?.photo || FRIENDS.guest }}
-        accessibilityLabel="Profile Photo"
-        className="w-[150px] h-[150px] rounded-full border border-border mb-20 mt-10 mx-auto"
-      />
-      <View className="flex-1 gap-6">
-        <Input
-          label={t('Profile.EditPassword.Fields.NewPassword.Label')}
-          placeholder={t('Profile.EditPassword.Fields.NewPassword.Placeholder')}
-          autoCapitalize="none"
-          secureTextEntry
-          value={newPassword}
-          onChangeText={setNewPassword}
-        />
-        <Input
-          label={t('Profile.EditPassword.Fields.ConfirmPassword.Label')}
-          placeholder={t(
-            'Profile.EditPassword.Fields.ConfirmPassword.Placeholder',
-          )}
-          autoCapitalize="none"
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
-      </View>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        {user?.photo ? (
+          <Image
+            source={{ uri: user.photo }}
+            accessibilityLabel="Profile Photo"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+          />
+        ) : (
+          <Image
+            source={FRIENDS.guest}
+            accessibilityLabel="Guest Profile"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+          />
+        )}
+        <View className="flex-1 gap-6">
+          <Input
+            label={t('Profile.EditPassword.Fields.NewPassword.Label')}
+            placeholder={t(
+              'Profile.EditPassword.Fields.NewPassword.Placeholder',
+            )}
+            autoCapitalize="none"
+            secureTextEntry
+            value={newPassword}
+            onChangeText={setNewPassword}
+          />
+          <Input
+            label={t('Profile.EditPassword.Fields.ConfirmPassword.Label')}
+            placeholder={t(
+              'Profile.EditPassword.Fields.ConfirmPassword.Placeholder',
+            )}
+            autoCapitalize="none"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+        </View>
+      </ScrollView>
       <View className="pb-4">
         <Button onPress={handleUpdate} disabled={isLoading || isPending}>
           <Text>{t('Profile.EditPassword.SaveButton')}</Text>

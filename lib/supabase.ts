@@ -4,15 +4,15 @@ import { createClient } from '@supabase/supabase-js';
 import Constants from 'expo-constants';
 
 const supabaseUrl = Constants.expoConfig?.extra?.supabaseUrl;
-const supabaseAnonKey = Constants.expoConfig?.extra?.supabaseAnonKey;
+const supabaseRoleKey = Constants.expoConfig?.extra?.supabaseRoleKey;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+if (!supabaseUrl || !supabaseRoleKey) {
   throw new Error(
     'Missing Supabase configuration. Check app.config.ts and environment variables.',
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient(supabaseUrl, supabaseRoleKey, {
   auth: {
     storage: AsyncStorage,
     autoRefreshToken: true,
