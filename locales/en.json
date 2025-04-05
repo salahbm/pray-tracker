@@ -271,6 +271,124 @@
       "UserDetails": {
         "Points": "Points"
       }
+    },
+    "List": {
+      "FirstPrayerLogged": "First Step Toward Salah",
+      "FirstPrayerLoggedDescription": "You’ve taken the blessed first step on your path to consistent prayer. May Allah (SWT) guide you onward.",
+
+      "CompletedFirstFullDay": "Day of Complete Worship",
+      "CompletedFirstFullDayDescription": "A full day of Salah — may this be the first of many in your journey of devotion.",
+
+      "SevenDayStreak": "Week of Steadfastness",
+      "SevenDayStreakDescription": "Seven days of prayer! May Allah keep your heart firm upon this beautiful path.",
+
+      "FourteenDayStreak": "Fortnight of Faith",
+      "FourteenDayStreakDescription": "Two weeks of consistent Salah — a reflection of your growing taqwa.",
+
+      "ThirtyDayStreak": "Month of Worship",
+      "ThirtyDayStreakDescription": "A month in prayer, echoing the discipline of Ramadan. Keep rising!",
+
+      "NinetyDayStreak": "Season of Devotion",
+      "NinetyDayStreakDescription": "Ninety days of prayer — a season of barakah and sincere worship. May Allah accept it all.",
+
+      "EarlyFajrMaster": "Seeker of Light",
+      "EarlyFajrMasterDescription": "You’ve embraced the serenity of early Fajr. May its light illuminate your soul.",
+
+      "OnTimeWarrior": "Guardian of Salah",
+      "OnTimeWarriorDescription": "Performing your prayers on time — a true sign of discipline and love for Allah.",
+
+      "FajrStrike10": "Fajr Consistency: 10 Prayers",
+      "FajrStrike10Description": "A streak of 10 blessed Fajr prayers. Keep greeting the dawn with devotion.",
+      "FajrStrike50": "Fajr Consistency: 50 Prayers",
+      "FajrStrike50Description": "Fifty mornings of remembrance — your dawns are truly blessed.",
+      "FajrStrike100": "Fajr Consistency: 100 Prayers",
+      "FajrStrike100Description": "A hundred sunrises in prayer — may Allah continue to guide your early steps.",
+      "FajrStrike150": "Fajr Consistency: 150 Prayers",
+      "FajrStrike150Description": "Your mornings shine with noor. A legacy of commitment and faith.",
+
+      "DhuhrStrike10": "Dhuhr Consistency: 10 Prayers",
+      "DhuhrStrike10Description": "You've embraced the midday pause with remembrance. Keep it going.",
+      "DhuhrStrike50": "Dhuhr Consistency: 50 Prayers",
+      "DhuhrStrike50Description": "Fifty mid-days surrendered to Salah — may your efforts be accepted.",
+      "DhuhrStrike100": "Dhuhr Consistency: 100 Prayers",
+      "DhuhrStrike100Description": "A hundred moments of spiritual stillness at noon — you're setting a powerful example.",
+      "DhuhrStrike150": "Dhuhr Consistency: 150 Prayers",
+      "DhuhrStrike150Description": "Your devotion cuts through the busyness of the day — a heart anchored in prayer.",
+
+      "AsrStrike10": "Asr Consistency: 10 Prayers",
+      "AsrStrike10Description": "Steadfast in the late afternoon. A moment many miss — but not you.",
+      "AsrStrike50": "Asr Consistency: 50 Prayers",
+      "AsrStrike50Description": "Fifty afternoon prayers — may Allah keep your steps firm.",
+      "AsrStrike100": "Asr Consistency: 100 Prayers",
+      "AsrStrike100Description": "A hundred afternoons of remembrance. You're walking with grace.",
+      "AsrStrike150": "Asr Consistency: 150 Prayers",
+      "AsrStrike150Description": "Your dedication in these hours shows deep discipline and love for Allah.",
+
+      "MaghribStrike10": "Maghrib Consistency: 10 Prayers",
+      "MaghribStrike10Description": "You’ve marked the sunset with Salah. A sign of reflection and gratitude.",
+      "MaghribStrike50": "Maghrib Consistency: 50 Prayers",
+      "MaghribStrike50Description": "Fifty days of closing the day with thanks — may your nights begin with barakah.",
+      "MaghribStrike100": "Maghrib Consistency: 100 Prayers",
+      "MaghribStrike100Description": "A hundred sunsets paired with prayer — may your gratitude never cease.",
+      "MaghribStrike150": "Maghrib Consistency: 150 Prayers",
+      "MaghribStrike150Description": "Your devotion at day's end is a shining example of ihsaan (excellence).",
+
+      "IshaStrike10": "Isha Consistency: 10 Prayers",
+      "IshaStrike10Description": "You end your days in prayer — a beautiful closure under Allah’s mercy.",
+      "IshaStrike50": "Isha Consistency: 50 Prayers",
+      "IshaStrike50Description": "Fifty peaceful nights wrapped in worship — a tranquil end to your day.",
+      "IshaStrike100": "Isha Consistency: 100 Prayers",
+      "IshaStrike100Description": "One hundred nights ended with Salah — your nights are a witness to your devotion.",
+      "IshaStrike150": "Isha Consistency: 150 Prayers",
+      "IshaStrike150Description": "Like the righteous before you, you rest in remembrance — may Allah preserve your heart.",
+
+      "NaflStrike10": "Nafl Devotion: 10 Prayers",
+      "NaflStrike10Description": "You've chosen extra prayers out of love — may Allah reward you immensely.",
+      "NaflStrike50": "Nafl Devotion: 50 Prayers",
+      "NaflStrike50Description": "Fifty voluntary acts of worship — a true seeker of reward and nearness.",
+      "NaflStrike100": "Nafl Devotion: 100 Prayers",
+      "NaflStrike100Description": "A hundred extra prayers — a beautiful sign of ihsaan and spiritual depth.",
+      "NaflStrike150": "Nafl Devotion: 150 Prayers",
+      "NaflStrike150Description": "You’ve filled your time with what pleases Allah — your path is radiant.",
+
+      "ConsistencyChamp": "Champion of Consistency",
+      "ConsistencyChampDescription": "A shining example of daily discipline. Keep up your steadfast commitment.",
+
+      "TheDevoted": "The Devoted Worshipper",
+      "TheDevotedDescription": "A life woven with Salah, sincerity, and punctuality. May Allah elevate your ranks.",
+
+      "BounceBack": "The Repentant One",
+      "BounceBackDescription": "After hardship or absence, you’ve returned with strength. Allah loves those who turn back to Him.",
+
+      "Level5Achieved": "Level 5: Rising Believer",
+      "Level5AchievedDescription": "You've grown spiritually — continue your journey upward.",
+
+      "Level10Achieved": "Level 10: Consistent Worshipper",
+      "Level10AchievedDescription": "A milestone in prayer and progress. Stay steady on the path.",
+
+      "Level15Achieved": "Level 15: Sincere Soul",
+      "Level15AchievedDescription": "Your intentions shine through. Let your prayers shape your heart.",
+
+      "Level20Achieved": "Level 20: Disciplined Devotee",
+      "Level20AchievedDescription": "Your Salah reflects deep spiritual maturity.",
+
+      "Level25Achieved": "Level 25: Guided Servant",
+      "Level25AchievedDescription": "Walking with purpose, praying with presence. A true servant of the Most Merciful.",
+
+      "Level30Achieved": "Level 30: Salah Warrior",
+      "Level30AchievedDescription": "You’ve built a fortress of worship around your day.",
+
+      "Level35Achieved": "Level 35: Beacon of Iman",
+      "Level35AchievedDescription": "Your consistency lights the way — for yourself and others.",
+
+      "Level40Achieved": "Level 40: Trusted in Worship",
+      "Level40AchievedDescription": "Your prayer is no longer an action — it’s your lifestyle.",
+
+      "Level45Achieved": "Level 45: Heart of Khushu'",
+      "Level45AchievedDescription": "Your worship is marked with presence, humility, and love.",
+
+      "Level50Achieved": "Level 50: Friend of the Prayer",
+      "Level50AchievedDescription": "Like the Prophet ﷺ, you’ve made Salah your comfort and strength."
     }
   },
   "Qibla": {
@@ -397,11 +515,6 @@
       "Subtitle": "Elevate Your Spiritual Journey",
       "WelcomeTitle": "As-salaam-alaikum! ",
       "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
-      "ChoosePlan": "Choose Your Plan",
-      "Monthly": "Monthly",
-      "Yearly": "Yearly",
-      "SubscribeNow": "Subscribe Now",
-      "TermsButton": "Terms of Use",
       "Features": {
         "UnlimitedFriends": "Unlimited Friends",
         "PrayerTracking": "Prayer Tracking",
@@ -437,34 +550,14 @@
           "description": "Get priority access to our support team and be the first to try new features as they're released."
         }
       },
-      "SavePerYear": "Save ${{amount}} per year",
-      "AutoRenew": "Subscription will automatically renew. Cancel anytime.",
       "FeaturesTitle": "Pro Features",
       "MoreFeatures": "See More Features",
       "LessFeatures": "Show Less",
       "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
-      "ErrorMessage": "Something went wrong. Please try again.",
-      "RestoreSuccess": "Your pro features have been restored!",
-      "RestoreError": "No previous purchases found.",
-      "Plans": {
-        "monthly": {
-          "title": "Monthly Plan",
-          "description": "1 Month Pro Access"
-        },
-        "quarterly": {
-          "title": "Quarterly Plan",
-          "description": "3 Months Pro Access"
-        },
-        "yearly": {
-          "title": "Yearly Plan",
-          "description": "1 Year Pro Access"
-        }
-      },
       "Future": "And more features coming soon, In sha Allah",
       "TeamTitle": "Meet the Team",
       "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
       "SubscribeButton": "Support Our Mission",
-      "RestoreButton": "Restore Subscription",
       "BismillahMessage": "Bismillah, let's begin this blessed journey together"
     },
     "Freemium": {

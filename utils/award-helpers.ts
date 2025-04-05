@@ -1,15 +1,10 @@
 export type Stats = {
-  // Core Stats
   totalPrayers: number;
   missedPrayers: number;
   naflCount: number;
-
-  // Streaks
   currentStreak: number;
   longestStreak: number;
   fajrStreak: number;
-
-  // On-time Percentages
   onTimePercentage: number;
   earlyFajrPercentage: number;
   fajrOnTimePercentage: number;
@@ -17,193 +12,162 @@ export type Stats = {
   asrOnTimePercentage: number;
   maghribOnTimePercentage: number;
   ishaOnTimePercentage: number;
-
-  // Per-Prayer Strike Achievements
   fajrStrike10: number;
   fajrStrike50: number;
   fajrStrike100: number;
   fajrStrike150: number;
-
   dhuhrStrike10: number;
   dhuhrStrike50: number;
   dhuhrStrike100: number;
   dhuhrStrike150: number;
-
   asrStrike10: number;
   asrStrike50: number;
   asrStrike100: number;
   asrStrike150: number;
-
   maghribStrike10: number;
   maghribStrike50: number;
   maghribStrike100: number;
   maghribStrike150: number;
-
   ishaStrike10: number;
   ishaStrike50: number;
   ishaStrike100: number;
   ishaStrike150: number;
-
   naflStrike10: number;
   naflStrike50: number;
   naflStrike100: number;
   naflStrike150: number;
-
-  // Advanced Tracking
   consistencyPercentage: number;
   lastActiveDay?: Date;
   lastFajrTime?: Date;
   lastNaflDate?: Date;
   missedPrayerStreak: number;
-
-  // Gamification
   level: number;
   totalXP: number;
 };
 
 export type AwardRule = {
+  emoji: string;
   title: string;
+  description: string;
   condition: (stats: Stats) => boolean;
   points: number;
 };
 
 export const awardRules: AwardRule[] = [
-  // Beginner Milestones
   {
-    title: 'First Prayer Logged',
+    emoji: '🕌',
+    title: 'FirstPrayerLogged',
+    description: 'FirstPrayerLoggedDescription',
     condition: (stats) => stats.totalPrayers >= 1,
     points: 10,
   },
   {
-    title: 'Completed First Full Day',
+    emoji: '🕋',
+    title: 'CompletedFirstFullDay',
+    description: 'CompletedFirstFullDayDescription',
     condition: (stats) =>
-      stats.fajrStreak >= 1 &&
+      stats.fajrStrike10 >= 1 &&
       stats.dhuhrStrike10 >= 1 &&
       stats.asrStrike10 >= 1 &&
       stats.maghribStrike10 >= 1 &&
       stats.ishaStrike10 >= 1,
     points: 15,
   },
-
-  // Streak Achievements
   {
-    title: '7 Day Streak',
+    emoji: '🔥',
+    title: 'SevenDayStreak',
+    description: 'SevenDayStreakDescription',
     condition: (stats) => stats.currentStreak >= 7,
     points: 20,
   },
   {
-    title: '14 Day Streak',
+    emoji: '📿',
+    title: 'FourteenDayStreak',
+    description: 'FourteenDayStreakDescription',
     condition: (stats) => stats.currentStreak >= 14,
     points: 30,
   },
   {
-    title: '30 Day Streak',
+    emoji: '🌙',
+    title: 'ThirtyDayStreak',
+    description: 'ThirtyDayStreakDescription',
     condition: (stats) => stats.currentStreak >= 30,
     points: 50,
   },
   {
-    title: '90 Day Streak',
+    emoji: '🕊️',
+    title: 'NinetyDayStreak',
+    description: 'NinetyDayStreakDescription',
     condition: (stats) => stats.currentStreak >= 90,
     points: 100,
   },
-
-  // On-time Achievements
   {
-    title: 'Early Fajr Master',
+    emoji: '🌄',
+    title: 'EarlyFajrMaster',
+    description: 'EarlyFajrMasterDescription',
     condition: (stats) => stats.earlyFajrPercentage >= 90,
     points: 50,
   },
   {
-    title: 'On Time Warrior',
+    emoji: '⚔️',
+    title: 'OnTimeWarrior',
+    description: 'OnTimeWarriorDescription',
     condition: (stats) => stats.onTimePercentage >= 90,
     points: 75,
   },
-
-  // Per-Prayer Streaks
   ...['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'nafl'].flatMap((prayer) => {
     const capitalized = prayer[0].toUpperCase() + prayer.slice(1);
+    const emojiMap: Record<string, string> = {
+      fajr: '🌅',
+      dhuhr: '☀️',
+      asr: '🌇',
+      maghrib: '🌠',
+      isha: '🌌',
+      nafl: '✨',
+    };
     return [10, 50, 100, 150].map((count) => ({
-      title: `${capitalized} Strike ${count}`,
+      emoji: emojiMap[prayer],
+      title: `${capitalized}Strike${count}`,
+      description: `${capitalized}Strike${count}Description`,
       condition: (stats) => stats[`${prayer}Strike${count}`] >= 1,
       points: count <= 50 ? 20 : count <= 100 ? 40 : 60,
     }));
   }),
-
-  // Consistency Awards
   {
-    title: 'Consistency Champ',
+    emoji: '🏆',
+    title: 'ConsistencyChamp',
+    description: 'ConsistencyChampDescription',
     condition: (stats) => stats.consistencyPercentage >= 80,
     points: 50,
   },
   {
-    title: 'The Devoted',
+    emoji: '👑',
+    title: 'TheDevoted',
+    description: 'TheDevotedDescription',
     condition: (stats) =>
       stats.consistencyPercentage >= 90 &&
       stats.onTimePercentage >= 90 &&
       stats.currentStreak >= 30,
     points: 100,
   },
-
-  // Advanced Gamification
   {
-    title: 'Nafl Initiator',
+    emoji: '🧎‍♂️',
+    title: 'NaflInitiator',
+    description: 'NaflInitiatorDescription',
     condition: (stats) => !!stats.lastNaflDate,
     points: 30,
   },
+  ...[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((level) => ({
+    emoji: '🎯',
+    title: `Level${level}Achieved`,
+    description: `Level${level}AchievedDescription`,
+    condition: (stats) => stats.level >= level,
+    points: level * 5,
+  })),
   {
-    title: 'Level 5 Achieved',
-    condition: (stats) => stats.level >= 5,
-    points: 25,
-  },
-  {
-    title: 'Level 10 Achieved',
-    condition: (stats) => stats.level >= 10,
-    points: 50,
-  },
-  {
-    title: 'Level 15 Achieved',
-    condition: (stats) => stats.level >= 15,
-    points: 100,
-  },
-  {
-    title: 'Level 20 Achieved',
-    condition: (stats) => stats.level >= 20,
-    points: 150,
-  },
-  {
-    title: 'Level 25 Achieved',
-    condition: (stats) => stats.level >= 25,
-    points: 200,
-  },
-  {
-    title: 'Level 30 Achieved',
-    condition: (stats) => stats.level >= 30,
-    points: 250,
-  },
-  {
-    title: 'Level 35 Achieved',
-    condition: (stats) => stats.level >= 35,
-    points: 300,
-  },
-  {
-    title: 'Level 40 Achieved',
-    condition: (stats) => stats.level >= 40,
-    points: 350,
-  },
-  {
-    title: 'Level 45 Achieved',
-    condition: (stats) => stats.level >= 45,
-    points: 400,
-  },
-  {
-    title: 'Level 50 Achieved',
-    condition: (stats) => stats.level >= 50,
-    points: 450,
-  },
-
-  // Recovery Milestones
-  {
-    title: 'Bounce Back',
+    emoji: '💪',
+    title: 'BounceBack',
+    description: 'BounceBackDescription',
     condition: (stats) =>
       stats.missedPrayerStreak >= 3 && stats.currentStreak >= 5,
     points: 30,

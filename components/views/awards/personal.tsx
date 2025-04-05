@@ -22,37 +22,13 @@ interface IAward {
 }
 
 const getAwardEmoji = (title: string) => {
-  const emojiMap = {
-    'First Prayer Logged': '🌟',
-    'Completed First Full Day': '📅',
-    '7 Day Streak': '🔥',
-    '14 Day Streak': '🌋',
-    '30 Day Streak': '⚡️',
-    '90 Day Streak': '💫',
-    'Early Fajr Master': '🌅',
-    'On Time Warrior': '⚔️',
-    'Consistency Champ': '🏆',
-    'The Devoted': '👑',
-    'Nafl Initiator': '🌙',
-    'Bounce Back': '💪',
-  };
-
-  if (title.includes('Strike')) {
-    if (title.includes('Fajr')) return '🌄';
-    if (title.includes('Dhuhr')) return '☀️';
-    if (title.includes('Asr')) return '🌤️';
-    if (title.includes('Maghrib')) return '🌅';
-    if (title.includes('Isha')) return '🌙';
-    if (title.includes('Nafl')) return '✨';
-  }
-
-  if (title.includes('Level')) return '🎯';
-
-  return emojiMap[title] || '🏅';
+  const rule = awardRules.find((r) => r.title === title);
+  return rule?.emoji || '🏅';
 };
 
 const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
   const emoji = getAwardEmoji(award.title);
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -78,7 +54,7 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
           )}
           numberOfLines={2}
         >
-          {award.title}
+          {t(`Awards.List.${award.title}`)}
         </Text>
         {isEarned && (
           <View className="absolute top-5 right-2">
@@ -93,7 +69,7 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
           </View>
         )}
         <Text className="text-xs text-muted-foreground">
-          {award.points} points
+          {award.points} {t('Awards.Leaderboard.Points')}
         </Text>
       </View>
     </TouchableOpacity>
@@ -103,16 +79,22 @@ const AwardCard = ({ award, isEarned, earnedDate, onPress }) => {
 const AwardCategory = ({ title, earnedAwards, onPressAward }) => {
   const { t } = useTranslation();
   const categoryAwards = awardRules.filter((award) => {
-    if (title === 'first') return award.title.includes('First');
+    if (title === 'first')
+      return (
+        award.title === 'FirstPrayerLogged' ||
+        award.title === 'CompletedFirstFullDay'
+      );
     if (title === 'streak')
-      return award.title.includes('Streak') || award.title.includes('Strike');
+      return (
+        award.title.includes('DayStreak') || award.title.includes('Strike')
+      );
     if (title === 'prayer_quality')
-      return award.title.includes('On Time') || award.title.includes('Early');
+      return (
+        award.title === 'OnTimeWarrior' || award.title === 'EarlyFajrMaster'
+      );
     if (title === 'milestone') return award.title.includes('Level');
     if (title === 'special')
-      return (
-        award.title === 'The Devoted' || award.title === 'Consistency Champ'
-      );
+      return award.title === 'TheDevoted' || award.title === 'ConsistencyChamp';
     return false;
   });
 
@@ -249,7 +231,10 @@ export default function PersonalTab() {
           {selectedAward && (
             <View className="px-6 py-12">
               <Text className="text-xl font-bold mb-3 mt-3">
-                {selectedAward.title}
+                {t(`Awards.List.${selectedAward.title}`)}
+              </Text>
+              <Text className="text-sm text-muted-foreground mb-4">
+                {t(`Awards.List.${selectedAward.title}Description`)}
               </Text>
               <Text className="text-sm text-muted-foreground mb-4">
                 {selectedAward.points} points

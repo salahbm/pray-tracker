@@ -364,20 +364,6 @@
       "ErrorMessage": "문제가 발생했습니다. 다시 시도해주세요.",
       "RestoreSuccess": "프로 기능이 복원되었습니다!",
       "RestoreError": "이전 구매 내역이 없습니다.",
-      "Plans": {
-        "monthly": {
-          "title": "월간 플랜",
-          "description": "1개월 프로 이용권"
-        },
-        "quarterly": {
-          "title": "분기별 플랜",
-          "description": "3개월 프로 이용권"
-        },
-        "yearly": {
-          "title": "연간 플랜",
-          "description": "1년 프로 이용권"
-        }
-      },
       "Future": "추가 기능이 곧 제공될 예정입니다, 인샬라",
       "TeamTitle": "팀 소개",
       "TeamMessage": "알함둘릴라, 이 프로젝트는 기도를 지속하고 영적으로 성장할 수 있도록 헌신과 사랑으로 개발되었습니다. 우리의 모든 기능은 알라의 기쁨을 얻기 위한 것입니다.",

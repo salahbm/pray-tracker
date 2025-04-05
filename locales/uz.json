@@ -385,20 +385,6 @@
       "ErrorMessage": "Nimadir xato ketdi. Iltimos, qaytadan urinib ko'ring.",
       "RestoreSuccess": "Pro xususiyatlaringiz tiklandi!",
       "RestoreError": "Oldingi xaridlar topilmadi.",
-      "Plans": {
-        "monthly": {
-          "title": "Oylik Reja",
-          "description": "1 Oy Pro Kirish"
-        },
-        "quarterly": {
-          "title": "Choraklik Reja",
-          "description": "3 Oy Pro Kirish"
-        },
-        "yearly": {
-          "title": "Yillik Reja",
-          "description": "1 Yil Pro Kirish"
-        }
-      },
       "Future": "In sha Alloh, tez orada ko'proq xususiyatlar keladi",
       "TeamTitle": "Jamoa Bilan Tanishing",
       "TeamMessage": "Alhamdulillah, bu loyiha bag'rikenglik va muhabbat bilan qurilgan va saqlanib kelinmoqda. Biz sizga namozlaringizni saqlab qolishga va ruhiy jihatdan o'sishga yordam berishga intilamiz, har bir funksiyamizda Allohning roziligini izlaymiz.",

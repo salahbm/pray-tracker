@@ -4,7 +4,6 @@ import {
   calculateLevel,
   getLevelProgress,
 } from './level-system';
-import { sendPushNotification } from './notification';
 
 export const checkAndAssignAwards = async (
   userId: string,
@@ -78,26 +77,6 @@ export const checkAndAssignAwards = async (
           },
         },
       });
-
-      const user = await prisma.user.findUnique({ where: { id: userId } });
-
-      if (user?.deviceToken) {
-        // Send award notification
-        await sendPushNotification({
-          to: user.deviceToken,
-          title: 'New Award Unlocked!',
-          body: `${rule.title} — You've earned ${rule.points} points!`,
-        });
-
-        // If level up occurred, send level up notification
-        if (newLevel > stats.level) {
-          await sendPushNotification({
-            to: user.deviceToken,
-            title: ' Level Up!',
-            body: `Congratulations! You've reached Level ${newLevel}! Keep up the great work!`,
-          });
-        }
-      }
 
       newAwards.push(newAward);
     }
