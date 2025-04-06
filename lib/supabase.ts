@@ -12,9 +12,11 @@ if (!supabaseUrl || !supabaseRoleKey) {
   );
 }
 
+const isServer = typeof window === 'undefined';
+
 export const supabase = createClient(supabaseUrl, supabaseRoleKey, {
   auth: {
-    storage: AsyncStorage,
+    storage: isServer ? undefined : AsyncStorage,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
