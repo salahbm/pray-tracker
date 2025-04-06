@@ -12,7 +12,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     scheme: 'salahdev-prayer-tracker',
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
-
     experiments: {
       typedRoutes: true,
     },
@@ -39,7 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
     web: {
       bundler: 'metro',
-      output: 'server',
+      output: 'static',
       favicon: './assets/images/favicon.png',
     },
 

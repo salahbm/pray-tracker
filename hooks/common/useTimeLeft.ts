@@ -1,4 +1,5 @@
 import { PrayerTimes } from 'adhan';
+import * as Notifications from 'expo-notifications';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -71,18 +72,36 @@ const useTimeLeft = (prayerTimes) => {
   useEffect(() => {
     if (!prayerTimes) return;
 
-    prayers.forEach(({ name, time }) => {
-      if (time > new Date()) {
-        scheduleNextPrayerNotification(
-          t(`Commons.Salahs.${name}`),
-          t('Commons.Notifications.Description', {
-            salah: name.toLocaleUpperCase(),
-          }),
-          time,
-        );
+    // Cancel all existing notifications first
+    const cleanup = async () => {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+    };
+
+    // Schedule new notifications
+    const scheduleNotifications = async () => {
+      await cleanup();
+
+      for (const { name, time } of prayers) {
+        if (time > new Date()) {
+          await scheduleNextPrayerNotification(
+            t(`Commons.Salahs.${name}`),
+            t('Commons.Notifications.Description', {
+              salah: name.toLocaleUpperCase(),
+            }),
+            time,
+          );
+        }
       }
-    });
-  }, [prayerTimes, prayers, t]);
+    };
+
+    scheduleNotifications();
+
+    // Cleanup when component unmounts or prayerTimes changes
+    return () => {
+      cleanup();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prayerTimes]); // Only depend on prayerTimes, not prayers or t
 
   return { timeLeft, currentPrayer };
 };

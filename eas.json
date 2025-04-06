@@ -16,8 +16,14 @@
       "environment": "preview"
     },
     "production": {
-      "autoIncrement": true,
-      "environment": "production"
+      "developmentClient": false,
+      "distribution": "store",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": false
+      }
     }
   },
   "submit": {
