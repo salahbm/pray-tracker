@@ -6,7 +6,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ...config,
     name: 'Pray Tracker',
     slug: 'pray-tracker',
-    version: '1.0.0',
+    version: '1.0.2',
     orientation: 'portrait',
     icon: './assets/images/icon-light.png',
     scheme: 'salahdev-prayer-tracker',
@@ -19,6 +19,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.salahdev.prayerTracker',
+      buildNumber: '1.0.2',
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
       },
@@ -46,7 +47,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       [
         'expo-router',
         {
-          origin: 'https://prayer-tracker.dev',
+          origin: 'https://pray-tracker--mikjat5lox.expo.app',
         },
       ],
       [
@@ -103,7 +104,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     extra: {
       supportRTL: true,
       router: {
-        origin: 'https://prayer-tracker.dev',
+        origin: 'https://pray-tracker--mikjat5lox.expo.app',
       },
       eas: {
         projectId: '6199a50c-8940-4b44-bb6a-919736af63f6',

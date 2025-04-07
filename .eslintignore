@@ -1,6 +1,7 @@
 /.expo
 node_modules
 expo-env.d.ts
+dist
 
 # Native
 *.orig.*
