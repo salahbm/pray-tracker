@@ -8,7 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     slug: 'pray-tracker',
     version: '1.0.2',
     orientation: 'portrait',
-    icon: './assets/images/icon-light.png',
+    icon: './assets/images/icon-light-rounded.png',
     scheme: 'salahdev-prayer-tracker',
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
@@ -44,12 +44,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
 
     plugins: [
-      [
-        'expo-router',
-        {
-          origin: 'https://pray-tracker--mikjat5lox.expo.app',
-        },
-      ],
+      'expo-router',
+      'expo-image-picker',
+      'expo-localization',
+      '@prisma/react-native',
       [
         'expo-splash-screen',
         {
@@ -89,9 +87,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
             'Allow Pray Tracker to access device motion to improve Qibla direction detection.',
         },
       ],
-      'expo-image-picker',
-      'expo-localization',
-      '@prisma/react-native',
     ],
 
     locales: {
@@ -103,9 +98,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
     extra: {
       supportRTL: true,
-      router: {
-        origin: 'https://pray-tracker--mikjat5lox.expo.app',
-      },
       eas: {
         projectId: '6199a50c-8940-4b44-bb6a-919736af63f6',
       },

@@ -9,11 +9,25 @@
       "environment": "development",
       "ios": {
         "simulator": false
+      },
+      "env": {
+        "SUPABASE_URL": "SUPABASE_URL",
+        "SUPABASE_ANON_KEY": "SUPABASE_ANON_KEY",
+        "SUPABASE_ROLE_KEY": "SUPABASE_ROLE_KEY",
+        "DATABASE_URL": "DATABASE_URL",
+        "DIRECT_URL": "DIRECT_URL"
       }
     },
     "preview": {
       "distribution": "internal",
-      "environment": "preview"
+      "environment": "preview",
+      "env": {
+        "SUPABASE_URL": "SUPABASE_URL",
+        "SUPABASE_ANON_KEY": "SUPABASE_ANON_KEY",
+        "SUPABASE_ROLE_KEY": "SUPABASE_ROLE_KEY",
+        "DATABASE_URL": "DATABASE_URL",
+        "DIRECT_URL": "DIRECT_URL"
+      }
     },
     "production": {
       "developmentClient": false,
@@ -23,6 +37,14 @@
       },
       "ios": {
         "simulator": false
+      },
+      "environment": "production",
+      "env": {
+        "SUPABASE_URL": "SUPABASE_URL",
+        "SUPABASE_ANON_KEY": "SUPABASE_ANON_KEY",
+        "SUPABASE_ROLE_KEY": "SUPABASE_ROLE_KEY",
+        "DATABASE_URL": "DATABASE_URL",
+        "DIRECT_URL": "DIRECT_URL"
       }
     }
   },
