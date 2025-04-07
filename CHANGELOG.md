@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0-minor.1](https://github.com/salahbm/pray-tracker/compare/v1.1.0-minor.0...v1.1.0-minor.1) (2025-04-07)
+
+
+### 🚀 Performance Improvements
+
+* **updated standalone:** web is hosted and origin added ([b8e0b85](https://github.com/salahbm/pray-tracker/commit/b8e0b85d8671fc0b217f203cd6f2a9f416333aef))
+
 ## [1.1.0-minor.0](https://github.com/salahbm/pray-tracker/compare/v1.1.0-alpha.1...v1.1.0-minor.0) (2025-04-07)
 
 
