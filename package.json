@@ -16,8 +16,12 @@
     "commitlint": "commitlint --edit",
     "release": "standard-version",
     "release:dev": "standard-version --prerelease alpha",
+    "release:minor": "standard-version --prerelease minor",
+    "release:major": "standard-version --prerelease major",
     "push": "git add . && npm run commit && npm run release && git push origin $(git branch --show-current) --follow-tags",
-    "push:dev": "git add . && npm run commit && npm run release:dev && git push origin $(git branch --show-current) --follow-tags"
+    "push:dev": "git add . && npm run commit && npm run release:dev && git push origin $(git branch --show-current) --follow-tags",
+    "push:minor": "git add . && npm run commit && npm run release:minor && git push origin $(git branch --show-current) --follow-tags",
+    "push:major": "git add . && npm run commit && npm run release:major && git push origin $(git branch --show-current) --follow-tags"
   },
   "jest": {
     "preset": "jest-expo"
