@@ -1,6 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import * as Haptics from 'expo-haptics';
 import React, { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, Image } from 'react-native';
@@ -11,6 +10,7 @@ import { FRIENDS } from '@/constants/images';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
+import { triggerHaptic } from '@/utils/haptics';
 
 interface HomeHeaderProps {
   user?: { username: string; photo?: string }; // Add your user type here
@@ -45,13 +45,13 @@ const HomeHeader = forwardRef<
 
       <AuthWrapper mode="signedIn">
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
             if (
               profileSheetRef &&
               'current' in profileSheetRef &&
               profileSheetRef.current
             ) {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              await triggerHaptic();
               profileSheetRef.current.snapToIndex(2);
             }
           }}
@@ -78,13 +78,13 @@ const HomeHeader = forwardRef<
             <Text>{t('Auth.SignUp.SignInLink')}</Text>
           </Button>
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
               if (
                 profileSheetRef &&
                 'current' in profileSheetRef &&
                 profileSheetRef.current
               ) {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                await triggerHaptic();
 
                 profileSheetRef.current.snapToIndex(2);
               }

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-
-} */
-
 @layer utilities {
   .main-area {
     @apply flex flex-1 flex-col bg-background text-foreground px-4 pt-4;

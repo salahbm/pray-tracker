@@ -1,6 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
-import * as Haptics from 'expo-haptics';
 import LottieView from 'lottie-react-native';
 import {
   useState,
@@ -37,6 +36,7 @@ import { useCreatePray } from '@/hooks/prays/usePostPray';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { triggerHaptic } from '@/utils/haptics';
 import confetti from 'assets/gif/confetti.json';
 
 const initialState = {
@@ -109,21 +109,21 @@ export default function HomeScreen() {
   const { prayers, isPickerVisible, clickedData, accordion } = state;
 
   // Callbacks to present each sheet
-  const handlePresentSignIn = useCallback(() => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  const handlePresentSignIn = useCallback(async () => {
+    await triggerHaptic();
     forgotPwdRef.current?.close();
     signUpSheetRef.current?.close();
     signInSheetRef.current?.snapToIndex(2);
   }, []);
 
-  const handlePresentSignUp = useCallback(() => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  const handlePresentSignUp = useCallback(async () => {
+    await triggerHaptic();
     signInSheetRef.current?.close();
     signUpSheetRef.current?.snapToIndex(2);
   }, []);
 
-  const handlePresentForgotPwd = useCallback(() => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  const handlePresentForgotPwd = useCallback(async () => {
+    await triggerHaptic();
     signInSheetRef.current?.close();
     forgotPwdRef.current?.snapToIndex(2);
   }, []);
@@ -132,7 +132,7 @@ export default function HomeScreen() {
   const handlePrayerChange = useCallback(
     async (prayer, value) => {
       if (prayers[prayer] === value) return;
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await triggerHaptic();
       const updatedPrayers = { ...prayers, [prayer]: value };
       await createPray({
         id: user?.id,
@@ -150,7 +150,7 @@ export default function HomeScreen() {
   );
 
   const handleDayClick = useCallback(
-    (date: string, details: { data: DayData }) => {
+    async (date: string, details: { data: DayData }) => {
       // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
       if (isDateAfterToday) return fireToast.info(t('Home.Errors.FutureDate'));
@@ -162,7 +162,7 @@ export default function HomeScreen() {
           animated: true,
         });
       }
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await triggerHaptic();
 
       dispatch({
         type: 'SET_CLICKED_DATA',

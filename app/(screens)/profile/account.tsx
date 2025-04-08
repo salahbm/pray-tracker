@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -25,7 +25,9 @@ const Account = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (Platform.OS !== 'web') {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
     await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(
       () => {
         setModalVisible(false);

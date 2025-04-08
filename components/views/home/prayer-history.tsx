@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
-import * as Haptics from 'expo-haptics';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -23,6 +22,7 @@ import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { ClickedData } from '@/types/global';
 import { IPrays } from '@/types/prays';
+import { triggerHaptic } from '@/utils/haptics';
 
 interface PrayerHistoryProps {
   isPickerVisible: boolean;
@@ -55,7 +55,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
   const { colors } = useThemeStore();
 
   const togglePicker = async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await triggerHaptic();
     dispatch({ type: 'TOGGLE_PICKER' });
   };
 

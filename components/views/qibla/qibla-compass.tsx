@@ -1,6 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
 import { Coordinates, Qibla } from 'adhan';
-import * as Haptics from 'expo-haptics';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
 import { CircleHelp, RefreshCcw } from 'lucide-react-native';
@@ -20,6 +19,7 @@ import { IMAGES } from '@/constants/images';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
+import { triggerHaptic } from '@/utils/haptics';
 
 interface State {
   loading: boolean;
@@ -73,7 +73,7 @@ const QiblaCompass: React.FC = () => {
   }, []);
 
   const fetchQiblaAngle = useCallback(async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await triggerHaptic();
     dispatch({ type: 'START_LOADING' });
 
     try {
@@ -98,7 +98,7 @@ const QiblaCompass: React.FC = () => {
       const qiblaAngle = Qibla(userCoordinates);
 
       Magnetometer.setUpdateInterval(100);
-      const magnetSub = Magnetometer.addListener((data) => {
+      const magnetSub = Magnetometer.addListener(async (data) => {
         const angle = calculateMagnetAngle(data.x, data.y);
         dispatch({
           type: 'SET_DATA',
@@ -107,7 +107,7 @@ const QiblaCompass: React.FC = () => {
 
         // Trigger haptic only 3 times if aligned
         if (angle === Number(qiblaAngle.toFixed(0))) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          await triggerHaptic();
         }
       });
 
