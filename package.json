@@ -7,6 +7,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "vercel-build": "expo export -p web",
     "test": "jest --watchAll",
     "lint": "eslint .",
     "rules": "expo lint --fix",

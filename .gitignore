@@ -44,3 +44,4 @@ app-example
 .env
 .env.*
 !.env.example
+.vercel
