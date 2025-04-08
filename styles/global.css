@@ -7,7 +7,7 @@
     @apply flex flex-1 flex-col bg-background text-foreground px-4 pt-4;
   }
   .safe-area {
-    @apply flex-1 bg-background;
+    @apply flex-1 bg-background max-w-screen-md mx-auto w-full;
   }
 
   /* gradient background */

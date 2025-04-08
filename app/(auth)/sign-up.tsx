@@ -184,7 +184,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
             source={IMAGES.check}
-            className="w-[80px] h-[80px] mx-auto my-5"
+            className="w-20 h-20 mx-auto my-5 max-w-20 max-h-20"
           />
           <Text className="text-3xl font-bold text-center">
             {t('Auth.SignUp.Success.Title')}

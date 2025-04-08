@@ -140,7 +140,7 @@ const EditProfile = () => {
                   uri: image ? image : FRIENDS.guest,
                 }}
                 accessibilityLabel="Profile Photo"
-                className="w-[150px] h-[150px] rounded-full border border-border"
+                className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
               />
             )}
             <TouchableOpacity

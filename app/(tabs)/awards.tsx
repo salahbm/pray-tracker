@@ -12,12 +12,8 @@ export default function AwardsScreen() {
   const [value, setValue] = useState('personal');
 
   return (
-    <SafeAreaView className="main-area">
-      <Tabs
-        value={value}
-        onValueChange={setValue}
-        className="w-full max-w-[400px] mx-auto flex-col gap-1.5 flex-1"
-      >
+    <SafeAreaView className="safe-area">
+      <Tabs value={value} onValueChange={setValue} className="main-area">
         <TabsList className="flex-row w-full">
           <TabsTrigger value="personal" className="flex-1">
             <Text>{t('Awards.Tabs.Personal')}</Text>

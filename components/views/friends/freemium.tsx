@@ -43,7 +43,7 @@ const FreemiumFriends = () => {
       <ScrollView
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
-        className="w-full"
+        className="w-full px-4"
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={refetch} />
         }
@@ -68,7 +68,7 @@ const FreemiumFriends = () => {
                   <View className="flex-row items-center gap-3">
                     <Image
                       source={friend.friend.photo as ImageSourcePropType}
-                      className="size-14 rounded-full bg-muted"
+                      className="size-14 rounded-full bg-muted max-w-14 max-h-14"
                     />
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">

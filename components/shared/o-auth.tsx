@@ -69,8 +69,7 @@ const OAuth = ({ onSuccess }: { onSuccess: () => void }) => {
       >
         <Image
           source={IMAGES.google}
-          resizeMode="contain"
-          className="size-5 mx-2"
+          className="size-5 mx-2 max-w-[5px] max-h-[5px] object-contain"
         />
         <Text>Continue with Google</Text>
       </Button>

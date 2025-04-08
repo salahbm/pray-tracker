@@ -58,7 +58,7 @@ export default function Leaderboard() {
         <View className="bg-background p-6 rounded-lg flex-row gap-4 items-center py-8">
           <Image
             source={{ uri: selectedUser?.photo }}
-            className="w-16 h-16 rounded-full border border-border"
+            className="w-16 h-16 rounded-full border border-border max-w-16 max-h-16"
           />
           <View>
             <Text className="text-xl font-bold">{selectedUser?.username}</Text>

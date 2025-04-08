@@ -147,7 +147,7 @@ const QiblaCompass: React.FC = () => {
   }, [state.error]);
 
   if (state.loading) {
-    return <Loader visible={state.loading} className="mt-[55%]" />;
+    return <Loader visible={state.loading} className="mt-[80%]" />;
   }
 
   return (
@@ -173,12 +173,12 @@ const QiblaCompass: React.FC = () => {
       >
         <Image
           source={IMAGES.compass}
-          className="w-10 h-10 absolute"
+          className="w-10 h-10 absolute  max-w-10 max-h-10"
           tintColor={colors['--primary']}
         />
         <Image
           source={IMAGES.kaaba}
-          className="w-10 h-10 absolute top-2"
+          className="w-10 h-10 absolute top-2  max-w-10 max-h-10"
           style={{ transform: [{ rotate: `${state.qiblaAngle}deg` }] }}
         />
       </View>

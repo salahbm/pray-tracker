@@ -94,9 +94,8 @@ const Welcome = () => {
               >
                 <Image
                   source={item.image}
-                  className="w-full"
+                  className="w-full object-cover"
                   style={{ height: BANNER_HEIGHT }}
-                  resizeMode="cover"
                 />
               </Animated.View>
 

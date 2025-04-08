@@ -61,12 +61,16 @@ const HomeHeader = forwardRef<
               source={{
                 uri: user?.photo,
               }}
-              className={cn('size-14 rounded-full border border-border')}
+              className={cn(
+                'size-14 rounded-full border border-border max-w-14 max-h-14',
+              )}
             />
           ) : (
             <Image
               source={FRIENDS.guest}
-              className={cn('size-14 rounded-full border border-border')}
+              className={cn(
+                'size-14 rounded-full border border-border max-w-14 max-h-14',
+              )}
             />
           )}
         </TouchableOpacity>
@@ -93,7 +97,7 @@ const HomeHeader = forwardRef<
             <Image
               source={FRIENDS.guest}
               className={cn(
-                'size-14 rounded-full bg-foreground border border-border',
+                'size-14 rounded-full bg-foreground border border-border max-w-14 max-h-14',
               )}
             />
           </TouchableOpacity>

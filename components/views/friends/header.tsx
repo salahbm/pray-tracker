@@ -16,7 +16,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible: boolean }>(
         <View className="flex-row items-center justify-center">
           <Image
             source={FRIENDS.friend_1}
-            className="size-20 shrink-0 rounded-full"
+            className="size-20 shrink-0 rounded-full max-w-20 max-h-20"
             style={{
               transform: [
                 { rotate: '-10deg' },
@@ -27,14 +27,14 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible: boolean }>(
           />
           <Image
             source={FRIENDS.friend_2}
-            className="size-20 shrink-0 rounded-full"
+            className="size-20 shrink-0 rounded-full max-w-20 max-h-20"
             style={{
               transform: [{ scale: 1.1 }, { rotate: '-2deg' }],
             }}
           />
           <Image
             source={FRIENDS.friend_5}
-            className="size-20 shrink-0 rounded-full"
+            className="size-20 shrink-0 rounded-full max-w-20 max-h-20"
             style={{
               transform: [
                 { rotate: '4deg' },
@@ -45,7 +45,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible: boolean }>(
           />
           <Image
             source={FRIENDS.friend_4}
-            className="size-20 shrink-0 rounded-full"
+            className="size-20 shrink-0 rounded-full max-w-20 max-h-20"
             style={{
               transform: [
                 { rotate: '12deg' },

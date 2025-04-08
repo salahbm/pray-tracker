@@ -74,7 +74,7 @@ const FriendsPending = () => {
                           source={{
                             uri: item?.photo,
                           }}
-                          className="w-12 h-12 rounded-full bg-muted"
+                          className="w-12 h-12 rounded-full bg-muted max-w-12 max-h-12"
                           defaultSource={FRIENDS.guest}
                         />
 
@@ -140,7 +140,7 @@ const FriendsPending = () => {
                           source={{
                             uri: item.photo || FRIENDS.guest,
                           }}
-                          className="w-12 h-12 rounded-full bg-muted"
+                          className="w-12 h-12 rounded-full bg-muted max-w-12 max-h-12"
                         />
                         <View>
                           <Text className="text-base font-medium text-muted-foreground">

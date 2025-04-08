@@ -63,13 +63,13 @@ const EditPwd = () => {
           <Image
             source={{ uri: user.photo }}
             accessibilityLabel="Profile Photo"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] mt-10"
           />
         ) : (
           <Image
             source={FRIENDS.guest}
             accessibilityLabel="Guest Profile"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border mt-10"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] mt-10"
           />
         )}
         <View className="flex-1 gap-6">

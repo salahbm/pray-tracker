@@ -33,7 +33,7 @@ const About = () => {
               source={
                 currentTheme === 'light' ? IMAGES.icon_light : IMAGES.icon_dark
               }
-              className="w-32 h-32 rounded-full"
+              className="w-32 h-32 rounded-full max-w-32 max-h-32"
             />
             <Text className="mt-2 text-2xl font-bold">Pray Tracker</Text>
             <Text className="text-muted-foreground text-sm mt-2">

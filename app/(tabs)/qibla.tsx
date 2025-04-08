@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -13,31 +12,25 @@ const QiblaScreen = () => {
   const [value, setValue] = useState('qibla');
 
   return (
-    <SafeAreaView className="main-area">
-      <View>
-        <Tabs
-          value={value}
-          onValueChange={setValue}
-          className="w-full max-w-[400px] mx-auto flex-col gap-1.5"
-        >
-          <TabsList className="flex-row w-full">
-            <TabsTrigger value="qibla" className="flex-1">
-              <Text>{t('Qibla.Tabs.Qibla')}</Text>
-            </TabsTrigger>
-            <TabsTrigger value="salahs" className="flex-1">
-              <Text>{t('Qibla.Tabs.Times')}</Text>
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="qibla">
-            {/* QIBLA */}
-            <QiblaCompass />
-          </TabsContent>
-          <TabsContent value="salahs">
-            {/* TIME AND LOCATION */}
-            <PrayerTimer />
-          </TabsContent>
-        </Tabs>
-      </View>
+    <SafeAreaView className="safe-area">
+      <Tabs value={value} onValueChange={setValue} className="main-area">
+        <TabsList className="flex-row w-full">
+          <TabsTrigger value="qibla" className="flex-1">
+            <Text>{t('Qibla.Tabs.Qibla')}</Text>
+          </TabsTrigger>
+          <TabsTrigger value="salahs" className="flex-1">
+            <Text>{t('Qibla.Tabs.Times')}</Text>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="qibla">
+          {/* QIBLA */}
+          <QiblaCompass />
+        </TabsContent>
+        <TabsContent value="salahs">
+          {/* TIME AND LOCATION */}
+          <PrayerTimer />
+        </TabsContent>
+      </Tabs>
     </SafeAreaView>
   );
 };
