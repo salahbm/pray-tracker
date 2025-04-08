@@ -89,7 +89,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
   return (
     <React.Fragment>
-      <View className="w-full max-w-md mt-8">
+      <View className="w-full mt-8">
         <Text className="text-3xl font-bold text-primary mb-2 text-center">
           {t('Auth.SignUp.Title')}
         </Text>

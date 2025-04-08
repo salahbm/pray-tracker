@@ -44,7 +44,7 @@ export default function SignInScreen({
 
   return (
     <React.Fragment>
-      <View className="w-full max-w-md mt-8">
+      <View className="w-full mt-8">
         <Text className="text-3xl font-bold text-primary mb-6 text-center">
           {t('Auth.SignIn.Title')}
         </Text>
