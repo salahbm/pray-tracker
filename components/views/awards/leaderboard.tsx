@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
+import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
@@ -44,6 +45,9 @@ export default function Leaderboard() {
         showsVerticalScrollIndicator={false}
         className="mt-4"
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
+        ListEmptyComponent={
+          <NoData title={t('Commons.NotFound.noData')} className="mt-[45%]" />
+        }
       />
 
       {/* User Details Modal */}

@@ -63,20 +63,18 @@ const FreemiumFriends = () => {
               value={accordionValue}
               onValueChange={setAccordionValue}
             >
-              <AccordionItem value={String(friend.friend.friendId)}>
+              <AccordionItem value={String(friend.friend.id)}>
                 <AccordionTrigger>
                   <View className="flex-row items-center gap-3">
                     <Image
-                      source={friend.friend.friendPhoto as ImageSourcePropType}
+                      source={friend.friend.photo as ImageSourcePropType}
                       className="size-14 rounded-full bg-muted"
                     />
                     <View>
                       <Text className="text-base font-medium text-muted-foreground">
-                        {friend.friend.friendUsername}
+                        {friend.friend.username}
                       </Text>
-                      <Text className="text-sm">
-                        {friend.friend.friendEmail}
-                      </Text>
+                      <Text className="text-sm">{friend.friend.email}</Text>
                     </View>
                   </View>
                 </AccordionTrigger>
