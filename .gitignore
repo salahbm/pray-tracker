@@ -41,5 +41,6 @@ app-example
 
 
 # Environment files
-.env*.local
-.env*.production
+.env
+.env.*
+!.env.example

@@ -10,7 +10,7 @@ export const agent = async (url: string, options?: RequestInit) => {
 
   const response = await fetch(fullURL, {
     ...options,
-    credentials: 'omit', // 'include' is browser-specific; omit is safer for Expo.
+    credentials: 'omit', // Correct for Expo apps
     headers,
   });
 
@@ -23,5 +23,6 @@ export const agent = async (url: string, options?: RequestInit) => {
       details: errorData.details || 'Unknown error',
     };
   }
+
   return await response.json();
 };

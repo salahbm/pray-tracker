@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { ErrorData } from '@/types/api';
-import { ApiError } from '@/utils/error';
 import { MessageCodes, StatusCode } from '@/utils/status';
 
 const isErrorData = (error: unknown): error is ErrorData => {
@@ -43,6 +42,10 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         },
         queryCache: new QueryCache({
           onError: (error, query) => {
+            console.info(
+              ` Error in query: ${JSON.stringify(query.queryKey)}`,
+              error,
+            );
             if (!isErrorData(error)) {
               fireToast.error(
                 error instanceof Error
@@ -62,7 +65,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         }),
         mutationCache: new MutationCache({
           onError: (error) => {
-            console.warn('Mutation error:', error ?? 'Unknown error');
+            console.info('Mutation error:', error ?? 'Unknown error');
 
             // Ensure error is an instance of ApiError
             if (
@@ -98,7 +101,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
             message: string;
             code: MessageCodes;
           }) => {
-            console.log('Mutation success:', res);
+            console.info('Mutation success:', res);
             if (res && 'code' in res) {
               fireToast.success(t(`Responses.MessageCodes.${res?.code}`));
             }

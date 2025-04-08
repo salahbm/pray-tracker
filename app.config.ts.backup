@@ -107,6 +107,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
       supabaseRoleKey: process.env.SUPABASE_ROLE_KEY,
       baseUrl: process.env.BASE_URL,
+
+      "APP_VARIANT": "$(APP_VARIANT)",
+      "BASE_URL": "$(BASE_URL)",
+      "SUPABASE_URL": "$(SUPABASE_URL)",
+      "SUPABASE_ANON_KEY": "$(SUPABASE_ANON_KEY)",
+      "SUPABASE_ROLE_KEY": "$(SUPABASE_ROLE_KEY)",
+      "DATABASE_URL": "$(DATABASE_URL)",
+      "DIRECT_URL": "$(DIRECT_URL)"
     },
 
     owner: 'salahbm_dev',

@@ -86,14 +86,7 @@
       "supportRTL": true,
       "eas": {
         "projectId": "6199a50c-8940-4b44-bb6a-919736af63f6"
-      },
-      "appVariant": "$(APP_VARIANT)",
-      "baseUrl": "$(BASE_URL)",
-      "supabaseUrl": "$(SUPABASE_URL)",
-      "supabaseAnonKey": "$(SUPABASE_ANON_KEY)",
-      "supabaseRoleKey": "$(SUPABASE_ROLE_KEY)",
-      "databaseUrl": "$(DATABASE_URL)",
-      "directUrl": "$(DIRECT_URL)"
+      }
     },
     "owner": "salahbm_dev"
   }
