@@ -22,3 +22,11 @@ if (process.env.EXPO_PUBLIC_APP_VARIANT === 'development') {
 }
 
 export default prisma;
+
+// import { PrismaClient } from '@prisma/client';
+
+// const prisma = new PrismaClient({
+//   log: ['error'],
+// });
+
+// export default prisma;

@@ -219,7 +219,8 @@
       "asr": "Asr",
       "maghrib": "Maghrib",
       "isha": "Isha",
-      "nafl": "Nafl"
+      "nafl": "Nafl",
+      "sunrise": "Sunrise"
     },
     "Notifications": {
       "Description": "Time for {{salah}} at :"

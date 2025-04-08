@@ -35,7 +35,10 @@ export function handleError(error: unknown): Response {
         message: error.message,
         details: error.details ?? null,
       }),
-      { status: error.status },
+      {
+        status: error.status,
+        headers: { 'Content-Type': 'application/json' }, // ✅ required
+      },
     );
   }
 

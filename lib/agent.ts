@@ -5,24 +5,31 @@ export const agent = async (url: string, options?: RequestInit) => {
 
   const headers: HeadersInit = {
     'Content-Type': 'application/json; charset=utf-8',
-    ...(options?.headers || {}),
   };
 
   const response = await fetch(fullURL, {
     ...options,
-    credentials: 'omit', // Correct for Expo apps
+    credentials: 'omit',
     headers,
   });
 
+  const text = await response.text(); // avoid direct json crash
+
   if (!response.ok) {
-    const errorData = await response.json();
+    let errorData;
+    try {
+      errorData = JSON.parse(text);
+    } catch {
+      errorData = { message: 'Invalid JSON', details: text };
+    }
+
     throw {
       status: response.status,
-      code: errorData.code,
-      message: errorData.message || 'Unknown error message',
+      code: errorData.code || 'API_ERROR',
+      message: errorData.message || 'Unknown error',
       details: errorData.details || 'Unknown error',
     };
   }
 
-  return await response.json();
+  return JSON.parse(text);
 };

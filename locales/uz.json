@@ -154,7 +154,8 @@
       "asr": "Asr",
       "maghrib": "Shom",
       "isha": "Xufton",
-      "nafl": "Nafl"
+      "nafl": "Nafl",
+      "sunrise": "Quyosh Chiqishi"
     },
     "Notifications": {
       "Description": "{{salah}} namozi kirdi :"

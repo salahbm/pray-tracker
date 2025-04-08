@@ -184,7 +184,8 @@
       "asr": "아스르",
       "maghrib": "마그리브",
       "isha": "이샤",
-      "nafl": "나플"
+      "nafl": "나플",
+      "sunrise": "좋아"
     },
     "Notifications": {
       "Description": "{{salah}} 기도 시간 :"
@@ -229,10 +230,6 @@
       "prayer_count": "기도 마일스톤",
       "fajr": "파즈르 기도 우수상",
       "prayer_quality": "기도 품질",
-      "sunnah": "순나 기도",
-      "dhikr_quran": "즈크르 & 꾸란",
-      "special_times": "특별한 시간",
-      "community": "커뮤니티",
       "milestone": "마일스톤",
       "special": "특별한 상"
     },

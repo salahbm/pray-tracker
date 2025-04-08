@@ -220,7 +220,8 @@
       "asr": "Аср",
       "maghrib": "Магриб",
       "isha": "Иша",
-      "nafl": "Нафль"
+      "nafl": "Нафль",
+      "sunrise": "Восход"
     },
     "Notifications": {
       "Description": "Время для {{salah}} в :"

@@ -154,7 +154,7 @@ const PrayerTimer = () => {
                     : 'text-muted-foreground',
                 )}
               >
-                {item?.name}
+                {t(`Commons.Salahs.${item?.name}`)}
               </Text>
               <Text
                 className={cn(
