@@ -4,7 +4,11 @@
     "functions": {
       "api/index.ts": {
         "runtime": "@vercel/node@5.1.8",
-        "includeFiles": "dist/server/**"
+        "includeFiles": [
+          "dist/server/**",
+          "node_modules/.prisma/client/**",
+          "node_modules/@prisma/client/**"
+        ]
       }
     },
     "rewrites": [
