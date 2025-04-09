@@ -1,8 +1,7 @@
-import { User } from '@supabase/supabase-js';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { X } from 'lucide-react-native';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 
@@ -14,13 +13,9 @@ import { Text } from '@/components/ui/text';
 import { IMAGES } from '@/constants/images';
 import { userKeys } from '@/constants/query-keys';
 import { useResetPwd } from '@/hooks/auth/useForgotPwd';
-import { useGetUser } from '@/hooks/auth/useGetUser';
-import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
-import { ApiError } from '@/utils/error';
-import { MessageCodes, StatusCode } from '@/utils/status';
 
 export default function ForgotPasswordScreen({
   onNavigate,
@@ -32,48 +27,19 @@ export default function ForgotPasswordScreen({
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
-  const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
 
   const { colors } = useThemeStore();
   const queryClient = useQueryClient();
-  const { setUser } = useAuthStore();
+  const { setUser, setSession } = useAuthStore();
   const { verifyRequest, sendRequest, isRequestPending, isVerifyPending } =
     useResetPwd();
-  const { refetch } = useGetUser(supabaseUser?.id);
 
   const onResetPassword = useCallback(async () => {
     await sendRequest.mutateAsync(email);
     setShowOtpModal(true);
   }, [email, sendRequest]);
-
-  const fetchUserData = useCallback(async () => {
-    if (!supabaseUser?.id) return;
-
-    const { data } = await refetch();
-    if (!data) {
-      throw new ApiError({
-        message: 'User not found',
-        status: StatusCode.NOT_FOUND,
-        code: MessageCodes.USER_NOT_FOUND,
-      });
-    }
-    setShowOtpModal(false);
-    setTimeout(() => {
-      setSuccessModal(true);
-    }, 150);
-    setUser(data);
-    queryClient.invalidateQueries(userKeys);
-    setEmail('');
-    setToken('');
-  }, [refetch, setUser, queryClient, supabaseUser]);
-
-  useEffect(() => {
-    if (supabaseUser) {
-      fetchUserData();
-    }
-  }, [supabaseUser, fetchUserData]);
 
   const handlePressVerify = useCallback(async () => {
     try {
@@ -81,18 +47,19 @@ export default function ForgotPasswordScreen({
         email,
         token,
       });
-      if (!session || !user) throw new Error('Failed to verify OTP.');
 
-      await supabase.auth.setSession({
-        access_token: session.access_token,
-        refresh_token: session.refresh_token,
-      });
-
-      setSupabaseUser(user);
+      queryClient.invalidateQueries(userKeys);
+      setUser(user);
+      setSession(session);
+      setTimeout(() => {
+        setSuccessModal(true);
+      }, 200);
     } catch (error) {
       fireToast.error(error.message);
+    } finally {
+      setShowOtpModal(false);
     }
-  }, [email, token, verifyRequest]);
+  }, [email, token, verifyRequest, setUser, setSession, queryClient]);
 
   return (
     <React.Fragment>

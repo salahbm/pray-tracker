@@ -1,14 +1,18 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import {
   MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import { PropsWithChildren, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useLogout } from '@/hooks/auth/useLogOut';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { ErrorData } from '@/types/api';
 import { MessageCodes, StatusCode } from '@/utils/status';
 
@@ -25,6 +29,7 @@ const isErrorData = (error: unknown): error is ErrorData => {
 const QueryProvider = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const { errorHandler } = useError();
+  const { clearUserAndSession } = useAuthStore();
 
   const [queryClient] = useState(
     () =>
@@ -66,6 +71,17 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
         mutationCache: new MutationCache({
           onError: (error) => {
             console.info('Mutation error:', error ?? 'Unknown error');
+
+            // Check if error is an AuthSessionMissingError
+            if (
+              'details' in error &&
+              (error?.details as unknown as { name: string })?.name ===
+                'AuthSessionMissingError'
+            ) {
+              clearUserAndSession();
+              router.replace('/(tabs)');
+              return;
+            }
 
             // Ensure error is an instance of ApiError
             if (
