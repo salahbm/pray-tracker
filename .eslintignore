@@ -2,6 +2,10 @@
 node_modules
 expo-env.d.ts
 dist
+.expo-shared
+.vscode
+.vercel
+
 
 # Native
 *.orig.*
@@ -13,4 +17,4 @@ dist
 
 
 #prisma 
-lib/prisma
+lib/prisma/client

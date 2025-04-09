@@ -8,3 +8,8 @@ assets/**
 .expo-shared
 .prettirrc
 .eslintrc.js
+lib/prisma/client
+dist
+.expo
+.vscode
+.vercel

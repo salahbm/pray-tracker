@@ -1,7 +1,7 @@
 // components/ErrorModal.tsx
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import Modal from 'react-native-modal';
 
 import { cn } from '@/lib/utils';
@@ -44,7 +44,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
       isVisible={isVisible}
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
-      useNativeDriver
+      useNativeDriver={Platform.OS !== 'web'}
       hideModalContentWhileAnimating
       backdropTransitionOutTiming={0}
       className="flex items-center justify-center"

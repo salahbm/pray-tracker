@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import ReactNativeModal, { ModalProps } from 'react-native-modal';
 
 interface IModalProps {
@@ -29,8 +30,8 @@ const Modal: React.FC<IModalProps & Partial<ModalProps>> = ({
       backdropColor={backdropColor}
       backdropOpacity={backdropOpacity}
       avoidKeyboard={avoidKeyboard}
-      useNativeDriver={true}
-      useNativeDriverForBackdrop={true}
+      useNativeDriver={Platform.OS !== 'web'}
+      useNativeDriverForBackdrop={Platform.OS !== 'web'}
       hideModalContentWhileAnimating={true}
       {...props}
     >

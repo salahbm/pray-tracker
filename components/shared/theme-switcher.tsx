@@ -1,7 +1,7 @@
 import { CheckCircle } from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Pressable, Animated } from 'react-native';
+import { View, Pressable, Animated, Platform } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -29,12 +29,12 @@ const ThemeSwitcher = () => {
       Animated.timing(scales[theme], {
         toValue: 1.2,
         duration: 150,
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }),
       Animated.timing(scales[theme], {
         toValue: 1,
         duration: 150,
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }),
     ]).start();
 

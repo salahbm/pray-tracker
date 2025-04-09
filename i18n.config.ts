@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import enLocalization from './locales/en.json';
 import koLocalization from './locales/ko.json';
@@ -16,15 +17,25 @@ const resources = {
 };
 
 const initI18n = async () => {
-  if (typeof window === 'undefined') return;
+  let savedLanguage = 'en'; // default fallback
 
-  let savedLanguage = await AsyncStorage.getItem('language');
-
-  if (!savedLanguage) {
-    savedLanguage = Localization.getLocales()[0].languageCode;
+  try {
+    if (Platform.OS !== 'web') {
+      const stored = await AsyncStorage.getItem('language');
+      if (stored) {
+        savedLanguage = stored;
+      } else {
+        savedLanguage = Localization.getLocales()[0]?.languageCode || 'en';
+      }
+    } else {
+      // On web: try navigator.languages or Localization fallback
+      savedLanguage = Localization.getLocales()[0]?.languageCode || 'en';
+    }
+  } catch (error) {
+    console.info('Failed to get saved language:', error);
   }
 
-  i18n.use(initReactI18next).init({
+  await i18n.use(initReactI18next).init({
     compatibilityJSON: 'v4',
     resources,
     lng: savedLanguage,
@@ -33,6 +44,8 @@ const initI18n = async () => {
       escapeValue: false,
     },
   });
+
+  return i18n;
 };
 
 initI18n();

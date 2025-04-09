@@ -8,6 +8,7 @@ import {
   View,
   Animated,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
@@ -72,7 +73,7 @@ const Welcome = () => {
             <Animated.ScrollView
               onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                { useNativeDriver: true },
+                { useNativeDriver: Platform.OS !== 'web' },
               )}
               scrollEventThrottle={16}
             >
