@@ -37,7 +37,7 @@ export type Stats = {
   naflStrike100: number;
   naflStrike150: number;
   consistencyPercentage: number;
-  lastActiveDay?: Date;
+  lastActiveDay?: Date | null;
   lastFajrTime?: Date;
   lastNaflDate?: Date;
   missedPrayerStreak: number;

@@ -1,17 +1,16 @@
 import type { Request, Response } from 'express';
 import { createResponse, StatusCode, MessageCodes } from '../utils/status';
-import { handleError } from '../middleware/error-handler';
+import { ApiError, handleError } from '../middleware/error-handler';
 import { UserService } from '../services/user.service';
 
 export class UserController {
-  static async getTopUsers(_req: Request, res: Response) {
+  static async getUsers(_req: Request, res: Response) {
     try {
-      const users = await UserService.getTopUsers();
+      const users = await UserService.getUsers();
       res.json(
         createResponse({
           status: StatusCode.SUCCESS,
           message: 'Users fetched successfully',
-          code: MessageCodes.USER_FETCHED,
           data: users,
         })
       );
@@ -22,7 +21,7 @@ export class UserController {
 
   static async getUser(req: Request, res: Response) {
     try {
-      const supabaseId = req.query.id as string;
+      const supabaseId = req.params.id;
 
       if (!supabaseId) {
         throw {
@@ -36,7 +35,6 @@ export class UserController {
         createResponse({
           status: StatusCode.SUCCESS,
           message: 'User fetched successfully',
-          code: MessageCodes.USER_FETCHED,
           data: user,
         })
       );
@@ -63,7 +61,11 @@ export class UserController {
 
   static async updateUser(req: Request, res: Response) {
     try {
-      const updatedUser = await UserService.updateUser(req.body);
+      const userId = req.params.id;
+      const updatedUser = await UserService.updateUser({
+        ...req.body,
+        id: userId,
+      });
       res.json(
         createResponse({
           status: StatusCode.SUCCESS,
@@ -79,7 +81,17 @@ export class UserController {
 
   static async deleteUser(req: Request, res: Response) {
     try {
-      const deleted = await UserService.deleteUser(req.body.id);
+      const userId = req.params.id;
+
+      if (!userId) {
+        throw new ApiError({
+          status: StatusCode.BAD_REQUEST,
+          code: MessageCodes.UNAUTHORIZED,
+          message: 'User ID is required',
+        });
+      }
+
+      const deleted = await UserService.deleteUser(userId);
       res.json(
         createResponse({
           status: StatusCode.SUCCESS,

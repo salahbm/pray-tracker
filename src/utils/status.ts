@@ -265,7 +265,7 @@ export const SupabaseErrorMap: Record<string, MessageCodes> = {
 // Default message code if an error isn't mapped
 export const DEFAULT_MESSAGE_CODE = MessageCodes.UNKNOWN_ERROR;
 
-// Response Utility Function
+// utils/status.ts (or wherever you define it)
 export function createResponse<T>({
   status,
   message,
@@ -277,13 +277,11 @@ export function createResponse<T>({
   code?: MessageCodes;
   data: T;
 }) {
-  return new Response(
-    JSON.stringify({
-      status,
-      message,
-      code,
-      data,
-    }),
-    { status }
-  );
+  return {
+    success: true,
+    status,
+    message,
+    code,
+    data,
+  };
 }

@@ -5,13 +5,31 @@ import { ApiError } from '../middleware/error-handler';
 import { StatusCode, MessageCodes } from '../utils/status';
 
 export class UserService {
+  /**
+   * Get top users
+   * @returns  a list of top users
+   */
   static async getTopUsers(): Promise<User[]> {
-    return prisma.user.findMany({
+    const users = await prisma.user.findMany({
       orderBy: { totalPoints: 'desc' },
       take: 100,
     });
+
+    return users;
+  }
+  static async getUsers(): Promise<User[]> {
+    const users = await prisma.user.findMany({
+      orderBy: { totalPoints: 'desc' },
+      take: 100,
+    });
+    return users;
   }
 
+  /**
+   * Get user by supabase id
+   * @param supabaseId the supabase id of the user
+   * @returns the user
+   */
   static async getUserBySupabaseId(supabaseId: string): Promise<User> {
     const user = await prisma.user.findUnique({ where: { supabaseId } });
 
@@ -37,6 +55,11 @@ export class UserService {
     return user;
   }
 
+  /**
+   * Create user
+   * @param data the data of the user
+   * @returns the user
+   */
   static async createUser(data: Partial<User>): Promise<User> {
     const { username, email, supabaseId, password } = data;
 
@@ -54,6 +77,11 @@ export class UserService {
     });
   }
 
+  /**
+   * Update user
+   * @param data the data of the user
+   * @returns the user
+   */
   static async updateUser(data: Partial<User> & { id: string }): Promise<User> {
     const { id, ...updateData } = data;
 
@@ -80,6 +108,11 @@ export class UserService {
     });
   }
 
+  /**
+   * Delete user
+   * @param id the id of the user
+   * @returns the user
+   */
   static async deleteUser(id: string): Promise<User> {
     if (!id) {
       throw new ApiError({

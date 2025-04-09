@@ -4,7 +4,7 @@ import { createResponse, StatusCode } from '../utils/status';
 import { ProService } from '../services/pro.service';
 
 export class ProController {
-  static async getPro(res: Response) {
+  static async getPro(_req: Request, res: Response) {
     try {
       const pro = await ProService.getPro();
       res.json(

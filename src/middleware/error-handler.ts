@@ -32,6 +32,7 @@ export class ApiError<T = unknown> extends Error {
   }
 }
 
+// Fix this by properly binding the route handlers
 export function handleError(res: Response, error: unknown): Response {
   if (error instanceof ApiError) {
     return res.status(error.status).json({
@@ -50,6 +51,7 @@ export function handleError(res: Response, error: unknown): Response {
   });
 }
 
+// Fix this by properly binding the route handlers
 export const errorHandler: ErrorRequestHandler = (
   err: Error,
   _req: Request,
