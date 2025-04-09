@@ -14,7 +14,7 @@ const uploadImage = async ({
   fileExt: string;
   userId: string;
   oldPath?: string;
-}) => {
+}): Promise<string> => {
   const formData = new FormData();
 
   const response = await fetch(imageUri);
@@ -28,8 +28,7 @@ const uploadImage = async ({
     method: 'POST',
     body: formData,
   });
-
-  return result.data.photo; // Return updated image URL
+  return result.data.photo;
 };
 
 export const useUploadImage = () => {

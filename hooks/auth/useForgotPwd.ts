@@ -1,51 +1,33 @@
-import * as Linking from 'expo-linking';
-
 import useMutation from '../common/useMutation';
-import { supabase } from '@/lib/supabase';
+import { agent } from '@/lib/agent';
 
-async function signInWithEmail(email: string) {
-  const resetPasswordURL = Linking.createURL('/ResetPassword');
-  const { error, data } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: resetPasswordURL,
+async function requestReset(email: string) {
+  const response = await agent('/auth/request-reset', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
+  return response.data;
 }
 
-interface IPwdVerifyToken {
-  email: string;
-  token: string;
-}
-
-// Verify OTP and post user to the backend
-const verifyOtp = async (params: IPwdVerifyToken) => {
-  const { email, token } = params;
-
-  // Step 1: Verify OTP
-  const { data, error } = await supabase.auth.verifyOtp({
-    email,
-    token: token.toString(),
-    type: 'email',
+async function verifyReset(params: { email: string; token: string }) {
+  const response = await agent('/auth/verify-reset', {
+    method: 'POST',
+    body: JSON.stringify(params),
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
+  return response.data;
+}
 
 export const useResetPwd = () => {
   const sendRequest = useMutation({
-    mutationFn: signInWithEmail,
+    mutationFn: requestReset,
   });
+
   const verifyRequest = useMutation({
-    mutationFn: verifyOtp,
+    mutationFn: verifyReset,
   });
+
   return {
     sendRequest,
     verifyRequest,

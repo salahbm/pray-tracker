@@ -2,7 +2,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
 import useMutation from '../common/useMutation';
-import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { ApiError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
@@ -28,15 +27,15 @@ export const useLogout = () => {
         // Reset Zustand store
         clearUserAndSession();
 
-        // Sign out from Supabase
-        const { error } = await supabase.auth.signOut();
-        if (error && error?.message !== 'Auth session missing!') {
-          throw new ApiError({
-            message: error?.message || 'Failed to log out',
-            status: error.status,
-            code: MessageCodes.SIGN_OUT_FAILED,
-          });
-        }
+        // // Sign out from Supabase
+        // const { error } = await supabase.auth.signOut();
+        // if (error && error?.message !== 'Auth session missing!') {
+        //   throw new ApiError({
+        //     message: error?.message || 'Failed to log out',
+        //     status: error.status,
+        //     code: MessageCodes.SIGN_OUT_FAILED,
+        //   });
+        // }
 
         // Navigate after everything is cleared
         router.replace('/(tabs)');

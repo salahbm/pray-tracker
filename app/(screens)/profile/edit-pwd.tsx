@@ -8,18 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { useLogout } from '@/hooks/auth/useLogOut';
-import { usePutUser } from '@/hooks/auth/usePutUser';
-import { supabase } from '@/lib/supabase';
+import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 const EditPwd = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
-  const { mutate: logOut, isPending } = useLogout();
-
-  const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
+  const { mutateAsync: updatePassword, isPending } = useUpdatePassword();
 
   //   States
   const [newPassword, setNewPassword] = useState<string>('');
@@ -42,14 +38,11 @@ const EditPwd = () => {
       if (!validatePasswords()) return;
 
       if (newPassword) {
-        await supabase.auth.updateUser({ password: newPassword });
-        await updateUser({
-          ...user,
-          password: newPassword,
+        await updatePassword({
+          email: user?.email,
+          newPassword,
         });
       }
-      // Log out the user after updating password
-      logOut(undefined);
     } catch (error) {
       fireToast.error(error.message);
     }
@@ -63,13 +56,13 @@ const EditPwd = () => {
           <Image
             source={{ uri: user.photo }}
             accessibilityLabel="Profile Photo"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] mt-10"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
           />
         ) : (
           <Image
             source={FRIENDS.guest}
             accessibilityLabel="Guest Profile"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] mt-10"
+            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
           />
         )}
         <View className="flex-1 gap-6">
@@ -96,7 +89,7 @@ const EditPwd = () => {
         </View>
       </ScrollView>
       <View className="pb-4">
-        <Button onPress={handleUpdate} disabled={isLoading || isPending}>
+        <Button onPress={handleUpdate} disabled={isPending}>
           <Text>{t('Profile.EditPassword.SaveButton')}</Text>
         </Button>
       </View>

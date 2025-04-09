@@ -56,7 +56,6 @@ const EditProfile = () => {
           userId: user?.id,
           oldPath,
         });
-
         setImage(uploadedUrl); // update state with uploaded image URL
       }
     } catch (e) {
@@ -94,10 +93,18 @@ const EditProfile = () => {
           <View className="relative">
             {imageUploading ? (
               <View className="w-[150px] h-[150px] rounded-full border border-border bg-primary opacity-80 animate-pulse" />
+            ) : image ? (
+              <Image
+                source={{
+                  uri: image,
+                }}
+                accessibilityLabel="Profile Photo"
+                className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
+              />
             ) : (
               <Image
                 source={{
-                  uri: image ? image : FRIENDS.guest,
+                  uri: FRIENDS.guest,
                 }}
                 accessibilityLabel="Profile Photo"
                 className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
