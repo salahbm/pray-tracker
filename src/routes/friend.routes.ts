@@ -1,13 +1,14 @@
-import { Router } from 'express';
+// src/routes/friend.routes.ts
+import express from 'express';
 import { FriendController } from '../controllers/friend.controller';
 
-const router = Router();
+const router = express.Router();
 
-// Match original serverless paths
 router.get('/approved', FriendController.getApprovedFriends);
 router.get('/pending', FriendController.getPendingRequests);
-router.post('/request', FriendController.sendRequest);
-router.post('/approve', FriendController.approveRequest);
-router.delete('/reject', FriendController.rejectRequest);
+router.post('/request', FriendController.sendFriendRequest);
+router.post('/approve', FriendController.approveFriendRequest);
+router.delete('/reject', FriendController.rejectFriendRequest);
+router.delete('/remove', FriendController.deleteFriend);
 
 export default router;

@@ -1,172 +1,158 @@
-import { PrismaClient } from '@prisma/client';
-import { sendPushNotification } from '../utils/notification';
+// src/services/friend.service.ts
 import { FriendStatus } from '../generated/prisma';
-import type {
-  IFriend,
-  PendingFriend,
-  ApprovedFriend,
-  FriendRequestResponse,
-} from '../types/friends';
+import { prisma } from '../lib/prisma';
 import { ApiError } from '../middleware/error-handler';
-import { StatusCode } from '../utils/status';
+import { StatusCode, MessageCodes } from '../utils/status';
 
 export class FriendService {
-  constructor(private prisma: PrismaClient) {}
+  static async getApprovedFriends(userId: string) {
+    if (!userId) {
+      throw new ApiError({
+        message: 'Missing userId',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+      });
+    }
 
-  async getApprovedFriends(userId: string): Promise<ApprovedFriend[]> {
-    const friends = await this.prisma.friend.findMany({
+    const friends = await prisma.friend.findMany({
       where: {
         OR: [
-          { userId, status: FriendStatus.APPROVED },
-          { friendId: userId, status: FriendStatus.APPROVED },
+          { userId, status: 'APPROVED' },
+          { friendId: userId, status: 'APPROVED' },
         ],
       },
       select: {
         id: true,
         status: true,
-        friend: {
-          select: {
-            id: true,
-            username: true,
-            email: true,
-            photo: true,
-            deviceToken: true,
-            prays: {
-              where: {
-                date: {
-                  gte: new Date(new Date().setHours(0, 0, 0, 0)),
-                },
-              },
-              select: {
-                fajr: true,
-                dhuhr: true,
-                asr: true,
-                maghrib: true,
-                isha: true,
-                nafl: true,
-              },
-            },
-          },
-        },
-        user: {
-          select: {
-            id: true,
-            username: true,
-            email: true,
-            photo: true,
-            deviceToken: true,
-            prays: {
-              where: {
-                date: {
-                  gte: new Date(new Date().setHours(0, 0, 0, 0)),
-                },
-              },
-              select: {
-                fajr: true,
-                dhuhr: true,
-                asr: true,
-                maghrib: true,
-                isha: true,
-                nafl: true,
-              },
-            },
-          },
-        },
+        friend: true,
+        user: true,
       },
     });
 
-    // Transform data to match the ApprovedFriend type
+    const friendIds = friends.map((f) =>
+      f.friend.id === userId ? f.user.id : f.friend.id
+    );
+
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+    const prayers = await prisma.prays.findMany({
+      where: {
+        userId: { in: friendIds },
+        date: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+      },
+      include: { user: true },
+    });
+
     return friends.map((f) => {
-      const friendData = f.userId === userId ? f.friend : f.user;
+      const info = f.friend.id === userId ? f.user : f.friend;
+      const todayPrays = prayers.filter((p) => p.userId === info.id);
       return {
         friend: {
           friendshipId: f.id,
-          id: friendData.id,
-          username: friendData.username,
-          email: friendData.email,
-          photo: friendData.photo,
-          deviceToken: friendData.deviceToken,
+          id: info.id,
+          username: info.username,
+          email: info.email,
+          photo: info.photo,
           status: f.status,
+          deviceToken: info.deviceToken,
         },
-        prays: friendData.prays,
+        prays: todayPrays.length
+          ? todayPrays
+          : [
+              {
+                userId: info.id,
+                username: info.username,
+                date: new Date(),
+                fajr: 0,
+                dhuhr: 0,
+                asr: 0,
+                maghrib: 0,
+                isha: 0,
+                nafl: 0,
+              },
+            ],
       };
     });
   }
 
-  async getPendingRequests(userId: string): Promise<FriendRequestResponse> {
-    const [sentBy, requests] = await Promise.all([
-      // Requests received by the user
-      this.prisma.friend.findMany({
-        where: {
-          friendId: userId,
-          status: FriendStatus.PENDING,
-        },
-        include: {
-          user: {
-            select: {
-              username: true,
-              email: true,
-              photo: true,
-            },
-          },
-        },
-      }),
-      // Requests sent by the user
-      this.prisma.friend.findMany({
-        where: {
-          userId,
-          status: FriendStatus.PENDING,
-        },
-        include: {
-          friend: {
-            select: {
-              username: true,
-              email: true,
-              photo: true,
-            },
-          },
-        },
-      }),
-    ]);
-
-    return {
-      sentBy: sentBy.map((req) => ({
-        id: req.id,
-        userId: req.userId,
-        friendId: req.friendId,
-        username: req.user.username,
-        email: req.user.email,
-        photo: req.user.photo,
-        status: req.status,
-      })),
-      requests: requests.map((req) => ({
-        id: req.id,
-        userId: req.userId,
-        friendId: req.friendId,
-        username: req.friend.username,
-        email: req.friend.email,
-        photo: req.friend.photo,
-        status: req.status,
-      })),
-    };
-  }
-
-  async sendRequest(userId: string, friendId: string): Promise<IFriend> {
-    // Check if users exist
-    const [user, friend] = await Promise.all([
-      this.prisma.user.findUnique({ where: { id: userId } }),
-      this.prisma.user.findUnique({ where: { id: friendId } }),
-    ]);
-
-    if (!user || !friend) {
+  static async getPendingFriendRequests(userId: string) {
+    if (!userId) {
       throw new ApiError({
-        message: 'User not found',
-        status: StatusCode.NOT_FOUND,
+        message: 'Missing userId',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
       });
     }
 
-    // Check if request already exists
-    const existingRequest = await this.prisma.friend.findFirst({
+    const friends = await prisma.friend.findMany({
+      where: {
+        OR: [
+          { userId, status: 'PENDING' },
+          { friendId: userId, status: 'PENDING' },
+        ],
+      },
+      include: {
+        friend: true,
+        user: true,
+      },
+    });
+
+    const sentBy = [];
+    const requests = [];
+
+    for (const f of friends) {
+      const isSender = f.userId === userId;
+      const other = isSender ? f.friend : f.user;
+      const item = {
+        id: f.id,
+        userId: f.userId,
+        friendId: f.friendId,
+        username: other.username,
+        email: other.email,
+        photo: other.photo,
+        status: f.status,
+      };
+      if (isSender) requests.push(item);
+      else sentBy.push(item);
+    }
+
+    return { sentBy, requests };
+  }
+
+  static async sendFriendRequest({
+    userId,
+    friendEmail,
+  }: {
+    userId: string;
+    friendEmail: string;
+  }) {
+    if (!userId || !friendEmail) {
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+        details: { userId, friendEmail },
+      });
+    }
+
+    const friend = await prisma.user.findUnique({
+      where: { email: friendEmail },
+    });
+    if (!friend) {
+      throw new ApiError({
+        message: 'Friend not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_NOT_FOUND,
+      });
+    }
+
+    const friendId = friend.id;
+    const exists = await prisma.friend.findFirst({
       where: {
         OR: [
           { userId, friendId },
@@ -175,119 +161,149 @@ export class FriendService {
       },
     });
 
-    if (existingRequest) {
+    if (exists) {
       throw new ApiError({
-        message: 'Friend request already exists',
-        status: StatusCode.BAD_REQUEST,
+        message: 'Friend request already sent or exists',
+        status: StatusCode.CONFLICT,
+        code: MessageCodes.FRIEND_EXISTS,
       });
     }
 
-    // Create friend request
-    const request = await this.prisma.friend.create({
-      data: {
-        userId,
-        friendId,
+    const created = await prisma.friend.create({
+      data: { userId, friendId, status: FriendStatus.PENDING },
+      include: { friend: true },
+    });
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    return {
+      sentBy: {
+        id: user?.id,
+        username: user?.username,
+        email: user?.email,
+        photo: user?.photo,
+      },
+      friend: {
+        friendshipId: created.id,
+        id: created.friend.id,
+        deviceToken: created.friend.deviceToken,
+        username: created.friend.username,
+        email: created.friend.email,
+        photo: created.friend.photo,
         status: FriendStatus.PENDING,
       },
-    });
-
-    // Send push notification if device token exists
-    if (friend.deviceToken) {
-      await sendPushNotification({
-        to: friend.deviceToken,
-        title: 'New Friend Request',
-        body: `${user.username} sent you a friend request`,
-      });
-    }
-
-    // Return formatted friend data
-    return {
-      friendshipId: request.id,
-      id: friend.id,
-      username: friend.username,
-      email: friend.email,
-      photo: friend.photo,
-      deviceToken: friend.deviceToken,
-      status: request.status,
     };
   }
 
-  async approveRequest(requestId: string): Promise<IFriend> {
-    const request = await this.prisma.friend.findUnique({
-      where: { id: requestId },
-      include: {
-        user: true,
-        friend: true,
-      },
-    });
-
-    if (!request) {
+  static async approveFriendRequest({
+    userId,
+    friendId,
+    friendshipId,
+  }: {
+    userId: string;
+    friendId: string;
+    friendshipId: string;
+  }) {
+    if (!userId || !friendId) {
       throw new ApiError({
-        message: 'Friend request not found',
-        status: StatusCode.NOT_FOUND,
-      });
-    }
-
-    if (request.status !== FriendStatus.PENDING) {
-      throw new ApiError({
-        message: 'Friend request is not pending',
+        message: 'Missing required fields',
         status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
       });
     }
 
-    const updatedRequest = await this.prisma.friend.update({
-      where: { id: requestId },
-      data: { status: FriendStatus.APPROVED },
-    });
-
-    // Send push notification to requester
-    if (request.user.deviceToken) {
-      await sendPushNotification({
-        to: request.user.deviceToken,
-        title: 'Friend Request Accepted',
-        body: `${request.friend.username} accepted your friend request`,
-      });
-    }
-
-    // Return formatted friend data
-    return {
-      friendshipId: updatedRequest.id,
-      id: request.user.id,
-      username: request.user.username,
-      email: request.user.email,
-      photo: request.user.photo,
-      deviceToken: request.user.deviceToken,
-      status: updatedRequest.status,
-    };
-  }
-
-  async rejectRequest(requestId: string): Promise<void> {
-    const request = await this.prisma.friend.findUnique({
-      where: { id: requestId },
-      include: {
-        user: true,
-        friend: true,
+    const existing = await prisma.friend.findFirst({
+      where: {
+        id: friendshipId,
+        OR: [
+          { userId, friendId, status: 'PENDING' },
+          { userId: friendId, friendId: userId, status: 'PENDING' },
+        ],
       },
     });
 
-    if (!request) {
+    if (!existing) {
       throw new ApiError({
-        message: 'Friend request not found',
+        message: 'Friend request not found or not pending',
         status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_NOT_FOUND,
       });
     }
 
-    await this.prisma.friend.delete({
-      where: { id: requestId },
+    return prisma.friend.update({
+      where: { id: existing.id },
+      data: { status: 'APPROVED' },
+    });
+  }
+
+  static async rejectFriendRequest({
+    userId,
+    friendId,
+    friendshipId,
+  }: {
+    userId: string;
+    friendId: string;
+    friendshipId: string;
+  }) {
+    if (!userId || !friendId) {
+      throw new ApiError({
+        message: 'Missing required fields',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+      });
+    }
+
+    const existing = await prisma.friend.findFirst({
+      where: {
+        id: friendshipId,
+        OR: [
+          { userId, friendId, status: 'PENDING' },
+          { userId: friendId, friendId: userId, status: 'PENDING' },
+        ],
+      },
     });
 
-    // Notify the requester
-    if (request.user.deviceToken) {
-      await sendPushNotification({
-        to: request.user.deviceToken,
-        title: 'Friend Request Update',
-        body: `${request.friend.username} declined your friend request`,
+    if (!existing) {
+      throw new ApiError({
+        message: 'Friend request not found or already approved',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_FRIENDSHIP_NOT_FOUND,
       });
     }
+
+    return prisma.friend.delete({ where: { id: existing.id } });
+  }
+
+  static async deleteFriend({
+    friendId,
+    friendshipId,
+  }: {
+    friendId: string;
+    friendshipId: string;
+  }) {
+    if (!friendId) {
+      throw new ApiError({
+        message: 'Missing required friendId',
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.BAD_REQUEST,
+      });
+    }
+
+    const deleted = await prisma.friend.delete({
+      where: {
+        id: friendshipId,
+        OR: [{ userId: friendId }, { friendId }],
+      },
+    });
+
+    if (!deleted) {
+      throw new ApiError({
+        message: 'Friendship not found',
+        status: StatusCode.NOT_FOUND,
+        code: MessageCodes.FRIEND_FRIENDSHIP_NOT_FOUND,
+      });
+    }
+
+    return null;
   }
 }
