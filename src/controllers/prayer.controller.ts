@@ -36,7 +36,6 @@ export class PrayerController {
   static async getTodaysPrayer(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { today } = req.query;
 
       if (!id) {
         throw new ApiError({
@@ -46,12 +45,12 @@ export class PrayerController {
         });
       }
 
-      const data = await PrayerService.getTodaysPrayer(id, today as string);
+      const data = await PrayerService.getTodaysPrayer(id);
 
       res.json(
         createResponse({
           status: StatusCode.SUCCESS,
-          message: "Today's Pray fetched successfully",
+          message: "Today's prayer fetched successfully",
           code: MessageCodes.PRAY_FETCHED,
           data,
         })

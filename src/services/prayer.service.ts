@@ -28,16 +28,29 @@ export class PrayerService {
     });
   }
 
-  static async getTodaysPrayer(userId: string, today: string) {
-    if (!userId) {
-      throw new ApiError({
-        message: 'Please, Sign In to fetch Prays',
-        status: StatusCode.UNAUTHORIZED,
-      });
-    }
+  static async getTodaysPrayer(userId: string) {
+    const now = new Date();
 
-    const startOfDay = new Date(`${today}T00:00:00.000Z`);
-    const endOfDay = new Date(`${today}T23:59:59.999Z`);
+    // Calculate server-side today range
+    const startOfDay = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
+
+    const endOfDay = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
 
     const prayer = await prisma.prays.findFirst({
       where: {
