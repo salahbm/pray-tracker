@@ -43,7 +43,7 @@ const FreemiumFriends = () => {
       <ScrollView
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
-        className="w-full px-4"
+        className="w-full lg:px-4"
         refreshControl={
           <RefreshControl refreshing={isFetching} onRefresh={refetch} />
         }

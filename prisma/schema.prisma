@@ -16,7 +16,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("EXPO_SECRET_DATABASE_URL")
-  // directUrl = env("EXPO_SECRET_DIRECT_URL") // used when there is pooling 
+  directUrl = env("EXPO_SECRET_DIRECT_URL") // used when there is pooling 
 }
 
 model User {
