@@ -3,7 +3,7 @@ import { AwardController } from '../controllers/award.controller';
 
 const router = express.Router();
 
-// GET /api/awards?userId=<userId>
+// GET /api/awards
 router.get('/', AwardController.getUserAwards);
 
 export default router;

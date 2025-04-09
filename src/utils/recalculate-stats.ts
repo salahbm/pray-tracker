@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import { prisma } from '../lib/prisma';
 
 // Utility types
 type PrayerName = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha' | 'nafl';
@@ -98,7 +98,7 @@ export const recalculateStats = async (userId: string) => {
             fajrStreak = 0;
           }
         }
-      },
+      }
     );
 
     // Nafl
@@ -174,23 +174,23 @@ export const recalculateStats = async (userId: string) => {
       earlyFajrPercentage: safePercent(earlyFajrCount, prayerTotals.fajr),
       fajrOnTimePercentage: safePercent(
         prayerOnTimeTotals.fajr,
-        prayerTotals.fajr,
+        prayerTotals.fajr
       ),
       dhuhrOnTimePercentage: safePercent(
         prayerOnTimeTotals.dhuhr,
-        prayerTotals.dhuhr,
+        prayerTotals.dhuhr
       ),
       asrOnTimePercentage: safePercent(
         prayerOnTimeTotals.asr,
-        prayerTotals.asr,
+        prayerTotals.asr
       ),
       maghribOnTimePercentage: safePercent(
         prayerOnTimeTotals.maghrib,
-        prayerTotals.maghrib,
+        prayerTotals.maghrib
       ),
       ishaOnTimePercentage: safePercent(
         prayerOnTimeTotals.isha,
-        prayerTotals.isha,
+        prayerTotals.isha
       ),
       fajrStrike10: strikeCounts.fajr >= 10 ? 1 : 0,
       fajrStrike50: strikeCounts.fajr >= 50 ? 1 : 0,
@@ -235,23 +235,23 @@ export const recalculateStats = async (userId: string) => {
       earlyFajrPercentage: safePercent(earlyFajrCount, prayerTotals.fajr),
       fajrOnTimePercentage: safePercent(
         prayerOnTimeTotals.fajr,
-        prayerTotals.fajr,
+        prayerTotals.fajr
       ),
       dhuhrOnTimePercentage: safePercent(
         prayerOnTimeTotals.dhuhr,
-        prayerTotals.dhuhr,
+        prayerTotals.dhuhr
       ),
       asrOnTimePercentage: safePercent(
         prayerOnTimeTotals.asr,
-        prayerTotals.asr,
+        prayerTotals.asr
       ),
       maghribOnTimePercentage: safePercent(
         prayerOnTimeTotals.maghrib,
-        prayerTotals.maghrib,
+        prayerTotals.maghrib
       ),
       ishaOnTimePercentage: safePercent(
         prayerOnTimeTotals.isha,
-        prayerTotals.isha,
+        prayerTotals.isha
       ),
       fajrStrike10: 0,
       fajrStrike50: 0,

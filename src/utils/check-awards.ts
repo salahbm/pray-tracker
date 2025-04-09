@@ -1,13 +1,13 @@
-import { AwardCheckResult, awardRules } from './award-helpers';
+import { prisma } from '../lib/prisma';
+import { awardRules, type AwardCheckResult } from './award-helpers';
 import {
   ACTION_POINTS,
   calculateLevel,
   getLevelProgress,
 } from './level-system';
-import prisma from '../lib/prisma';
 
 export const checkAndAssignAwards = async (
-  userId: string,
+  userId: string
 ): Promise<AwardCheckResult> => {
   // Step 1: Get or create stats
   let stats = await prisma.prayerStats.findUnique({ where: { userId } });
@@ -77,10 +77,10 @@ export const checkAndAssignAwards = async (
     stats.currentStreak >= 30
       ? ACTION_POINTS.MONTHLY_STREAK
       : stats.currentStreak >= 7
-        ? ACTION_POINTS.WEEKLY_STREAK
-        : stats.currentStreak > 0
-          ? ACTION_POINTS.DAILY_STREAK
-          : 0;
+      ? ACTION_POINTS.WEEKLY_STREAK
+      : stats.currentStreak > 0
+      ? ACTION_POINTS.DAILY_STREAK
+      : 0;
 
   earnedXP +=
     stats.consistencyPercentage >= 80 ? ACTION_POINTS.CONSISTENCY_BONUS : 0;

@@ -1,7 +1,7 @@
 // src/controllers/award.controller.ts
 
 import type { Request, Response } from 'express';
-import { handleError } from '../middleware/error-handler';
+import { ApiError, handleError } from '../middleware/error-handler';
 import { createResponse, MessageCodes, StatusCode } from '../utils/status';
 import { AwardService } from '../services/award.service';
 
@@ -9,10 +9,12 @@ export class AwardController {
   static async getUserAwards(req: Request, res: Response) {
     try {
       const { id } = req.query;
+
       if (!id || typeof id !== 'string') {
-        return res.status(StatusCode.UNAUTHORIZED).json({
-          status: StatusCode.UNAUTHORIZED,
-          message: 'Please, Sign In to fetch Awards',
+        throw new ApiError({
+          status: StatusCode.BAD_REQUEST,
+          code: MessageCodes.UNAUTHORIZED,
+          message: 'User ID is required',
         });
       }
 

@@ -126,7 +126,7 @@ export const awardRules: AwardRule[] = [
       nafl: '✨',
     };
     return [10, 50, 100, 150].map((count) => ({
-      emoji: emojiMap[prayer],
+      emoji: emojiMap[prayer] as string,
       title: `${capitalized}Strike${count}`,
       description: `${capitalized}Strike${count}Description`,
       condition: (stats) => stats[`${prayer}Strike${count}`] >= 1,
