@@ -9,14 +9,6 @@ export class UserService {
    * Get top users
    * @returns  a list of top users
    */
-  static async getTopUsers(): Promise<User[]> {
-    const users = await prisma.user.findMany({
-      orderBy: { totalPoints: 'desc' },
-      take: 100,
-    });
-
-    return users;
-  }
   static async getUsers(): Promise<User[]> {
     const users = await prisma.user.findMany({
       orderBy: { totalPoints: 'desc' },

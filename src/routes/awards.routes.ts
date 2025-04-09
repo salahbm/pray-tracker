@@ -4,6 +4,6 @@ import { AwardController } from '../controllers/award.controller';
 const router = express.Router();
 
 // GET /api/awards
-router.get('/', AwardController.getUserAwards);
+router.get('/:id', AwardController.getUserAwards);
 
 export default router;
