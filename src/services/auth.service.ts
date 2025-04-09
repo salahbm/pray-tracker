@@ -96,7 +96,7 @@ export class AuthService {
   }) {
     const { data, error } = await supabase.auth.verifyOtp({
       email,
-      token,
+      token: token.toString(),
       type: 'email',
     });
 
