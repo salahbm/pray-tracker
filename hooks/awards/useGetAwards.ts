@@ -6,7 +6,7 @@ import { IResponseArray } from '@/types/api';
 import { TAward } from '@/types/awards';
 
 const getAwards = async (userId: string): Promise<IResponseArray<TAward>> => {
-  const response = await agent(`/awards/get?id=${userId}`, {
+  const response = await agent(`/awards/${userId}`, {
     method: 'GET',
   });
 

@@ -17,7 +17,7 @@ interface IUserParams {
 }
 
 const updateUser = async (params: IUserParams) => {
-  const response = await agent('/user', {
+  const response = await agent(`/users/${params.id}`, {
     method: 'PUT',
     body: JSON.stringify({
       id: params.id,

@@ -10,25 +10,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
+import { useUploadImage } from '@/hooks/auth/useAvatart';
 import { usePutUser } from '@/hooks/auth/usePutUser';
-import { supabase } from '@/lib/supabase';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
-import { ApiError } from '@/utils/error';
-import { MessageCodes, StatusCode } from '@/utils/status';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
   const { colors } = useThemeStore();
   const { t } = useTranslation();
   const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
+  const { mutateAsync: uploadImage, isPending: imageUploading } =
+    useUploadImage();
 
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [image, setImage] = useState<string>(user?.photo || '');
-  const [imageUploading, setImageUploading] = useState<boolean>(false);
 
   const onPickImage = async () => {
     try {
@@ -48,48 +47,25 @@ const EditProfile = () => {
 
       if (!result.canceled && result.assets.length > 0) {
         const selectedImage = result.assets[0];
-        await uploadImageToSupabase(selectedImage.uri);
+        const fileExt = selectedImage.uri.split('.').pop() || 'jpeg';
+        const oldPath = user?.photo?.split('/').pop();
+
+        const uploadedUrl = await uploadImage({
+          imageUri: selectedImage.uri,
+          fileExt,
+          userId: user?.id,
+          oldPath,
+        });
+
+        setImage(uploadedUrl); // update state with uploaded image URL
       }
     } catch (e) {
       fireToast.error(e.message);
     }
   };
-  const uploadImageToSupabase = async (imageUri: string) => {
-    try {
-      setImageUploading(true);
-
-      const response = await fetch(imageUri);
-      const arrayBuffer = await response.arrayBuffer();
-      const fileExt = imageUri.split('.').pop()?.toLowerCase() ?? 'jpeg';
-
-      const fileName = `${Date.now()}.${fileExt}`;
-
-      const { error } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, arrayBuffer, {
-          contentType: `image/${fileExt}`,
-          upsert: true,
-        });
-
-      if (error) throw error;
-
-      // Fetch new public URL
-      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
-
-      // Immediately update local image state
-      setImage(data.publicUrl.replace(/([^:]\/)\/+/g, '$1'));
-    } catch (error) {
-      fireToast.error(error.message);
-    } finally {
-      setImageUploading(false);
-    }
-  };
 
   const handleUpdate = async () => {
     try {
-      // Save the old image path before updating user
-      const oldImagePath = user?.photo ? user.photo.split('/').pop() : null;
-
       // Prepare updated user payload
       const payload = {
         id: user?.id,
@@ -104,22 +80,6 @@ const EditProfile = () => {
 
       if (res) {
         setUser(res.data);
-
-        // DELETE OLD IMAGE **AFTER** SUCCESSFUL UPDATE
-        if (oldImagePath) {
-          const { error } = await supabase.storage
-            .from('avatars')
-            .remove([oldImagePath]);
-
-          if (error) {
-            throw new ApiError({
-              message: error.message,
-              status: StatusCode.INTERNAL_ERROR,
-              code: MessageCodes.SOMETHING_WENT_WRONG,
-              details: null,
-            });
-          }
-        }
       }
     } catch (error) {
       fireToast.error(error.message);

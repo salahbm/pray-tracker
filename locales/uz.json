@@ -497,7 +497,7 @@
   "Profile": {
     "Title": "Profil",
     "Navigation": {
-      "Account": "Hisob",
+      "Account": "Shaxsiy",
       "EditProfile": "Profilni tahrirlash",
       "EditPassword": "Parolni o'zgartirish",
       "Settings": "Sozlamalar",
@@ -572,7 +572,7 @@
         "Content": "Siz tomonidan yuborilgan ma'lumotlar, jumladan ibodat yozuvlari va profil ma'lumotlari, sizning mulkingiz hisoblanadi. Ushbu ma'lumotlarni faqat ilova tajribasini yaxshilash va xizmatlarni taqdim etish uchun ishlatamiz."
       },
       "Termination": {
-        "Title": "Hisobni Bekor Qilish",
+        "Title": "Shaxsiyni Bekor Qilish",
         "Content": "Istalgan vaqtda ilova sozlamalari orqali hisobingizni o'chirishingiz mumkin. Ushbu Shartlarni buzgan taqdiringizda, hisobingizni to'xtatish yoki o'chirish huquqini saqlab qolamiz."
       },
       "Changes": {
