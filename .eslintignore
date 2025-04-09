@@ -10,3 +10,7 @@ dist
 *.p12
 *.key
 *.mobileprovision
+
+
+#prisma 
+lib/prisma

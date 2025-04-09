@@ -45,3 +45,7 @@ app-example
 .env.*
 !.env.example
 .vercel
+
+
+#prisma 
+lib/prisma/client

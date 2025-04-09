@@ -8,8 +8,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../lib/prisma/client"
   previewFeatures = ["driverAdapters","reactNative"]
-  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {

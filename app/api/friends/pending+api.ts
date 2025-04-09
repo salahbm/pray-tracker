@@ -1,6 +1,5 @@
-import { FriendStatus } from '@prisma/client';
-
 import prisma from '@/lib/prisma';
+import { FriendStatus } from '@/lib/prisma/client';
 import { PendingFriend } from '@/types/friends';
 import { ApiError, handleError } from '@/utils/error';
 import { createResponse, MessageCodes, StatusCode } from '@/utils/status';

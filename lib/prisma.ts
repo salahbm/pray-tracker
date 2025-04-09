@@ -1,32 +1,41 @@
+// lib/prisma.ts
+
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '@prisma/client';
-import { Pool } from 'pg';
+
+import { PrismaClient } from './prisma/client';
 
 declare global {
   // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 
-// Setup a shared Prisma instance using a connection pool
-const pool = new Pool({
-  connectionString: process.env.EXPO_SECRET_DATABASE_URL,
+const connectionString = process.env.EXPO_SECRET_DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error('EXPO_SECRET_DATABASE_URL is not defined');
+}
+
+// Create connection configuration
+const config = {
+  connectionString,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+};
+
+// Create the pg-adapter
+const adapter = new PrismaPg({
+  connectionString: config.connectionString,
+  max: config.max,
+  idleTimeoutMillis: config.idleTimeoutMillis,
+  connectionTimeoutMillis: config.connectionTimeoutMillis,
 });
 
-const adapter = new PrismaPg(pool);
-
-// Reuse Prisma client in dev to avoid too many instances
-const prisma = global.prisma ?? new PrismaClient({ adapter, log: ['error'] });
+// Reuse the PrismaClient in dev
+const prisma = global.prisma ?? new PrismaClient({ adapter });
 
 if (process.env.EXPO_PUBLIC_APP_VARIANT === 'development') {
   global.prisma = prisma;
 }
 
 export default prisma;
-
-// import { PrismaClient } from '@prisma/client';
-
-// const prisma = new PrismaClient({
-//   log: ['error'],
-// });
-
-// export default prisma;
