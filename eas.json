@@ -1,61 +1,45 @@
 {
   "cli": {
-    "version": ">= 5.9.1"
+    "version": ">= 5.9.1",
+    "appVersionSource": "local"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "environment": "development",
-      "ios": {
-        "simulator": false
-      },
-      "env": {
-        "EXPO_SECRET_DATABASE_URL": "EXPO_SECRET_DATABASE_URL",
-        "EXPO_SECRET_DIRECT_URL": "EXPO_SECRET_DIRECT_URL",
-        "EXPO_PUBLIC_SUPABASE_ROLE_KEY": "EXPO_PUBLIC_SUPABASE_ROLE_KEY",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "EXPO_PUBLIC_SUPABASE_ANON_KEY",
-        "EXPO_PUBLIC_SUPABASE_URL": "EXPO_PUBLIC_SUPABASE_URL",
-        "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
-        "EXPO_PUBLIC_APP_VARIANT": "EXPO_PUBLIC_APP_VARIANT"
-      }
-    },
-    "preview": {
-      "distribution": "internal",
-      "environment": "preview",
-      "env": {
-        "EXPO_SECRET_DATABASE_URL": "EXPO_SECRET_DATABASE_URL",
-        "EXPO_SECRET_DIRECT_URL": "EXPO_SECRET_DIRECT_URL",
-        "EXPO_PUBLIC_SUPABASE_ROLE_KEY": "EXPO_PUBLIC_SUPABASE_ROLE_KEY",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "EXPO_PUBLIC_SUPABASE_ANON_KEY",
-        "EXPO_PUBLIC_SUPABASE_URL": "EXPO_PUBLIC_SUPABASE_URL",
-        "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
-        "EXPO_PUBLIC_APP_VARIANT": "EXPO_PUBLIC_APP_VARIANT"
-      }
-    },
     "production": {
+      "environment": "production",
       "developmentClient": false,
-      "distribution": "store",
+      "distribution": "internal",
       "android": {
         "buildType": "apk"
       },
       "ios": {
         "simulator": false
       },
-      "environment": "production",
       "env": {
-        "EXPO_SECRET_DATABASE_URL": "EXPO_SECRET_DATABASE_URL",
-        "EXPO_SECRET_DIRECT_URL": "EXPO_SECRET_DIRECT_URL",
+        "EXPO_PUBLIC_SUPABASE_URL": "EXPO_PUBLIC_SUPABASE_URL",
         "EXPO_PUBLIC_SUPABASE_ROLE_KEY": "EXPO_PUBLIC_SUPABASE_ROLE_KEY",
         "EXPO_PUBLIC_SUPABASE_ANON_KEY": "EXPO_PUBLIC_SUPABASE_ANON_KEY",
-        "EXPO_PUBLIC_SUPABASE_URL": "EXPO_PUBLIC_SUPABASE_URL",
         "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
-        "EXPO_PUBLIC_APP_VARIANT": "EXPO_PUBLIC_APP_VARIANT",
+        "EXPO_PUBLIC_APP_VARIANT": "production",
         "EXPO_UNSTABLE_DEPLOY_SERVER": "1"
       }
+    },
+    "development": {
+      "environment": "development",
+      "developmentClient": false,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": false
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "EXPO_PUBLIC_SUPABASE_URL",
+        "EXPO_PUBLIC_SUPABASE_ROLE_KEY": "EXPO_PUBLIC_SUPABASE_ROLE_KEY",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "EXPO_PUBLIC_SUPABASE_ANON_KEY",
+        "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
+        "EXPO_PUBLIC_APP_VARIANT": "development"
+      }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }

@@ -134,7 +134,7 @@ const FriendsApproved = () => {
                       source={{
                         uri: friend.friend.photo,
                       }}
-                      className="size-14 rounded-full bg-muted max-w-[14px] max-h-[14px]"
+                      className="size-14 rounded-full bg-muted max-w-14 max-h-14"
                       defaultSource={FRIENDS.guest}
                     />
 

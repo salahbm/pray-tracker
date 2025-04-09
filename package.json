@@ -22,7 +22,8 @@
     "push": "git add . && npm run commit && npm run release && git push origin $(git branch --show-current) --follow-tags",
     "push:dev": "git add . && npm run commit && npm run release:dev && git push origin $(git branch --show-current) --follow-tags",
     "push:minor": "git add . && npm run commit && npm run release:minor && git push origin $(git branch --show-current) --follow-tags",
-    "push:major": "git add . && npm run commit && npm run release:major && git push origin $(git branch --show-current) --follow-tags"
+    "push:major": "git add . && npm run commit && npm run release:major && git push origin $(git branch --show-current) --follow-tags",
+    "build:ios:local": "bash ./set-env.sh"
   },
   "jest": {
     "preset": "jest-expo"
@@ -117,7 +118,8 @@
     "react-native-webview": "13.12.5",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.3",
+    "expo-updates": "~0.27.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -136,6 +138,7 @@
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.4.0",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-config-expo": "~8.0.1",
     "eslint-config-prettier": "^9.1.0",
