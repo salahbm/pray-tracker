@@ -1,4 +1,9 @@
-import type { Response } from 'express';
+import type {
+  ErrorRequestHandler,
+  NextFunction,
+  Request,
+  Response,
+} from 'express';
 import { StatusCode, type MessageCodes } from '../utils/status';
 
 export class ApiError<T = unknown> extends Error {
@@ -44,3 +49,24 @@ export function handleError(res: Response, error: unknown): Response {
     message: 'An unexpected error occurred',
   });
 }
+
+export const errorHandler: ErrorRequestHandler = (
+  err: Error,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
+  console.error('[Unhandled Error]', err);
+
+  const status =
+    err instanceof ApiError ? err.status : StatusCode.INTERNAL_ERROR;
+  const code = err instanceof ApiError ? err.code : 'UNKNOWN_ERROR';
+  const details = err instanceof ApiError ? err.details : null;
+
+  res.status(status).json({
+    status,
+    message: err.message || 'Something went wrong',
+    code,
+    details,
+  });
+};
