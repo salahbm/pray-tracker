@@ -43,4 +43,56 @@ export class AuthController {
       handleError(res, error);
     }
   }
+
+  static async updatePassword(req: Request, res: Response) {
+    try {
+      const { email, newPassword } = req.body;
+
+      const result = await AuthService.updatePassword(email, newPassword);
+
+      res.status(200).json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          code: MessageCodes.USER_UPDATED,
+          message: 'Password updated successfully',
+          data: result,
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
+  static async requestPasswordReset(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      const data = await AuthService.requestPasswordReset(email);
+
+      res.status(200).json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          message: 'Reset email sent',
+          data,
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
+  static async verifyResetToken(req: Request, res: Response) {
+    try {
+      const { email, token } = req.body;
+      const data = await AuthService.verifyResetOtp({ email, token });
+
+      res.status(200).json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          message: 'OTP verified successfully',
+          code: MessageCodes.SUCCESS,
+          data,
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
 }

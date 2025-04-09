@@ -1,5 +1,6 @@
 import type { User } from '../generated/prisma';
 import { prisma } from '../lib/prisma';
+import { supabase } from '../lib/supabase';
 import { ApiError } from '../middleware/error-handler';
 
 import { StatusCode, MessageCodes } from '../utils/status';
@@ -67,6 +68,47 @@ export class UserService {
     return prisma.user.create({
       data: { username, email, supabaseId, password },
     });
+  }
+
+  /**
+   * Upload avatar
+   * @param buffer the buffer of the avatar
+   * @param fileExt the ext of the avatar
+   * @param oldImagePath the path of the avatar
+   * @returns the path of the avatar
+   */
+  static async uploadAvatar(
+    buffer: Buffer,
+    fileExt: string,
+    oldImagePath?: string
+  ) {
+    const fileName = `${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(fileName, buffer, {
+        contentType: `image/${fileExt}`,
+        upsert: true,
+      });
+
+    if (uploadError) throw new Error(uploadError.message);
+
+    const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+    const publicUrl = data?.publicUrl?.replace(/([^:]\/)\/+/g, '$1');
+
+    if (!publicUrl)
+      throw new ApiError({
+        message: 'Failed to get public URL',
+        status: StatusCode.INTERNAL_ERROR,
+        code: MessageCodes.INTERNAL_ERROR,
+      });
+
+    // Delete old image if applicable
+    if (oldImagePath) {
+      await supabase.storage.from('avatars').remove([oldImagePath]);
+    }
+
+    return publicUrl;
   }
 
   /**

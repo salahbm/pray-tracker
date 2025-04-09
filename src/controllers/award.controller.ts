@@ -8,9 +8,9 @@ import { AwardService } from '../services/award.service';
 export class AwardController {
   static async getUserAwards(req: Request, res: Response) {
     try {
-      const { id } = req.query;
+      const userId = req.params.id;
 
-      if (!id || typeof id !== 'string') {
+      if (!userId || typeof userId !== 'string') {
         throw new ApiError({
           status: StatusCode.BAD_REQUEST,
           code: MessageCodes.UNAUTHORIZED,
@@ -18,7 +18,7 @@ export class AwardController {
         });
       }
 
-      const awards = await AwardService.getUserAwards(id);
+      const awards = await AwardService.getUserAwards(userId);
       res.json(
         createResponse({
           status: StatusCode.SUCCESS,

@@ -76,4 +76,34 @@ export class PrayerController {
       handleError(res, error);
     }
   }
+
+  static async getPrayerTimes(req: Request, res: Response) {
+    try {
+      const { lat, lng, tz } = req.query;
+
+      if (!lat || !lng || !tz) {
+        throw new ApiError({
+          status: StatusCode.BAD_REQUEST,
+          code: MessageCodes.MISSING_REQUIRED_FIELDS,
+          message: 'Latitude, longitude, and timezone are required',
+        });
+      }
+
+      const data = await PrayerService.getPrayerTimes({
+        tz: tz as string,
+        lat: lat as string,
+        lng: lng as string,
+      });
+
+      res.status(200).json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          message: 'Prayer times fetched successfully',
+          data,
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
 }

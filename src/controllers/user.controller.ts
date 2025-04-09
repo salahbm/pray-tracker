@@ -104,4 +104,36 @@ export class UserController {
       handleError(res, error);
     }
   }
+
+  static async uploadAvatar(req: Request, res: Response) {
+    try {
+      const userId = req.params.id;
+      const { fileExt, oldPath } = req.body;
+      const buffer = req.file?.buffer;
+
+      if (!userId || !fileExt || !buffer) {
+        throw new ApiError({
+          status: StatusCode.BAD_REQUEST,
+          code: MessageCodes.MISSING_REQUIRED_FIELDS,
+          message: 'Missing image data',
+        });
+      }
+
+      const publicUrl = await UserService.uploadAvatar(
+        buffer,
+        fileExt,
+        oldPath
+      );
+
+      res.json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          message: 'Avatar uploaded and user updated',
+          data: { photo: publicUrl },
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
 }

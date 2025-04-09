@@ -6,6 +6,12 @@ import { checkAndAssignAwards } from '../utils/check-awards';
 import { recalculateStats } from '../utils/recalculate-stats';
 
 export class PrayerService {
+  /**
+   * Get prayers by year
+   * @param userId
+   * @param year
+   * @returns
+   */
   static async getPrayersByYear(userId: string, year: string) {
     if (!userId) {
       throw new ApiError({
@@ -28,6 +34,11 @@ export class PrayerService {
     });
   }
 
+  /**
+   * Get today's prayer
+   * @param userId
+   * @returns
+   */
   static async getTodaysPrayer(userId: string) {
     const now = new Date();
 
@@ -65,6 +76,11 @@ export class PrayerService {
     return prayer || null;
   }
 
+  /**
+   * Upsert prayer
+   * @param body
+   * @returns
+   */
   static async upsertPrayer(body: {
     date: string;
     fajr?: number;
@@ -94,22 +110,22 @@ export class PrayerService {
         },
       },
       update: {
-        fajr: fajr || 0,
-        dhuhr: dhuhr || 0,
-        asr: asr || 0,
-        maghrib: maghrib || 0,
-        isha: isha || 0,
-        nafl: nafl || 0,
+        fajr: fajr ?? 0,
+        dhuhr: dhuhr ?? 0,
+        asr: asr ?? 0,
+        maghrib: maghrib ?? 0,
+        isha: isha ?? 0,
+        nafl: nafl ?? 0,
       },
       create: {
         userId,
         date: new Date(date),
-        fajr: fajr || 0,
-        dhuhr: dhuhr || 0,
-        asr: asr || 0,
-        maghrib: maghrib || 0,
-        isha: isha || 0,
-        nafl: nafl || 0,
+        fajr: fajr ?? 0,
+        dhuhr: dhuhr ?? 0,
+        asr: asr ?? 0,
+        maghrib: maghrib ?? 0,
+        isha: isha ?? 0,
+        nafl: nafl ?? 0,
       },
     });
 
@@ -128,5 +144,29 @@ export class PrayerService {
       newAwards: null,
       levelInfo: null,
     };
+  }
+
+  /**
+   * Get Praying times
+   * @param userId
+   * @returns
+   */
+  static async getPrayerTimes(body: { lat: string; lng: string; tz: string }) {
+    const { lat, lng, tz } = body;
+
+    const url = `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=2&timezonestring=${tz}`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new ApiError({
+        status: StatusCode.BAD_REQUEST,
+        code: MessageCodes.UNAUTHORIZED,
+        message: 'Failed to fetch timings',
+      });
+    }
+
+    const data = await response.json();
+    return data;
   }
 }
