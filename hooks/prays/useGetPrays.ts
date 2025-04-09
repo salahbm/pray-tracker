@@ -13,9 +13,12 @@ type TPraysParams = {
 export type TransformedPrays = Record<string, DayData>;
 
 const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
-  const { data } = await agent(`/prays/${params.id}/get?year=${params.year}`, {
-    method: 'GET',
-  });
+  const { data } = await agent(
+    `/prayers/${params.id}/year?year=${params.year}`,
+    {
+      method: 'GET',
+    },
+  );
 
   return data;
 };

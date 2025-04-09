@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { agent } from '@/lib/agent';
+
 export type Coordinates = {
   latitude: number;
   longitude: number;
@@ -21,15 +23,10 @@ const fetchPrayerTimes = async (
 ): Promise<PrayersTimeResponse['data'] | null> => {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const response = await fetch(
-    `https://api.aladhan.com/v1/timings?latitude=${coords.latitude}&longitude=${coords.longitude}&method=2&timezonestring=${timezone}`,
+  const data = await agent(
+    `/prayers/times?lat=${coords.latitude}&lng=${coords.longitude}&tz=${timezone}`,
   );
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch prayer times');
-  }
-  const data = await response.json();
-  return data.data;
+  return data;
 };
 
 export const usePrayerTimes = (coords: Coordinates | null) => {
@@ -37,7 +34,7 @@ export const usePrayerTimes = (coords: Coordinates | null) => {
     queryKey: ['prayerTimes', coords],
     queryFn: () => fetchPrayerTimes(coords),
     staleTime: 1000 * 60 * 60, // Cache data for 1 hour
-    retry: 1, // Retry once on failure
+    retry: 1, // Retry once on failurer
     enabled: !!coords,
   });
 };

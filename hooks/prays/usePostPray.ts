@@ -18,8 +18,8 @@ type PrayData = {
   nafl?: number;
 };
 
-const createPray = async (data: PrayData): Promise<IResponse<IPrays>> => {
-  const response = await agent(`/prays/${data.id}/post`, {
+const upsertPrayer = async (data: PrayData): Promise<IResponse<IPrays>> => {
+  const response = await agent('/prayers', {
     method: 'POST',
     body: JSON.stringify({
       userId: data.id,
@@ -38,7 +38,7 @@ const createPray = async (data: PrayData): Promise<IResponse<IPrays>> => {
 export const useCreatePray = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createPray,
+    mutationFn: upsertPrayer,
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
