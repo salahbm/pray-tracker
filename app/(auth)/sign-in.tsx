@@ -31,13 +31,6 @@ export default function SignInScreen({
 
   const onSignInPress = useCallback(async () => {
     await signIn(form);
-
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 1000);
-    });
-
     setForm({ email: '', password: '' });
     onSuccess();
   }, [form, signIn, onSuccess]);

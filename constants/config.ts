@@ -1,4 +1,6 @@
-const APP_VARIANT = process.env.EXPO_PUBLIC_APP_VARIANT;
-const API_BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
+import Constants from 'expo-constants';
 
-export { APP_VARIANT, API_BASE_URL };
+const ORIGIN = Constants.expoConfig?.extra?.baseUrl;
+const NODE_ENV = Constants.expoConfig?.extra?.NODE_ENV;
+
+export { ORIGIN, NODE_ENV };

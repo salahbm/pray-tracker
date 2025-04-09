@@ -9,6 +9,8 @@ interface AuthWrapperProps {
 
 export function AuthWrapper({ mode, children }: AuthWrapperProps) {
   const { user, session } = useAuthStore();
+  console.log({ user, session });
+
   // If mode === 'signedIn', we only render children if we have a user + session
   if (mode === 'signedIn' && user && session) {
     return <>{children}</>;

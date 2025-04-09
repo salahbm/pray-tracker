@@ -1,11 +1,12 @@
 import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
+import Constants from 'expo-constants';
 
 const isServer = typeof window === 'undefined';
 
-const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const SUPABASE_ROLE_KEY = process.env.EXPO_PUBLIC_SUPABASE_ROLE_KEY;
+const SUPABASE_URL = Constants.expoConfig?.extra?.supabaseUrl;
+const SUPABASE_ROLE_KEY = Constants.expoConfig?.extra?.supabaseRoleKey;
 
 if (!SUPABASE_URL || !SUPABASE_ROLE_KEY) {
   throw new Error(

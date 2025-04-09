@@ -1,7 +1,7 @@
-import { API_BASE_URL } from '@/constants/config';
+import { ORIGIN } from '@/constants/config';
 
 export const agent = async (url: string, options?: RequestInit) => {
-  const fullURL = `${API_BASE_URL}${url}`;
+  const fullURL = `${ORIGIN}${url}`;
 
   const headers: HeadersInit = {
     'Content-Type': 'application/json; charset=utf-8',

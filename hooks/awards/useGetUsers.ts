@@ -6,7 +6,7 @@ import { IResponseArray } from '@/types/api';
 import { TUser } from '@/types/user';
 
 const getUsers = async (): Promise<IResponseArray<TUser>> => {
-  const response = await agent('/users', {
+  const response = await agent('/users/top', {
     method: 'GET',
   });
 
