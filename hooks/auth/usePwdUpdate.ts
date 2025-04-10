@@ -16,13 +16,13 @@ const updatePassword = async (data: UpdatePasswordPayload) => {
 };
 
 export const useUpdatePassword = () => {
-  const { mutate: logOut } = useLogout();
+  const { logOut } = useLogout();
 
   return useMutation({
     mutationFn: updatePassword,
     options: {
       onSuccess: async () => {
-        await logOut(undefined);
+        await logOut();
       },
     },
   });

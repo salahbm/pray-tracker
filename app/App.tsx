@@ -5,6 +5,7 @@ import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+import { useSession } from '@/hooks/auth/useSessions';
 import { usePushNotifications } from '@/hooks/common/useNotifications';
 // import { supabase } from '@/lib/supabase';
 
@@ -12,68 +13,14 @@ import { usePushNotifications } from '@/hooks/common/useNotifications';
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  // const { setSession, clearUserAndSession } = useAuthStore();
+  useSession();
+
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
   });
 
   /// Initialize notifications system
   usePushNotifications();
-
-  // Start auto-refresh when the app becomes active
-  // useEffect(() => {
-  //   const handleAppStateChange = (state: string) => {
-  //     if (state === 'active') {
-  //       supabase.auth.startAutoRefresh();
-  //     } else {
-  //       supabase.auth.stopAutoRefresh();
-  //     }
-  //   };
-
-  //   const subscription = AppState.addEventListener(
-  //     'change',
-  //     handleAppStateChange,
-  //   );
-  //   return () => subscription.remove();
-  // }, []);
-
-  // useEffect(() => {
-  //   // Function to handle session changes
-  //   const handleAuthStateChange = async (event, session) => {
-  //     if (session) {
-  //       setSession(session);
-  //     } else {
-  //       clearUserAndSession();
-  //     }
-  //   };
-
-  //   // Fetch the initial session
-  //   const fetchInitialSession = async () => {
-  //     try {
-  //       const {
-  //         data: { session },
-  //       } = await supabase.auth.getSession();
-  //       if (session) {
-  //         setSession(session);
-  //       }
-  //     } catch (error) {
-  //       fireToast.error(error?.message ?? 'Failed to get session');
-  //     }
-  //   };
-
-  //   // Subscribe to auth state changes
-  //   const { data: authListener } = supabase.auth.onAuthStateChange(
-  //     handleAuthStateChange,
-  //   );
-
-  //   // Fetch the initial session
-  //   fetchInitialSession();
-
-  //   // Cleanup the auth listener on unmount
-  //   return () => {
-  //     authListener.subscription.unsubscribe();
-  //   };
-  // }, [setSession, clearUserAndSession]);
 
   // Hide the splash screen once fonts are loaded
   useEffect(() => {

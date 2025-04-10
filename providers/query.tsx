@@ -9,7 +9,6 @@ import { router } from 'expo-router';
 import { PropsWithChildren, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useLogout } from '@/hooks/auth/useLogOut';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';

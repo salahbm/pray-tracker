@@ -5,7 +5,7 @@ import * as Notifications from 'expo-notifications';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Platform } from 'react-native';
 
-import { usePutUser } from '../auth/usePutUser';
+import { usePutUser } from '../user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useNotificationStore } from '@/store/defaults/notification';

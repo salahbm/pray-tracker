@@ -1,19 +1,24 @@
 import { ORIGIN } from '@/constants/config';
 
-export const agent = async (url: string, options?: RequestInit) => {
+export const agent = async (url: string, options: RequestInit = {}) => {
   const fullURL = `${ORIGIN}${url}`;
 
-  const headers: HeadersInit = {
+  const defaultHeaders: HeadersInit = {
     'Content-Type': 'application/json; charset=utf-8',
+  };
+
+  const mergedHeaders: HeadersInit = {
+    ...defaultHeaders,
+    ...(options.headers || {}),
   };
 
   const response = await fetch(fullURL, {
     ...options,
     credentials: 'omit',
-    headers,
+    headers: mergedHeaders,
   });
 
-  const text = await response.text(); // avoid direct json crash
+  const text = await response.text();
 
   if (!response.ok) {
     let errorData;

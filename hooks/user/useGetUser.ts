@@ -5,6 +5,7 @@ import { agent } from '@/lib/agent';
 import { TUser } from '@/types/user';
 
 const getUser = async (supabaseId: string): Promise<TUser> => {
+  if (!supabaseId) return null;
   const data = await agent(`/users/${supabaseId}`, {
     method: 'GET',
   });

@@ -11,7 +11,7 @@ async function requestReset(email: string) {
 }
 
 async function verifyReset(params: { email: string; token: string }) {
-  const response = await agent('/auth/verify-reset', {
+  const response = await agent('/auth/verify-otp', {
     method: 'POST',
     body: JSON.stringify(params),
   });

@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,17 +15,18 @@ import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useLogout } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { triggerHaptic } from '@/utils/haptics';
 
 const Account = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
-  const { mutate: logOut, isPending } = useLogout();
+  const { logOut, isLoggingOut } = useLogout();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
     if (Platform.OS !== 'web') {
-      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await triggerHaptic();
     }
     await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(
       () => {
@@ -37,13 +37,13 @@ const Account = () => {
   };
 
   const handleLogOut = async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    logOut(undefined);
+    await triggerHaptic();
+    logOut();
   };
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isDeleting || isPending} />
+      <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
         <GoBack title={t('Profile.Account.Title')} />
 
@@ -100,7 +100,7 @@ const Account = () => {
         className="flex-row gap-4 mx-6 mb-10"
         variant="destructive"
         onPress={handleLogOut}
-        disabled={isPending || isDeleting}
+        disabled={isDeleting}
       >
         <Text className="text-destructive font-bold">
           {t('Profile.Account.LogoutButton')}

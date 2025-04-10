@@ -12,6 +12,7 @@ type TPraysParams = {
 export type TransformedPrays = Record<string, DayData>;
 
 const getTodayPray = async (params: TPraysParams): Promise<IPrays> => {
+  if (!params.id) return null;
   const { data } = await agent(`/prayers/${params.id}/today`, {
     method: 'GET',
   });

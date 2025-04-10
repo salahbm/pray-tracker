@@ -1,12 +1,11 @@
-import { User } from '@supabase/supabase-js';
-import React, { useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, View } from 'react-native';
 
 import { X } from '@/components/shared/icons';
 import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
-import { usePostUser } from '@/hooks/auth/usePostUser';
+import { useRegister } from '@/hooks/auth/useRegister';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
@@ -20,72 +19,39 @@ interface ISignUp {
 
 export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const { t } = useTranslation();
-  const {
-    supabaseSignUp,
-    onPressVerify,
-    postUser,
-    isPostUserSuccess,
-    isPendingSupabaseSignUp,
-    isPendingOnPressVerify,
-    isPendingPostUser,
-  } = usePostUser();
+  const { register, verify, isRegisterPending, isVerifyPending } =
+    useRegister();
   const { colors } = useThemeStore();
-  const [form, setForm] = React.useState({
+  const [form, setForm] = useState({
     email: '',
     username: '',
     password: '',
     token: '',
   });
-  const [data, setData] = React.useState<User | null>(null);
-  const [showSuccessModal, setShowSuccessModal] =
-    React.useState(isPostUserSuccess);
-  const [showOtpModal, setShowOtpModal] = React.useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
 
   // Handle sign-up process
   const onSignUpPress = async () => {
-    await supabaseSignUp(form);
+    await register(form);
     setShowOtpModal(true);
   };
 
-  const handlePostUser = useCallback(async () => {
-    const payload = {
-      email: form.email,
-      password: form.password,
-      username: form.username,
-      supabaseId: data.id,
-    };
-
-    await postUser(payload);
-
-    setShowOtpModal(false);
-    setTimeout(() => {
-      setShowSuccessModal(true);
-    }, 150);
-
-    // Clear input fields
-    setData(null);
-    setForm({
-      email: '',
-      username: '',
-      password: '',
-      token: '',
-    });
-  }, [data, form, postUser, setShowOtpModal, setShowSuccessModal]);
-
   // Handle email verification
-  const handlePressVerify = async () => {
-    const res = await onPressVerify(form);
+  const onVerifyPress = async () => {
+    const res = await verify({
+      email: form.email,
+      token: form.token,
+      type: 'signup',
+    });
 
-    if (res) {
-      setData(res.user);
+    if (res?.success) {
+      setShowOtpModal(false);
+      setShowSuccessModal(true);
+      onSuccess();
+      setForm({ email: '', username: '', password: '', token: '' });
     }
   };
-
-  useEffect(() => {
-    if (data) {
-      handlePostUser();
-    }
-  }, [data, handlePostUser]);
 
   return (
     <React.Fragment>
@@ -126,8 +92,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           onChangeText={(password) => setForm({ ...form, password })}
         />
 
-        <Button onPress={onSignUpPress} disabled={isPendingSupabaseSignUp}>
-          <Loader visible={isPendingSupabaseSignUp} size="small" />
+        <Button onPress={onSignUpPress} disabled={isRegisterPending}>
+          <Loader visible={isRegisterPending} size="small" />
           <Text>{t('Auth.SignUp.Button')}</Text>
         </Button>
       </View>
@@ -147,7 +113,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           <Button
             className="absolute top-2 right-0"
             variant="ghost"
-            disabled={isPendingPostUser || isPendingOnPressVerify}
+            disabled={isRegisterPending || isVerifyPending}
           >
             <X
               size={24}
@@ -169,11 +135,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             onChangeText={(token) => setForm({ ...form, token })}
           />
           <Button
-            onPress={handlePressVerify}
+            onPress={onVerifyPress}
             className="mt-5"
-            disabled={isPendingOnPressVerify || isPendingPostUser}
+            disabled={isRegisterPending || isVerifyPending}
           >
-            <Loader visible={isPendingOnPressVerify || isPendingPostUser} />
+            <Loader visible={isRegisterPending || isVerifyPending} />
             <Text>{t('Auth.SignUp.Verification.Button')}</Text>
           </Button>
         </View>
