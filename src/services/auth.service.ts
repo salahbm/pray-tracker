@@ -7,9 +7,34 @@ import {
   SupabaseErrorMap,
 } from '../utils/status';
 import { supabase } from '../lib/supabase';
+import type {
+  IUserDelete,
+  IUserRegistrationParams,
+  IVerifyOtpParams,
+} from '../types/auth';
+import { UserService } from './user.service';
 
 export class AuthService {
-  static async register() {}
+  static async register(params: IUserRegistrationParams) {
+    const { email, password, username } = params;
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username } },
+    });
+
+    if (error) {
+      throw new ApiError({
+        message: error.message,
+        status: StatusCode.BAD_REQUEST,
+        code: error.code as unknown as MessageCodes,
+        details: error,
+      });
+    }
+
+    return data;
+  }
 
   static async login(email: string, password: string) {
     if (!email || !password) {
@@ -43,6 +68,27 @@ export class AuthService {
       user: data.user,
       session: data.session,
     };
+  }
+
+  static async verifyOtp(params: IVerifyOtpParams) {
+    const { email, token, type } = params;
+
+    const { data, error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type,
+    });
+
+    if (error) {
+      throw new ApiError({
+        message: error.message,
+        status: StatusCode.BAD_REQUEST,
+        code: error.code as unknown as MessageCodes,
+        details: error,
+      });
+    }
+
+    return data;
   }
 
   static async updatePassword(email: string, password: string) {
@@ -87,31 +133,6 @@ export class AuthService {
     return data;
   }
 
-  static async verifyResetOtp({
-    email,
-    token,
-  }: {
-    email: string;
-    token: string;
-  }) {
-    const { data, error } = await supabase.auth.verifyOtp({
-      email,
-      token: token.toString(),
-      type: 'email',
-    });
-
-    if (error) {
-      throw new ApiError({
-        message: error?.message,
-        status: StatusCode.INTERNAL_ERROR,
-        code: error.code as unknown as MessageCodes,
-        details: error,
-      });
-    }
-
-    return data;
-  }
-
   static async refreshSession(refresh_token: string) {
     const { data, error } = await supabase.auth.refreshSession({
       refresh_token,
@@ -127,5 +148,26 @@ export class AuthService {
     }
 
     return data;
+  }
+
+  static async deleteUser(params: IUserDelete) {
+    const { id, supabaseId } = params;
+
+    // Delete user from Supabase
+    const { error } = await supabase.auth.admin.deleteUser(supabaseId);
+
+    if (error && error.code !== 'user_not_found') {
+      throw new ApiError({
+        message: error.message,
+        status: StatusCode.INTERNAL_ERROR,
+        code: error.code as unknown as MessageCodes,
+        details: error,
+      });
+    }
+
+    // Delete user from our database
+    await UserService.deleteUser(id);
+
+    return { success: true };
   }
 }
