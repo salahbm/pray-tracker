@@ -115,4 +115,45 @@ export class AuthController {
       handleError(res, error);
     }
   }
+
+  static async refreshSession(req: Request, res: Response) {
+    try {
+      const { refresh_token } = req.body;
+
+      if (!refresh_token) {
+        throw new ApiError({
+          status: StatusCode.BAD_REQUEST,
+          code: MessageCodes.MISSING_REQUIRED_FIELDS,
+          message: 'Refresh token is required',
+        });
+      }
+
+      const data = await AuthService.refreshSession(refresh_token);
+
+      if (!data.session || !data.user) {
+        throw new ApiError({
+          status: StatusCode.UNAUTHORIZED,
+          code: MessageCodes.UNAUTHORIZED,
+          message: 'Failed to refresh session',
+        });
+      }
+
+      const user = await UserService.getUserBySupabaseId(data?.user?.id);
+
+      res.status(200).json(
+        createResponse({
+          status: StatusCode.SUCCESS,
+          message: 'Token refreshed',
+          data: {
+            access_token: data.session.access_token,
+            refresh_token: data.session.refresh_token,
+            expires_at: data.session.expires_at,
+            user,
+          },
+        })
+      );
+    } catch (error) {
+      handleError(res, error);
+    }
+  }
 }

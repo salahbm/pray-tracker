@@ -111,4 +111,21 @@ export class AuthService {
 
     return data;
   }
+
+  static async refreshSession(refresh_token: string) {
+    const { data, error } = await supabase.auth.refreshSession({
+      refresh_token,
+    });
+
+    if (error) {
+      throw new ApiError({
+        message: error?.message,
+        status: StatusCode.INTERNAL_ERROR,
+        code: error.code as unknown as MessageCodes,
+        details: error,
+      });
+    }
+
+    return data;
+  }
 }
