@@ -24,8 +24,8 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 
 - Customizable prayer time reminders
 - Streak maintenance alerts
-- Friend activity notifications
-- Rich notifications with quick actions
+- Local notifications with quick actions
+- Offline-first experience
 
 ### 🌍 Location Services
 
@@ -54,13 +54,12 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 - **Language**: TypeScript
 - **Routing**: Expo Router (file-based)
 - **Styling**: TailwindCSS (NativeWind v4)
-- **Database**: PostgreSQL with Prisma
-- **Backend**: Supabase
+- **Storage**: AsyncStorage for local data persistence
 
 ### State Management
 
 - Zustand (Global State)
-- React Query (Server State)
+- React Query (Cache Management)
 
 ### Key Libraries
 
@@ -69,13 +68,14 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 - `react-native-purchases`: In-app purchases
 - `@gorhom/bottom-sheet`: Interactive bottom sheets
 - `react-native-reanimated`: Smooth animations
+- `@react-native-async-storage/async-storage`: Local data storage
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - Node.js >= 18
-- npm or yarn
+- Bun package manager
 - iOS/Android development environment
 
 ### Installation
@@ -90,7 +90,7 @@ cd pray-tracker
 2. Install dependencies
 
 ```bash
-npm install
+bun install
 ```
 
 3. Set up environment variables
@@ -103,20 +103,20 @@ cp .env.example .env.local
 4. Start the development server
 
 ```bash
-npx expo start
+bun start
 ```
 
 ## 📱 Development
 
 ### Available Scripts
 
-- `npm start`: Start the Expo development server
-- `npm run ios`: Start iOS simulator
-- `npm run android`: Start Android emulator
-- `npm run lint`: Run ESLint
-- `npm run format`: Format code with Prettier
-- `npm run test`: Run tests
-- `npm run commit`: Create a formatted commit message
+- `bun start`: Start the Expo development server
+- `bun run ios`: Start iOS simulator
+- `bun run android`: Start Android emulator
+- `bun run lint`: Run ESLint
+- `bun run format`: Format code with Prettier
+- `bun run test`: Run tests
+- `bun run commit`: Create a formatted commit message
 
 ### Project Structure
 
@@ -138,7 +138,7 @@ pray-tracker/
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes using conventional commits (`npm run commit`)
+3. Commit changes using conventional commits (`bun run commit`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -150,7 +150,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [Adhan.js](https://github.com/batoulapps/adhan-js) for prayer time calculations
 - [Expo](https://expo.dev) for the amazing development platform
-- [Supabase](https://supabase.com) for backend services
 
 ---
 
