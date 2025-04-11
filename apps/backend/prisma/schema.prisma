@@ -1,0 +1,176 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+
+model User {
+  id          String    @id @default(cuid())
+  supabaseId     String    @unique
+  email       String    @unique
+  password    String    
+  username    String    @unique
+  firstName   String?
+  lastName    String?
+  photo       String?
+
+  totalPoints Int       @default(0)
+  deviceToken String?  // Store the Expo push token
+  
+  prays       Prays[]
+  awards      Award[]
+  prayerStats PrayerStats?
+  sentRequests  Friend[] @relation("user_friends")
+  receivedRequests Friend[] @relation("friend_friends")
+
+  isPro      Boolean   @default(false)
+  proUntil   DateTime?   
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Prays {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime // Use DateTime instead of String for easier date manipulation
+  fajr      Int  @default(0)
+  dhuhr     Int  @default(0)
+  asr       Int  @default(0)
+  maghrib   Int  @default(0)
+  isha      Int  @default(0)
+  nafl      Int  @default(0)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date]) // Ensure no duplicate date entries for a user
+}
+
+model Award {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String   // Award name
+  awardedAt   DateTime @default(now())  // Keep this for sorting
+  points      Int      @default(10)     // Points awarded for achieving this award
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title])
+}
+
+model PrayerStats {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+
+  // Relations
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Core Stats
+  totalPrayers           Int      @default(0)
+  missedPrayers          Int      @default(0)
+  naflCount              Int      @default(0)
+
+  // Streaks
+  currentStreak          Int      @default(0)
+  longestStreak          Int      @default(0)
+  fajrStreak             Int      @default(0)
+  isTodayStreakBroken    Boolean  @default(false)
+
+  // On-time Percentages
+  onTimePercentage       Float    @default(0)
+  earlyFajrPercentage    Float    @default(0)
+
+  fajrOnTimePercentage   Float    @default(0)
+  dhuhrOnTimePercentage  Float    @default(0)
+  asrOnTimePercentage    Float    @default(0)
+  maghribOnTimePercentage Float   @default(0)
+  ishaOnTimePercentage   Float    @default(0)
+
+  // Per-Prayer Streak Achievements (10, 50, 100, 150)
+  fajrStrike10           Int      @default(0)
+  fajrStrike50           Int      @default(0)
+  fajrStrike100          Int      @default(0)
+  fajrStrike150          Int      @default(0)
+
+  dhuhrStrike10          Int      @default(0)
+  dhuhrStrike50          Int      @default(0)
+  dhuhrStrike100         Int      @default(0)
+  dhuhrStrike150         Int      @default(0)
+
+  asrStrike10            Int      @default(0)
+  asrStrike50            Int      @default(0)
+  asrStrike100           Int      @default(0)
+  asrStrike150           Int      @default(0)
+
+  maghribStrike10        Int      @default(0)
+  maghribStrike50        Int      @default(0)
+  maghribStrike100       Int      @default(0)
+  maghribStrike150       Int      @default(0)
+
+  ishaStrike10           Int      @default(0)
+  ishaStrike50           Int      @default(0)
+  ishaStrike100          Int      @default(0)
+  ishaStrike150          Int      @default(0)
+
+  naflStrike10           Int      @default(0)
+  naflStrike50           Int      @default(0)
+  naflStrike100          Int      @default(0)
+  naflStrike150          Int      @default(0)
+
+  // Advanced Tracking
+  consistencyPercentage  Float    @default(0) // % of days with all 5 prayers
+  lastActiveDay          DateTime? // Last day user logged a prayer
+  lastFajrTime           DateTime? // Helps calculate early fajr stat
+  lastNaflDate       DateTime? // For gamification or reminders
+  missedPrayerStreak     Int      @default(0) // e.g. 3 days without full prayer
+
+  // Gamification
+  level                  Int      @default(1)
+  totalXP               Int      @default(0)
+
+  // Meta
+  lastCalculated         DateTime @default(now())
+}
+
+
+
+// bi-directional relationship
+model Friend {
+  id        String  @id @default(cuid())
+  userId    String
+  friendId  String
+  status    FriendStatus @default(PENDING) // pending, accepted, rejected
+  
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User    @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+
+  @@unique([userId, friendId]) // Prevent duplicate friendships
+}
+
+
+model Pro {
+  id        String   @id @default(cuid())
+  isProVisible Boolean  @default(false)
+}
+
+enum FriendStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
