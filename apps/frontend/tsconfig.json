@@ -3,8 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@prisma/client": ["lib/prisma/client"]
+      "@prayer/shared": ["../../packages/shared/src"],
+      "@/*": ["./*"]
     },
     "module": "esnext"
   },

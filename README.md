@@ -14,5 +14,5 @@ Each project is independent. Run commands in its folder:
 
 ```bash
 cd frontend && npm install
-cd backend && npm run dev
+cd backend && bun i && bunx --watch src/index.ts
 ```
