@@ -1,0 +1,25 @@
+{
+  "i18n-ally.localesPaths": ["locales"],
+  "cSpell.words": [
+    "adhan",
+    "alaykum",
+    "Assalamu",
+    "Bismillah",
+    "cuid",
+    "datetimepicker",
+    "dhuhr",
+    "ellipsize",
+    "fajr",
+    "gorhom",
+    "isha",
+    "maghrib",
+    "nativewind",
+    "pageable",
+    "praytracker",
+    "salahdev",
+    "SUPABASE",
+    "Swipeable",
+    "nafl"
+  ],
+  "i18n-ally.keystyle": "nested"
+}
