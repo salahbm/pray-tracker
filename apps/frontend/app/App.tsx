@@ -5,9 +5,10 @@ import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+
 import { useSession } from '@/hooks/auth/useSessions';
 import { usePushNotifications } from '@/hooks/common/useNotifications';
-// import { supabase } from '@/lib/supabase';
+import 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

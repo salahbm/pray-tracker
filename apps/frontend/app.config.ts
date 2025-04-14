@@ -46,7 +46,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-router',
     'expo-image-picker',
     'expo-localization',
-    '@prisma/react-native',
     [
       'expo-splash-screen',
       {
@@ -98,12 +97,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     eas: {
       projectId: '6199a50c-8940-4b44-bb6a-919736af63f6',
     },
-    databaseUrl: process.env.DATABASE_URL,
-    directUrl: process.env.DIRECT_URL,
-    supabaseUrl: process.env.SUPABASE_URL,
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
-    supabaseRoleKey: process.env.SUPABASE_ROLE_KEY,
     baseUrl: process.env.API_BASE_URL,
+    appVariant: process.env.APP_VARIANT,
   },
   owner: 'salahbm_dev',
   runtimeVersion: {

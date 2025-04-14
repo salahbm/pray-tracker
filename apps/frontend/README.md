@@ -75,7 +75,7 @@ A comprehensive mobile application designed to help Muslims track and maintain t
 ### Prerequisites
 
 - Node.js >= 18
-- Bun package manager
+- npm package manager
 - iOS/Android development environment
 
 ### Installation
@@ -90,7 +90,7 @@ cd pray-tracker
 2. Install dependencies
 
 ```bash
-bun install
+npm install
 ```
 
 3. Set up environment variables
@@ -103,20 +103,20 @@ cp .env.example .env.local
 4. Start the development server
 
 ```bash
-bun start
+npm start
 ```
 
 ## 📱 Development
 
 ### Available Scripts
 
-- `bun start`: Start the Expo development server
-- `bun run ios`: Start iOS simulator
-- `bun run android`: Start Android emulator
-- `bun run lint`: Run ESLint
-- `bun run format`: Format code with Prettier
-- `bun run test`: Run tests
-- `bun run commit`: Create a formatted commit message
+- `npm start`: Start the Expo development server
+- `npm run ios`: Start iOS simulator
+- `npm run android`: Start Android emulator
+- `npm run lint`: Run ESLint
+- `npm run format`: Format code with Prettier
+- `npm run test`: Run tests
+- `npm run commit`: Create a formatted commit message
 
 ### Project Structure
 
@@ -138,7 +138,7 @@ pray-tracker/
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes using conventional commits (`bun run commit`)
+3. Commit changes using conventional commits (`npm run commit`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 

@@ -119,6 +119,15 @@ Common utilities and types used across applications:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## Pushing the code
+
+```
+bun run push frontend fix "align radio buttons"
+bun run push backend chore "update tsconfig"
+bun run push shared refactor "optimize date utils"
+bun run push web feat "add hero banner"
+```
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
