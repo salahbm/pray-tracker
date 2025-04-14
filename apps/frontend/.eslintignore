@@ -1,0 +1,20 @@
+/.expo
+node_modules
+expo-env.d.ts
+dist
+.expo-shared
+.vscode
+.vercel
+
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+
+#prisma 
+lib/prisma/client
