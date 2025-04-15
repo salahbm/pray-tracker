@@ -1,0 +1,9 @@
+node_modules
+dist/client
+dist/server
+.prisma
+*.log
+*.sqlite
+coverage
+.cache
+build
