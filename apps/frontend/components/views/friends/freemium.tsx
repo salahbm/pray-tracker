@@ -45,7 +45,11 @@ const FreemiumFriends = () => {
         showsVerticalScrollIndicator={false}
         className="w-full lg:px-4"
         refreshControl={
-          <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+          <RefreshControl
+            refreshing={isFetching}
+            onRefresh={refetch}
+            tintColor={colors['--primary']}
+          />
         }
       >
         <FreemiumTrackerIntro ref={ref} isProVisible={pro?.isProVisible} />

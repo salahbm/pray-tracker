@@ -1,6 +1,8 @@
 import Constants from 'expo-constants';
 
 const ORIGIN = Constants.expoConfig?.extra?.baseUrl;
-const NODE_ENV = Constants.expoConfig?.extra?.NODE_ENV;
+console.log(` ORIGIN:`, ORIGIN);
+const APP_VARIANT = Constants.expoConfig?.extra?.appVariant;
+console.log(` APP_VARIANT:`, APP_VARIANT);
 
-export { ORIGIN, NODE_ENV };
+export { ORIGIN, APP_VARIANT };

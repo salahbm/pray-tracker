@@ -15,7 +15,7 @@
         "simulator": false
       },
       "env": {
-        "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
+        "EXPO_PUBLIC_API_BASE_URL": "EXPO_PUBLIC_API_BASE_URL",
         "EXPO_PUBLIC_APP_VARIANT": "production",
         "EXPO_UNSTABLE_DEPLOY_SERVER": "1"
       }
@@ -31,7 +31,7 @@
         "simulator": false
       },
       "env": {
-        "EXPO_PUBLIC_BASE_URL": "EXPO_PUBLIC_BASE_URL",
+        "EXPO_PUBLIC_API_BASE_URL": "EXPO_PUBLIC_API_BASE_URL",
         "EXPO_PUBLIC_APP_VARIANT": "development"
       }
     }

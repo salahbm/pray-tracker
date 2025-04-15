@@ -161,7 +161,6 @@ export class AuthController {
       if (!refresh_token) {
         throw new ApiError({
           status: StatusCode.BAD_REQUEST,
-          code: MessageCodes.VALIDATION_FAILED,
           message: 'Refresh token is required',
         });
       }
@@ -171,7 +170,6 @@ export class AuthController {
       if (!data.session || !data.user) {
         throw new ApiError({
           status: StatusCode.UNAUTHORIZED,
-          code: MessageCodes.UNAUTHORIZED,
           message: 'Failed to refresh session',
         });
       }

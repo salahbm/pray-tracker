@@ -93,12 +93,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ko: './locales/ko.json',
   },
   extra: {
+    baseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+    appVariant: process.env.EXPO_PUBLIC_APP_VARIANT,
     supportRTL: true,
     eas: {
       projectId: '6199a50c-8940-4b44-bb6a-919736af63f6',
     },
-    baseUrl: process.env.API_BASE_URL,
-    appVariant: process.env.APP_VARIANT,
   },
   owner: 'salahbm_dev',
   runtimeVersion: {

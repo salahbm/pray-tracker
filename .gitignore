@@ -15,3 +15,7 @@ Thumbs.db
 
 # Turborepo cache
 turbo/
+
+apps/*/bun.lockb
+apps/*/package-lock.json
+apps/*/yarn.lock

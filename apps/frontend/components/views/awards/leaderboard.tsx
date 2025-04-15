@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, FlatList, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  RefreshControl,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
@@ -10,11 +16,13 @@ import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
 import { TUser } from '@/types/user';
+import { useThemeStore } from '@/store/defaults/theme';
 
 export default function Leaderboard() {
   const { t } = useTranslation();
-  const { data, isLoading } = useGetUsersList();
+  const { data, isLoading, refetch } = useGetUsersList();
   const insets = useSafeAreaInsets();
+  const { colors } = useThemeStore();
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
   return (
@@ -47,6 +55,13 @@ export default function Leaderboard() {
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
         ListEmptyComponent={
           <NoData title={t('Commons.NotFound.noData')} className="mt-[45%]" />
+        }
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={refetch}
+            tintColor={colors['--primary']}
+          />
         }
       />
 

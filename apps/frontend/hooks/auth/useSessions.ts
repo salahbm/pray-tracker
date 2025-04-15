@@ -30,9 +30,10 @@ export const useSession = () => {
 
   const { data, isFetched } = useQuery({
     queryKey: [userKeys],
-    queryFn: () => refreshSession(session.refresh_token),
+    queryFn: () => refreshSession(session?.refresh_token ?? ''),
     staleTime: 1000 * 60 * 5,
     retry: 1,
+    enabled: !!session?.refresh_token,
   });
 
   useEffect(() => {
