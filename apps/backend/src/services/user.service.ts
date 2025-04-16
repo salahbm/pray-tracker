@@ -82,28 +82,44 @@ export class UserService {
     fileExt: string,
     oldImagePath?: string
   ) {
-    const fileName = `${Date.now()}.${fileExt}`;
+    const path = `${Date.now()}.${fileExt}`;
 
-    const { error: uploadError } = await supabase.storage
+    // Upload file to Supabase storage
+    const { error: uploadError, data } = await supabase.storage
       .from('avatars')
-      .upload(fileName, buffer, {
+      .upload(path, buffer, {
         contentType: `image/${fileExt}`,
         upsert: true,
       });
 
-    if (uploadError) throw new Error(uploadError.message);
+    if (uploadError) {
+      throw new ApiError({ status: 500, message: uploadError.message });
+    }
 
-    const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
-    const publicUrl = data?.publicUrl?.replace(/([^:]\/)\/+/g, '$1');
-
-    if (!publicUrl)
+    if (!data?.path) {
       throw new ApiError({
-        message: 'Failed to get public URL',
         status: StatusCode.INTERNAL_ERROR,
+        message: 'Failed to upload image',
         code: MessageCodes.INTERNAL_ERROR,
       });
+    }
 
-    // Delete old image if applicable
+    // Get public URL for the uploaded file
+    const { data: urlData } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(data.path);
+
+    const publicUrl = urlData?.publicUrl.replace('/avatars/', '/avatars//');
+
+    if (!publicUrl) {
+      throw new ApiError({
+        status: StatusCode.INTERNAL_ERROR,
+        message: 'Failed to get public URL',
+        code: MessageCodes.INTERNAL_ERROR,
+      });
+    }
+
+    // Delete old image if it exists
     if (oldImagePath) {
       await supabase.storage.from('avatars').remove([oldImagePath]);
     }

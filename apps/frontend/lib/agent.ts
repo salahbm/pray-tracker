@@ -1,6 +1,10 @@
 import { ORIGIN } from '@/constants/config';
 
 export const agent = async (url: string, options: RequestInit = {}) => {
+  if (!ORIGIN) {
+    throw new Error('API_BASE_URL is not defined in environment variables');
+  }
+
   const fullURL = `${ORIGIN}${url}`;
 
   const defaultHeaders: HeadersInit = {

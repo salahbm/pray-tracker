@@ -1,52 +1,31 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { useState } from 'react';
-
 import { useAuthStore } from '@/store/auth/auth-session';
-import { ApiError } from '@/utils/error';
-import { createResponse, MessageCodes, StatusCode } from '@/utils/status';
+import useMutation from '../common/useMutation';
 
-// Custom hook for handling logout using useMutation
+const logoutFn = async () => {
+  // Simulate async behavior (optional)
+  await new Promise((resolve) => setTimeout(resolve, 25));
+
+  return { success: true };
+};
+
 export const useLogout = () => {
   const { clearUserAndSession } = useAuthStore();
   const queryClient = useQueryClient();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const logOut = async () => {
-    try {
-      setIsLoading(true);
-      // Prevent refetch by setting global default before anything else
-      queryClient.setQueryDefaults(['*'], {
-        enabled: false,
-        staleTime: Infinity,
-      });
+  const { mutate: logOut, isPending: isLoggingOut } = useMutation({
+    mutationFn: logoutFn,
+    options: {
+      onMutate: () => {
+        queryClient.clear();
+      },
+      onSuccess: () => {
+        clearUserAndSession();
+        router.replace('/(tabs)');
+      },
+    },
+  });
 
-      await queryClient.cancelQueries(); // then cancel all
-      queryClient.removeQueries();
-      queryClient.clear();
-
-      // Reset Zustand store
-      clearUserAndSession();
-
-      // Navigate after everything is cleared
-      router.replace('/(tabs)');
-
-      return createResponse({
-        status: StatusCode.SUCCESS,
-        message: 'Logout successful',
-        code: MessageCodes.SIGN_OUT_SUCCESSFULLY,
-        data: null,
-      });
-    } catch (err) {
-      throw new ApiError({
-        message: err?.message || 'Failed to log out',
-        status: StatusCode.INTERNAL_ERROR,
-        code: MessageCodes.SIGN_OUT_FAILED,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return { logOut, isLoggingOut: isLoading };
+  return { logOut, isLoggingOut };
 };

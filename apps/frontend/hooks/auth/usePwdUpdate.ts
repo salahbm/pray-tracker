@@ -22,7 +22,7 @@ export const useUpdatePassword = () => {
     mutationFn: updatePassword,
     options: {
       onSuccess: async () => {
-        await logOut();
+        await logOut(undefined);
       },
     },
   });

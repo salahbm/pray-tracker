@@ -24,7 +24,7 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: async () => {
-      await logOut();
+      await logOut(undefined);
       await queryClient.invalidateQueries({
         queryKey: [userKeys, usersListKey],
       });

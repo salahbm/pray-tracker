@@ -4,31 +4,44 @@ import useMutation from '../common/useMutation';
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 
+interface UploadImageArgs {
+  imageUri: string;
+  fileExt: string;
+  userId: string;
+  oldPath?: string;
+}
+
+interface UploadResponse {
+  photo: string;
+  message: string;
+}
+
 const uploadImage = async ({
   imageUri,
   fileExt,
   userId,
   oldPath,
-}: {
-  imageUri: string;
-  fileExt: string;
-  userId: string;
-  oldPath?: string;
-}): Promise<string> => {
+}: UploadImageArgs): Promise<UploadResponse> => {
   const formData = new FormData();
 
-  const response = await fetch(imageUri);
-  const blob = await response.blob();
+  formData.append('avatar', {
+    uri: imageUri,
+    name: `avatar.${fileExt}`,
+    type: `image/${fileExt}`,
+  } as any);
 
-  formData.append('avatar', blob);
-  formData.append('fileExt', fileExt);
   if (oldPath) formData.append('oldPath', oldPath);
 
-  const result = await agent(`/users/${userId}/avatar`, {
+  const { data } = await agent(`/users/${userId}/avatar`, {
     method: 'POST',
     body: formData,
   });
-  return result.data.photo;
+
+  if (!data?.photo) {
+    throw new Error('Failed to upload image');
+  }
+
+  return data;
 };
 
 export const useUploadImage = () => {
@@ -36,10 +49,12 @@ export const useUploadImage = () => {
   return useMutation({
     mutationFn: uploadImage,
     options: {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({
-          queryKey: [userKeys],
-        });
+      onSuccess: async (data) => {
+        if (data?.photo) {
+          await queryClient.invalidateQueries({
+            queryKey: [userKeys],
+          });
+        }
       },
     },
   });

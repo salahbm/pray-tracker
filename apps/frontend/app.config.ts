@@ -93,7 +93,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ko: './locales/ko.json',
   },
   extra: {
-    baseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+    apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
     appVariant: process.env.EXPO_PUBLIC_APP_VARIANT,
     supportRTL: true,
     eas: {

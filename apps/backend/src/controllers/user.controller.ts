@@ -62,9 +62,10 @@ export class UserController {
   static async updateUser(req: Request, res: Response) {
     try {
       const userId = req.params.id;
+      const { toast, ...updateData } = req.body;
       const updatedUser = await UserService.updateUser({
-        ...req.body,
         id: userId,
+        ...updateData,
       });
       res.json(
         createResponse({
@@ -108,7 +109,8 @@ export class UserController {
   static async uploadAvatar(req: Request, res: Response) {
     try {
       const userId = req.params.id;
-      const { fileExt, oldPath } = req.body;
+      const fileExt = req.body.fileExt;
+      const oldPath = req.body.oldPath;
       const buffer = req.file?.buffer;
 
       if (!userId || !fileExt || !buffer) {

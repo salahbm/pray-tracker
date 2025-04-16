@@ -21,6 +21,7 @@ const Account = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const { logOut, isLoggingOut } = useLogout();
+  console.log(` isLoggingOut:`, isLoggingOut);
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,7 +39,7 @@ const Account = () => {
 
   const handleLogOut = async () => {
     await triggerHaptic();
-    logOut();
+    logOut(undefined);
   };
 
   return (
