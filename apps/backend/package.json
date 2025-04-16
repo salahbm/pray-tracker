@@ -11,17 +11,17 @@
   "keywords": [],
   "author": "salahbm.dev@gmail.com",
   "license": "ISC",
-  "description": "",
+  "description": "The backend of Prayer Tracker",
   "private": true,
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/cors": "^2.8.17",
     "@prisma/client": "^6.6.0",
     "@supabase/supabase-js": "^2.49.4",
     "@types/morgan": "^1.9.9",
