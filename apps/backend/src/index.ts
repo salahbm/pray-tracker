@@ -12,6 +12,7 @@ import friendRoutes from './routes/friend.routes';
 import awardRoutes from './routes/awards.routes';
 import proRoutes from './routes/pro.routes';
 import authRoutes from './routes/auth.routes';
+import ALLOWED_ORIGINS from './constants/origins';
 
 // Initialize environment variables
 dotenv.config();
@@ -20,7 +21,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ALLOWED_ORIGINS }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
