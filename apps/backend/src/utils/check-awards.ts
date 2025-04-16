@@ -77,10 +77,10 @@ export const checkAndAssignAwards = async (
     stats.currentStreak >= 30
       ? ACTION_POINTS.MONTHLY_STREAK
       : stats.currentStreak >= 7
-      ? ACTION_POINTS.WEEKLY_STREAK
-      : stats.currentStreak > 0
-      ? ACTION_POINTS.DAILY_STREAK
-      : 0;
+        ? ACTION_POINTS.WEEKLY_STREAK
+        : stats.currentStreak > 0
+          ? ACTION_POINTS.DAILY_STREAK
+          : 0;
 
   earnedXP +=
     stats.consistencyPercentage >= 80 ? ACTION_POINTS.CONSISTENCY_BONUS : 0;
@@ -108,7 +108,7 @@ export const checkAndAssignAwards = async (
   // Step 6: Evaluate award rules
   for (const rule of awardRules) {
     const alreadyAwarded = existingAwardTitles.has(rule.title);
-    const conditionPassed = rule.condition(stats);
+    const conditionPassed = rule.condition(stats as any);
 
     if (conditionPassed && !alreadyAwarded) {
       const award = await prisma.award.create({

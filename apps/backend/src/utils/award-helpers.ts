@@ -129,7 +129,7 @@ export const awardRules: AwardRule[] = [
       emoji: emojiMap[prayer] as string,
       title: `${capitalized}Strike${count}`,
       description: `${capitalized}Strike${count}Description`,
-      condition: (stats) => stats[`${prayer}Strike${count}`] >= 1,
+      condition: (stats: any) => stats[`${prayer}Strike${count}`] >= 1,
       points: count <= 50 ? 20 : count <= 100 ? 40 : 60,
     }));
   }),
@@ -161,7 +161,7 @@ export const awardRules: AwardRule[] = [
     emoji: '🎯',
     title: `Level${level}Achieved`,
     description: `Level${level}AchievedDescription`,
-    condition: (stats) => stats.level >= level,
+    condition: (stats: any) => stats.level >= level,
     points: level * 5,
   })),
   {
