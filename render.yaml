@@ -3,6 +3,6 @@ services:
     name: pray-backend
     env: node
     rootDir: apps/backend
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm start
     plan: free

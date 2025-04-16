@@ -70,7 +70,7 @@ export default function Leaderboard() {
         isVisible={!!selectedUser}
         onBackdropPress={() => setSelectedUser(null)}
       >
-        <View className="bg-background p-6 rounded-lg flex-row gap-4 items-center py-8">
+        <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-8">
           <Image
             source={{ uri: selectedUser?.photo }}
             className="w-16 h-16 rounded-full border border-border max-w-16 max-h-16"
