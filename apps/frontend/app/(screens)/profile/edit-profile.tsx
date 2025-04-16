@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -15,7 +16,6 @@ import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
@@ -28,7 +28,8 @@ const EditProfile = () => {
   const [username, setUserName] = useState<string>(user?.username || '');
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
-  const [image, setImage] = useState<string>(user?.photo || '');
+  const [image, setImage] = useState<string>(user?.photo);
+  console.log(' image:', image);
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
   const usernameRef = useRef(null);
@@ -95,7 +96,6 @@ const EditProfile = () => {
       fireToast.error(error.message);
     }
   };
-
   return (
     <SafeAreaView className="safe-area">
       <ScrollView
@@ -116,9 +116,7 @@ const EditProfile = () => {
               />
             ) : (
               <Image
-                source={{
-                  uri: FRIENDS.guest,
-                }}
+                source={FRIENDS.guest}
                 accessibilityLabel="Profile Photo"
                 className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
               />

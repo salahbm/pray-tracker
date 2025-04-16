@@ -21,7 +21,7 @@ const Account = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const { logOut, isLoggingOut } = useLogout();
-  console.log(` isLoggingOut:`, isLoggingOut);
+  console.log(' isLoggingOut:', isLoggingOut);
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 

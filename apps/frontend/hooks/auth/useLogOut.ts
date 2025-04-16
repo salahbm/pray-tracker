@@ -1,7 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { useAuthStore } from '@/store/auth/auth-session';
+
 import useMutation from '../common/useMutation';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 const logoutFn = async () => {
   // Simulate async behavior (optional)

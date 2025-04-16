@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 
 import { defaultColorMap, MAX_DISPLAY_POINTS } from './constant';
@@ -16,6 +16,26 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
     onDayClick,
     locale = 'en',
   } = props;
+
+  const monthLayouts = useRef<Record<string, number>>({});
+  const scrollRef = useRef<ScrollView | null>(null);
+
+  const scrollToCurrentMonth = useCallback(() => {
+    const currentMonthIndex = new Date().getMonth(); // 0 = Jan
+    const monthName = new Date(year, currentMonthIndex).toLocaleString(locale, {
+      month: 'short',
+    });
+
+    const x = monthLayouts.current[monthName];
+    if (x !== undefined) {
+      scrollRef.current?.scrollTo({ x, y: 0, animated: true });
+    }
+  }, [year, locale]);
+
+  useEffect(() => {
+    const timeout = setTimeout(scrollToCurrentMonth, 100); // allow layout time
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Process data
   const processedData: ProcessedData = useMemo(() => {
@@ -72,7 +92,13 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
       const grid = arrToMatrix(monthData.scores);
 
       return (
-        <View key={month} className="mr-4">
+        <View
+          key={month}
+          className="mr-4"
+          onLayout={(e) => {
+            monthLayouts.current[month] = e.nativeEvent.layout.x;
+          }}
+        >
           <Text className="text-sm font-semibold text-foreground mb-2 capitalize">
             {month}
           </Text>
@@ -121,7 +147,11 @@ const HeatMap: React.FC<HeatMapProps> = (props) => {
   );
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      ref={scrollRef}
+    >
       {Object.entries(yearData).map(([month, monthData]) =>
         renderMonth(month, monthData),
       )}

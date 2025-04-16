@@ -7,7 +7,6 @@ import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import { IMAGES } from '@/constants/images';
 import { userKeys } from '@/constants/query-keys';
-import { performOAuth } from '@/hooks/auth/useOAuth';
 import { useGetUser } from '@/hooks/user/useGetUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';

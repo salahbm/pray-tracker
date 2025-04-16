@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import HeatMap from '@/components/shared/heat-map';
 import { MAX_DISPLAY_POINTS } from '@/components/shared/heat-map/constant';
@@ -35,6 +35,7 @@ interface PrayerHistoryProps {
   data: IPrays[];
   handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
   dispatch: React.Dispatch<{ type: string; payload?: unknown }>;
+  isCreatingPray: boolean;
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
@@ -51,9 +52,13 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
     handleUpdateClickedDay,
     dispatch,
     minYear = 2000,
+    isCreatingPray,
   } = params;
   const { colors } = useThemeStore();
-
+  const [updating, setUpdating] = useState<{
+    prayer: string;
+    value: PRAYER_POINTS;
+  } | null>(null);
   const togglePicker = async () => {
     await triggerHaptic();
     dispatch({ type: 'TOGGLE_PICKER' });
@@ -154,28 +159,37 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = (params) => {
                           PRAYER_POINTS.MISSED,
                           PRAYER_POINTS.LATE,
                           PRAYER_POINTS.ON_TIME,
-                        ].map((val) => (
-                          <Checkbox
-                            key={val}
-                            value={value === val}
-                            onValueChange={() =>
-                              handleUpdateClickedDay(clickedData.date, {
-                                data: {
-                                  ...clickedData.details.data,
-                                  [prayer]: val,
-                                },
-                              })
-                            }
-                            color={
-                              value === val
-                                ? val === PRAYER_POINTS.ON_TIME
-                                  ? colors['--primary']
-                                  : val === PRAYER_POINTS.LATE
-                                    ? colors['--secondary']
-                                    : colors['--destructive']
-                                : undefined
-                            }
-                          />
+                        ].map((val, index) => (
+                          <View className="relative" key={index}>
+                            <Checkbox
+                              key={val}
+                              value={value === val}
+                              onValueChange={() => {
+                                handleUpdateClickedDay(clickedData.date, {
+                                  data: {
+                                    ...clickedData.details.data,
+                                    [prayer]: val,
+                                  },
+                                });
+                                setUpdating({ prayer, value: val });
+                              }}
+                              color={
+                                value === val
+                                  ? val === PRAYER_POINTS.ON_TIME
+                                    ? colors['--primary']
+                                    : val === PRAYER_POINTS.LATE
+                                      ? colors['--secondary']
+                                      : colors['--destructive']
+                                  : undefined
+                              }
+                            />
+
+                            {isCreatingPray &&
+                              updating?.prayer === prayer &&
+                              updating?.value === val && (
+                                <ActivityIndicator className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-[0.7] text-primary size-10" />
+                              )}
+                          </View>
                         ))}
                       </View>
                     </View>

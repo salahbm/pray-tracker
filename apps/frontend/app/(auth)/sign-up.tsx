@@ -6,6 +6,7 @@ import { X } from '@/components/shared/icons';
 import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import { useRegister } from '@/hooks/auth/useRegister';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
@@ -43,14 +44,16 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
       email: form.email,
       token: form.token,
       type: 'signup',
-    });
-
-    if (res?.success) {
-      setShowOtpModal(false);
-      setShowSuccessModal(true);
-      onSuccess();
-      setForm({ email: '', username: '', password: '', token: '' });
-    }
+    })
+      .then((res) => {
+        onSuccess();
+        setShowOtpModal(false);
+        setShowSuccessModal(true);
+        setForm({ email: '', username: '', password: '', token: '' });
+      })
+      .finally(() => {
+        setForm({ ...form, token: '' });
+      });
   };
 
   return (

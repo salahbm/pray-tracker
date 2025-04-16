@@ -1,7 +1,7 @@
 import Checkbox from 'expo-checkbox';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
@@ -11,11 +11,20 @@ import { useThemeStore } from '@/store/defaults/theme';
 interface IPrayers {
   prayers: Record<string, number>;
   handlePrayerChange: (prayer: string, value: number) => void;
+  isCreatingPray: boolean;
 }
 
-const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
+const TodaysPray = ({
+  prayers,
+  handlePrayerChange,
+  isCreatingPray,
+}: IPrayers) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
+  const [clickedData, setClickedData] = useState<{
+    prayer: string;
+    value: PRAYER_POINTS;
+  } | null>(null);
 
   return (
     <React.Fragment>
@@ -60,16 +69,14 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
               PRAYER_POINTS.MISSED,
               PRAYER_POINTS.LATE,
               PRAYER_POINTS.ON_TIME,
-            ].map((val) => (
-              <TouchableOpacity
-                key={val}
-                onPress={() => handlePrayerChange(prayer, val)}
-                activeOpacity={0.7}
-                className="px-4 py-2"
-              >
+            ].map((val, index) => (
+              <View className="relative mx-4 my-2" key={index}>
                 <Checkbox
                   value={value === val}
-                  onValueChange={() => handlePrayerChange(prayer, val)}
+                  onValueChange={() => {
+                    handlePrayerChange(prayer, val);
+                    setClickedData({ prayer, value: val });
+                  }}
                   color={
                     value === val
                       ? val === PRAYER_POINTS.ON_TIME
@@ -80,7 +87,12 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
                       : undefined
                   }
                 />
-              </TouchableOpacity>
+                {isCreatingPray &&
+                  clickedData?.prayer === prayer &&
+                  clickedData?.value === val && (
+                    <ActivityIndicator className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-[0.7] text-primary size-10" />
+                  )}
+              </View>
             ))}
           </View>
         </View>

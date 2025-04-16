@@ -33,7 +33,7 @@ export default function App() {
   }
 
   return (
-    <Suspense fallback={<ActivityIndicator />}>
+    <Suspense fallback={<ActivityIndicator className="text-primary size-14" />}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

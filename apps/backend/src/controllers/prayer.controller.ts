@@ -68,7 +68,6 @@ export class PrayerController {
         createResponse({
           status: StatusCode.SUCCESS,
           message: 'Prayer record saved',
-          code: MessageCodes.PRAY_UPDATED,
           data: updated,
         })
       );

@@ -19,12 +19,16 @@ export class UserService {
   }
 
   /**
-   * Get user by supabase id
-   * @param supabaseId the supabase id of the user
+   * Get user by supabaseId
+   * @param supabaseId the supabaseId of the user
    * @returns the user
    */
   static async getUserBySupabaseId(supabaseId: string): Promise<User> {
-    const user = await prisma.user.findUnique({ where: { supabaseId } });
+    const user = await prisma.user.findUnique({
+      where: {
+        supabaseId,
+      },
+    });
 
     if (!user) {
       throw new ApiError({
@@ -53,10 +57,14 @@ export class UserService {
    * @param data the data of the user
    * @returns the user
    */
-  static async createUser(data: Partial<User>): Promise<User> {
-    const { username, email, supabaseId, password } = data;
+  static async createUser(data: {
+    username: string;
+    email: string;
+    supabaseId: string;
+  }): Promise<User> {
+    const { username, email, supabaseId } = data;
 
-    if (!username || !email || !supabaseId || !password) {
+    if (!username || !email || !supabaseId) {
       throw new ApiError({
         message: 'Missing required fields',
         status: StatusCode.BAD_REQUEST,
@@ -66,7 +74,7 @@ export class UserService {
     }
 
     return prisma.user.create({
-      data: { username, email, supabaseId, password },
+      data: { username, email, supabaseId, password: '' },
     });
   }
 

@@ -10,7 +10,11 @@ async function requestReset(email: string) {
   return response.data;
 }
 
-async function verifyReset(params: { email: string; token: string }) {
+async function verifyReset(params: {
+  email: string;
+  token: string;
+  type: 'email' | 'signup';
+}) {
   const response = await agent('/auth/verify-otp', {
     method: 'POST',
     body: JSON.stringify(params),

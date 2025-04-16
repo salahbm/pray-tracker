@@ -82,37 +82,67 @@ export class AuthController {
       if (!data?.user) {
         throw new ApiError({
           status: StatusCode.BAD_REQUEST,
-          code: MessageCodes.MFA_VERIFICATION_FAILED,
+          code: MessageCodes.VALIDATION_FAILED,
           message: 'Failed to verify OTP',
         });
       }
 
-      console.log('Creating user with:', {
-        username: data.user.user_metadata?.username,
-        email: data.user.email,
-        supabaseId: data.user.id,
-      });
-
       let user;
       if (params.type === 'signup') {
-        user = await UserService.createUser({
-          username: data.user.user_metadata.username,
-          email: data.user.email!,
-          supabaseId: data.user.id,
-        });
-      }
+        try {
+          user = await UserService.createUser({
+            username: data.user.user_metadata?.username,
+            email: data.user.email!,
+            supabaseId: data.user.id,
+          });
 
-      res.status(200).json(
-        createResponse({
-          status: StatusCode.SUCCESS,
-          message: 'User verified successfully',
-          data: {
-            user: user ?? data.user,
-            access_token: data.session?.access_token,
-            refresh_token: data.session?.refresh_token,
-          },
-        })
-      );
+          res.status(200).json(
+            createResponse({
+              status: StatusCode.SUCCESS,
+              message: 'User verified and created successfully',
+              data: {
+                user,
+                access_token: data.session?.access_token,
+                refresh_token: data.session?.refresh_token,
+              },
+            })
+          );
+        } catch (createError: any) {
+          // Handle unique constraint violations
+          if (createError.code === 'P2002') {
+            throw new ApiError({
+              status: StatusCode.CONFLICT,
+              code: MessageCodes.USER_ALREADY_EXISTS,
+              message: `User with this ${createError.meta?.target?.[0]} already exists`,
+            });
+          }
+          throw createError;
+        }
+      } else if (params.type === 'email') {
+        try {
+          user = await UserService.getUserBySupabaseId(data.user.id);
+          res.status(200).json(
+            createResponse({
+              status: StatusCode.SUCCESS,
+              message: 'User verified successfully',
+              data: {
+                user,
+                access_token: data.session?.access_token,
+                refresh_token: data.session?.refresh_token,
+              },
+            })
+          );
+        } catch (error: any) {
+          if (error.code === MessageCodes.USER_NOT_FOUND) {
+            throw new ApiError({
+              status: StatusCode.NOT_FOUND,
+              code: MessageCodes.USER_NOT_FOUND,
+              message: 'User not found in database',
+            });
+          }
+          throw error;
+        }
+      }
     } catch (error) {
       handleError(res, error);
     }

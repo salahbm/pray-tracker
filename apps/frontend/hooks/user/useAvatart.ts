@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import useMutation from '../common/useMutation';
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
-
 interface UploadImageArgs {
   imageUri: string;
   fileExt: string;
@@ -11,17 +10,12 @@ interface UploadImageArgs {
   oldPath?: string;
 }
 
-interface UploadResponse {
-  photo: string;
-  message: string;
-}
-
 const uploadImage = async ({
   imageUri,
   fileExt,
   userId,
   oldPath,
-}: UploadImageArgs): Promise<UploadResponse> => {
+}: UploadImageArgs): Promise<{ photo: string }> => {
   const formData = new FormData();
 
   formData.append('avatar', {
@@ -30,18 +24,15 @@ const uploadImage = async ({
     type: `image/${fileExt}`,
   } as any);
 
+  formData.append('fileExt', fileExt);
   if (oldPath) formData.append('oldPath', oldPath);
 
-  const { data } = await agent(`/users/${userId}/avatar`, {
+  const res = await agent(`/users/${userId}/avatar`, {
     method: 'POST',
     body: formData,
   });
 
-  if (!data?.photo) {
-    throw new Error('Failed to upload image');
-  }
-
-  return data;
+  return res.data;
 };
 
 export const useUploadImage = () => {
@@ -50,7 +41,7 @@ export const useUploadImage = () => {
     mutationFn: uploadImage,
     options: {
       onSuccess: async (data) => {
-        if (data?.photo) {
+        if (data) {
           await queryClient.invalidateQueries({
             queryKey: [userKeys],
           });

@@ -15,8 +15,8 @@ import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
 import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
-import { TUser } from '@/types/user';
 import { useThemeStore } from '@/store/defaults/theme';
+import { TUser } from '@/types/user';
 
 export default function Leaderboard() {
   const { t } = useTranslation();

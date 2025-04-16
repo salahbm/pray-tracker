@@ -1,4 +1,3 @@
-import { useLogout } from './useLogOut';
 import useMutation from '../common/useMutation';
 import { agent } from '@/lib/agent';
 
@@ -16,14 +15,7 @@ const updatePassword = async (data: UpdatePasswordPayload) => {
 };
 
 export const useUpdatePassword = () => {
-  const { logOut } = useLogout();
-
   return useMutation({
     mutationFn: updatePassword,
-    options: {
-      onSuccess: async () => {
-        await logOut(undefined);
-      },
-    },
   });
 };

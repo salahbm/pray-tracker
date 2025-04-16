@@ -4,10 +4,12 @@ import { Image, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
+import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
+import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -16,6 +18,7 @@ const EditPwd = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const { mutateAsync: updatePassword, isPending } = useUpdatePassword();
+  const { logOut, isLoggingOut } = useLogout();
 
   //   States
   const [newPassword, setNewPassword] = useState<string>('');
@@ -34,22 +37,21 @@ const EditPwd = () => {
   };
 
   const handleUpdate = async () => {
-    try {
-      if (!validatePasswords()) return;
+    if (!validatePasswords()) return;
 
-      if (newPassword) {
-        await updatePassword({
-          email: user?.email,
-          newPassword,
-        });
-      }
-    } catch (error) {
-      fireToast.error(error.message);
+    if (newPassword) {
+      await updatePassword({
+        email: user?.email,
+        newPassword,
+      }).then(async () => {
+        await logOut(undefined);
+      });
     }
   };
 
   return (
     <SafeAreaView className="main-area">
+      <Loader visible={isLoggingOut} />
       <GoBack title={t('Profile.EditPassword.Title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
         {user?.photo ? (

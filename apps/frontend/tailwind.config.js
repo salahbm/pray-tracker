@@ -42,6 +42,9 @@ module.exports = {
         ring: 'var(--ring)',
       },
     },
+    animation: {
+      'fade-in': 'cubic-bezier(0.4, 0, 1, 1) 0.3s forwards',
+    },
   },
   plugins: [],
 };

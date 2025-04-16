@@ -43,21 +43,29 @@ export default function ForgotPasswordScreen({
 
   const handlePressVerify = useCallback(async () => {
     try {
-      const { session, user } = await verifyRequest.mutateAsync({
-        email,
-        token,
-      });
+      const { access_token, refresh_token, user } =
+        await verifyRequest.mutateAsync({
+          email,
+          token,
+          type: 'email',
+        });
 
       queryClient.invalidateQueries(userKeys);
       setUser(user);
-      setSession(session);
+      setSession({
+        access_token,
+        refresh_token,
+      });
+      setShowOtpModal(false);
+      onSuccess();
       setTimeout(() => {
         setSuccessModal(true);
       }, 200);
     } catch (error) {
       fireToast.error(error.message);
     } finally {
-      setShowOtpModal(false);
+      setEmail('');
+      setToken('');
     }
   }, [email, token, verifyRequest, setUser, setSession, queryClient]);
 

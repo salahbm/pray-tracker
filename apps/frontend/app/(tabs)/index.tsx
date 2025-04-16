@@ -93,7 +93,8 @@ export default function HomeScreen() {
   );
 
   // MUTATIONS
-  const { mutateAsync: createPray } = useCreatePray();
+  const { mutateAsync: createPray, isPending: isCreatingPray } =
+    useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
   const signInSheetRef = useRef<BottomSheet>(null);
@@ -133,6 +134,9 @@ export default function HomeScreen() {
     async (prayer, value) => {
       if (prayers[prayer] === value) return;
       await triggerHaptic();
+      if (value === PRAYER_POINTS.ON_TIME) {
+        confettiRef.current?.play(0);
+      }
       const updatedPrayers = { ...prayers, [prayer]: value };
       await createPray({
         id: user?.id,
@@ -141,10 +145,6 @@ export default function HomeScreen() {
       }).then(() => {
         dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
       });
-
-      if (value === PRAYER_POINTS.ON_TIME) {
-        confettiRef.current?.play(0);
-      }
     },
     [prayers, createPray, user?.id, today],
   );
@@ -176,6 +176,7 @@ export default function HomeScreen() {
   const handleUpdateClickedDay = useCallback(
     async (date, details) => {
       if (!details || !details.data) return;
+      await triggerHaptic();
 
       await createPray({
         id: user?.id,
@@ -241,7 +242,11 @@ export default function HomeScreen() {
           ref={profileSheetRef}
         />
         {/* Today's Prayers */}
-        <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
+        <TodaysPray
+          prayers={prayers}
+          handlePrayerChange={handlePrayerChange}
+          isCreatingPray={isCreatingPray}
+        />
         {/* PRAYER HISTORY */}
         <PrayerHistory
           data={prays}
@@ -253,6 +258,7 @@ export default function HomeScreen() {
           accordion={accordion}
           handleDayClick={handleDayClick}
           handleUpdateClickedDay={handleUpdateClickedDay}
+          isCreatingPray={isCreatingPray}
         />
         {/* CHARTS */}
         <AreaChart lineData={prays} />
@@ -285,7 +291,7 @@ export default function HomeScreen() {
       {/* SIGN UP SHEET */}
       <CustomBottomSheet sheetRef={signUpSheetRef}>
         <SignUpScreen
-          onSuccess={handlePresentSignIn}
+          onSuccess={() => signUpSheetRef.current?.close()}
           onNavigate={handlePresentSignIn}
         />
       </CustomBottomSheet>
