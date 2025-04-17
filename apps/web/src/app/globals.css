@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #FED835;
-  --secondary: #304fff;
+  --background: #f9fafb;
+  --foreground: #181818;
+  --primary: #3498db;
+  --secondary: #6b7280;
 
-  --primary-accent: #e5c230;
-  --foreground-accent: #454545;
-  --hero-background: #F3F3F5;
+  --primary-accent: #9ef010;
+  --foreground-accent: #4b5563;
+  --hero-background: #f3f4f6;
 }
 
 html {
@@ -19,10 +19,10 @@ html {
 
 body {
   @apply text-lg;
-  
+
   color: var(--foreground);
   background: var(--background);
-  font-family: "Source Sans 3", sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -34,13 +34,18 @@ body {
 }
 
 .manrope {
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Manrope", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Manrope', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
