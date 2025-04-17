@@ -36,7 +36,7 @@ export const benefits: IBenefit[] = [
         icon: <FiTrendingUp size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-1.webp',
+    imageSrc: '/images/history-portrait.png',
   },
   {
     title: 'Seamless Investing',
@@ -61,7 +61,7 @@ export const benefits: IBenefit[] = [
         icon: <FiPieChart size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-2.webp',
+    imageSrc: '/images/salahs-left.png',
   },
   {
     title: 'Bank-Grade Security',
@@ -87,6 +87,32 @@ export const benefits: IBenefit[] = [
         icon: <FiShield size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-1.webp',
+    imageSrc: '/images/friends-portrait.png',
+  },
+  {
+    title: 'Bank-Grade Security',
+    description:
+      'Your financial data deserves the best protection. Rest easy knowing Pray Tracker employs cutting-edge security measures.',
+    bullets: [
+      {
+        title: 'Military-Grade Encryption',
+        description:
+          'Your information is safeguarded with the highest level of encryption.',
+        icon: <FiLock size={26} />,
+      },
+      {
+        title: 'Biometric Authentication',
+        description:
+          'Access your account securely with fingerprint or facial recognition.',
+        icon: <FiUser size={26} />,
+      },
+      {
+        title: 'Real-Time Fraud Detection',
+        description:
+          'Our system constantly monitors for suspicious activity to keep your money safe.',
+        icon: <FiShield size={26} />,
+      },
+    ],
+    imageSrc: '/images/awards-left.png',
   },
 ];

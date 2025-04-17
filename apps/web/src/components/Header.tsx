@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-6">
+          <ul className="hidden md:flex space-x-4">
             {menuItems.map((item) => (
               <li key={item.text}>
                 <Link
@@ -48,9 +48,9 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="#cta"
-                className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
+                className="text-white font-semibold bg-gradient-to-r from-primary to-primary-accent px-4 py-2 rounded-full transition-colors duration-200"
               >
-                Download
+                Sign In
               </Link>
             </li>
           </ul>
@@ -98,15 +98,6 @@ const Header: React.FC = () => {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="#cta"
-                className="text-white transition-colors duration-200 bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit"
-                onClick={toggleMenu}
-              >
-                Get Started
-              </Link>
-            </li>
           </ul>
         </div>
       </Transition>

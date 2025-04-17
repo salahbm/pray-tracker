@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
           priority={true}
           unoptimized={true}
           alt="app mockup"
-          className="relative mt-12 md:mt-16 mx-auto z-10"
+          className="relative my-12 md:mt-16 mx-auto z-10"
         />
       </div>
     </section>
