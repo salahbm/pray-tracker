@@ -14,7 +14,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
   return (
     <div
       className={clsx(
-        'w-full max-w-sm mx-auto bg-white rounded-xl border border-gray-200 lg:max-w-full',
+        'w-full max-w-sm bg-white rounded-md border border-gray-200 shadow-md',
         { 'shadow-lg': highlight },
       )}
     >
