@@ -3,5 +3,5 @@ export default async function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <main className="flex-grow">{children}</main>;
 }

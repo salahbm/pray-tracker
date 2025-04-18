@@ -5,6 +5,8 @@ import { Source_Sans_3, Manrope } from 'next/font/google';
 import { siteDetails } from '@/data/siteDetails';
 
 import './globals.css';
+import QueryProvider from '@/provider/query';
+import { getUser } from '@/hooks/user/useUser';
 
 const manrope = Manrope({ subsets: ['latin'] });
 const sourceSans = Source_Sans_3({ subsets: ['latin'] });
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -47,7 +49,9 @@ export default function RootLayout({
         {siteDetails.googleAnalyticsId && (
           <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />
         )}
-        <main>{children}</main>
+        <QueryProvider>
+          <main>{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );

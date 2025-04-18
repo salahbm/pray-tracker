@@ -1,22 +1,40 @@
 'use client';
 
-import { FiCheck, FiClock } from 'react-icons/fi';
+import { FiCheck } from 'react-icons/fi';
 import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
-import { tiers } from '@/data/pricing';
+import { useRouter } from 'next/navigation';
+import type { User } from '@/hooks/user/useGetUser';
+import { useCreateCheckoutSession } from '@/hooks/subscription/useSubscription';
+
+const features = [
+  'Unlimited prayer tracking',
+  'Detailed prayer analytics',
+  'Prayer reminders',
+  'Custom prayer times',
+  'Community features',
+  'Priority support',
+];
 
 interface SubscriptionSectionProps {
-  subscription: any; // Type this based on your subscription structure
+  user: User;
 }
 
-export function SubscriptionSection({
-  subscription,
-}: SubscriptionSectionProps) {
-  const currentPlan = subscription?.prices?.products?.name || 'Free';
-  const isActive = subscription?.status === 'active';
+export function SubscriptionSection({ user }: SubscriptionSectionProps) {
+  const createCheckout = useCreateCheckoutSession();
 
-  const handleUpgrade = async (planType: string) => {
-    // Implement your subscription upgrade logic here
-    console.log('Upgrading to', planType);
+  const handleUpgrade = async () => {
+    try {
+      const { url } = await createCheckout.mutateAsync({
+        userId: user.id,
+        priceId: 'price_H5ggYwtDq4fbrJ', // Replace with your actual price ID
+      });
+
+      if (url) {
+        window.location.href = url;
+      }
+    } catch (error: any) {
+      console.error('Error creating checkout session:', error);
+    }
   };
 
   return (
@@ -27,63 +45,53 @@ export function SubscriptionSection({
     >
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">
-          Subscription
+          Subscription Status
         </h3>
-
         <div className="mt-5">
-          <div className="flex items-center space-x-2 text-sm">
-            <span className="font-medium text-gray-700">Current Plan:</span>
-            <span className="text-primary">{currentPlan}</span>
-            {isActive && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <FiCheck className="mr-1" />
-                Active
-              </span>
-            )}
-          </div>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {tiers.slice(1).map((tier) => (
-              <div
-                key={tier.name}
-                className="relative flex flex-col p-6 border rounded-lg hover:border-primary transition-colors"
-              >
+          <div className="rounded-lg bg-gray-50 p-6">
+            <div className="flex items-center">
+              <div className="flex-1">
                 <h4 className="text-lg font-medium text-gray-900">
-                  {tier.name}
+                  {user.isPro ? 'Pro Plan' : 'Free Plan'}
                 </h4>
-                <p className="mt-2 text-sm text-gray-500">{tier.features[0]}</p>
+                <p className="mt-1 text-sm text-gray-500">
+                  {user.isPro
+                    ? `Your subscription is active until ${new Date(
+                        user.proUntil!,
+                      ).toLocaleDateString()}`
+                    : 'Upgrade to Pro to unlock all features'}
+                </p>
+              </div>
+              {!user.isPro && (
+                <button
+                  onClick={handleUpgrade}
+                  disabled={createCheckout.isPending}
+                  className="ml-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {createCheckout.isPending
+                    ? 'Processing...'
+                    : 'Upgrade to Pro'}
+                </button>
+              )}
+            </div>
 
-                <div className="mt-4">
-                  <span className="text-3xl font-bold text-gray-900">
-                    ${tier.price}
-                  </span>
-                  <span className="text-gray-500">
-                    {tier.name.includes('Yearly') ? '/year' : '/month'}
-                  </span>
-                </div>
-
-                <ul className="mt-6 space-y-4 flex-1">
-                  {tier.features.slice(1).map((feature) => (
+            {!user.isPro && (
+              <div className="mt-6">
+                <h5 className="text-sm font-medium text-gray-900">
+                  Pro features include:
+                </h5>
+                <ul className="mt-4 space-y-4">
+                  {features.map((feature) => (
                     <li key={feature} className="flex items-start">
-                      <FiCheck className="flex-shrink-0 h-5 w-5 text-green-500" />
-                      <span className="ml-3 text-sm text-gray-500">
-                        {feature}
-                      </span>
+                      <div className="flex-shrink-0">
+                        <FiCheck className="h-5 w-5 text-green-500" />
+                      </div>
+                      <p className="ml-3 text-sm text-gray-700">{feature}</p>
                     </li>
                   ))}
                 </ul>
-
-                <button
-                  onClick={() => handleUpgrade(tier.name)}
-                  disabled={currentPlan === tier.name && isActive}
-                  className="mt-8 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {currentPlan === tier.name && isActive
-                    ? 'Current Plan'
-                    : `Upgrade to ${tier.name}`}
-                </button>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
