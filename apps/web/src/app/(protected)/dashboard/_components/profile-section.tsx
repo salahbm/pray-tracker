@@ -3,7 +3,6 @@
 import { User } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { FiUser, FiMail, FiSave } from 'react-icons/fi';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
 
 interface ProfileSectionProps {
@@ -21,23 +20,6 @@ export function ProfileSection({ user, profile }: ProfileSectionProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      setMessage(null);
-
-      const supabase = createClientComponentClient();
-      const { error } = await supabase
-        .from('profiles')
-        .upsert({ id: user.id, full_name: fullName });
-
-      if (error) throw error;
-
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
-    } catch (error: any) {
-      setMessage({ type: 'error', text: error.message });
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (

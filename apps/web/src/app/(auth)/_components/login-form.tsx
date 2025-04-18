@@ -2,18 +2,34 @@
 
 import { useState } from 'react';
 import { FiMail, FiLock, FiAlertCircle } from 'react-icons/fi';
-import { useAuth } from '@/hooks/useAuth';
-import { AnimatedContainer } from '../_components/animated-container';
+import { AnimatedContainer } from './animated-container';
+import { useFormStatus } from 'react-dom';
+import { signIn } from './actions';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="w-full flex justify-center items-center px-4 border border-transparent mt-6 rounded-md h-11 shadow-sm text-sm font-semibold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {pending ? 'Signing in...' : 'Sign in'}
+    </button>
+  );
+}
 
 export default function LoginForm() {
-  const { signIn, loading, error } = useAuth();
+  const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await signIn(email, password);
-  };
+  async function handleSubmit(formData: FormData) {
+    const result = await signIn(formData);
+    if (result?.error) {
+      setError(result.error);
+    }
+  }
 
   return (
     <AnimatedContainer
@@ -21,7 +37,7 @@ export default function LoginForm() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form action={handleSubmit}>
         {/* Input Field */}
         {[
           {
@@ -31,7 +47,7 @@ export default function LoginForm() {
             icon: <FiMail />,
             value: email,
             onChange: (v: string) => setEmail(v),
-            placeholder: 'your@example.com',
+            placeholder: 'your-email@example.com',
           },
           {
             id: 'password',
@@ -43,7 +59,7 @@ export default function LoginForm() {
             placeholder: '••••••••',
           },
         ].map(({ id, label, type, icon, value, onChange, placeholder }) => (
-          <div key={id}>
+          <div key={id} className="mt-6">
             <label
               htmlFor={id}
               className="block text-sm font-medium text-gray-700"
@@ -56,6 +72,7 @@ export default function LoginForm() {
               </div>
               <input
                 id={id}
+                name={id}
                 type={type}
                 required
                 value={value}
@@ -72,7 +89,7 @@ export default function LoginForm() {
           <AnimatedContainer
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 text-red-600 text-sm"
+            className="flex items-center gap-2 text-red-600 text-sm mt-1 ml-3"
           >
             <FiAlertCircle className="flex-shrink-0" />
             <span>{error}</span>
@@ -80,13 +97,7 @@ export default function LoginForm() {
         )}
 
         {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md h-11 shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? 'Signing in...' : 'Sign in'}
-        </button>
+        <SubmitButton />
       </form>
     </AnimatedContainer>
   );
