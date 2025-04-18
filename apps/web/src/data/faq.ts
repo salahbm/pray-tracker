@@ -1,30 +1,33 @@
 import { IFAQ } from '@/types';
-import { siteDetails } from './siteDetails';
 
 export const faqs: IFAQ[] = [
   {
-    question: `Is ${siteDetails.siteName} secure?`,
+    question: 'How accurate are the prayer times?',
     answer:
-      'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+      'Our prayer times are highly accurate, calculated using precise astronomical data and your exact location. We support multiple calculation methods (e.g., MWL, ISNA, Egypt) to match your local conventions.',
   },
   {
-    question: `Can I use ${siteDetails.siteName} on multiple devices?`,
+    question: 'Does the app work offline?',
     answer:
-      'Absolutely! Your Pray Tracker account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+      "Yes! Once downloaded, prayer times and Qibla direction work completely offline. Your prayer logs are also stored locally and sync when you're back online.",
   },
   {
-    question: 'Can I connect all my bank accounts?',
-    answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`,
+    question: 'How does the Qibla finder work?',
+    answer: `Our Qibla finder uses your device's compass and GPS to provide accurate Qibla direction from anywhere in the world. Just hold your phone flat and follow the pointer to find the Qibla.`,
   },
   {
-    question:
-      'Do I need any financial expertise to use the investing features?',
+    question: "What's included in the Pro version?",
     answer:
-      'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+      "Pro users get access to detailed prayer analytics, custom themes, ad-free experience, and extended statistics. You'll also get priority support and future premium features as they're released.",
   },
   {
-    question: 'What if I need help using the app?',
+    question: 'How can I get help with the app?',
     answer:
-      'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of Pray Tracker.',
+      'We offer in-app tutorials, a comprehensive help center, and responsive customer support. Pro users get priority support for faster response times.',
+  },
+  {
+    question: 'Does the app support different languages?',
+    answer:
+      "Yes! The app supports multiple languages and includes both Gregorian and Hijri calendars. We're constantly adding more languages based on user requests.",
   },
 ];

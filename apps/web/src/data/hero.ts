@@ -1,6 +1,6 @@
 export const heroDetails = {
-  heading: 'Smart, Secure, Simple Financial Management',
+  heading: 'Your Smart Prayer Companion',
   subheading:
-    'From effortless budgeting to real-time investment insights, Pray Tracker puts you in control of your money like never before',
+    'Stay connected to your daily prayers with accurate timings, Qibla direction, and intelligent tracking - all in one beautiful app',
   centerImageSrc: '/images/main-portrait.png',
 };

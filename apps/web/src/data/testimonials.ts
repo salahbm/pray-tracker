@@ -1,23 +1,25 @@
 import { ITestimonial } from '@/types';
-import { siteDetails } from './siteDetails';
 
 export const testimonials: ITestimonial[] = [
   {
-    name: 'John Smith',
-    role: 'CEO at Company',
-    message: `${siteDetails.siteName}'s AI-driven insights have transformed how we approach financial planning for our clients. It's an invaluable resource in the modern financial landscape.`,
-    avatar: '/images/testimonial-1.webp',
+    name: 'Ahmed Hassan',
+    role: 'Regular User',
+    message:
+      'Pray Tracker has been a game-changer in maintaining my daily prayers. The accurate prayer times and Qibla finder are incredibly helpful, especially when traveling.',
+    avatar: '/images/friend_1.png',
   },
   {
-    name: 'Jane Doe',
-    role: 'CTO at Startup',
-    message: `As a CTO, I'm impressed by ${siteDetails.siteName}'s robust security measures and seamless integrations. It's rare to find an app that balances user-friendliness with such advanced technology.`,
-    avatar: '/images/testimonial-2.webp',
+    name: 'Fatima Ali',
+    role: 'Pro User',
+    message:
+      'The prayer streak feature keeps me motivated, and the analytics help me understand my prayer patterns. The app has truly helped me become more consistent in my prayers.',
+    avatar: '/images/friend_5.png',
   },
   {
-    name: 'Emily Johnson',
-    role: 'Product Manager',
-    message: `${siteDetails.siteName} is revolutionizing personal finance management. Its intuitive design and powerful features make it an indispensable tool for anyone serious about financial growth.`,
-    avatar: '/images/testimonial-3.webp',
+    name: 'Mohammad Rahman',
+    role: 'Islamic Center Director',
+    message:
+      'I recommend Pray Tracker to everyone in our community. Its multi-language support and accurate prayer times make it accessible for Muslims from all backgrounds.',
+    avatar: '/images/friend_3.png',
   },
 ];

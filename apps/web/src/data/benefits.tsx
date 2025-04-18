@@ -2,7 +2,6 @@ import {
   FiBarChart2,
   FiBriefcase,
   FiDollarSign,
-  FiLock,
   FiPieChart,
   FiShield,
   FiTarget,
@@ -14,103 +13,103 @@ import { IBenefit } from '@/types';
 
 export const benefits: IBenefit[] = [
   {
-    title: 'Smart Budgeting',
+    title: 'Prayer Time Management',
     description:
-      'Take the guesswork out of managing your money. Our AI-powered budgeting tool adapts to your lifestyle and helps you stay on track.',
+      'Never miss a prayer with our intelligent prayer time tracking system that adapts to your location and schedule.',
     bullets: [
       {
-        title: 'Intelligent Categorization',
+        title: 'Accurate Prayer Times',
         description:
-          'Automatically sorts your transactions for crystal-clear insights.',
+          'Get precise prayer times based on your location and preferred calculation methods.',
         icon: <FiBarChart2 size={26} />,
       },
       {
-        title: 'Customizable Goals',
-        description: 'Set and track financial objectives that matter to you.',
+        title: 'Smart Notifications',
+        description: 'Receive timely reminders customized to your schedule.',
         icon: <FiTarget size={26} />,
       },
       {
-        title: 'Predictive Analysis',
+        title: 'Prayer Logging',
         description:
-          'Get ahead of your finances with spending forecasts and alerts.',
+          'Easily track your daily prayers with our intuitive logging system.',
         icon: <FiTrendingUp size={26} />,
       },
     ],
     imageSrc: '/images/history-portrait.png',
   },
   {
-    title: 'Seamless Investing',
+    title: 'Qibla & Location Features',
     description:
-      'Start building wealth today, no financial degree required. Pray Tracker makes investing accessible and straightforward.',
+      'Stay connected to your prayers with precise Qibla direction and smart location-based features.',
     bullets: [
       {
-        title: 'Micro-Investing',
-        description: 'Begin with as little as $1 and watch your money grow.',
+        title: 'Built-in Qibla Compass',
+        description: 'Find the Qibla direction accurately from anywhere.',
         icon: <FiDollarSign size={26} />,
       },
       {
-        title: 'Expert Portfolios',
+        title: 'Automatic Updates',
         description:
-          'Choose from investment strategies tailored to your risk tolerance.',
+          'Prayer times adjust automatically as you travel across time zones.',
         icon: <FiBriefcase size={26} />,
       },
       {
-        title: 'Real-Time Performance',
+        title: 'Region Settings',
         description:
-          'Track your investments with easy-to-understand metrics and visuals.',
+          'Customize your experience with region-specific prayer conventions.',
         icon: <FiPieChart size={26} />,
       },
     ],
     imageSrc: '/images/salahs-left.png',
   },
   {
-    title: 'Bank-Grade Security',
+    title: 'Community & Friends',
     description:
-      'Your financial data deserves the best protection. Rest easy knowing Pray Tracker employs cutting-edge security measures.',
+      'Connect with friends and family to support each other in your spiritual journey.',
     bullets: [
       {
-        title: 'Military-Grade Encryption',
+        title: 'Friend System',
         description:
-          'Your information is safeguarded with the highest level of encryption.',
-        icon: <FiLock size={26} />,
-      },
-      {
-        title: 'Biometric Authentication',
-        description:
-          'Access your account securely with fingerprint or facial recognition.',
+          'Add friends and family to create your own prayer community.',
         icon: <FiUser size={26} />,
       },
       {
-        title: 'Real-Time Fraud Detection',
+        title: 'Prayer Streaks',
         description:
-          'Our system constantly monitors for suspicious activity to keep your money safe.',
+          'Track and compare prayer streaks with friends for healthy motivation.',
+        icon: <FiTrendingUp size={26} />,
+      },
+      {
+        title: 'Community Support',
+        description:
+          'Share achievements and encourage each other to maintain regular prayers.',
         icon: <FiShield size={26} />,
       },
     ],
     imageSrc: '/images/friends-portrait.png',
   },
   {
-    title: 'Bank-Grade Security',
+    title: 'Analytics & Insights',
     description:
-      'Your financial data deserves the best protection. Rest easy knowing Pray Tracker employs cutting-edge security measures.',
+      'Gain deeper insights into your prayer journey with advanced tracking and analytics.',
     bullets: [
       {
-        title: 'Military-Grade Encryption',
+        title: 'Detailed Statistics',
         description:
-          'Your information is safeguarded with the highest level of encryption.',
-        icon: <FiLock size={26} />,
+          'View comprehensive analytics about your prayer times and consistency.',
+        icon: <FiBarChart2 size={26} />,
       },
       {
-        title: 'Biometric Authentication',
+        title: 'Achievement System',
         description:
-          'Access your account securely with fingerprint or facial recognition.',
-        icon: <FiUser size={26} />,
+          'Earn special badges and rewards as you reach prayer milestones.',
+        icon: <FiTarget size={26} />,
       },
       {
-        title: 'Real-Time Fraud Detection',
+        title: 'Progress Visualization',
         description:
-          'Our system constantly monitors for suspicious activity to keep your money safe.',
-        icon: <FiShield size={26} />,
+          'Beautiful heatmaps and charts to visualize your spiritual growth.',
+        icon: <FiPieChart size={26} />,
       },
     ],
     imageSrc: '/images/awards-left.png',

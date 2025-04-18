@@ -38,6 +38,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 import confetti from 'assets/gif/confetti.json';
+import { useCurrentDate } from '@/hooks/common/useCurrentDate';
 
 const initialState = {
   prayers: {
@@ -71,7 +72,7 @@ function reducer(state, action) {
 export default function HomeScreen() {
   const { t } = useTranslation();
   // DATE STATE
-  const today = useMemo(() => new Date(), []);
+  const today = useCurrentDate();
   const [year, setYear] = useState(today.getFullYear());
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();

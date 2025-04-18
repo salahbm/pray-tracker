@@ -1,13 +1,13 @@
 export const siteDetails = {
   siteName: 'Pray Tracker',
-  siteUrl: 'https://Pray Tracker-omega.vercel.app/',
+  siteUrl: 'https://pray-tracker.vercel.app/',
   metadata: {
-    title: 'Pray Tracker - Next.js and Tailwind CSS Landing Page Template',
+    title: 'Pray Tracker - Your Smart Prayer Companion',
     description:
-      'Pray Tracker empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
+      'Pray Tracker helps Muslims maintain their daily prayers with accurate prayer times, Qibla direction, and smart tracking features.',
   },
   language: 'en-us',
   locale: 'en-US',
-  siteLogo: `${process.env.BASE_PATH || ''}/images/logo.png`, // or use a string for the logo e.g. "TechStartup"
-  googleAnalyticsId: '', // e.g. G-XXXXXXX,
+  siteLogo: `${process.env.BASE_PATH || ''}/images/icon-light.png`,
+  googleAnalyticsId: '',
 };

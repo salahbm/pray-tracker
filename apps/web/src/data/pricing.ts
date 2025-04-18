@@ -2,24 +2,40 @@ import { IPricing } from '@/types';
 
 export const tiers: IPricing[] = [
   {
-    name: 'Starter',
-    price: 2.99,
+    name: 'Free',
+    price: 0,
     features: [
-      'Basic cloud integration',
-      'Up to 5 team members',
-      '20GB storage',
-      'Email support',
+      'Accurate prayer times',
+      'Basic prayer tracking',
+      'Qibla direction',
+      'Daily notifications',
+      'Basic statistics',
     ],
   },
   {
-    name: 'Pro',
-    price: 27.99,
+    name: 'Pro Monthly',
+    price: 2.99,
     features: [
-      'Advanced cloud integration',
-      'Up to 20 team members',
-      '100GB storage',
-      'Priority email & phone support',
-      'Advanced analytics',
+      'All Free features',
+      'Detailed prayer analytics',
+      'Advanced tracking features',
+      'Custom themes and UI options',
+      'Ad-free experience',
+      'Extended statistics',
+      'Priority support',
+    ],
+  },
+  {
+    name: 'Pro Yearly',
+    price: 24.99,
+    features: [
+      'All Pro Monthly features',
+      '2 months free',
+      'Early access to new features',
+      'Premium community badge',
+      'Custom prayer reminders',
+      'Extended data history',
+      'Premium support priority',
     ],
   },
 ];

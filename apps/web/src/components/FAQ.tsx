@@ -27,7 +27,7 @@ const FAQ: React.FC = () => {
             href="mailto:"
             className="mt-3 block text-xl lg:text-4xl text-secondary font-semibold hover:underline text-center lg:text-left"
           >
-            help@Pray Tracker.com
+            salahbm.dev@gmail.com
           </a>
         </div>
 
