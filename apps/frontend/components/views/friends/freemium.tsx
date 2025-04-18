@@ -38,6 +38,7 @@ const FreemiumFriends = () => {
   const handleUpgrade = () => {
     fireToast.info(t('Friends.Freemium.UpgradePrompt'));
   };
+
   return (
     <React.Fragment>
       <ScrollView

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -48,6 +48,11 @@ const CallToAction = () => {
   const insets = useSafeAreaInsets();
   const [showAllFeatures, setShowAllFeatures] = useState(false);
 
+  const handleLink = () => {
+    Linking.openURL('https://pray-tracker.vercel.app/').catch((err) =>
+      console.error('Error opening link:', err),
+    );
+  };
   return (
     <React.Fragment>
       <ScrollView
@@ -123,7 +128,10 @@ const CallToAction = () => {
 
         {/* Subscription Plans */}
 
-        <Button className="bg-primary rounded-full py-4 px-8 w-full mt-8">
+        <Button
+          className="bg-primary rounded-full py-4 px-8 w-full mt-8"
+          onPress={handleLink}
+        >
           <Text>{t('Friends.Pro.SubscribeButton')} ❤️</Text>
         </Button>
       </ScrollView>
