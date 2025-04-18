@@ -8,6 +8,7 @@ import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
 import Image from 'next/image';
+import { BiLogIn } from 'react-icons/bi';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,10 +26,11 @@ const Header: React.FC = () => {
             <Image
               src="/images/icon-light-rounded.png"
               alt="Logo"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
+              className="w-6 h-6 lg:w-8 lg:h-8"
             />
-            <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
+            <span className="manrope text-md lg:text-xl font-semibold text-foreground cursor-pointer">
               {siteDetails.siteName}
             </span>
           </Link>
@@ -47,8 +49,8 @@ const Header: React.FC = () => {
             ))}
             <li>
               <Link
-                href="#cta"
-                className="text-white font-semibold bg-gradient-to-r from-primary to-primary-accent px-4 py-2 rounded-full transition-colors duration-200"
+                href="/login"
+                className="text-white font-semibold bg-gradient-to-r from-primary to-primary-accent px-4  py-1 lg:py-2 rounded-full transition-colors duration-200"
               >
                 Sign In
               </Link>
@@ -56,7 +58,13 @@ const Header: React.FC = () => {
           </ul>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-2">
+            <Link
+              href="/login"
+              className="text-white text-sm font-semibold bg-gradient-to-r from-primary to-primary-accent px-2 py-1 rounded-full transition-colors duration-200"
+            >
+              Sign In
+            </Link>
             <button
               onClick={toggleMenu}
               type="button"
