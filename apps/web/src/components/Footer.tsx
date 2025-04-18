@@ -72,6 +72,7 @@ const Footer: React.FC = () => {
                     </Link>
                   );
                 }
+                return null;
               })}
             </div>
           )}

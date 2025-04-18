@@ -31,7 +31,6 @@ export default async function UpgradePage() {
                 <h2 className="text-lg font-medium leading-6 text-gray-900">
                   {tier.name}
                 </h2>
-                <p className="mt-4 text-sm text-gray-500">{tier.description}</p>
                 <p className="mt-8">
                   <span className="text-4xl font-extrabold text-gray-900">
                     ${tier.price}
@@ -41,7 +40,6 @@ export default async function UpgradePage() {
                   </span>
                 </p>
                 <form action="/api/create-checkout-session" method="POST">
-                  <input type="hidden" name="priceId" value={tier.priceId} />
                   <button
                     type="submit"
                     className="mt-8 block w-full bg-primary text-white rounded-md py-2 text-sm font-semibold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
