@@ -13,22 +13,22 @@ export default function AuthLayout({
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         {/* Logo */}
-        <AnimatedContainer
-          variants={variants.logo}
-          className="flex justify-center"
-        >
-          <Link href="/" className="block">
+        <Link href="/">
+          <AnimatedContainer
+            variants={variants.logo}
+            className="flex justify-center"
+          >
             <div className="relative w-16 h-16">
               <Image
                 src="/images/icon-light-rounded.png"
                 alt={siteDetails.siteName}
                 fill
-                className="object-contain"
+                className="object-contain select-none"
                 priority
               />
             </div>
-          </Link>
-        </AnimatedContainer>
+          </AnimatedContainer>
+        </Link>
 
         {/* Form Container */}
         <AnimatedContainer
@@ -40,17 +40,14 @@ export default function AuthLayout({
         </AnimatedContainer>
 
         {/* Back Link */}
-        <AnimatedContainer
-          variants={variants.link}
-          className="text-center text-sm text-gray-600"
-        >
-          <Link
-            href="/"
-            className="font-medium text-primary hover:text-primary-dark transition-colors"
+        <Link href="/">
+          <AnimatedContainer
+            variants={variants.link}
+            className="text-center text-sm text-primary mt-6"
           >
             ← Back to Home
-          </Link>
-        </AnimatedContainer>
+          </AnimatedContainer>
+        </Link>
       </div>
     </div>
   );

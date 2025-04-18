@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 
 import { IPricing } from '@/types';
+import Link from 'next/link';
 
 interface Props {
   tier: IPricing;
@@ -25,14 +26,17 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
             {typeof price === 'number' ? `$${price}` : price}
           </span>
         </p>
-        <button
-          className={clsx('w-full py-3 px-4 rounded-full transition-colors', {
-            'bg-primary hover:bg-primary-accent': highlight,
-            'bg-hero-background hover:bg-gray-200': !highlight,
-          })}
-        >
-          Get Started
-        </button>
+        <Link href="/subscription">
+          <button
+            type="button"
+            className={clsx('w-full py-3 px-4 rounded-full transition-colors', {
+              'bg-primary hover:bg-primary-accent': highlight,
+              'bg-hero-background hover:bg-gray-200': !highlight,
+            })}
+          >
+            Get Started
+          </button>
+        </Link>
       </div>
       <div className="p-6 mt-1">
         <p className="font-bold mb-0">FEATURES</p>

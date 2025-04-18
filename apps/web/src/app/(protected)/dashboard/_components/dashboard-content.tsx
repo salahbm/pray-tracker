@@ -3,6 +3,7 @@
 import { useGetUser } from '@/hooks/user/useGetUser';
 import { ProfileSection } from './profile-section';
 import { SubscriptionSection } from './subscription-section';
+import { BiLoaderAlt } from 'react-icons/bi';
 
 interface DashboardContentProps {
   userId: string;
@@ -11,14 +12,14 @@ interface DashboardContentProps {
 export function DashboardContent({ userId }: DashboardContentProps) {
   const { data: userData, isLoading: isUserLoading } = useGetUser(userId);
 
-  const isLoading = isUserLoading;
-
-  if (isLoading) {
+  if (isUserLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
+          <BiLoaderAlt className="animate-spin h-8 w-8 text-primary mx-auto" />
+          <p className="mt-2 text-sm text-gray-600">
+            Loading your dashboard...
+          </p>
         </div>
       </div>
     );
@@ -26,12 +27,12 @@ export function DashboardContent({ userId }: DashboardContentProps) {
 
   if (!userData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900">
             Not Authorized
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-sm text-gray-600">
             Please sign in to view your dashboard
           </p>
         </div>
@@ -40,11 +41,12 @@ export function DashboardContent({ userId }: DashboardContentProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="px-4 py-5 sm:p-6">
+    <div className="space-y-6 px-4 lg:px-0">
+      {/* Welcome Section */}
+      <div className="bg-white overflow-hidden shadow rounded-md">
+        <div className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
               <h1 className="text-2xl font-bold text-gray-900">
                 Welcome back, {userData.username}
               </h1>
@@ -52,10 +54,18 @@ export function DashboardContent({ userId }: DashboardContentProps) {
                 Manage your account settings and view your prayer statistics
               </p>
             </div>
+            <div className="hidden sm:block">
+              <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-primary-50 text-primary">
+                {userData.isPro ? 'Pro Member' : 'Free Plan'}
+              </span>
+            </div>
           </div>
-          <ProfileSection user={userData} />
-          <SubscriptionSection user={userData} />
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <ProfileSection user={userData} />
+        <SubscriptionSection user={userData} />
       </div>
     </div>
   );

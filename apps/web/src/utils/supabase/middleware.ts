@@ -33,17 +33,20 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  const publicPaths = ['/', '/login', '/auth'];
+
+  const isPublic = publicPaths.some((path) =>
+    request.nextUrl.pathname.startsWith(path),
+  );
+
+  // Redirect unauthenticated users trying to access private routes
+  if (!user && !isPublic) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 
+  // Redirect logged-in users away from login page
   if (user && request.nextUrl.pathname.startsWith('/login')) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';

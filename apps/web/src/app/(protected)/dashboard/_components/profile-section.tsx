@@ -49,7 +49,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
     <AnimatedContainer
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white shadow rounded-lg overflow-hidden"
+      className="bg-white shadow rounded-md overflow-hidden"
     >
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">Profile</h3>

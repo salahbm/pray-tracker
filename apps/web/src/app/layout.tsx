@@ -6,7 +6,6 @@ import { siteDetails } from '@/data/siteDetails';
 
 import './globals.css';
 import QueryProvider from '@/provider/query';
-import { getUser } from '@/hooks/user/useUser';
 
 const manrope = Manrope({ subsets: ['latin'] });
 const sourceSans = Source_Sans_3({ subsets: ['latin'] });

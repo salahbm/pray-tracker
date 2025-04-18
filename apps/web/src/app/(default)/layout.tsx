@@ -8,9 +8,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { data } = await getUser();
+  const userId = data?.user?.id || '';
+
   return (
     <>
-      <Header userId={data?.user?.id} />
+      <Header userId={userId} />
       {children}
       <Footer />
     </>

@@ -9,26 +9,6 @@ export function useAuth() {
 
   const supabase = createClient();
 
-  const signIn = async (email: string, password: string) => {
-    setLoading(true);
-    setError(null);
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-      return null;
-    }
-
-    router.push('/dashboard');
-    return data;
-  };
-
   const signOut = async () => {
     setLoading(true);
     const { error } = await supabase.auth.signOut();
@@ -38,5 +18,5 @@ export function useAuth() {
     else router.push('/');
   };
 
-  return { signIn, signOut, loading, error };
+  return { signOut, loading, error };
 }

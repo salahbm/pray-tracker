@@ -7,9 +7,11 @@ import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
 import Image from 'next/image';
+import { BiLogIn, BiSolidDashboard } from 'react-icons/bi';
 
-const Header: React.FC = () => {
+const Header: React.FC<{ userId?: string }> = ({ userId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = Boolean(userId && userId.length > 0);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -34,7 +36,7 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-4">
+          <ul className="hidden md:flex space-x-4 items-center">
             {menuItems.map((item) => (
               <li key={item.text}>
                 <Link
@@ -46,23 +48,44 @@ const Header: React.FC = () => {
               </li>
             ))}
             <li>
-              <Link
-                href="/login"
-                className="text-white font-semibold bg-gradient-to-r from-primary to-primary-accent px-4  py-1 lg:py-2 rounded-full transition-colors duration-200"
-              >
-                Sign In
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  href="/dashboard"
+                  className="text-white font-semibold bg-gradient-to-r from-primary to-primary-accent px-4 py-1 lg:py-2 rounded-full transition-colors duration-200 flex items-center gap-2"
+                >
+                  <BiSolidDashboard className="text-xl" />
+                  <span>Dashboard</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="text-white flex items-center gap-1 font-semibold bg-gradient-to-r from-primary to-primary-accent px-4 py-1 lg:py-2 rounded-full transition-colors duration-200"
+                >
+                  <span>Sign In</span>
+                  <BiLogIn className="text-lg" />
+                </Link>
+              )}
             </li>
           </ul>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            <Link
-              href="/login"
-              className="text-white text-sm font-semibold bg-gradient-to-r from-primary to-primary-accent px-2 py-1 rounded-full transition-colors duration-200"
-            >
-              Sign In
-            </Link>
+            {isAuthenticated ? (
+              <Link
+                href="/dashboard"
+                className="text-white text-sm font-semibold bg-gradient-to-r from-primary to-primary-accent px-3 py-1 rounded-full transition-colors duration-200 flex items-center gap-1"
+              >
+                <BiSolidDashboard className="text-lg" />
+                <span>Dashboard</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="text-white text-sm font-semibold bg-gradient-to-r from-primary to-primary-accent px-3 py-1 rounded-full transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+            )}
             <button
               onClick={toggleMenu}
               type="button"
