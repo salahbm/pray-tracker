@@ -13,7 +13,6 @@ import friendRoutes from './routes/friend.routes';
 import awardRoutes from './routes/awards.routes';
 import proRoutes from './routes/pro.routes';
 import authRoutes from './routes/auth.routes';
-import ALLOWED_ORIGINS from './constants/origins';
 
 // Initialize environment variables
 dotenv.config();
@@ -22,18 +21,8 @@ const app = express();
 const port = parseInt(process.env.PORT || '3000', 10);
 const host = process.env.HOST || '0.0.0.0';
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  })
-);
+// Enable CORS for all origins
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,8 +35,6 @@ app.use('/api/friends', friendRoutes);
 app.use('/api/awards', awardRoutes);
 app.use('/api/pro', proRoutes);
 app.use('/api/auth', authRoutes);
-
-app.options('*', cors()); // ✅ valid
 
 // Error handling middleware must be after routes
 app.use(errorHandler);
