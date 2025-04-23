@@ -22,7 +22,6 @@ const app = express();
 const port = parseInt(process.env.PORT || '3000', 10);
 const host = process.env.HOST || '0.0.0.0';
 
-// Middleware
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -36,7 +35,6 @@ app.use(
   })
 );
 
-app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -48,6 +46,8 @@ app.use('/api/friends', friendRoutes);
 app.use('/api/awards', awardRoutes);
 app.use('/api/pro', proRoutes);
 app.use('/api/auth', authRoutes);
+
+app.options('*', cors()); // ✅ valid
 
 // Error handling middleware must be after routes
 app.use(errorHandler);
