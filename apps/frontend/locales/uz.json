@@ -497,7 +497,7 @@
   "Profile": {
     "Title": "Profil",
     "Navigation": {
-      "Account": "Shaxsiy",
+      "Account": "Hisob",
       "EditProfile": "Profilni tahrirlash",
       "EditPassword": "Parolni o'zgartirish",
       "Settings": "Sozlamalar",
@@ -507,7 +507,10 @@
       "Feedback": "Fikr-mulohaza"
     },
     "Account": {
-      "Title": "Akkaunt",
+      "Title": "Hisob",
+      "Email": "Elektron pochta",
+      "Created": "Yaratilgan",
+      "LastUpdated": "Oxirgi yangilanish",
       "DeleteAccount": "Akkauntni O'chirish",
       "DeleteConfirm": "Akkauntingizni o'chirib tashlamoqchimisiz?",
       "DeleteMessage": "Bu amal qaytarib bo'lmaydi va biz sizni yo'qotishdan afsuslanamiz. Barcha ma'lumotlaringiz butunlay o'chiriladi.",
@@ -608,7 +611,7 @@
       },
       "Changes": {
         "Title": "Maxfiylik Siyosatidagi O'zgarishlar",
-        "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga rozilik bildirganingizni anglatadi."
+        "Content": "Agar siyosatimizda o‘zgarishlar bo‘lsa, ilova orqali sizga xabar beramiz. Ilovadan foydalanishda davom etish – bu o‘zgarishlarga roziligingizni bildiradi."
       },
       "Contact": {
         "Title": "Biz bilan bog'lanish",

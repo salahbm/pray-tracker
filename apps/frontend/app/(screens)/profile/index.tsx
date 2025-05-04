@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 
 import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';

@@ -126,6 +126,7 @@
     "@babel/core": "^7.25.2",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "@react-native-community/cli": "^18.0.0",
     "@types/babel__core": "^7.20.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.10.5",

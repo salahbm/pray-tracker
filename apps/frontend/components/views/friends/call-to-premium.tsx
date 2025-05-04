@@ -49,7 +49,7 @@ const CallToAction = () => {
   const [showAllFeatures, setShowAllFeatures] = useState(false);
 
   const handleLink = () => {
-    Linking.openURL('https://pray-tracker.vercel.app/').catch((err) =>
+    Linking.openURL('https://pray-tracker.vercel.app/#pricing').catch((err) =>
       console.error('Error opening link:', err),
     );
   };
@@ -72,6 +72,15 @@ const CallToAction = () => {
         <Text className="text-muted-foreground text-lg text-center mt-1 font-medium">
           {t('Friends.Pro.Subtitle')}
         </Text>
+
+        {/* Subscription Plans */}
+
+        <Button
+          className="bg-primary rounded-full py-4 px-8 w-full mt-8"
+          onPress={handleLink}
+        >
+          <Text>{t('Friends.Pro.SubscribeButton')} ❤️</Text>
+        </Button>
 
         {/* Welcome Section */}
         <View className="bg-popover rounded-2xl mt-6 w-full p-6">
@@ -125,15 +134,6 @@ const CallToAction = () => {
             {t('Friends.Pro.Future')}
           </Text>
         </View>
-
-        {/* Subscription Plans */}
-
-        <Button
-          className="bg-primary rounded-full py-4 px-8 w-full mt-8"
-          onPress={handleLink}
-        >
-          <Text>{t('Friends.Pro.SubscribeButton')} ❤️</Text>
-        </Button>
       </ScrollView>
     </React.Fragment>
   );

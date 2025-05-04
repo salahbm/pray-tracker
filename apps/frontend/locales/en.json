@@ -531,7 +531,7 @@
       "Accept": "Accept",
       "Reject": "Reject",
       "Cancel": "Cancel",
-      "RequestTitle": "Friend Request 🤝",
+      "RequestTitle": "Friend Request ",
       "RequestBody": "New friend request from {{email}}",
       "Features": {
         "UnlimitedFriends": "Unlimited Friends",
@@ -590,6 +590,9 @@
     },
     "Account": {
       "Title": "Account",
+      "Email": "Email",
+      "Created": "Created",
+      "LastUpdated": "Last Updated",
       "DeleteAccount": "Delete Account",
       "DeleteConfirm": "Are you sure you want to delete your account?",
       "DeleteMessage": "This action is irreversible, and we will be sad to see you go. All your data will be permanently deleted.",
@@ -716,7 +719,7 @@
       "Contact": {
         "Title": "Connect With Us"
       },
-      "BuyMeDates": "Buy Me Dates 🌴",
+      "BuyMeDates": "Buy Me Dates ",
       "Feedback": "Send Feedback"
     }
   }

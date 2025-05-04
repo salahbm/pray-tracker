@@ -1,11 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import Modal from 'react-native-modal';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
+
 import { useThemeStore } from '@/store/defaults/theme';
 
 interface YearPickerProps {
@@ -43,6 +44,8 @@ const YearPicker: React.FC<YearPickerProps> = ({
             onValueChange={(itemValue) => setLocalSelectedYear(itemValue)}
             style={styles.picker}
             itemStyle={[styles.pickerItem, { color: colors['--foreground'] }]}
+            mode="dropdown"
+            dropdownIconColor={colors['--primary']}
           >
             {years.map((year) => (
               <Picker.Item key={year} label={year} value={year} />

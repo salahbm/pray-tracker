@@ -29,6 +29,7 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { useCurrentDate } from '@/hooks/common/useCurrentDate';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
@@ -38,7 +39,6 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 import confetti from 'assets/gif/confetti.json';
-import { useCurrentDate } from '@/hooks/common/useCurrentDate';
 
 const initialState = {
   prayers: {

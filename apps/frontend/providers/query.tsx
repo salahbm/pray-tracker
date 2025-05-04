@@ -12,18 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { ErrorData } from '@/types/api';
 import { MessageCodes, StatusCode } from '@/utils/status';
-
-const isErrorData = (error: unknown): error is ErrorData => {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'code' in error &&
-    'description' in error &&
-    'message' in error
-  );
-};
 
 const QueryProvider = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
@@ -50,18 +39,10 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
               ` Error in query: ${JSON.stringify(query.queryKey)}`,
               error,
             );
-            if (!isErrorData(error)) {
-              fireToast.error(
-                error instanceof Error
-                  ? error.message
-                  : 'An unknown error occurred',
-              );
-              return;
-            }
 
             const errorMessage =
               query.state.data === undefined
-                ? `Something went wrong: ${error.message}`
+                ? `Error: ${error.message}`
                 : `Background fetching error: ${error.message}`;
 
             fireToast.error(errorMessage);

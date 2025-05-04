@@ -21,7 +21,6 @@ const Account = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const { logOut, isLoggingOut } = useLogout();
-  console.log(' isLoggingOut:', isLoggingOut);
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -65,19 +64,25 @@ const Account = () => {
         {/* Account Info */}
         <View className="mt-20">
           <View className="flex-row justify-between items-center w-full mb-4">
-            <Text className="text-base font-semibold">Email:</Text>
+            <Text className="text-base font-semibold">
+              {t('Profile.Account.Email')}:
+            </Text>
             <Text className="text-base font-semibold">
               {user?.email ? user.email : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full mb-4">
-            <Text className="text-base font-semibold">Created:</Text>
+            <Text className="text-base font-semibold">
+              {t('Profile.Account.Created')}:
+            </Text>
             <Text className="text-base font-semibold">
               {user?.createdAt ? format(user.createdAt, 'PPpp') : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full">
-            <Text className="text-base font-semibold">Last Updated:</Text>
+            <Text className="text-base font-semibold">
+              {t('Profile.Account.LastUpdated')}:
+            </Text>
             <Text className="text-base font-semibold">
               {user?.updatedAt ? format(user.updatedAt, 'PPpp') : '-'}
             </Text>
