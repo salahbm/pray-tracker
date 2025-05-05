@@ -3,12 +3,11 @@ import Checkbox from 'expo-checkbox';
 import React, { useState, memo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Image, ImageSourcePropType } from 'react-native';
-import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import CallToAction from './call-to-premium';
 import FreemiumTrackerIntro from './header';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+
 import SwiperButton from '@/components/shared/swiper';
 import {
   Accordion,
@@ -19,13 +18,12 @@ import {
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS_DATA } from '@/constants/friends';
-import { useGetPro } from '@/hooks/common/usPro';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const FreemiumFriends = () => {
-  const { data: pro, refetch, isFetching } = useGetPro();
+  // const { data: pro, refetch, isFetching } = useGetPro();
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
@@ -45,15 +43,15 @@ const FreemiumFriends = () => {
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
         className="w-full lg:px-4"
-        refreshControl={
-          <RefreshControl
-            refreshing={isFetching}
-            onRefresh={refetch}
-            tintColor={colors['--primary']}
-          />
-        }
+        // refreshControl={
+        //   <RefreshControl
+        //     refreshing={isFetching}
+        //     onRefresh={refetch}
+        //     tintColor={colors['--primary']}
+        //   />
+        // }
       >
-        <FreemiumTrackerIntro ref={ref} isProVisible={pro?.isProVisible} />
+        <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
         <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
 
@@ -134,9 +132,9 @@ const FreemiumFriends = () => {
         ))}
       </ScrollView>
       {/* BOTTOM SHEET */}
-      <CustomBottomSheet sheetRef={ref}>
+      {/* <CustomBottomSheet sheetRef={ref}>
         <CallToAction />
-      </CustomBottomSheet>
+      </CustomBottomSheet> */}
     </React.Fragment>
   );
 };

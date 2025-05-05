@@ -1,13 +1,12 @@
+import { Button } from 'components/ui/button';
+import { Input } from 'components/ui/input';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
-import OAuth from '@/components/shared/o-auth';
 import { Text } from '@/components/ui/text';
 import { useLoginUser } from '@/hooks/auth/useLogin';
-import { Button } from 'components/ui/button';
-import { Input } from 'components/ui/input';
 
 interface ISignIn {
   onSuccess: () => void;
@@ -38,7 +37,7 @@ export default function SignInScreen({
   return (
     <React.Fragment>
       <View className="w-full mt-8">
-        <Text className="text-3xl font-bold text-primary mb-6 text-center">
+        <Text className="text-3xl font-bold text-primary mb-12 text-center">
           {t('Auth.SignIn.Title')}
         </Text>
         <Input
@@ -60,15 +59,19 @@ export default function SignInScreen({
           secureTextEntry
           onChangeText={(password) => setForm({ ...form, password })}
         />
-        <Button className="mb-4" disabled={isPending} onPress={onSignInPress}>
+        <Button
+          className="mb-4 mt-8"
+          disabled={isPending}
+          onPress={onSignInPress}
+        >
           <Loader visible={isPending} size="small" />
           <Text className="font-bold">{t('Auth.SignIn.Button')}</Text>
         </Button>
         {/* OAuth */}
-        <OAuth onSuccess={onSuccess} />
+        {/* <OAuth onSuccess={onSuccess} /> */}
       </View>
 
-      <View className="mt-8 flex flex-row justify-center items-center">
+      <View className="flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center ">
           {t('Auth.SignIn.NoAccount')}
         </Text>
