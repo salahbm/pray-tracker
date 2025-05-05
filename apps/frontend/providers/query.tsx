@@ -45,7 +45,9 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
                 ? `Error: ${error.message}`
                 : `Background fetching error: ${error.message}`;
 
-            fireToast.error(errorMessage);
+            if ((error as { status?: number })?.status !== 500) {
+              fireToast.error(errorMessage);
+            }
           },
         }),
         mutationCache: new MutationCache({

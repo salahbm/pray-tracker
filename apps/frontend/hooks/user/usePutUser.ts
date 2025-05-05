@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import useMutation from '../common/useMutation';
+
 import { userKeys } from '@/constants/query-keys';
 import { agent } from '@/lib/agent';
 
@@ -10,6 +11,7 @@ interface IUserParams {
   firstName?: string;
   lastName?: string;
   photo?: string;
+  locale?: string;
   password?: string;
 
   deviceToken?: string;
@@ -17,6 +19,7 @@ interface IUserParams {
 }
 
 const updateUser = async (params: IUserParams) => {
+  if (!params.id) return null;
   const response = await agent(`/users/${params.id}`, {
     method: 'PUT',
     body: JSON.stringify({
@@ -27,6 +30,7 @@ const updateUser = async (params: IUserParams) => {
       photo: params.photo,
       password: params.password,
       deviceToken: params.deviceToken,
+      locale: params.locale,
       toast: params.toast,
     }),
   });

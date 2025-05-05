@@ -1,6 +1,7 @@
 export function convertAmountFromLowestUnit(amount: string, currency: string) {
   switch (currency) {
-    case 'JPY':
+    case 'UZS':
+      return parseFloat(amount);
     case 'KRW':
       return parseFloat(amount);
     default:
@@ -14,7 +15,8 @@ export function parseMoney(amount: string = '0', currency: string = 'USD') {
 }
 
 export function formatMoney(amount: number = 0, currency: string = 'USD') {
-  const language = typeof navigator !== 'undefined' ? navigator.language : 'en-US';
+  const language =
+    typeof navigator !== 'undefined' ? navigator.language : 'en-US';
   return new Intl.NumberFormat(language ?? 'en-US', {
     style: 'currency',
     currency: currency,

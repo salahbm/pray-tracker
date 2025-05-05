@@ -357,11 +357,50 @@
       "Label": "비밀번호",
       "Placeholder": "비밀번호를 입력하세요"
     },
+    "Username": {
+      "Label": "이름",
+      "Placeholder": "이름를 입력하세요"
+    },
     "SignIn": {
       "Title": "다시 오신 것을 환영합니다",
       "Button": "로그인",
       "NoAccount": "계정이 없으신가요?",
       "SignUpLink": "가입하기"
+    },
+    "SignUp": {
+      "Title": "가입하기",
+      "Subtitle": "계정을 만들어 계속하세요",
+      "Button": "회원가입",
+      "HasAccount": "이미 계정이 있으신가요?",
+      "SignInLink": "로그인",
+      "Verification": {
+        "Title": "인증",
+        "Message": "{{email}}로 인증 코드를 보냈습니다.",
+        "Placeholder": "12345",
+        "Button": "이메일 인증"
+      },
+      "Success": {
+        "Title": "인증 완료",
+        "Message": "계정 인증이 완료되었습니다.",
+        "Button": "비스밀라"
+      }
+    },
+    "ForgotPassword": {
+      "Title": "비밀번호 재설정",
+      "Button": "인증 코드 전송",
+      "RememberedPassword": "비밀번호가 기억나셨나요?",
+      "SignInLink": "로그인",
+      "Verification": {
+        "Title": "인증",
+        "Message": "{{email}}로 인증 코드를 보냈습니다.",
+        "Placeholder": "코드 입력",
+        "Button": "이메일 인증"
+      },
+      "Success": {
+        "Title": "인증 완료",
+        "Message": "계정 인증이 완료되었습니다.",
+        "Button": "비밀번호 변경"
+      }
     },
     "Welcome": {
       "Next": "다음",

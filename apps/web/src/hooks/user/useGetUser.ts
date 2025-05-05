@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { agent } from '@/lib/agent';
 
 export interface User {
@@ -34,6 +34,7 @@ export const useGetUser = (supabaseId: string) => {
   return useQuery({
     queryKey: [USER_QUERY_KEY, supabaseId],
     queryFn: () => getUser(supabaseId),
+    placeholderData: keepPreviousData,
     enabled: !!supabaseId,
   });
 };

@@ -1,15 +1,18 @@
 'use server';
 
-import { getCustomerId } from '@/utils/paddle/get-customer-id';
 import { getPaddleInstance } from '@/utils/paddle/get-paddle-instance';
 import { SubscriptionResponse } from '@/lib/api.types';
 import { getErrorMessage } from '@/utils/paddle/data-helpers';
 
 export async function getSubscriptions(): Promise<SubscriptionResponse> {
   try {
-    const customerId = await getCustomerId();
+    // const customerId = await getCustomerId();
+    const customerId = '123423';
     if (customerId) {
-      const subscriptionCollection = getPaddleInstance().subscriptions.list({ customerId: [customerId], perPage: 20 });
+      const subscriptionCollection = getPaddleInstance().subscriptions.list({
+        customerId: [customerId],
+        perPage: 20,
+      });
       const subscriptions = await subscriptionCollection.next();
       return {
         data: subscriptions,

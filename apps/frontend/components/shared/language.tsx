@@ -2,8 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
 import { Text } from '../ui/text';
+
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { usePutUser } from '@/hooks/user/usePutUser';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 export const FLAGS = {
   en: '🇺🇸',
@@ -15,6 +18,20 @@ export const FLAGS = {
 export function Language() {
   const { changeLanguage, currentLanguage } = useLanguage();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
+  const { mutateAsync: updateUser } = usePutUser();
+
+  const handleUpdateLocale = async (locale: string) => {
+    changeLanguage(locale); // update UI instantly
+
+    if (user) {
+      updateUser({
+        ...user,
+        locale,
+        toast: false,
+      });
+    }
+  };
   // Fetch languages object
   const languages = t('Commons.Locales.languages', { returnObjects: true });
   const locales = Object.keys(languages);
@@ -24,7 +41,7 @@ export function Language() {
       {locales.map((lang) => (
         <TouchableOpacity
           key={lang}
-          onPress={() => changeLanguage(lang)}
+          onPress={() => handleUpdateLocale(lang)}
           className={cn('flex-row items-center gap-2 w-full justify-between')}
         >
           <Text
