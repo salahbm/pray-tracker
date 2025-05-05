@@ -37,10 +37,10 @@ export function ProfileSection({ user }: ProfileSectionProps) {
         text: 'Profile updated successfully!',
       });
       router.refresh();
-    } catch (error: any) {
+    } catch (error: unknown) {
       setMessage({
         type: 'error',
-        text: error.message || 'Error updating profile. Please try again.',
+        text: error instanceof Error ? error.message : 'Error updating profile. Please try again.',
       });
     }
   };

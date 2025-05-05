@@ -164,6 +164,8 @@
       "dependencies": {
         "@headlessui/react": "^2.1.8",
         "@next/third-parties": "^14.2.13",
+        "@paddle/paddle-js": "^1.4.1",
+        "@paddle/paddle-node-sdk": "^2.7.0",
         "@supabase/auth-helpers-nextjs": "^0.10.0",
         "@supabase/ssr": "^0.6.1",
         "@supabase/supabase-js": "^2.49.4",
@@ -734,6 +736,10 @@
     "@nolyfill/is-core-module": ["@nolyfill/is-core-module@1.0.39", "", {}, "sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA=="],
 
     "@npmcli/fs": ["@npmcli/fs@3.1.1", "", { "dependencies": { "semver": "^7.3.5" } }, "sha512-q9CRWjpHCMIh5sVyefoD1cA7PkvILqCZsnSOEUUivORLjxCO/Irmue2DprETiNgEqktDBZaM1Bi+jrarx1XdCg=="],
+
+    "@paddle/paddle-js": ["@paddle/paddle-js@1.4.1", "", {}, "sha512-GKuXVnUAIGq4H1AxrPRRMZXl+pTSGiKMStpRlvF6+dv03BwhkqbyHJJZ39e6bMquVbYSa33/9cu6fuW8pie8aQ=="],
+
+    "@paddle/paddle-node-sdk": ["@paddle/paddle-node-sdk@2.7.0", "", {}, "sha512-gYndP1ev+iZRgY6bA+tZOaKbH1vcyjAmgZphFzE5p/lLTqutrEahHyJmeqC+4Ti2cNFoB0wJXLVSndet5dnbuw=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
