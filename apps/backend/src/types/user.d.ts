@@ -11,6 +11,12 @@ export type TUser = {
   lastName?: string;
   createdAt: string;
   updatedAt: string;
+  customer?: {
+    subscriptions?: {
+      status: string;
+      scheduledChange?: string | null;
+    }[];
+  };
 };
 
 // Type for stored user without password

@@ -15,6 +15,12 @@ export interface User {
   deviceToken: string | null;
   createdAt: string;
   updatedAt: string;
+  customer?: {
+    subscriptions?: {
+      status: string;
+      scheduledChange?: string | null;
+    }[];
+  };
 }
 
 const USER_QUERY_KEY = 'user';

@@ -3,6 +3,7 @@ import { FiCheck } from 'react-icons/fi';
 import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
 import type { User } from '@/hooks/user/useGetUser';
 import Link from 'next/link';
+import { isProUser } from '@/utils/helpers';
 
 const features = [
   'Unlimited prayer tracking',
@@ -18,6 +19,13 @@ interface SubscriptionSectionProps {
 }
 
 export function SubscriptionSection({ user }: SubscriptionSectionProps) {
+  const activeSub = user.customer?.subscriptions?.find(
+    (sub) => sub.status === 'active',
+  );
+
+  const scheduledChange = activeSub?.scheduledChange
+    ? new Date(activeSub.scheduledChange).toLocaleDateString()
+    : null;
   return (
     <AnimatedContainer
       initial={{ opacity: 0, y: 20 }}
@@ -34,9 +42,9 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <h4 className="text-lg font-medium text-gray-900">
-                    {user.isPro ? 'Pro Plan' : 'Free Plan'}
+                    {isProUser(user) ? 'Pro Plan' : 'Free Plan'}
                   </h4>
-                  {!user.isPro && (
+                  {!isProUser(user) && (
                     <Link href="/subscription">
                       <button className="ml-4 inline-flex items-center px-4 py-1 lg:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed">
                         Upgrade
@@ -45,16 +53,16 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
                   )}
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
-                  {user.isPro
-                    ? `Your subscription is active until ${new Date(
-                        user.proUntil!,
-                      ).toLocaleDateString()}`
+                  {isProUser(user)
+                    ? scheduledChange
+                      ? `Your subscription is active until ${scheduledChange}`
+                      : 'Your subscription is active'
                     : 'Upgrade to Pro to unlock all features'}
                 </p>
               </div>
             </div>
 
-            {!user.isPro && (
+            {!isProUser(user) && (
               <div className="mt-6">
                 <h5 className="text-sm font-medium text-gray-900">
                   Pro features include:
