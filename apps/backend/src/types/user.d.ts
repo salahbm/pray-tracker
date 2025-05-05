@@ -9,8 +9,6 @@ export type TUser = {
   deviceToken?: string;
   firstName?: string;
   lastName?: string;
-  isPro: boolean;
-  proUntil: Date | null;
   createdAt: string;
   updatedAt: string;
 };

@@ -16,6 +16,9 @@ datasource db {
 }
 
 
+/**
+ * USERS
+ */
 
 model User {
   id          String    @id @default(cuid())
@@ -26,22 +29,29 @@ model User {
   firstName   String?
   lastName    String?
   photo       String?
+  locale      String?  @default("en")
 
   totalPoints Int       @default(0)
   deviceToken String?  // Store the Expo push token
   
   prays       Prays[]
+
   awards      Award[]
   prayerStats PrayerStats?
+
+  
   sentRequests  Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
 
-  isPro      Boolean   @default(false)
-  proUntil   DateTime?   
+  customer   Customer?
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
+
+/**
+ * PRAYS
+ */
 
 model Prays {
   id        String   @id @default(cuid())
@@ -62,6 +72,77 @@ model Prays {
   @@unique([userId, date]) // Ensure no duplicate date entries for a user
 }
 
+/**
+ * CUSTOMERS
+ */
+
+model Customer {
+  id          String   @id @default(cuid())
+
+  customerId  String   @unique // Paddle customer ID
+  email       String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subscriptions Subscription[]
+}
+
+/**
+ * SUBSCRIPTIONS
+ */
+
+model Subscription {
+  id                String    @id @default(cuid())
+  subscriptionId    String    @unique // Paddle subscription ID
+  customerId        String
+  customer          Customer  @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
+  status            String
+  priceId          String
+  productId        String
+  scheduledChange   DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([customerId])
+}
+
+/**
+ * Friends
+ */
+model Friend {
+  id        String  @id @default(cuid())
+  userId    String
+  friendId  String
+  status    FriendStatus @default(PENDING) // pending, accepted, rejected
+  
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User    @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+
+  @@unique([userId, friendId]) // Prevent duplicate friendships
+}
+
+/**
+ * PRO
+ */
+ 
+model Pro {
+  id        String   @id @default(cuid())
+  isProVisible Boolean  @default(false)
+}
+
+enum FriendStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/**
+* AWARDS
+*/
 model Award {
   id          String   @id @default(cuid())
   userId      String
@@ -146,31 +227,4 @@ model PrayerStats {
 
   // Meta
   lastCalculated         DateTime @default(now())
-}
-
-
-
-// bi-directional relationship
-model Friend {
-  id        String  @id @default(cuid())
-  userId    String
-  friendId  String
-  status    FriendStatus @default(PENDING) // pending, accepted, rejected
-  
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
-  friend    User    @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
-
-  @@unique([userId, friendId]) // Prevent duplicate friendships
-}
-
-
-model Pro {
-  id        String   @id @default(cuid())
-  isProVisible Boolean  @default(false)
-}
-
-enum FriendStatus {
-  PENDING
-  APPROVED
-  REJECTED
 }

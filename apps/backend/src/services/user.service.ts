@@ -25,8 +25,13 @@ export class UserService {
    */
   static async getUserBySupabaseId(supabaseId: string): Promise<User> {
     const user = await prisma.user.findUnique({
-      where: {
-        supabaseId,
+      where: { supabaseId },
+      include: {
+        customer: {
+          include: {
+            subscriptions: true,
+          },
+        },
       },
     });
 
@@ -36,17 +41,6 @@ export class UserService {
         status: StatusCode.NOT_FOUND,
         code: MessageCodes.USER_NOT_FOUND,
       });
-    }
-
-    if (user.isPro && user.proUntil && user.proUntil < new Date()) {
-      await prisma.user.update({
-        where: { supabaseId },
-        data: { isPro: false, proUntil: null },
-      });
-
-      return prisma.user.findUnique({
-        where: { supabaseId },
-      }) as Promise<User>;
     }
 
     return user;

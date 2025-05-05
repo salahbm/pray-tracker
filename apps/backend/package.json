@@ -21,9 +21,10 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/cors": "^2.8.17",
+    "@paddle/paddle-js": "^1.4.1",
     "@prisma/client": "^6.6.0",
     "@supabase/supabase-js": "^2.49.4",
+    "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
     "cors": "^2.8.5",

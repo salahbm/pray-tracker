@@ -11,8 +11,6 @@ export interface User {
   firstName: string | null;
   lastName: string | null;
   photo: string | null;
-  isPro: boolean;
-  proUntil: string | null;
   totalPoints: number;
   deviceToken: string | null;
   createdAt: string;

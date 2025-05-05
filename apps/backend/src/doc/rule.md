@@ -19,8 +19,6 @@ model User {
   photo         String?
   totalPoints   Int
   deviceToken   String?   // For push notifications
-  isPro         Boolean   // Premium user status
-  proUntil      DateTime? // Premium subscription end date
 }
 ```
 
