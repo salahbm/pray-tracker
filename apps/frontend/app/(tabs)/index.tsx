@@ -1,14 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import LottieView from 'lottie-react-native';
-import {
-  useState,
-  useRef,
-  useCallback,
-  useMemo,
-  useEffect,
-  useReducer,
-} from 'react';
+import { useState, useRef, useCallback, useEffect, useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
@@ -21,6 +14,8 @@ import ForgotPasswordScreen from '../(auth)/forgot-pwd';
 import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
+import confetti from '../../assets/gif/confetti.json';
+
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
 import Loader from '@/components/shared/loader';
@@ -38,7 +33,6 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
-import confetti from 'assets/gif/confetti.json';
 
 const initialState = {
   prayers: {
@@ -132,7 +126,7 @@ export default function HomeScreen() {
 
   // FUNCTIONS
   const handlePrayerChange = useCallback(
-    async (prayer, value) => {
+    async (prayer: string, value: number) => {
       if (prayers[prayer] === value) return;
       await triggerHaptic();
       if (value === PRAYER_POINTS.ON_TIME) {

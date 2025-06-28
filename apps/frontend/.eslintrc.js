@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn', // Changed from error to warning
     '@typescript-eslint/no-require-imports': 'warn',
+    'import/no-unresolved': 'off',
 
     // General ESLint rules
     'no-console': ['warn', { allow: ['error', 'info'] }],

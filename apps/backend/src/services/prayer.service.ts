@@ -2,8 +2,6 @@
 import { prisma } from '../lib/prisma';
 import { ApiError } from '../middleware/error-handler';
 import { StatusCode, MessageCodes } from '../utils/status';
-import { checkAndAssignAwards } from '../utils/check-awards';
-import { recalculateStats } from '../utils/recalculate-stats';
 
 export class PrayerService {
   /**
@@ -130,14 +128,15 @@ export class PrayerService {
     });
 
     // Run side-effects asynchronously
-    void (async () => {
-      try {
-        await recalculateStats(userId);
-        await checkAndAssignAwards(userId);
-      } catch (e) {
-        console.error('[Background task failed]', e);
-      }
-    })();
+    // !TODO: Make this function run in background in next version
+    // void (async () => {
+    //   try {
+    //     await recalculateStats(userId);
+    //     await checkAndAssignAwards(userId);
+    //   } catch (e) {
+    //     console.error('[Background task failed]', e);
+    //   }
+    // })();
 
     return {
       prays: updated,

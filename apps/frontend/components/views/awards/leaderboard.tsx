@@ -26,7 +26,7 @@ export default function Leaderboard() {
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
   return (
-    <React.Fragment>
+    <View className="main-area">
       <Loader visible={isLoading} className="bg-transparent" />
 
       <FlatList
@@ -87,6 +87,6 @@ export default function Leaderboard() {
           </View>
         </View>
       </Modal>
-    </React.Fragment>
+    </View>
   );
 }
