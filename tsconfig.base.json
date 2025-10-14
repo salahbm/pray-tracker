@@ -15,6 +15,10 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "paths": {
+      "@prayer/shared": ["packages/shared/src"],
+      "@prayer/shared/*": ["packages/shared/src/*"]
+    },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

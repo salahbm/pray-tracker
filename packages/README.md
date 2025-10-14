@@ -1,3 +1,5 @@
 ## Shared Components Library
 
-This library contains custom components used throughout the app.
+This workspace is resolved through the `@prayer/shared` package name and is
+compiled with TypeScript into `dist/`. Keep shared utilities, hooks, types and
+constants here so they can be consumed by the backend, web, and mobile apps.

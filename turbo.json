@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "package.json",
+    "bun.lock",
+    "tsconfig.base.json"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "dist/**",
+        ".expo/**",
+        ".next/**",
+        "build/**"
+      ]
+    },
+    "dev": {
+      "cache": false
+    },
+    "lint": {},
+    "test": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    }
+  }
+}

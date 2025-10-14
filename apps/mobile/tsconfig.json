@@ -12,7 +12,9 @@
       "@types/*": ["./types/*"],
       "@lib/*": ["./lib/*"],
       "@store/*": ["./store/*"],
-      "types/*": ["./types/*"]
+      "types/*": ["./types/*"],
+      "@prayer/shared": ["../../packages/shared/src"],
+      "@prayer/shared/*": ["../../packages/shared/src/*"]
     },
     "module": "esnext"
   },

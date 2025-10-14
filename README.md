@@ -77,7 +77,7 @@ git clone https://github.com/yourusername/prayer-tracker.git
 cd prayer-tracker
 ```
 
-2. Install dependencies
+2. Install dependencies at the repository root (this links every workspace)
 
 ```bash
 bun install
@@ -94,22 +94,25 @@ cp apps/web/.env.example apps/web/.env
 
 ### Available Scripts
 
-From the root directory:
+From the root directory Turborepo orchestrates workspace commands:
 
-- `bun run build`: Build all applications
-- `bun run dev`: Start all applications in development mode
-- `bun run lint`: Lint all applications
-- `bun run test`: Run tests across all applications
+- `bun run build` – Build every package and application (respecting dependencies)
+- `bun run dev` – Start backend, mobile, and web dev servers in parallel
+- `bun run lint` – Lint all workspaces that expose a `lint` script
+- `bun run test` – Run tests across applications
+- `bun run typecheck` – Execute TypeScript checks for all workspaces
+
+You can target a specific workspace with Turborepo filters, e.g. `bun run build --filter=@prayer/backend`.
 
 ## 📦 Shared Packages
 
 ### @prayer/shared
 
-Common utilities and types used across applications:
+Common utilities and types used across applications live in `packages/shared`.
 
-- Types definitions
-- Helper functions
-- Constants
+- Built via `bun run build --filter=@prayer/shared`
+- Resolved through the `@prayer/shared` package name inside each app
+- Compiled output is written to `packages/shared/dist`
 
 ## 🤝 Contributing
 

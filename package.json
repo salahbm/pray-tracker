@@ -2,14 +2,23 @@
   "private": true,
   "name": "monorepo",
   "version": "1.0.0",
+  "packageManager": "bun@1.1.38",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
   "dependencies": {
     "dotenv": "^16.6.1"
   },
   "devDependencies": {
+    "turbo": "^2.3.3",
     "typescript": "^5.9.3"
   }
 }

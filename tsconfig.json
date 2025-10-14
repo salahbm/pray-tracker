@@ -3,6 +3,7 @@
   "references": [
     { "path": "apps/web" },
     { "path": "apps/mobile" },
-    { "path": "apps/backend" }
+    { "path": "apps/backend" },
+    { "path": "packages/shared" }
   ]
 }
