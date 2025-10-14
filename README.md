@@ -7,7 +7,7 @@ This monorepo contains all parts of the Prayer Tracker ecosystem, built with mod
 ```bash
 prayer-tracker/
 ├── apps/
-│   ├── frontend/     # Mobile app (React Native + Expo)
+│   ├── mobile/     # Mobile app (React Native + Expo)
 │   ├── backend/      # API server (Bun + Express)
 │   └── web/         # Marketing site (Next.js)
 ├── packages/
@@ -17,7 +17,7 @@ prayer-tracker/
 
 ## 🚀 Applications
 
-### 📱 Frontend (Mobile App)
+### 📱 Mobile (Mobile App)
 
 - **Tech Stack**: React Native + Expo
 - **Features**:
@@ -27,7 +27,7 @@ prayer-tracker/
   - Multi-language support
 - **Start Development**:
   ```bash
-  cd apps/frontend
+  cd apps/mobile
   bun install
   bun start
   ```
@@ -87,7 +87,7 @@ bun install
 
 ```bash
 # Copy environment files in each app directory
-cp apps/frontend/.env.example apps/frontend/.env
+cp apps/mobile/.env.example apps/mobile/.env
 cp apps/backend/.env.example apps/backend/.env
 cp apps/web/.env.example apps/web/.env
 ```
@@ -122,7 +122,7 @@ Common utilities and types used across applications:
 ## Pushing the code
 
 ```
-bun run push frontend fix "align radio buttons"
+bun run push mobile fix "align radio buttons"
 bun run push backend chore "update tsconfig"
 bun run push shared refactor "optimize date utils"
 bun run push web feat "add hero banner"

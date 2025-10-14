@@ -3,7 +3,7 @@ const [, , target, type = 'feat', ...msg] = process.argv;
 
 if (!target || msg.length === 0) {
   console.error(
-    "Usage: bun run push <frontend|backend|web|shared> <type> 'message'"
+    "Usage: bun run push <mobile|backend|web|shared> <type> 'message'"
   );
   process.exit(1);
 }
