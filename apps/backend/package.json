@@ -4,9 +4,11 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "echo Starting build in $PWD && ls -la src",
-    "build": "npx prisma generate && tsc && cp -r src/generated dist/generated",
+    "build": "tsc",
+    "dev": "bun --watch src/index.ts",
     "start": "node dist/index.js",
-    "push": "bun run scripts/push.js"
+    "push": "bun run scripts/push.js",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "salahbm.dev@gmail.com",
@@ -23,7 +25,8 @@
   "dependencies": {
     "@paddle/paddle-js": "^1.4.1",
     "@paddle/paddle-node-sdk": "^2.7.0",
-    "@prisma/client": "^6.6.0",
+    "@prayer/db": "workspace:*",
+    "@prayer/shared": "workspace:*",
     "@supabase/supabase-js": "^2.49.4",
     "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
@@ -33,7 +36,6 @@
     "express": "^5.1.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.2",
-    "prisma": "^6.6.0",
     "typescript": "^5.8.3"
   }
 }

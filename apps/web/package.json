@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
     "@next/third-parties": "^14.2.13",
     "@paddle/paddle-js": "^1.4.1",
+    "@prayer/shared": "workspace:*",
     "@paddle/paddle-node-sdk": "^2.7.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.6.1",

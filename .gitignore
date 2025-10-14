@@ -19,3 +19,6 @@ turbo/
 apps/*/bun.lockb
 apps/*/package-lock.json
 apps/*/yarn.lock
+
+.turbo
+*.tsbuildinfo

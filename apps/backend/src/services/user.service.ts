@@ -1,4 +1,4 @@
-import type { User } from '../generated/prisma';
+import type { User } from '@prayer/db';
 import { prisma } from '../lib/prisma';
 import { supabase } from '../lib/supabase';
 import { ApiError } from '../middleware/error-handler';

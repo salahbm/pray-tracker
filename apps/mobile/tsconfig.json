@@ -3,16 +3,48 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["./components/*"],
-      "@screens/*": ["./screens/*"],
-      "@assets/*": ["./assets/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@utils/*": ["./utils/*"],
-      "@types/*": ["./types/*"],
-      "@lib/*": ["./lib/*"],
-      "@store/*": ["./store/*"],
-      "types/*": ["./types/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@screens/*": [
+        "./screens/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@types/*": [
+        "./types/*"
+      ],
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "types/*": [
+        "./types/*"
+      ],
+      "@prayer/shared": [
+        "../../packages/shared/src"
+      ],
+      "@prayer/shared/*": [
+        "../../packages/shared/src/*"
+      ],
+      "@prayer/db": [
+        "../../packages/db/src"
+      ],
+      "@prayer/db/*": [
+        "../../packages/db/src/*"
+      ]
     },
     "module": "esnext"
   },

@@ -1,5 +1,5 @@
 import type { UserAppMetadata } from '@supabase/supabase-js';
-import type { User } from '../generated/prisma';
+import type { User } from '@prayer/db';
 import { TStoredUser } from './user';
 
 declare global {

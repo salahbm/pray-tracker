@@ -1,8 +1,22 @@
 // src/services/friend.service.ts
-import { FriendStatus } from '../generated/prisma';
+import type { Friend, Prays, User } from '@prayer/db';
+import { FriendStatus } from '@prayer/db';
 import { prisma } from '../lib/prisma';
 import { ApiError } from '../middleware/error-handler';
 import { StatusCode, MessageCodes } from '../utils/status';
+
+
+type FriendWithRelations = Friend & { user: User; friend: User };
+type PrayerWithUser = Prays & { user: User };
+type PendingItem = {
+  id: string;
+  userId: string;
+  friendId: string;
+  username: string;
+  email: string;
+  photo: string | null | undefined;
+  status: FriendStatus;
+};
 
 export class FriendService {
   static async getApprovedFriends(userId: string) {
@@ -14,7 +28,7 @@ export class FriendService {
       });
     }
 
-    const friends = await prisma.friend.findMany({
+    const friends = (await prisma.friend.findMany({
       where: {
         OR: [
           { userId, status: 'APPROVED' },
@@ -27,7 +41,7 @@ export class FriendService {
         friend: true,
         user: true,
       },
-    });
+    })) as FriendWithRelations[];
 
     const friendIds = friends.map((f) =>
       f.friend.id === userId ? f.user.id : f.friend.id
@@ -37,7 +51,7 @@ export class FriendService {
     const startOfDay = new Date(today.setHours(0, 0, 0, 0));
     const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
-    const prayers = await prisma.prays.findMany({
+    const prayers = (await prisma.prays.findMany({
       where: {
         userId: { in: friendIds },
         date: {
@@ -46,7 +60,7 @@ export class FriendService {
         },
       },
       include: { user: true },
-    });
+    })) as PrayerWithUser[];
 
     return friends.map((f) => {
       const info = f.friend.id === userId ? f.user : f.friend;
@@ -65,8 +79,8 @@ export class FriendService {
           ? todayPrays
           : [
               {
+                id: '',
                 userId: info.id,
-                username: info.username,
                 date: new Date(),
                 fajr: 0,
                 dhuhr: 0,
@@ -74,7 +88,10 @@ export class FriendService {
                 maghrib: 0,
                 isha: 0,
                 nafl: 0,
-              },
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                user: info,
+              } as PrayerWithUser,
             ],
       };
     });
@@ -89,7 +106,7 @@ export class FriendService {
       });
     }
 
-    const friends = await prisma.friend.findMany({
+    const friends = (await prisma.friend.findMany({
       where: {
         OR: [
           { userId, status: 'PENDING' },
@@ -100,15 +117,15 @@ export class FriendService {
         friend: true,
         user: true,
       },
-    });
+    })) as FriendWithRelations[];
 
-    const sentBy = [];
-    const requests = [];
+    const sentBy: PendingItem[] = [];
+    const requests: PendingItem[] = [];
 
     for (const f of friends) {
       const isSender = f.userId === userId;
       const other = isSender ? f.friend : f.user;
-      const item = {
+      const item: PendingItem = {
         id: f.id,
         userId: f.userId,
         friendId: f.friendId,
