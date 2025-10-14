@@ -16,7 +16,9 @@
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./src/types/*"],
       "@lib/*": ["./src/lib/*"],
-      "@store/*": ["./src/store/*"]
+      "@store/*": ["./src/store/*"],
+      "@prayer/shared": ["../../packages/shared/src"],
+      "@prayer/shared/*": ["../../packages/shared/src/*"]
     },
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],

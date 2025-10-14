@@ -6,6 +6,7 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['@prayer/shared'],
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src');
     config.resolve.alias['@prayer/shared'] = path.resolve(
