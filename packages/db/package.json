@@ -2,6 +2,7 @@
   "name": "@prayer/db",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -10,19 +11,22 @@
     "prisma/migrations"
   ],
   "scripts": {
-    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "clean": "bunx rimraf dist",
     "generate": "prisma generate --schema prisma/schema.prisma",
     "build": "bun run clean && tsc --project tsconfig.json",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "migrate:dev": "prisma migrate dev --schema prisma/schema.prisma",
+    "migrate:deploy": "prisma migrate deploy --schema prisma/schema.prisma"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
+    "@neondatabase/serverless": "^1.0.2",
     "@prisma/adapter-neon": "^6.6.0",
     "@prisma/client": "^6.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^24.7.2",
     "prisma": "^6.6.0",
-    "typescript": "^5"
+    "typescript": "^5.4.0",
+    "rimraf": "^6.0.1"
   }
 }

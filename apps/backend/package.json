@@ -27,7 +27,6 @@
     "@prayer/shared": "workspace:*",
     "@paddle/paddle-node-sdk": "^2.7.0",
     "@prayer/db": "workspace:*",
-    "@prayer/shared": "workspace:*",
     "@supabase/supabase-js": "^2.49.4",
     "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
