@@ -4,7 +4,6 @@
 // Neon requires the driver adapters preview feature for HTTP pooling.
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
