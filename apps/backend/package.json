@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@paddle/paddle-js": "^1.4.1",
+    "@prayer/shared": "workspace:*",
     "@paddle/paddle-node-sdk": "^2.7.0",
     "@prayer/auth": "workspace:*",
     "@prayer/db": "workspace:*",
