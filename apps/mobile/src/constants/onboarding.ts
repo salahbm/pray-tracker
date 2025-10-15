@@ -1,8 +1,8 @@
-import onboarding1 from '../assets/onboarding/onboarding_1.png';
-import onboarding2 from '../assets/onboarding/onboarding_2.png';
-import onboarding3 from '../assets/onboarding/onboarding_3.png';
-import onboarding4 from '../assets/onboarding/onboarding_4.png';
-import onboarding5 from '../assets/onboarding/onboarding_5.png';
+import onboarding1 from '@assets/onboarding/onboarding_1.png';
+import onboarding2 from '@assets/onboarding/onboarding_2.png';
+import onboarding3 from '@assets/onboarding/onboarding_3.png';
+import onboarding4 from '@assets/onboarding/onboarding_4.png';
+import onboarding5 from '@assets/onboarding/onboarding_5.png';
 
 export const images = {
   onboarding1,

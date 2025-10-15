@@ -4,34 +4,67 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@screens/*": [
-        "./screens/*"
+        "./src/*"
       ],
       "@assets/*": [
         "./assets/*"
       ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "constants/*": [
+        "./src/constants/*"
+      ],
       "@hooks/*": [
-        "./hooks/*"
+        "./src/hooks/*"
       ],
-      "@utils/*": [
-        "./utils/*"
-      ],
-      "@types/*": [
-        "./types/*"
+      "hooks/*": [
+        "./src/hooks/*"
       ],
       "@lib/*": [
-        "./lib/*"
+        "./src/lib/*"
+      ],
+      "lib/*": [
+        "./src/lib/*"
+      ],
+      "@locales/*": [
+        "./src/locales/*"
+      ],
+      "@providers/*": [
+        "./src/providers/*"
+      ],
+      "providers/*": [
+        "./src/providers/*"
       ],
       "@store/*": [
-        "./store/*"
+        "./src/store/*"
+      ],
+      "store/*": [
+        "./src/store/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "styles/*": [
+        "./src/styles/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "utils/*": [
+        "./src/utils/*"
       ],
       "types/*": [
-        "./types/*"
+        "./src/types/*"
       ],
       "@prayer/shared": [
         "../../packages/shared/src"
@@ -49,8 +82,9 @@
     "module": "esnext"
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "**/*.d.ts",

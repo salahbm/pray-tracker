@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { ExpoConfig, ConfigContext } from '@expo/config';
 
+process.env.EXPO_ROUTER_APP_ROOT = process.env.EXPO_ROUTER_APP_ROOT ?? 'src/app';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'Pray Tracker',
@@ -90,10 +92,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
   ],
   locales: {
-    en: './locales/en.json',
-    ru: './locales/ru.json',
-    uz: './locales/uz.json',
-    ko: './locales/ko.json',
+    en: './src/locales/en.json',
+    ru: './src/locales/ru.json',
+    uz: './src/locales/uz.json',
+    ko: './src/locales/ko.json',
   },
   extra: {
     apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,

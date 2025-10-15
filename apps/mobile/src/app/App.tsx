@@ -4,7 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
-import spaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
+import spaceMono from '@assets/fonts/SpaceMono-Regular.ttf';
 import { useSession } from '@/hooks/auth/useSessions';
 import { usePushNotifications } from '@/hooks/common/useNotifications';
 

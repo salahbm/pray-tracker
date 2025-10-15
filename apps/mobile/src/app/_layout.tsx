@@ -4,7 +4,7 @@ import App from './App';
 
 import RootProvider from '@/providers/root';
 import 'react-native-reanimated';
-import 'i18n.config';
+import '@/i18n.config';
 import 'styles/global.css';
 import 'reanimated.config';
 
