@@ -4,10 +4,10 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { Platform } from 'react-native';
 
-import enLocalization from './locales/en.json';
-import koLocalization from './locales/ko.json';
-import ruLocalization from './locales/ru.json';
-import uzLocalization from './locales/uz.json';
+import enLocalization from '@locales/en.json';
+import koLocalization from '@locales/ko.json';
+import ruLocalization from '@locales/ru.json';
+import uzLocalization from '@locales/uz.json';
 
 const resources = {
   en: { translation: enLocalization },

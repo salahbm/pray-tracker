@@ -1,13 +1,15 @@
 import 'dotenv/config';
 import { ExpoConfig, ConfigContext } from '@expo/config';
 
+process.env.EXPO_ROUTER_APP_ROOT = process.env.EXPO_ROUTER_APP_ROOT ?? 'src/app';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'Pray Tracker',
   slug: 'pray-tracker',
   version: '1.0.2',
   orientation: 'portrait',
-  icon: './assets/images/icon-light-rounded.png',
+  icon: './src/assets/images/icon-light-rounded.png',
   scheme: 'salahdev-prayer-tracker',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
@@ -22,14 +24,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       ITSAppUsesNonExemptEncryption: false,
     },
     icon: {
-      dark: './assets/images/icon-dark.png',
-      light: './assets/images/icon-light.png',
+      dark: './src/assets/images/icon-dark.png',
+      light: './src/assets/images/icon-light.png',
     },
   },
   android: {
     package: 'com.salahdev.prayerTracker',
     adaptiveIcon: {
-      foregroundImage: './assets/images/icon-light.png',
+      foregroundImage: './src/assets/images/icon-light.png',
       backgroundColor: '#F9FAFB',
     },
     permissions: [
@@ -40,7 +42,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   web: {
     bundler: 'metro',
     output: 'static',
-    favicon: './assets/images/favicon.png',
+    favicon: './src/assets/images/favicon.png',
   },
   plugins: [
     'expo-router',
@@ -52,12 +54,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        image: './assets/images/icon-light-rounded.png',
+        image: './src/assets/images/icon-light-rounded.png',
         imageWidth: 150,
         resizeMode: 'contain',
         backgroundColor: '#F9FAFB',
         dark: {
-          image: './assets/images/icon-dark-rounded.png',
+          image: './src/assets/images/icon-dark-rounded.png',
           backgroundColor: '#121212',
         },
       },
@@ -90,10 +92,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
   ],
   locales: {
-    en: './locales/en.json',
-    ru: './locales/ru.json',
-    uz: './locales/uz.json',
-    ko: './locales/ko.json',
+    en: './src/locales/en.json',
+    ru: './src/locales/ru.json',
+    uz: './src/locales/uz.json',
+    ko: './src/locales/ko.json',
   },
   extra: {
     apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,

@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 
-import i18n from '../i18n.config';
+import i18n from '@/i18n.config';
 
 export function I18nProvider({ children }: PropsWithChildren) {
   const [isI18nInitialized, setIsI18nInitialized] = useState(false);
