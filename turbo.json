@@ -5,9 +5,11 @@
     "bun.lock",
     "tsconfig.base.json"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "dist/**",
         ".expo/**",
@@ -21,7 +23,10 @@
     "lint": {},
     "test": {},
     "typecheck": {
-      "dependsOn": ["^typecheck"]
+      "dependsOn": [
+        "^typecheck",
+        "^build"
+      ]
     }
   }
 }

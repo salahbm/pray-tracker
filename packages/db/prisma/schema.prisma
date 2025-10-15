@@ -1,85 +1,79 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Prisma schema managed from the shared db package.
+// Learn more: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// Neon requires the driver adapters preview feature for HTTP pooling.
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
-
 
 /**
  * USERS
  */
-
 model User {
-  id          String    @id @default(cuid())
-  supabaseId     String    @unique
-  email       String    @unique
-  password    String    
-  username    String    @unique
-  firstName   String?
-  lastName    String?
-  photo       String?
-  locale      String?  @default("en")
+  id            String   @id @default(cuid())
+  supabaseId    String   @unique
+  email         String   @unique
+  password      String
+  username      String   @unique
+  firstName     String?
+  lastName      String?
+  photo         String?
+  locale        String?  @default("en")
 
-  totalPoints Int       @default(0)
-  deviceToken String?  // Store the Expo push token
-  
-  prays       Prays[]
+  totalPoints   Int      @default(0)
+  deviceToken   String?
 
-  awards      Award[]
-  prayerStats PrayerStats?
+  prays         Prays[]
 
-  
-  sentRequests  Friend[] @relation("user_friends")
+  awards        Award[]
+  prayerStats   PrayerStats?
+
+  sentRequests     Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
 
-  customer   Customer?
+  customer      Customer?
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 /**
  * PRAYS
  */
-
 model Prays {
   id        String   @id @default(cuid())
   userId    String
-  date      DateTime // Use DateTime instead of String for easier date manipulation
-  fajr      Int  @default(0)
-  dhuhr     Int  @default(0)
-  asr       Int  @default(0)
-  maghrib   Int  @default(0)
-  isha      Int  @default(0)
-  nafl      Int  @default(0)
+  date      DateTime
+  fajr      Int      @default(0)
+  dhuhr     Int      @default(0)
+  asr       Int      @default(0)
+  maghrib   Int      @default(0)
+  isha      Int      @default(0)
+  nafl      Int      @default(0)
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, date]) // Ensure no duplicate date entries for a user
+  @@unique([userId, date])
 }
 
 /**
  * CUSTOMERS
  */
-
 model Customer {
   id          String   @id @default(cuid())
 
-  customerId  String   @unique // Paddle customer ID
+  customerId  String   @unique
   email       String
 
   createdAt   DateTime @default(now())
@@ -94,16 +88,15 @@ model Customer {
 /**
  * SUBSCRIPTIONS
  */
-
 model Subscription {
-  id                String    @id @default(cuid())
-  subscriptionId    String    @unique // Paddle subscription ID
-  customerId        String
-  customer          Customer  @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
-  status            String
+  id               String    @id @default(cuid())
+  subscriptionId   String    @unique
+  customerId       String
+  customer         Customer  @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
+  status           String
   priceId          String
   productId        String
-  scheduledChange   DateTime?
+  scheduledChange  DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
@@ -114,24 +107,23 @@ model Subscription {
  * Friends
  */
 model Friend {
-  id        String  @id @default(cuid())
+  id        String       @id @default(cuid())
   userId    String
   friendId  String
-  status    FriendStatus @default(PENDING) // pending, accepted, rejected
-  
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
-  friend    User    @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+  status    FriendStatus @default(PENDING)
 
-  @@unique([userId, friendId]) // Prevent duplicate friendships
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+
+  @@unique([userId, friendId])
 }
 
 /**
  * PRO
  */
- 
 model Pro {
-  id        String   @id @default(cuid())
-  isProVisible Boolean  @default(false)
+  id            String @id @default(cuid())
+  isProVisible  Boolean @default(false)
 }
 
 enum FriendStatus {
@@ -141,16 +133,16 @@ enum FriendStatus {
 }
 
 /**
-* AWARDS
-*/
+ * AWARDS
+ */
 model Award {
-  id          String   @id @default(cuid())
-  userId      String
-  title       String   // Award name
-  awardedAt   DateTime @default(now())  // Keep this for sorting
-  points      Int      @default(10)     // Points awarded for achieving this award
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  awardedAt DateTime @default(now())
+  points    Int      @default(10)
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, title])
 }
@@ -159,21 +151,17 @@ model PrayerStats {
   id                     String   @id @default(cuid())
   userId                 String   @unique
 
-  // Relations
   user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Core Stats
   totalPrayers           Int      @default(0)
   missedPrayers          Int      @default(0)
   naflCount              Int      @default(0)
 
-  // Streaks
   currentStreak          Int      @default(0)
   longestStreak          Int      @default(0)
   fajrStreak             Int      @default(0)
   isTodayStreakBroken    Boolean  @default(false)
 
-  // On-time Percentages
   onTimePercentage       Float    @default(0)
   earlyFajrPercentage    Float    @default(0)
 
@@ -183,7 +171,6 @@ model PrayerStats {
   maghribOnTimePercentage Float   @default(0)
   ishaOnTimePercentage   Float    @default(0)
 
-  // Per-Prayer Streak Achievements (10, 50, 100, 150)
   fajrStrike10           Int      @default(0)
   fajrStrike50           Int      @default(0)
   fajrStrike100          Int      @default(0)
@@ -214,17 +201,14 @@ model PrayerStats {
   naflStrike100          Int      @default(0)
   naflStrike150          Int      @default(0)
 
-  // Advanced Tracking
-  consistencyPercentage  Float    @default(0) // % of days with all 5 prayers
-  lastActiveDay          DateTime? // Last day user logged a prayer
-  lastFajrTime           DateTime? // Helps calculate early fajr stat
-  lastNaflDate       DateTime? // For gamification or reminders
-  missedPrayerStreak     Int      @default(0) // e.g. 3 days without full prayer
+  consistencyPercentage  Float    @default(0)
+  lastActiveDay          DateTime?
+  lastFajrTime           DateTime?
+  lastNaflDate           DateTime?
+  missedPrayerStreak     Int      @default(0)
 
-  // Gamification
   level                  Int      @default(1)
-  totalXP               Int      @default(0)
+  totalXP                Int      @default(0)
 
-  // Meta
   lastCalculated         DateTime @default(now())
 }

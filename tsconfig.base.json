@@ -2,7 +2,10 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -16,8 +19,18 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@prayer/shared": ["packages/shared/src"],
-      "@prayer/shared/*": ["packages/shared/src/*"]
+      "@prayer/shared": [
+        "packages/shared/src"
+      ],
+      "@prayer/shared/*": [
+        "packages/shared/src/*"
+      ],
+      "@prayer/db": [
+        "packages/db/src"
+      ],
+      "@prayer/db/*": [
+        "packages/db/src/*"
+      ]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,

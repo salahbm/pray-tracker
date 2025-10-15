@@ -1,4 +1,4 @@
-import { FriendStatus } from '@prisma/client';
+import { FriendStatus } from '@prayer/db';
 
 import { IPrays } from './prays';
 

@@ -11,6 +11,7 @@ prayer-tracker/
 │   ├── backend/      # API server (Bun + Express)
 │   └── web/         # Marketing site (Next.js)
 ├── packages/
+│   ├── db/          # Prisma + Neon database package
 │   └── shared/      # Shared utilities and types
 └── package.json     # Root workspace configuration
 ```
@@ -90,6 +91,7 @@ bun install
 cp apps/mobile/.env.example apps/mobile/.env
 cp apps/backend/.env.example apps/backend/.env
 cp apps/web/.env.example apps/web/.env
+cp packages/db/.env.example packages/db/.env
 ```
 
 ### Available Scripts
@@ -113,6 +115,14 @@ Common utilities and types used across applications live in `packages/shared`.
 - Built via `bun run build --filter=@prayer/shared`
 - Resolved through the `@prayer/shared` package name inside each app
 - Compiled output is written to `packages/shared/dist`
+
+### @prayer/db
+
+Neon-aware Prisma schema and client live in `packages/db`.
+
+- Configure credentials via `packages/db/.env` (copy from `.env.example`)
+- Generate the Prisma client with `bun run build --filter=@prayer/db`
+- Import the pooled client in apps using `import { prisma } from '@prayer/db'`
 
 ## 🤝 Contributing
 

@@ -2,6 +2,8 @@
 
 ## Overview
 
+The Prisma schema now lives in `packages/db/prisma/schema.prisma` and is shared via the `@prayer/db` workspace.
+
 This document outlines the complete architecture for the Prayer Tracker backend API service. The application is designed to handle user prayers, friend relationships, awards, and prayer statistics.
 
 ## Database Models
@@ -166,8 +168,7 @@ export const authMiddleware = async (req, res, next) => {
 
 ```typescript
 // controllers/prayer.controller.ts
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prisma } from '@prayer/db';
 
 export class PrayerController {
   static async getTodaysPrayers(req, res) {

@@ -13,6 +13,7 @@ module.exports = function (api) {
           alias: {
             '@': './',
             '@prayer/shared': '../../packages/shared/src',
+            '@prayer/db': '../../packages/db/src',
           },
         },
       ],

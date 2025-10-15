@@ -22,6 +22,7 @@ config.resolver.disableHierarchicalLookup = true;
 config.resolver.extraNodeModules = {
   ...(config.resolver.extraNodeModules ?? {}),
   '@prayer/shared': path.resolve(workspaceRoot, 'packages/shared/src'),
+  '@prayer/db': path.resolve(workspaceRoot, 'packages/db/src'),
 };
 
 // First wrap it with NativeWind
