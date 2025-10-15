@@ -47,4 +47,16 @@ export const createPrismaClient = () => createClient();
 export * from '@prisma/client';
 
 export { FriendStatus } from './types';
-export type { User, Pro, Friend, Prays, Award, Customer, Subscription, PrayerStats } from './types';
+export type {
+  User,
+  Pro,
+  Friend,
+  Prays,
+  Award,
+  Customer,
+  Subscription,
+  PrayerStats,
+  Session,
+  Account,
+  Verification,
+} from './types';

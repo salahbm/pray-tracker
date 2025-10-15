@@ -17,31 +17,36 @@ datasource db {
  * USERS
  */
 model User {
-  id            String   @id @default(cuid())
-  supabaseId    String   @unique
-  email         String   @unique
-  password      String
-  username      String   @unique
-  firstName     String?
-  lastName      String?
-  photo         String?
-  locale        String?  @default("en")
+  id              String   @id @default(cuid())
+  supabaseId      String   @unique @default(cuid())
+  email           String   @unique
+  password        String
+  username        String   @unique
+  firstName       String?
+  lastName        String?
+  photo           String?
+  locale          String?  @default("en")
+  emailVerified   Boolean  @default(false)
 
-  totalPoints   Int      @default(0)
-  deviceToken   String?
+  totalPoints     Int      @default(0)
+  deviceToken     String?
 
-  prays         Prays[]
+  prays           Prays[]
 
-  awards        Award[]
-  prayerStats   PrayerStats?
+  awards          Award[]
+  prayerStats     PrayerStats?
+
+  sessions        Session[]
+  accounts        Account[]
+  verifications   Verification[]
 
   sentRequests     Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
 
-  customer      Customer?
+  customer        Customer?
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 /**
@@ -100,6 +105,54 @@ model Subscription {
   updatedAt        DateTime  @updatedAt
 
   @@index([customerId])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt  DateTime
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Account {
+  id                      String   @id @default(cuid())
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerId              String
+  accountId               String
+  accessToken             String?
+  refreshToken            String?
+  idToken                 String?
+  accessTokenExpiresAt    DateTime?
+  refreshTokenExpiresAt   DateTime?
+  scope                   String?
+  password                String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@index([userId])
 }
 
 /**

@@ -30,6 +30,12 @@
       ],
       "@prayer/db/*": [
         "packages/db/src/*"
+      ],
+      "@prayer/auth": [
+        "packages/auth/src"
+      ],
+      "@prayer/auth/*": [
+        "packages/auth/src/*"
       ]
     },
     "esModuleInterop": true,
