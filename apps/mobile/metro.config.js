@@ -22,7 +22,7 @@ config.resolver.disableHierarchicalLookup = true;
 config.resolver.extraNodeModules = {
   ...(config.resolver.extraNodeModules ?? {}),
   '@': path.resolve(projectRoot, 'src'),
-  '@assets': path.resolve(projectRoot, 'src/assets'),
+  '@assets': path.resolve(projectRoot, 'assets'),
   '@components': path.resolve(projectRoot, 'src/components'),
   components: path.resolve(projectRoot, 'src/components'),
   '@constants': path.resolve(projectRoot, 'src/constants'),

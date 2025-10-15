@@ -21,6 +21,18 @@
       "constants/*": [
         "./src/constants/*"
       ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "constants/*": [
+        "./src/constants/*"
+      ],
       "@hooks/*": [
         "./src/hooks/*"
       ],
