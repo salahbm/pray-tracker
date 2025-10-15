@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
 import { Text } from '../ui/text';
-
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { usePutUser } from '@/hooks/user/usePutUser';
 import { cn } from '@/lib/utils';

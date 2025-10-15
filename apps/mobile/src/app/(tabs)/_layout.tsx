@@ -1,4 +1,3 @@
-import { Award, Compass, Home, Users } from 'components/shared/icons';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
@@ -6,6 +5,7 @@ import { Platform, StyleSheet } from 'react-native';
 
 import { useThemeStore } from '@/store/defaults/theme';
 import { TabTints } from '@/styles/theme.config';
+import { Award, Compass, Home, Users } from 'components/shared/icons';
 
 function TabLayout() {
   const { colors, currentTheme } = useThemeStore();

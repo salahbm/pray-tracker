@@ -7,7 +7,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import FreemiumTrackerIntro from './header';
-
 import SwiperButton from '@/components/shared/swiper';
 import {
   Accordion,

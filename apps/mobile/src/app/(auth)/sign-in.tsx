@@ -1,5 +1,3 @@
-import { Button } from 'components/ui/button';
-import { Input } from 'components/ui/input';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
@@ -7,6 +5,8 @@ import { TouchableOpacity, View } from 'react-native';
 import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import { useLoginUser } from '@/hooks/auth/useLogin';
+import { Button } from 'components/ui/button';
+import { Input } from 'components/ui/input';
 
 interface ISignIn {
   onSuccess: () => void;

@@ -6,7 +6,6 @@ import Modal from 'react-native-modal';
 
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
-
 import { useThemeStore } from '@/store/defaults/theme';
 
 interface YearPickerProps {

@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { ExpoConfig, ConfigContext } from '@expo/config';
 
-process.env.EXPO_ROUTER_APP_ROOT = process.env.EXPO_ROUTER_APP_ROOT ?? 'src/app';
+process.env.EXPO_ROUTER_APP_ROOT =
+  process.env.EXPO_ROUTER_APP_ROOT ?? 'src/app';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,

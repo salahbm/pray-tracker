@@ -1,7 +1,6 @@
 import * as SplashScreen from 'expo-splash-screen';
 
 import App from './App';
-
 import RootProvider from '@/providers/root';
 import 'react-native-reanimated';
 import '@/i18n.config';
