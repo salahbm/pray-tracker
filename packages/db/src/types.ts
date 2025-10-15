@@ -14,10 +14,13 @@ export interface User {
   lastName?: string | null;
   photo?: string | null;
   locale?: string | null;
+  emailVerified: boolean;
   totalPoints: number;
   deviceToken?: string | null;
   createdAt: Date;
   updatedAt: Date;
+  sessions?: Session[];
+  accounts?: Account[];
 }
 
 export interface Pro {
@@ -99,4 +102,41 @@ export interface PrayerStats {
   ishaOnTimePercentage: number;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface Session {
+  id: string;
+  token: string;
+  userId: string;
+  expiresAt: Date;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Account {
+  id: string;
+  userId: string;
+  providerId: string;
+  accountId: string;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+  idToken?: string | null;
+  accessTokenExpiresAt?: Date | null;
+  refreshTokenExpiresAt?: Date | null;
+  scope?: string | null;
+  password?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Verification {
+  id: string;
+  identifier: string;
+  value: string;
+  expiresAt: Date;
+  userId?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -12,3 +12,9 @@ The Neon/Prisma database layer lives in this workspace. Its schema is at
 `packages/db/prisma/schema.prisma` and it exports a pooled Prisma client via the
 `@prayer/db` entrypoint. Run Prisma CLI commands from this package so migrations
 and generated clients remain in sync across the monorepo.
+
+### `@prayer/auth`
+
+Better Auth for the monorepo. The package exposes the configured
+`betterAuth` instance and an Express middleware so the backend can serve the
+built-in routes without duplicating setup across apps.
