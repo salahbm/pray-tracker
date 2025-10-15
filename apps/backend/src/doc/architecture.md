@@ -1,6 +1,5 @@
 prayer-tracker-backend/
-├── prisma/
-│ └── schema.prisma ← (Move your Prisma schema here)
+├── prisma/ (moved to packages/db/prisma)
 ├── src/
 │ ├── controllers/
 │ ├── middleware/

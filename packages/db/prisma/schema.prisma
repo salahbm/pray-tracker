@@ -1,0 +1,267 @@
+// Prisma schema managed from the shared db package.
+// Learn more: https://pris.ly/d/prisma-schema
+
+// Neon requires the driver adapters preview feature for HTTP pooling.
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+/**
+ * USERS
+ */
+model User {
+  id              String   @id @default(cuid())
+  supabaseId      String   @unique @default(cuid())
+  email           String   @unique
+  password        String
+  username        String   @unique
+  firstName       String?
+  lastName        String?
+  photo           String?
+  locale          String?  @default("en")
+  emailVerified   Boolean  @default(false)
+
+  totalPoints     Int      @default(0)
+  deviceToken     String?
+
+  prays           Prays[]
+
+  awards          Award[]
+  prayerStats     PrayerStats?
+
+  sessions        Session[]
+  accounts        Account[]
+  verifications   Verification[]
+
+  sentRequests     Friend[] @relation("user_friends")
+  receivedRequests Friend[] @relation("friend_friends")
+
+  customer        Customer?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+/**
+ * PRAYS
+ */
+model Prays {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime
+  fajr      Int      @default(0)
+  dhuhr     Int      @default(0)
+  asr       Int      @default(0)
+  maghrib   Int      @default(0)
+  isha      Int      @default(0)
+  nafl      Int      @default(0)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
+/**
+ * CUSTOMERS
+ */
+model Customer {
+  id          String   @id @default(cuid())
+
+  customerId  String   @unique
+  email       String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subscriptions Subscription[]
+}
+
+/**
+ * SUBSCRIPTIONS
+ */
+model Subscription {
+  id               String    @id @default(cuid())
+  subscriptionId   String    @unique
+  customerId       String
+  customer         Customer  @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
+  status           String
+  priceId          String
+  productId        String
+  scheduledChange  DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([customerId])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt  DateTime
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Account {
+  id                      String   @id @default(cuid())
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerId              String
+  accountId               String
+  accessToken             String?
+  refreshToken            String?
+  idToken                 String?
+  accessTokenExpiresAt    DateTime?
+  refreshTokenExpiresAt   DateTime?
+  scope                   String?
+  password                String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@index([userId])
+}
+
+/**
+ * Friends
+ */
+model Friend {
+  id        String       @id @default(cuid())
+  userId    String
+  friendId  String
+  status    FriendStatus @default(PENDING)
+
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+
+  @@unique([userId, friendId])
+}
+
+/**
+ * PRO
+ */
+model Pro {
+  id            String @id @default(cuid())
+  isProVisible  Boolean @default(false)
+}
+
+enum FriendStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/**
+ * AWARDS
+ */
+model Award {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  awardedAt DateTime @default(now())
+  points    Int      @default(10)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title])
+}
+
+model PrayerStats {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  totalPrayers           Int      @default(0)
+  missedPrayers          Int      @default(0)
+  naflCount              Int      @default(0)
+
+  currentStreak          Int      @default(0)
+  longestStreak          Int      @default(0)
+  fajrStreak             Int      @default(0)
+  isTodayStreakBroken    Boolean  @default(false)
+
+  onTimePercentage       Float    @default(0)
+  earlyFajrPercentage    Float    @default(0)
+
+  fajrOnTimePercentage   Float    @default(0)
+  dhuhrOnTimePercentage  Float    @default(0)
+  asrOnTimePercentage    Float    @default(0)
+  maghribOnTimePercentage Float   @default(0)
+  ishaOnTimePercentage   Float    @default(0)
+
+  fajrStrike10           Int      @default(0)
+  fajrStrike50           Int      @default(0)
+  fajrStrike100          Int      @default(0)
+  fajrStrike150          Int      @default(0)
+
+  dhuhrStrike10          Int      @default(0)
+  dhuhrStrike50          Int      @default(0)
+  dhuhrStrike100         Int      @default(0)
+  dhuhrStrike150         Int      @default(0)
+
+  asrStrike10            Int      @default(0)
+  asrStrike50            Int      @default(0)
+  asrStrike100           Int      @default(0)
+  asrStrike150           Int      @default(0)
+
+  maghribStrike10        Int      @default(0)
+  maghribStrike50        Int      @default(0)
+  maghribStrike100       Int      @default(0)
+  maghribStrike150       Int      @default(0)
+
+  ishaStrike10           Int      @default(0)
+  ishaStrike50           Int      @default(0)
+  ishaStrike100          Int      @default(0)
+  ishaStrike150          Int      @default(0)
+
+  naflStrike10           Int      @default(0)
+  naflStrike50           Int      @default(0)
+  naflStrike100          Int      @default(0)
+  naflStrike150          Int      @default(0)
+
+  consistencyPercentage  Float    @default(0)
+  lastActiveDay          DateTime?
+  lastFajrTime           DateTime?
+  lastNaflDate           DateTime?
+  missedPrayerStreak     Int      @default(0)
+
+  level                  Int      @default(1)
+  totalXP                Int      @default(0)
+
+  lastCalculated         DateTime @default(now())
+}

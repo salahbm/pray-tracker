@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "expo start",
+    "dev": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
@@ -22,7 +23,8 @@
     "push": "git add . && npm run commit && npm run release && git push origin $(git branch --show-current) --follow-tags",
     "push:dev": "git add . && npm run commit && npm run release:dev && git push origin $(git branch --show-current) --follow-tags",
     "push:minor": "git add . && npm run commit && npm run release:minor && git push origin $(git branch --show-current) --follow-tags",
-    "push:major": "git add . && npm run commit && npm run release:major && git push origin $(git branch --show-current) --follow-tags"
+    "push:major": "git add . && npm run commit && npm run release:major && git push origin $(git branch --show-current) --follow-tags",
+    "typecheck": "tsc --noEmit"
   },
   "jest": {
     "preset": "jest-expo"
@@ -59,6 +61,7 @@
     "@rn-primitives/tabs": "^1.1.0",
     "@rn-primitives/tooltip": "^1.1.0",
     "@rn-primitives/types": "^1.1.0",
+    "@prayer/shared": "workspace:*",
     "@tanstack/react-query": "^5.70.0",
     "adhan": "^4.4.3",
     "buffer": "^6.0.3",
@@ -137,6 +140,7 @@
     "@typescript-eslint/parser": "^8.19.1",
     "commitizen": "^4.3.1",
     "conventional-changelog-conventionalcommits": "^8.0.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.4.0",
     "dotenv-cli": "^8.0.0",

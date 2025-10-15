@@ -1,8 +1,19 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "@prayer/auth": ["../../packages/auth/dist/index"],
+      "@prayer/auth/*": ["../../packages/auth/dist/*"],
+      "better-call/node": ["../../node_modules/better-call/dist/node.d.ts"]
+    }
   },
-  "include": ["src", "src/generated/prisma/client"]
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/db" },
+    { "path": "../../packages/auth" }
+  ]
 }

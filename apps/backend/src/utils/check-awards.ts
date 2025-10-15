@@ -1,3 +1,4 @@
+import type { Award } from '@prayer/db';
 import { prisma } from '../lib/prisma';
 import { awardRules, type AwardCheckResult } from './award-helpers';
 import {
@@ -62,7 +63,7 @@ export const checkAndAssignAwards = async (
   }
 
   // Step 2: Fetch existing awards
-  const existingAwards = await prisma.award.findMany({ where: { userId } });
+  const existingAwards = (await prisma.award.findMany({ where: { userId } })) as Award[];
   const existingAwardTitles = new Set(existingAwards.map((a) => a.title));
   const newAwards = [];
 

@@ -1,6 +1,6 @@
 // src/services/pro.service.ts
 
-import type { Pro } from '../generated/prisma';
+import type { Pro } from '@prayer/db';
 import { prisma } from '../lib/prisma';
 
 export class ProService {
