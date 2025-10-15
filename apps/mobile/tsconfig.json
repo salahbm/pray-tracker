@@ -7,7 +7,19 @@
         "./src/*"
       ],
       "@assets/*": [
-        "./assets/*"
+        "./src/assets/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "constants/*": [
+        "./src/constants/*"
       ],
       "@components/*": [
         "./src/components/*"
