@@ -2,6 +2,8 @@
 @tailwind utilities;
 
 @theme {
+  --font-family: 'Source Sans 3', sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -10,6 +12,9 @@
   --color-primary-accent: var(--primary-accent);
   --color-foreground-accent: var(--foreground-accent);
   --color-hero-background: var(--hero-background);
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Main theme variables */
@@ -22,6 +27,9 @@
   --primary-accent: oklch(76.7% 0.189 152.8);
   --foreground-accent: oklch(45.9% 0.027 256.5);
   --hero-background: oklch(95.5% 0.004 256.3);
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Example usage */
