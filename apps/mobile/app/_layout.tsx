@@ -5,7 +5,7 @@ import RootProvider from '@/providers/root';
 import 'react-native-reanimated';
 import '@/i18n.config';
 import 'styles/global.css';
-import 'reanimated.config';
+// import 'reanimated.config';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
