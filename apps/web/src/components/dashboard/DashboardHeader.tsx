@@ -11,11 +11,10 @@ import {
 } from "@headlessui/react";
 import { BiChevronLeft, BiLogOut, BiMoney } from "react-icons/bi";
 import Image from "next/image";
-import { User } from "@supabase/supabase-js";
 import { useAuth } from "@/hooks/useAuth";
 
 interface DashboardHeaderProps {
-  user: User;
+  user: any;
 }
 
 export function DashboardHeader({ user }: DashboardHeaderProps) {
