@@ -4,10 +4,12 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from '@headlessui/react';
+import { AnimatePresence, easeOut, motion } from 'framer-motion';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 
 import SectionTitle from './SectionTitle';
 import { faqs } from '@/data/faq';
+import { Fragment } from 'react';
 
 const FAQ: React.FC = () => {
   return (
@@ -34,7 +36,7 @@ const FAQ: React.FC = () => {
         <div className="w-full lg:max-w-2xl mx-auto border-b">
           {faqs.map((faq, index) => (
             <div key={index} className="mb-7">
-              <Disclosure>
+              <Disclosure as="div">
                 {({ open }) => (
                   <>
                     <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t">
@@ -47,9 +49,21 @@ const FAQ: React.FC = () => {
                         <BiPlus className="w-5 h-5 text-secondary" />
                       )}
                     </DisclosureButton>
-                    <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent">
-                      {faq.answer}
-                    </DisclosurePanel>
+                    <AnimatePresence>
+                      {open && (
+                        <DisclosurePanel static as={Fragment}>
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3, ease: easeOut }}
+                            className="px-4 pt-4 pb-2 text-foreground-accent"
+                          >
+                            {faq.answer}
+                          </motion.div>
+                        </DisclosurePanel>
+                      )}
+                    </AnimatePresence>
                   </>
                 )}
               </Disclosure>

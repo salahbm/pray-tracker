@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import {
   FaFacebook,
   FaGithub,
@@ -10,7 +11,7 @@ import {
 } from 'react-icons/fa6';
 
 export const getPlatformIconByName = (
-  platformName: string,
+  platformName: string
 ): JSX.Element | null => {
   switch (platformName) {
     case 'facebook': {
@@ -40,7 +41,7 @@ export const getPlatformIconByName = (
     default:
       console.log(
         'Platform name not supported, no icon is returned:',
-        platformName,
+        platformName
       );
       return null;
   }

@@ -1,135 +1,158 @@
-# Turborepo starter
+# 🕌 pray Tracker Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+This monorepo contains all parts of the pray Tracker ecosystem, built with modern technologies and best practices.
 
-## Using this example
+## 📁 Project Structure
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
+```bash
+pray-tracker/
+├── apps/
+│   ├── mobile/     # Mobile app (React Native + Expo)
+│   ├── backend/      # API server (pnpm + Express)
+│   └── web/         # Marketing site (Next.js)
+├── packages/
+│   ├── auth/        # Better Auth configuration for server apps
+│   ├── db/          # Prisma + Neon database package
+└── package.json     # Root workspace configuration
 ```
 
-## What's inside?
+## 🚀 Applications
 
-This Turborepo includes the following packages/apps:
+### 📱 Mobile (Mobile App)
 
-### Apps and Packages
+- **Tech Stack**: React Native + Expo
+- **Features**:
+  - pray time tracking and notifications
+  - Qibla direction finder
+  - Offline-first architecture
+  - Multi-language support
+- **Start Development**:
+  ```bash
+  cd apps/mobile
+  pnpm install
+  pnpm run dev
+  ```
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### ⚙️ Backend (API Server)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **Tech Stack**: pnpm + Express
+- **Features**:
+  - RESTful API endpoints
+  - pray time calculations
+  - User management
+- **Start Development**:
+  ```bash
+  cd apps/backend
+  pnpm install
+  pnpm run dev
+  ```
 
-### Utilities
+### 🌐 Web (Marketing Site)
 
-This Turborepo has some additional tools already setup for you:
+- **Tech Stack**: Next.js 14
+- **Features**:
+  - Landing page
+  - Blog/Documentation
+  - Marketing content
+- **Start Development**:
+  ```bash
+  cd apps/web
+  pnpm install
+  pnpm run dev
+  ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## 🛠️ Development
 
-### Build
+### Prerequisites
 
-To build all apps and packages, run the following command:
+- Node.js >= 18
+- pnpm (latest version)
+- iOS/Android development environment for mobile app
 
-```
-cd my-turborepo
+### First-time Setup
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+1. Clone the repository
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+```bash
+git clone https://github.com/salahbm/pray-tracker.git
+cd pray-tracker
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+2. Install dependencies at the repository root (this links every workspace)
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+pnpm install
 ```
 
-### Remote Caching
+3. Set up environment variables
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+# Copy environment files in each app directory
+cp apps/mobile/.env.example apps/mobile/.env
+cp apps/backend/.env.example apps/backend/.env
+cp apps/web/.env.example apps/web/.env
+cp packages/db/.env.example packages/db/.env
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Available Scripts
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+From the root directory Turborepo orchestrates workspace commands:
+
+- `pnpm run build` – Build every package and application (respecting dependencies)
+- `pnpm run dev` – Start backend, mobile, and web dev servers in parallel
+- `pnpm run lint` – Lint all workspaces that expose a `lint` script
+- `pnpm run test` – Run tests across applications
+- `pnpm run typecheck` – Execute TypeScript checks for all workspaces
+
+You can target a specific workspace with Turborepo filters, e.g. `pnpm run build --filter=@pray/backend`.
+
+## 📦 Shared Packages
+
+### @pray/db
+
+Neon-aware Prisma schema and client live in `packages/db`.
+
+- Configure credentials via `packages/db/.env` (copy from `.env.example`)
+- Generate the Prisma client with `pnpm run build --filter=@pray/db`
+- Import the pooled client in apps using `import { prisma } from '@pray/db'`
+
+### @pray/auth
+
+Better Auth configuration that reuses the shared Prisma client to provide
+email/password authentication for the backend. Mount the middleware in Express
+and requests to `/api/auth` will be proxied to Better Auth's handler.
+
+- Build with `pnpm run build --filter=@pray/auth`
+- Requires the Prisma outputs generated by `@pray/db`
+- Import helpers from `@pray/auth`
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`pnpm run commit`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Pushing the code
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+pnpm run push mobile fix "align radio buttons"
+pnpm run push backend chore "update tsconfig"
+pnpm run push shared refactor "optimize date utils"
+pnpm run push web feat "add hero banner"
 ```
 
-## Useful Links
+## 📝 License
 
-Learn more about the power of Turborepo:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+---
+
+<div align="center">
+[SALAH](mailto:salah.dev@gmail.com)
+</div>
+
+<div align="center">
+Made with ❤️ for the Muslim community
+</div>

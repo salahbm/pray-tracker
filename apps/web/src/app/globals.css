@@ -1,16 +1,42 @@
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss';
 @tailwind utilities;
 
-:root {
-  --background: #f9fafb;
-  --foreground: #181818;
-  --primary: #00a4ff;
-  --secondary: #6b7280;
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
 
-  --primary-accent: #00c974;
-  --foreground-accent: #4b5563;
-  --hero-background: #f3f4f6;
+  --color-primary-accent: var(--primary-accent);
+  --color-foreground-accent: var(--foreground-accent);
+  --color-hero-background: var(--hero-background);
+}
+
+/* Main theme variables */
+:root {
+  --background: oklch(98.1% 0.002 254.5);
+  --foreground: oklch(20.2% 0.002 259.2);
+  --primary: oklch(70.2% 0.177 240.9);
+  --secondary: oklch(57.8% 0.023 257.3);
+
+  --primary-accent: oklch(76.7% 0.189 152.8);
+  --foreground-accent: oklch(45.9% 0.027 256.5);
+  --hero-background: oklch(95.5% 0.004 256.3);
+}
+
+/* Example usage */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.button {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
+.hero {
+  background-color: var(--hero-background);
 }
 
 html {
