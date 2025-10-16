@@ -27,6 +27,6 @@ export const config = [
     },
   },
   {
-    ignores: ['dist/**'],
+    ignores: ['dist/**', '.turbo/**', '.expo/**', 'web-build/**', 'ios/**', 'android/**', 'node_modules/**'],
   },
 ];
