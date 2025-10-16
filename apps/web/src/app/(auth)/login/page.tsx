@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import LoginForm from '../_components/login-form';
+import { Metadata } from "next";
+import LoginForm from "../_components/login-form";
 
 export const metadata: Metadata = {
-  title: 'Sign In - Pray Tracker',
-  description: 'Sign in to your Pray Tracker account',
+  title: "Sign In - Pray Tracker",
+  description: "Sign in to your Pray Tracker account",
 };
 
 export default async function LoginPage() {

@@ -1,7 +1,7 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 
-import { ctaDetails } from '@/data/cta';
+import { ctaDetails } from "@/data/cta";
 
 const AppStoreButton = ({ dark }: { dark?: boolean }) => {
   return (
@@ -9,10 +9,10 @@ const AppStoreButton = ({ dark }: { dark?: boolean }) => {
       <button
         type="button"
         className={clsx(
-          'flex items-center justify-center min-w-[205px] mt-3 px-6 h-14 rounded-full w-full sm:w-fit',
+          "flex items-center justify-center min-w-[205px] mt-3 px-6 h-14 rounded-full w-full sm:w-fit",
           {
-            'text-white bg-foreground': dark,
-            'text-foreground bg-white': !dark,
+            "text-white bg-foreground": dark,
+            "text-foreground bg-white": !dark,
           },
         )}
       >

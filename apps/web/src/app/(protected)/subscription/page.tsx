@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
-import { tiers } from '@/data/pricing';
-import { FiCheck } from 'react-icons/fi';
+import { Metadata } from "next";
+import { tiers } from "@/data/pricing";
+import { FiCheck } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: 'Upgrade Subscription - Pray Tracker',
+  title: "Upgrade Subscription - Pray Tracker",
   description:
-    'Upgrade your Pray Tracker subscription to access premium features',
+    "Upgrade your Pray Tracker subscription to access premium features",
 };
 
 export default async function UpgradePage() {

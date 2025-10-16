@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { FiUser, FiMail, FiSave } from 'react-icons/fi';
-import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
-import { useUpdateUser } from '@/hooks/user/useUpdateUser';
-import { useRouter } from 'next/navigation';
-import type { User } from '@/hooks/user/useGetUser';
+import { useState } from "react";
+import { FiUser, FiMail, FiSave } from "react-icons/fi";
+import { AnimatedContainer } from "@/app/(auth)/_components/animated-container";
+import { useUpdateUser } from "@/hooks/user/useUpdateUser";
+import { useRouter } from "next/navigation";
+import type { User } from "@/hooks/user/useGetUser";
 
 interface ProfileSectionProps {
   user: User;
 }
 
 export function ProfileSection({ user }: ProfileSectionProps) {
-  const [firstName, setFirstName] = useState(user.firstName || '');
-  const [lastName, setLastName] = useState(user.lastName || '');
+  const [firstName, setFirstName] = useState(user.firstName || "");
+  const [lastName, setLastName] = useState(user.lastName || "");
   const [message, setMessage] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     text: string;
   } | null>(null);
 
@@ -33,14 +33,17 @@ export function ProfileSection({ user }: ProfileSectionProps) {
       });
 
       setMessage({
-        type: 'success',
-        text: 'Profile updated successfully!',
+        type: "success",
+        text: "Profile updated successfully!",
       });
       router.refresh();
     } catch (error: unknown) {
       setMessage({
-        type: 'error',
-        text: error instanceof Error ? error.message : 'Error updating profile. Please try again.',
+        type: "error",
+        text:
+          error instanceof Error
+            ? error.message
+            : "Error updating profile. Please try again.",
       });
     }
   };
@@ -127,9 +130,9 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             {message && (
               <div
                 className={`rounded-md p-4 ${
-                  message.type === 'success'
-                    ? 'bg-green-50 text-green-700'
-                    : 'bg-red-50 text-red-700'
+                  message.type === "success"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-red-50 text-red-700"
                 }`}
               >
                 <p className="text-sm">{message.text}</p>
@@ -144,7 +147,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {updateUser.isPending ? (
-                  'Saving...'
+                  "Saving..."
                 ) : (
                   <>
                     <FiSave className="mr-2 h-4 w-4" />

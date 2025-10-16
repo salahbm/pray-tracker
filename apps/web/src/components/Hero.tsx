@@ -1,10 +1,10 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
-import AppStoreButton from './AppStoreButton';
-import PlayStoreButton from './PlayStoreButton';
+import AppStoreButton from "./AppStoreButton";
+import PlayStoreButton from "./PlayStoreButton";
 
-import { heroDetails } from '@/data/hero';
+import { heroDetails } from "@/data/hero";
 
 const Hero: React.FC = () => {
   return (

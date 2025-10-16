@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const TermsPage = () => {
   return (
@@ -80,7 +80,7 @@ const TermsPage = () => {
           we&apos;ll notify you in the app. Continued use of the app means you
           accept the updated Terms.
         </p>
-        ``{' '}
+        ``{" "}
       </section>
 
       {/* Contact Section */}
@@ -88,7 +88,7 @@ const TermsPage = () => {
         <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
         <p className="text-foreground-accent mb-4">
           If you have any questions or concerns about these Terms, please email
-          us at{' '}
+          us at{" "}
           <a
             href="mailto:salahbm.dev@gmail.com"
             className="text-primary hover:underline"

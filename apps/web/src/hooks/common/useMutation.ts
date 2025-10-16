@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import {
   type MutationFunction,
   type UseMutationResult,
   type UseMutationOptions,
   useMutation as useDefaultMutation,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 
 export type ErrorData = {
   code: string;
@@ -15,7 +15,7 @@ export type ErrorData = {
 
 export type IMutationOptions<T, V = T> = Omit<
   UseMutationOptions<T, ErrorData, V>,
-  'queryKey' | 'queryFn'
+  "queryKey" | "queryFn"
 >;
 
 type UseMutationProps<TData, TVariables> = {

@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import React from 'react';
-import { siteDetails } from '@/data/siteDetails';
-import { footerDetails } from '@/data/footer';
-import { getPlatformIconByName } from '@/utils';
-import Image from 'next/image';
+import Link from "next/link";
+import React from "react";
+import { siteDetails } from "@/data/siteDetails";
+import { footerDetails } from "@/data/footer";
+import { getPlatformIconByName } from "@/utils";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-} from '@headlessui/react';
-import { AnimatePresence, easeOut, motion } from 'framer-motion';
-import { BiMinus, BiPlus } from 'react-icons/bi';
+} from "@headlessui/react";
+import { AnimatePresence, easeOut, motion } from "framer-motion";
+import { BiMinus, BiPlus } from "react-icons/bi";
 
-import SectionTitle from './SectionTitle';
-import { faqs } from '@/data/faq';
-import { Fragment } from 'react';
+import SectionTitle from "./SectionTitle";
+import { faqs } from "@/data/faq";
+import { Fragment } from "react";
 
 const FAQ: React.FC = () => {
   return (

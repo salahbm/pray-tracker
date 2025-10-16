@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
+import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
 
 export function AnimatedContainer({
   variants,
-  initial = 'hidden',
-  animate = 'visible',
+  initial = "hidden",
+  animate = "visible",
   ...props
-}: HTMLMotionProps<'div'> & { variants?: Variants }) {
+}: HTMLMotionProps<"div"> & { variants?: Variants }) {
   return (
     <motion.div
       initial={initial}

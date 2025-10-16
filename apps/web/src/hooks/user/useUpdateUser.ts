@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useMutation } from '@/hooks/common/useMutation';
-import { agent } from '@/lib/agent';
-import { User } from './useGetUser';
+import { useMutation } from "@/hooks/common/useMutation";
+import { agent } from "@/lib/agent";
+import { User } from "./useGetUser";
 
 interface UpdateUserData {
   firstName?: string;
@@ -16,7 +16,7 @@ const updateUser = async (
   data: UpdateUserData,
 ): Promise<User> => {
   const response = await agent(`/users/${userId}`, {
-    method: 'PUT',
+    method: "PUT",
     body: JSON.stringify(data),
   });
   return response.data;

@@ -5,5 +5,15 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "exports": {
+    "./base": "./base.json",
+    "./nextjs": "./nextjs.json",
+    "./expo": "./expo.json"
+  },
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "expo.json"
+  ]
 }

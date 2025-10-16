@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { testimonials } from '@/data/testimonials';
+import React from "react";
+import Image from "next/image";
+import { testimonials } from "@/data/testimonials";
 
 const Testimonials: React.FC = () => {
   return (

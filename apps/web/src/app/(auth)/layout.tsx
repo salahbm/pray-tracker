@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { siteDetails } from '@/data/siteDetails';
-import { AnimatedContainer } from './_components/animated-container';
-import { variants } from './_components/config';
+import Image from "next/image";
+import Link from "next/link";
+import { siteDetails } from "@/data/siteDetails";
+import { AnimatedContainer } from "./_components/animated-container";
+import { variants } from "./_components/config";
 
 export default function AuthLayout({
   children,

@@ -1,17 +1,17 @@
-'use client';
-import { FiCheck } from 'react-icons/fi';
-import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
-import type { User } from '@/hooks/user/useGetUser';
-import Link from 'next/link';
-import { isProUser } from '@/utils/helpers';
+"use client";
+import { FiCheck } from "react-icons/fi";
+import { AnimatedContainer } from "@/app/(auth)/_components/animated-container";
+import type { User } from "@/hooks/user/useGetUser";
+import Link from "next/link";
+import { isProUser } from "@/utils/helpers";
 
 const features = [
-  'Unlimited prayer tracking',
-  'Detailed prayer analytics',
-  'Prayer reminders',
-  'Custom prayer times',
-  'Community features',
-  'Priority support',
+  "Unlimited prayer tracking",
+  "Detailed prayer analytics",
+  "Prayer reminders",
+  "Custom prayer times",
+  "Community features",
+  "Priority support",
 ];
 
 interface SubscriptionSectionProps {
@@ -20,7 +20,7 @@ interface SubscriptionSectionProps {
 
 export function SubscriptionSection({ user }: SubscriptionSectionProps) {
   const activeSub = user.customer?.subscriptions?.find(
-    (sub) => sub.status === 'active',
+    (sub) => sub.status === "active",
   );
 
   const scheduledChange = activeSub?.scheduledChange
@@ -42,7 +42,7 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <h4 className="text-lg font-medium text-gray-900">
-                    {isProUser(user) ? 'Pro Plan' : 'Free Plan'}
+                    {isProUser(user) ? "Pro Plan" : "Free Plan"}
                   </h4>
                   {!isProUser(user) && (
                     <Link href="/subscription">
@@ -56,8 +56,8 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
                   {isProUser(user)
                     ? scheduledChange
                       ? `Your subscription is active until ${scheduledChange}`
-                      : 'Your subscription is active'
-                    : 'Upgrade to Pro to unlock all features'}
+                      : "Your subscription is active"
+                    : "Upgrade to Pro to unlock all features"}
                 </p>
               </div>
             </div>

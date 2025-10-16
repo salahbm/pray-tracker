@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const PrivacyPage = () => {
   return (
@@ -73,7 +73,7 @@ const PrivacyPage = () => {
         <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
         <p className="text-foreground-accent mb-4">
           For any questions about this Privacy Policy or how we handle your
-          data, please email us at{' '}
+          data, please email us at{" "}
           <a
             href="mailto:salahbm.dev@gmail.com"
             className="text-primary hover:underline"

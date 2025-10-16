@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import { IBenefitBullet } from '@/types';
-import { childVariants } from './BenefitSection';
+import { IBenefitBullet } from "@/types";
+import { childVariants } from "./BenefitSection";
 
 const BenefitBullet: React.FC<IBenefitBullet> = ({
   title,

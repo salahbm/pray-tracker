@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useGetUser } from '@/hooks/user/useGetUser';
-import { ProfileSection } from './profile-section';
-import { SubscriptionSection } from './subscription-section';
-import { BiLoaderAlt } from 'react-icons/bi';
-import { isProUser } from '@/utils/helpers';
+import { useGetUser } from "@/hooks/user/useGetUser";
+import { ProfileSection } from "./profile-section";
+import { SubscriptionSection } from "./subscription-section";
+import { BiLoaderAlt } from "react-icons/bi";
+import { isProUser } from "@/utils/helpers";
 
 interface DashboardContentProps {
   userId: string;
@@ -57,7 +57,7 @@ export function DashboardContent({ userId }: DashboardContentProps) {
             </div>
             <div className="hidden sm:block">
               <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-primary-50 text-primary">
-                {isProUser(userData) ? 'Pro Member' : 'Free Plan'}
+                {isProUser(userData) ? "Pro Member" : "Free Plan"}
               </span>
             </div>
           </div>
