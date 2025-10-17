@@ -56,7 +56,7 @@ export default function Leaderboard() {
       />
 
       {/* User Details Modal */}
-      <Modal isVisible={!!selectedUser} onBackdropPress={() => setSelectedUser(null)}>
+      {/* <Modal isVisible={!!selectedUser} onBackdropPress={() => setSelectedUser(null)}>
         <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-8">
           <Image
             source={{ uri: selectedUser?.photo }}
@@ -72,7 +72,7 @@ export default function Leaderboard() {
             </Text>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 }

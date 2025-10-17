@@ -89,13 +89,13 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
             <Text>{year}</Text>
           </Button>
         </View>
-        <YearPicker
+        {/* <YearPicker
           value={year}
           minYear={minYear}
           onChangeValue={setYear}
           isVisible={isPickerVisible}
           onBackdropPress={togglePicker}
-        />
+        /> */}
         <HeatMap
           data={transformedData ?? null}
           year={year}

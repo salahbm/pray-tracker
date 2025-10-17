@@ -1,5 +1,5 @@
 import * as TooltipPrimitive from '@rn-primitives/tooltip';
-import { TextClassContext } from 'components/ui/text';
+import { TextClassContext } from '@components/ui/text';
 import { cn } from '@lib/utils';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';

@@ -1,6 +1,6 @@
 import * as AccordionPrimitive from '@rn-primitives/accordion';
-import { TextClassContext } from 'components/ui/text';
-import { cn } from '@lib/utils';
+import { TextClassContext } from '@/components/ui/text';
+import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import Animated, {
