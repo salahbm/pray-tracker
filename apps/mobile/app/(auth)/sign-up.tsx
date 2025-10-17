@@ -13,7 +13,7 @@ import { useRegister } from '@/hooks/auth/useRegister';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 
-interface ISignUp { 
+interface ISignUp {
   onSuccess: () => void;
   onNavigate: () => void;
 }

@@ -21,7 +21,6 @@ export default function App() {
     SpaceMono: spaceMono,
   });
 
-
   // Hide the splash screen once fonts are loaded
   useEffect(() => {
     if (loaded) {

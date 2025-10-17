@@ -24,4 +24,4 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export  {RootProvider};
+export { RootProvider };
