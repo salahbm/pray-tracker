@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Source_Sans_3, Manrope } from "next/font/google";
+import './globals.css';
 
-import { siteDetails } from "@/data/siteDetails";
+import { GoogleAnalytics } from '@next/third-parties/google';
+import type { Metadata } from 'next';
+import { Manrope, Source_Sans_3 } from 'next/font/google';
 
-import "./globals.css";
-import QueryProvider from "@/provider/query";
+import { siteDetails } from '@/data/siteDetails';
+import QueryProvider from '@/provider/query';
 
-const manrope = Manrope({ subsets: ["latin"] });
-const sourceSans = Source_Sans_3({ subsets: ["latin"] });
+const manrope = Manrope({ subsets: ['latin'] });
+const sourceSans = Source_Sans_3({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: siteDetails.metadata.title,
@@ -17,21 +17,21 @@ export const metadata: Metadata = {
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
     url: siteDetails.siteUrl,
-    type: "website",
+    type: 'website',
     images: [
       {
-        url: "/images/icon-light.png",
+        url: '/images/icon-light.png',
         width: 1200,
         height: 675,
-        alt: "Pray Tracker - Your Smart Prayer Companion",
+        alt: 'Pray Tracker - Your Smart Prayer Companion',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
-    images: ["/images/icon-light-rounded.png"],
+    images: ['/images/icon-light-rounded.png'],
   },
 };
 
@@ -42,12 +42,8 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${manrope.className} ${sourceSans.className} antialiased`}
-      >
-        {siteDetails.googleAnalyticsId && (
-          <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />
-        )}
+      <body className={`${manrope.className} ${sourceSans.className} antialiased`}>
+        {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
         <QueryProvider>
           <main>{children}</main>
         </QueryProvider>

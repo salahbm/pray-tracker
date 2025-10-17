@@ -1,20 +1,15 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "extends": "./base.json",
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "Bundler",
-      "jsx": "react-native",
-      "allowJs": true,
-      "noEmit": true,
-      "skipLibCheck": true,
-      "isolatedModules": true,
-      "resolveJsonModule": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "strict": true,
-      "types": ["react", "react-native", "expo"]
-    }
-  }
-  
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-native",
+
+    "types": ["react", "react-native", "expo"],
+
+    "noEmit": true
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}

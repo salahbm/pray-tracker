@@ -1,11 +1,11 @@
-import { Metadata } from "next";
-import { tiers } from "@/data/pricing";
-import { FiCheck } from "react-icons/fi";
+import { Metadata } from 'next';
+import { FiCheck } from 'react-icons/fi';
+
+import { tiers } from '@/data/pricing';
 
 export const metadata: Metadata = {
-  title: "Upgrade Subscription - Pray Tracker",
-  description:
-    "Upgrade your Pray Tracker subscription to access premium features",
+  title: 'Upgrade Subscription - Pray Tracker',
+  description: 'Upgrade your Pray Tracker subscription to access premium features',
 };
 
 export default async function UpgradePage() {
@@ -16,28 +16,20 @@ export default async function UpgradePage() {
           <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Upgrade Your Experience
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
-            Choose the plan that best fits your needs
-          </p>
+          <p className="mt-4 text-xl text-gray-600">Choose the plan that best fits your needs</p>
         </div>
 
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto">
-          {tiers.slice(1).map((tier) => (
+          {tiers.slice(1).map(tier => (
             <div
               key={tier.name}
               className="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200"
             >
               <div className="p-6">
-                <h2 className="text-lg font-medium leading-6 text-gray-900">
-                  {tier.name}
-                </h2>
+                <h2 className="text-lg font-medium leading-6 text-gray-900">{tier.name}</h2>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    ${tier.price}
-                  </span>
-                  <span className="text-base font-medium text-gray-500">
-                    /month
-                  </span>
+                  <span className="text-4xl font-extrabold text-gray-900">${tier.price}</span>
+                  <span className="text-base font-medium text-gray-500">/month</span>
                 </p>
                 <form action="/api/create-checkout-session" method="POST">
                   <button
@@ -53,7 +45,7 @@ export default async function UpgradePage() {
                   What&apos;s included
                 </h3>
                 <ul className="mt-6 space-y-4">
-                  {tier.features.map((feature) => (
+                  {tier.features.map(feature => (
                     <li key={feature} className="flex space-x-3">
                       <FiCheck
                         className="flex-shrink-0 h-5 w-5 text-green-500"

@@ -1,17 +1,18 @@
-"use client";
-import { FiCheck } from "react-icons/fi";
-import { AnimatedContainer } from "@/app/(auth)/_components/animated-container";
-import type { User } from "@/hooks/user/useGetUser";
-import Link from "next/link";
-import { isProUser } from "@/utils/helpers";
+'use client';
+import Link from 'next/link';
+import { FiCheck } from 'react-icons/fi';
+
+import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
+import type { User } from '@/hooks/user/useGetUser';
+import { isProUser } from '@/utils/helpers';
 
 const features = [
-  "Unlimited prayer tracking",
-  "Detailed prayer analytics",
-  "Prayer reminders",
-  "Custom prayer times",
-  "Community features",
-  "Priority support",
+  'Unlimited prayer tracking',
+  'Detailed prayer analytics',
+  'Prayer reminders',
+  'Custom prayer times',
+  'Community features',
+  'Priority support',
 ];
 
 interface SubscriptionSectionProps {
@@ -19,9 +20,7 @@ interface SubscriptionSectionProps {
 }
 
 export function SubscriptionSection({ user }: SubscriptionSectionProps) {
-  const activeSub = user.customer?.subscriptions?.find(
-    (sub) => sub.status === "active",
-  );
+  const activeSub = user.customer?.subscriptions?.find(sub => sub.status === 'active');
 
   const scheduledChange = activeSub?.scheduledChange
     ? new Date(activeSub.scheduledChange).toLocaleDateString()
@@ -33,16 +32,14 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
       className="bg-white shadow rounded-md overflow-hidden"
     >
       <div className="px-4 py-5 sm:p-6">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">
-          Subscription Status
-        </h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Subscription Status</h3>
         <div className="mt-5">
           <div className="rounded-lg bg-gray-50 p-6">
             <div className="flex items-center">
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <h4 className="text-lg font-medium text-gray-900">
-                    {isProUser(user) ? "Pro Plan" : "Free Plan"}
+                    {isProUser(user) ? 'Pro Plan' : 'Free Plan'}
                   </h4>
                   {!isProUser(user) && (
                     <Link href="/subscription">
@@ -56,19 +53,17 @@ export function SubscriptionSection({ user }: SubscriptionSectionProps) {
                   {isProUser(user)
                     ? scheduledChange
                       ? `Your subscription is active until ${scheduledChange}`
-                      : "Your subscription is active"
-                    : "Upgrade to Pro to unlock all features"}
+                      : 'Your subscription is active'
+                    : 'Upgrade to Pro to unlock all features'}
                 </p>
               </div>
             </div>
 
             {!isProUser(user) && (
               <div className="mt-6">
-                <h5 className="text-sm font-medium text-gray-900">
-                  Pro features include:
-                </h5>
+                <h5 className="text-sm font-medium text-gray-900">Pro features include:</h5>
                 <ul className="mt-4 space-y-4">
-                  {features.map((feature) => (
+                  {features.map(feature => (
                     <li key={feature} className="flex items-start">
                       <div className="flex-shrink-0">
                         <FiCheck className="h-5 w-5 text-green-500" />

@@ -1,6 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import { testimonials } from "@/data/testimonials";
+import Image from 'next/image';
+import React from 'react';
+
+import { testimonials } from '@/data/testimonials';
 
 const Testimonials: React.FC = () => {
   return (
@@ -16,12 +17,8 @@ const Testimonials: React.FC = () => {
               className="rounded-full shadow-md"
             />
             <div className="ml-4">
-              <h3 className="text-lg font-semibold text-secondary">
-                {testimonial.name}
-              </h3>
-              <p className="text-sm text-foreground-accent">
-                {testimonial.role}
-              </p>
+              <h3 className="text-lg font-semibold text-secondary">{testimonial.name}</h3>
+              <p className="text-sm text-foreground-accent">{testimonial.role}</p>
             </div>
           </div>
           <p className="text-foreground-accent text-center lg:text-left">

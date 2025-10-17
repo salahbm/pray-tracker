@@ -1,17 +1,12 @@
-"use client";
+'use client';
 
-import { Fragment } from "react";
-import Link from "next/link";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from "@headlessui/react";
-import { BiChevronLeft, BiLogOut, BiMoney } from "react-icons/bi";
-import Image from "next/image";
-import { useAuth } from "@/hooks/useAuth";
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Fragment } from 'react';
+import { BiChevronLeft, BiLogOut, BiMoney } from 'react-icons/bi';
+
+import { useAuth } from '@/hooks/useAuth';
 
 interface DashboardHeaderProps {
   user: any;
@@ -41,9 +36,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                   height={32}
                   className="w-8 h-8"
                 />
-                <span className="font-semibold text-xl text-gray-900">
-                  Dashboard
-                </span>
+                <span className="font-semibold text-xl text-gray-900">Dashboard</span>
               </Link>
             </div>
           </div>
@@ -55,7 +48,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                   <span className="sr-only">Open user menu</span>
                   <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center">
                     <span className="text-sm font-medium">
-                      {user.user_metadata.username?.[0]?.toUpperCase() || "U"}
+                      {user.user_metadata.username?.[0]?.toUpperCase() || 'U'}
                     </span>
                   </div>
                 </MenuButton>
@@ -74,9 +67,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                     <p className="text-sm font-medium text-gray-900">
                       {user.user_metadata.username}
                     </p>
-                    <p className="text-xs text-gray-500 truncate">
-                      {user.email}
-                    </p>
+                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
                   </div>
 
                   <MenuItem>
@@ -84,7 +75,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                       <Link
                         href="/subscription"
                         className={`${
-                          focus ? "bg-gray-100" : ""
+                          focus ? 'bg-gray-100' : ''
                         } flex items-center px-4 py-2 text-sm text-gray-700 w-full`}
                       >
                         <BiMoney className="mr-3 h-5 w-5 text-gray-400" />
@@ -96,7 +87,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                     {({ focus }) => (
                       <button
                         className={`${
-                          focus ? "bg-gray-100" : ""
+                          focus ? 'bg-gray-100' : ''
                         } flex items-center px-4 py-2 text-sm text-gray-700 w-full`}
                         onClick={signOut}
                         type="button"

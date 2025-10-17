@@ -1,13 +1,15 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import { Transition } from "@headlessui/react";
-import { HiOutlineXMark, HiBars3 } from "react-icons/hi2";
-import Container from "./Container";
-import { siteDetails } from "@/data/siteDetails";
-import { menuItems } from "@/data/menuItems";
-import Image from "next/image";
-import { BiLogIn, BiSolidDashboard } from "react-icons/bi";
+'use client';
+import { Transition } from '@headlessui/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { BiLogIn, BiSolidDashboard } from 'react-icons/bi';
+import { HiBars3, HiOutlineXMark } from 'react-icons/hi2';
+
+import { menuItems } from '@/data/menuItems';
+import { siteDetails } from '@/data/siteDetails';
+
+import Container from './Container';
 
 const Header: React.FC<{ userId?: string }> = ({ userId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +39,7 @@ const Header: React.FC<{ userId?: string }> = ({ userId }) => {
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-4 items-center">
-            {menuItems.map((item) => (
+            {menuItems.map(item => (
               <li key={item.text}>
                 <Link
                   href={item.url}
@@ -116,7 +118,7 @@ const Header: React.FC<{ userId?: string }> = ({ userId }) => {
       >
         <div id="mobile-menu" className="md:hidden bg-white shadow-lg">
           <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
-            {menuItems.map((item) => (
+            {menuItems.map(item => (
               <li key={item.text}>
                 <Link
                   href={item.url}

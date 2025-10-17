@@ -1,5 +1,5 @@
 // theme.config.ts
-import { BlurTint } from 'expo-blur';
+// import { BlurTint } from 'expo-blur';
 import { StatusBarStyle } from 'expo-status-bar';
 import { vars } from 'nativewind';
 
@@ -293,7 +293,7 @@ export const StatusBarTheme: StatusBarThemeStyle = {
   },
 };
 
-export const TabTints: Record<THEMES, BlurTint> = {
+export const TabTints: Record<THEMES, any> = {
   // Light Themes
   light: 'light',
 

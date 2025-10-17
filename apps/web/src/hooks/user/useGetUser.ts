@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { agent } from "@/lib/agent";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
+import { agent } from '@/lib/agent';
 
 export interface User {
   id: string;
@@ -23,7 +24,7 @@ export interface User {
   };
 }
 
-const USER_QUERY_KEY = "user";
+const USER_QUERY_KEY = 'user';
 
 const getUser = async (supabaseId: string): Promise<User> => {
   const data = await agent(`/users/${supabaseId}`);

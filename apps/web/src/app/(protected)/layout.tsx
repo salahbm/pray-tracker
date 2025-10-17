@@ -1,16 +1,13 @@
-import { getUser } from "@/hooks/user/useUser";
-import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-export default async function ProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
+import { getUser } from '@/hooks/user/useUser';
+
+export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const { data } = await getUser();
 
   if (!data?.user) {
-    redirect("/login");
+    redirect('/login');
   }
 
   return (

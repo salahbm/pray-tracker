@@ -1,8 +1,8 @@
-import clsx from "clsx";
-import { BsFillCheckCircleFill } from "react-icons/bs";
+import clsx from 'clsx';
+import Link from 'next/link';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 
-import { IPricing } from "@/types";
-import Link from "next/link";
+import { IPricing } from '@/types';
 
 interface Props {
   tier: IPricing;
@@ -14,24 +14,23 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
 
   return (
     <div
-      className={clsx(
-        "w-full max-w-sm bg-white rounded-md border border-gray-200 shadow-md",
-        { "shadow-lg": highlight },
-      )}
+      className={clsx('w-full max-w-sm bg-white rounded-md border border-gray-200 shadow-md', {
+        'shadow-lg': highlight,
+      })}
     >
       <div className="p-6 border-b border-gray-200 rounded-t-xl">
         <h3 className="text-2xl font-semibold mb-4">{name}</h3>
         <p className="text-3xl md:text-5xl font-bold mb-6">
-          <span className={clsx({ "text-secondary": highlight })}>
-            {typeof price === "number" ? `$${price}` : price}
+          <span className={clsx({ 'text-secondary': highlight })}>
+            {typeof price === 'number' ? `$${price}` : price}
           </span>
         </p>
         <Link href="/subscription">
           <button
             type="button"
-            className={clsx("w-full py-3 px-4 rounded-full transition-colors", {
-              "bg-primary hover:bg-primary-accent": highlight,
-              "bg-hero-background hover:bg-gray-200": !highlight,
+            className={clsx('w-full py-3 px-4 rounded-full transition-colors', {
+              'bg-primary hover:bg-primary-accent': highlight,
+              'bg-hero-background hover:bg-gray-200': !highlight,
             })}
           >
             Get Started
@@ -40,9 +39,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
       </div>
       <div className="p-6 mt-1">
         <p className="font-bold mb-0">FEATURES</p>
-        <p className="text-foreground-accent mb-5">
-          Everything in basic, plus...
-        </p>
+        <p className="text-foreground-accent mb-5">Everything in basic, plus...</p>
         <ul className="space-y-4 mb-8">
           {features.map((feature, index) => (
             <li key={index} className="flex items-center">

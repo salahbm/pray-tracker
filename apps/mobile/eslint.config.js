@@ -1,2 +1,2 @@
-import { expoConfig } from '@repo/eslint-config/expo';
-export default expoConfig;
+const { expoConfig } = require('@repo/eslint-config/expo');
+module.exports = expoConfig;

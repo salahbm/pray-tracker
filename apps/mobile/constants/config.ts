@@ -1,4 +1,0 @@
-const ORIGIN = process.env.EXPO_PUBLIC_API_BASE_URL;
-const APP_VARIANT = process.env.EXPO_PUBLIC_APP_VARIANT;
-
-export { ORIGIN, APP_VARIANT };

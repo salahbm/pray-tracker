@@ -1,15 +1,12 @@
-"use client";
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
-import { AnimatePresence, easeOut, motion } from "framer-motion";
-import { BiMinus, BiPlus } from "react-icons/bi";
+'use client';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { AnimatePresence, easeOut, motion } from 'framer-motion';
+import { Fragment } from 'react';
+import { BiMinus, BiPlus } from 'react-icons/bi';
 
-import SectionTitle from "./SectionTitle";
-import { faqs } from "@/data/faq";
-import { Fragment } from "react";
+import { faqs } from '@/data/faq';
+
+import SectionTitle from './SectionTitle';
 
 const FAQ: React.FC = () => {
   return (
@@ -40,9 +37,7 @@ const FAQ: React.FC = () => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t">
-                      <span className="text-2xl font-semibold">
-                        {faq.question}
-                      </span>
+                      <span className="text-2xl font-semibold">{faq.question}</span>
                       {open ? (
                         <BiMinus className="w-5 h-5 text-secondary" />
                       ) : (

@@ -1,6 +1,6 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { getUser } from "@/hooks/user/useUser";
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { getUser } from '@/hooks/user/useUser';
 
 export default async function RootLayout({
   children,
@@ -8,7 +8,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { data } = await getUser();
-  const userId = data?.user?.id || "";
+  const userId = data?.user?.id || '';
 
   return (
     <>

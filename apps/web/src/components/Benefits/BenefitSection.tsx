@@ -1,11 +1,12 @@
-"use client";
-import Image from "next/image";
-import clsx from "clsx";
-import { motion, Variants } from "framer-motion";
+'use client';
+import clsx from 'clsx';
+import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
-import BenefitBullet from "./BenefitBullet";
-import SectionTitle from "../SectionTitle";
-import { IBenefit } from "@/types";
+import { IBenefit } from '@/types';
+
+import SectionTitle from '../SectionTitle';
+import BenefitBullet from './BenefitBullet';
 
 interface Props {
   benefit: IBenefit;
@@ -21,7 +22,7 @@ const containerVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.2,
       duration: 0.9,
       delayChildren: 0.2,
@@ -39,7 +40,7 @@ export const childVariants: Variants = {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.2,
       duration: 1,
     },
@@ -59,16 +60,13 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
         viewport={{ once: true }}
       >
         <div
-          className={clsx("flex flex-wrap items-center w-full max-w-lg", {
-            "justify-start": imageAtRight,
-            "lg:order-1 justify-end": !imageAtRight,
+          className={clsx('flex flex-wrap items-center w-full max-w-lg', {
+            'justify-start': imageAtRight,
+            'lg:order-1 justify-end': !imageAtRight,
           })}
         >
           <div className="w-full  text-center lg:text-left ">
-            <motion.div
-              className="flex flex-col w-full"
-              variants={childVariants}
-            >
+            <motion.div className="flex flex-col w-full" variants={childVariants}>
               <SectionTitle>
                 <h3 className="lg:max-w-2xl">{title}</h3>
               </SectionTitle>
@@ -91,11 +89,11 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
           </div>
         </div>
 
-        <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
+        <div className={clsx('mt-5 lg:mt-0', { 'lg:order-2': imageAtRight })}>
           <div
-            className={clsx("w-fit flex", {
-              "justify-start": imageAtRight,
-              "justify-end": !imageAtRight,
+            className={clsx('w-fit flex', {
+              'justify-start': imageAtRight,
+              'justify-end': !imageAtRight,
             })}
           >
             <Image

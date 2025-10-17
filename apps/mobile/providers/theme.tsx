@@ -4,12 +4,7 @@ import { useState, useCallback, createContext, useContext } from 'react';
 import { View, ViewProps } from 'react-native';
 
 import { useThemeStore } from '@/store/defaults/theme';
-import {
-  StatusBarTheme,
-  Themes,
-  THEMES,
-  ThemesVariant,
-} from '@/styles/theme.config';
+import { StatusBarTheme, Themes, THEMES, ThemesVariant } from '@/styles/theme.config';
 
 type ThemeContextValues = {
   theme: ThemesVariant;
@@ -27,9 +22,7 @@ type ThemeContextActions = {
   handleThemeSwitch: (newTheme: ThemesVariant) => void;
 };
 
-const ThemeProviderActions = createContext<ThemeContextActions>(
-  {} as ThemeContextActions,
-);
+const ThemeProviderActions = createContext<ThemeContextActions>({} as ThemeContextActions);
 
 export function useThemeContextActions() {
   return useContext(ThemeProviderActions);
@@ -49,7 +42,7 @@ export function ThemeProvider(props: ThemeProps) {
     (newTheme: ThemesVariant) => {
       changeTheme(newTheme);
     },
-    [changeTheme],
+    [changeTheme]
   );
 
   return (

@@ -1,21 +1,20 @@
-import * as SplashScreen from 'expo-splash-screen';
-
-import App from './App';
-import RootProvider from '@/providers/root';
 import 'react-native-reanimated';
-import '@/i18n.config';
-import 'styles/global.css';
-// import 'reanimated.config';
+import '@styles/global.css';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
-function RootLayout() {
+import { RootProvider } from '@/providers';
+import App from './app';
+
+export const unstable_settings = {
+  anchor: '(tabs)',
+};
+
+export default function Layout() {
   return (
     <RootProvider>
       <App />
     </RootProvider>
   );
 }
-
-export default RootLayout;

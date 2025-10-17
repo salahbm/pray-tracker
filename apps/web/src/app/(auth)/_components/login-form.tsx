@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { FiMail, FiLock, FiAlertCircle } from "react-icons/fi";
-import { AnimatedContainer } from "./animated-container";
-import { useFormStatus } from "react-dom";
-import { signIn } from "./actions";
+import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { FiAlertCircle, FiLock, FiMail } from 'react-icons/fi';
+
+import { signIn } from './actions';
+import { AnimatedContainer } from './animated-container';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -14,15 +15,15 @@ function SubmitButton() {
       disabled={pending}
       className="w-full flex justify-center items-center px-4 border border-transparent mt-6 rounded-md h-11 shadow-sm text-sm font-semibold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {pending ? "Signing in..." : "Sign in"}
+      {pending ? 'Signing in...' : 'Sign in'}
     </button>
   );
 }
 
 export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   async function handleSubmit(formData: FormData) {
     const result = await signIn(formData);
@@ -41,29 +42,26 @@ export default function LoginForm() {
         {/* Input Field */}
         {[
           {
-            id: "email",
-            label: "Email",
-            type: "email",
+            id: 'email',
+            label: 'Email',
+            type: 'email',
             icon: <FiMail />,
             value: email,
             onChange: (v: string) => setEmail(v),
-            placeholder: "your-email@example.com",
+            placeholder: 'your-email@example.com',
           },
           {
-            id: "password",
-            label: "Password",
-            type: "password",
+            id: 'password',
+            label: 'Password',
+            type: 'password',
             icon: <FiLock />,
             value: password,
             onChange: (v: string) => setPassword(v),
-            placeholder: "••••••••",
+            placeholder: '••••••••',
           },
         ].map(({ id, label, type, icon, value, onChange, placeholder }) => (
           <div key={id} className="mt-6">
-            <label
-              htmlFor={id}
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor={id} className="block text-sm font-medium text-gray-700">
               {label}
             </label>
             <div className="mt-1 relative">
@@ -76,7 +74,7 @@ export default function LoginForm() {
                 type={type}
                 required
                 value={value}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={e => onChange(e.target.value)}
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md h-11 focus:ring-primary focus:border-primary text-gray-900 text-sm"
                 placeholder={placeholder}
               />

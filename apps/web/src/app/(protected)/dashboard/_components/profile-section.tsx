@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { FiUser, FiMail, FiSave } from "react-icons/fi";
-import { AnimatedContainer } from "@/app/(auth)/_components/animated-container";
-import { useUpdateUser } from "@/hooks/user/useUpdateUser";
-import { useRouter } from "next/navigation";
-import type { User } from "@/hooks/user/useGetUser";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { FiMail, FiSave, FiUser } from 'react-icons/fi';
+
+import { AnimatedContainer } from '@/app/(auth)/_components/animated-container';
+import type { User } from '@/hooks/user/useGetUser';
+import { useUpdateUser } from '@/hooks/user/useUpdateUser';
 
 interface ProfileSectionProps {
   user: User;
 }
 
 export function ProfileSection({ user }: ProfileSectionProps) {
-  const [firstName, setFirstName] = useState(user.firstName || "");
-  const [lastName, setLastName] = useState(user.lastName || "");
+  const [firstName, setFirstName] = useState(user.firstName || '');
+  const [lastName, setLastName] = useState(user.lastName || '');
   const [message, setMessage] = useState<{
-    type: "success" | "error";
+    type: 'success' | 'error';
     text: string;
   } | null>(null);
 
@@ -33,17 +34,14 @@ export function ProfileSection({ user }: ProfileSectionProps) {
       });
 
       setMessage({
-        type: "success",
-        text: "Profile updated successfully!",
+        type: 'success',
+        text: 'Profile updated successfully!',
       });
       router.refresh();
     } catch (error: unknown) {
       setMessage({
-        type: "error",
-        text:
-          error instanceof Error
-            ? error.message
-            : "Error updating profile. Please try again.",
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Error updating profile. Please try again.',
       });
     }
   };
@@ -60,10 +58,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email (Read-only) */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email
               </label>
               <div className="mt-1 relative">
@@ -82,10 +77,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
 
             {/* First Name Input */}
             <div>
-              <label
-                htmlFor="firstName"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
                 First Name
               </label>
               <div className="mt-1 relative">
@@ -96,7 +88,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
                   type="text"
                   id="firstName"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={e => setFirstName(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                   placeholder="Enter your first name"
                 />
@@ -105,10 +97,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
 
             {/* Last Name Input */}
             <div>
-              <label
-                htmlFor="lastName"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
                 Last Name
               </label>
               <div className="mt-1 relative">
@@ -119,7 +108,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
                   type="text"
                   id="lastName"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={e => setLastName(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                   placeholder="Enter your last name"
                 />
@@ -130,9 +119,9 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             {message && (
               <div
                 className={`rounded-md p-4 ${
-                  message.type === "success"
-                    ? "bg-green-50 text-green-700"
-                    : "bg-red-50 text-red-700"
+                  message.type === 'success'
+                    ? 'bg-green-50 text-green-700'
+                    : 'bg-red-50 text-red-700'
                 }`}
               >
                 <p className="text-sm">{message.text}</p>
@@ -147,7 +136,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {updateUser.isPending ? (
-                  "Saving..."
+                  'Saving...'
                 ) : (
                   <>
                     <FiSave className="mr-2 h-4 w-4" />
