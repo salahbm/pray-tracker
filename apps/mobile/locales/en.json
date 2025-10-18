@@ -1,626 +1,247 @@
 {
-  "Responses": {
-    "StatusCode": {
-      "undefined": "Something went wrong",
-      "100": "Continue",
-      "101": "Switching Protocols",
-      "102": "Processing",
-      "103": "Early Hints",
-      "200": "Success",
-      "201": "Created",
-      "202": "Accepted",
-      "203": "Non-Authoritative Info",
-      "204": "No Content",
-      "206": "Partial Content",
-      "300": "Multiple Choices",
-      "301": "Moved Permanently",
-      "302": "Found",
-      "303": "See Other",
-      "304": "Not Modified",
-      "307": "Temporary Redirect",
-      "308": "Permanent Redirect",
-      "400": "Bad Request",
-      "401": "Unauthorized",
-      "403": "Forbidden",
-      "404": "Not Found",
-      "405": "Method Not Allowed",
-      "406": "Not Acceptable",
-      "407": "Proxy Auth Required",
-      "408": "Request Timeout",
-      "409": "Conflict",
-      "410": "Gone",
-      "411": "Length Required",
-      "412": "Precondition Failed",
-      "413": "Payload Too Large",
-      "414": "URI Too Long",
-      "415": "Unsupported Media",
-      "416": "Range Not Satisfiable",
-      "417": "Expectation Failed",
-      "422": "Unprocessable Entity",
-      "429": "Too Many Requests",
-      "500": "Internal Server Error",
-      "501": "Not Implemented",
-      "502": "Bad Gateway",
-      "503": "Service Unavailable",
-      "504": "Gateway Timeout",
-      "505": "HTTP Version Unsupported",
-      "506": "Variant Negotiates",
-      "507": "Insufficient Storage",
-      "508": "Loop Detected",
-      "510": "Not Extended",
-      "511": "Network Auth Required",
-      "599": "Network Timeout"
-    },
-    "MessageCodes": {
-      "1000": "Success",
-      "1001": "Created",
-      "1002": "Bad Request",
-      "1003": "Unauthorized",
-      "1004": "Forbidden",
-      "1005": "Not Found",
-      "1006": "Internal Error",
-      "1007": "Conflict",
-      "1008": "Unprocessable",
-      "1009": "Too Many Requests",
-      "3000": "User Not Found",
-      "3001": "User Already Exists",
-      "3002": "User Created Successfully",
-      "3003": "User Deleted",
-      "3004": "User Updated",
-      "3005": "User Retrieved",
-      "3006": "User Unauthorized",
-      "3007": "Signed in Successfully",
-      "3008": "Signed Out Successfully",
-      "3009": "Signed Up Successfully",
-      "3010": "Sign In Failed",
-      "3011": "Sign Up Failed",
-      "3012": "Sign Out Failed",
-      "3013": "Withdraw Successful",
-      "3014": "Withdraw Failed",
-      "3015": "Missing Required Fields",
-      "3100": "Unexpected Failure",
-      "3101": "Validation Failed",
-      "3102": "Bad JSON Format",
-      "3103": "Email Already Exists",
-      "3104": "Phone Number Already Exists",
-      "3105": "Invalid JWT Token",
-      "3106": "Not an Admin",
-      "3107": "No Authorization",
-      "3108": "Session Not Found",
-      "3109": "Session Expired",
-      "3110": "Refresh Token Not Found",
-      "3111": "Refresh Token Already Used",
-      "3112": "Flow State Not Found",
-      "3113": "Flow State Expired",
-      "3114": "Signups Are Disabled",
-      "3115": "User Account Banned",
-      "3116": "Email Needs Verification",
-      "3117": "Invite Not Found",
-      "3118": "Invalid OAuth State",
-      "3119": "Invalid OAuth Callback",
-      "3120": "OAuth Provider Not Supported",
-      "3121": "Unexpected Audience",
-      "3122": "Single Identity Cannot Be Deleted",
-      "3123": "Email Conflict: Cannot Delete Identity",
-      "3124": "Identity Already Exists",
-      "3125": "Email Provider Disabled",
-      "3126": "Phone Provider Disabled",
-      "3127": "Too Many Enrolled MFA Factors",
-      "3128": "MFA Factor Name Conflict",
-      "3129": "MFA Factor Not Found",
-      "3130": "MFA IP Address Mismatch",
-      "3131": "MFA Challenge Expired",
-      "3132": "MFA Verification Failed",
-      "3133": "MFA Verification Rejected",
-      "3134": "Insufficient Authentication Level",
-      "3135": "Captcha Verification Failed",
-      "3136": "SAML Provider Disabled",
-      "3137": "Manual Account Linking Disabled",
-      "3138": "Failed to Send SMS",
-      "3139": "Email Not Confirmed",
-      "3140": "Phone Number Not Confirmed",
-      "3141": "Reauthentication Nonce Missing",
-      "3142": "SAML Relay State Not Found",
-      "3143": "SAML Relay State Expired",
-      "3144": "SAML Identity Provider Not Found",
-      "3145": "SAML Assertion Missing User ID",
-      "3146": "SAML Assertion Missing Email",
-      "3147": "SSO Provider Not Found",
-      "3148": "Failed to Fetch SAML Metadata",
-      "3149": "SAML Identity Provider Already Exists",
-      "3150": "SSO Domain Already Exists",
-      "3151": "SAML Entity ID Mismatch",
-      "3152": "Conflict Error",
-      "3153": "Provider Disabled",
-      "3154": "SSO-Managed User Cannot Be Modified",
-      "3155": "Reauthentication Required",
-      "3156": "New Password Cannot Be the Same as Old Password",
-      "3157": "Reauthentication Token Invalid",
-      "3158": "OTP Expired",
-      "3159": "OTP Disabled",
-      "3160": "Identity Not Found",
-      "3161": "Weak Password",
-      "3162": "Rate Limit Exceeded",
-      "3163": "Too Many Email Requests",
-      "3164": "Too Many SMS Requests",
-      "3165": "Invalid Code Verifier",
-      "3166": "Anonymous Provider Disabled",
-      "3167": "Hook Timeout",
-      "3168": "Hook Timeout After Retry",
-      "3169": "Hook Payload Exceeds Size Limit",
-      "3170": "Invalid Hook Payload Content Type",
-      "3171": "Request Timeout",
-      "3172": "MFA Phone Enrollment Not Enabled",
-      "3173": "MFA Phone Verification Not Enabled",
-      "3174": "MFA TOTP Enrollment Not Enabled",
-      "3175": "MFA TOTP Verification Not Enabled",
-      "3176": "MFA WebAuthn Enrollment Not Enabled",
-      "3177": "MFA WebAuthn Verification Not Enabled",
-      "3178": "Verified MFA Factor Already Exists",
-      "3179": "Invalid Credentials",
-      "3180": "Email Address Not Authorized",
-      "3181": "Invalid Email Address",
-      "3999": "Unknown Error Occurred",
-      "4000": "Pray Not Found",
-      "4001": "Pray Created",
-      "4002": "Pray Deleted",
-      "4003": "Pray Updated",
-      "4004": "Pray Fetched",
-      "5000": "Friend Not Found",
-      "5001": "Friend Approved",
-      "5002": "Friend Deleted",
-      "5003": "Friend Requested",
-      "5004": "Friend Fetched",
-      "5005": "Friend Exists",
-      "5006": "Friend Cancelled",
-      "5007": "Friend Rejected",
-      "5008": "Friendship Missing",
-      "6000": "Award Not Found",
-      "6001": "Award Created",
-      "6002": "Award Deleted",
-      "6003": "Award Updated",
-      "6004": "Award Fetched"
-    }
-  },
-  "Commons": {
-    "Locales": {
-      "choose": "Choose a language",
-      "languages": {
-        "en": "English",
-        "ru": "Russian",
-        "uz": "Uzbek",
-        "ko": "Korean"
-      }
-    },
-    "Themes": {
-      "dark": "Dark",
-      "light": "Light",
-      "forest_green": "Forest Green",
-      "ocean_breeze": "Ocean Breeze",
-      "sunset": "Sunset",
-      "royal_purple": "Royal Purple",
-      "pink_rose": "Pink Rose",
-      "vibrant_orange": "Vibrant Orange",
-      "emerald_green": "Emerald Green",
-      "Title": "Choose Theme"
-    },
-    "YearPicker": {
-      "Title": "Select a Year",
-      "Cancel": "Cancel",
-      "Confirm": "Confirm"
-    },
-    "NotFound": {
-      "404": "Page not found",
-      "noData": "No data found"
-    },
-    "Salahs": {
-      "fajr": "Fajr",
-      "dhuhr": "Dhuhr",
-      "asr": "Asr",
-      "maghrib": "Maghrib",
-      "isha": "Isha",
-      "nafl": "Nafl",
-      "sunrise": "Sunrise"
-    },
-    "Notifications": {
-      "Description": "Time for {{salah}} at :"
-    }
-  },
-  "Home": {
-    "PrayerHistory": {
-      "Title": "Prayer Journey",
-      "SelectYear": "Select Hijri Year",
-      "Details": "Prayer Details",
-      "Date": "Date",
-      "Close": "Close"
-    },
-    "Charts": {
-      "Title": "Ibadah Progress",
-      "YAxis": "Prayer Count",
-      "XAxis": "Time Period"
-    },
-    "TodaysPrayers": {
-      "Title": "Today's Prayers",
-      "SubTitle": "May Allah (ﷻ) accept your prayers",
-      "Missed": "Missed",
-      "Late": "Late",
-      "OnTime": "On Time"
-    },
-    "Errors": {
-      "FutureDate": "You cannot select a future date"
-    }
-  },
-  "Awards": {
-    "Tabs": {
-      "Personal": "My Records",
-      "Leaderboard": "Leaderboard"
-    },
-    "YourAwards": "Your Awards",
-    "Completed": "Completed",
-    "CurrentScore": "Current Score",
-    "AwardsEarned": "Awards Earned",
-    "Categories": {
-      "first": "First Steps",
-      "streak": "Prayer Streaks",
-      "prayer_quality": "Prayer Quality",
-      "milestone": "Milestones",
-      "special": "Special Awards"
-    },
-    "Leaderboard": {
-      "Points": "pts",
-      "UserDetails": {
-        "Points": "Points"
-      }
-    },
-    "List": {
-      "FirstPrayerLogged": "First Step Toward Salah",
-      "FirstPrayerLoggedDescription": "You’ve taken the blessed first step on your path to consistent prayer. May Allah (SWT) guide you onward.",
-
-      "CompletedFirstFullDay": "Day of Complete Worship",
-      "CompletedFirstFullDayDescription": "A full day of Salah — may this be the first of many in your journey of devotion.",
-
-      "SevenDayStreak": "Week of Steadfastness",
-      "SevenDayStreakDescription": "Seven days of prayer! May Allah keep your heart firm upon this beautiful path.",
-
-      "FourteenDayStreak": "Fortnight of Faith",
-      "FourteenDayStreakDescription": "Two weeks of consistent Salah — a reflection of your growing taqwa.",
-
-      "ThirtyDayStreak": "Month of Worship",
-      "ThirtyDayStreakDescription": "A month in prayer, echoing the discipline of Ramadan. Keep rising!",
-
-      "NinetyDayStreak": "Season of Devotion",
-      "NinetyDayStreakDescription": "Ninety days of prayer — a season of barakah and sincere worship. May Allah accept it all.",
-
-      "EarlyFajrMaster": "Seeker of Light",
-      "EarlyFajrMasterDescription": "You’ve embraced the serenity of early Fajr. May its light illuminate your soul.",
-
-      "OnTimeWarrior": "Guardian of Salah",
-      "OnTimeWarriorDescription": "Performing your prayers on time — a true sign of discipline and love for Allah.",
-
-      "FajrStrike10": "Fajr Consistency: 10 Prayers",
-      "FajrStrike10Description": "A streak of 10 blessed Fajr prayers. Keep greeting the dawn with devotion.",
-      "FajrStrike50": "Fajr Consistency: 50 Prayers",
-      "FajrStrike50Description": "Fifty mornings of remembrance — your dawns are truly blessed.",
-      "FajrStrike100": "Fajr Consistency: 100 Prayers",
-      "FajrStrike100Description": "A hundred sunrises in prayer — may Allah continue to guide your early steps.",
-      "FajrStrike150": "Fajr Consistency: 150 Prayers",
-      "FajrStrike150Description": "Your mornings shine with noor. A legacy of commitment and faith.",
-
-      "DhuhrStrike10": "Dhuhr Consistency: 10 Prayers",
-      "DhuhrStrike10Description": "You've embraced the midday pause with remembrance. Keep it going.",
-      "DhuhrStrike50": "Dhuhr Consistency: 50 Prayers",
-      "DhuhrStrike50Description": "Fifty mid-days surrendered to Salah — may your efforts be accepted.",
-      "DhuhrStrike100": "Dhuhr Consistency: 100 Prayers",
-      "DhuhrStrike100Description": "A hundred moments of spiritual stillness at noon — you're setting a powerful example.",
-      "DhuhrStrike150": "Dhuhr Consistency: 150 Prayers",
-      "DhuhrStrike150Description": "Your devotion cuts through the busyness of the day — a heart anchored in prayer.",
-
-      "AsrStrike10": "Asr Consistency: 10 Prayers",
-      "AsrStrike10Description": "Steadfast in the late afternoon. A moment many miss — but not you.",
-      "AsrStrike50": "Asr Consistency: 50 Prayers",
-      "AsrStrike50Description": "Fifty afternoon prayers — may Allah keep your steps firm.",
-      "AsrStrike100": "Asr Consistency: 100 Prayers",
-      "AsrStrike100Description": "A hundred afternoons of remembrance. You're walking with grace.",
-      "AsrStrike150": "Asr Consistency: 150 Prayers",
-      "AsrStrike150Description": "Your dedication in these hours shows deep discipline and love for Allah.",
-
-      "MaghribStrike10": "Maghrib Consistency: 10 Prayers",
-      "MaghribStrike10Description": "You’ve marked the sunset with Salah. A sign of reflection and gratitude.",
-      "MaghribStrike50": "Maghrib Consistency: 50 Prayers",
-      "MaghribStrike50Description": "Fifty days of closing the day with thanks — may your nights begin with barakah.",
-      "MaghribStrike100": "Maghrib Consistency: 100 Prayers",
-      "MaghribStrike100Description": "A hundred sunsets paired with prayer — may your gratitude never cease.",
-      "MaghribStrike150": "Maghrib Consistency: 150 Prayers",
-      "MaghribStrike150Description": "Your devotion at day's end is a shining example of ihsaan (excellence).",
-
-      "IshaStrike10": "Isha Consistency: 10 Prayers",
-      "IshaStrike10Description": "You end your days in prayer — a beautiful closure under Allah’s mercy.",
-      "IshaStrike50": "Isha Consistency: 50 Prayers",
-      "IshaStrike50Description": "Fifty peaceful nights wrapped in worship — a tranquil end to your day.",
-      "IshaStrike100": "Isha Consistency: 100 Prayers",
-      "IshaStrike100Description": "One hundred nights ended with Salah — your nights are a witness to your devotion.",
-      "IshaStrike150": "Isha Consistency: 150 Prayers",
-      "IshaStrike150Description": "Like the righteous before you, you rest in remembrance — may Allah preserve your heart.",
-
-      "NaflStrike10": "Nafl Devotion: 10 Prayers",
-      "NaflStrike10Description": "You've chosen extra prayers out of love — may Allah reward you immensely.",
-      "NaflStrike50": "Nafl Devotion: 50 Prayers",
-      "NaflStrike50Description": "Fifty voluntary acts of worship — a true seeker of reward and nearness.",
-      "NaflStrike100": "Nafl Devotion: 100 Prayers",
-      "NaflStrike100Description": "A hundred extra prayers — a beautiful sign of ihsaan and spiritual depth.",
-      "NaflStrike150": "Nafl Devotion: 150 Prayers",
-      "NaflStrike150Description": "You’ve filled your time with what pleases Allah — your path is radiant.",
-
-      "ConsistencyChamp": "Champion of Consistency",
-      "ConsistencyChampDescription": "A shining example of daily discipline. Keep up your steadfast commitment.",
-
-      "TheDevoted": "The Devoted Worshipper",
-      "TheDevotedDescription": "A life woven with Salah, sincerity, and punctuality. May Allah elevate your ranks.",
-
-      "BounceBack": "The Repentant One",
-      "BounceBackDescription": "After hardship or absence, you’ve returned with strength. Allah loves those who turn back to Him.",
-
-      "Level5Achieved": "Level 5: Rising Believer",
-      "Level5AchievedDescription": "You've grown spiritually — continue your journey upward.",
-
-      "Level10Achieved": "Level 10: Consistent Worshipper",
-      "Level10AchievedDescription": "A milestone in prayer and progress. Stay steady on the path.",
-
-      "Level15Achieved": "Level 15: Sincere Soul",
-      "Level15AchievedDescription": "Your intentions shine through. Let your prayers shape your heart.",
-
-      "Level20Achieved": "Level 20: Disciplined Devotee",
-      "Level20AchievedDescription": "Your Salah reflects deep spiritual maturity.",
-
-      "Level25Achieved": "Level 25: Guided Servant",
-      "Level25AchievedDescription": "Walking with purpose, praying with presence. A true servant of the Most Merciful.",
-
-      "Level30Achieved": "Level 30: Salah Warrior",
-      "Level30AchievedDescription": "You’ve built a fortress of worship around your day.",
-
-      "Level35Achieved": "Level 35: Beacon of Iman",
-      "Level35AchievedDescription": "Your consistency lights the way — for yourself and others.",
-
-      "Level40Achieved": "Level 40: Trusted in Worship",
-      "Level40AchievedDescription": "Your prayer is no longer an action — it’s your lifestyle.",
-
-      "Level45Achieved": "Level 45: Heart of Khushu'",
-      "Level45AchievedDescription": "Your worship is marked with presence, humility, and love.",
-
-      "Level50Achieved": "Level 50: Friend of the Prayer",
-      "Level50AchievedDescription": "Like the Prophet ﷺ, you’ve made Salah your comfort and strength."
-    }
-  },
-  "Qibla": {
-    "Tabs": {
-      "Qibla": "Qibla Direction",
-      "Times": "Prayer Times"
-    },
-    "Compass": {
-      "MagneticNorth": "Magnetic North",
-      "QiblaDirection": "Qibla Direction",
-      "Degrees": "degrees",
-      "Help": "Point your phone towards Qibla and align with Kaaba",
-      "Errors": {
-        "Magnetometer": "Magnetometer not available",
-        "Location": "Location permission required"
-      }
-    },
-    "PrayerTimes": {
-      "Location": {
-        "Fetching": "Fetching location...",
-        "Unknown": "Unknown"
-      },
-      "TimeLeft": "left until next prayer",
-      "Errors": {
-        "Title": "Permission Denied",
-        "Message": "Location permission is required to calculate prayer times"
-      }
-    }
-  },
-
   "Auth": {
     "Email": {
       "Label": "Email",
       "Placeholder": "Enter your email"
     },
-    "Username": {
-      "Label": "Username",
-      "Placeholder": "Enter your username"
+    "ForgotPassword": {
+      "Button": "Send Verification",
+      "RememberedPassword": "Remembered your password?",
+      "SignInLink": "Sign In",
+      "Success": {
+        "Button": "Update Password",
+        "Message": "You have successfully verified your account.",
+        "Title": "Verified"
+      },
+      "Title": "Reset Password",
+      "Verification": {
+        "Button": "Verify Email",
+        "Message": "We've sent a verification code to {{email}}.",
+        "Placeholder": "Enter Code",
+        "Title": "Verification"
+      }
     },
     "Password": {
       "Label": "Password",
       "Placeholder": "Enter your password"
     },
     "SignIn": {
-      "Title": "Welcome back",
       "Button": "Sign In",
+      "ForgotPassword": "Forgot your password?",
       "NoAccount": "Don't have an account?",
       "SignUpLink": "Sign up",
-      "ForgotPassword": "Forgot your password?"
+      "Title": "Welcome back"
     },
     "SignUp": {
-      "Title": "Join Us",
-      "Subtitle": "Create an account to continue",
       "Button": "Sign Up",
       "HasAccount": "Already have an account?",
       "SignInLink": "Sign In",
+      "Subtitle": "Create an account to continue",
+      "Success": {
+        "Button": "Bismillah",
+        "Message": "You have successfully verified your account.",
+        "Title": "Verified"
+      },
+      "Title": "Join Us",
       "Verification": {
-        "Title": "Verification",
+        "Button": "Verify Email",
         "Message": "We've sent a verification code to {{email}}.",
         "Placeholder": "12345",
-        "Button": "Verify Email"
-      },
-      "Success": {
-        "Title": "Verified",
-        "Message": "You have successfully verified your account.",
-        "Button": "Bismillah"
+        "Title": "Verification"
       }
     },
-    "ForgotPassword": {
-      "Title": "Reset Password",
-      "Button": "Send Verification",
-      "RememberedPassword": "Remembered your password?",
-      "SignInLink": "Sign In",
-      "Verification": {
-        "Title": "Verification",
-        "Message": "We've sent a verification code to {{email}}.",
-        "Placeholder": "Enter Code",
-        "Button": "Verify Email"
-      },
-      "Success": {
-        "Title": "Verified",
-        "Message": "You have successfully verified your account.",
-        "Button": "Update Password"
-      }
+    "Username": {
+      "Label": "Username",
+      "Placeholder": "Enter your username"
     },
     "Welcome": {
-      "Next": "Next",
       "GetStarted": "Get Started",
-      "Skip": "Skip",
       "Guest": "Guest",
+      "Next": "Next",
       "Onboarding": {
-        "Track": {
-          "title": "Track Your Prayers with Ease",
-          "description": "Keep a record of your daily prayers effortlessly and stay consistent in your ibadah."
-        },
-        "Share": {
-          "title": "Share Your Progress with Friends",
-          "description": "Motivate others and yourself by sharing your prayer journey with your loved ones."
-        },
-        "Remind": {
-          "title": "Never Miss a Prayer Again",
-          "description": "Get timely notifications and reminders to ensure you never miss your Salah."
+        "Aware": {
+          "description": "Keep track of your last prayer and plan your day around your Salah schedule.",
+          "title": "Stay Aware of Your Last Prayer"
         },
         "Journey": {
-          "title": "Check Your Prayer Journey",
-          "description": "Reflect on your progress and see how far you've come in maintaining regular prayers."
+          "description": "Reflect on your progress and see how far you've come in maintaining regular prayers.",
+          "title": "Check Your Prayer Journey"
         },
-        "Aware": {
-          "title": "Stay Aware of Your Last Prayer",
-          "description": "Keep track of your last prayer and plan your day around your Salah schedule."
+        "Remind": {
+          "description": "Get timely notifications and reminders to ensure you never miss your Salah.",
+          "title": "Never Miss a Prayer Again"
+        },
+        "Share": {
+          "description": "Motivate others and yourself by sharing your prayer journey with your loved ones.",
+          "title": "Share Your Progress with Friends"
+        },
+        "Track": {
+          "description": "Keep a record of your daily prayers effortlessly and stay consistent in your ibadah.",
+          "title": "Track Your Prayers with Ease"
         }
-      }
+      },
+      "Skip": "Skip"
     }
   },
-  "Friends": {
-    "Title": "Friends",
-    "Pro": {
-      "ApprovedFriends": "Approved Friends",
-      "SearchPlaceholder": "Enter Friend's Email",
-      "InvalidEmail": "Please enter a valid email",
-      "NoFriends": "No approved friends found",
-      "SendRequest": "Send Request",
-      "PendingTitle": "Pending Requests",
-      "ViewPending": "View Pending Requests",
-      "Title": "Join Prayer Tracker +",
-      "Subtitle": "Elevate Your Spiritual Journey",
-      "WelcomeTitle": "As-salaam-alaikum! ",
-      "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
-      "FeaturesTitle": "Pro Features",
-      "MoreFeatures": "See More Features",
-      "LessFeatures": "Show Less",
-      "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
-      "Future": "And more features coming soon, In sha Allah",
-      "TeamTitle": "Meet the Team",
-      "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
-      "SubscribeButton": "Support Our Mission",
-      "BismillahMessage": "Bismillah, let's begin this blessed journey together",
-      "NoPending": "Pending requests not found",
-      "SentRequests": "Requests You've Sent",
-      "Accept": "Accept",
-      "Reject": "Reject",
-      "Cancel": "Cancel",
-      "RequestTitle": "Friend Request ",
-      "RequestBody": "New friend request from {{email}}",
-      "Features": {
-        "UnlimitedFriends": "Unlimited Friends",
-        "PrayerTracking": "Prayer Tracking",
-        "PrayerAwards": "Prayer Awards",
-        "CustomWidgets": "Custom Widgets",
-        "PremiumSupport": "Pro Support",
-        "Friends": {
-          "title": "Prayer Circle & Friends",
-          "description": "Connect with friends, share prayer achievements, and motivate each other in your spiritual journey. Build a supportive community that helps everyone stay consistent in their prayers."
-        },
-        "Awards": {
-          "title": "Special Prayer Awards",
-          "description": "Unlock exclusive awards and achievements that recognize your dedication to prayer. Track your progress and celebrate your spiritual milestones."
-        },
-        "Widgets": {
-          "title": "Custom Prayer Widgets",
-          "description": "Beautiful, customizable widgets for your home screen to keep track of prayer times and your daily spiritual goals."
-        },
-        "Analytics": {
-          "title": "Detailed Prayer Analytics",
-          "description": "Get insights into your prayer habits with detailed statistics, trends, and personalized recommendations to improve your consistency."
-        },
-        "Reminders": {
-          "title": "Smart Prayer Reminders",
-          "description": "Personalized, location-aware prayer notifications that adapt to your schedule and help you never miss a prayer."
-        },
-        "Themes": {
-          "title": "Beautiful Themes",
-          "description": "Choose from a variety of beautiful, carefully crafted themes to personalize your prayer tracking experience."
-        },
-        "Support": {
-          "title": "Priority Support",
-          "description": "Get priority access to our support team and be the first to try new features as they're released."
-        }
-      }
+  "Awards": {
+    "AwardsEarned": "Awards Earned",
+    "Categories": {
+      "first": "First Steps",
+      "milestone": "Milestones",
+      "prayer_quality": "Prayer Quality",
+      "special": "Special Awards",
+      "streak": "Prayer Streaks"
     },
+    "Completed": "Completed",
+    "CurrentScore": "Current Score",
+    "Leaderboard": {
+      "Point": "pts",
+      "Points": "Points"
+    },
+    "Tabs": {
+      "Leaderboard": "Leaderboard",
+      "Personal": "My Records"
+    },
+    "YourAwards": "Your Awards"
+  },
+  "Commons": {
+    "Notifications": {
+      "Description": "Time for {{salah}} at :"
+    },
+    "NotFound": {
+      "404": "Page not found",
+      "noData": "No data found"
+    },
+    "Salahs": {
+      "asr": "Asr",
+      "dhuhr": "Dhuhr",
+      "fajr": "Fajr",
+      "isha": "Isha",
+      "maghrib": "Maghrib",
+      "nafl": "Nafl",
+      "sunrise": "Sunrise"
+    },
+    "Themes": {
+      "Title": "Choose Theme",
+      "dark": "Dark",
+      "emerald_green": "Emerald Green",
+      "forest_green": "Forest Green",
+      "light": "Light",
+      "ocean_breeze": "Ocean Breeze",
+      "pink_rose": "Pink Rose",
+      "royal_purple": "Royal Purple",
+      "sunset": "Sunset",
+      "vibrant_orange": "Vibrant Orange"
+    },
+    "YearPicker": {
+      "Cancel": "Cancel",
+      "Confirm": "Confirm",
+      "Title": "Select a Year"
+    },
+    "choose": "Choose a language"
+  },
+  "Friends": {
     "Freemium": {
-      "Title": "Prayer Tracker +",
       "Description": "Enjoy enhanced features to support your prayer journey — track progress, stay consistent, and connect with your circle.",
+      "Title": "Prayer Tracker +",
       "UpgradeButton": "Bismillah, I'm in",
       "UpgradePrompt": "Access this feature to enhance your experience"
+    },
+    "Pro": {
+      "Accept": "Accept",
+      "ApprovedFriends": "Approved Friends",
+      "BismillahMessage": "Bismillah, let's begin this blessed journey together",
+      "Cancel": "Cancel",
+      "FeaturesTitle": "Pro Features",
+      "Future": "And more features coming soon, In sha Allah",
+      "InvalidEmail": "Please enter a valid email",
+      "LessFeatures": "Show Less",
+      "MoreFeatures": "See More Features",
+      "NoFriends": "No approved friends found",
+      "NoPending": "Pending requests not found",
+      "PendingTitle": "Pending Requests",
+      "Reject": "Reject",
+      "RequestBody": "New friend request from {{email}}",
+      "RequestTitle": "Friend Request ",
+      "SearchPlaceholder": "Enter Friend's Email",
+      "SendRequest": "Send Request",
+      "SentRequests": "Requests You've Sent",
+      "SubscribeButton": "Support Our Mission",
+      "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
+      "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
+      "TeamTitle": "Meet the Team",
+      "Title": "Join Prayer Tracker +",
+      "ViewPending": "View Pending Requests",
+      "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
+      "WelcomeTitle": "As-salaam-alaikum! "
+    },
+    "Title": "Friends"
+  },
+  "Home": {
+    "Charts": {
+      "Title": "Ibadah Progress",
+      "XAxis": "Time Period",
+      "YAxis": "Prayer Count"
+    },
+    "Errors": {
+      "FutureDate": "You cannot select a future date"
+    },
+    "PrayerHistory": {
+      "Close": "Close",
+      "Date": "Date",
+      "Details": "Prayer Details",
+      "SelectYear": "Select Hijri Year",
+      "Title": "Prayer Journey"
+    },
+    "TodaysPrayers": {
+      "Late": "Late",
+      "Missed": "Missed",
+      "OnTime": "On Time",
+      "SubTitle": "May Allah (ﷻ) accept your prayers",
+      "Title": "Today's Prayers"
     }
   },
   "Profile": {
-    "Title": "Profile",
-    "Navigation": {
-      "Account": "Account",
-      "EditProfile": "Edit Profile",
-      "EditPassword": "Edit Password",
-      "Settings": "Settings",
-      "PrivacySecurity": "Privacy & Security",
-      "TermsConditions": "Terms & Conditions",
-      "About": "About",
-      "Feedback": "Feedback & Support"
+    "About": {
+      "BuyMeDates": "Buy Me Dates ",
+      "Contact": {
+        "Title": "Connect With Us"
+      },
+      "Credits": {
+        "Description": "Developed with love and dedication by the Pray Tracker team. Special thanks to our community for their continuous support and feedback.",
+        "Title": "Credits"
+      },
+      "Feedback": "Send Feedback",
+      "Mission": {
+        "Description": "Pray Tracker is dedicated to helping Muslims maintain their daily prayers, track their spiritual journey, and build a stronger connection with Allah. Our goal is to make prayer tracking simple, meaningful, and rewarding.",
+        "Title": "Our Mission"
+      },
+      "Title": "About",
+      "Version": {
+        "Build": "Build: {{buildNumber}}",
+        "Number": "Version: {{version}}",
+        "Released": "Released: March 2024",
+        "Title": "Version Info"
+      }
     },
     "Account": {
-      "Title": "Account",
-      "Email": "Email",
+      "CancelButton": "Cancel",
       "Created": "Created",
-      "LastUpdated": "Last Updated",
       "DeleteAccount": "Delete Account",
+      "DeleteButton": "Yes, Delete My Account",
       "DeleteConfirm": "Are you sure you want to delete your account?",
       "DeleteMessage": "This action is irreversible, and we will be sad to see you go. All your data will be permanently deleted.",
-      "DeleteButton": "Yes, Delete My Account",
-      "CancelButton": "Cancel",
-      "LogoutButton": "Logout"
-    },
-    "EditProfile": {
-      "Title": "Edit Profile",
-      "Fields": {
-        "Username": {
-          "Label": "Username",
-          "Placeholder": "Enter your username"
-        },
-        "FirstName": {
-          "Label": "First Name",
-          "Placeholder": "Enter your first name"
-        },
-        "LastName": {
-          "Label": "Last Name",
-          "Placeholder": "Enter your last name"
-        }
-      },
-      "SaveButton": "Save Changes"
+      "Email": "Email",
+      "LastUpdated": "Last Updated",
+      "LogoutButton": "Logout",
+      "Title": "Account"
     },
     "EditPassword": {
-      "Title": "Edit Password",
       "Fields": {
+        "ConfirmPassword": {
+          "Label": "Confirm Password",
+          "Placeholder": "Confirm your new password"
+        },
         "CurrentPassword": {
           "Label": "Current Password",
           "Placeholder": "Enter your current password"
@@ -628,99 +249,72 @@
         "NewPassword": {
           "Label": "New Password",
           "Placeholder": "Enter your new password"
-        },
-        "ConfirmPassword": {
-          "Label": "Confirm Password",
-          "Placeholder": "Confirm your new password"
         }
       },
-      "SaveButton": "Update Password"
+      "SaveButton": "Update Password",
+      "Title": "Edit Password"
+    },
+    "EditProfile": {
+      "Fields": {
+        "FirstName": {
+          "Label": "First Name",
+          "Placeholder": "Enter your first name"
+        },
+        "LastName": {
+          "Label": "Last Name",
+          "Placeholder": "Enter your last name"
+        },
+        "Username": {
+          "Label": "Username",
+          "Placeholder": "Enter your username"
+        }
+      },
+      "SaveButton": "Save Changes",
+      "Title": "Edit Profile"
+    },
+    "Navigation": {
+      "About": "About",
+      "Account": "Account",
+      "EditPassword": "Edit Password",
+      "EditProfile": "Edit Profile",
+      "Feedback": "Feedback & Support",
+      "PrivacySecurity": "Privacy & Security",
+      "Settings": "Settings",
+      "TermsConditions": "Terms & Conditions"
     },
     "Settings": {
-      "Title": "Settings",
-      "Theme": "Theme",
       "Language": "Language",
-      "Notifications": "Notifications"
+      "Notifications": "Notifications",
+      "Theme": "Theme",
+      "Title": "Settings"
     },
-    "Terms": {
-      "Title": "Terms & Conditions",
-      "Agreement": {
-        "Title": "Agreement to Terms",
-        "Content": "By using the Pray Tracker app, you agree to these Terms and Conditions. If you do not agree, please do not use the app."
+    "Title": "Profile"
+  },
+  "Qibla": {
+    "Compass": {
+      "Degrees": "degrees",
+      "Errors": {
+        "Location": "Location permission required",
+        "Magnetometer": "Magnetometer not available"
       },
-      "Usage": {
-        "Title": "Acceptable Use",
-        "Content": "You agree to use Pray Tracker only for its intended purpose — helping you track and manage your daily prayers. You may not use the app in a way that harms the app, its services, or other users."
-      },
-      "UserContent": {
-        "Title": "User Content",
-        "Content": "Your submitted data, including prayer records and profile information, remains your property. We only use this data to operate and improve the app experience."
-      },
-      "Termination": {
-        "Title": "Account Termination",
-        "Content": "You may delete your account at any time from the app settings. We reserve the right to suspend or remove accounts that violate these Terms."
-      },
-      "Changes": {
-        "Title": "Changes to Terms",
-        "Content": "We may update these Terms occasionally. If changes are significant, we’ll notify you in the app. Continued use of the app means you accept the updated Terms."
-      },
-      "Contact": {
-        "Title": "Contact Us",
-        "Content": "If you have any questions or concerns about these Terms, please email us at salahbm.dev@gmail.com"
-      }
+      "Help": "Point your phone towards Qibla and align with Kaaba",
+      "MagneticNorth": "Magnetic North",
+      "QiblaDirection": "Qibla Direction"
     },
-    "Privacy": {
-      "Title": "Privacy Policy",
-      "DataCollection": {
-        "Title": "Information We Collect",
-        "Content": "We collect only the information necessary to provide our services: your name, surname, username, email address, profile image, password, and prayer tracking data."
+    "PrayerTimes": {
+      "Errors": {
+        "Message": "Location permission is required to calculate prayer times",
+        "Title": "Permission Denied"
       },
-      "DataUse": {
-        "Title": "How We Use Your Information",
-        "Content": "Your information is used solely to enable core app features, such as tracking prayers and managing your profile. We do not use your data for advertising or share it with third parties."
+      "Location": {
+        "Fetching": "Fetching location...",
+        "Unknown": "Unknown"
       },
-      "DataSharing": {
-        "Title": "Information Sharing",
-        "Content": "We do not sell or share your personal data with third parties. All your information stays within Pray Tracker and is used only to support your experience in the app."
-      },
-      "Security": {
-        "Title": "Data Security",
-        "Content": "We use industry-standard methods to protect your personal data. While no system is completely secure, we take reasonable steps to keep your information safe."
-      },
-      "UserControl": {
-        "Title": "Your Choices",
-        "Content": "You have full control over your data. You can update or delete your account and personal information at any time through the app settings."
-      },
-      "Changes": {
-        "Title": "Changes to Privacy Policy",
-        "Content": "If we make any changes to this policy, we will let you know in the app. Continued use of Pray Tracker after updates means you accept the new policy."
-      },
-      "Contact": {
-        "Title": "Contact Us",
-        "Content": "For any questions about this Privacy Policy or how we handle your data, please email us at salahbm.dev@gmail.com"
-      }
+      "TimeLeft": "left until next prayer"
     },
-    "About": {
-      "Title": "About",
-      "Version": {
-        "Title": "Version Info",
-        "Number": "Version: {{version}}",
-        "Build": "Build: {{buildNumber}}",
-        "Released": "Released: March 2024"
-      },
-      "Mission": {
-        "Title": "Our Mission",
-        "Description": "Pray Tracker is dedicated to helping Muslims maintain their daily prayers, track their spiritual journey, and build a stronger connection with Allah. Our goal is to make prayer tracking simple, meaningful, and rewarding."
-      },
-      "Credits": {
-        "Title": "Credits",
-        "Description": "Developed with love and dedication by the Pray Tracker team. Special thanks to our community for their continuous support and feedback."
-      },
-      "Contact": {
-        "Title": "Connect With Us"
-      },
-      "BuyMeDates": "Buy Me Dates ",
-      "Feedback": "Send Feedback"
+    "Tabs": {
+      "Qibla": "Qibla Direction",
+      "Times": "Prayer Times"
     }
   }
 }

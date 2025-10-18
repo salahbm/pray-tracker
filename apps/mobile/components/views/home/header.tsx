@@ -13,7 +13,7 @@ import { AuthWrapper } from '@/providers/session';
 import { triggerHaptic } from '@/utils/haptics';
 
 interface HomeHeaderProps {
-  user?: { username: string; photo?: string }; // Add your user type here
+  user?: { name: string; photo?: string };
   today: Date;
   handlePresentSignIn: () => void;
 }
@@ -27,7 +27,7 @@ const HomeHeader = forwardRef<
     <View className={cn('flex-row items-center justify-between border-b border-border pb-5')}>
       <View>
         <Text numberOfLines={1} className={cn('text-xl font-bold max-w-[250px] truncate')}>
-          {user ? `Salaam, ${user.username} 👋` : `Salaam, ${t('Auth.Welcome.Guest')} 👋`}
+          {user ? `Salaam, ${user.name} 👋` : `Salaam, ${t('Auth.Welcome.Guest')} 👋`}
         </Text>
         <Text className={cn('text-muted-foreground')}>
           {today.toLocaleDateString(currentLanguage)}

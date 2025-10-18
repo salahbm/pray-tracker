@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
-import { agent } from '@/lib/agent';
+import agent from '@/lib/agent';
 
 import useMutation from '../common/useMutation';
 interface UploadImageArgs {
@@ -25,15 +25,14 @@ const uploadImage = async ({
     type: `image/${fileExt}`,
   } as any);
 
-  formData.append('fileExt', fileExt);
+  formData.append('fileExt', fileExt);  
   if (oldPath) formData.append('oldPath', oldPath);
 
-  const res = await agent(`/users/${userId}/avatar`, {
-    method: 'POST',
-    body: formData,
-  });
+  const res = await agent.post<{ photo: string }>(`/users/${userId}/avatar`, formData);
 
-  return res.data;
+
+  
+  return res;
 };
 
 export const useUploadImage = () => {

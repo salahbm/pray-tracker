@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { approvedFriendsList, pendingFriendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/agent';
+import  agent  from '@/lib/agent';
 import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
@@ -14,8 +14,7 @@ type TParams = {
 };
 
 const acceptRequest = async (data: TParams): Promise<IResponseArray<IResponse<IFriend>>> => {
-  const response = await agent('/friends/approve', {
-    method: 'POST',
+  const response = await agent.post('/friends/approve', {
     body: JSON.stringify({
       userId: data.userId,
       friendId: data.friendId,

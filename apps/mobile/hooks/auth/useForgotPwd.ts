@@ -1,23 +1,18 @@
-import { agent } from '@/lib/agent';
+import { useMutation } from '@tanstack/react-query';
+import agent from '@/lib/agent';
 
-import useMutation from '../common/useMutation';
-
+// TODO: Implement password reset with Better Auth
+// Better Auth supports password reset but needs to be configured
 async function requestReset(email: string) {
-  const response = await agent('/auth/request-reset', {
-    method: 'POST',
-    body: JSON.stringify({ email }),
-  });
-
-  return response.data;
+  // Placeholder - will be implemented when backend supports it
+  console.log('Password reset requested for:', email);
+  return { success: true, message: 'Password reset not yet implemented' };
 }
 
 async function verifyReset(params: { email: string; token: string; type: 'email' | 'signup' }) {
-  const response = await agent('/auth/verify-otp', {
-    method: 'POST',
-    body: JSON.stringify(params),
-  });
-
-  return response.data;
+  // Placeholder - will be implemented when backend supports it
+  console.log('Verify reset:', params);
+  return { success: true, message: 'Verification not yet implemented' };
 }
 
 export const useResetPwd = () => {

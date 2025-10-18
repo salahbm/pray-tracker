@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { agent } from '@/lib/agent';
+import agent from '@/lib/agent';
 
 export type Coordinates = {
   latitude: number;
@@ -25,10 +25,17 @@ const fetchPrayerTimes = async (
 
   if (!coords) return null;
 
-  const data = await agent(
-    `/prayers/times?lat=${coords.latitude}&lng=${coords.longitude}&tz=${timezone}`
-  );
-  return data;
+
+  const url = `https://api.aladhan.com/v1/timings?latitude=${coords.latitude}&longitude=${coords.longitude}&method=2&timezonestring=${timezone}`;
+
+  const response = await agent.get(url);
+  console.log(`file: useGetPayingTimes.ts:32 ~ response:`, response)
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch prayer times');
+  }
+
+  return response.data;
 };
 
 export const usePrayerTimes = (coords: Coordinates | null) => {

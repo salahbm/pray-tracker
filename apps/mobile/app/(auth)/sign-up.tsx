@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Image, View, Modal } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -26,23 +26,17 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   /** Handles sign-up with Better Auth */
-  const onSignUpPress = async () => {
-    try {
-      await mutateAsync({
+  const onSignUpPress = async () => await mutateAsync({
         email: form.email.trim(),
         password: form.password.trim(),
         name: form.name.trim(),
-      });
-      // if signup succeeds, Better Auth may auto-sign in
-      setShowSuccessModal(true);
-    } catch (err) {
-      console.warn('Sign-up failed', err);
-    }
-  };
+      }).then(() => setShowSuccessModal(true));
+
+
 
   return (
-    <>
-      <View className="w-full mt-8">
+    <Fragment>
+      <View className="w-full mt-16">
         <Text className="text-3xl font-bold text-primary mb-2 text-center">
           {t('Auth.SignUp.Title')}
         </Text>
@@ -85,7 +79,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         </Button>
       </View>
 
-      <View className="mt-8 flex flex-row justify-center items-center gap-4">
+      <View className="mt-2 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center">
           {t('Auth.SignUp.HasAccount')}
         </Text>
@@ -113,6 +107,6 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           </Button>
         </View>
       </Modal>
-    </>
+    </Fragment>
   );
 }

@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { pendingFriendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/agent';
+import  agent  from '@/lib/agent';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
@@ -14,8 +14,7 @@ type TParams = {
 };
 
 const rejectRequest = async (data: TParams): Promise<IResponseArray<IFriend>> => {
-  const response = await agent('/friends/reject', {
-    method: 'DELETE',
+  const response = await agent.delete('/friends/reject', {
     body: JSON.stringify({
       userId: data.userId,
       friendId: data.friendId,

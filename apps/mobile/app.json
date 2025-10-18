@@ -78,7 +78,7 @@
       "ko": "./locales/ko.json"
     },
     "extra": {
-      "apiUrl": "http://172.30.1.86:4000"
+      "apiUrl": "http://192.168.200.144:4000"
     }
   }
 }

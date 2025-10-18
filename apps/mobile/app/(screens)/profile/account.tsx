@@ -25,10 +25,12 @@ const Account = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleWithdrawAccount = async () => {
+    if (!user) return;
+    
     if (Platform.OS !== 'web') {
       await triggerHaptic();
     }
-    await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(() => {
+    await deleteUser({ id: user.id }).finally(() => {
       setModalVisible(false);
       router.replace('/(tabs)');
     });

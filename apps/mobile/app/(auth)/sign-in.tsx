@@ -6,7 +6,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
-import { useLoginUser } from '@/hooks/auth/useLogin';
+import { useLoginUser } from '@/hooks/auth/useSignIn';
 
 interface ISignIn {
   onSuccess: () => void;
@@ -32,7 +32,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
 
   return (
     <React.Fragment>
-      <View className="w-full mt-8">
+      <View className="w-full mt-16">
         <Text className="text-3xl font-bold text-primary mb-12 text-center">
           {t('Auth.SignIn.Title')}
         </Text>

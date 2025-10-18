@@ -68,12 +68,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   // QUERIES
-  const { user, setUser } = useAuthStore();
-  const {
-    data: userDB,
-    refetch: refetchUser,
-    isFetching: isUserFetching,
-  } = useGetUser(user?.supabaseId);
+  const { user } = useAuthStore();
 
   const {
     data: prays,
@@ -103,19 +98,19 @@ export default function HomeScreen() {
     await triggerHaptic();
     forgotPwdRef.current?.close();
     signUpSheetRef.current?.close();
-    signInSheetRef.current?.snapToIndex(2);
+    signInSheetRef.current?.snapToIndex(1);
   }, []);
 
   const handlePresentSignUp = useCallback(async () => {
     await triggerHaptic();
     signInSheetRef.current?.close();
-    signUpSheetRef.current?.snapToIndex(2);
+    signUpSheetRef.current?.snapToIndex(1);
   }, []);
 
   const handlePresentForgotPwd = useCallback(async () => {
     await triggerHaptic();
     signInSheetRef.current?.close();
-    forgotPwdRef.current?.snapToIndex(2);
+    forgotPwdRef.current?.snapToIndex(1);
   }, []);
 
   // FUNCTIONS
@@ -203,7 +198,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isLoadingPrays || isUserFetching} />
+      <Loader visible={isLoadingPrays} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}
@@ -211,13 +206,10 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            refreshing={isLoadingPrays || isUserFetching}
+            refreshing={isLoadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
-              refetchUser().then(() => {
-                setUser(userDB);
-              });
             }}
             tintColor={colors['--primary']}
           />

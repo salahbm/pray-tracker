@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { pendingFriendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/agent';
+import  agent  from '@/lib/agent';
 import { IResponse } from '@/types/api';
 import { IFriend } from '@/types/friends';
 import { TUser } from '@/types/user';
@@ -20,8 +20,7 @@ interface IFriendship {
 }
 
 const sendRequest = async (params: TParams): Promise<IResponse<IFriendship>> => {
-  const res = await agent('/friends/request', {
-    method: 'POST',
+  const res = await agent.post('/friends/request', {
     body: JSON.stringify({
       userId: params.userId,
       friendEmail: params.friendEmail,

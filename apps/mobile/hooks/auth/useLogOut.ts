@@ -1,15 +1,19 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
+import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
 
-import useMutation from '../common/useMutation';
-
 const logoutFn = async () => {
-  // Simulate async behavior (optional)
-  await new Promise(resolve => setTimeout(resolve, 25));
-
-  return { success: true };
+  try {
+    // Call backend sign-out endpoint
+    await agent.post('/auth/signout');
+    return { success: true };
+  } catch (error) {
+    console.error('Logout error:', error);
+    // Still return success to clear local state
+    return { success: true };
+  }
 };
 
 export const useLogout = () => {
@@ -18,14 +22,12 @@ export const useLogout = () => {
 
   const { mutate: logOut, isPending: isLoggingOut } = useMutation({
     mutationFn: logoutFn,
-    options: {
-      onMutate: () => {
-        queryClient.clear();
-      },
-      onSuccess: () => {
-        clearUserAndSession();
-        router.replace('/(tabs)');
-      },
+    onMutate: () => {
+      queryClient.clear();
+    },
+    onSuccess: () => {
+      clearUserAndSession();
+      router.replace('/(tabs)');
     },
   });
 

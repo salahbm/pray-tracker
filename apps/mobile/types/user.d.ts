@@ -1,15 +1,20 @@
 export type TUser = {
   id: string;
-  supabaseId: string;
   email: string;
-  password: string;
-  username: string;
+  name: string;
+  image?: string | null;
+  emailVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+  locale?: string;
+
+  // Legacy fields (optional for backward compatibility)
+  password?: string;
+  username?: string;
   firstName?: string;
   lastName?: string;
   photo?: string;
-  locale?: string;
-
-  totalPoints: number;
+  totalPoints?: number;
   deviceToken?: string;
 
   prays?: TPray[];

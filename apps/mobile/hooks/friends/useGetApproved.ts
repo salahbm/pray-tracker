@@ -1,14 +1,12 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { approvedFriendsList } from '@/constants/query-keys';
-import { agent } from '@/lib/agent';
+import  agent  from '@/lib/agent';
 import { IResponseArray } from '@/types/api';
 import { ApprovedFriend } from '@/types/friends';
 
 const getFriends = async (userId: string): Promise<IResponseArray<ApprovedFriend>> => {
-  const response = await agent(`/friends/approved?userId=${userId}`, {
-    method: 'GET',
-  });
+  const response = await agent.get(`/friends/approved?userId=${userId}`);
 
   return response;
 };

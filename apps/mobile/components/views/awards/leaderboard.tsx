@@ -7,23 +7,22 @@ import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
-import { useGetUsersList } from '@/hooks/awards/useGetUsers';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
 
 export default function Leaderboard() {
   const { t } = useTranslation();
-  const { data, isLoading, refetch } = useGetUsersList();
+  // const { data, isLoading, refetch } = useGetUsersList();
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
   return (
     <View className="main-area">
-      <Loader visible={isLoading} className="bg-transparent" />
+      {/* <Loader visible={isLoading} className="bg-transparent" /> */}
 
-      <FlatList
+      {/* <FlatList
         data={data?.data}
         keyExtractor={user => user.id.toString()}
         renderItem={({ item, index }) => (
@@ -53,7 +52,7 @@ export default function Leaderboard() {
             tintColor={colors['--primary']}
           />
         }
-      />
+      /> */}
 
       {/* User Details Modal */}
       {/* <Modal isVisible={!!selectedUser} onBackdropPress={() => setSelectedUser(null)}>

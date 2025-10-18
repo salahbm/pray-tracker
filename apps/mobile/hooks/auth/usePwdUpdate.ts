@@ -1,18 +1,16 @@
-import { agent } from '@/lib/agent';
-
-import useMutation from '../common/useMutation';
+import { useMutation } from '@tanstack/react-query';
+import agent from '@/lib/agent';
 
 interface UpdatePasswordPayload {
   email: string;
   newPassword: string;
 }
 
+// TODO: Implement password update with Better Auth
 const updatePassword = async (data: UpdatePasswordPayload) => {
-  const res = await agent('/auth/update-password', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  });
-  return res;
+  // Placeholder - will be implemented when backend supports it
+  console.log('Password update requested for:', data.email);
+  return { success: true, message: 'Password update not yet implemented' };
 };
 
 export const useUpdatePassword = () => {

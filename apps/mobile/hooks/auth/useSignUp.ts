@@ -21,9 +21,9 @@ export const useSignUp = () => {
 
   return useMutation({
     mutationFn: async (params: ISignUpParams) =>
-      agent.post<ISignUpResponse>('/api/auth/signup', params),
+      agent.post<ISignUpResponse>('/api/auth/sign-up/email', params),
     onSuccess: data => {
-      // Backend may not auto-login; only set user (no token yet)
+      // Better Auth auto-signs in after successful registration
       if (data?.user) setUser(data.user);
     },
   });

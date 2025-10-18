@@ -115,6 +115,7 @@ model Friend {
   friend    User @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
 
   @@unique([userId, friendId])
+  @@map("friend")
 }
 
 enum FriendStatus {
