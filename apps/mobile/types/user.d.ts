@@ -39,11 +39,9 @@ export type TPray = {
   updatedAt: Date;
 };
 
-
 export type TFriend = {
   id: string;
   userId: string;
   friendId: string;
   status: 'PENDING' | 'APPROVED' | 'REJECTED';
 };
-

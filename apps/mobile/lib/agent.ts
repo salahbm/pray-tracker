@@ -71,7 +71,10 @@ class Agent {
   }
 
   /** Construct full URL with query params */
-  private createUrl(endpoint: string, params?: Record<string, string | number | boolean | undefined>): string {
+  private createUrl(
+    endpoint: string,
+    params?: Record<string, string | number | boolean | undefined>
+  ): string {
     const currentLanguage = i18n.language;
     const normalized = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
     const url = `${this.baseUrl.replace(/\/$/, '')}/${normalized}`;
@@ -106,11 +109,11 @@ class Agent {
     method: HttpMethod,
     endpoint: string,
     body?: unknown,
-    options: RequestOptions = {},
+    options: RequestOptions = {}
   ): Promise<T> {
     const { headers = {}, params, signal, cache } = options;
     const url = this.createUrl(endpoint, params);
-    console.log(`file: agent.ts:113 ~ url:`, url)
+    console.log(`file: agent.ts:113 ~ url:`, url);
 
     const config: RequestInit = {
       method,

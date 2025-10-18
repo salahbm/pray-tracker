@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View , Modal} from 'react-native';
+import { Image, View, Modal } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -50,8 +50,6 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           {t('Auth.SignUp.Subtitle')}
         </Text>
 
-      
-
         <Input
           label={t('Auth.Username.Label')}
           className="mb-4"
@@ -60,7 +58,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           onChangeText={name => setForm({ ...form, name })}
         />
 
-<Input
+        <Input
           label={t('Auth.Email.Label')}
           value={form.email}
           onChangeText={email => setForm({ ...form, email })}
@@ -85,7 +83,6 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           <Loader visible={isPending} size="small" />
           <Text>{t('Auth.SignUp.Button')}</Text>
         </Button>
-
       </View>
 
       <View className="mt-8 flex flex-row justify-center items-center gap-4">
@@ -101,9 +98,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
       <Modal visible={showSuccessModal} onDismiss={() => setShowSuccessModal(false)}>
         <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
           <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
-          <Text className="text-3xl font-bold text-center">
-            {t('Auth.SignUp.Success.Title')}
-          </Text>
+          <Text className="text-3xl font-bold text-center">{t('Auth.SignUp.Success.Title')}</Text>
           <Text className="text-base text-muted-foreground text-center mt-2">
             {t('Auth.SignUp.Success.Message')}
           </Text>

@@ -20,11 +20,11 @@ export const useSignUp = () => {
   const { setUser } = useAuthStore();
 
   return useMutation({
-    mutationFn: async (params: ISignUpParams) => agent.post<ISignUpResponse>('/api/auth/signup', params),
-    onSuccess: (data) => {
+    mutationFn: async (params: ISignUpParams) =>
+      agent.post<ISignUpResponse>('/api/auth/signup', params),
+    onSuccess: data => {
       // Backend may not auto-login; only set user (no token yet)
       if (data?.user) setUser(data.user);
     },
   });
-
 };
