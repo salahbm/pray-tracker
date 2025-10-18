@@ -25,8 +25,11 @@
       "@/*": ["./src/*"],
       "@lib/*": ["./src/lib/*"],
       "@constants/*": ["./src/constants/*"],
-      "@prisma/*": ["./generated/prisma/*"],
       "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/config/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@common/*": ["./src/common/*"],
+      "@db/*": ["./src/db/*"],
     }
   }
 }
