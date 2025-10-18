@@ -1,10 +1,10 @@
-import * as React from "react";
-import Svg, { G, Circle, Rect, Ellipse, Path, Line } from "react-native-svg";
-import { useColorScheme } from "react-native";
+import * as React from 'react';
+import Svg, { G, Circle, Rect, Ellipse, Path, Line } from 'react-native-svg';
+import { useColorScheme } from 'react-native';
 
 export const TrackIllustration = () => {
   const scheme = useColorScheme();
-  const color = scheme === "dark" ? "#8BC34A" : "#00C853";
+  const color = scheme === 'dark' ? '#8BC34A' : '#00C853';
 
   return (
     <Svg width={720} height={540} viewBox="0 0 720 540">
@@ -20,15 +20,7 @@ export const TrackIllustration = () => {
 
       {/* Card */}
       <G>
-        <Rect
-          x="165"
-          y="110"
-          width="390"
-          height="300"
-          rx="24"
-          fill={color}
-          opacity={0.06}
-        />
+        <Rect x="165" y="110" width="390" height="300" rx="24" fill={color} opacity={0.06} />
         <Rect
           x="165"
           y="110"
@@ -39,15 +31,7 @@ export const TrackIllustration = () => {
           strokeWidth={2}
           opacity={0.16}
         />
-        <Rect
-          x="165"
-          y="110"
-          width="390"
-          height="56"
-          rx="24"
-          fill={color}
-          opacity={0.1}
-        />
+        <Rect x="165" y="110" width="390" height="56" rx="24" fill={color} opacity={0.1} />
       </G>
 
       {/* Dots example */}

@@ -31,7 +31,6 @@ import SignInScreen from '../(auth)/sign-in';
 import SignUpScreen from '../(auth)/sign-up';
 import ProfilePage from '../(screens)/profile';
 
-
 const initialState = {
   prayers: {
     [SALAHS.FAJR]: null,
@@ -269,8 +268,6 @@ export default function HomeScreen() {
             pointerEvents: 'none',
           }}
         />
-
-
       </ScrollView>
       {/* BOTTOM SHEET */}
       <CustomBottomSheet sheetRef={signInSheetRef}>
