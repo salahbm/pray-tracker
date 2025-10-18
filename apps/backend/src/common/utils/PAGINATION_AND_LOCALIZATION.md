@@ -68,16 +68,19 @@ interface PaginatedResponse<T> {
 #### Functions
 
 **`parsePaginationParams(query)`**
+
 - Parses page and limit from query parameters
 - Returns: `{ skip, take, page }`
 - Default: page=1, limit=10
 - Max limit: 100
 
 **`createPaginatedResponse(data, total, page, limit)`**
+
 - Creates a standardized paginated response
 - Returns: `{ data, meta }`
 
 **`calculatePaginationMeta(total, page, limit)`**
+
 - Calculates pagination metadata
 - Returns: `PaginationMeta`
 
@@ -186,14 +189,17 @@ interface ErrorResponse {
 ### Functions
 
 **`createSuccessResponse(data, message?)`**
+
 - Creates a standardized success response
 - Returns: `{ success: true, data, message? }`
 
 **`createErrorResponse(error, message, statusCode, path?)`**
+
 - Creates a standardized error response
 - Returns: `ErrorResponse`
 
 **`getLocaleFromRequest(headers)`**
+
 - Extracts locale from request headers
 - Checks: `accept-language` or `locale` header
 - Returns: `'en' | 'uz' | 'ru' | 'kr'`
@@ -204,6 +210,7 @@ interface ErrorResponse {
 ### How It Works
 
 1. **Client sends locale** in request header:
+
    ```
    Accept-Language: uz
    # or
@@ -243,19 +250,19 @@ All error messages are defined in `error-messages.ts`:
 ### Adding New Error Messages
 
 1. Add error key to `ErrorKey` type:
+
 ```typescript
-export type ErrorKey =
-  | 'EXISTING_KEY'
-  | 'NEW_ERROR_KEY';
+export type ErrorKey = 'EXISTING_KEY' | 'NEW_ERROR_KEY';
 ```
 
 2. Add translations to `ERROR_MESSAGES`:
+
 ```typescript
 export const ERROR_MESSAGES: ErrorMessages = {
   // ... existing messages
   NEW_ERROR_KEY: {
     en: 'Error message in English',
-    uz: 'Xato xabari o\'zbekcha',
+    uz: "Xato xabari o'zbekcha",
     ru: 'Сообщение об ошибке на русском',
     kr: '한국어 오류 메시지',
   },
@@ -300,6 +307,7 @@ curl -X GET http://localhost:4000/users/invalid-id \
 ```
 
 Response:
+
 ```json
 {
   "success": false,
@@ -319,6 +327,7 @@ curl -X GET http://localhost:4000/users/invalid-id \
 ```
 
 Response:
+
 ```json
 {
   "success": false,
@@ -338,6 +347,7 @@ curl -X GET http://localhost:4000/users/invalid-id \
 ```
 
 Response:
+
 ```json
 {
   "success": false,
@@ -357,6 +367,7 @@ curl -X GET http://localhost:4000/users/invalid-id \
 ```
 
 Response:
+
 ```json
 {
   "success": false,

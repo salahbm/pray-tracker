@@ -12,7 +12,7 @@ interface IUserParams {
 
 const updateUser = async (params: IUserParams) => {
   if (!params.id) return null;
-  
+
   const { id, ...updateData } = params;
   const response = await agent.patch(`/users/${id}`, updateData);
   return response;
@@ -20,7 +20,7 @@ const updateUser = async (params: IUserParams) => {
 
 export const usePutUser = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: updateUser,
     onSuccess: async () => {

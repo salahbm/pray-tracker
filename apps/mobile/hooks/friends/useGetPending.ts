@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { pendingFriendsList } from '@/constants/query-keys';
-import  agent  from '@/lib/agent';
+import agent from '@/lib/agent';
 import { IResponse } from '@/types/api';
 import { FriendRequestResponse } from '@/types/friends';
 

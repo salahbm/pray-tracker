@@ -19,23 +19,20 @@ interface ISignInResponse {
 }
 
 async function signInWithEmail(params: IUserLogin): Promise<ISignInResponse> {
-  const response = await agent.post<ISignInResponse>(
-    '/api/auth/sign-in/email',
-    params
-  );
+  const response = await agent.post<ISignInResponse>('/api/auth/sign-in/email', params);
   return response;
 }
 
 export const useLoginUser = () => {
   const queryClient = useQueryClient();
   const { setUser, setSession } = useAuthStore();
-  
+
   return useMutation({
     mutationFn: signInWithEmail,
-    onSuccess: async (data) => {
+    onSuccess: async data => {
       setUser(data.user);
       setSession(data.session as any);
       queryClient.invalidateQueries({ queryKey: [userKeys] });
-    }
+    },
   });
 };

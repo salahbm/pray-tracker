@@ -12,7 +12,7 @@ export function AuthWrapper({ mode, children }: AuthWrapperProps) {
 
   // Better Auth uses HTTP-only cookies for session management
   // We only need to check if user exists (session is handled by cookies)
-  
+
   // If mode === 'signedIn', we only render children if we have a user
   if (mode === 'signedIn' && user) {
     return <>{children}</>;

@@ -17,7 +17,7 @@ const deleteUser = async (params: IUserDelete) => {
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
   const { logOut } = useLogout();
-  
+
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: async () => {

@@ -2,7 +2,7 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import  agent  from '@/lib/agent';
+import agent from '@/lib/agent';
 
 export interface User {
   id: string;

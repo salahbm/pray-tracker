@@ -5,10 +5,12 @@ import { Linking, Text, TouchableOpacity, View } from 'react-native';
 
 import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
 
 const ProfilePage = () => {
   const { colors } = useThemeStore();
   const { t } = useTranslation();
+  const { profileSheetRef } = useProfileBottomSheetStore();
 
   const handleLink = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Error opening link:', err));

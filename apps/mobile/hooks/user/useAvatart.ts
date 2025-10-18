@@ -25,13 +25,11 @@ const uploadImage = async ({
     type: `image/${fileExt}`,
   } as any);
 
-  formData.append('fileExt', fileExt);  
+  formData.append('fileExt', fileExt);
   if (oldPath) formData.append('oldPath', oldPath);
 
   const res = await agent.post<{ photo: string }>(`/users/${userId}/avatar`, formData);
 
-
-  
   return res;
 };
 

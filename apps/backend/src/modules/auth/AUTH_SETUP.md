@@ -99,8 +99,8 @@ The `AuthGuard` protects routes by:
 It validates the session cookie and attaches user info to the request:
 
 ```typescript
-request['user'] // Current user object
-request['session'] // Current session object
+request['user']; // Current user object
+request['session']; // Current session object
 ```
 
 ### 3. Validation
@@ -218,16 +218,19 @@ To enhance the authentication system, consider:
 ## Troubleshooting
 
 ### Session not persisting
+
 - Ensure cookies are enabled in your client
 - Check CORS configuration includes `credentials: true`
 - Verify `BETTER_AUTH_URL` matches your frontend URL
 
 ### Validation errors
+
 - Check DTO definitions match your request payload
 - Ensure all required fields are provided
 - Review validation pipe configuration in `main.ts`
 
 ### Database errors
+
 - Run `prisma generate` after schema changes
 - Ensure database migrations are up to date
 - Check Prisma connection string in `.env`

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@/hooks/common/useMutation';
-import  agent  from '@/lib/agent';
+import agent from '@/lib/agent';
 
 import { User } from './useGetUser';
 

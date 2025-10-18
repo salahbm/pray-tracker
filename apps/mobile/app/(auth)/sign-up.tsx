@@ -26,13 +26,12 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   /** Handles sign-up with Better Auth */
-  const onSignUpPress = async () => await mutateAsync({
-        email: form.email.trim(),
-        password: form.password.trim(),
-        name: form.name.trim(),
-      }).then(() => setShowSuccessModal(true));
-
-
+  const onSignUpPress = async () =>
+    await mutateAsync({
+      email: form.email.trim(),
+      password: form.password.trim(),
+      name: form.name.trim(),
+    }).then(() => setShowSuccessModal(true));
 
   return (
     <Fragment>

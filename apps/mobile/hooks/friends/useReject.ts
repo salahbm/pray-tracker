@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { pendingFriendsList } from '@/constants/query-keys';
-import  agent  from '@/lib/agent';
+import agent from '@/lib/agent';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 

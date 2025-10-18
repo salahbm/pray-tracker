@@ -32,11 +32,11 @@ const upsertPrayer = async (data: PrayData): Promise<IPrays> => {
 
 export const useCreatePray = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: upsertPrayer,
     // Optimistic update: update cache immediately before API call
-    onMutate: async (newPrayer) => {
+    onMutate: async newPrayer => {
       const todayKey = [todaysPrayKey, praysListKeys];
       const dateStr = format(newPrayer.date, 'yyyy-MM-dd');
       const isToday = dateStr === format(new Date(), 'yyyy-MM-dd');
@@ -86,10 +86,7 @@ export const useCreatePray = () => {
     // On error, rollback to previous values
     onError: (err, newPrayer, context) => {
       if (context?.previousTodayPrayer) {
-        queryClient.setQueryData(
-          [todaysPrayKey, praysListKeys],
-          context.previousTodayPrayer
-        );
+        queryClient.setQueryData([todaysPrayKey, praysListKeys], context.previousTodayPrayer);
       }
       if (context?.previousPrayers) {
         queryClient.setQueryData([praysListKeys], context.previousPrayers);

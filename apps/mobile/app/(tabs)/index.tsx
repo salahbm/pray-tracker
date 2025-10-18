@@ -1,5 +1,4 @@
 import confetti from '@assets/gif/confetti.json';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import LottieView from 'lottie-react-native';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
@@ -8,7 +7,6 @@ import { ScrollView } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
 import Loader from '@/components/shared/loader';
 import AreaChart from '@/components/views/home/area-chart';
@@ -20,16 +18,12 @@ import { useCurrentDate } from '@/hooks/common/useCurrentDate';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
-import { useGetUser } from '@/hooks/user/useGetUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
-import ForgotPasswordScreen from '../(auth)/forgot-pwd';
-import SignInScreen from '../(auth)/sign-in';
-import SignUpScreen from '../(auth)/sign-up';
-import ProfilePage from '../(screens)/profile';
+import { useAuthBottomSheetStore } from '@/store/bottom-sheets';
 
 const initialState = {
   prayers: {
@@ -45,7 +39,7 @@ const initialState = {
   accordion: '',
 };
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: { type: string; payload?: any }) {
   switch (action.type) {
     case 'SET_PRAYERS':
       return { ...state, prayers: action.payload };
@@ -81,10 +75,7 @@ export default function HomeScreen() {
   const { mutateAsync: createPray, isPending: isCreatingPray } = useCreatePray();
 
   // BOTTOM SHEETS REFERENCES
-  const signInSheetRef = useRef<BottomSheet>(null);
-  const signUpSheetRef = useRef<BottomSheet>(null);
-  const forgotPwdRef = useRef<BottomSheet>(null);
-  const profileSheetRef = useRef<BottomSheet>(null);
+  const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
   const homeRef = useRef<ScrollView>(null);
@@ -158,7 +149,7 @@ export default function HomeScreen() {
   );
 
   const handleUpdateClickedDay = useCallback(
-    async (date, details) => {
+    async (date: string, details: { data: DayData }) => {
       if (!details || !details.data) return;
       await triggerHaptic();
 
@@ -216,12 +207,7 @@ export default function HomeScreen() {
         }
       >
         {/* HEADER */}
-        <HomeHeader
-          today={today}
-          user={user}
-          handlePresentSignIn={handlePresentSignIn}
-          ref={profileSheetRef}
-        />
+        <HomeHeader today={today} user={user} handlePresentSignIn={handlePresentSignIn} />
         {/* Today's Prayers */}
         <TodaysPray
           prayers={prayers}
@@ -261,32 +247,6 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
-      {/* BOTTOM SHEET */}
-      <CustomBottomSheet sheetRef={signInSheetRef}>
-        <SignInScreen
-          onSuccess={() => signInSheetRef.current?.close()}
-          onNavigate={handlePresentSignUp}
-          onForgotPassword={handlePresentForgotPwd}
-        />
-      </CustomBottomSheet>
-      {/* SIGN UP SHEET */}
-      <CustomBottomSheet sheetRef={signUpSheetRef}>
-        <SignUpScreen
-          onSuccess={() => signUpSheetRef.current?.close()}
-          onNavigate={handlePresentSignIn}
-        />
-      </CustomBottomSheet>
-      {/* FORGOT  PASSWORD  SHEET */}
-      <CustomBottomSheet sheetRef={forgotPwdRef}>
-        <ForgotPasswordScreen
-          onNavigate={handlePresentSignIn}
-          onSuccess={() => forgotPwdRef.current?.close()}
-        />
-      </CustomBottomSheet>
-      {/* PROFILE */}
-      <CustomBottomSheet sheetRef={profileSheetRef}>
-        <ProfilePage />
-      </CustomBottomSheet>
     </SafeAreaView>
   );
 }

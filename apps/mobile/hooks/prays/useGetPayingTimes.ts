@@ -25,11 +25,9 @@ const fetchPrayerTimes = async (
 
   if (!coords) return null;
 
-
   const url = `https://api.aladhan.com/v1/timings?latitude=${coords.latitude}&longitude=${coords.longitude}&method=2&timezonestring=${timezone}`;
 
   const response = await agent.get(url);
-  console.log(`file: useGetPayingTimes.ts:32 ~ response:`, response)
 
   if (!response.ok) {
     throw new Error('Failed to fetch prayer times');
@@ -42,8 +40,8 @@ export const usePrayerTimes = (coords: Coordinates | null) => {
   return useQuery({
     queryKey: ['prayerTimes', coords],
     queryFn: () => fetchPrayerTimes(coords),
-    staleTime: 1000 * 60 * 60, // Cache data for 1 hour
-    retry: 1, // Retry once on failurer
+    staleTime: 1000 * 60 * 15, // Cache data for 15 minutes
+    retry: 2,
     enabled: !!coords,
   });
 };

@@ -4,7 +4,7 @@ import { StyleProp, View, ViewStyle } from 'react-native';
 import { AnimatedStyle } from 'react-native-reanimated';
 
 interface IBottomSheet {
-  sheetRef: React.RefObject<BottomSheet>;
+  sheetRef: null | React.RefObject<BottomSheet>;
   index?: number;
   snapPoints?: string[];
   handleSheetChange?: (index: number) => void;
@@ -38,7 +38,7 @@ const CustomBottomSheet = ({
       snapPoints={snapPoints}
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
-      style={bottomSheetStyle}
+      style={[{ zIndex: 1 }, bottomSheetStyle]}
       containerStyle={{ zIndex: 10000 }}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={backdropProps => (

@@ -11,18 +11,17 @@ import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
 import { triggerHaptic } from '@/utils/haptics';
+import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
 
 interface HomeHeaderProps {
   user?: { name: string; photo?: string };
   today: Date;
   handlePresentSignIn: () => void;
 }
-const HomeHeader = forwardRef<
-  BottomSheetMethods | BottomSheet | null, // Correct type for the ref
-  HomeHeaderProps & React.ComponentPropsWithoutRef<typeof View>
->(({ user, today, handlePresentSignIn }, profileSheetRef) => {
+const HomeHeader = ({ user, today, handlePresentSignIn }: HomeHeaderProps) => {
   const { currentLanguage } = useLanguage();
   const { t } = useTranslation();
+  const { profileSheetRef } = useProfileBottomSheetStore();
   return (
     <View className={cn('flex-row items-center justify-between border-b border-border pb-5')}>
       <View>
@@ -39,7 +38,7 @@ const HomeHeader = forwardRef<
           onPress={async () => {
             if (profileSheetRef && 'current' in profileSheetRef && profileSheetRef.current) {
               await triggerHaptic();
-              profileSheetRef.current.snapToIndex(2);
+              profileSheetRef.current.snapToIndex(1);
             }
           }}
         >
@@ -69,7 +68,7 @@ const HomeHeader = forwardRef<
               if (profileSheetRef && 'current' in profileSheetRef && profileSheetRef.current) {
                 await triggerHaptic();
 
-                profileSheetRef.current.snapToIndex(2);
+                profileSheetRef.current.snapToIndex(1);
               }
             }}
           >
@@ -84,7 +83,7 @@ const HomeHeader = forwardRef<
       </AuthWrapper>
     </View>
   );
-});
+}
 
 // Add display name for debugging
 HomeHeader.displayName = 'HomeHeader';

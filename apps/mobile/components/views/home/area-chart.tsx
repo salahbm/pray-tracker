@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
 
-const AreaChart = ({ lineData }: { lineData: IPrays[] }) => {
+const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
 

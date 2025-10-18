@@ -3,6 +3,7 @@
 ## What Has Been Implemented
 
 ### 1. Authentication System
+
 - ✅ Better Auth integration with email/password authentication
 - ✅ Session-based authentication with HTTP-only cookies
 - ✅ Auth guard for protecting routes
@@ -10,6 +11,7 @@
 - ✅ Automatic auth routes via Better Auth (`/api/auth/*`)
 
 ### 2. User Management
+
 - ✅ Complete CRUD operations for users
 - ✅ User profile management
 - ✅ User statistics endpoint
@@ -17,6 +19,7 @@
 - ✅ Protected endpoints with AuthGuard
 
 ### 3. Pagination System
+
 - ✅ Standardized pagination utilities
 - ✅ Consistent paginated response format
 - ✅ Metadata (page, limit, total, hasNextPage, etc.)
@@ -24,6 +27,7 @@
 - ✅ Configurable page size (max 100)
 
 ### 4. Localization System
+
 - ✅ Multi-language error messages (en, uz, ru, kr)
 - ✅ Global exception filter
 - ✅ Automatic locale detection from headers
@@ -31,6 +35,7 @@
 - ✅ Consistent error response format
 
 ### 5. Validation
+
 - ✅ Global validation pipe
 - ✅ DTO validation with class-validator
 - ✅ Automatic request validation
@@ -88,17 +93,20 @@ apps/backend/
 ## API Endpoints
 
 ### Authentication (Better Auth - Automatic)
+
 - `POST /api/auth/sign-up/email` - Register new user
 - `POST /api/auth/sign-in/email` - Sign in
 - `POST /api/auth/sign-out` - Sign out
 - `GET /api/auth/session` - Get session
 
 ### Authentication (Custom)
+
 - `GET /auth/me` - Get current user
 - `POST /auth/signout` - Custom sign out
 - `GET /auth/sessions` - List active sessions
 
 ### Users (All Protected)
+
 - `GET /users/me` - Get current user profile
 - `GET /users/me/stats` - Get current user statistics
 - `PATCH /users/me` - Update current user profile
@@ -168,6 +176,7 @@ curl -X GET "http://localhost:4000/users?page=1&limit=10&search=john" \
 ```
 
 Response:
+
 ```json
 {
   "data": [...],
@@ -197,6 +206,7 @@ curl -X PATCH http://localhost:4000/users/me \
 ## Localization
 
 ### Supported Languages
+
 - `en` - English (default)
 - `uz` - Uzbek
 - `ru` - Russian
@@ -205,6 +215,7 @@ curl -X PATCH http://localhost:4000/users/me \
 ### Setting Locale
 
 Send locale in request header:
+
 ```bash
 -H "Accept-Language: uz"
 # or
@@ -256,6 +267,7 @@ npx prisma studio
 ## Key Features
 
 ### 🔐 Security
+
 - Session-based authentication
 - HTTP-only cookies
 - CORS protection
@@ -263,18 +275,21 @@ npx prisma studio
 - Request validation and sanitization
 
 ### 📊 Pagination
+
 - Consistent pagination across all list endpoints
 - Configurable page size (max 100)
 - Metadata with navigation info
 - Search and filter support
 
 ### 🌍 Internationalization
+
 - Multi-language error messages
 - Automatic locale detection
 - Extensible translation system
 - Consistent error format
 
 ### ✅ Validation
+
 - Automatic DTO validation
 - Type-safe request handling
 - Whitelist unknown properties
@@ -329,6 +344,7 @@ npx prisma studio
 ## Support
 
 For questions or issues:
+
 1. Check the documentation files
 2. Review the code comments
 3. Test with the provided curl examples

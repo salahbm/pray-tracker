@@ -28,7 +28,7 @@ interface PrayerHistoryProps {
   clickedData: ClickedData;
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData }) => void;
-  data: IPrays[];
+  data?: IPrays[];
   handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
   dispatch: React.Dispatch<{ type: string; payload?: unknown }>;
   isCreatingPray: boolean;
@@ -60,7 +60,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
     dispatch({ type: 'TOGGLE_PICKER' });
   };
 
-  const setAccordionState = newAccordion => {
+  const setAccordionState = (newAccordion: string) => {
     dispatch({ type: 'SET_ACCORDION', payload: newAccordion });
   };
 
