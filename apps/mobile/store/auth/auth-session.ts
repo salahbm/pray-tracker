@@ -2,10 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { TStoredUser, TUser } from '@/types/user';
+import { TUser } from '@/types/user';
 
 interface AuthState {
-  user: TStoredUser | null; // Changed from TUser to TStoredUser
+  user: TUser | null;
   session: { access_token: string; refresh_token: string } | null;
   setUser: (user: TUser | null) => void;
   setSession: (session: { access_token: string; refresh_token: string } | null) => void;
@@ -24,7 +24,7 @@ export const useAuthStore = create<AuthState>()(
         }
         // Omit password when storing user
         const { password: _, ...storedUser } = user;
-        set({ user: storedUser });
+        set({ user: { ...storedUser, password: '' } });
       },
       setSession: (session: { access_token: string; refresh_token: string } | null) =>
         set({ session }),

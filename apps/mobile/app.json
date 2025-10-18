@@ -62,10 +62,7 @@
           "icon": "./assets/images/icon-light-rounded.png",
           "color": "#ffffff",
           "defaultChannel": "default",
-          "sounds": [
-            "./assets/notification_sound.wav",
-            "./assets/notification_sound_other.wav"
-          ],
+          "sounds": ["./assets/notification_sound.wav", "./assets/notification_sound_other.wav"],
           "enableBackgroundRemoteNotifications": true
         }
       ]
@@ -79,6 +76,9 @@
       "ru": "./locales/ru.json",
       "uz": "./locales/uz.json",
       "ko": "./locales/ko.json"
+    },
+    "extra": {
+      "apiUrl": "http://172.30.1.86:4000"
     }
   }
 }

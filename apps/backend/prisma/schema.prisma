@@ -21,10 +21,19 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  locale        String?    @default("en")
+
+  prayers       Prayer[]
+  totalPoints   Int?       @default(0)
+
+  sentRequests     Friend[] @relation("user_friends") 
+  receivedRequests Friend[] @relation("friend_friends")
+
   sessions      Session[]
   accounts      Account[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
 
   @@unique([email])
   @@map("user")
@@ -73,4 +82,43 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+model Prayer {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime
+  fajr      Int?
+  dhuhr     Int?
+  asr       Int?
+  maghrib   Int?
+  isha      Int?
+  nafl      Int?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("prayer")
+}
+
+
+model Friend {
+  id        String       @id @default(cuid())
+  userId    String
+  friendId  String
+  status    FriendStatus @default(PENDING)
+
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
+  friend    User @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+
+  @@unique([userId, friendId])
+}
+
+enum FriendStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "user" ALTER COLUMN "locale" DROP NOT NULL,
+ALTER COLUMN "totalPoints" DROP NOT NULL;

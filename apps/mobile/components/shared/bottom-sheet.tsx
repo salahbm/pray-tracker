@@ -23,7 +23,7 @@ interface IBottomSheet {
 
 const CustomBottomSheet = ({
   sheetRef,
-  snapPoints = ['50%', '90%', '100%'],
+  snapPoints = ['90%', '100%'],
   handleSheetChange,
   children,
   bottomSheetStyle,

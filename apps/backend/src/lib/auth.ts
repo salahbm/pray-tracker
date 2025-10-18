@@ -10,11 +10,20 @@ export const auth = betterAuth({
   url: process.env.BETTER_AUTH_URL, // Used to build callback URLs & cookies
   secret: process.env.BETTER_AUTH_SECRET,
   // Where requests will be routed (keep default for now → /api/auth/*)
-  // basePath: "/api/auth",
+  basePath: '/api/auth',
+  appName: 'Pray Tracker',
+
+  trustedOrigins: ORIGINS,
+
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
   // Enable simple email+password to start. (We'll add OAuth/Passkeys later.)
-  emailAndPassword: { enabled: true },
-  trustedOrigins: ORIGINS,
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true,
+    requireEmailVerification: false,
+    minPasswordLength: 8,
+    maxPasswordLength: 20,
+  },
 });
