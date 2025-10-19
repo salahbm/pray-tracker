@@ -18,7 +18,16 @@ export type ErrorKey =
   | 'INVALID_EMAIL'
   | 'REQUIRED_FIELD'
   | 'INVALID_INPUT'
-  | 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL';
+  | 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL'
+  | 'FRIEND_REQUEST_SENT'
+  | 'FRIEND_REQUEST_ACCEPTED'
+  | 'FRIEND_REQUEST_REJECTED'
+  | 'FRIEND_REMOVED'
+  | 'FRIEND_REQUEST_ALREADY_EXISTS'
+  | 'FRIEND_REQUEST_NOT_FOUND'
+  | 'CANNOT_SEND_REQUEST_TO_SELF'
+  | 'ALREADY_FRIENDS'
+  | 'FRIEND_NOT_FOUND';
 
 type ErrorMessages = Record<ErrorKey, Record<Locale, string>>;
 
@@ -130,6 +139,60 @@ export const ERROR_MESSAGES: ErrorMessages = {
     uz: 'Foydalanuvchi allaqachon mavjud. Boshqa emaildan foydalaning',
     ru: 'Пользователь уже существует. Используйте другой email',
     kr: '사용자가 이미 존재합니다. 다른 이메일을 사용하세요',
+  },
+  FRIEND_REQUEST_SENT: {
+    en: 'Friend request sent successfully',
+    uz: "Do'stlik so'rovi muvaffaqiyatli yuborildi",
+    ru: 'Запрос на добавление в друзья отправлен',
+    kr: '친구 요청이 성공적으로 전송되었습니다',
+  },
+  FRIEND_REQUEST_ACCEPTED: {
+    en: 'Friend request accepted',
+    uz: "Do'stlik so'rovi qabul qilindi",
+    ru: 'Запрос на добавление в друзья принят',
+    kr: '친구 요청이 수락되었습니다',
+  },
+  FRIEND_REQUEST_REJECTED: {
+    en: 'Friend request rejected',
+    uz: "Do'stlik so'rovi rad etildi",
+    ru: 'Запрос на добавление в друзья отклонен',
+    kr: '친구 요청이 거부되었습니다',
+  },
+  FRIEND_REMOVED: {
+    en: 'Friend removed successfully',
+    uz: "Do'st muvaffaqiyatli o'chirildi",
+    ru: 'Друг успешно удален',
+    kr: '친구가 성공적으로 제거되었습니다',
+  },
+  FRIEND_REQUEST_ALREADY_EXISTS: {
+    en: 'Friend request already exists',
+    uz: "Do'stlik so'rovi allaqachon mavjud",
+    ru: 'Запрос на добавление в друзья уже существует',
+    kr: '친구 요청이 이미 존재합니다',
+  },
+  FRIEND_REQUEST_NOT_FOUND: {
+    en: 'Friend request not found',
+    uz: "Do'stlik so'rovi topilmadi",
+    ru: 'Запрос на добавление в друзья не найден',
+    kr: '친구 요청을 찾을 수 없습니다',
+  },
+  CANNOT_SEND_REQUEST_TO_SELF: {
+    en: 'You cannot send a friend request to yourself',
+    uz: "O'zingizga do'stlik so'rovi yubora olmaysiz",
+    ru: 'Вы не можете отправить запрос на добавление в друзья самому себе',
+    kr: '자신에게 친구 요청을 보낼 수 없습니다',
+  },
+  ALREADY_FRIENDS: {
+    en: 'You are already friends',
+    uz: "Siz allaqachon do'stsiz",
+    ru: 'Вы уже друзья',
+    kr: '이미 친구입니다',
+  },
+  FRIEND_NOT_FOUND: {
+    en: 'Friend not found',
+    uz: "Do'st topilmadi",
+    ru: 'Друг не найден',
+    kr: '친구를 찾을 수 없습니다',
   },
 };
 

@@ -13,16 +13,10 @@ type TParams = {
   userId: string;
 };
 
-const rejectRequest = async (data: TParams): Promise<IResponseArray<IFriend>> => {
-  const response = await agent.delete('/friends/reject', {
-    body: JSON.stringify({
-      userId: data.userId,
-      friendId: data.friendId,
-      friendshipId: data.friendshipId,
-    }),
-  });
-  return response;
-};
+const rejectRequest = async (data: TParams): Promise<IResponseArray<IFriend>> =>
+  await agent.delete<IResponseArray<IFriend>>(
+    `/friends/reject?friendId=${data.friendId}&friendshipId=${data.friendshipId}&userId=${data.userId}`
+  );
 
 export const useRejectRequest = () => {
   const queryClient = useQueryClient();

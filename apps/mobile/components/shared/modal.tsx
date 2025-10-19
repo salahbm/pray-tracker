@@ -1,60 +1,61 @@
 import React from 'react';
-import { Modal as RNModal, Platform } from 'react-native';
+import {
+  Modal as RNModal,
+  Dimensions,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ModalProps,
+} from 'react-native';
 
-interface IModalProps {
+interface IModalProps extends ModalProps {
+  visible: boolean;
   children: React.ReactNode;
-  animationIn?: string;
-  animationOut?: string;
-  animationInTiming?: number;
-  animationOutTiming?: number;
-  backdropTransitionInTiming?: number;
-  backdropTransitionOutTiming?: number;
-  backdropColor?: string;
-  backdropOpacity?: number;
-  avoidKeyboard?: boolean;
-  isVisible?: boolean;
-  onBackdropPress?: () => void;
-  onBackButtonPress?: () => void;
-  useNativeDriver?: boolean;
-  useNativeDriverForBackdrop?: boolean;
-  hideModalContentWhileAnimating?: boolean;
-  className?: string;
 }
 
-const Modal: React.FC<IModalProps> = ({
-  children,
-  animationIn = 'zoomIn',
-  animationOut = 'zoomOut',
-  animationInTiming = 1,
-  animationOutTiming = 1,
-  backdropTransitionInTiming = 1,
-  backdropTransitionOutTiming = 0,
-  backdropColor = 'rgba(0, 0, 0, 0.3)',
-  backdropOpacity = 0.5,
-  avoidKeyboard = true,
-  className,
-  ...props
-}) => {
+const Modal: React.FC<IModalProps> = ({ visible, children, onRequestClose, ...props }) => {
   return (
     <RNModal
-      // animationIn={animationIn}
-      // animationOut={animationOut}
-      // animationInTiming={animationInTiming}
-      // animationOutTiming={animationOutTiming}
-      // backdropTransitionInTiming={backdropTransitionInTiming}
-      // backdropTransitionOutTiming={backdropTransitionOutTiming}
-      backdropColor={backdropColor}
-      // backdropOpacity={backdropOpacity}
-      className={className}
-      // avoidKeyboard={avoidKeyboard}
-      useNativeDriver={Platform.OS !== 'web'}
-      useNativeDriverForBackdrop={Platform.OS !== 'web'}
-      hideModalContentWhileAnimating={true}
+      visible={visible}
+      transparent
+      animationType="fade"
+      statusBarTranslucent
+      onRequestClose={onRequestClose}
       {...props}
     >
-      {children}
+      <View style={styles.overlay}>
+        <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={onRequestClose} />
+
+        <View style={styles.content} className="bg-muted overflow-hidden">
+          {children}
+        </View>
+      </View>
     </RNModal>
   );
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  backdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
+  content: {
+    width: Dimensions.get('window').width * 0.9,
+    maxWidth: 420,
+    borderRadius: 16,
+    elevation: 8,
+    zIndex: 2,
+  },
+});
 
 export default Modal;

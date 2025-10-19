@@ -15,6 +15,11 @@ const QueryKeys = {
     approved: ['friends', 'approved'],
     pending: ['friends', 'pending'],
   },
+  leaderboard: {
+    global: ['leaderboard', 'global'],
+    friends: ['leaderboard', 'friends'],
+    rank: ['leaderboard', 'rank'],
+  },
   pro: {
     all: ['pro'],
     detail: ['pro', 'detail'],

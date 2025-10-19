@@ -58,7 +58,6 @@ const PrayerTimer = () => {
 
   const { timeLeft, currentPrayer } = useTimeLeft(prayerTimes as PrayerTimes);
 
-
   const prayers = useMemo(
     () => [
       {
@@ -95,10 +94,12 @@ const PrayerTimer = () => {
     [prayerTimes]
   );
 
-  if (loading) { 
-    return <View className="items-center h-full">
-      <Loader visible={loading} className='bg-background' />
-    </View>;
+  if (loading) {
+    return (
+      <View className="items-center h-full">
+        <Loader visible={loading} className="bg-background" />
+      </View>
+    );
   }
 
   if (error || !prayerTimes) {

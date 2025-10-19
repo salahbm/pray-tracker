@@ -6,6 +6,8 @@ import { auth } from '@/lib/auth';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/user.module';
 import { PrayersModule } from './modules/prayers/prayers.module';
+import { FriendsModule } from './modules/friends/friends.module';
+import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { PrayersModule } from './modules/prayers/prayers.module';
     AuthModule,
     UsersModule,
     PrayersModule,
+    FriendsModule,
+    LeaderboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

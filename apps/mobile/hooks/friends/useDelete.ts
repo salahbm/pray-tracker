@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { approvedFriendsList } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
@@ -12,15 +12,10 @@ type TParams = {
   friendshipId: string;
 };
 
-const deleteFriend = async (data: TParams): Promise<IResponseArray<IFriend>> => {
-  const response = await agent.delete('/friends/delete', {
-    body: JSON.stringify({
-      friendId: data.friendId,
-      friendshipId: data.friendshipId,
-    }),
-  });
-  return response;
-};
+const deleteFriend = async (data: TParams): Promise<IResponseArray<IFriend>> =>
+  await agent.delete<IResponseArray<IFriend>>(
+    `/friends/remove?friendId=${data.friendId}&friendshipId=${data.friendshipId}`
+  );
 
 export const useDeleteFriend = () => {
   const queryClient = useQueryClient();
@@ -29,7 +24,7 @@ export const useDeleteFriend = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [approvedFriendsList],
+          queryKey: QueryKeys.friends.approved,
         });
       },
     },

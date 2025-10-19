@@ -22,7 +22,7 @@ interface State {
   loading: boolean;
   error: string | null;
   magnetAngle: number; // heading (0..360)
-  qiblaAngle: number;  // absolute bearing to Kaaba (0..360)
+  qiblaAngle: number; // absolute bearing to Kaaba (0..360)
 }
 
 type Action =
@@ -61,9 +61,9 @@ const reducer: Reducer<State, Action> = (state, action) => {
 const SIZE = 256;
 const RADIUS = SIZE / 2.2;
 // Visual offsets
-const DOT_RADIUS = 5;           // dot size for pointer tip
-const RING_INSET = 15;           // how far inside the ring the dot sits (positive = inside)
-const KAABA_GAP = 15;           // how far outside the ring the Kaaba sits
+const DOT_RADIUS = 5; // dot size for pointer tip
+const RING_INSET = 15; // how far inside the ring the dot sits (positive = inside)
+const KAABA_GAP = 15; // how far outside the ring the Kaaba sits
 
 // Convert bearing (clockwise from North) to RN visual rotation
 // This fixes the “mirrored” (left/right) feeling in RN transforms.
@@ -115,7 +115,8 @@ const QiblaCompass: React.FC = () => {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
       if (!isMagnetAvailable) {
         fireToast.error(
-          t('Qibla.Compass.Errors.MagnetometerUnavailable') || 'Magnetometer not available on this device.'
+          t('Qibla.Compass.Errors.MagnetometerUnavailable') ||
+            'Magnetometer not available on this device.'
         );
         dispatch({ type: 'STOP_LOADING' });
         return;
@@ -163,10 +164,12 @@ const QiblaCompass: React.FC = () => {
     }
   }, [state.error]);
 
-  if (state.loading) { 
-    return <View className="items-center h-full">
-      <Loader visible={state.loading} className='bg-background' />
-    </View>;
+  if (state.loading) {
+    return (
+      <View className="items-center h-full">
+        <Loader visible={state.loading} className="bg-background" />
+      </View>
+    );
   }
 
   // Precompute visual rotations (fixes mirror)
@@ -178,7 +181,9 @@ const QiblaCompass: React.FC = () => {
       <Text
         className={cn(
           'text-lg mt-20 text-muted-foreground',
-          Math.abs(Math.round(state.magnetAngle) - Math.round(state.qiblaAngle)) <= 2 ? 'font-bold' : 'font-medium'
+          Math.abs(Math.round(state.magnetAngle) - Math.round(state.qiblaAngle)) <= 2
+            ? 'font-bold'
+            : 'font-medium'
         )}
       >
         {t('Qibla.Compass.YourDirection')}: {state.magnetAngle.toFixed(1)}°
@@ -236,7 +241,7 @@ const QiblaCompass: React.FC = () => {
               transform: [{ translateY: -(RADIUS + KAABA_GAP) }, { rotate: `-${qiblaVisual}deg` }],
             }}
           >
-            <Kaaba width={40} height={40} fill={colors['--primary']}/>
+            <Kaaba width={40} height={40} fill={colors['--primary']} />
           </View>
         </View>
       </View>

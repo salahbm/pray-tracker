@@ -7,35 +7,50 @@ import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
+import { FRIENDS } from '@/constants/images';
+import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
 
 export default function Leaderboard() {
   const { t } = useTranslation();
-  // const { data, isLoading, refetch } = useGetUsersList();
+  const { user } = useAuthStore();
+  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 100);
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
   return (
     <View className="main-area">
-      {/* <Loader visible={isLoading} className="bg-transparent" /> */}
+      <Loader visible={isLoading} className="bg-transparent" />
 
-      {/* <FlatList
+      <FlatList
         data={data?.data}
-        keyExtractor={user => user.id.toString()}
+        keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => setSelectedUser(item)}>
             <View
               className={cn(
                 'flex-row items-center justify-between px-4 py-3 rounded-lg border',
-                index === 0 ? 'bg-muted border-primary' : 'bg-popover border-border opacity-90'
+                index === 0
+                  ? 'bg-muted border-primary'
+                  : item.id === user?.id
+                    ? 'bg-muted/50 border-primary/50'
+                    : 'bg-popover border-border opacity-90'
               )}
             >
-              <Text className="text-lg font-semibold">{index + 1}.</Text>
-              <Text className="text-lg font-semibold">{item.username}</Text>
-              <Text className="text-lg">
+              <Text className="text-lg font-semibold w-10">{index + 1}.</Text>
+              <Image
+                source={{ uri: item.photo }}
+                className="size-10 rounded-full bg-muted max-w-10 max-h-10"
+                defaultSource={FRIENDS.guest}
+              />
+              <Text className="text-base font-semibold flex-1 ml-3" numberOfLines={1}>
+                {item.username}
+              </Text>
+              <Text className="text-base font-bold">
                 {item.totalPoints} {t('Awards.Leaderboard.Points')}
               </Text>
             </View>
@@ -52,26 +67,25 @@ export default function Leaderboard() {
             tintColor={colors['--primary']}
           />
         }
-      /> */}
+      />
 
       {/* User Details Modal */}
-      {/* <Modal isVisible={!!selectedUser} onBackdropPress={() => setSelectedUser(null)}>
+      <Modal visible={!!selectedUser} onRequestClose={() => setSelectedUser(null)}>
         <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-8">
           <Image
             source={{ uri: selectedUser?.photo }}
             className="w-16 h-16 rounded-full border border-border max-w-16 max-h-16"
+            defaultSource={FRIENDS.guest}
           />
           <View>
             <Text className="text-xl font-bold">{selectedUser?.username}</Text>
             <Text className="text-lg text-muted-foreground">
               {t('Awards.Leaderboard.UserDetails.Points')}: {selectedUser?.totalPoints}
             </Text>
-            <Text className="text-sm text-muted-foreground">
-              {selectedUser?.firstName} {selectedUser?.lastName}
-            </Text>
+            <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
           </View>
         </View>
-      </Modal> */}
+      </Modal>
     </View>
   );
 }

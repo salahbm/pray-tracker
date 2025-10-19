@@ -37,18 +37,20 @@ const FriendsApproved = () => {
     data: approvedFriends,
     isLoading: isLoadingApproved,
     refetch: refetchApproved,
-  } = useGetApprovedFriends(user?.id);
+  } = useGetApprovedFriends(user?.id ?? '');
   const { mutateAsync: sendFriendRequest, isPending: isSending } = useRequest();
   const { mutateAsync: deleteFriend, isPending: isDeleting } = useDeleteFriend();
   const [friendEmail, setFriendEmail] = useState('');
-  const [accordionValue, setAccordionValue] = useState<string[] | null>(null);
+  const [accordionValue, setAccordionValue] = useState<string[]>([]);
   const handleSendRequest = async () => {
     if (!friendEmail.trim()) {
       fireToast.error(t('Friends.Pro.InvalidEmail'));
       return;
     }
+    if (!user?.id) return;
+
     await sendFriendRequest({
-      userId: user?.id,
+      userId: user.id,
       friendEmail: friendEmail.trim(),
     }).then(() => {
       setFriendEmail('');
@@ -108,7 +110,7 @@ const FriendsApproved = () => {
       <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
       {isLoadingApproved ? (
         <Loader visible className="mt-[100%] bg-transparent" />
-      ) : approvedFriends?.data.length > 0 ? (
+      ) : approvedFriends?.data && approvedFriends.data.length > 0 ? (
         approvedFriends?.data.map(friend => (
           <SwiperButton
             key={friend.friend.friendshipId}
@@ -146,30 +148,27 @@ const FriendsApproved = () => {
                   </View>
                 </AccordionTrigger>
                 <AccordionContent>
-                  {friend?.prays.map(salah => {
-                    const prayerEntries = Object.entries(salah).filter(([key]) =>
-                      [
-                        SALAHS.FAJR,
-                        SALAHS.DHUHR,
-                        SALAHS.ASR,
-                        SALAHS.MAGHRIB,
-                        SALAHS.ISHA,
-                        SALAHS.NAFL,
-                      ].includes(key as SALAHS)
-                    );
-
-                    return prayerEntries.map(([prayer, value]) => (
-                      <View key={prayer} className="flex-row items-center justify-between py-1">
+                  {friend?.prays.length > 0 ? (
+                    [
+                      { name: SALAHS.FAJR, value: friend.prays[0].fajr },
+                      { name: SALAHS.DHUHR, value: friend.prays[0].dhuhr },
+                      { name: SALAHS.ASR, value: friend.prays[0].asr },
+                      { name: SALAHS.MAGHRIB, value: friend.prays[0].maghrib },
+                      { name: SALAHS.ISHA, value: friend.prays[0].isha },
+                      { name: SALAHS.NAFL, value: friend.prays[0].nafl },
+                    ].map(({ name, value }) => (
+                      <View key={name} className="flex-row items-center justify-between py-1">
                         <Text className={cn('capitalize font-semibold')}>
-                          {t(`Commons.Salahs.${prayer}`)}
+                          {t(`Commons.Salahs.${name}`)}
                         </Text>
 
                         <View className="flex-row gap-4">
                           {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
                             val => (
                               <Checkbox
-                                key={`${prayer}-${val}`}
+                                key={`${name}-${val}`}
                                 value={value === val}
+                                disabled
                                 color={
                                   value === val
                                     ? val === PRAYER_POINTS.ON_TIME
@@ -184,8 +183,12 @@ const FriendsApproved = () => {
                           )}
                         </View>
                       </View>
-                    ));
-                  })}
+                    ))
+                  ) : (
+                    <Text className="text-sm text-muted-foreground text-center py-2">
+                      {t('Friends.Pro.NoPrayers')}
+                    </Text>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

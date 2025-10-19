@@ -84,11 +84,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
             />
           )}
         />
-        <Button
-          className="mb-4"
-          disabled={isPending}
-          onPress={form.handleSubmit(onSignInPress)}
-        >
+        <Button className="mb-4" disabled={isPending} onPress={form.handleSubmit(onSignInPress)}>
           <Loader visible={isPending} size="small" />
           <Text className="font-bold">{t('Auth.SignIn.Button')}</Text>
         </Button>

@@ -123,32 +123,35 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           <Text>{t('Auth.SignUp.SignInLink')}</Text>
         </Button>
 
-      {/* ✅ SUCCESS MODAL */}
-      <Modal
-        visible={showSuccessModal}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setShowSuccessModal(false)}
-        onDismiss={() => setShowSuccessModal(false)}
-        statusBarTranslucent
-      >
-        <View className='    flex-1 justify-center items-center bg-[rgba(0,0,0,0.5)]'>
-          <TouchableOpacity className='absolute top-0 left-0 right-0 bottom-0 z-1 ' activeOpacity={1} onPress={() => setShowSuccessModal(false)} />
-          <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px] max-h-screen-safe w-[95%] mx-auto">
-            <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
-            <Text className="text-3xl font-bold text-center">{t('Auth.SignUp.Success.Title')}</Text>
-            <Text className="text-base text-muted-foreground text-center mt-2">
-              {t('Auth.SignUp.Success.Message')}
-            </Text>
-            <Button
+        {/* ✅ SUCCESS MODAL */}
+        <Modal
+          visible={showSuccessModal}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setShowSuccessModal(false)}
+          onDismiss={() => setShowSuccessModal(false)}
+          statusBarTranslucent
+        >
+          <View className="    flex-1 justify-center items-center bg-[rgba(0,0,0,0.5)]">
+            <TouchableOpacity
+              className="absolute top-0 left-0 right-0 bottom-0 z-1 "
+              activeOpacity={1}
               onPress={() => setShowSuccessModal(false)}
-              className="mt-5"
-            >
-              <Text>{t('Auth.SignUp.Success.Button')}</Text>
-            </Button>
+            />
+            <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px] max-h-screen-safe w-[95%] mx-auto">
+              <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
+              <Text className="text-3xl font-bold text-center">
+                {t('Auth.SignUp.Success.Title')}
+              </Text>
+              <Text className="text-base text-muted-foreground text-center mt-2">
+                {t('Auth.SignUp.Success.Message')}
+              </Text>
+              <Button onPress={() => setShowSuccessModal(false)} className="mt-5">
+                <Text>{t('Auth.SignUp.Success.Button')}</Text>
+              </Button>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
       </View>
     </Fragment>
   );

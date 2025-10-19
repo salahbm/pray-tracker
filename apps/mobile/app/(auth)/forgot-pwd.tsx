@@ -54,10 +54,7 @@ export default function ForgotPasswordScreen({
           textContentType="emailAddress"
           spellCheck={false}
         />
-        <Button
-          onPress={onResetPassword}
-          disabled={isRequestPending || isVerifyPending}
-        >
+        <Button onPress={onResetPassword} disabled={isRequestPending || isVerifyPending}>
           <Loader visible={isRequestPending} size="small" />
           <Text className="font-bold">{t('Auth.ForgotPassword.Button')}</Text>
         </Button>
