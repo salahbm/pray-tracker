@@ -81,7 +81,8 @@ const Settings = () => {
           </Text>
 
           <Text className="text-base text-muted-foreground ml-2">
-            {FLAGS[currentLanguage as keyof typeof FLAGS]} {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
+            {FLAGS[currentLanguage as keyof typeof FLAGS]}{' '}
+            {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
           </Text>
         </TouchableOpacity>
         {/* <AuthWrapper mode="signedIn">

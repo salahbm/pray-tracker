@@ -41,7 +41,13 @@ const CustomBottomSheet = ({
       style={[{ zIndex: 1 }, bottomSheetStyle]}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={backdropProps => (
-        <BottomSheetBackdrop {...backdropProps} appearsOnIndex={0} disappearsOnIndex={-1} enableTouchThrough={true} opacity={opacity} />
+        <BottomSheetBackdrop
+          {...backdropProps}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          enableTouchThrough={true}
+          opacity={opacity}
+        />
       )}
       handleComponent={() => (
         <View className="bg-muted flex justify-center rounded-t-md py-4">

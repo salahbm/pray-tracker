@@ -19,7 +19,7 @@ const getTodayPray = async (params: TPraysParams): Promise<IPrays> => {
 
 export const useGetTodayPrays = (id: string) =>
   useQuery({
-    queryKey: [...QueryKeys.prays.today, {id}],
+    queryKey: [...QueryKeys.prays.today, { id }],
     queryFn: () => getTodayPray({ id }),
     placeholderData: keepPreviousData,
     enabled: !!id,

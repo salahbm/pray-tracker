@@ -84,8 +84,6 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
 
   return (
     <React.Fragment>
-    
-
       <View className="mt-6">
         <View className="flex flex-row justify-between items-center mb-4">
           <Text className={cn('text-xl font-semibold')}>{t('Home.PrayerHistory.Title')}</Text>
@@ -95,12 +93,12 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
         </View>
 
         <YearPicker
-        visible={isYearPickerVisible}
-        value={year}
-        minYear={1980}
-        onConfirm={handleYearConfirm}
-        onCancel={handleYearCancel}
-      />
+          visible={isYearPickerVisible}
+          value={year}
+          minYear={1980}
+          onConfirm={handleYearConfirm}
+          onCancel={handleYearCancel}
+        />
 
         <HeatMap
           data={transformedData ?? null}

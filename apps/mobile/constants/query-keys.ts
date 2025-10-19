@@ -1,28 +1,24 @@
-
-
-
 const QueryKeys = {
-  users:{
-    all: ['users'] ,
-    detail: ['users', 'detail'] ,
+  users: {
+    all: ['users'],
+    detail: ['users', 'detail'],
   },
   awards: {
-    all: ['awards'] ,
-    detail: ['awards', 'detail'] ,
+    all: ['awards'],
+    detail: ['awards', 'detail'],
   },
-  prays:{
-    list: ['prays', 'list'] ,
-    today: ['prays', 'today'] ,
+  prays: {
+    list: ['prays', 'list'],
+    today: ['prays', 'today'],
   },
-  friends:{
-    approved: ['friends', 'approved'] ,
-    pending: ['friends', 'pending'] ,
+  friends: {
+    approved: ['friends', 'approved'],
+    pending: ['friends', 'pending'],
   },
-  pro:{
-    all: ['pro'] ,
-    detail: ['pro', 'detail'] ,
-  }
+  pro: {
+    all: ['pro'],
+    detail: ['pro', 'detail'],
+  },
 };
-
 
 export default QueryKeys;

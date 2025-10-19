@@ -24,13 +24,13 @@ export const LANGUAGES = {
 
 export function Language() {
   const { changeLanguage, currentLanguage } = useLanguage();
-  console.log(`file: language.tsx:27 ~ currentLanguage:`, currentLanguage)
+  console.log(`file: language.tsx:27 ~ currentLanguage:`, currentLanguage);
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { mutateAsync: updateUser } = usePutUser();
 
   const handleUpdateLocale = async (locale: string) => {
-    console.log(`file: language.tsx:33 ~ locale:`, locale)
+    console.log(`file: language.tsx:33 ~ locale:`, locale);
     changeLanguage(locale); // update UI instantly
 
     if (user) {
@@ -54,7 +54,7 @@ export function Language() {
           onPress={() => handleUpdateLocale(lang)}
           className={cn('flex-row items-center gap-2 w-full justify-between')}
         >
-          <Text className={cn('text-md text-foreground',currentLanguage === lang && 'font-bold')}>
+          <Text className={cn('text-md text-foreground', currentLanguage === lang && 'font-bold')}>
             {LANGUAGES[lang as keyof typeof LANGUAGES]}
           </Text>
           <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>

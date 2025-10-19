@@ -23,16 +23,14 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
   const { profileSheetRef } = useProfileBottomSheetStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
 
+  // Callbacks to present each sheet
+  const handlePresentSignIn = useCallback(async () => {
+    await triggerHaptic();
+    forgotPwdRef.current?.close();
+    signUpSheetRef.current?.close();
+    signInSheetRef.current?.snapToIndex(1);
+  }, []);
 
-   // Callbacks to present each sheet
-    const handlePresentSignIn = useCallback(async () => {
-      await triggerHaptic();
-      forgotPwdRef.current?.close();
-      signUpSheetRef.current?.close();
-      signInSheetRef.current?.snapToIndex(1);
-    }, []);
-
-    
   return (
     <View className={cn('flex-row items-center justify-between border-b border-border pb-5')}>
       <View>
@@ -94,7 +92,7 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
       </AuthWrapper>
     </View>
   );
-}
+};
 
 // Add display name for debugging
 HomeHeader.displayName = 'HomeHeader';

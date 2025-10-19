@@ -40,9 +40,7 @@ export default function ForgotPasswordScreen({
     setShowOtpModal(true);
   }, [email, sendRequest]);
 
-  const handlePressVerify = useCallback(async () => {
- 
-  }, []);
+  const handlePressVerify = useCallback(async () => {}, []);
 
   return (
     <React.Fragment>

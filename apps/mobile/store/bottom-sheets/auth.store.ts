@@ -6,8 +6,6 @@ type AuthBottomSheetState = {
   signInSheetRef: React.RefObject<BottomSheet | null>;
   signUpSheetRef: React.RefObject<BottomSheet | null>;
   forgotPwdRef: React.RefObject<BottomSheet | null>;
-
-
 };
 
 export const useAuthBottomSheetStore = create<AuthBottomSheetState>(() => {

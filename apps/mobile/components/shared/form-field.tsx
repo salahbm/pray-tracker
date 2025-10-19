@@ -1,5 +1,12 @@
 import React, { memo } from 'react';
-import { Controller, Control, FieldValues, Path, FieldPath, ControllerRenderProps } from 'react-hook-form';
+import {
+  Controller,
+  Control,
+  FieldValues,
+  Path,
+  FieldPath,
+  ControllerRenderProps,
+} from 'react-hook-form';
 import { View, ActivityIndicator } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -24,7 +31,7 @@ type FormFieldProps<T extends FieldValues> = {
 /**
  * Cross-platform version of shadcn/ui FormField for React Native + Expo
  */
- const FormField = memo(<T extends FieldValues>(props: FormFieldProps<T>) => {
+const FormField = memo(<T extends FieldValues>(props: FormFieldProps<T>) => {
   const {
     control,
     name,
@@ -51,7 +58,11 @@ type FormFieldProps<T extends FieldValues> = {
             </Text>
           )}
 
-          {loading ? <View className="py-2 h-10 w-full rounded-md border border-input bg-muted animate-pulse" /> : render({ field, fieldState, formState })}
+          {loading ? (
+            <View className="py-2 h-10 w-full rounded-md border border-input bg-muted animate-pulse" />
+          ) : (
+            render({ field, fieldState, formState })
+          )}
 
           {message && (
             <Text className={cn('text-muted-foreground text-xs mt-1', messageClassName)}>
@@ -66,6 +77,6 @@ type FormFieldProps<T extends FieldValues> = {
       )}
     />
   );
-})
+});
 
 export default FormField as <T extends FieldValues>(props: FormFieldProps<T>) => React.ReactElement;

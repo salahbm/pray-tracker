@@ -24,7 +24,6 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
-
 const initialState = {
   prayers: {
     [SALAHS.FAJR]: null,
@@ -70,7 +69,6 @@ export default function HomeScreen() {
     refetch: refetchPrays,
   } = useGetPrays(user?.id!, year);
 
-  
   const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!);
 
   // MUTATIONS
@@ -84,8 +82,6 @@ export default function HomeScreen() {
   // Reducer for state management
   const [state, dispatch] = useReducer(reducer, initialState);
   const { prayers, isPickerVisible, clickedData, accordion } = state;
-
- 
 
   // FUNCTIONS
   const handlePrayerChange = useCallback(

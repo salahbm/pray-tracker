@@ -99,7 +99,8 @@ const Welcome = () => {
                   <View className="touchable px-6">
                     <TouchableOpacity onPress={() => langRef.current?.snapToIndex(1)}>
                       <Text className="text-base text-muted-foreground ml-2">
-                        {FLAGS[currentLanguage as keyof typeof FLAGS]} {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
+                        {FLAGS[currentLanguage as keyof typeof FLAGS]}{' '}
+                        {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => themeRef.current?.snapToIndex(1)}>

@@ -21,7 +21,7 @@ const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
 };
 
 export const useGetPrays = (id: string, year: number) => {
-  const queryKey = [...QueryKeys.prays.list, {id, year}];
+  const queryKey = [...QueryKeys.prays.list, { id, year }];
   const result = useQuery({
     queryKey,
     queryFn: () => getPraysList({ id, year }),
@@ -39,5 +39,3 @@ export const useGetPrays = (id: string, year: number) => {
 
   return result;
 };
-
-

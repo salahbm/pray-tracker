@@ -14,27 +14,25 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
   const { profileSheetRef } = useProfileBottomSheetStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
 
+  // Callbacks to present each sheet
+  const handlePresentSignIn = useCallback(async () => {
+    await triggerHaptic();
+    forgotPwdRef.current?.close();
+    signUpSheetRef.current?.close();
+    signInSheetRef.current?.snapToIndex(1);
+  }, []);
 
- // Callbacks to present each sheet
-    const handlePresentSignIn = useCallback(async () => {
-      await triggerHaptic();
-      forgotPwdRef.current?.close();
-      signUpSheetRef.current?.close();
-      signInSheetRef.current?.snapToIndex(1);
-    }, []);
-  
-    const handlePresentSignUp = useCallback(async () => {
-      await triggerHaptic();
-      signInSheetRef.current?.close();
-      signUpSheetRef.current?.snapToIndex(1);
-    }, []);
-  
-    const handlePresentForgotPwd = useCallback(async () => {
-      await triggerHaptic();
-      signInSheetRef.current?.close();
-      forgotPwdRef.current?.snapToIndex(1);
-    }, []);
+  const handlePresentSignUp = useCallback(async () => {
+    await triggerHaptic();
+    signInSheetRef.current?.close();
+    signUpSheetRef.current?.snapToIndex(1);
+  }, []);
 
+  const handlePresentForgotPwd = useCallback(async () => {
+    await triggerHaptic();
+    signInSheetRef.current?.close();
+    forgotPwdRef.current?.snapToIndex(1);
+  }, []);
 
   return (
     <Fragment>

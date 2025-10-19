@@ -1,10 +1,10 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import i18n from '@/i18n.config';
-import * as z from "zod/v4";
+import * as z from 'zod/v4';
 import { useLanguage } from '@/hooks/common/useTranslation';
 
 export function I18nProvider({ children }: PropsWithChildren) {
-  const {currentLanguage} = useLanguage();
+  const { currentLanguage } = useLanguage();
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {

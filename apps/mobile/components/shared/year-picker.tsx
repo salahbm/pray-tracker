@@ -1,6 +1,4 @@
-import React, {
-  useRef, useState, useMemo, useEffect, useCallback, memo,
-} from 'react';
+import React, { useRef, useState, useMemo, useEffect, useCallback, memo } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -78,13 +76,7 @@ const Row = memo(function Row({
   );
 });
 
-const YearPicker: React.FC<Props> = ({
-  visible,
-  value,
-  minYear = 2000,
-  onConfirm,
-  onCancel,
-}) => {
+const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm, onCancel }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
 
@@ -102,7 +94,7 @@ const YearPicker: React.FC<Props> = ({
 
   // animated drivers
   const scrollY = useRef(new Animated.Value(0)).current; // drives highlight
-  const animY = useRef(new Animated.Value(0)).current;   // drives programmatic snap
+  const animY = useRef(new Animated.Value(0)).current; // drives programmatic snap
   const animListenerRef = useRef<string | null>(null);
   const lastYRef = useRef(0); // last observed offset for smooth starts
 
@@ -146,7 +138,7 @@ const YearPicker: React.FC<Props> = ({
     }
     if (didInitialScrollRef.current) return;
 
-    const index = years.findIndex((y) => y === value);
+    const index = years.findIndex(y => y === value);
     if (index < 0) return;
 
     const task = InteractionManager.runAfterInteractions(() => {
@@ -326,12 +318,7 @@ const YearPicker: React.FC<Props> = ({
       <View style={styles.overlay}>
         <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={handleCancel} />
 
-        <View
-          style={[
-            styles.content,
-            { backgroundColor: colors['--background'] },
-          ]}
-        >
+        <View style={[styles.content, { backgroundColor: colors['--background'] }]}>
           <View className="px-4 py-6">
             <Text style={[styles.title, { color: colors['--foreground'] }]}>
               {t('Commons.YearPicker.Title')}
@@ -363,17 +350,14 @@ const YearPicker: React.FC<Props> = ({
                 maxToRenderPerBatch={12}
                 windowSize={9}
                 onMomentumScrollEnd={onMomentumEnd}
-                onScroll={Animated.event(
-                  [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                  {
-                    useNativeDriver: true,
-                    listener: onScrollLogical,
-                  }
-                )}
+                onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+                  useNativeDriver: true,
+                  listener: onScrollLogical,
+                })}
                 scrollEventThrottle={16}
                 // ✅ Keep the vertical padding so index/offset math can ignore TOP_PAD
                 contentContainerStyle={{ paddingVertical: TOP_PAD }}
-                onScrollToIndexFailed={(info) => {
+                onScrollToIndexFailed={info => {
                   const count = years.length;
                   const safeIndex = clamp(info.index, 0, count - 1);
                   setTimeout(() => {
@@ -402,11 +386,18 @@ const YearPicker: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   overlay: {
-    flex: 1, justifyContent: 'center', alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   backdrop: {
-    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
   },
   content: {
     width: Dimensions.get('window').width * 0.9,
@@ -428,15 +419,22 @@ const styles = StyleSheet.create({
   indicator: {
     position: 'absolute',
     top: '50%',
-    left: 0, right: 0,
+    left: 0,
+    right: 0,
     transform: [{ translateY: -ITEM_HEIGHT / 2 }],
     height: ITEM_HEIGHT,
-    borderTopWidth: 2, borderBottomWidth: 2, borderRadius: 8,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderRadius: 8,
     zIndex: 5,
   },
   row: { justifyContent: 'center', alignItems: 'center' },
   buttonsRow: {
-    marginTop: 16, flexDirection: 'row', justifyContent: 'flex-end', gap: 8, zIndex: 6,
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+    zIndex: 6,
   },
 });
 

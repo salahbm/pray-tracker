@@ -16,7 +16,6 @@ const ProfilePage = () => {
     Linking.openURL(url).catch(err => console.error('Error opening link:', err));
   };
 
-
   const handleNavigate = (screen: string) => {
     profileSheetRef.current?.close();
     router.push(screen as RelativePathString);

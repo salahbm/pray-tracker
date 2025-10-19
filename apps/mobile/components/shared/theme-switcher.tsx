@@ -49,66 +49,70 @@ const ThemeSwitcher = () => {
         const isActive = currentTheme === theme;
 
         return (
-
-             <Pressable onPress={() => handlePress(theme)}  className={cn('flex-row w-full items-center justify-between')} key={theme}>
+          <Pressable
+            onPress={() => handlePress(theme)}
+            className={cn('flex-row w-full items-center justify-between')}
+            key={theme}
+          >
             <View className="flex-row items-center gap-1">
-              <Text className={cn('text-md text-foreground',isActive ? 'font-bold' : 'font-normal ')}>
+              <Text
+                className={cn('text-md text-foreground', isActive ? 'font-bold' : 'font-normal ')}
+              >
                 {t(`Commons.Themes.${theme}`)}
               </Text>
             </View>
-              <Animated.View
+            <Animated.View
+              style={{
+                transform: [{ scale: scales[theme] }],
+                width: 100,
+                height: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <View
                 style={{
-                  transform: [{ scale: scales[theme] }],
-                  width: 100,
+                  width: 20,
                   height: 20,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexShrink: 0,
+                  borderStartStartRadius: 4,
+                  borderBottomLeftRadius: 4,
+                  backgroundColor: themeStyles['--primary'],
                 }}
-              >
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    borderStartStartRadius: 4,
-                    borderBottomLeftRadius: 4,
-                    backgroundColor: themeStyles['--primary'],
-                  }}
-                />
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: themeStyles['--background'],
-                  }}
-                />
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: themeStyles['--accent'],
-                  }}
-                />
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: themeStyles['--destructive'],
-                  }}
-                />
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    borderEndEndRadius: 4,
-                    borderTopRightRadius: 4,
-                    backgroundColor: themeStyles['--foreground'],
-                  }}
-                />
-              </Animated.View>
-            </Pressable>
-
+              />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: themeStyles['--background'],
+                }}
+              />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: themeStyles['--accent'],
+                }}
+              />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: themeStyles['--destructive'],
+                }}
+              />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderEndEndRadius: 4,
+                  borderTopRightRadius: 4,
+                  backgroundColor: themeStyles['--foreground'],
+                }}
+              />
+            </Animated.View>
+          </Pressable>
         );
       })}
     </View>
