@@ -2,12 +2,12 @@ export interface IPrays {
   id: string;
   userId: string;
   date: Date;
-  fajr: number;
-  dhuhr: number;
-  asr: number;
-  maghrib: number;
-  isha: number;
-  nafl: number;
+  fajr: number | null;
+  dhuhr: number | null;
+  asr: number | null;
+  maghrib: number | null;
+  isha: number | null;
+  nafl: number | null;
 
   createdAt: Date;
   updatedAt: Date;

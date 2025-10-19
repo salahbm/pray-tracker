@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { DayData } from '@/components/shared/heat-map/heat';
-import { praysListKeys } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IPrays } from '@/types/prays';
 
@@ -20,10 +20,24 @@ const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
   return data;
 };
 
-export const useGetPrays = (id: string, year: number) =>
-  useQuery({
-    queryKey: [praysListKeys, id, year],
+export const useGetPrays = (id: string, year: number) => {
+  const queryKey = [...QueryKeys.prays.list, {id, year}];
+  const result = useQuery({
+    queryKey,
     queryFn: () => getPraysList({ id, year }),
     placeholderData: keepPreviousData,
     enabled: !!id,
+    structuralSharing: false,
   });
+
+  console.log('📊 [useGetPrays RENDER]', {
+    queryKey: JSON.stringify(queryKey),
+    dataLength: result.data?.length,
+    isLoading: result.isLoading,
+    dataUpdatedAt: result.dataUpdatedAt,
+  });
+
+  return result;
+};
+
+

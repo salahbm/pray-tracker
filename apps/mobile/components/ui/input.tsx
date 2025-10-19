@@ -8,10 +8,10 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { Text } from './text';
 
 const Input = React.forwardRef<
-  React.ElementRef<typeof TextInput>,
+  React.ComponentRef<typeof TextInput>,
   TextInputProps & {
     label?: string;
-    error?: boolean;
+    error?: string;
   }
 >(({ className, label, secureTextEntry = false, ...props }, ref) => {
   const { colors } = useThemeStore();

@@ -7,6 +7,10 @@ import { TouchableOpacity, View } from 'react-native';
 import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import { useLoginUser } from '@/hooks/auth/useSignIn';
+import { signInSchema, TSignInSchema } from '@/app/(auth)/schema';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import  FormField  from '@/components/shared/form-field';
 
 interface ISignIn {
   onSuccess: () => void;
@@ -19,16 +23,22 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
   // HOOKS and STATES
   const { mutateAsync: signIn, isPending } = useLoginUser();
 
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
+  const form = useForm<TSignInSchema>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const onSignInPress = useCallback(async () => {
-    await signIn(form);
-    setForm({ email: '', password: '' });
-    onSuccess();
-  }, [form, signIn, onSuccess]);
+  const onSignInPress = useCallback(
+    async (data: TSignInSchema) =>
+      await signIn(data).then(() => {
+        onSuccess();
+      }),
+    [signIn, onSuccess]
+  );
+
 
   return (
     <React.Fragment>
@@ -36,26 +46,50 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
         <Text className="text-3xl font-bold text-primary mb-12 text-center">
           {t('Auth.SignIn.Title')}
         </Text>
-        <Input
+        <FormField
+          control={form.control}
+          name="email"
+          required
           label={t('Auth.Email.Label')}
-          value={form.email}
-          onChangeText={email => setForm({ ...form, email })}
-          autoCapitalize="none"
-          className="mb-4 p-3"
-          placeholder={t('Auth.Email.Placeholder')}
-          keyboardType="email-address"
-          autoCorrect={false}
-          spellCheck={false}
+          className="mb-4"
+          render={({ field, fieldState }) => (
+            <Input
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+              placeholder={t('Auth.Email.Placeholder')}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              autoCorrect={false}
+              spellCheck={false}
+              returnKeyType="next"
+            />
+          )}
         />
-        <Input
+        <FormField
+          control={form.control}
+          name="password"
+          required
           label={t('Auth.Password.Label')}
-          className="mb-10 p-3"
-          value={form.password}
-          placeholder={t('Auth.Password.Placeholder')}
-          secureTextEntry
-          onChangeText={password => setForm({ ...form, password })}
+          className="mb-10"
+          render={({ field }) => (
+            <Input
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              placeholder={t('Auth.Password.Placeholder')}
+              secureTextEntry
+              returnKeyType="done"
+              onSubmitEditing={form.handleSubmit(onSignInPress)}
+            />
+          )}
         />
-        <Button className="mb-4 mt-8" disabled={isPending} onPress={onSignInPress}>
+        <Button
+          className="mb-4 mt-8"
+          disabled={isPending}
+          onPress={form.handleSubmit(onSignInPress)}
+        >
           <Loader visible={isPending} size="small" />
           <Text className="font-bold">{t('Auth.SignIn.Button')}</Text>
         </Button>
@@ -64,7 +98,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
       </View>
 
       <View className="flex flex-row justify-center items-center">
-        <Text className="text-sm text-muted-foreground text-center ">
+        <Text className="text-sm text-muted-foreground text-center">
           {t('Auth.SignIn.NoAccount')}
         </Text>
         <Button variant="link" onPress={onNavigate}>

@@ -28,12 +28,12 @@ const ThemeSwitcher = () => {
     Animated.sequence([
       Animated.timing(scales[theme], {
         toValue: 1.2,
-        duration: 150,
+        duration: 50,
         useNativeDriver: Platform.OS !== 'web',
       }),
       Animated.timing(scales[theme], {
         toValue: 1,
-        duration: 150,
+        duration: 100,
         useNativeDriver: Platform.OS !== 'web',
       }),
     ]).start();
@@ -42,21 +42,20 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <View className="flex flex-col gap-2 pt-8 text-left">
+    <View className="flex flex-col gap-3 pt-8 text-left">
       <Text className="font-bold text-xl mb-4">{t('Commons.Themes.Title')}</Text>
       {Object.values(THEMES).map(theme => {
         const themeStyles = THEME_COLORS[theme] || THEME_COLORS[THEMES.light];
         const isActive = currentTheme === theme;
 
         return (
-          <View key={theme} className={cn('flex-row w-full items-center justify-between')}>
-            <View className="flex-row items-center gap-2">
-              <CheckCircle color={themeStyles['--primary']} size={20} opacity={isActive ? 1 : 0} />
-              <Text className={cn(isActive ? 'font-bold  text-xl' : 'font-normal text-lg')}>
+
+             <Pressable onPress={() => handlePress(theme)}  className={cn('flex-row w-full items-center justify-between')} key={theme}>
+            <View className="flex-row items-center gap-1">
+              <Text className={cn('text-md text-foreground',isActive ? 'font-bold' : 'font-normal ')}>
                 {t(`Commons.Themes.${theme}`)}
               </Text>
             </View>
-            <Pressable onPress={() => handlePress(theme)}>
               <Animated.View
                 style={{
                   transform: [{ scale: scales[theme] }],
@@ -65,6 +64,7 @@ const ThemeSwitcher = () => {
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  flexShrink: 0,
                 }}
               >
                 <View
@@ -108,7 +108,7 @@ const ThemeSwitcher = () => {
                 />
               </Animated.View>
             </Pressable>
-          </View>
+
         );
       })}
     </View>

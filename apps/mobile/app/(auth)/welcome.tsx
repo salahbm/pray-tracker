@@ -18,7 +18,7 @@ import Swiper from 'react-native-swiper';
 import { useOnboarding } from '@/store/defaults/onboarding';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import { FLAGS, Language } from '@/components/shared/language';
+import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -97,12 +97,12 @@ const Welcome = () => {
               >
                 {index === 0 && (
                   <View className="touchable px-6">
-                    <TouchableOpacity onPress={() => langRef.current?.snapToIndex(2)}>
+                    <TouchableOpacity onPress={() => langRef.current?.snapToIndex(1)}>
                       <Text className="text-base text-muted-foreground ml-2">
-                        {FLAGS[currentLanguage]} {t('Commons.Locales.languages.' + currentLanguage)}
+                        {FLAGS[currentLanguage as keyof typeof FLAGS]} {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
                       </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => themeRef.current?.snapToIndex(2)}>
+                    <TouchableOpacity onPress={() => themeRef.current?.snapToIndex(1)}>
                       <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
                         <View
                           style={{
@@ -171,10 +171,10 @@ const Welcome = () => {
         <Text className="text-foreground text-md">{t('Auth.Welcome.Skip')}</Text>
       </TouchableOpacity>
 
-      <CustomBottomSheet sheetRef={themeRef}>
+      <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
         <ThemeSwitcher />
       </CustomBottomSheet>
-      <CustomBottomSheet sheetRef={langRef}>
+      <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
         <Language />
       </CustomBottomSheet>
     </SafeAreaView>

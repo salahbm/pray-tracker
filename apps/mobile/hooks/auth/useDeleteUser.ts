@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { userKeys, usersListKey } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 
 import { useLogout } from '../auth/useLogOut';
@@ -23,7 +23,7 @@ export const useDeleteUser = () => {
     onSuccess: async () => {
       logOut();
       await queryClient.invalidateQueries({
-        queryKey: [userKeys, usersListKey],
+        queryKey: QueryKeys.users.all,
       });
     },
   });

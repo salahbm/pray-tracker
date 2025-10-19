@@ -8,6 +8,10 @@ import { Text } from '@/components/ui/text';
 import Loader from '@/components/shared/loader';
 import { IMAGES } from '@/constants/images';
 import { useSignUp } from '@/hooks/auth/useSignUp';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signUpSchema, TSignUpSchema } from '@/app/(auth)/schema';
+import FormField from '@/components/shared/form-field';
 
 interface ISignUp {
   onSuccess: () => void;
@@ -18,20 +22,20 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const { t } = useTranslation();
   const { mutateAsync, isPending } = useSignUp();
 
-  const [form, setForm] = useState({
-    email: '',
-    name: '',
-    password: '',
+  const form = useForm<TSignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: '',
+      name: '',
+      password: '',
+    },
   });
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   /** Handles sign-up with Better Auth */
   const onSignUpPress = async () =>
-    await mutateAsync({
-      email: form.email.trim(),
-      password: form.password.trim(),
-      name: form.name.trim(),
-    }).then(() => setShowSuccessModal(true));
+    await mutateAsync(form.getValues()).then(() => setShowSuccessModal(true));
 
   return (
     <Fragment>
@@ -43,36 +47,60 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           {t('Auth.SignUp.Subtitle')}
         </Text>
 
-        <Input
+        <FormField
+          control={form.control}
+          name="name"
+          required
           label={t('Auth.Username.Label')}
           className="mb-4"
-          value={form.name}
-          placeholder={t('Auth.Username.Placeholder')}
-          onChangeText={name => setForm({ ...form, name })}
+          render={({ field, fieldState }) => (
+            <Input
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+              placeholder={t('Auth.Username.Placeholder')}
+            />
+          )}
         />
 
-        <Input
+        <FormField
+          control={form.control}
+          name="email"
+          required
           label={t('Auth.Email.Label')}
-          value={form.email}
-          onChangeText={email => setForm({ ...form, email })}
-          autoCapitalize="none"
-          className="mb-4 p-3"
-          placeholder={t('Auth.Email.Placeholder')}
-          keyboardType="email-address"
-          autoCorrect={false}
-          spellCheck={false}
+          className="mb-4"
+          render={({ field, fieldState }) => (
+            <Input
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+              placeholder={t('Auth.Email.Placeholder')}
+            />
+          )}
         />
 
-        <Input
+        <FormField
+          control={form.control}
+          name="password"
+          required
           label={t('Auth.Password.Label')}
           className="mb-10"
-          value={form.password}
-          placeholder={t('Auth.Password.Placeholder')}
-          secureTextEntry
-          onChangeText={password => setForm({ ...form, password })}
+          render={({ field, fieldState }) => (
+            <Input
+              value={field.value}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+              placeholder={t('Auth.Password.Placeholder')}
+              secureTextEntry
+              onSubmitEditing={form.handleSubmit(onSignUpPress)}
+            />
+          )}
         />
 
-        <Button onPress={onSignUpPress} disabled={isPending}>
+        <Button onPress={form.handleSubmit(onSignUpPress)} disabled={isPending}>
           <Loader visible={isPending} size="small" />
           <Text>{t('Auth.SignUp.Button')}</Text>
         </Button>

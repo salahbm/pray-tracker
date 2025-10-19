@@ -15,13 +15,22 @@ export const FLAGS = {
   ko: '🇰🇷',
 } as const;
 
+export const LANGUAGES = {
+  en: 'English',
+  ru: 'Русский',
+  uz: 'O`zbekcha',
+  ko: '한국어',
+} as const;
+
 export function Language() {
   const { changeLanguage, currentLanguage } = useLanguage();
+  console.log(`file: language.tsx:27 ~ currentLanguage:`, currentLanguage)
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { mutateAsync: updateUser } = usePutUser();
 
   const handleUpdateLocale = async (locale: string) => {
+    console.log(`file: language.tsx:33 ~ locale:`, locale)
     changeLanguage(locale); // update UI instantly
 
     if (user) {
@@ -33,19 +42,20 @@ export function Language() {
     }
   };
   // Fetch languages object
-  const languages = t('Commons.Locales.languages', { returnObjects: true });
+  const languages = LANGUAGES;
   const locales = Object.keys(languages);
+
   return (
     <ScrollView contentContainerClassName="flex-1 flex  justify-between items-start gap-4 w-full pt-4">
-      <Text className="text-xl font-bold ">{t('Commons.Locales.choose')}</Text>
+      <Text className="text-xl font-bold ">{t('Commons.choose')}</Text>
       {locales.map(lang => (
         <TouchableOpacity
           key={lang}
           onPress={() => handleUpdateLocale(lang)}
           className={cn('flex-row items-center gap-2 w-full justify-between')}
         >
-          <Text className={currentLanguage === lang && 'font-bold text-primary'}>
-            {t(`Commons.Locales.languages.${lang}`)}
+          <Text className={cn('text-md text-foreground',currentLanguage === lang && 'font-bold')}>
+            {LANGUAGES[lang as keyof typeof LANGUAGES]}
           </Text>
           <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
         </TouchableOpacity>

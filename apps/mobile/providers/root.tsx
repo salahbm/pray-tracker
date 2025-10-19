@@ -2,7 +2,6 @@ import { PortalHost } from '@rn-primitives/portal';
 import React from 'react';
 
 import BottomSheet from './bottom-sheet';
-import PlatformGestureWrapper from './gesture';
 import { I18nProvider } from './i18n-provider';
 import QueryProvider from './query';
 import { ThemeProvider } from './theme';
@@ -14,12 +13,12 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
     <I18nProvider>
       <QueryProvider>
         <ThemeProvider>
-          <PlatformGestureWrapper>
-            <BottomSheet>{children}</BottomSheet>
+          <BottomSheet>
+            {children}
             <ToastProvider />
             <PortalHost />
             <SheetWrapper />
-          </PlatformGestureWrapper>
+          </BottomSheet>
         </ThemeProvider>
       </QueryProvider>
     </I18nProvider>

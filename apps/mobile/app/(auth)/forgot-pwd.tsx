@@ -41,31 +41,8 @@ export default function ForgotPasswordScreen({
   }, [email, sendRequest]);
 
   const handlePressVerify = useCallback(async () => {
-    try {
-      const { access_token, refresh_token, user } = await verifyRequest.mutateAsync({
-        email,
-        token,
-        type: 'email',
-      });
-
-      queryClient.invalidateQueries(userKeys);
-      setUser(user);
-      setSession({
-        access_token,
-        refresh_token,
-      });
-      setShowOtpModal(false);
-      onSuccess();
-      setTimeout(() => {
-        setSuccessModal(true);
-      }, 200);
-    } catch (error) {
-      fireToast.error(error.message);
-    } finally {
-      setEmail('');
-      setToken('');
-    }
-  }, [email, token, verifyRequest, setUser, setSession, queryClient]);
+ 
+  }, []);
 
   return (
     <React.Fragment>

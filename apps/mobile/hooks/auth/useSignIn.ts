@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { userKeys } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { TUser } from '@/types/user';
+import { User } from '@/types/user';
 
 interface IUserLogin {
   email: string;
@@ -11,7 +11,7 @@ interface IUserLogin {
 }
 
 interface ISignInResponse {
-  user: TUser;
+  user: User;
   session: {
     token: string;
     expiresAt: number;
@@ -32,7 +32,7 @@ export const useLoginUser = () => {
     onSuccess: async data => {
       setUser(data.user);
       setSession(data.session as any);
-      queryClient.invalidateQueries({ queryKey: [userKeys] });
+      queryClient.invalidateQueries({ queryKey: QueryKeys.users.all });
     },
   });
 };

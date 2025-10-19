@@ -8,7 +8,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 let colorsRef = {
   primary: '#000',
   destructive: '#f00',
-  border: '#ccc',
+  border: '#c9c9c9',
 };
 
 // Function to update colors
@@ -16,7 +16,7 @@ export const updateFireToastColors = (newColors: Record<string, string>) => {
   colorsRef = {
     primary: newColors['--primary'],
     destructive: newColors['--destructive'],
-    border: newColors['--border'],
+    border: newColors['--secondary'],
   };
 };
 

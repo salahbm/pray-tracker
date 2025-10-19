@@ -8,13 +8,14 @@ interface IUserParams {
   name?: string;
   image?: string;
   locale?: string;
+  toast?: boolean;
 }
 
 const updateUser = async (params: IUserParams) => {
   if (!params.id) return null;
 
-  const { id, ...updateData } = params;
-  const response = await agent.patch(`/users/${id}`, updateData);
+  const { id, toast, ...updateData } = params;
+  const response = await agent.patch(`/users/me`, updateData);
   return response;
 };
 

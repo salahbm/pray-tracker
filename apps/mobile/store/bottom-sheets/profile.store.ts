@@ -8,8 +8,8 @@ type ProfileBottomSheetState = {
   close: () => void;
 };
 
-export const useProfileBottomSheetStore = create<ProfileBottomSheetState>(set => {
-  const ref = React.createRef<BottomSheet | null>(null);
+export const useProfileBottomSheetStore = create<ProfileBottomSheetState>(() => {
+  const ref = React.createRef<BottomSheet | null>();
 
   return {
     profileSheetRef: ref,

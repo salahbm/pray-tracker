@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity, View } from 'react-native';
 
@@ -11,17 +11,28 @@ import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
 import { triggerHaptic } from '@/utils/haptics';
-import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { useAuthBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
 
 interface HomeHeaderProps {
   user?: { name: string; photo?: string };
   today: Date;
-  handlePresentSignIn: () => void;
 }
-const HomeHeader = ({ user, today, handlePresentSignIn }: HomeHeaderProps) => {
-  const { currentLanguage } = useLanguage();
+const HomeHeader = ({ user, today }: HomeHeaderProps) => {
   const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
   const { profileSheetRef } = useProfileBottomSheetStore();
+  const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
+
+
+   // Callbacks to present each sheet
+    const handlePresentSignIn = useCallback(async () => {
+      await triggerHaptic();
+      forgotPwdRef.current?.close();
+      signUpSheetRef.current?.close();
+      signInSheetRef.current?.snapToIndex(1);
+    }, []);
+
+    
   return (
     <View className={cn('flex-row items-center justify-between border-b border-border pb-5')}>
       <View>

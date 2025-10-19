@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import GoBack from '@/components/shared/go-back';
-import { FLAGS, Language } from '@/components/shared/language';
+import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
 // import { usePushNotifications } from '@/hooks/common/useNotifications';
@@ -28,7 +28,7 @@ const Settings = () => {
         <GoBack title={t('Profile.Settings.Title')} />
         <TouchableOpacity
           className="touchable mt-4"
-          onPress={() => themeRef.current?.snapToIndex(2)}
+          onPress={() => themeRef.current?.snapToIndex(1)}
         >
           <Text className="text-base text-muted-foreground ml-2">
             {t('Profile.Settings.Theme')}
@@ -75,13 +75,13 @@ const Settings = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity className="touchable" onPress={() => langRef.current?.snapToIndex(2)}>
+        <TouchableOpacity className="touchable" onPress={() => langRef.current?.snapToIndex(1)}>
           <Text className="text-base text-muted-foreground ml-2">
             {t('Profile.Settings.Language')}
           </Text>
 
           <Text className="text-base text-muted-foreground ml-2">
-            {FLAGS[currentLanguage]} {t('Commons.Locales.languages.' + currentLanguage)}
+            {FLAGS[currentLanguage as keyof typeof FLAGS]} {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
           </Text>
         </TouchableOpacity>
         {/* <AuthWrapper mode="signedIn">
@@ -106,10 +106,10 @@ const Settings = () => {
         </AuthWrapper> */}
       </View>
 
-      <CustomBottomSheet sheetRef={themeRef}>
+      <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
         <ThemeSwitcher />
       </CustomBottomSheet>
-      <CustomBottomSheet sheetRef={langRef}>
+      <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
         <Language />
       </CustomBottomSheet>
     </SafeAreaView>

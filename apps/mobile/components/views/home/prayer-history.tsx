@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import Checkbox from 'expo-checkbox';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import HeatMap from '@/components/shared/heat-map';
 import { MAX_DISPLAY_POINTS } from '@/components/shared/heat-map/constant';
@@ -21,24 +21,20 @@ import { IPrays } from '@/types/prays';
 import { triggerHaptic } from '@/utils/haptics';
 
 interface PrayerHistoryProps {
-  isPickerVisible: boolean;
   year: number;
-  minYear?: number;
-  setYear: React.Dispatch<React.SetStateAction<number>>;
+  setYear: (year: number) => void;
   clickedData: ClickedData;
   accordion: string;
-  handleDayClick: (date: string, details: { data: DayData }) => void;
+  handleDayClick: (date: string, details: { data: DayData | null | undefined }) => void;
   data?: IPrays[];
   handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
   dispatch: React.Dispatch<{ type: string; payload?: unknown }>;
-  isCreatingPray: boolean;
 }
 
 const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
   const {
-    isPickerVisible,
     year,
     setYear,
     clickedData,
@@ -47,20 +43,26 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
     data,
     handleUpdateClickedDay,
     dispatch,
-    minYear = 2000,
-    isCreatingPray,
   } = params;
   const { colors } = useThemeStore();
-  const [updating, setUpdating] = useState<{
-    prayer: string;
-    value: PRAYER_POINTS;
-  } | null>(null);
+
+  const [isYearPickerVisible, setIsYearPickerVisible] = useState(false);
+
   const togglePicker = async () => {
     await triggerHaptic();
-    dispatch({ type: 'TOGGLE_PICKER' });
+    setIsYearPickerVisible(true);
   };
 
-  const setAccordionState = (newAccordion: string) => {
+  const handleYearConfirm = (selectedYear: number) => {
+    setYear(selectedYear);
+    setIsYearPickerVisible(false);
+  };
+
+  const handleYearCancel = () => {
+    setIsYearPickerVisible(false);
+  };
+
+  const setAccordionState = (newAccordion?: string) => {
     dispatch({ type: 'SET_ACCORDION', payload: newAccordion });
   };
 
@@ -69,19 +71,21 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
     return data.reduce((acc: TransformedPrays, pray: IPrays) => {
       const date = format(new Date(pray.date), 'yyyy-MM-dd');
       acc[date] = {
-        fajr: pray.fajr,
-        dhuhr: pray.dhuhr,
-        asr: pray.asr,
-        maghrib: pray.maghrib,
-        isha: pray.isha,
-        nafl: pray.nafl,
+        fajr: pray.fajr ?? 0,
+        dhuhr: pray.dhuhr ?? 0,
+        asr: pray.asr ?? 0,
+        maghrib: pray.maghrib ?? 0,
+        isha: pray.isha ?? 0,
+        nafl: pray.nafl ?? 0,
       };
       return acc;
     }, {});
-  }, [data]);
+  }, [data, year]);
 
   return (
     <React.Fragment>
+    
+
       <View className="mt-6">
         <View className="flex flex-row justify-between items-center mb-4">
           <Text className={cn('text-xl font-semibold')}>{t('Home.PrayerHistory.Title')}</Text>
@@ -89,13 +93,15 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
             <Text>{year}</Text>
           </Button>
         </View>
-        {/* <YearPicker
-          value={year}
-          minYear={minYear}
-          onChangeValue={setYear}
-          isVisible={isPickerVisible}
-          onBackdropPress={togglePicker}
-        /> */}
+
+        <YearPicker
+        visible={isYearPickerVisible}
+        value={year}
+        minYear={1980}
+        onConfirm={handleYearConfirm}
+        onCancel={handleYearCancel}
+      />
+
         <HeatMap
           data={transformedData ?? null}
           year={year}
@@ -126,7 +132,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
                   <Text className={cn('text-md text-muted-foreground')}>
                     {t('Home.PrayerHistory.Date')}: {clickedData.date}
                   </Text>
-                  <Button variant="outline" size="sm" onPress={setAccordionState}>
+                  <Button variant="outline" size="sm" onPress={() => setAccordionState()}>
                     <Text>{t('Home.PrayerHistory.Close')}</Text>
                   </Button>
                 </View>
@@ -150,7 +156,6 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
                                     [prayer]: val,
                                   },
                                 });
-                                setUpdating({ prayer, value: val });
                               }}
                               color={
                                 value === val

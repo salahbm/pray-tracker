@@ -1,10 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { pendingFriendsList } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IResponse } from '@/types/api';
 import { IFriend } from '@/types/friends';
-import { TUser } from '@/types/user';
+import { User } from '@/types/user';
 import { sendPushNotification } from '@/utils/notification';
 
 import useMutation from '../common/useMutation';
@@ -15,19 +15,17 @@ type TParams = {
 };
 
 interface IFriendship {
-  sentBy: TUser;
+  sentBy: User;
   friend: IFriend;
 }
 
-const sendRequest = async (params: TParams): Promise<IResponse<IFriendship>> => {
-  const res = await agent.post('/friends/request', {
+const sendRequest = async (params: TParams): Promise<IResponse<IFriendship>> =>  await agent.post<IResponse<IFriendship>>('/friends/request', {
     body: JSON.stringify({
       userId: params.userId,
       friendEmail: params.friendEmail,
     }),
   });
-  return res;
-};
+
 
 export const useRequest = () => {
   const queryClient = useQueryClient();
@@ -37,7 +35,7 @@ export const useRequest = () => {
     mutationFn: sendRequest,
     options: {
       onSuccess: async response => {
-        await queryClient.invalidateQueries({ queryKey: [pendingFriendsList] });
+        await queryClient.invalidateQueries({ queryKey: QueryKeys.friends.pending });
 
         const { sentBy, friend } = response.data ?? {};
 

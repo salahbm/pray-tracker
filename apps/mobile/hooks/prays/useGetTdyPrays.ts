@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { DayData } from '@/components/shared/heat-map/heat';
-import { praysListKeys, todaysPrayKey } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IPrays } from '@/types/prays';
 
@@ -19,7 +19,7 @@ const getTodayPray = async (params: TPraysParams): Promise<IPrays> => {
 
 export const useGetTodayPrays = (id: string) =>
   useQuery({
-    queryKey: [todaysPrayKey, praysListKeys],
+    queryKey: [...QueryKeys.prays.today, {id}],
     queryFn: () => getTodayPray({ id }),
     placeholderData: keepPreviousData,
     enabled: !!id,

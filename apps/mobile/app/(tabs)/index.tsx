@@ -18,12 +18,12 @@ import { useCurrentDate } from '@/hooks/common/useCurrentDate';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
+import { useUpdateOldPray } from '@/hooks/prays/useUpdateOldPray';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
-import { useAuthBottomSheetStore } from '@/store/bottom-sheets';
 
 const initialState = {
   prayers: {
@@ -68,14 +68,15 @@ export default function HomeScreen() {
     data: prays,
     isLoading: isLoadingPrays,
     refetch: refetchPrays,
-  } = useGetPrays(user?.id, year);
-  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id);
+  } = useGetPrays(user?.id!, year);
+
+  
+  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!);
 
   // MUTATIONS
   const { mutateAsync: createPray, isPending: isCreatingPray } = useCreatePray();
+  const { mutateAsync: updateOldPray, isPending: isUpdatingOldPray } = useUpdateOldPray();
 
-  // BOTTOM SHEETS REFERENCES
-  const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
   const homeRef = useRef<ScrollView>(null);
@@ -84,30 +85,13 @@ export default function HomeScreen() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { prayers, isPickerVisible, clickedData, accordion } = state;
 
-  // Callbacks to present each sheet
-  const handlePresentSignIn = useCallback(async () => {
-    await triggerHaptic();
-    forgotPwdRef.current?.close();
-    signUpSheetRef.current?.close();
-    signInSheetRef.current?.snapToIndex(1);
-  }, []);
-
-  const handlePresentSignUp = useCallback(async () => {
-    await triggerHaptic();
-    signInSheetRef.current?.close();
-    signUpSheetRef.current?.snapToIndex(1);
-  }, []);
-
-  const handlePresentForgotPwd = useCallback(async () => {
-    await triggerHaptic();
-    signInSheetRef.current?.close();
-    forgotPwdRef.current?.snapToIndex(1);
-  }, []);
+ 
 
   // FUNCTIONS
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
       if (prayers[prayer] === value) return;
+      if (!user) return fireToast.error(t('Commons.Unauthorized.description'));
       await triggerHaptic();
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
@@ -125,7 +109,7 @@ export default function HomeScreen() {
   );
 
   const handleDayClick = useCallback(
-    async (date: string, details: { data: DayData }) => {
+    async (date: string, details: { data: DayData | null | undefined }) => {
       // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
       if (isDateAfterToday) return fireToast.info(t('Home.Errors.FutureDate'));
@@ -153,16 +137,17 @@ export default function HomeScreen() {
       if (!details || !details.data) return;
       await triggerHaptic();
 
-      await createPray({
-        id: user?.id,
+      // Use updateOldPray for historical dates to avoid cache invalidation conflicts
+      await updateOldPray({
+        id: user?.id!,
         date: new Date(date),
         ...details.data,
       });
 
       dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
-      refetchTodaysPrays();
+      // No need to refetch - optimistic update handles it
     },
-    [createPray, user?.id, refetchTodaysPrays]
+    [updateOldPray, user?.id]
   );
 
   useEffect(() => {
@@ -207,7 +192,7 @@ export default function HomeScreen() {
         }
       >
         {/* HEADER */}
-        <HomeHeader today={today} user={user} handlePresentSignIn={handlePresentSignIn} />
+        <HomeHeader today={today} user={user!} />
         {/* Today's Prayers */}
         <TodaysPray
           prayers={prayers}
@@ -218,14 +203,12 @@ export default function HomeScreen() {
         <PrayerHistory
           data={prays}
           dispatch={dispatch}
-          isPickerVisible={isPickerVisible}
           year={year}
           setYear={setYear}
           clickedData={clickedData}
           accordion={accordion}
           handleDayClick={handleDayClick}
           handleUpdateClickedDay={handleUpdateClickedDay}
-          isCreatingPray={isCreatingPray}
         />
         {/* CHARTS */}
         <AreaChart lineData={prays} />

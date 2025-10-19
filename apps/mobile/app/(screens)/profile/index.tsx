@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { RelativePathString, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
 
@@ -16,6 +16,12 @@ const ProfilePage = () => {
     Linking.openURL(url).catch(err => console.error('Error opening link:', err));
   };
 
+
+  const handleNavigate = (screen: string) => {
+    profileSheetRef.current?.close();
+    router.push(screen as RelativePathString);
+  };
+
   return (
     <View className="flex-1">
       {/* Header */}
@@ -26,7 +32,7 @@ const ProfilePage = () => {
         {/* Account*/}
         <TouchableOpacity
           className="profile-section"
-          onPress={() => router.push('/(screens)/profile/account')}
+          onPress={() => handleNavigate('/(screens)/profile/account')}
         >
           <View className="flex-row items-center">
             <Feather name="user" size={20} color={colors['--muted-foreground']} />
@@ -39,7 +45,7 @@ const ProfilePage = () => {
         {/* Edit Profile Section */}
         <TouchableOpacity
           className="profile-section"
-          onPress={() => router.push('/(screens)/profile/edit-profile')}
+          onPress={() => handleNavigate('/(screens)/profile/edit-profile')}
         >
           <View className="flex-row items-center">
             <Feather name="edit" size={20} color={colors['--muted-foreground']} />
@@ -52,7 +58,7 @@ const ProfilePage = () => {
         {/* Edit Password Section */}
         <TouchableOpacity
           className="profile-section"
-          onPress={() => router.push('/(screens)/profile/edit-pwd')}
+          onPress={() => handleNavigate('/(screens)/profile/edit-pwd')}
         >
           <View className="flex-row items-center">
             <Feather name="lock" size={20} color={colors['--muted-foreground']} />
@@ -67,7 +73,7 @@ const ProfilePage = () => {
       {/* Settings Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() => router.push('/(screens)/profile/settings')}
+        onPress={() => handleNavigate('/(screens)/profile/settings')}
       >
         <View className="flex-row items-center">
           <Feather name="settings" size={20} color={colors['--muted-foreground']} />
@@ -84,7 +90,7 @@ const ProfilePage = () => {
       {/* Privacy & Security Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() => router.push('/(screens)/profile/privacy')}
+        onPress={() => handleNavigate('/(screens)/profile/privacy')}
       >
         <View className="flex-row items-center">
           <Feather name="lock" size={20} color={colors['--muted-foreground']} />
@@ -98,7 +104,7 @@ const ProfilePage = () => {
       {/* Terms & Conditions Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() => router.push('/(screens)/profile/terms')}
+        onPress={() => handleNavigate('/(screens)/profile/terms')}
       >
         <View className="flex-row items-center">
           <Feather name="file-text" size={20} color={colors['--muted-foreground']} />
@@ -128,7 +134,7 @@ const ProfilePage = () => {
       {/* About Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() => router.push('/(screens)/profile/about')}
+        onPress={() => handleNavigate('/(screens)/profile/about')}
       >
         <View className="flex-row items-center">
           <Feather name="info" size={20} color={colors['--muted-foreground']} />

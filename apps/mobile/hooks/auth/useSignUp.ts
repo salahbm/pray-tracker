@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import agent from '@/lib/agent';
-import { TUser } from '@/types/user';
+import { User } from '@/types/user';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 interface ISignUpParams {
@@ -10,7 +10,7 @@ interface ISignUpParams {
 }
 
 interface ISignUpResponse {
-  user: TUser;
+  user: User;
 }
 
 /**

@@ -4,13 +4,13 @@ import { useEffect } from 'react';
 import { userKeys } from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { TUser } from '@/types/user';
+import { User } from '@/types/user';
 
 interface SessionResponse {
   access_token: string;
   refresh_token: string;
   expires_at: number;
-  user: TUser;
+  user: User;
 }
 
 export const getSession = async (): Promise<SessionResponse> => {

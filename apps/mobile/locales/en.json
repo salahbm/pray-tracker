@@ -112,6 +112,10 @@
       "404": "Page not found",
       "noData": "No data found"
     },
+    "Unauthorized": {
+      "title": "Unauthorized",
+      "description": "Please login to access this feature"
+    },
     "Salahs": {
       "asr": "Asr",
       "dhuhr": "Dhuhr",

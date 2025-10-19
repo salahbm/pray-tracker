@@ -120,6 +120,7 @@ export class UsersController {
 
   /**
    * Update user by ID (admin only - you can add role guard later)
+   * path api/users/:id
    */
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
