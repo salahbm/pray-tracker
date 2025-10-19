@@ -24,15 +24,12 @@ export const LANGUAGES = {
 
 export function Language() {
   const { changeLanguage, currentLanguage } = useLanguage();
-  console.log(`file: language.tsx:27 ~ currentLanguage:`, currentLanguage);
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { mutateAsync: updateUser } = usePutUser();
 
   const handleUpdateLocale = async (locale: string) => {
-    console.log(`file: language.tsx:33 ~ locale:`, locale);
-    changeLanguage(locale); // update UI instantly
-
+    changeLanguage(locale);
     if (user) {
       updateUser({
         ...user,

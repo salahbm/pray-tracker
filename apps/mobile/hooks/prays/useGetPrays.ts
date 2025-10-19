@@ -22,20 +22,11 @@ const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
 
 export const useGetPrays = (id: string, year: number) => {
   const queryKey = [...QueryKeys.prays.list, { id, year }];
-  const result = useQuery({
+  return useQuery({
     queryKey,
     queryFn: () => getPraysList({ id, year }),
     placeholderData: keepPreviousData,
     enabled: !!id,
     structuralSharing: false,
   });
-
-  console.log('📊 [useGetPrays RENDER]', {
-    queryKey: JSON.stringify(queryKey),
-    dataLength: result.data?.length,
-    isLoading: result.isLoading,
-    dataUpdatedAt: result.dataUpdatedAt,
-  });
-
-  return result;
 };

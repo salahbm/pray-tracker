@@ -17,7 +17,8 @@ export type ErrorKey =
   | 'WEAK_PASSWORD'
   | 'INVALID_EMAIL'
   | 'REQUIRED_FIELD'
-  | 'INVALID_INPUT';
+  | 'INVALID_INPUT'
+  | 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL';
 
 type ErrorMessages = Record<ErrorKey, Record<Locale, string>>;
 
@@ -124,18 +125,18 @@ export const ERROR_MESSAGES: ErrorMessages = {
     ru: 'Предоставлены неверные данные',
     kr: '잘못된 입력이 제공되었습니다',
   },
+  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: {
+    en: 'User already exists. Use another email',
+    uz: 'Foydalanuvchi allaqachon mavjud. Boshqa emaildan foydalaning',
+    ru: 'Пользователь уже существует. Используйте другой email',
+    kr: '사용자가 이미 존재합니다. 다른 이메일을 사용하세요',
+  },
 };
 
-/**
- * Get localized error message
- */
 export function getErrorMessage(key: ErrorKey, locale: Locale = 'en'): string {
-  return ERROR_MESSAGES[key][locale] || ERROR_MESSAGES[key].en;
+  return ERROR_MESSAGES[key]?.[locale] || ERROR_MESSAGES[key].en;
 }
 
-/**
- * Get localized error message with custom fallback
- */
 export function getErrorMessageWithFallback(
   key: ErrorKey,
   locale: Locale = 'en',

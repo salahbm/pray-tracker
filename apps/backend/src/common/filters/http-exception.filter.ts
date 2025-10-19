@@ -50,7 +50,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message = exception.message;
       error = exception.name;
     }
-
     // Try to get localized error message
     const localizedMessage = this.getLocalizedMessage(error, message, locale);
 

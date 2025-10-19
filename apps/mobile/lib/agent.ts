@@ -75,7 +75,6 @@ class Agent {
     endpoint: string,
     params?: Record<string, string | number | boolean | undefined>
   ): string {
-    const currentLanguage = i18n.language;
     const normalized = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
     const url = `${this.baseUrl.replace(/\/$/, '')}/${normalized}`;
     if (params && Object.keys(params).length > 0) {
@@ -83,7 +82,7 @@ class Agent {
       Object.entries(params).forEach(([k, v]) => {
         if (v !== undefined && v !== null) searchParams.append(k, String(v));
       });
-      return `${url}?${searchParams.toString()}?locale=${currentLanguage}`;
+      return `${url}?${searchParams.toString()}`;
     }
     return url;
   }
@@ -113,11 +112,18 @@ class Agent {
   ): Promise<T> {
     const { headers = {}, params, signal, cache } = options;
     const url = this.createUrl(endpoint, params);
-    console.log(`file: agent.ts:113 ~ url:`, url);
+
+    // Get current language and add to headers
+    const currentLanguage = i18n.language || 'en';
 
     const config: RequestInit = {
       method,
-      headers: { ...this.defaultHeaders, ...headers },
+      headers: {
+        ...this.defaultHeaders,
+        'Accept-Language': currentLanguage,
+        Locale: currentLanguage,
+        ...headers,
+      },
       signal,
       cache,
     };

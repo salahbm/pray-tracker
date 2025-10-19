@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "mobile",
-    "slug": "mobile",
+    "slug": "Pray Tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon-light-rounded.png",
@@ -35,7 +35,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/icon-light-rounded.png",
-          "imageWidth": 150,
+          "imageWidth": 120,
           "resizeMode": "contain",
           "backgroundColor": "#F9FAFB",
           "dark": {

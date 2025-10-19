@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import i18n from '@/i18n.config';
-import * as z from 'zod/v4';
+import { z } from 'zod/v4';
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { uzLocale } from '@/utils/uz.zod';
 
 export function I18nProvider({ children }: PropsWithChildren) {
   const { currentLanguage } = useLanguage();
@@ -17,11 +18,21 @@ export function I18nProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     i18n.changeLanguage(currentLanguage);
-    if (z.locales[currentLanguage as keyof typeof z.locales]) {
-      z.config(z.locales[currentLanguage as keyof typeof z.locales]());
-    } else {
-      console.warn(`Locale '${currentLanguage}' not found in z.locales`);
-      z.config(z.locales['en']());
+
+    try {
+      if (currentLanguage === 'uz') {
+        z.config({ localeError: uzLocale() });
+      } else if (z.locales && z.locales[currentLanguage as keyof typeof z.locales]) {
+        z.config(z.locales[currentLanguage as keyof typeof z.locales]());
+      } else {
+        // Fallback to English if locale not found
+        if (z.locales && z.locales['en']) {
+          z.config(z.locales['en']());
+        }
+      }
+    } catch (error) {
+      console.error(`Failed to set Zod error map for locale '${currentLanguage}':`, error);
+      // Continue without custom error map
     }
   }, [currentLanguage]);
 

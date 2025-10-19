@@ -35,6 +35,7 @@ const initialState = {
   },
   isPickerVisible: false,
   clickedData: null,
+  clickedDataPrevious: null,
   accordion: '',
 };
 
@@ -46,6 +47,8 @@ function reducer(state: typeof initialState, action: { type: string; payload?: a
       return { ...state, isPickerVisible: !state.isPickerVisible };
     case 'SET_CLICKED_DATA':
       return { ...state, clickedData: action.payload };
+    case 'SET_CLICKED_DATA_PREVIOUS':
+      return { ...state, clickedDataPrevious: action.payload };
     case 'SET_ACCORDION':
       return { ...state, accordion: action.payload };
     default:
@@ -73,7 +76,7 @@ export default function HomeScreen() {
 
   // MUTATIONS
   const { mutateAsync: createPray, isPending: isCreatingPray } = useCreatePray();
-  const { mutateAsync: updateOldPray, isPending: isUpdatingOldPray } = useUpdateOldPray();
+  const { mutateAsync: updateOldPray } = useUpdateOldPray();
 
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
@@ -81,7 +84,7 @@ export default function HomeScreen() {
 
   // Reducer for state management
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { prayers, isPickerVisible, clickedData, accordion } = state;
+  const { prayers, clickedData, accordion } = state;
 
   // FUNCTIONS
   const handlePrayerChange = useCallback(
@@ -123,6 +126,10 @@ export default function HomeScreen() {
         type: 'SET_CLICKED_DATA',
         payload: { date, details },
       });
+      dispatch({
+        type: 'SET_CLICKED_DATA_PREVIOUS',
+        payload: { date, details },
+      });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
     [today, t]
@@ -133,14 +140,20 @@ export default function HomeScreen() {
       if (!details || !details.data) return;
       await triggerHaptic();
 
+      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
+
       // Use updateOldPray for historical dates to avoid cache invalidation conflicts
       await updateOldPray({
         id: user?.id!,
         date: new Date(date),
         ...details.data,
+      }).catch(() => {
+        dispatch({
+          type: 'SET_CLICKED_DATA',
+          payload: { date, details: state.clickedDataPrevious },
+        });
       });
 
-      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
       // No need to refetch - optimistic update handles it
     },
     [updateOldPray, user?.id]
