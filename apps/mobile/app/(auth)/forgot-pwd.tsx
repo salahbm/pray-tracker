@@ -1,19 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { router } from 'expo-router';
-import { X } from 'lucide-react-native';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
-import Modal from '@/components/shared/modal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
-import { IMAGES } from '@/constants/images';
-import { userKeys } from '@/constants/query-keys';
 import { useResetPwd } from '@/hooks/auth/useForgotPwd';
-import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -51,7 +45,7 @@ export default function ForgotPasswordScreen({
         <Input
           label={t('Auth.Email.Label')}
           autoCapitalize="none"
-          className="mb-4 p-3"
+          className="mb-10 p-3"
           value={email}
           placeholder={t('Auth.Email.Placeholder')}
           keyboardType="email-address"
@@ -61,7 +55,6 @@ export default function ForgotPasswordScreen({
           spellCheck={false}
         />
         <Button
-          className="mb-4"
           onPress={onResetPassword}
           disabled={isRequestPending || isVerifyPending}
         >
@@ -70,7 +63,7 @@ export default function ForgotPasswordScreen({
         </Button>
       </View>
 
-      <View className="mt-8 flex flex-row justify-center items-center">
+      <View className="mt-2 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center">
           {t('Auth.ForgotPassword.RememberedPassword')}
         </Text>

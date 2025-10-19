@@ -85,7 +85,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
           )}
         />
         <Button
-          className="mb-4 mt-8"
+          className="mb-4"
           disabled={isPending}
           onPress={form.handleSubmit(onSignInPress)}
         >

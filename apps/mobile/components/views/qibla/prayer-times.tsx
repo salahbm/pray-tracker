@@ -15,7 +15,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 
 const PrayerTimer = () => {
   const { t } = useTranslation();
-  const [prayerTimes, setPrayerTimes] = useState(null);
+  const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
   const [location, setLocation] = useState(t('Qibla.PrayerTimes.Location.Fetching'));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -56,7 +56,9 @@ const PrayerTimer = () => {
     })();
   }, [t]);
 
-  const { timeLeft, currentPrayer } = useTimeLeft(prayerTimes);
+  const { timeLeft, currentPrayer } = useTimeLeft(prayerTimes as PrayerTimes);
+
+
   const prayers = useMemo(
     () => [
       {
@@ -93,8 +95,10 @@ const PrayerTimer = () => {
     [prayerTimes]
   );
 
-  if (loading) {
-    return <Loader visible className="mt-[45%]" />;
+  if (loading) { 
+    return <View className="items-center h-full">
+      <Loader visible={loading} className='bg-background' />
+    </View>;
   }
 
   if (error || !prayerTimes) {

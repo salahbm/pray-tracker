@@ -1,7 +1,7 @@
 import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS } from '@/constants/enums';
@@ -11,16 +11,11 @@ import { useThemeStore } from '@/store/defaults/theme';
 interface IPrayers {
   prayers: Record<string, number>;
   handlePrayerChange: (prayer: string, value: number) => void;
-  isCreatingPray: boolean;
 }
 
-const TodaysPray = ({ prayers, handlePrayerChange, isCreatingPray }: IPrayers) => {
+const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const [clickedData, setClickedData] = useState<{
-    prayer: string;
-    value: PRAYER_POINTS;
-  } | null>(null);
 
   return (
     <React.Fragment>
@@ -56,13 +51,10 @@ const TodaysPray = ({ prayers, handlePrayerChange, isCreatingPray }: IPrayers) =
           <Text className={cn('capitalize font-semibold')}>{t(`Commons.Salahs.${prayer}`)}</Text>
           <View className="flex-1 flex-row justify-end">
             {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map((val, index) => (
-              <View className="relative mx-4 my-2" key={index}>
+              <View className={cn('relative mx-4 my-2', prayer === 'nafl' && val < 2 && 'hidden')} key={index}>
                 <Checkbox
                   value={value === val}
-                  onValueChange={() => {
-                    handlePrayerChange(prayer, val);
-                    setClickedData({ prayer, value: val });
-                  }}
+                  onValueChange={() => handlePrayerChange(prayer, val)}
                   color={
                     value === val
                       ? val === PRAYER_POINTS.ON_TIME

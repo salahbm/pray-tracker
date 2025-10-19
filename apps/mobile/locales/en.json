@@ -39,8 +39,8 @@
       "Subtitle": "Create an account to continue",
       "Success": {
         "Button": "Bismillah",
-        "Message": "You have successfully verified your account.",
-        "Title": "Verified"
+        "Message": "You have successfully signed up.",
+        "Title": "As-salaam-alaikum!"
       },
       "Title": "Join Us",
       "Verification": {
@@ -301,8 +301,8 @@
         "Location": "Location permission required",
         "Magnetometer": "Magnetometer not available"
       },
-      "Help": "Point your phone towards Qibla and align with Kaaba",
-      "MagneticNorth": "Magnetic North",
+      "Help": "Point your phone towards Qibla Degrees and align with Your Direction",
+      "YourDirection": "Your Direction",
       "QiblaDirection": "Qibla Direction"
     },
     "PrayerTimes": {

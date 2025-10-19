@@ -143,7 +143,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
                     <View className="flex-row gap-8">
                       {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
                         (val, index) => (
-                          <View className="relative" key={index}>
+                          <View className={cn('relative', prayer === 'nafl' && val < 2 && 'hidden')} key={index}>
                             <Checkbox
                               key={val}
                               value={value === val}

@@ -18,7 +18,7 @@ const TooltipContent = React.forwardRef<
         entering={Platform.select({ web: undefined, default: FadeIn })}
         exiting={Platform.select({ web: undefined, default: FadeOut })}
       >
-        <TextClassContext.Provider value="text-sm native:text-base text-card-foreground">
+        <TextClassContext.Provider value="text-sm native:text-base text-card-foreground max-w-[260px]">
           <TooltipPrimitive.Content
             ref={ref}
             sideOffset={sideOffset}

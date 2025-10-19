@@ -75,7 +75,7 @@ export default function HomeScreen() {
   const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!);
 
   // MUTATIONS
-  const { mutateAsync: createPray, isPending: isCreatingPray } = useCreatePray();
+  const { mutateAsync: createPray } = useCreatePray();
   const { mutateAsync: updateOldPray } = useUpdateOldPray();
 
   // Confetti animation ref
@@ -203,11 +203,7 @@ export default function HomeScreen() {
         {/* HEADER */}
         <HomeHeader today={today} user={user!} />
         {/* Today's Prayers */}
-        <TodaysPray
-          prayers={prayers}
-          handlePrayerChange={handlePrayerChange}
-          isCreatingPray={isCreatingPray}
-        />
+        <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
         {/* PRAYER HISTORY */}
         <PrayerHistory
           data={prays}

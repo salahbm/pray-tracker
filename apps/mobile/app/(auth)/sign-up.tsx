@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Image, View, Modal } from 'react-native';
+import { Image, View, Modal, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -34,8 +34,12 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   /** Handles sign-up with Better Auth */
-  const onSignUpPress = async () =>
-    await mutateAsync(form.getValues()).then(() => setShowSuccessModal(true));
+  const onSignUpPress = async () => {
+    await mutateAsync(form.getValues()).then(() => {
+      onSuccess();
+      setShowSuccessModal(true);
+    });
+  };
 
   return (
     <Fragment>
@@ -77,6 +81,11 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               onBlur={field.onBlur}
               error={fieldState.error?.message}
               placeholder={t('Auth.Email.Placeholder')}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              autoCorrect={false}
+              spellCheck={false}
+              returnKeyType="next"
             />
           )}
         />
@@ -113,27 +122,34 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
         <Button variant="link" onPress={onNavigate}>
           <Text>{t('Auth.SignUp.SignInLink')}</Text>
         </Button>
-      </View>
 
       {/* ✅ SUCCESS MODAL */}
-      <Modal visible={showSuccessModal} onDismiss={() => setShowSuccessModal(false)}>
-        <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px]">
-          <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
-          <Text className="text-3xl font-bold text-center">{t('Auth.SignUp.Success.Title')}</Text>
-          <Text className="text-base text-muted-foreground text-center mt-2">
-            {t('Auth.SignUp.Success.Message')}
-          </Text>
-          <Button
-            onPress={() => {
-              setShowSuccessModal(false);
-              onSuccess();
-            }}
-            className="mt-5"
-          >
-            <Text>{t('Auth.SignUp.Success.Button')}</Text>
-          </Button>
+      <Modal
+        visible={showSuccessModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowSuccessModal(false)}
+        onDismiss={() => setShowSuccessModal(false)}
+        statusBarTranslucent
+      >
+        <View className='    flex-1 justify-center items-center bg-[rgba(0,0,0,0.5)]'>
+          <TouchableOpacity className='absolute top-0 left-0 right-0 bottom-0 z-1 ' activeOpacity={1} onPress={() => setShowSuccessModal(false)} />
+          <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px] max-h-screen-safe w-[95%] mx-auto">
+            <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
+            <Text className="text-3xl font-bold text-center">{t('Auth.SignUp.Success.Title')}</Text>
+            <Text className="text-base text-muted-foreground text-center mt-2">
+              {t('Auth.SignUp.Success.Message')}
+            </Text>
+            <Button
+              onPress={() => setShowSuccessModal(false)}
+              className="mt-5"
+            >
+              <Text>{t('Auth.SignUp.Success.Button')}</Text>
+            </Button>
+          </View>
         </View>
       </Modal>
+      </View>
     </Fragment>
   );
 }
