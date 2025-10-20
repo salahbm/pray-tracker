@@ -7,7 +7,6 @@ import Animated, {
   FadeInDown,
   FadeInRight,
   FadeOutLeft,
-
   LinearTransition,
   ZoomIn,
 } from 'react-native-reanimated';
@@ -31,9 +30,8 @@ const FriendsGroups = () => {
   const insets = useSafeAreaInsets();
 
   const { data: groups, isLoading, refetch } = useGetGroups(user?.id ?? '');
-  const { createSheetRef, editSheetRef, deleteSheetRef, setGroupName, setSelectedGroup } = useFriendsBottomSheetStore();
-
-
+  const { createSheetRef, editSheetRef, deleteSheetRef, setGroupName, setSelectedGroup } =
+    useFriendsBottomSheetStore();
 
   const openEditSheet = (group: { id: string; name: string }) => {
     setSelectedGroup(group);
@@ -97,93 +95,93 @@ const FriendsGroups = () => {
                 exiting={FadeOutLeft.springify()}
                 layout={LinearTransition.springify()}
               >
-                  <SwiperButton
-              key={group.id}
-              onPress={() => openDeleteSheet(group)}
-              title="Delete"
-              variant="destructive"
-            >
-                <Pressable
-                  onPress={() =>
-                    router.push({
-                      pathname: '/(screens)/friends/group-details',
-                      params: { groupId: group.id, groupName: group.name },
-                    })
-                  }
-                  className="bg-card border border-border rounded-2xl p-5 active:opacity-90"
-                  style={{
-                    shadowColor: colors['--primary'],
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.05,
-                    shadowRadius: 8,
-                    elevation: 2,
-                  }}
+                <SwiperButton
+                  key={group.id}
+                  onPress={() => openDeleteSheet(group)}
+                  title="Delete"
+                  variant="destructive"
                 >
-                  <View className="flex-row items-center justify-between">
-                    <View className="flex-1">
-                      {/* Group Header */}
-                      <View className="flex-row items-center gap-3 mb-3">
-                        <View className="bg-primary/10 p-3 rounded-xl">
-                          <Sparkles size={20} color={colors['--primary']} />
-                        </View>
-                        <View className="flex-1">
-                          <Text className="text-lg font-bold">{group.name}</Text>
-                          <View className="flex-row items-center gap-2 mt-1">
-                            <View className="bg-primary/15 py-1 rounded-full">
-                              <Text className="text-xs text-primary font-semibold">
-                                {group.memberCount} {t('Friends.Groups.Members')}
-                              </Text>
+                  <Pressable
+                    onPress={() =>
+                      router.push({
+                        pathname: '/(screens)/friends/group-details',
+                        params: { groupId: group.id, groupName: group.name },
+                      })
+                    }
+                    className="bg-card border border-border rounded-2xl p-5 active:opacity-90"
+                    style={{
+                      shadowColor: colors['--primary'],
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 8,
+                      elevation: 2,
+                    }}
+                  >
+                    <View className="flex-row items-center justify-between">
+                      <View className="flex-1">
+                        {/* Group Header */}
+                        <View className="flex-row items-center gap-3 mb-3">
+                          <View className="bg-primary/10 p-3 rounded-xl">
+                            <Sparkles size={20} color={colors['--primary']} />
+                          </View>
+                          <View className="flex-1">
+                            <Text className="text-lg font-bold">{group.name}</Text>
+                            <View className="flex-row items-center gap-2 mt-1">
+                              <View className="bg-primary/15 py-1 rounded-full">
+                                <Text className="text-xs text-primary font-semibold">
+                                  {group.memberCount} {t('Friends.Groups.Members')}
+                                </Text>
+                              </View>
                             </View>
                           </View>
                         </View>
+
+                        {/* Member Avatars Preview */}
+                        {group.members.length > 0 && (
+                          <View className="flex-row items-center gap-1 mt-2">
+                            {group.members.slice(0, 4).map((member, idx) => (
+                              <Animated.View
+                                key={member.id}
+                                entering={ZoomIn.delay(idx * 50)}
+                                className={cn(idx > 0 && '-ml-3')}
+                              >
+                                <Image
+                                  source={{ uri: member.photo }}
+                                  className="size-10 rounded-full bg-muted border-2 border-card"
+                                  defaultSource={FRIENDS.guest}
+                                />
+                              </Animated.View>
+                            ))}
+                            {group.memberCount > 4 && (
+                              <Animated.View
+                                entering={ZoomIn.delay(200)}
+                                className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
+                              >
+                                <Text className="text-xs text-primary font-bold">
+                                  +{group.memberCount - 4}
+                                </Text>
+                              </Animated.View>
+                            )}
+                          </View>
+                        )}
                       </View>
 
-                      {/* Member Avatars Preview */}
-                      {group.members.length > 0 && (
-                        <View className="flex-row items-center gap-1 mt-2">
-                          {group.members.slice(0, 4).map((member, idx) => (
-                            <Animated.View
-                              key={member.id}
-                              entering={ZoomIn.delay(idx * 50)}
-                              className={cn(idx > 0 && '-ml-3')}
-                            >
-                              <Image
-                                source={{ uri: member.photo }}
-                                className="size-10 rounded-full bg-muted border-2 border-card"
-                                defaultSource={FRIENDS.guest}
-                              />
-                            </Animated.View>
-                          ))}
-                          {group.memberCount > 4 && (
-                            <Animated.View
-                              entering={ZoomIn.delay(200)}
-                              className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
-                            >
-                              <Text className="text-xs text-primary font-bold">
-                                +{group.memberCount - 4}
-                              </Text>
-                            </Animated.View>
-                          )}
-                        </View>
-                      )}
-                    </View>
+                      {/* Action Buttons */}
+                      <View className="flex-row items-center gap-1 ml-2">
+                        <Pressable
+                          onPress={e => {
+                            e.stopPropagation();
+                            openEditSheet({ id: group.id, name: group.name });
+                          }}
+                          className="p-2.5 bg-muted/50 rounded-xl active:opacity-70"
+                        >
+                          <Edit2 size={18} color={colors['--muted-foreground']} />
+                        </Pressable>
 
-                    {/* Action Buttons */}
-                    <View className="flex-row items-center gap-1 ml-2">
-                      <Pressable
-                        onPress={e => {
-                          e.stopPropagation();
-                          openEditSheet({ id: group.id, name: group.name });
-                        }}
-                        className="p-2.5 bg-muted/50 rounded-xl active:opacity-70"
-                      >
-                        <Edit2 size={18} color={colors['--muted-foreground']} />
-                      </Pressable>
-                     
-                      <ChevronRight size={20} color={colors['--muted-foreground']} />
+                        <ChevronRight size={20} color={colors['--muted-foreground']} />
+                      </View>
                     </View>
-                  </View>
-                </Pressable>
+                  </Pressable>
                 </SwiperButton>
               </Animated.View>
             ))}

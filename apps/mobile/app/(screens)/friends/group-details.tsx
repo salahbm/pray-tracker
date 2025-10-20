@@ -44,7 +44,6 @@ const GroupDetails = () => {
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ groupId: string; groupName: string }>();
 
-
   const {
     data: groupData,
     isLoading,
@@ -68,26 +67,23 @@ const GroupDetails = () => {
   const handleAddMember = async (friendId: string) => {
     if (!user?.id) return;
 
-
-      await addMember({
-        groupId: params.groupId,
-        friendId,
-        userId: user.id,
-      }).then(() => {
-        addMemberSheetRef.current?.close();
-      });
+    await addMember({
+      groupId: params.groupId,
+      friendId,
+      userId: user.id,
+    }).then(() => {
+      addMemberSheetRef.current?.close();
+    });
   };
 
   const handleRemoveMember = async (memberId: string) => {
     if (!user?.id) return;
 
-
-      await removeMember({
-        groupId: params.groupId,
-        memberId,
-        userId: user.id,
-      });
-  
+    await removeMember({
+      groupId: params.groupId,
+      memberId,
+      userId: user.id,
+    });
   };
 
   return (
@@ -99,19 +95,20 @@ const GroupDetails = () => {
           entering={FadeInDown.duration(400)}
           className="flex-row justify-between items-center mb-6"
         >
-            <View className="flex-row items-center gap-2 flex-1">
+          <View className="flex-row items-center gap-2 flex-1">
             <TouchableOpacity
-          onPress={() => router.back()}
-          className="w-10 justify-center items-start"
-          accessibilityLabel="Go back"
-          accessibilityRole="button"
-        >
-          <Ionicons name="arrow-back" size={24} color={colors['--primary']} />
-        </TouchableOpacity>
+              onPress={() => router.back()}
+              className="w-10 justify-center items-start"
+              accessibilityLabel="Go back"
+              accessibilityRole="button"
+            >
+              <Ionicons name="arrow-back" size={24} color={colors['--primary']} />
+            </TouchableOpacity>
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
               <Text className="text-sm text-muted-foreground mt-1">
-                {groupData?.members.length || 0} {groupData?.members.length === 1 ? 'member' : 'members'}
+                {groupData?.members.length || 0}{' '}
+                {groupData?.members.length === 1 ? 'member' : 'members'}
               </Text>
             </View>
           </View>
@@ -122,7 +119,6 @@ const GroupDetails = () => {
             <UserPlus size={22} color={colors['--primary-foreground']} />
           </Pressable>
         </Animated.View>
-
 
         {/* Members List */}
         <ScrollView
@@ -136,7 +132,7 @@ const GroupDetails = () => {
           contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
         >
           {isLoading ? (
-           <Loader visible className="mt-[100%] bg-transparent" />
+            <Loader visible className="mt-[100%] bg-transparent" />
           ) : groupData?.members && groupData.members.length > 0 ? (
             <Animated.View className="gap-4" layout={LinearTransition.springify()}>
               {groupData.members.map((member, index) => (
@@ -251,11 +247,10 @@ const GroupDetails = () => {
             <View className="bg-primary/10 p-4 rounded-full mb-3">
               <UserPlus size={32} color={colors['--primary']} />
             </View>
-            <Text className="text-2xl font-bold text-center">
-              {t('Friends.Groups.AddMember')}
-            </Text>
+            <Text className="text-2xl font-bold text-center">{t('Friends.Groups.AddMember')}</Text>
             <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-              {availableFriends.length} {t('Friends.Pro.FriendsAvailable', { count: availableFriends.length })}
+              {availableFriends.length}{' '}
+              {t('Friends.Pro.FriendsAvailable', { count: availableFriends.length })}
             </Text>
           </View>
 
@@ -294,8 +289,6 @@ const GroupDetails = () => {
                 <Text className="text-muted-foreground mt-4 text-center">
                   {t('Friends.Groups.NoAvailableFriends')}
                 </Text>
-
-                
               </View>
             )}
           </ScrollView>

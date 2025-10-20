@@ -122,15 +122,10 @@ const AllFriends = () => {
           {/* Pending Requests (received) */}
           {!!pendingFriends?.data?.sentBy?.length && (
             <>
-              <Text className="text-lg font-semibold mb-3">
-                {t('Friends.Pro.ViewPending')}
-              </Text>
+              <Text className="text-lg font-semibold mb-3">{t('Friends.Pro.ViewPending')}</Text>
               <View className="space-y-3">
-                {pendingFriends.data.sentBy.map((item) => (
-                  <View
-                    key={item.id}
-                    className="flex-col p-3 bg-card rounded-lg shadow-sm gap-3"
-                  >
+                {pendingFriends.data.sentBy.map(item => (
+                  <View key={item.id} className="flex-col p-3 bg-card rounded-lg shadow-sm gap-3">
                     <View className="flex-row items-center gap-3">
                       <Image
                         source={{
@@ -188,11 +183,8 @@ const AllFriends = () => {
                 {t('Friends.Pro.SentRequests')}
               </Text>
               <View className="space-y-3">
-                {pendingFriends.data.requests.map((item) => (
-                  <View
-                    key={item.id}
-                    className="flex-col p-3 bg-card rounded-lg shadow-sm gap-3"
-                  >
+                {pendingFriends.data.requests.map(item => (
+                  <View key={item.id} className="flex-col p-3 bg-card rounded-lg shadow-sm gap-3">
                     <View className="flex-row items-center gap-3">
                       <Image
                         source={{
@@ -237,7 +229,7 @@ const AllFriends = () => {
                 {t('Friends.Pro.FriendsList')}
               </Text>
               <View className="space-y-3">
-                {approvedFriends.data.map((item) => (
+                {approvedFriends.data.map(item => (
                   <View
                     key={item.friend.id}
                     className="flex-col p-3 bg-card rounded-lg shadow-sm gap-3"
@@ -292,85 +284,82 @@ const AllFriends = () => {
 
 export default AllFriends;
 
-
-
-
-    // approvedFriends.data.map(friend => (
-          //   <SwiperButton
-          //     key={friend.friend.friendshipId}
-          //     disabled={isDeleting || isSending}
-          //     onPress={() =>
-          //       deleteFriend({
-          //         friendshipId: friend.friend.friendshipId,
-          //         friendId: friend.friend.id,
-          //       })
-          //     }
-          //   >
-          //     <Accordion
-          //       type="multiple"
-          //       collapsible
-          //       value={accordionValue}
-          //       onValueChange={setAccordionValue}
-          //     >
-          //       <AccordionItem value={friend.friend.id}>
-          //         <AccordionTrigger>
-          //           <View className="flex-row items-center gap-3">
-          //             <Image
-          //               source={{ uri: friend.friend.photo }}
-          //               className="size-14 rounded-full bg-muted max-w-14 max-h-14"
-          //               defaultSource={FRIENDS.guest}
-          //             />
-          //             <View>
-          //               <Text className="text-base font-medium text-muted-foreground">
-          //                 {friend.friend.username}
-          //               </Text>
-          //               <Text className="text-sm">{friend.friend.email}</Text>
-          //             </View>
-          //           </View>
-          //         </AccordionTrigger>
-          //         <AccordionContent>
-          //           {friend?.prays.length > 0 ? (
-          //             [
-          //               { name: SALAHS.FAJR, value: friend.prays[0].fajr },
-          //               { name: SALAHS.DHUHR, value: friend.prays[0].dhuhr },
-          //               { name: SALAHS.ASR, value: friend.prays[0].asr },
-          //               { name: SALAHS.MAGHRIB, value: friend.prays[0].maghrib },
-          //               { name: SALAHS.ISHA, value: friend.prays[0].isha },
-          //               { name: SALAHS.NAFL, value: friend.prays[0].nafl },
-          //             ].map(({ name, value }) => (
-          //               <View key={name} className="flex-row items-center justify-between py-1">
-          //                 <Text className={cn('capitalize font-semibold')}>
-          //                   {t(`Commons.Salahs.${name}`)}
-          //                 </Text>
-          //                 <View className="flex-row gap-4">
-          //                   {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
-          //                     val => (
-          //                       <Checkbox
-          //                         key={`${name}-${val}`}
-          //                         value={value === val}
-          //                         disabled
-          //                         color={
-          //                           value === val
-          //                             ? val === PRAYER_POINTS.ON_TIME
-          //                               ? colors['--primary']
-          //                               : val === PRAYER_POINTS.LATE
-          //                                 ? colors['--secondary']
-          //                                 : colors['--destructive']
-          //                             : undefined
-          //                         }
-          //                       />
-          //                     )
-          //                   )}
-          //                 </View>
-          //               </View>
-          //             ))
-          //           ) : (
-          //             <Text className="text-sm text-muted-foreground text-center py-2">
-          //               {t('Friends.Pro.NoPrayers')}
-          //             </Text>
-          //           )}
-          //         </AccordionContent>
-          //       </AccordionItem>
-          //     </Accordion>
-          //   </SwiperButton>
-          // ))
+// approvedFriends.data.map(friend => (
+//   <SwiperButton
+//     key={friend.friend.friendshipId}
+//     disabled={isDeleting || isSending}
+//     onPress={() =>
+//       deleteFriend({
+//         friendshipId: friend.friend.friendshipId,
+//         friendId: friend.friend.id,
+//       })
+//     }
+//   >
+//     <Accordion
+//       type="multiple"
+//       collapsible
+//       value={accordionValue}
+//       onValueChange={setAccordionValue}
+//     >
+//       <AccordionItem value={friend.friend.id}>
+//         <AccordionTrigger>
+//           <View className="flex-row items-center gap-3">
+//             <Image
+//               source={{ uri: friend.friend.photo }}
+//               className="size-14 rounded-full bg-muted max-w-14 max-h-14"
+//               defaultSource={FRIENDS.guest}
+//             />
+//             <View>
+//               <Text className="text-base font-medium text-muted-foreground">
+//                 {friend.friend.username}
+//               </Text>
+//               <Text className="text-sm">{friend.friend.email}</Text>
+//             </View>
+//           </View>
+//         </AccordionTrigger>
+//         <AccordionContent>
+//           {friend?.prays.length > 0 ? (
+//             [
+//               { name: SALAHS.FAJR, value: friend.prays[0].fajr },
+//               { name: SALAHS.DHUHR, value: friend.prays[0].dhuhr },
+//               { name: SALAHS.ASR, value: friend.prays[0].asr },
+//               { name: SALAHS.MAGHRIB, value: friend.prays[0].maghrib },
+//               { name: SALAHS.ISHA, value: friend.prays[0].isha },
+//               { name: SALAHS.NAFL, value: friend.prays[0].nafl },
+//             ].map(({ name, value }) => (
+//               <View key={name} className="flex-row items-center justify-between py-1">
+//                 <Text className={cn('capitalize font-semibold')}>
+//                   {t(`Commons.Salahs.${name}`)}
+//                 </Text>
+//                 <View className="flex-row gap-4">
+//                   {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
+//                     val => (
+//                       <Checkbox
+//                         key={`${name}-${val}`}
+//                         value={value === val}
+//                         disabled
+//                         color={
+//                           value === val
+//                             ? val === PRAYER_POINTS.ON_TIME
+//                               ? colors['--primary']
+//                               : val === PRAYER_POINTS.LATE
+//                                 ? colors['--secondary']
+//                                 : colors['--destructive']
+//                             : undefined
+//                         }
+//                       />
+//                     )
+//                   )}
+//                 </View>
+//               </View>
+//             ))
+//           ) : (
+//             <Text className="text-sm text-muted-foreground text-center py-2">
+//               {t('Friends.Pro.NoPrayers')}
+//             </Text>
+//           )}
+//         </AccordionContent>
+//       </AccordionItem>
+//     </Accordion>
+//   </SwiperButton>
+// ))

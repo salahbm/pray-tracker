@@ -12,7 +12,7 @@ type FriendsBottomSheetState = {
   setSelectedGroup: (group: { id: string; name: string } | null) => void;
 };
 
-export const useFriendsBottomSheetStore = create<FriendsBottomSheetState>((set) => {
+export const useFriendsBottomSheetStore = create<FriendsBottomSheetState>(set => {
   const createSheetRef = React.createRef<BottomSheet | null>();
   const editSheetRef = React.createRef<BottomSheet | null>();
   const deleteSheetRef = React.createRef<BottomSheet | null>();

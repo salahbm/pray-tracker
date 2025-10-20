@@ -41,9 +41,7 @@ const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-destructive/10 p-4 rounded-full mb-3">
             <Trash2 size={32} color={colors['--destructive']} />
           </View>
-          <Text className="text-2xl font-bold text-center">
-            {t('Friends.Groups.DeleteTitle')}
-          </Text>
+          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.DeleteTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
             {t('Friends.Groups.DeleteDescription', { name: selectedGroup?.name })}
           </Text>

@@ -32,14 +32,14 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
   const { user } = useAuthStore();
   const { profileSheetRef } = useProfileBottomSheetStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
-  const { 
-    createSheetRef, 
-    editSheetRef, 
+  const {
+    createSheetRef,
+    editSheetRef,
     deleteSheetRef,
     groupName,
     selectedGroup,
     setGroupName,
-    setSelectedGroup
+    setSelectedGroup,
   } = useFriendsBottomSheetStore();
 
   // Friends mutations
@@ -135,10 +135,10 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
         <ProfilePage />
       </CustomBottomSheet>
 
-    {/* GROUPS */}
-    <CreateGroupSheet sheetRef={createSheetRef} />
-    <EditGroupSheet sheetRef={editSheetRef} />
-    <DeleteGroupSheet sheetRef={deleteSheetRef} />
+      {/* GROUPS */}
+      <CreateGroupSheet sheetRef={createSheetRef} />
+      <EditGroupSheet sheetRef={editSheetRef} />
+      <DeleteGroupSheet sheetRef={deleteSheetRef} />
     </Fragment>
   );
 };

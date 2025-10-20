@@ -41,9 +41,7 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-primary/10 p-4 rounded-full mb-3">
             <FolderPlus size={32} color={colors['--primary']} />
           </View>
-          <Text className="text-2xl font-bold text-center">
-            {t('Friends.Groups.CreateTitle')}
-          </Text>
+          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.CreateTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
             {t('Friends.Groups.CreateDescription')}
           </Text>

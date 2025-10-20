@@ -43,9 +43,7 @@ const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-primary/10 p-4 rounded-full mb-3">
             <Edit2 size={32} color={colors['--primary']} />
           </View>
-          <Text className="text-2xl font-bold text-center">
-            {t('Friends.Groups.EditTitle')}
-          </Text>
+          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.EditTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
             {t('Friends.Groups.EditDescription')}
           </Text>
