@@ -27,7 +27,12 @@ export type ErrorKey =
   | 'FRIEND_REQUEST_NOT_FOUND'
   | 'CANNOT_SEND_REQUEST_TO_SELF'
   | 'ALREADY_FRIENDS'
-  | 'FRIEND_NOT_FOUND';
+  | 'FRIEND_NOT_FOUND'
+  | 'GROUP_CREATED'
+  | 'GROUP_UPDATED'
+  | 'GROUP_DELETED'
+  | 'MEMBER_ADDED'
+  | 'MEMBER_REMOVED';
 
 type ErrorMessages = Record<ErrorKey, Record<Locale, string>>;
 
@@ -193,6 +198,36 @@ export const ERROR_MESSAGES: ErrorMessages = {
     uz: "Do'st topilmadi",
     ru: 'Друг не найден',
     kr: '친구를 찾을 수 없습니다',
+  },
+  GROUP_CREATED: {
+    en: 'Group created successfully',
+    uz: 'Guruh muvaffaqiyatli yaratildi',
+    ru: 'Группа успешно создана',
+    kr: '그룹이 성공적으로 생성되었습니다',
+  },
+  GROUP_UPDATED: {
+    en: 'Group updated successfully',
+    uz: 'Guruh muvaffaqiyatli yangilandi',
+    ru: 'Группа успешно обновлена',
+    kr: '그룹이 성공적으로 업데이트되었습니다',
+  },
+  GROUP_DELETED: {
+    en: 'Group deleted successfully',
+    uz: "Guruh muvaffaqiyatli o'chirildi",
+    ru: 'Группа успешно удалена',
+    kr: '그룹이 성공적으로 삭제되었습니다',
+  },
+  MEMBER_ADDED: {
+    en: 'Member added to group successfully',
+    uz: "A'zo guruhga muvaffaqiyatli qo'shildi",
+    ru: 'Участник успешно добавлен в группу',
+    kr: '멤버가 그룹에 성공적으로 추가되었습니다',
+  },
+  MEMBER_REMOVED: {
+    en: 'Member removed from group successfully',
+    uz: "A'zo guruhdan muvaffaqiyatli o'chirildi",
+    ru: 'Участник успешно удален из группы',
+    kr: '멤버가 그룹에서 성공적으로 제거되었습니다',
   },
 };
 

@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { approvedFriendsList, pendingFriendsList } from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 import useMutation from '../common/useMutation';
+import QueryKeys from '@/constants/query-keys';
 
 type TParams = {
   friendshipId: string;
@@ -14,7 +14,7 @@ type TParams = {
 };
 
 const acceptRequest = async (data: TParams): Promise<IResponseArray<IResponse<IFriend>>> => {
-  const response = await agent.post('/friends/approve', {
+  const response = await agent.post<IResponseArray<IResponse<IFriend>>>('/friends/approve', {
     body: JSON.stringify({
       userId: data.userId,
       friendId: data.friendId,
@@ -31,10 +31,22 @@ export const useAcceptRequest = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [pendingFriendsList],
+          queryKey: QueryKeys.friends.pending,
         });
         await queryClient.invalidateQueries({
-          queryKey: [approvedFriendsList],
+          queryKey: QueryKeys.friends.approved,
+          type: 'all',
+          exact: false,
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.friends.groups,
+          type: 'all',
+          exact: false,
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.friends.groupMembers,
+          type: 'all',
+          exact: false,
         });
       },
     },

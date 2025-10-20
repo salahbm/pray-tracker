@@ -1,0 +1,31 @@
+import { useQuery } from '@tanstack/react-query';
+
+import agent from '@/lib/agent';
+import { IResponseArray } from '@/types/api';
+interface GroupMember {
+  id: string;
+  userId: string;
+  username: string;
+  email: string;
+  photo: string;
+}
+
+interface Group {
+  id: string;
+  name: string;
+  memberCount: number;
+  members: GroupMember[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const useGetGroups = (userId: string) => {
+  return useQuery({
+    queryKey: ['groups', userId],
+    queryFn: async () => {
+      const response = await agent.get<IResponseArray<Group>>(`/friends/groups?userId=${userId}`);
+      return response.data;
+    },
+    enabled: !!userId,
+  });
+};

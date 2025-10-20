@@ -14,13 +14,21 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
 
-export default function Leaderboard() {
+export default function Leaderboard({
+  showCount,
+  imageClassName,
+}: {
+  showCount: boolean;
+  imageClassName?: string;
+}) {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 100);
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
+
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
+
+  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, showCount ? 10 : 100);
 
   return (
     <View className="main-area">
@@ -51,7 +59,7 @@ export default function Leaderboard() {
                 {item.username}
               </Text>
               <Text className="text-base font-bold">
-                {item.totalPoints} {t('Awards.Leaderboard.Points')}
+                {item.totalPoints} {t('Leaderboard.Points')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -59,7 +67,12 @@ export default function Leaderboard() {
         showsVerticalScrollIndicator={false}
         className="mt-4"
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
-        ListEmptyComponent={<NoData title={t('Commons.NotFound.noData')} className="mt-[45%]" />}
+        ListEmptyComponent={
+          <NoData
+            imageClassName={imageClassName}
+            className="mt-[15%] [&_img]:w-[20px] [&_img]:h-[20px]"
+          />
+        }
         refreshControl={
           <RefreshControl
             refreshing={isLoading}
@@ -67,6 +80,7 @@ export default function Leaderboard() {
             tintColor={colors['--primary']}
           />
         }
+        scrollEnabled={!showCount}
       />
 
       {/* User Details Modal */}
@@ -74,13 +88,13 @@ export default function Leaderboard() {
         <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-8">
           <Image
             source={{ uri: selectedUser?.photo }}
-            className="w-16 h-16 rounded-full border border-border max-w-16 max-h-16"
+            className="w-16 h-16 rounded-full border border-muted max-w-16 max-h-16"
             defaultSource={FRIENDS.guest}
           />
           <View>
             <Text className="text-xl font-bold">{selectedUser?.username}</Text>
             <Text className="text-lg text-muted-foreground">
-              {t('Awards.Leaderboard.UserDetails.Points')}: {selectedUser?.totalPoints}
+              {t('Leaderboard.Points')}: {selectedUser?.totalPoints}
             </Text>
             <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
           </View>

@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react-native';
 import {
-  Award,
+  Calendar,
   ChevronDown,
   Compass,
   Home,
@@ -31,11 +31,11 @@ iconWithClassName(Sun);
 iconWithClassName(MoonStar);
 iconWithClassName(Home);
 iconWithClassName(Compass);
-iconWithClassName(Award);
+iconWithClassName(Calendar);
 iconWithClassName(Users);
 iconWithClassName(UserPlus);
 iconWithClassName(Trophy);
 iconWithClassName(LogOut);
 iconWithClassName(X);
 
-export { Award, ChevronDown, Compass, Home, LogOut, MoonStar, Sun, Trophy, UserPlus, Users, X };
+export { Calendar, ChevronDown, Compass, Home, LogOut, MoonStar, Sun, Trophy, UserPlus, Users, X };

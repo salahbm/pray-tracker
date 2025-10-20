@@ -116,6 +116,8 @@ class Agent {
     // Get current language and add to headers
     const currentLanguage = i18n.language || 'en';
 
+    console.log('LOGGING', url, currentLanguage);
+
     const config: RequestInit = {
       method,
       headers: {
@@ -162,8 +164,8 @@ class Agent {
     return this.request<T>('PATCH', endpoint, data, options);
   }
 
-  delete<T>(endpoint: string, options?: RequestOptions) {
-    return this.request<T>('DELETE', endpoint, undefined, options);
+  delete<T>(endpoint: string, data?: unknown, options?: RequestOptions) {
+    return this.request<T>('DELETE', endpoint, data, options);
   }
 }
 

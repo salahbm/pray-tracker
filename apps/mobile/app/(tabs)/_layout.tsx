@@ -1,4 +1,4 @@
-import { Award, Compass, Home, Users } from '@components/shared/icons';
+import { Compass, Home, Users, Calendar } from '@components/shared/icons';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';
@@ -13,11 +13,11 @@ function TabLayout() {
   const screens = useMemo(
     () => [
       { name: 'index', Icon: Home },
+      { name: '(track)', Icon: Calendar },
       { name: 'qibla', Icon: Compass },
-      { name: 'awards', Icon: Award },
       { name: 'friends', Icon: Users },
     ],
-    []
+    [colors, currentTheme]
   );
 
   return (

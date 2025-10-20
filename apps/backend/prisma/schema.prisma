@@ -16,26 +16,28 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String  @id @default(cuid())
   name          String
-  email         String
-  emailVerified Boolean   @default(false)
+  email         String  @unique
+  emailVerified Boolean @default(false)
   image         String?
-  locale        String?    @default("en")
+  locale        String? @default("en")
 
-  prayers       Prayer[]
-  totalPoints   Int?       @default(0)
+  prayers     Prayer[]
+  totalPoints Int?     @default(0)
 
-  sentRequests     Friend[] @relation("user_friends") 
+  sentRequests     Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
 
-  sessions      Session[]
-  accounts      Account[]
+  friendGroups     FriendGroup[]       @relation("group_owner")
+  groupMemberships FriendGroupMember[] @relation("group_members_user")
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions Session[]
+  accounts Account[]
 
-  @@unique([email])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
   @@map("user")
 }
 
@@ -85,17 +87,17 @@ model Verification {
 }
 
 model Prayer {
-  id        String   @id @default(cuid())
-  userId    String
-  date      DateTime
-  fajr      Int?
-  dhuhr     Int?
-  asr       Int?
-  maghrib   Int?
-  isha      Int?
-  nafl      Int?
+  id      String   @id @default(cuid())
+  userId  String
+  date    DateTime
+  fajr    Int?
+  dhuhr   Int?
+  asr     Int?
+  maghrib Int?
+  isha    Int?
+  nafl    Int?
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -104,15 +106,42 @@ model Prayer {
   @@map("prayer")
 }
 
+model FriendGroup {
+  id     String @id @default(cuid())
+  name   String
+  userId String
+
+  owner   User                @relation("group_owner", fields: [userId], references: [id], onDelete: Cascade)
+  members FriendGroupMember[] @relation("group_members")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("friend_group")
+}
+
+model FriendGroupMember {
+  id      String @id @default(cuid())
+  groupId String
+  userId  String
+
+  group FriendGroup @relation("group_members", fields: [groupId], references: [id], onDelete: Cascade)
+  user  User        @relation("group_members_user", fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([groupId, userId])
+  @@map("friend_group_member")
+}
 
 model Friend {
-  id        String       @id @default(cuid())
-  userId    String
-  friendId  String
-  status    FriendStatus @default(PENDING)
+  id       String       @id @default(cuid())
+  userId   String
+  friendId String
+  status   FriendStatus @default(PENDING)
 
-  user      User @relation(fields: [userId], references: [id], onDelete: Cascade, name: "user_friends")
-  friend    User @relation(fields: [friendId], references: [id], onDelete: Cascade, name: "friend_friends")
+  user   User @relation("user_friends", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation("friend_friends", fields: [friendId], references: [id], onDelete: Cascade)
 
   @@unique([userId, friendId])
   @@map("friend")

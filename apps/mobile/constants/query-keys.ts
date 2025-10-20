@@ -12,6 +12,8 @@ const QueryKeys = {
     today: ['prays', 'today'],
   },
   friends: {
+    groups: ['friends', 'groups'],
+    groupMembers: ['friends', 'groupMembers'],
     approved: ['friends', 'approved'],
     pending: ['friends', 'pending'],
   },

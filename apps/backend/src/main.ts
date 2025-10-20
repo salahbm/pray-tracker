@@ -8,7 +8,7 @@ import { HttpExceptionFilter } from '@/common/filters/http-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
-    logger: ['log', 'error', 'warn'],
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
   const port: number = Number(env.PUBLIC_API_PORT) || 4000;
 

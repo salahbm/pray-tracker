@@ -83,26 +83,10 @@
       "Skip": "Skip"
     }
   },
-  "Awards": {
-    "AwardsEarned": "Awards Earned",
-    "Categories": {
-      "first": "First Steps",
-      "milestone": "Milestones",
-      "prayer_quality": "Prayer Quality",
-      "special": "Special Awards",
-      "streak": "Prayer Streaks"
-    },
-    "Completed": "Completed",
-    "CurrentScore": "Current Score",
-    "Leaderboard": {
-      "Point": "pts",
-      "Points": "Points"
-    },
-    "Tabs": {
-      "Leaderboard": "Leaderboard",
-      "Personal": "My Records"
-    },
-    "YourAwards": "Your Awards"
+  "Leaderboard": {
+    "Title": "Leaderboard",
+    "Point": "pts",
+    "Points": "Points"
   },
   "Commons": {
     "Notifications": {
@@ -142,7 +126,9 @@
       "Confirm": "Confirm",
       "Title": "Select a Year"
     },
-    "choose": "Choose a language"
+    "ViewAll": "View All",
+    "choose": "Choose a language",
+    "today":"Today"
   },
   "Friends": {
     "Freemium": {

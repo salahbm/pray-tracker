@@ -5,7 +5,6 @@ import agent from '@/lib/agent';
 import { IResponse } from '@/types/api';
 import { IFriend } from '@/types/friends';
 import { User } from '@/types/user';
-import { sendPushNotification } from '@/utils/notification';
 
 import useMutation from '../common/useMutation';
 
@@ -29,8 +28,6 @@ const sendRequest = async (params: TParams): Promise<IResponse<IFriendship>> =>
 
 export const useRequest = () => {
   const queryClient = useQueryClient();
-  // TODO: i18n in title and body
-  // const { t } = useTranslation();
   return useMutation({
     mutationFn: sendRequest,
     options: {
@@ -39,14 +36,14 @@ export const useRequest = () => {
 
         const { sentBy, friend } = response.data ?? {};
 
-        // Optional: notify the friend if device token exists
-        if (friend?.deviceToken && sentBy?.email) {
-          await sendPushNotification({
-            to: friend.deviceToken,
-            title: '👤 Friend',
-            body: `${sentBy.email}`,
-          });
-        }
+        // TODO WILL BE HANDLED ON SERVER
+        // if (friend?.deviceToken && sentBy?.email) {
+        //   await sendPushNotification({
+        //     to: friend.deviceToken,
+        //     title: '👤 Friend',
+        //     body: `${sentBy.email}`,
+        //   });
+        // }
       },
     },
   });

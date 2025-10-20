@@ -15,6 +15,8 @@ const resources = {
   ru: { translation: ruLocalization },
 };
 
+export type Language = keyof typeof resources;
+
 const initI18n = async () => {
   let savedLanguage = 'en'; // default fallback
 

@@ -8,7 +8,7 @@ This monorepo contains all parts of the pray Tracker ecosystem, built with moder
 pray-tracker/
 ├── apps/
 │   ├── mobile/     # Mobile app (React Native + Expo)
-│   ├── backend/      # API server (pnpm + Express)
+│   ├── backend/      # API server (pnpm + NestJS)
 │   └── web/         # Marketing site (Next.js)
 ├── packages/
 │   ├── auth/        # Better Auth configuration for server apps
@@ -35,7 +35,7 @@ pray-tracker/
 
 ### ⚙️ Backend (API Server)
 
-- **Tech Stack**: pnpm + Express
+- **Tech Stack**: pnpm + NestJS
 - **Features**:
   - RESTful API endpoints
   - pray time calculations

@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import LottieView from 'lottie-react-native';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -23,6 +23,12 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
+
+import { ChevronRight } from 'lucide-react-native';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { router } from 'expo-router';
+import Leaderboard from '@/components/views/awards/leaderboard';
 
 const initialState = {
   prayers: {
@@ -217,6 +223,23 @@ export default function HomeScreen() {
         />
         {/* CHARTS */}
         <AreaChart lineData={prays} />
+
+        <View>
+          <View className="flex-row items-center justify-between mt-6">
+            <Text className="text-xl font-semibold">{t('Leaderboard.Title')}</Text>
+            <Button
+              className="flex-row items-center gap-2"
+              size="sm"
+              variant="ghost"
+              onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
+            >
+              <Text className="text-xs font-extralight">{t('Commons.ViewAll')}</Text>
+              <ChevronRight size={12} />
+            </Button>
+          </View>
+          <Leaderboard showCount imageClassName="w-24 h-24" />
+        </View>
+
         {/* LOTTIE CONFETTI */}
         <LottieView
           ref={confettiRef}
