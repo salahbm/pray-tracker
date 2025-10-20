@@ -100,7 +100,8 @@ export class FriendsController {
 
   @Get('groups')
   async getGroups(@Query('userId') userId: string) {
-    return this.friendsService.getGroups(userId);
+    const groups = await this.friendsService.getGroups(userId);
+    return { data: groups };
   }
 
   @Get('groups/:groupId/members')
@@ -108,7 +109,8 @@ export class FriendsController {
     @Param('groupId') groupId: string,
     @Query('userId') userId: string,
   ) {
-    return this.friendsService.getGroupMembers(groupId, userId);
+    const members = await this.friendsService.getGroupMembers(groupId, userId);
+    return { data: members };
   }
 
   @Patch('groups/:groupId')

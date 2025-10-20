@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 
 import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
@@ -13,7 +12,6 @@ interface DeleteGroupPayload {
 }
 
 export const useDeleteGroup = () => {
-  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   return useMutation({

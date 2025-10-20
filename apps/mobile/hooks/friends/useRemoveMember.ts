@@ -18,9 +18,7 @@ export const useRemoveMember = () => {
     mutationFn: async ({ groupId, memberId, userId }: RemoveMemberPayload) => {
       const response = await agent.delete<IResponseArray<IResponse<IFriend>>>(
         `/friends/groups/members?userId=${userId}`,
-        {
-          body: JSON.stringify({ groupId, memberId }),
-        }
+        { groupId, memberId }
       );
       return response.data;
     },

@@ -1,5 +1,6 @@
 import agent from '@/lib/agent';
 import { IResponse } from '@/types/api';
+import QueryKeys from '@/constants/query-keys';
 import { useQuery } from '@tanstack/react-query';
 
 interface Prayer {
@@ -28,7 +29,7 @@ interface GroupMembersResponse {
 
 export const useGetGroupMembers = (groupId: string, userId: string) => {
   return useQuery({
-    queryKey: ['group-members', groupId, userId],
+    queryKey: [...QueryKeys.friends.groupMembers, groupId, userId],
     queryFn: async () => {
       const response = await agent.get<IResponse<GroupMembersResponse>>(
         `/friends/groups/${groupId}/members?userId=${userId}`

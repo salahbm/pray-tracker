@@ -24,7 +24,7 @@ const FriendsPending = () => {
     data: pendingFriends,
     isLoading: isLoadingPending,
     refetch: refetchPending,
-  } = useGetPendingFriends(user?.id);
+  } = useGetPendingFriends(user?.id!);
 
   const { mutateAsync: acceptFriendRequest, isPending: isAccepting } = useAcceptRequest();
   const { mutateAsync: rejectFriendRequest, isPending: isRejecting } = useRejectRequest();

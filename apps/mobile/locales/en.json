@@ -128,7 +128,14 @@
     },
     "ViewAll": "View All",
     "choose": "Choose a language",
-    "today":"Today"
+    "today":"Today",
+    "Delete":"Delete",
+    "Deleting":"Deleting...",
+    "Create":"Create",
+    "Creating":"Creating...",
+    "Cancel":"Cancel",
+    "Update":"Update",
+    "Updating":"Updating..."
   },
   "Friends": {
     "Freemium": {
@@ -136,6 +143,22 @@
       "Title": "Prayer Tracker +",
       "UpgradeButton": "Bismillah, I'm in",
       "UpgradePrompt": "Access this feature to enhance your experience"
+    },
+    "Groups": {
+      "Title": "Groups",
+      "CreateTitle": "Create New Group",
+      "CreateDescription": "Create a group to organize your friends and track prayers together",
+      "EditTitle": "Edit Group",
+      "EditDescription": "Update the group name",
+      "DeleteTitle": "Delete Group",
+      "DeleteDescription": "Are you sure you want to delete '{{name}}'? This action cannot be undone.",
+      "GroupNamePlaceholder": "Enter group name",
+      "Members": "members",
+      "NoGroups": "No groups yet. Create one to get started!",
+      "NoMembers": "No members in this group yet",
+      "AddMember": "Add Member",
+      "NoAvailableFriends": "All your friends are already in this group",
+      "FriendsAvailable": "{{count}} {{count === 1 ? 'friend' : 'friends'}} available"
     },
     "Pro": {
       "Accept": "Accept",

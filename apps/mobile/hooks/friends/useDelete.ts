@@ -13,9 +13,10 @@ type TParams = {
 };
 
 const deleteFriend = async (data: TParams): Promise<IResponseArray<IFriend>> =>
-  await agent.delete<IResponseArray<IFriend>>(
-    `/friends/remove?friendId=${data.friendId}&friendshipId=${data.friendshipId}`
-  );
+  await agent.delete<IResponseArray<IFriend>>('/friends/remove', {
+    friendId: data.friendId,
+    friendshipId: data.friendshipId,
+  });
 
 export const useDeleteFriend = () => {
   const queryClient = useQueryClient();
@@ -25,6 +26,15 @@ export const useDeleteFriend = () => {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
           queryKey: QueryKeys.friends.approved,
+          type: 'all',
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.friends.pending,
+          type: 'all',
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.friends.groups,
+          type: 'all',
         });
       },
     },

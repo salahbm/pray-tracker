@@ -20,10 +20,8 @@ interface IFriendship {
 
 const sendRequest = async (params: TParams): Promise<IResponse<IFriendship>> =>
   await agent.post<IResponse<IFriendship>>('/friends/request', {
-    body: JSON.stringify({
-      userId: params.userId,
-      friendEmail: params.friendEmail,
-    }),
+    userId: params.userId,
+    friendEmail: params.friendEmail,
   });
 
 export const useRequest = () => {

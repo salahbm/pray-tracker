@@ -14,9 +14,10 @@ type TParams = {
 };
 
 const rejectRequest = async (data: TParams): Promise<IResponseArray<IFriend>> =>
-  await agent.delete<IResponseArray<IFriend>>(
-    `/friends/reject?friendId=${data.friendId}&friendshipId=${data.friendshipId}&userId=${data.userId}`
-  );
+  await agent.patch<IResponseArray<IFriend>>('/friends/reject', {
+    userId: data.userId,
+    friendshipId: data.friendshipId,
+  });
 
 export const useRejectRequest = () => {
   const queryClient = useQueryClient();

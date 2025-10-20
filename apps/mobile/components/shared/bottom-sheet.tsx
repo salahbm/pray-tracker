@@ -38,7 +38,7 @@ const CustomBottomSheet = ({
       snapPoints={snapPoints}
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
-      style={[{ zIndex: 1 }, bottomSheetStyle]}
+      style={[{ zIndex: 9999 }, bottomSheetStyle]}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={backdropProps => (
         <BottomSheetBackdrop

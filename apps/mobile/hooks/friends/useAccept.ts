@@ -14,12 +14,9 @@ type TParams = {
 };
 
 const acceptRequest = async (data: TParams): Promise<IResponseArray<IResponse<IFriend>>> => {
-  const response = await agent.post<IResponseArray<IResponse<IFriend>>>('/friends/approve', {
-    body: JSON.stringify({
-      userId: data.userId,
-      friendId: data.friendId,
-      friendshipId: data.friendshipId,
-    }),
+  const response = await agent.patch<IResponseArray<IResponse<IFriend>>>('/friends/accept', {
+    userId: data.userId,
+    friendshipId: data.friendshipId,
   });
   return response;
 };

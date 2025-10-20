@@ -31,7 +31,7 @@ export default function Leaderboard({
   const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, showCount ? 10 : 100);
 
   return (
-    <View className="main-area">
+    <View>
       <Loader visible={isLoading} className="bg-transparent" />
 
       <FlatList
