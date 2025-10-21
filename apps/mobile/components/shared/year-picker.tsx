@@ -7,7 +7,6 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   FlatList as RNFlatList,
-  Modal,
   InteractionManager,
   Animated,
   Easing,
@@ -19,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
+import Modal from './modal';
 
 const ITEM_HEIGHT = 50;
 const VISIBLE_ITEMS = 5;
@@ -310,15 +310,11 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
   return (
     <Modal
       visible={visible}
-      transparent
-      animationType="fade"
       onRequestClose={handleCancel}
-      statusBarTranslucent
     >
-      <View style={styles.overlay}>
-        <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={handleCancel} />
+     
 
-        <View style={[styles.content, { backgroundColor: colors['--background'] }]}>
+
           <View className="px-4 py-6">
             <Text style={[styles.title, { color: colors['--foreground'] }]}>
               {t('Commons.YearPicker.Title')}
@@ -378,34 +374,13 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
               </Button>
             </View>
           </View>
-        </View>
-      </View>
+
+
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  backdrop: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
-  },
-  content: {
-    width: Dimensions.get('window').width * 0.9,
-    maxWidth: 420,
-    borderRadius: 16,
-    elevation: 8,
-    zIndex: 2,
-  },
   title: { fontSize: 20, fontWeight: '700', marginBottom: 20 },
   pickerBox: {
     alignSelf: 'center',
@@ -413,7 +388,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     overflow: 'hidden',
-    borderRadius: 12,
     position: 'relative',
   },
   indicator: {
@@ -423,8 +397,8 @@ const styles = StyleSheet.create({
     right: 0,
     transform: [{ translateY: -ITEM_HEIGHT / 2 }],
     height: ITEM_HEIGHT,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderRadius: 8,
     zIndex: 5,
   },

@@ -158,8 +158,12 @@
       "NoMembers": "No members in this group yet",
       "AddMember": "Add Member",
       "NoAvailableFriends": "All your friends are already in this group",
-      "FriendsAvailable": "{{count}} {{count === 1 ? 'friend' : 'friends'}} available",
-      "MembersCount": "{{count}} {{count === 1 ? 'member' : 'members'}}"
+      "FriendsAvailable_one": "{{count}} friend available",
+      "FriendsAvailable_other": "{{count}} friends available",
+      "MembersCount_one": "{{count}} member",
+      "MembersCount_other": "{{count}} members",
+      "GroupsCount_one": "{{count}} group",
+      "GroupsCount_other": "{{count}} groups"
     },
     "Pro": {
       "Accept": "Accept",

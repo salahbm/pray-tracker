@@ -108,10 +108,10 @@ const Settings = () => {
       </View>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
-        <ThemeSwitcher />
+        <ThemeSwitcher onClose={() => themeRef.current?.close()} />
       </CustomBottomSheet>
       <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
-        <Language />
+        <Language onClose={() => langRef.current?.close()} />
       </CustomBottomSheet>
     </SafeAreaView>
   );

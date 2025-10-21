@@ -9,10 +9,7 @@ interface IUserDelete {
   id: string;
 }
 
-const deleteUser = async (params: IUserDelete) => {
-  const response = await agent.delete(`/users/${params.id}`);
-  return response;
-};
+const deleteUser = async (params: IUserDelete) => await agent.delete(`/users/${params.id}`);
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();

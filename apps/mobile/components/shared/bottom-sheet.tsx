@@ -1,7 +1,9 @@
-import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { cn } from '@/lib/utils';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView, ScrollEventsHandlersHookType } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { AnimatedStyle } from 'react-native-reanimated';
+import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
 interface IBottomSheet {
   sheetRef: React.RefObject<BottomSheet | null>;
@@ -19,6 +21,8 @@ interface IBottomSheet {
   >;
   scrollStyle?: StyleProp<ViewStyle> | undefined;
   opacity?: number;
+  scrollClassName?: string;
+  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
 
 const CustomBottomSheet = ({
@@ -30,6 +34,8 @@ const CustomBottomSheet = ({
   scrollStyle,
   index = -1,
   opacity = 0.4,
+  scrollClassName,
+  onScroll
 }: IBottomSheet) => {
   return (
     <BottomSheet
@@ -38,7 +44,7 @@ const CustomBottomSheet = ({
       snapPoints={snapPoints}
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
-      style={[{ zIndex: 9999 }, bottomSheetStyle]}
+      style={bottomSheetStyle}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={backdropProps => (
         <BottomSheetBackdrop
@@ -55,7 +61,7 @@ const CustomBottomSheet = ({
         </View>
       )}
     >
-      <BottomSheetScrollView contentContainerStyle={scrollStyle} className="bg-muted px-6 flex-1">
+       <BottomSheetScrollView onScroll={onScroll} contentContainerStyle={scrollStyle} className={cn("bg-muted px-6 flex-1", scrollClassName)}>
         {children}
       </BottomSheetScrollView>
     </BottomSheet>

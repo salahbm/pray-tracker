@@ -22,7 +22,7 @@ export const LANGUAGES = {
   ko: '한국어',
 } as const;
 
-export function Language() {
+export function Language({onClose}: {onClose: () => void}) {
   const { changeLanguage, currentLanguage } = useLanguage();
   const { t } = useTranslation();
   const { user } = useAuthStore();
@@ -30,6 +30,7 @@ export function Language() {
 
   const handleUpdateLocale = async (locale: string) => {
     changeLanguage(locale);
+    onClose();
     if (user) {
       updateUser({
         ...user,

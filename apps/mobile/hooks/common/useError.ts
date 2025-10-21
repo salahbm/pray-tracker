@@ -2,31 +2,20 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { fireToast } from '@/providers/toaster';
-import { ErrorData } from '@/types/api';
-import { MessageCodes, StatusCode } from '@/utils/status';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { IErrorResponse } from '@/types/api';
+
 
 export const useError = () => {
   const { t } = useTranslation();
-  const statusPath = 'Responses.StatusCode';
-  const messagesPath = 'Responses.MessageCodes';
+  const { clearUserAndSession } = useAuthStore();
+
 
   const errorHandler = useCallback(
-    (error: ErrorData) => {
-      const { description, message, code, status } = error;
+    (error: IErrorResponse) => {
+      const { message, statusCode:_ } = error;
 
-      if (!status && !code) return;
-
-      if (status === StatusCode.INTERNAL_ERROR || code === MessageCodes.TOO_MANY_REQUESTS) {
-        fireToast.error(t(`${messagesPath}.${code || status}`, { defaultValue: message }));
-        return;
-      }
-
-      if (code >= 999 && code < 7000) {
-        fireToast.error(t(`${messagesPath}.${code}`, { defaultValue: message }));
-        return;
-      }
-
-      fireToast.error(t(`${statusPath}.${status}`, { defaultValue: description }));
+      fireToast.error(message);
     },
     [t]
   );

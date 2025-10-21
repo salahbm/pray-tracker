@@ -6,13 +6,11 @@ import { router } from 'expo-router';
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { MessageCodes, StatusCode } from '@/utils/status';
 import { ApiError } from '@/lib/agent'; // ✅ import ApiError
+import { IErrorResponse, IResponse } from '@/types/api';
 
 const QueryProvider = ({ children }: PropsWithChildren) => {
-  const { t } = useTranslation();
   const { errorHandler } = useError();
-  const { clearUserAndSession } = useAuthStore();
 
   const [queryClient] = useState(
     () =>
@@ -32,14 +30,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           onError: (error, query) => {
             console.info(`Error in query: ${JSON.stringify(query.queryKey)}`, error);
 
-            const errorMessage =
-              query.state.data === undefined
-                ? `Error: ${error.message}`
-                : `Background fetching error: ${error.message}`;
-
-            if ((error as { status?: number })?.status !== 500) {
-              fireToast.error(errorMessage);
-            }
+            errorHandler(error as unknown as IErrorResponse);
           },
         }),
 
@@ -48,50 +39,20 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           onError: error => {
             console.info('Mutation error:', error ?? 'Unknown error');
 
-            // Handle missing Auth session
-            if (
-              'details' in error &&
-              (error?.details as unknown as { name: string })?.name === 'AuthSessionMissingError'
-            ) {
-              clearUserAndSession();
-              router.replace('/(tabs)');
-              return;
-            }
-
             // ✅ Handle known ApiError from agent.ts
             if (error instanceof ApiError) {
-              return errorHandler({
-                message: error.message,
-                code: (error.code as number) || MessageCodes.SOMETHING_WENT_WRONG,
-                status: (error.status as StatusCode) || StatusCode.INTERNAL_ERROR,
-                description:
-                  typeof error.data === 'string'
-                    ? error.data
-                    : (error.data as any)?.message || error.message,
-              });
+              return errorHandler(error as unknown as IErrorResponse);
             }
 
-            // ✅ Fallback for unknown errors
-            const errMessage =
-              error instanceof Error && error.message ? error.message : 'An unknown error occurred';
-
-            return errorHandler({
-              message: errMessage,
-              code: MessageCodes.SOMETHING_WENT_WRONG,
-              status: StatusCode.INTERNAL_ERROR,
-              description: errMessage,
-            });
+          
+            return errorHandler(error as unknown as IErrorResponse);
           },
 
           // ✅ Handle success with toast feedback
-          onSuccess: (data: unknown, variables: unknown, context: unknown) => {
+          onSuccess: (data, variables: unknown, context: unknown) => {
             console.info('Mutation success:', data);
-            // Only show toast for responses with the expected success format
-            const res = data as { status?: StatusCode; message?: string; code?: MessageCodes };
-            if (res && 'code' in res && res.code) {
-              fireToast.success(
-                t(`Responses.MessageCodes.${res.code}`, { defaultValue: res.message })
-              );
+            if((data as IResponse<unknown>).success && (data as IResponse<unknown>)?.message){
+              fireToast.success((data as IResponse<unknown>).message ?? 'Success');
             }
           },
         }),

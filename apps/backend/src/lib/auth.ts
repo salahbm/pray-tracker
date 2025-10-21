@@ -4,9 +4,9 @@ import { PrismaClient } from 'generated/prisma';
 import { env } from '@/config/env.config';
 import { ALLOWED_ORIGINS } from '@/config/cors.configt';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
-import { getLocaleFromRequest } from '@/common/utils/response.utils';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
+import { getLocaleFromRequest } from '@/common/utils/headers';
 
 const prisma = new PrismaClient();
 

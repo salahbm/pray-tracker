@@ -17,8 +17,7 @@ export const useRemoveMember = () => {
   return useMutation({
     mutationFn: async ({ groupId, memberId, userId }: RemoveMemberPayload) => {
       const response = await agent.delete<IResponseArray<IResponse<IFriend>>>(
-        `/friends/groups/members?userId=${userId}`,
-        { groupId, memberId }
+        `/friends/groups/${groupId}/members/${memberId}?userId=${userId}`,
       );
       return response.data;
     },
@@ -30,3 +29,4 @@ export const useRemoveMember = () => {
     },
   });
 };
+ 

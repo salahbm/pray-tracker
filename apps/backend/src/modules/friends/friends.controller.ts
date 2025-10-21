@@ -14,11 +14,9 @@ import { FriendsService } from './friends.service';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import { SendFriendRequestDto } from './dto/send-friend-request.dto';
 import { RespondFriendRequestDto } from './dto/respond-friend-request.dto';
-import { DeleteFriendDto } from './dto/delete-friend.dto';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddMemberDto } from './dto/add-member.dto';
-import { RemoveMemberDto } from './dto/remove-member.dto';
 import { type Locale } from '@/common/utils/response.utils';
 
 @Controller('friends')
@@ -80,14 +78,11 @@ export class FriendsController {
 
   @Delete('remove')
   async removeFriend(
-    @Body() deleteFriendDto: DeleteFriendDto,
+    @Query('friendshipId') friendshipId: string,
+    @Query('friendId') friendId: string,
     @Headers('locale') locale?: Locale,
   ) {
-    return this.friendsService.removeFriend(
-      deleteFriendDto.friendshipId,
-      deleteFriendDto.friendId,
-      locale,
-    );
+    return this.friendsService.removeFriend(friendshipId, friendId, locale);
   }
 
   // Group Management Endpoints
@@ -157,15 +152,16 @@ export class FriendsController {
     );
   }
 
-  @Delete('groups/members')
+  @Delete('groups/:groupId/members/:memberId')
   async removeMemberFromGroup(
-    @Body() removeMemberDto: RemoveMemberDto,
+    @Param('memberId') memberId: string,
+    @Param('groupId') groupId: string,
     @Query('userId') userId: string,
     @Headers('locale') locale?: Locale,
   ) {
     return this.friendsService.removeMemberFromGroup(
-      removeMemberDto.groupId,
-      removeMemberDto.memberId,
+      groupId,
+      memberId,
       userId,
       locale,
     );

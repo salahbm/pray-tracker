@@ -31,6 +31,7 @@ export type ErrorKey =
   | 'GROUP_CREATED'
   | 'GROUP_UPDATED'
   | 'GROUP_DELETED'
+  | 'GROUP_NOT_FOUND'
   | 'MEMBER_ADDED'
   | 'MEMBER_REMOVED';
 
@@ -211,6 +212,12 @@ export const ERROR_MESSAGES: ErrorMessages = {
     ru: 'Группа успешно обновлена',
     kr: '그룹이 성공적으로 업데이트되었습니다',
   },
+  GROUP_NOT_FOUND: {
+    en: 'Group not found',
+    uz: 'Guruh topilmadi',
+    ru: 'Группа не найдена',
+    kr: '그룹을 찾을 수 없습니다',
+  },
   GROUP_DELETED: {
     en: 'Group deleted successfully',
     uz: "Guruh muvaffaqiyatli o'chirildi",
@@ -235,18 +242,13 @@ export function getLocalizedMessage(
   key: ErrorKey,
   locale: Locale = 'en',
 ): string {
-  return ERROR_MESSAGES[key]?.[locale] || ERROR_MESSAGES[key].en;
-}
-
-export function getLocalizedMessageWithFallback(
-  key: ErrorKey,
-  locale: Locale = 'en',
-  fallback?: string,
-): string {
-  return (
-    ERROR_MESSAGES[key]?.[locale] ||
-    fallback ||
-    ERROR_MESSAGES[key]?.en ||
-    'An error occurred'
-  );
+  return ERROR_MESSAGES[key]?.[locale] || ERROR_MESSAGES[key]?.en
+    ? 'An error occurred'
+    : ERROR_MESSAGES[key]?.ru
+      ? 'Произошла ошибка'
+      : ERROR_MESSAGES[key]?.uz
+        ? 'Kechirasiz, xatolik yuz berdi'
+        : ERROR_MESSAGES[key]?.kr
+          ? '오류가 발생했습니다'
+          : 'An error occurred';
 }

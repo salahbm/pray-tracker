@@ -6,7 +6,7 @@ import {
 import { PrismaService } from '@/db/prisma.service';
 import { FriendStatus, Prayer } from 'generated/prisma';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
-import { Locale } from '@/common/utils/response.utils';
+import { createSuccessResponse, Locale } from '@/common/utils/response.utils';
 
 type FriendGroupMemberSummary = {
   id: string;
@@ -384,7 +384,11 @@ export class FriendsService {
   /**
    * Get group members with their prayers
    */
-  async getGroupMembers(groupId: string, userId: string) {
+  async getGroupMembers(
+    groupId: string,
+    userId: string,
+    locale: Locale = 'en',
+  ) {
     const group = await this.prisma.friendGroup.findUnique({
       where: { id: groupId },
       include: {
@@ -405,12 +409,14 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException('Group not found');
+      throw new NotFoundException(
+        getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      );
     }
 
     // Verify user owns the group
     if (group.userId !== userId) {
-      throw new BadRequestException('You do not have access to this group');
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     // Get prayers for each member
@@ -606,7 +612,9 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException('Group not found');
+      throw new NotFoundException(
+        getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      );
     }
 
     if (group.userId !== userId) {
@@ -618,15 +626,15 @@ export class FriendsService {
     });
 
     if (!member || member.groupId !== groupId) {
-      throw new NotFoundException('Member not found in this group');
+      throw new NotFoundException(getLocalizedMessage('NOT_FOUND', locale));
     }
 
     await this.prisma.friendGroupMember.delete({
       where: { id: memberId },
     });
 
-    return {
+    return createSuccessResponse({
       message: getLocalizedMessage('MEMBER_REMOVED', locale),
-    };
+    });
   }
 }

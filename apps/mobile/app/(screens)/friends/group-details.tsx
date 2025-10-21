@@ -1,16 +1,11 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
-import { UserPlus, Trash2, Users } from 'lucide-react-native';
+import { UserPlus, Users } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Pressable } from 'react-native';
-import Animated, {
-  FadeInDown,
-  FadeInRight,
-  LinearTransition,
-  ZoomIn,
-} from 'react-native-reanimated';
+import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Pressable, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import Animated, { FadeInDown, FadeInRight, LinearTransition, ZoomIn } from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
@@ -33,6 +28,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
+import SwiperButton from '@/components/shared/swiper';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -41,13 +37,17 @@ const GroupDetails = () => {
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ groupId: string; groupName: string }>();
 
+
+
   const {
     data: groupData,
     isLoading,
     refetch,
-  } = useGetGroupMembers(params.groupId, user?.id ?? '');
 
-  const { data: allFriends } = useGetAllFriends(user?.id ?? '');
+  } = useGetGroupMembers(params.groupId, user?.id!);
+
+  const { data: allFriends,    fetchNextPage,
+    hasNextPage, isFetchingNextPage } = useGetAllFriends(user?.id!);
 
   const { mutateAsync: addMember, isPending: isAdding } = useAddMember();
   const { mutateAsync: removeMember, isPending: isRemoving } = useRemoveMember();
@@ -79,11 +79,21 @@ const GroupDetails = () => {
 
     await removeMember({
       groupId: params.groupId,
-      memberId,
       userId: user.id,
+      memberId,
     });
   };
 
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    const distanceFromBottom =
+      contentSize.height - (layoutMeasurement.height + contentOffset.y);
+  
+    if (distanceFromBottom < 100 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+  
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
@@ -127,9 +137,10 @@ const GroupDetails = () => {
             />
           }
           contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
+
         >
           {isLoading ? (
-            <Loader visible className="mt-[100%] bg-transparent" />
+            <Loader visible className="bg-transparent pt-[50%]" />
           ) : groupData?.members && groupData.members.length > 0 ? (
             <Animated.View className="gap-4" layout={LinearTransition.springify()}>
               {groupData.members.map((member, index) => (
@@ -146,6 +157,12 @@ const GroupDetails = () => {
                     elevation: 2,
                   }}
                 >
+                  <SwiperButton
+                    size="sm"
+                    title={t('Friends.Pro.Remove')}
+                    onPress={() => handleRemoveMember(member.id)}
+                    disabled={isRemoving}
+                  >
                   <Accordion
                     type="multiple"
                     collapsible
@@ -153,13 +170,13 @@ const GroupDetails = () => {
                     onValueChange={setAccordionValue}
                   >
                     <AccordionItem value={member.userId}>
-                      <AccordionTrigger>
-                        <View className="flex-row items-center justify-between flex-1 pr-2">
+                      <AccordionTrigger className="flex-row items-center justify-between flex-1 px-6">
+
                           <View className="flex-row items-center gap-3">
                             <Animated.View entering={ZoomIn.delay(index * 50)}>
                               <Image
                                 source={{ uri: member.photo }}
-                                className="size-14 rounded-full bg-muted border-2 border-primary/10"
+                                className="size-14 rounded-full bg-muted border border-border"
                                 defaultSource={FRIENDS.guest}
                               />
                             </Animated.View>
@@ -168,17 +185,7 @@ const GroupDetails = () => {
                               <Text className="text-sm text-muted-foreground">{member.email}</Text>
                             </View>
                           </View>
-                          <Pressable
-                            onPress={e => {
-                              e.stopPropagation();
-                              handleRemoveMember(member.id);
-                            }}
-                            disabled={isRemoving}
-                            className="p-2.5 bg-destructive/10 rounded-xl active:opacity-70"
-                          >
-                            <Trash2 size={18} color={colors['--destructive']} />
-                          </Pressable>
-                        </View>
+
                       </AccordionTrigger>
                       <AccordionContent>
                         {member.prays.length > 0 ? (
@@ -226,6 +233,7 @@ const GroupDetails = () => {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+                  </SwiperButton>
                 </Animated.View>
               ))}
             </Animated.View>
@@ -238,7 +246,7 @@ const GroupDetails = () => {
       </View>
 
       {/* Add Member Bottom Sheet */}
-      <CustomBottomSheet sheetRef={addMemberSheetRef} snapPoints={['70%']}>
+      <CustomBottomSheet sheetRef={addMemberSheetRef} snapPoints={['70%']} onScroll={handleScroll}>
         <View className="gap-4 pb-8">
           <View className="items-center mb-2">
             <View className="bg-primary/10 p-4 rounded-full mb-3">
@@ -251,7 +259,7 @@ const GroupDetails = () => {
             </Text>
           </View>
 
-          <ScrollView className="max-h-96" showsVerticalScrollIndicator={false}>
+
             {availableFriends.length > 0 ? (
               <View className="gap-2">
                 {availableFriends.map((friend, index) => (
@@ -288,7 +296,7 @@ const GroupDetails = () => {
                 </Text>
               </View>
             )}
-          </ScrollView>
+
 
           <Button
             variant="outline"

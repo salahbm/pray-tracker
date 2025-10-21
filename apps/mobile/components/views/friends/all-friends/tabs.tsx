@@ -5,6 +5,7 @@ import Animated, { LinearTransition } from 'react-native-reanimated';
 import { Text } from '@/components/ui/text';
 
 import { TabCounts, TabKey } from './types';
+import { cn } from '@/lib/utils';
 
 interface TabsProps {
   activeTab: TabKey;
@@ -16,9 +17,10 @@ interface TabsProps {
 const TABS: TabKey[] = ['all', 'requests', 'friends'];
 
 export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, counts, renderLabel }) => {
+  
   return (
-    <View className="mt-4 mb-2">
-      <View className="flex-row bg-muted/60 p-1 border-b border-border">
+    <View className="mt-8 mb-4">
+      <View className="flex-row bg-muted/60 p-1 pb-0 border-b border-border">
         {TABS.map(tab => {
           const isActive = tab === activeTab;
           return (
@@ -29,14 +31,10 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, counts, ren
             >
               <Animated.View
                 layout={LinearTransition.springify()}
-                className={`py-2 items-center justify-center rounded-lg ${
-                  isActive ? 'bg-background border border-border' : ''
-                }`}
+                className={cn(`py-2 items-center justify-center rounded-lg rounded-b-none`,isActive ? 'bg-background border border-b-0 border-border' : '')}
               >
                 <Text
-                  className={`text-sm ${
-                    isActive ? 'font-semibold text-foreground' : 'text-muted-foreground'
-                  }`}
+                  className={cn(`text-sm`,isActive ? 'font-semibold text-foreground' : 'text-muted-foreground')}
                 >
                   {renderLabel(tab, counts)}
                 </Text>

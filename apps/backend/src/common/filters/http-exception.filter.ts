@@ -7,11 +7,15 @@ import {
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import {
-  getLocaleFromRequest,
   createErrorResponse,
   type Locale,
 } from '@/common/utils/response.utils';
-import { getLocalizedMessage, ErrorKey } from '@/common/i18n/error-messages';
+import {
+  getLocalizedMessage,
+  ErrorKey,
+  ERROR_MESSAGES,
+} from '@/common/i18n/error-messages';
+import { getLocaleFromRequest } from '../utils/headers';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -60,6 +64,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       request.url,
     );
 
+    console.log('LOGGING ERROR 🤖', errorResponse);
+
     response.status(status).json(errorResponse);
   }
 
@@ -68,23 +74,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     defaultMessage: string,
     locale: Locale,
   ): string {
-    // Map common error names to error keys
-    const errorKeyMap: Record<string, ErrorKey> = {
-      UnauthorizedException: 'UNAUTHORIZED',
-      ForbiddenException: 'FORBIDDEN',
-      NotFoundException: 'NOT_FOUND',
-      BadRequestException: 'BAD_REQUEST',
-      InternalServerErrorException: 'INTERNAL_SERVER_ERROR',
-      VALIDATION_ERROR: 'VALIDATION_ERROR',
-      USER_NOT_FOUND: 'USER_NOT_FOUND',
-      NO_ACTIVE_SESSION: 'NO_ACTIVE_SESSION',
-      SESSION_EXPIRED: 'SESSION_EXPIRED',
-      INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
-    };
-
-    const errorKey = errorKeyMap[error];
-    if (errorKey) {
-      return getLocalizedMessage(errorKey, locale);
+    if (ERROR_MESSAGES[error as ErrorKey]) {
+      return getLocalizedMessage(error as ErrorKey, locale);
     }
 
     // Return default message if no localized version found

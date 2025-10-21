@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { FolderPlus, Users, ChevronRight, Trash2, Edit2, Sparkles } from 'lucide-react-native';
+import { FolderPlus, Users, ChevronRight, Edit2, Sparkles } from 'lucide-react-native';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, ScrollView, View, Image, Pressable } from 'react-native';
@@ -64,7 +64,7 @@ const FriendsGroups = () => {
           <View>
             <Text className="text-2xl font-bold">{t('Friends.Groups.Title')}</Text>
             <Text className="text-sm text-muted-foreground mt-1">
-              {groups?.length || 0} {groups?.length === 1 ? 'group' : 'groups'}
+              {t('Friends.Groups.GroupsCount', { count: groups?.length || 0 })}
             </Text>
           </View>
           <View className="flex-row gap-2">
@@ -85,7 +85,7 @@ const FriendsGroups = () => {
 
         {/* Groups List */}
         {isLoading ? (
-          <Loader visible className="mt-[100%] bg-transparent" />
+          <Loader visible className="pt-[50%] bg-transparent" />
         ) : groups && groups.length > 0 ? (
           <Animated.View className="gap-4" layout={LinearTransition.springify()}>
             {groups.map((group, index) => (
@@ -95,12 +95,7 @@ const FriendsGroups = () => {
                 exiting={FadeOutLeft.springify()}
                 layout={LinearTransition.springify()}
               >
-                <SwiperButton
-                  key={group.id}
-                  onPress={() => openDeleteSheet(group)}
-                  title="Delete"
-                  variant="destructive"
-                >
+              
                   <Pressable
                     onPress={() =>
                       router.push({
@@ -116,7 +111,13 @@ const FriendsGroups = () => {
                       shadowRadius: 8,
                       elevation: 2,
                     }}
-                  >
+                  >  
+                  <SwiperButton
+                  key={group.id}
+                  onPress={() => openDeleteSheet(group)}
+                  title="Delete"
+                  variant="destructive"
+                >
                     <View className="flex-row items-center justify-between">
                       <View className="flex-1">
                         {/* Group Header */}
@@ -129,41 +130,13 @@ const FriendsGroups = () => {
                             <View className="flex-row items-center gap-2 mt-1">
                               <View className="bg-primary/15 py-1 rounded-full">
                                 <Text className="text-xs text-primary font-semibold">
-                                  {group.memberCount} {t('Friends.Groups.Members')}
+                                  {t('Friends.Groups.MembersCount', { count: group.memberCount })}
                                 </Text>
                               </View>
                             </View>
                           </View>
                         </View>
 
-                        {/* Member Avatars Preview */}
-                        {group.members.length > 0 && (
-                          <View className="flex-row items-center gap-1 mt-2">
-                            {group.members.slice(0, 4).map((member, idx) => (
-                              <Animated.View
-                                key={member.id}
-                                entering={ZoomIn.delay(idx * 50)}
-                                className={cn(idx > 0 && '-ml-3')}
-                              >
-                                <Image
-                                  source={{ uri: member.photo }}
-                                  className="size-10 rounded-full bg-muted border-2 border-card"
-                                  defaultSource={FRIENDS.guest}
-                                />
-                              </Animated.View>
-                            ))}
-                            {group.memberCount > 4 && (
-                              <Animated.View
-                                entering={ZoomIn.delay(200)}
-                                className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
-                              >
-                                <Text className="text-xs text-primary font-bold">
-                                  +{group.memberCount - 4}
-                                </Text>
-                              </Animated.View>
-                            )}
-                          </View>
-                        )}
                       </View>
 
                       {/* Action Buttons */}
@@ -181,8 +154,38 @@ const FriendsGroups = () => {
                         <ChevronRight size={20} color={colors['--muted-foreground']} />
                       </View>
                     </View>
-                  </Pressable>
+
+
+                        {/* Member Avatars Preview */}
+                        {group.members.length > 0 && (
+                          <View className="flex-row items-center gap-1">
+                            {group.members.slice(0, 4).map((member, idx) => (
+                              <Animated.View
+                                key={member.id}
+                                entering={ZoomIn.delay(idx * 50)}
+                                className={cn(idx > 0 && '-ml-3')}
+                              >
+                                <Image
+                                  source={{ uri: member.photo ?? FRIENDS.guest }}
+                                  className="size-10 rounded-full bg-muted border-2 border-card"
+                                  defaultSource={FRIENDS.guest}
+                                />
+                              </Animated.View>
+                            ))}
+                            {group.memberCount > 4 && (
+                              <Animated.View
+                                entering={ZoomIn.delay(200)}
+                                className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
+                              >
+                                <Text className="text-xs text-primary font-bold">
+                                  +{group.memberCount - 4}
+                                </Text>
+                              </Animated.View>
+                            )}
+                          </View>
+                        )}
                 </SwiperButton>
+                  </Pressable>
               </Animated.View>
             ))}
           </Animated.View>
