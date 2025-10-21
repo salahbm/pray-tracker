@@ -22,7 +22,7 @@ export const LANGUAGES = {
   ko: '한국어',
 } as const;
 
-export function Language({onClose}: {onClose: () => void}) {
+export function Language({ onClose }: { onClose: () => void }) {
   const { changeLanguage, currentLanguage } = useLanguage();
   const { t } = useTranslation();
   const { user } = useAuthStore();

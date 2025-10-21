@@ -17,7 +17,6 @@ interface TabsProps {
 const TABS: TabKey[] = ['all', 'requests', 'friends'];
 
 export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, counts, renderLabel }) => {
-  
   return (
     <View className="mt-8 mb-4">
       <View className="flex-row bg-muted/60 p-1 pb-0 border-b border-border">
@@ -31,10 +30,16 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, counts, ren
             >
               <Animated.View
                 layout={LinearTransition.springify()}
-                className={cn(`py-2 items-center justify-center rounded-lg rounded-b-none`,isActive ? 'bg-background border border-b-0 border-border' : '')}
+                className={cn(
+                  `py-2 items-center justify-center rounded-lg rounded-b-none`,
+                  isActive ? 'bg-background border border-b-0 border-border' : ''
+                )}
               >
                 <Text
-                  className={cn(`text-sm`,isActive ? 'font-semibold text-foreground' : 'text-muted-foreground')}
+                  className={cn(
+                    `text-sm`,
+                    isActive ? 'font-semibold text-foreground' : 'text-muted-foreground'
+                  )}
                 >
                   {renderLabel(tab, counts)}
                 </Text>

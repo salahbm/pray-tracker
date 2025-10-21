@@ -4,8 +4,22 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { UserPlus, Users } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Pressable, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
-import Animated, { FadeInDown, FadeInRight, LinearTransition, ZoomIn } from 'react-native-reanimated';
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Pressable,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
+import Animated, {
+  FadeInDown,
+  FadeInRight,
+  LinearTransition,
+  ZoomIn,
+} from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
@@ -37,17 +51,14 @@ const GroupDetails = () => {
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ groupId: string; groupName: string }>();
 
-
+  const { data: groupData, isLoading, refetch } = useGetGroupMembers(params.groupId, user?.id!);
 
   const {
-    data: groupData,
-    isLoading,
-    refetch,
-
-  } = useGetGroupMembers(params.groupId, user?.id!);
-
-  const { data: allFriends,    fetchNextPage,
-    hasNextPage, isFetchingNextPage } = useGetAllFriends(user?.id!);
+    data: allFriends,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetAllFriends(user?.id!);
 
   const { mutateAsync: addMember, isPending: isAdding } = useAddMember();
   const { mutateAsync: removeMember, isPending: isRemoving } = useRemoveMember();
@@ -86,14 +97,13 @@ const GroupDetails = () => {
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
-    const distanceFromBottom =
-      contentSize.height - (layoutMeasurement.height + contentOffset.y);
-  
+    const distanceFromBottom = contentSize.height - (layoutMeasurement.height + contentOffset.y);
+
     if (distanceFromBottom < 100 && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   };
-  
+
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
@@ -137,7 +147,6 @@ const GroupDetails = () => {
             />
           }
           contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
-
         >
           {isLoading ? (
             <Loader visible className="bg-transparent pt-[50%]" />
@@ -163,15 +172,14 @@ const GroupDetails = () => {
                     onPress={() => handleRemoveMember(member.id)}
                     disabled={isRemoving}
                   >
-                  <Accordion
-                    type="multiple"
-                    collapsible
-                    value={accordionValue}
-                    onValueChange={setAccordionValue}
-                  >
-                    <AccordionItem value={member.userId}>
-                      <AccordionTrigger className="flex-row items-center justify-between flex-1 px-6">
-
+                    <Accordion
+                      type="multiple"
+                      collapsible
+                      value={accordionValue}
+                      onValueChange={setAccordionValue}
+                    >
+                      <AccordionItem value={member.userId}>
+                        <AccordionTrigger className="flex-row items-center justify-between flex-1 px-6">
                           <View className="flex-row items-center gap-3">
                             <Animated.View entering={ZoomIn.delay(index * 50)}>
                               <Image
@@ -185,54 +193,56 @@ const GroupDetails = () => {
                               <Text className="text-sm text-muted-foreground">{member.email}</Text>
                             </View>
                           </View>
-
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        {member.prays.length > 0 ? (
-                          [
-                            { name: SALAHS.FAJR, value: member.prays[0].fajr },
-                            { name: SALAHS.DHUHR, value: member.prays[0].dhuhr },
-                            { name: SALAHS.ASR, value: member.prays[0].asr },
-                            { name: SALAHS.MAGHRIB, value: member.prays[0].maghrib },
-                            { name: SALAHS.ISHA, value: member.prays[0].isha },
-                            { name: SALAHS.NAFL, value: member.prays[0].nafl },
-                          ].map(({ name, value }) => (
-                            <View key={name} className="flex-row items-center justify-between py-1">
-                              <Text className="capitalize font-semibold">
-                                {t(`Commons.Salahs.${name}`)}
-                              </Text>
-                              <View className="flex-row gap-4">
-                                {[
-                                  PRAYER_POINTS.MISSED,
-                                  PRAYER_POINTS.LATE,
-                                  PRAYER_POINTS.ON_TIME,
-                                ].map(val => (
-                                  <Checkbox
-                                    key={`${name}-${val}`}
-                                    value={value === val}
-                                    disabled
-                                    color={
-                                      value === val
-                                        ? val === PRAYER_POINTS.ON_TIME
-                                          ? colors['--primary']
-                                          : val === PRAYER_POINTS.LATE
-                                            ? colors['--secondary']
-                                            : colors['--destructive']
-                                        : undefined
-                                    }
-                                  />
-                                ))}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          {member.prays.length > 0 ? (
+                            [
+                              { name: SALAHS.FAJR, value: member.prays[0].fajr },
+                              { name: SALAHS.DHUHR, value: member.prays[0].dhuhr },
+                              { name: SALAHS.ASR, value: member.prays[0].asr },
+                              { name: SALAHS.MAGHRIB, value: member.prays[0].maghrib },
+                              { name: SALAHS.ISHA, value: member.prays[0].isha },
+                              { name: SALAHS.NAFL, value: member.prays[0].nafl },
+                            ].map(({ name, value }) => (
+                              <View
+                                key={name}
+                                className="flex-row items-center justify-between py-1"
+                              >
+                                <Text className="capitalize font-semibold">
+                                  {t(`Commons.Salahs.${name}`)}
+                                </Text>
+                                <View className="flex-row gap-4">
+                                  {[
+                                    PRAYER_POINTS.MISSED,
+                                    PRAYER_POINTS.LATE,
+                                    PRAYER_POINTS.ON_TIME,
+                                  ].map(val => (
+                                    <Checkbox
+                                      key={`${name}-${val}`}
+                                      value={value === val}
+                                      disabled
+                                      color={
+                                        value === val
+                                          ? val === PRAYER_POINTS.ON_TIME
+                                            ? colors['--primary']
+                                            : val === PRAYER_POINTS.LATE
+                                              ? colors['--secondary']
+                                              : colors['--destructive']
+                                          : undefined
+                                      }
+                                    />
+                                  ))}
+                                </View>
                               </View>
-                            </View>
-                          ))
-                        ) : (
-                          <Text className="text-sm text-muted-foreground text-center py-2">
-                            {t('Friends.Pro.NoPrayers')}
-                          </Text>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                            ))
+                          ) : (
+                            <Text className="text-sm text-muted-foreground text-center py-2">
+                              {t('Friends.Pro.NoPrayers')}
+                            </Text>
+                          )}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </SwiperButton>
                 </Animated.View>
               ))}
@@ -259,44 +269,39 @@ const GroupDetails = () => {
             </Text>
           </View>
 
-
-            {availableFriends.length > 0 ? (
-              <View className="gap-2">
-                {availableFriends.map((friend, index) => (
-                  <Animated.View
-                    key={friend.id}
-                    entering={FadeInRight.delay(index * 50).springify()}
+          {availableFriends.length > 0 ? (
+            <View className="gap-2">
+              {availableFriends.map((friend, index) => (
+                <Animated.View key={friend.id} entering={FadeInRight.delay(index * 50).springify()}>
+                  <Pressable
+                    onPress={() => handleAddMember(friend.friendId)}
+                    disabled={isAdding}
+                    className="flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80"
                   >
-                    <Pressable
-                      onPress={() => handleAddMember(friend.friendId)}
-                      disabled={isAdding}
-                      className="flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80"
-                    >
-                      <Image
-                        source={{ uri: friend.photo }}
-                        className="size-12 rounded-full bg-muted"
-                        defaultSource={FRIENDS.guest}
-                      />
-                      <View className="flex-1">
-                        <Text className="font-bold">{friend.username}</Text>
-                        <Text className="text-sm text-muted-foreground">{friend.email}</Text>
-                      </View>
-                      <View className="bg-primary/10 p-2 rounded-full">
-                        <UserPlus size={18} color={colors['--primary']} />
-                      </View>
-                    </Pressable>
-                  </Animated.View>
-                ))}
-              </View>
-            ) : (
-              <View className="items-center py-8">
-                <Users size={48} color={colors['--muted-foreground']} />
-                <Text className="text-muted-foreground mt-4 text-center">
-                  {t('Friends.Groups.NoAvailableFriends')}
-                </Text>
-              </View>
-            )}
-
+                    <Image
+                      source={{ uri: friend.photo }}
+                      className="size-12 rounded-full bg-muted"
+                      defaultSource={FRIENDS.guest}
+                    />
+                    <View className="flex-1">
+                      <Text className="font-bold">{friend.username}</Text>
+                      <Text className="text-sm text-muted-foreground">{friend.email}</Text>
+                    </View>
+                    <View className="bg-primary/10 p-2 rounded-full">
+                      <UserPlus size={18} color={colors['--primary']} />
+                    </View>
+                  </Pressable>
+                </Animated.View>
+              ))}
+            </View>
+          ) : (
+            <View className="items-center py-8">
+              <Users size={48} color={colors['--muted-foreground']} />
+              <Text className="text-muted-foreground mt-4 text-center">
+                {t('Friends.Groups.NoAvailableFriends')}
+              </Text>
+            </View>
+          )}
 
           <Button
             variant="outline"

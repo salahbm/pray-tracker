@@ -95,29 +95,28 @@ const FriendsGroups = () => {
                 exiting={FadeOutLeft.springify()}
                 layout={LinearTransition.springify()}
               >
-              
-                  <Pressable
-                    onPress={() =>
-                      router.push({
-                        pathname: '/(screens)/friends/group-details',
-                        params: { groupId: group.id, groupName: group.name },
-                      })
-                    }
-                    className="bg-card border border-border rounded-2xl p-5 active:opacity-90"
-                    style={{
-                      shadowColor: colors['--primary'],
-                      shadowOffset: { width: 0, height: 2 },
-                      shadowOpacity: 0.05,
-                      shadowRadius: 8,
-                      elevation: 2,
-                    }}
-                  >  
-                  <SwiperButton
-                  key={group.id}
-                  onPress={() => openDeleteSheet(group)}
-                  title="Delete"
-                  variant="destructive"
+                <Pressable
+                  onPress={() =>
+                    router.push({
+                      pathname: '/(screens)/friends/group-details',
+                      params: { groupId: group.id, groupName: group.name },
+                    })
+                  }
+                  className="bg-card border border-border rounded-2xl p-5 active:opacity-90"
+                  style={{
+                    shadowColor: colors['--primary'],
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.05,
+                    shadowRadius: 8,
+                    elevation: 2,
+                  }}
                 >
+                  <SwiperButton
+                    key={group.id}
+                    onPress={() => openDeleteSheet(group)}
+                    title="Delete"
+                    variant="destructive"
+                  >
                     <View className="flex-row items-center justify-between">
                       <View className="flex-1">
                         {/* Group Header */}
@@ -136,7 +135,6 @@ const FriendsGroups = () => {
                             </View>
                           </View>
                         </View>
-
                       </View>
 
                       {/* Action Buttons */}
@@ -155,37 +153,36 @@ const FriendsGroups = () => {
                       </View>
                     </View>
 
-
-                        {/* Member Avatars Preview */}
-                        {group.members.length > 0 && (
-                          <View className="flex-row items-center gap-1">
-                            {group.members.slice(0, 4).map((member, idx) => (
-                              <Animated.View
-                                key={member.id}
-                                entering={ZoomIn.delay(idx * 50)}
-                                className={cn(idx > 0 && '-ml-3')}
-                              >
-                                <Image
-                                  source={{ uri: member.photo ?? FRIENDS.guest }}
-                                  className="size-10 rounded-full bg-muted border-2 border-card"
-                                  defaultSource={FRIENDS.guest}
-                                />
-                              </Animated.View>
-                            ))}
-                            {group.memberCount > 4 && (
-                              <Animated.View
-                                entering={ZoomIn.delay(200)}
-                                className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
-                              >
-                                <Text className="text-xs text-primary font-bold">
-                                  +{group.memberCount - 4}
-                                </Text>
-                              </Animated.View>
-                            )}
-                          </View>
+                    {/* Member Avatars Preview */}
+                    {group.members.length > 0 && (
+                      <View className="flex-row items-center gap-1">
+                        {group.members.slice(0, 4).map((member, idx) => (
+                          <Animated.View
+                            key={member.id}
+                            entering={ZoomIn.delay(idx * 50)}
+                            className={cn(idx > 0 && '-ml-3')}
+                          >
+                            <Image
+                              source={{ uri: member.photo ?? FRIENDS.guest }}
+                              className="size-10 rounded-full bg-muted border-2 border-card"
+                              defaultSource={FRIENDS.guest}
+                            />
+                          </Animated.View>
+                        ))}
+                        {group.memberCount > 4 && (
+                          <Animated.View
+                            entering={ZoomIn.delay(200)}
+                            className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
+                          >
+                            <Text className="text-xs text-primary font-bold">
+                              +{group.memberCount - 4}
+                            </Text>
+                          </Animated.View>
                         )}
-                </SwiperButton>
-                  </Pressable>
+                      </View>
+                    )}
+                  </SwiperButton>
+                </Pressable>
               </Animated.View>
             ))}
           </Animated.View>

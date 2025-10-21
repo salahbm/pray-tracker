@@ -44,14 +44,13 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
               return errorHandler(error as unknown as IErrorResponse);
             }
 
-          
             return errorHandler(error as unknown as IErrorResponse);
           },
 
           // ✅ Handle success with toast feedback
           onSuccess: (data, variables: unknown, context: unknown) => {
             console.info('Mutation success:', data);
-            if((data as IResponse<unknown>).success && (data as IResponse<unknown>)?.message){
+            if ((data as IResponse<unknown>).success && (data as IResponse<unknown>)?.message) {
               fireToast.success((data as IResponse<unknown>).message ?? 'Success');
             }
           },

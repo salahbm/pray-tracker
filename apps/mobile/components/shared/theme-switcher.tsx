@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { THEME_COLORS, THEMES, ThemesVariant } from '@/styles/theme.config';
 
-const ThemeSwitcher = ({onClose}: {onClose: () => void}) => {
+const ThemeSwitcher = ({ onClose }: { onClose: () => void }) => {
   const { currentTheme, changeTheme } = useThemeStore();
   const { t } = useTranslation();
 

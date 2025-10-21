@@ -1,5 +1,9 @@
 import { cn } from '@/lib/utils';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView, ScrollEventsHandlersHookType } from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetScrollView,
+  ScrollEventsHandlersHookType,
+} from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { AnimatedStyle } from 'react-native-reanimated';
@@ -35,7 +39,7 @@ const CustomBottomSheet = ({
   index = -1,
   opacity = 0.4,
   scrollClassName,
-  onScroll
+  onScroll,
 }: IBottomSheet) => {
   return (
     <BottomSheet
@@ -61,7 +65,11 @@ const CustomBottomSheet = ({
         </View>
       )}
     >
-       <BottomSheetScrollView onScroll={onScroll} contentContainerStyle={scrollStyle} className={cn("bg-muted px-6 flex-1", scrollClassName)}>
+      <BottomSheetScrollView
+        onScroll={onScroll}
+        contentContainerStyle={scrollStyle}
+        className={cn('bg-muted px-6 flex-1', scrollClassName)}
+      >
         {children}
       </BottomSheetScrollView>
     </BottomSheet>

@@ -1,4 +1,3 @@
-
 export interface IResponse<T> {
   success: boolean;
   data?: T;
@@ -7,8 +6,6 @@ export interface IResponse<T> {
   statusCode?: number;
 }
 
-
-
 export interface IResponseArray<T> {
   success: boolean;
   data?: T[];
@@ -16,7 +13,6 @@ export interface IResponseArray<T> {
   error?: string;
   statusCode?: number;
 }
-
 
 export interface IErrorResponse {
   success: false;

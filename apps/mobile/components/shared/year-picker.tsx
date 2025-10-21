@@ -308,74 +308,66 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
   );
 
   return (
-    <Modal
-      visible={visible}
-      onRequestClose={handleCancel}
-    >
-     
+    <Modal visible={visible} onRequestClose={handleCancel}>
+      <View className="px-4 py-6">
+        <Text style={[styles.title, { color: colors['--foreground'] }]}>
+          {t('Commons.YearPicker.Title')}
+        </Text>
 
+        <View style={styles.pickerBox}>
+          <View
+            pointerEvents="none"
+            style={[
+              styles.indicator,
+              {
+                borderColor: colors['--primary'],
+                backgroundColor: `${colors['--primary']}15`,
+              },
+            ]}
+          />
 
-          <View className="px-4 py-6">
-            <Text style={[styles.title, { color: colors['--foreground'] }]}>
-              {t('Commons.YearPicker.Title')}
-            </Text>
+          <AnimatedFlatList
+            ref={listRef}
+            data={years}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            getItemLayout={getItemLayout}
+            showsVerticalScrollIndicator={false}
+            snapToInterval={ITEM_HEIGHT}
+            decelerationRate={Platform.OS === 'ios' ? 'fast' : 0.98}
+            removeClippedSubviews
+            initialNumToRender={Math.min(12, years.length)}
+            maxToRenderPerBatch={12}
+            windowSize={9}
+            onMomentumScrollEnd={onMomentumEnd}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+              useNativeDriver: true,
+              listener: onScrollLogical,
+            })}
+            scrollEventThrottle={16}
+            // ✅ Keep the vertical padding so index/offset math can ignore TOP_PAD
+            contentContainerStyle={{ paddingVertical: TOP_PAD }}
+            onScrollToIndexFailed={info => {
+              const count = years.length;
+              const safeIndex = clamp(info.index, 0, count - 1);
+              setTimeout(() => {
+                const offset = offsetForIndex(safeIndex);
+                listRef.current?.scrollToOffset({ offset, animated: false });
+                lastYRef.current = offset;
+              }, 60);
+            }}
+          />
+        </View>
 
-            <View style={styles.pickerBox}>
-              <View
-                pointerEvents="none"
-                style={[
-                  styles.indicator,
-                  {
-                    borderColor: colors['--primary'],
-                    backgroundColor: `${colors['--primary']}15`,
-                  },
-                ]}
-              />
-
-              <AnimatedFlatList
-                ref={listRef}
-                data={years}
-                keyExtractor={keyExtractor}
-                renderItem={renderItem}
-                getItemLayout={getItemLayout}
-                showsVerticalScrollIndicator={false}
-                snapToInterval={ITEM_HEIGHT}
-                decelerationRate={Platform.OS === 'ios' ? 'fast' : 0.98}
-                removeClippedSubviews
-                initialNumToRender={Math.min(12, years.length)}
-                maxToRenderPerBatch={12}
-                windowSize={9}
-                onMomentumScrollEnd={onMomentumEnd}
-                onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-                  useNativeDriver: true,
-                  listener: onScrollLogical,
-                })}
-                scrollEventThrottle={16}
-                // ✅ Keep the vertical padding so index/offset math can ignore TOP_PAD
-                contentContainerStyle={{ paddingVertical: TOP_PAD }}
-                onScrollToIndexFailed={info => {
-                  const count = years.length;
-                  const safeIndex = clamp(info.index, 0, count - 1);
-                  setTimeout(() => {
-                    const offset = offsetForIndex(safeIndex);
-                    listRef.current?.scrollToOffset({ offset, animated: false });
-                    lastYRef.current = offset;
-                  }, 60);
-                }}
-              />
-            </View>
-
-            <View style={styles.buttonsRow} pointerEvents="box-none">
-              <Button onPress={handleCancel} variant="outline" size="sm">
-                <Text>{t('Commons.YearPicker.Cancel')}</Text>
-              </Button>
-              <Button onPress={handleConfirm} size="sm">
-                <Text>{t('Commons.YearPicker.Confirm')}</Text>
-              </Button>
-            </View>
-          </View>
-
-
+        <View style={styles.buttonsRow} pointerEvents="box-none">
+          <Button onPress={handleCancel} variant="outline" size="sm">
+            <Text>{t('Commons.YearPicker.Cancel')}</Text>
+          </Button>
+          <Button onPress={handleConfirm} size="sm">
+            <Text>{t('Commons.YearPicker.Confirm')}</Text>
+          </Button>
+        </View>
+      </View>
     </Modal>
   );
 };
