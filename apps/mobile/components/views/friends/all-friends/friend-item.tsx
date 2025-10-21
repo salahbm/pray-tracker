@@ -14,6 +14,7 @@ import { useAcceptRequest } from '@/hooks/friends/member/useAccept';
 import { useRejectRequest } from '@/hooks/friends/member/useReject';
 import { FriendActivity } from '@/types/friends';
 import { useAuthStore } from '@/store/auth/auth-session';
+import SwiperButton from '@/components/shared/swiper';
 
 export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
   const { t } = useTranslation();
@@ -70,74 +71,70 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
         .springify()}
       layout={LinearTransition.springify()}
     >
-      <Pressable className="flex-row items-center px-4 py-3 active:bg-muted/30">
-        <Image
-          source={{ uri: item.photo || FRIENDS.guest }}
-          className="w-11 h-11 rounded-full bg-muted"
-        />
+      <SwiperButton
+        size="sm"
+        title={t('Friends.Pro.Remove')}
+        onPress={() => handleRemoveFriend(item)}
+        disabled={isDeleting}
+        enabled={item.type === 'friend'}
+      >
+        <Pressable className="flex-row items-center px-4 py-3 active:bg-muted/30">
+          <Image
+            source={{ uri: item.photo || FRIENDS.guest }}
+            className="w-11 h-11 rounded-full bg-muted"
+          />
 
-        <View className="flex-1 ml-3">
-          <View className="flex-row items-center gap-1.5">
-            <Text className="text-[15px] font-semibold text-foreground" numberOfLines={1}>
-              {item.username}
+          <View className="flex-1 ml-3">
+            <View className="flex-row items-center gap-1.5">
+              <Text className="text-[15px] font-semibold text-foreground" numberOfLines={1}>
+                {item.username}
+              </Text>
+              <Text className="text-xs text-muted-foreground">·</Text>
+              <Text className="text-xs text-muted-foreground">{timeAgo}</Text>
+            </View>
+
+            <Text className="text-[13px] text-muted-foreground mt-0.5" numberOfLines={2}>
+              {statusMessage}
             </Text>
-            <Text className="text-xs text-muted-foreground">·</Text>
-            <Text className="text-xs text-muted-foreground">{timeAgo}</Text>
           </View>
 
-          <Text className="text-[13px] text-muted-foreground mt-0.5" numberOfLines={2}>
-            {statusMessage}
-          </Text>
-        </View>
-
-        <View className="ml-2">
-          {item.type === 'friend' && (
-            <Button
-              size="sm"
-              variant="secondary"
-              disabled={isDeleting}
-              onPress={() => handleRemoveFriend(item)}
-              className="rounded-lg px-4 h-8"
-            >
-              <Text className="text-xs font-semibold">{t('Friends.Pro.Remove')}</Text>
-            </Button>
-          )}
-
-          {item.type === 'sent' && (
-            <Button
-              size="sm"
-              variant="secondary"
-              disabled={isRejecting}
-              onPress={() => handleReject(item)}
-              className="rounded-lg px-4 h-8"
-            >
-              <Text className="text-xs font-semibold">{t('Friends.Pro.Cancel')}</Text>
-            </Button>
-          )}
-
-          {item.type === 'received' && (
-            <View className="flex-row gap-x-2">
+          <View className="ml-2">
+            {item.type === 'sent' && (
               <Button
                 size="sm"
                 variant="secondary"
                 disabled={isRejecting}
                 onPress={() => handleReject(item)}
-                className="rounded-lg px-3 h-8"
+                className="rounded-lg px-4 h-8"
               >
-                <Text className="text-xs font-semibold">{t('Friends.Pro.Reject')}</Text>
+                <Text className="text-xs font-semibold">{t('Friends.Pro.Cancel')}</Text>
               </Button>
-              <Button
-                size="sm"
-                disabled={isAccepting}
-                onPress={() => handleApprove(item)}
-                className="rounded-lg px-3 h-8"
-              >
-                <Text className="text-xs font-semibold">{t('Friends.Pro.Accept')}</Text>
-              </Button>
-            </View>
-          )}
-        </View>
-      </Pressable>
+            )}
+
+            {item.type === 'received' && (
+              <View className="flex-row gap-x-2">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  disabled={isRejecting}
+                  onPress={() => handleReject(item)}
+                  className="rounded-lg px-3 h-8"
+                >
+                  <Text className="text-xs font-semibold">{t('Friends.Pro.Reject')}</Text>
+                </Button>
+                <Button
+                  size="sm"
+                  disabled={isAccepting}
+                  onPress={() => handleApprove(item)}
+                  className="rounded-lg px-3 h-8"
+                >
+                  <Text className="text-xs font-semibold">{t('Friends.Pro.Accept')}</Text>
+                </Button>
+              </View>
+            )}
+          </View>
+        </Pressable>
+      </SwiperButton>
 
       <View className="h-[0.5px] bg-border ml-[68px]" />
     </Animated.View>

@@ -24,6 +24,7 @@ interface SwiperButtonProps {
   containerStyle?: object;
   gestureStyle?: object;
   disabled?: boolean;
+  enabled?: boolean;
 }
 
 const RightAction = ({
@@ -69,7 +70,13 @@ const RightAction = ({
 };
 
 const SwiperButton: React.FC<SwiperButtonProps> = props => {
-  const { children, containerStyle, gestureStyle = { flex: 1, gap: 100 }, ...restProps } = props;
+  const {
+    children,
+    containerStyle,
+    enabled = true,
+    gestureStyle = { flex: 1, gap: 100 },
+    ...restProps
+  } = props;
   const reanimatedRef = useRef<SwipeableMethods>(null);
   return (
     <GestureHandlerRootView style={containerStyle}>
@@ -83,6 +90,7 @@ const SwiperButton: React.FC<SwiperButtonProps> = props => {
           <RightAction progress={progress} drag={dragX} {...restProps} />
         )}
         overshootRight={false}
+        enabled={enabled}
       >
         {children}
       </ReanimatedSwipeable>

@@ -66,7 +66,8 @@ const AllFriends: React.FC = () => {
   // Handlers
   const handleSendRequest = async () => {
     if (!user?.id) return;
-    if (!z.email().safeParse(friendEmail.trim()).success) return fireToast.error(t('Friends.Pro.InvalidEmail'));
+    if (!z.email().safeParse(friendEmail.trim()).success)
+      return fireToast.error(t('Friends.Pro.InvalidEmail'));
 
     await sendFriendRequest({
       userId: user.id,
