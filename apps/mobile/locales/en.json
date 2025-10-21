@@ -158,7 +158,8 @@
       "NoMembers": "No members in this group yet",
       "AddMember": "Add Member",
       "NoAvailableFriends": "All your friends are already in this group",
-      "FriendsAvailable": "{{count}} {{count === 1 ? 'friend' : 'friends'}} available"
+      "FriendsAvailable": "{{count}} {{count === 1 ? 'friend' : 'friends'}} available",
+      "MembersCount": "{{count}} {{count === 1 ? 'member' : 'members'}}"
     },
     "Pro": {
       "Accept": "Accept",
@@ -171,11 +172,17 @@
       "LessFeatures": "Show Less",
       "MoreFeatures": "See More Features",
       "NoFriends": "No approved friends found",
+      "NoRequests": "No pending requests",
+      "NoActivity": "No friend activity yet",
       "NoPending": "Pending requests not found",
       "PendingTitle": "Pending Requests",
       "Reject": "Reject",
+      "Remove": "Remove",
       "RequestBody": "New friend request from {{email}}",
       "RequestTitle": "Friend Request ",
+      "RequestSent": "sent you a friend request",
+      "RequestReceived": "wants to be your friend",
+      "IsFriend": "is your friend",
       "SearchPlaceholder": "Enter Friend's Email",
       "SendRequest": "Send Request",
       "SentRequests": "Requests You've Sent",
@@ -188,7 +195,8 @@
       "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
       "WelcomeTitle": "As-salaam-alaikum! "
     },
-    "Title": "Friends"
+    "Title": "Friends",
+    "AllFriends": "All Friends"
   },
   "Home": {
     "Charts": {

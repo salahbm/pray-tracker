@@ -11,7 +11,7 @@ import {
   createErrorResponse,
   type Locale,
 } from '@/common/utils/response.utils';
-import { getErrorMessage, ErrorKey } from '@/common/i18n/error-messages';
+import { getLocalizedMessage, ErrorKey } from '@/common/i18n/error-messages';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -84,7 +84,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     const errorKey = errorKeyMap[error];
     if (errorKey) {
-      return getErrorMessage(errorKey, locale);
+      return getLocalizedMessage(errorKey, locale);
     }
 
     // Return default message if no localized version found

@@ -38,14 +38,20 @@ export class FriendsController {
     );
   }
 
-  @Get('pending')
-  async getPendingRequests(@Query('userId') userId: string) {
-    return this.friendsService.getPendingRequests(userId);
-  }
-
-  @Get('approved')
-  async getApprovedFriends(@Query('userId') userId: string) {
-    return this.friendsService.getApprovedFriends(userId);
+  @Get('all')
+  async getAllFriends(
+    @Query('userId') userId: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 20;
+    const activities = await this.friendsService.getAllFriends(
+      userId,
+      pageNum,
+      limitNum,
+    );
+    return { data: activities };
   }
 
   @Patch('accept')

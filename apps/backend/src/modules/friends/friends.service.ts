@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '@/db/prisma.service';
-import { FriendStatus } from 'generated/prisma';
-import { getErrorMessage } from '@/common/i18n/error-messages';
+import { FriendStatus, Prayer } from 'generated/prisma';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { Locale } from '@/common/utils/response.utils';
 
 type FriendGroupMemberSummary = {
@@ -43,13 +43,15 @@ export class FriendsService {
     });
 
     if (!friend) {
-      throw new NotFoundException(getErrorMessage('USER_NOT_FOUND', locale));
+      throw new NotFoundException(
+        getLocalizedMessage('USER_NOT_FOUND', locale),
+      );
     }
 
     // Check if trying to add self
     if (userId === friend.id) {
       throw new BadRequestException(
-        getErrorMessage('CANNOT_SEND_REQUEST_TO_SELF', locale),
+        getLocalizedMessage('CANNOT_SEND_REQUEST_TO_SELF', locale),
       );
     }
 
@@ -66,11 +68,11 @@ export class FriendsService {
     if (existingFriendship) {
       if (existingFriendship.status === FriendStatus.ACCEPTED) {
         throw new BadRequestException(
-          getErrorMessage('ALREADY_FRIENDS', locale),
+          getLocalizedMessage('ALREADY_FRIENDS', locale),
         );
       }
       throw new BadRequestException(
-        getErrorMessage('FRIEND_REQUEST_ALREADY_EXISTS', locale),
+        getLocalizedMessage('FRIEND_REQUEST_ALREADY_EXISTS', locale),
       );
     }
 
@@ -88,89 +90,28 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
+            createdAt: true,
           },
         },
       },
     });
 
     return {
-      message: getErrorMessage('FRIEND_REQUEST_SENT', locale),
+      message: getLocalizedMessage('FRIEND_REQUEST_SENT', locale),
       data: friendship,
     };
   }
 
   /**
-   * Get pending friend requests (sent and received)
+   * Get all friends activities (pending requests + approved friends) with pagination
    */
-  async getPendingRequests(userId: string) {
-    // Requests sent by user
-    const sentRequests = await this.prisma.friend.findMany({
-      where: {
-        userId,
-        status: FriendStatus.PENDING,
-      },
-      include: {
-        friend: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            image: true,
-          },
-        },
-      },
-    });
+  async getAllFriends(userId: string, page: number = 1, limit: number = 20) {
+    const skip = (page - 1) * limit;
 
-    // Requests received by user
-    const receivedRequests = await this.prisma.friend.findMany({
-      where: {
-        friendId: userId,
-        status: FriendStatus.PENDING,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            image: true,
-          },
-        },
-      },
-    });
-
-    return {
-      requests: sentRequests.map((req) => ({
-        id: req.id,
-        userId: req.userId,
-        friendId: req.friendId,
-        username: req.friend.name,
-        email: req.friend.email,
-        photo: req.friend.image || '',
-        status: req.status,
-      })),
-      sentBy: receivedRequests.map((req) => ({
-        id: req.id,
-        userId: req.userId,
-        friendId: req.friendId,
-        username: req.user.name,
-        email: req.user.email,
-        photo: req.user.image || '',
-        status: req.status,
-      })),
-    };
-  }
-
-  /**
-   * Get approved friends with their prayers
-   */
-  async getApprovedFriends(userId: string) {
+    // Get all friendships (pending and accepted)
     const friendships = await this.prisma.friend.findMany({
       where: {
-        OR: [
-          { userId, status: FriendStatus.ACCEPTED },
-          { friendId: userId, status: FriendStatus.ACCEPTED },
-        ],
+        OR: [{ userId }, { friendId: userId }],
       },
       include: {
         user: {
@@ -179,6 +120,7 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
+            createdAt: true,
           },
         },
         friend: {
@@ -187,62 +129,86 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
+            createdAt: true,
           },
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      skip,
+      take: limit,
     });
 
-    // Get friend details and their prayers
-    const approvedFriends = await Promise.all(
+    // Get today's date for prayers
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Transform friendships into activities
+    const activities = await Promise.all(
       friendships.map(async (friendship) => {
-        const friendData =
-          friendship.userId === userId ? friendship.friend : friendship.user;
+        const isSender = friendship.userId === userId;
+        const friendData = isSender ? friendship.friend : friendship.user;
         const friendId = friendData.id;
 
-        // Get friend's prayers for today
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        let type: 'sent' | 'received' | 'friend';
+        if (friendship.status === FriendStatus.ACCEPTED) {
+          type = 'friend';
+        } else if (isSender) {
+          type = 'sent';
+        } else {
+          type = 'received';
+        }
 
-        const prayers = await this.prisma.prayer.findMany({
-          where: {
-            userId: friendId,
-            date: {
-              gte: today,
+        // Get prayers only for accepted friends
+        let prays = [] as Omit<
+          Prayer,
+          'id' | 'userId' | 'createdAt' | 'updatedAt' | 'date'
+        >[];
+        if (friendship.status === FriendStatus.ACCEPTED) {
+          const prayers = await this.prisma.prayer.findMany({
+            where: {
+              userId: friendId,
+              date: {
+                gte: today,
+              },
             },
-          },
-          select: {
-            fajr: true,
-            dhuhr: true,
-            asr: true,
-            maghrib: true,
-            isha: true,
-            nafl: true,
-          },
-        });
+            select: {
+              fajr: true,
+              dhuhr: true,
+              asr: true,
+              maghrib: true,
+              isha: true,
+              nafl: true,
+            },
+          });
 
-        return {
-          friend: {
-            friendshipId: friendship.id,
-            id: friendId,
-            deviceToken: '',
-            username: friendData.name,
-            email: friendData.email,
-            photo: friendData.image || '',
-            status: friendship.status,
-          },
-          prays: prayers.map((prayer) => ({
+          prays = prayers.map((prayer) => ({
             fajr: prayer.fajr ?? 0,
             dhuhr: prayer.dhuhr ?? 0,
             asr: prayer.asr ?? 0,
             maghrib: prayer.maghrib ?? 0,
             isha: prayer.isha ?? 0,
             nafl: prayer.nafl ?? 0,
-          })),
+          }));
+        }
+
+        return {
+          id: friendship.id,
+          userId: friendship.userId,
+          friendId: friendship.friendId,
+          username: friendData.name,
+          email: friendData.email,
+          photo: friendData.image || '',
+          status: friendship.status,
+          type,
+          createdAt: friendship.createdAt,
+          ...(prays.length > 0 && { prays }),
         };
       }),
     );
 
-    return approvedFriends;
+    return activities;
   }
 
   /**
@@ -259,13 +225,13 @@ export class FriendsService {
 
     if (!friendship) {
       throw new NotFoundException(
-        getErrorMessage('FRIEND_REQUEST_NOT_FOUND', locale),
+        getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
       );
     }
 
     // Only the receiver can accept
     if (friendship.friendId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     const updatedFriendship = await this.prisma.friend.update({
@@ -274,7 +240,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('FRIEND_REQUEST_ACCEPTED', locale),
+      message: getLocalizedMessage('FRIEND_REQUEST_ACCEPTED', locale),
       data: updatedFriendship,
     };
   }
@@ -293,13 +259,13 @@ export class FriendsService {
 
     if (!friendship) {
       throw new NotFoundException(
-        getErrorMessage('FRIEND_REQUEST_NOT_FOUND', locale),
+        getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
       );
     }
 
     // Only the receiver can reject
     if (friendship.friendId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     await this.prisma.friend.delete({
@@ -307,7 +273,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('FRIEND_REQUEST_REJECTED', locale),
+      message: getLocalizedMessage('FRIEND_REQUEST_REJECTED', locale),
     };
   }
 
@@ -324,7 +290,9 @@ export class FriendsService {
     });
 
     if (!friendship) {
-      throw new NotFoundException(getErrorMessage('FRIEND_NOT_FOUND', locale));
+      throw new NotFoundException(
+        getLocalizedMessage('FRIEND_NOT_FOUND', locale),
+      );
     }
 
     await this.prisma.friend.delete({
@@ -332,7 +300,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('FRIEND_REMOVED', locale),
+      message: getLocalizedMessage('FRIEND_REMOVED', locale),
     };
   }
 
@@ -354,6 +322,7 @@ export class FriendsService {
                 name: true,
                 email: true,
                 image: true,
+                createdAt: true,
               },
             },
           },
@@ -362,7 +331,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('GROUP_CREATED', locale),
+      message: getLocalizedMessage('GROUP_CREATED', locale),
       data: group,
     };
   }
@@ -382,6 +351,7 @@ export class FriendsService {
                 name: true,
                 email: true,
                 image: true,
+                createdAt: true,
               },
             },
           },
@@ -402,12 +372,13 @@ export class FriendsService {
         username: member.user?.name ?? '',
         email: member.user?.email ?? '',
         photo: member.user?.image ?? '',
+        createdAt: member.user?.createdAt ?? new Date(),
       })),
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
     }));
 
-    return formattedGroups as FriendGroupSummary[];
+    return formattedGroups;
   }
 
   /**
@@ -425,6 +396,7 @@ export class FriendsService {
                 name: true,
                 email: true,
                 image: true,
+                createdAt: true,
               },
             },
           },
@@ -470,6 +442,7 @@ export class FriendsService {
           username: member.user.name,
           email: member.user.email,
           photo: member.user.image || '',
+          createdAt: member.user.createdAt,
           prays: prayers.map((prayer) => ({
             fajr: prayer.fajr ?? 0,
             dhuhr: prayer.dhuhr ?? 0,
@@ -507,7 +480,7 @@ export class FriendsService {
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     const updatedGroup = await this.prisma.friendGroup.update({
@@ -516,7 +489,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('GROUP_UPDATED', locale),
+      message: getLocalizedMessage('GROUP_UPDATED', locale),
       data: updatedGroup,
     };
   }
@@ -534,7 +507,7 @@ export class FriendsService {
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     await this.prisma.friendGroup.delete({
@@ -542,7 +515,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('GROUP_DELETED', locale),
+      message: getLocalizedMessage('GROUP_DELETED', locale),
     };
   }
 
@@ -564,7 +537,7 @@ export class FriendsService {
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     // Verify they are friends
@@ -607,13 +580,14 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
+            createdAt: true,
           },
         },
       },
     });
 
     return {
-      message: getErrorMessage('MEMBER_ADDED', locale),
+      message: getLocalizedMessage('MEMBER_ADDED', locale),
       data: member,
     };
   }
@@ -636,7 +610,7 @@ export class FriendsService {
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getErrorMessage('FORBIDDEN', locale));
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
     const member = await this.prisma.friendGroupMember.findUnique({
@@ -652,7 +626,7 @@ export class FriendsService {
     });
 
     return {
-      message: getErrorMessage('MEMBER_REMOVED', locale),
+      message: getLocalizedMessage('MEMBER_REMOVED', locale),
     };
   }
 }

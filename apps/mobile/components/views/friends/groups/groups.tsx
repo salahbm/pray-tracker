@@ -16,7 +16,7 @@ import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { useGetGroups } from '@/hooks/friends/useGetGroups';
+import { useGetGroups } from '@/hooks/friends/group/useGetGroups';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';

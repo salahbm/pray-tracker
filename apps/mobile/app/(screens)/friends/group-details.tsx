@@ -1,21 +1,19 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
-import { UserPlus, Trash2, Users, Sparkles } from 'lucide-react-native';
+import { UserPlus, Trash2, Users } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, RefreshControl, ScrollView, TouchableOpacity, View, Pressable } from 'react-native';
 import Animated, {
   FadeInDown,
   FadeInRight,
-  Layout,
   LinearTransition,
   ZoomIn,
 } from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import GoBack from '@/components/shared/go-back';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
 import {
@@ -28,14 +26,13 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
-import { useAddMember } from '@/hooks/friends/useAddMember';
-import { useGetApprovedFriends } from '@/hooks/friends/useGetApproved';
-import { useGetGroupMembers } from '@/hooks/friends/useGetGroupMembers';
-import { useRemoveMember } from '@/hooks/friends/useRemoveMember';
-import { cn } from '@/lib/utils';
+import { useAddMember } from '@/hooks/friends/member/useAddMember';
+import { useGetGroupMembers } from '@/hooks/friends/member/useGetGroupMembers';
+import { useRemoveMember } from '@/hooks/friends/member/useRemoveMember';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -50,7 +47,7 @@ const GroupDetails = () => {
     refetch,
   } = useGetGroupMembers(params.groupId, user?.id ?? '');
 
-  const { data: allFriends } = useGetApprovedFriends(user?.id ?? '');
+  const { data: allFriends } = useGetAllFriends(user?.id ?? '');
 
   const { mutateAsync: addMember, isPending: isAdding } = useAddMember();
   const { mutateAsync: removeMember, isPending: isRemoving } = useRemoveMember();
@@ -60,9 +57,10 @@ const GroupDetails = () => {
 
   // Get friends that are not in this group
   const availableFriends =
-    allFriends?.data?.filter(
-      friend => !groupData?.members.some(member => member.userId === friend.friend.id)
-    ) || [];
+    allFriends?.pages
+      ?.flatMap(page => page.data || [])
+      ?.filter(friend => !groupData?.members.some(member => member.userId === friend.friendId)) ||
+    [];
 
   const handleAddMember = async (friendId: string) => {
     if (!user?.id) return;
@@ -107,8 +105,7 @@ const GroupDetails = () => {
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
               <Text className="text-sm text-muted-foreground mt-1">
-                {groupData?.members.length || 0}{' '}
-                {groupData?.members.length === 1 ? 'member' : 'members'}
+                {t('Friends.Groups.MembersCount', { count: groupData?.members.length || 0 })}
               </Text>
             </View>
           </View>
@@ -259,22 +256,22 @@ const GroupDetails = () => {
               <View className="gap-2">
                 {availableFriends.map((friend, index) => (
                   <Animated.View
-                    key={friend.friend.id}
+                    key={friend.id}
                     entering={FadeInRight.delay(index * 50).springify()}
                   >
                     <Pressable
-                      onPress={() => handleAddMember(friend.friend.id)}
+                      onPress={() => handleAddMember(friend.friendId)}
                       disabled={isAdding}
                       className="flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80"
                     >
                       <Image
-                        source={{ uri: friend.friend.photo }}
+                        source={{ uri: friend.photo }}
                         className="size-12 rounded-full bg-muted"
                         defaultSource={FRIENDS.guest}
                       />
                       <View className="flex-1">
-                        <Text className="font-bold">{friend.friend.username}</Text>
-                        <Text className="text-sm text-muted-foreground">{friend.friend.email}</Text>
+                        <Text className="font-bold">{friend.username}</Text>
+                        <Text className="text-sm text-muted-foreground">{friend.email}</Text>
                       </View>
                       <View className="bg-primary/10 p-2 rounded-full">
                         <UserPlus size={18} color={colors['--primary']} />

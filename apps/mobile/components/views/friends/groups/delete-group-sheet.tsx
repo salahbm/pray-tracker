@@ -4,7 +4,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { Trash2 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useThemeStore } from '@/store/defaults/theme';
-import { useDeleteGroup } from '@/hooks/friends/useDeleteGroup';
+import { useDeleteGroup } from '@/hooks/friends/group/useDeleteGroup';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import { Button } from '@/components/ui/button';

@@ -5,7 +5,7 @@ import agent from '@/lib/agent';
 import { IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
-import useMutation from '../common/useMutation';
+import useMutation from '../../common/useMutation';
 
 type TParams = {
   friendId: string;
@@ -25,11 +25,7 @@ export const useDeleteFriend = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: QueryKeys.friends.approved,
-          type: 'all',
-        });
-        await queryClient.invalidateQueries({
-          queryKey: QueryKeys.friends.pending,
+          queryKey: QueryKeys.friends.all,
           type: 'all',
         });
         await queryClient.invalidateQueries({

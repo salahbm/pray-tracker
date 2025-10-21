@@ -1,35 +1,37 @@
 import { View } from 'react-native';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { FolderPlus } from 'lucide-react-native';
+import { Edit2 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useThemeStore } from '@/store/defaults/theme';
-import { useCreateGroup } from '@/hooks/friends/useCreateGroup';
+import { useUpdateGroup } from '@/hooks/friends/group/useUpdateGroup';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 
-interface CreateGroupSheetProps {
+interface EditGroupSheetProps {
   sheetRef: React.RefObject<BottomSheet | null>;
 }
 
-const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
+const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { user } = useAuthStore();
-  const { groupName, setGroupName } = useFriendsBottomSheetStore();
+  const { groupName, selectedGroup, setGroupName, setSelectedGroup } = useFriendsBottomSheetStore();
 
-  const { mutateAsync: createGroup, isPending: isCreating } = useCreateGroup();
+  const { mutateAsync: updateGroup, isPending: isUpdating } = useUpdateGroup();
 
-  const handleCreateGroup = async () => {
-    if (!groupName.trim() || !user?.id) return;
+  const handleUpdateGroup = async () => {
+    if (!groupName.trim() || !selectedGroup || !user?.id) return;
 
-    await createGroup({
-      userId: user.id,
+    await updateGroup({
+      groupId: selectedGroup.id,
       name: groupName.trim(),
+      userId: user.id,
     }).then(() => {
       setGroupName('');
+      setSelectedGroup(null);
       sheetRef.current?.close();
     });
   };
@@ -39,11 +41,11 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
       <View className="gap-4 pb-8">
         <View className="items-center mb-2">
           <View className="bg-primary/10 p-4 rounded-full mb-3">
-            <FolderPlus size={32} color={colors['--primary']} />
+            <Edit2 size={32} color={colors['--primary']} />
           </View>
-          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.CreateTitle')}</Text>
+          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.EditTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-            {t('Friends.Groups.CreateDescription')}
+            {t('Friends.Groups.EditDescription')}
           </Text>
         </View>
 
@@ -59,6 +61,7 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
             variant="outline"
             onPress={() => {
               setGroupName('');
+              setSelectedGroup(null);
               sheetRef.current?.close();
             }}
             className="flex-1"
@@ -66,11 +69,11 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
             <Text>{t('Commons.Cancel')}</Text>
           </Button>
           <Button
-            onPress={handleCreateGroup}
-            disabled={isCreating || !groupName.trim()}
+            onPress={handleUpdateGroup}
+            disabled={isUpdating || !groupName.trim()}
             className="flex-1"
           >
-            <Text>{isCreating ? t('Commons.Creating') : t('Commons.Create')}</Text>
+            <Text>{isUpdating ? t('Commons.Updating') : t('Commons.Update')}</Text>
           </Button>
         </View>
       </View>
@@ -78,4 +81,4 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
   );
 };
 
-export default CreateGroupSheet;
+export default EditGroupSheet;

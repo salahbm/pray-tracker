@@ -288,11 +288,11 @@ throw new UnauthorizedException('No active session found');
 For custom error messages, you can use the error message functions:
 
 ```typescript
-import { getErrorMessage } from '@/common/i18n';
+import { getLocalizedMessage } from '@/common/i18n';
 import { getLocaleFromRequest } from '@/common/utils';
 
 const locale = getLocaleFromRequest(request.headers);
-const message = getErrorMessage('USER_NOT_FOUND', locale);
+const message = getLocalizedMessage('USER_NOT_FOUND', locale);
 
 throw new NotFoundException(message);
 ```

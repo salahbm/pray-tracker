@@ -12,10 +12,9 @@ const QueryKeys = {
     today: ['prays', 'today'],
   },
   friends: {
+    all: ['friends', 'all'],
     groups: ['friends', 'groups'],
     groupMembers: ['friends', 'groupMembers'],
-    approved: ['friends', 'approved'],
-    pending: ['friends', 'pending'],
   },
   leaderboard: {
     global: ['leaderboard', 'global'],

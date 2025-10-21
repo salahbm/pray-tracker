@@ -231,11 +231,14 @@ export const ERROR_MESSAGES: ErrorMessages = {
   },
 };
 
-export function getErrorMessage(key: ErrorKey, locale: Locale = 'en'): string {
+export function getLocalizedMessage(
+  key: ErrorKey,
+  locale: Locale = 'en',
+): string {
   return ERROR_MESSAGES[key]?.[locale] || ERROR_MESSAGES[key].en;
 }
 
-export function getErrorMessageWithFallback(
+export function getLocalizedMessageWithFallback(
   key: ErrorKey,
   locale: Locale = 'en',
   fallback?: string,

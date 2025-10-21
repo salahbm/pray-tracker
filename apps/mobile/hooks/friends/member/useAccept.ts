@@ -4,7 +4,7 @@ import agent from '@/lib/agent';
 import { IResponse, IResponseArray } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
-import useMutation from '../common/useMutation';
+import useMutation from '../../common/useMutation';
 import QueryKeys from '@/constants/query-keys';
 
 type TParams = {
@@ -28,10 +28,7 @@ export const useAcceptRequest = () => {
     options: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: QueryKeys.friends.pending,
-        });
-        await queryClient.invalidateQueries({
-          queryKey: QueryKeys.friends.approved,
+          queryKey: QueryKeys.friends.all,
           type: 'all',
           exact: false,
         });

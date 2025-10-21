@@ -8,6 +8,7 @@ export interface IFriend {
   email: string;
   photo: string;
   status: string;
+  createdAt: Date;
 }
 
 export type ApprovedFriend = {
@@ -24,10 +25,26 @@ export interface PendingFriend {
   email: string;
   photo: string;
   status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  createdAt: Date;
 }
 
 // Final grouped pending response
 export interface FriendRequestResponse {
   sentBy: PendingFriend[]; // requests received
-  requests: PendingFriend[]; // requests sent
+  receivedBy: PendingFriend[]; // requests sent
+}
+
+// Unified friend activity type for all friends view
+export interface FriendActivity {
+  id: string; // friendship ID
+  userId: string;
+  friendId: string;
+  username: string;
+  email: string;
+  photo: string;
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  type: 'sent' | 'received' | 'friend'; // sent = request sent by me, received = request received by me, friend = accepted
+  createdAt: Date;
+  // For accepted friends, include prayers
+  prays?: Omit<IPrays, 'id' | 'createdAt' | 'updatedAt'>[];
 }

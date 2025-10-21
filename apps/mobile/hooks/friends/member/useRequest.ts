@@ -6,7 +6,7 @@ import { IResponse } from '@/types/api';
 import { IFriend } from '@/types/friends';
 import { User } from '@/types/user';
 
-import useMutation from '../common/useMutation';
+import useMutation from '@/hooks/common/useMutation';
 
 type TParams = {
   userId: string;
@@ -30,7 +30,7 @@ export const useRequest = () => {
     mutationFn: sendRequest,
     options: {
       onSuccess: async response => {
-        await queryClient.invalidateQueries({ queryKey: QueryKeys.friends.pending });
+        await queryClient.invalidateQueries({ queryKey: QueryKeys.friends.all });
 
         const { sentBy, friend } = response.data ?? {};
 

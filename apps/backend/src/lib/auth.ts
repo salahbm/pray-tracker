@@ -5,7 +5,7 @@ import { env } from '@/config/env.config';
 import { ALLOWED_ORIGINS } from '@/config/cors.configt';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getLocaleFromRequest } from '@/common/utils/response.utils';
-import { getErrorMessage } from '@/common/i18n/error-messages';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
 
 const prisma = new PrismaClient();
@@ -42,7 +42,7 @@ export const auth = betterAuth({
         ctx.headers as unknown as Record<string, unknown>,
       );
       const key = mapBetterAuthErrorToKey(code);
-      const localized = getErrorMessage(key, locale);
+      const localized = getLocalizedMessage(key, locale);
 
       throw new APIError('BAD_REQUEST', {
         ...response.body,
