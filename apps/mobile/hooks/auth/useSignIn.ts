@@ -25,13 +25,12 @@ async function signInWithEmail(params: IUserLogin): Promise<ISignInResponse> {
 
 export const useLoginUser = () => {
   const queryClient = useQueryClient();
-  const { setUser, setSession } = useAuthStore();
+  const { setUser } = useAuthStore();
 
   return useMutation({
     mutationFn: signInWithEmail,
     onSuccess: async data => {
       setUser(data.user);
-      setSession(data.session as any);
       queryClient.invalidateQueries({ queryKey: QueryKeys.users.all });
     },
   });

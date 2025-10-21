@@ -116,7 +116,7 @@ class Agent {
     // Get current language and add to headers
     const currentLanguage = i18n.language || 'en';
 
-    console.log('LOGGING AGENT 🤖', url, currentLanguage, JSON.stringify(body, null, 2));
+    console.log('LOGGING AGENT 🤖', url, currentLanguage, JSON.stringify(body || {}, null, 2));
 
     const config: RequestInit = {
       method,

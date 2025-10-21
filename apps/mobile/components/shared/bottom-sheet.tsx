@@ -66,6 +66,13 @@ const CustomBottomSheet = ({
       )}
     >
       <BottomSheetScrollView
+        invertStickyHeaders
+        scrollEventThrottle={16}
+        scrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         onScroll={onScroll}
         contentContainerStyle={scrollStyle}
         className={cn('bg-muted px-6 flex-1', scrollClassName)}

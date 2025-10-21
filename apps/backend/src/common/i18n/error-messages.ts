@@ -46,13 +46,13 @@ export const ERROR_MESSAGES: ErrorMessages = {
   },
   FORBIDDEN: {
     en: 'Access forbidden',
-    uz: 'Kirish taqiqlangan',
+    uz: 'Bu murojaatga ruxsat berilmagan',
     ru: 'Доступ запрещен',
     kr: '접근 금지',
   },
   NOT_FOUND: {
     en: 'Resource not found',
-    uz: 'Resurs topilmadi',
+    uz: 'Manba topilmadi',
     ru: 'Ресурс не найден',
     kr: '리소스를 찾을 수 없습니다',
   },

@@ -24,7 +24,10 @@ export const useRemoveMember = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.friends.groups });
       queryClient.invalidateQueries({
-        queryKey: [...QueryKeys.friends.groupMembers, { groupId: variables.groupId }],
+        queryKey: [
+          ...QueryKeys.friends.groupMembers,
+          { groupId: variables.groupId, userId: variables.userId },
+        ],
       });
     },
   });

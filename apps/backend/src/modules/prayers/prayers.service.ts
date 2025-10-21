@@ -14,6 +14,19 @@ export class PrayersService {
   async upsert(createPrayerDto: CreatePrayerDto): Promise<Prayer> {
     const { userId, date, ...prayerData } = createPrayerDto;
 
+    let totalPoints = 0;
+    if (prayerData.fajr) totalPoints += prayerData.fajr;
+    if (prayerData.dhuhr) totalPoints += prayerData.dhuhr;
+    if (prayerData.asr) totalPoints += prayerData.asr;
+    if (prayerData.maghrib) totalPoints += prayerData.maghrib;
+    if (prayerData.isha) totalPoints += prayerData.isha;
+    if (prayerData.nafl) totalPoints += prayerData.nafl;
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { totalPoints },
+    });
+
     return this.prisma.prayer.upsert({
       where: {
         userId_date: {

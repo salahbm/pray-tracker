@@ -76,9 +76,6 @@
       "ru": "./locales/ru.json",
       "uz": "./locales/uz.json",
       "ko": "./locales/ko.json"
-    },
-    "extra": {
-      "apiUrl": "http://192.168.0.141:4000"
     }
   }
 }

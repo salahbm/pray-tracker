@@ -8,23 +8,6 @@ import { FriendStatus, Prayer } from 'generated/prisma';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { createSuccessResponse, Locale } from '@/common/utils/response.utils';
 
-type FriendGroupMemberSummary = {
-  id: string;
-  userId: string;
-  username: string;
-  email: string;
-  photo: string;
-};
-
-type FriendGroupSummary = {
-  id: string;
-  name: string;
-  memberCount: number;
-  members: FriendGroupMemberSummary[];
-  createdAt: Date;
-  updatedAt: Date;
-};
-
 @Injectable()
 export class FriendsService {
   constructor(private prisma: PrismaService) {}
@@ -90,7 +73,6 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
-            createdAt: true,
           },
         },
       },
@@ -120,7 +102,6 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
-            createdAt: true,
           },
         },
         friend: {
@@ -129,7 +110,6 @@ export class FriendsService {
             name: true,
             email: true,
             image: true,
-            createdAt: true,
           },
         },
       },
@@ -264,7 +244,7 @@ export class FriendsService {
     }
 
     // Only the receiver can reject
-    if (friendship.friendId !== userId) {
+    if (friendship.friendId !== userId || friendship.userId !== userId) {
       throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
@@ -295,13 +275,15 @@ export class FriendsService {
       );
     }
 
+    if (friendship.userId !== friendId || friendship.friendId !== friendId) {
+      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+    }
+
     await this.prisma.friend.delete({
       where: { id: friendshipId },
     });
 
-    return {
-      message: getLocalizedMessage('FRIEND_REMOVED', locale),
-    };
+    return createSuccessResponse(getLocalizedMessage('FRIEND_REMOVED', locale));
   }
 
   /**
@@ -322,7 +304,6 @@ export class FriendsService {
                 name: true,
                 email: true,
                 image: true,
-                createdAt: true,
               },
             },
           },
@@ -330,16 +311,16 @@ export class FriendsService {
       },
     });
 
-    return {
-      message: getLocalizedMessage('GROUP_CREATED', locale),
-      data: group,
-    };
+    return createSuccessResponse(
+      group,
+      getLocalizedMessage('GROUP_CREATED', locale),
+    );
   }
 
   /**
    * Get all groups for a user
    */
-  async getGroups(userId: string): Promise<FriendGroupSummary[]> {
+  async getGroups(userId: string) {
     const groups = await this.prisma.friendGroup.findMany({
       where: { userId },
       include: {
@@ -351,7 +332,6 @@ export class FriendsService {
                 name: true,
                 email: true,
                 image: true,
-                createdAt: true,
               },
             },
           },
@@ -362,23 +342,21 @@ export class FriendsService {
       },
     });
 
-    const formattedGroups = groups.map<FriendGroupSummary>((group) => ({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return groups.map((group) => ({
       id: group.id,
       name: group.name,
       memberCount: group.members.length,
-      members: group.members.map<FriendGroupMemberSummary>((member) => ({
+      members: group.members.map((member) => ({
         id: member.id,
         userId: member.userId,
         username: member.user?.name ?? '',
         email: member.user?.email ?? '',
         photo: member.user?.image ?? '',
-        createdAt: member.user?.createdAt ?? new Date(),
       })),
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
     }));
-
-    return formattedGroups;
   }
 
   /**
@@ -502,6 +480,9 @@ export class FriendsService {
 
   /**
    * Delete a group
+   * @param groupId
+   * @param userId
+   * @param locale
    */
   async deleteGroup(groupId: string, userId: string, locale: Locale = 'en') {
     const group = await this.prisma.friendGroup.findUnique({
@@ -509,7 +490,9 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException('Group not found');
+      throw new NotFoundException(
+        getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      );
     }
 
     if (group.userId !== userId) {
@@ -527,6 +510,10 @@ export class FriendsService {
 
   /**
    * Add a member to a group
+   * @param groupId
+   * @param friendId
+   * @param userId
+   * @param locale
    */
   async addMemberToGroup(
     groupId: string,
@@ -539,7 +526,9 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException('Group not found');
+      throw new NotFoundException(
+        getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      );
     }
 
     if (group.userId !== userId) {

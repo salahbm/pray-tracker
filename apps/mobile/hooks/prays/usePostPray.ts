@@ -160,6 +160,12 @@ export const useCreatePray = () => {
         queryClient.setQueryData<IPrays>(todayKey, data);
       }
 
+      queryClient.invalidateQueries({
+        queryKey: QueryKeys.leaderboard.friends,
+        type: 'all',
+        exact: false,
+      });
+
       // Update prayers list with real data
       queryClient.setQueryData<IPrays[]>(praysKey, old => {
         if (!old) return [data];

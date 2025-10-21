@@ -78,27 +78,28 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
         disabled={isDeleting}
         enabled={item.type === 'friend'}
       >
-        <Pressable className="flex-row items-center px-4 py-3 active:bg-muted/30">
-          <Image
-            source={{ uri: item.photo || FRIENDS.guest }}
-            className="w-11 h-11 rounded-full bg-muted"
-          />
+        <Pressable className="px-4 py-3 active:bg-muted/30">
+          <View className="flex-row items-center">
+            <Image
+              source={{ uri: item.photo || FRIENDS.guest }}
+              className="w-11 h-11 rounded-full bg-muted"
+            />
 
-          <View className="flex-1 ml-3">
-            <View className="flex-row items-center gap-1.5">
-              <Text className="text-[15px] font-semibold text-foreground" numberOfLines={1}>
-                {item.username}
+            <View className="flex-1 ml-3">
+              <View className="flex-row items-center gap-1.5">
+                <Text className="text-[15px] font-semibold text-foreground" numberOfLines={1}>
+                  {item.username}
+                </Text>
+                <Text className="text-xs text-muted-foreground">·</Text>
+                <Text className="text-xs text-muted-foreground">{timeAgo}</Text>
+              </View>
+
+              <Text className="text-[13px] text-muted-foreground mt-0.5" numberOfLines={2}>
+                {statusMessage}
               </Text>
-              <Text className="text-xs text-muted-foreground">·</Text>
-              <Text className="text-xs text-muted-foreground">{timeAgo}</Text>
             </View>
-
-            <Text className="text-[13px] text-muted-foreground mt-0.5" numberOfLines={2}>
-              {statusMessage}
-            </Text>
           </View>
-
-          <View className="ml-2">
+          <View className="ml-2 mt-2 items-end">
             {item.type === 'sent' && (
               <Button
                 size="sm"

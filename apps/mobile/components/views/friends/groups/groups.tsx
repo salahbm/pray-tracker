@@ -114,24 +114,21 @@ const FriendsGroups = () => {
                   <SwiperButton
                     key={group.id}
                     onPress={() => openDeleteSheet(group)}
-                    title="Delete"
-                    variant="destructive"
+                    title={t('Commons.Delete')}
+                    size="sm"
+                    className="ml-2"
                   >
                     <View className="flex-row items-center justify-between">
                       <View className="flex-1">
                         {/* Group Header */}
-                        <View className="flex-row items-center gap-3 mb-3">
-                          <View className="bg-primary/10 p-3 rounded-xl">
-                            <Sparkles size={20} color={colors['--primary']} />
-                          </View>
+                        <View className="flex-row items-center gap-3">
+                          <Sparkles size={20} color={colors['--primary']} />
                           <View className="flex-1">
                             <Text className="text-lg font-bold">{group.name}</Text>
-                            <View className="flex-row items-center gap-2 mt-1">
-                              <View className="bg-primary/15 py-1 rounded-full">
-                                <Text className="text-xs text-primary font-semibold">
-                                  {t('Friends.Groups.MembersCount', { count: group.memberCount })}
-                                </Text>
-                              </View>
+                            <View className="flex-row items-center gap-2">
+                              <Text className="text-xs text-primary font-semibold">
+                                {t('Friends.Groups.MembersCount', { count: group.memberCount })}
+                              </Text>
                             </View>
                           </View>
                         </View>
@@ -155,7 +152,7 @@ const FriendsGroups = () => {
 
                     {/* Member Avatars Preview */}
                     {group.members.length > 0 && (
-                      <View className="flex-row items-center gap-1">
+                      <View className="flex-row items-center gap-1 mt-1">
                         {group.members.slice(0, 4).map((member, idx) => (
                           <Animated.View
                             key={member.id}

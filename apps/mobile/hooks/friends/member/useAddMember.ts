@@ -26,7 +26,10 @@ export const useAddMember = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.friends.groups, type: 'all' });
       queryClient.invalidateQueries({
-        queryKey: [...QueryKeys.friends.groupMembers, { groupId: variables.groupId }],
+        queryKey: [
+          ...QueryKeys.friends.groupMembers,
+          { groupId: variables.groupId, userId: variables.userId },
+        ],
         type: 'all',
       });
     },

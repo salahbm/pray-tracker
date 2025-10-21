@@ -29,7 +29,7 @@ interface GroupMembersResponse {
 
 export const useGetGroupMembers = (groupId: string, userId: string) => {
   return useQuery({
-    queryKey: [...QueryKeys.friends.groupMembers, groupId, userId],
+    queryKey: [...QueryKeys.friends.groupMembers, { groupId, userId }],
     queryFn: async () => {
       const response = await agent.get<IResponse<GroupMembersResponse>>(
         `/friends/groups/${groupId}/members?userId=${userId}`

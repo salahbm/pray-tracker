@@ -2,7 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
 import { UserPlus, Users } from 'lucide-react-native';
-import { useRef, useState } from 'react';
+import { useOptimistic, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Image,
@@ -43,6 +43,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
 import SwiperButton from '@/components/shared/swiper';
+import { cn } from '@/lib/utils';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -256,8 +257,13 @@ const GroupDetails = () => {
       </View>
 
       {/* Add Member Bottom Sheet */}
-      <CustomBottomSheet sheetRef={addMemberSheetRef} snapPoints={['70%']} onScroll={handleScroll}>
-        <View className="gap-4 pb-8">
+      <CustomBottomSheet
+        sheetRef={addMemberSheetRef}
+        snapPoints={['70%']}
+        onScroll={handleScroll}
+        scrollClassName="relative"
+      >
+        <View className="gap-4 pb-8 sticky top-0">
           <View className="items-center mb-2">
             <View className="bg-primary/10 p-4 rounded-full mb-3">
               <UserPlus size={32} color={colors['--primary']} />
@@ -276,7 +282,9 @@ const GroupDetails = () => {
                   <Pressable
                     onPress={() => handleAddMember(friend.friendId)}
                     disabled={isAdding}
-                    className="flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80"
+                    className={cn(
+                      'flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80'
+                    )}
                   >
                     <Image
                       source={{ uri: friend.photo }}

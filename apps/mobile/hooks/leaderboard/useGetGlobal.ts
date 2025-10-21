@@ -17,12 +17,8 @@ interface LeaderboardResponse {
 const getGlobalLeaderboard = async (
   page: number = 1,
   limit: number = 50
-): Promise<LeaderboardResponse> => {
-  const response = await agent.get<LeaderboardResponse>(
-    `/leaderboard/global?page=${page}&limit=${limit}`
-  );
-  return response;
-};
+): Promise<LeaderboardResponse> =>
+  await agent.get<LeaderboardResponse>(`/leaderboard/global?page=${page}&limit=${limit}`);
 
 export const useGetGlobalLeaderboard = (page: number = 1, limit: number = 50) =>
   useQuery({
