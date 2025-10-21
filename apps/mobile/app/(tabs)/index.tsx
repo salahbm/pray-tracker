@@ -234,7 +234,7 @@ export default function HomeScreen() {
               onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
             >
               <Text className="text-xs font-extralight">{t('Commons.ViewAll')}</Text>
-              <ChevronRight size={12} />
+              <ChevronRight size={12} color={colors['--foreground']} />
             </Button>
           </View>
           <Leaderboard showCount imageClassName="w-24 h-24" />

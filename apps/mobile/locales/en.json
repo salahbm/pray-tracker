@@ -128,14 +128,15 @@
     },
     "ViewAll": "View All",
     "choose": "Choose a language",
-    "today":"Today",
-    "Delete":"Delete",
-    "Deleting":"Deleting...",
-    "Create":"Create",
-    "Creating":"Creating...",
-    "Cancel":"Cancel",
-    "Update":"Update",
-    "Updating":"Updating..."
+    "today": "Today",
+    "Delete": "Delete",
+    "Deleting": "Deleting...",
+    "Create": "Create",
+    "Creating": "Creating...",
+    "Cancel": "Cancel",
+    "Update": "Update",
+    "Updating": "Updating...",
+    "LoadMoreMonths": "+ Load 6 More Months"
   },
   "Friends": {
     "Freemium": {

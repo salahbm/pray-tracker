@@ -342,7 +342,6 @@ export class FriendsService {
       },
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return groups.map((group) => ({
       id: group.id,
       name: group.name,

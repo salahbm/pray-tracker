@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Image, RefreshControl, TouchableOpacity, View } from 'react-native';
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
@@ -13,6 +13,8 @@ import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
+import { X } from 'lucide-react-native';
+import Image from '@/components/ui/image';
 
 export default function Leaderboard({
   showCount,
@@ -50,11 +52,7 @@ export default function Leaderboard({
               )}
             >
               <Text className="text-lg font-semibold w-10">{index + 1}.</Text>
-              <Image
-                source={{ uri: item.photo }}
-                className="size-10 rounded-full bg-muted max-w-10 max-h-10"
-                defaultSource={FRIENDS.guest}
-              />
+              <Image source={item.photo} className="size-10 bg-muted max-w-10 max-h-10" />
               <Text className="text-base font-semibold flex-1 ml-3" numberOfLines={1}>
                 {item.username}
               </Text>
@@ -85,17 +83,22 @@ export default function Leaderboard({
 
       {/* User Details Modal */}
       <Modal visible={!!selectedUser} onRequestClose={() => setSelectedUser(null)}>
-        <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-8">
-          <Image
-            source={{ uri: selectedUser?.photo }}
-            className="w-16 h-16 rounded-full border border-muted max-w-16 max-h-16"
-            defaultSource={FRIENDS.guest}
-          />
+        <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-12 relative">
+          <TouchableOpacity
+            onPress={() => setSelectedUser(null)}
+            className="absolute top-4 right-4"
+          >
+            <X size={20} color={colors['--foreground']} />
+          </TouchableOpacity>
+          <Image source={selectedUser?.photo} size="lg" defaultSource={FRIENDS.guest} />
           <View>
-            <Text className="text-xl font-bold">{selectedUser?.username}</Text>
-            <Text className="text-lg text-muted-foreground">
-              {t('Leaderboard.Points')}: {selectedUser?.totalPoints}
-            </Text>
+            <View className="flex-row items-center gap-3">
+              <Text className="text-xl font-medium">{selectedUser?.username}</Text>
+              <Text className="text-xs text-muted-foreground">·</Text>
+              <Text className="text-lg text-muted-foreground">
+                {selectedUser?.totalPoints} {t('Leaderboard.Points')}
+              </Text>
+            </View>
             <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
           </View>
         </View>

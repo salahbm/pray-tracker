@@ -1,21 +1,28 @@
 import { debounce } from '@/utils/debounce';
 import { useColorScheme } from 'nativewind';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View } from 'react-native';
-import { CalendarList, DateData } from 'react-native-calendars';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  View,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
+import { CalendarList, DateData, LocaleConfig } from 'react-native-calendars';
 import { RenderHeader } from '@/components/views/pray-history/month-header';
 import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
 import { useThemeStore } from '@/store/defaults/theme';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useGetPrays, useUpdateOldPray } from '@/hooks/prays';
+import { useGetPrays } from '@/hooks/prays';
 import { format } from 'date-fns';
 import { IPrays } from '@/types/prays';
 import { getMonthTheme } from '@/styles/calendar.theme';
 import DayComponent from '@/components/views/pray-history/day';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { setCalendarLocale } from '@/utils/month-names';
-import { useTranslation } from 'react-i18next';
 import PrevPayUpdateModal from '@/components/views/pray-history/prev-pray-modal';
+import { useTranslation } from 'react-i18next';
 
 const today = new Date().toISOString();
 
@@ -31,21 +38,45 @@ type MarkedDateProps = {
 const MonthScreen = () => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
-  const calendarRef = useRef(null);
   const { colorScheme } = useColorScheme();
   const { colors } = useThemeStore();
+  const calendarRef = useRef<any>(null);
+
+  const [selected, setSelected] = useState('');
+  const [visibleMonths, setVisibleMonths] = useState(12);
+  const [renderVersion, setRenderVersion] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [atTop, setAtTop] = useState(false);
+  const lastVisibleMonthRef = useRef<Date>(new Date());
+
   const theme = useMemo(() => getMonthTheme(colors), [colors]);
+  const { user } = useAuthStore();
+  const { data: prays } = useGetPrays(user?.id!, 2025);
+
   const monthControlsCallback = useHeaderMonthControls(calendarRef);
-  const { mutateAsync: updateOldPray } = useUpdateOldPray();
 
   const handleVisibleMonthsChange = useMemo(
-    () => debounce(monthControlsCallback, 10),
+    () =>
+      debounce((months: any[]) => {
+        if (months?.[0]?.dateString) {
+          lastVisibleMonthRef.current = new Date(months[0].dateString);
+        }
+        monthControlsCallback(months);
+      }, 10),
     [monthControlsCallback]
   );
 
-  const [selected, setSelected] = useState('');
-  const { user } = useAuthStore();
-  const { data: prays } = useGetPrays(user?.id!, 2025);
+  // Locale updates
+  useEffect(() => {
+    setCalendarLocale(currentLanguage as 'en' | 'ru' | 'uz' | 'ar');
+    LocaleConfig.defaultLocale = currentLanguage as any;
+    setRenderVersion(prev => prev + 1);
+  }, [currentLanguage]);
+
+  // Force refresh when theme changes
+  useEffect(() => {
+    setRenderVersion(prev => prev + 1);
+  }, [colorScheme, colors]);
 
   const prayerCountByDate = useMemo(() => {
     if (!prays?.length) return {};
@@ -71,17 +102,15 @@ const MonthScreen = () => {
   }, []);
 
   const marked = useMemo(() => {
-    const entries: Record<string, MarkedDateProps> = {};
-
-    // Always mark today
-    entries[today] = {
-      marked: true,
-      dotColor: colors['--secondary'], // Use secondary color for today's dot
-      selected: selected === today,
-      selectedTextColor: colors['--secondary-foreground'],
+    const entries: Record<string, MarkedDateProps> = {
+      [today]: {
+        marked: true,
+        dotColor: colors['--secondary'],
+        selected: selected === today,
+        selectedTextColor: colors['--secondary-foreground'],
+      },
     };
 
-    // Mark selected date
     if (selected) {
       entries[selected] = {
         ...(entries[selected] || {}),
@@ -95,32 +124,59 @@ const MonthScreen = () => {
     return entries;
   }, [selected, colors]);
 
-  useEffect(() => {
-    setCalendarLocale(currentLanguage as 'en' | 'ru' | 'uz' | 'ar');
-  }, [currentLanguage]);
+  // Add more months and scroll back to last visible month (e.g., 2024-10)
+  const handleAddMonths = useCallback(() => {
+    if (loadingMore) return;
+    setLoadingMore(true);
 
-  return (
-    <View
-      className="safe-area flex-1"
-      key={`${colorScheme}-${Date.now()}-${currentLanguage}`}
-      style={{ backgroundColor: colors['--background'], paddingBottom: 100, paddingVertical: 10 }}
-    >
+    const targetMonth = lastVisibleMonthRef.current;
+
+    setTimeout(() => {
+      setVisibleMonths(prev => prev + 6);
+      setLoadingMore(false);
+
+      // Wait for new months to render, then scroll to previous visible month
+      setTimeout(() => {
+        if (calendarRef.current?.scrollToMonth) {
+          calendarRef.current.scrollToMonth(targetMonth, false);
+        }
+      }, 250);
+    }, 400);
+  }, [loadingMore]);
+
+  const handleScrollEnd = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset } = e.nativeEvent;
+    setAtTop(contentOffset.y <= 10);
+  }, []);
+
+  const calendarKey = useMemo(
+    () => `${currentLanguage}-${colorScheme}-${renderVersion}`,
+    [currentLanguage, colorScheme, renderVersion]
+  );
+
+  const calendar = useMemo(
+    () => (
       <CalendarList
+        key={calendarKey}
         ref={calendarRef}
-        id={`${currentLanguage}-${Date.now()}-${colorScheme}`}
-        key={`${currentLanguage}-${Date.now()}-${colorScheme}`}
-        current={new Date().toISOString()}
-        pastScrollRange={12}
+        style={{ backgroundColor: colors['--background'] }}
+        current={today}
+        pastScrollRange={visibleMonths}
         futureScrollRange={1}
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}
         renderHeader={RenderHeader}
+        onScrollEndDrag={handleScrollEnd}
+        onMomentumScrollEnd={handleScrollEnd}
+        scrollEventThrottle={32}
+        scrollsToTop={false}
         hideDayNames
+        bounces={false}
+        alwaysBounceVertical={false}
         calendarHeight={260}
         markedDates={marked}
         extraData={selected}
-        scrollEventThrottle={32}
         removeClippedSubviews
         dayComponent={({ date }) => (
           <DayComponent
@@ -131,6 +187,55 @@ const MonthScreen = () => {
           />
         )}
       />
+    ),
+    [
+      calendarKey,
+      visibleMonths,
+      handleVisibleMonthsChange,
+      theme,
+      marked,
+      selected,
+      prayerCountByDate,
+      onDayPress,
+      colors,
+      handleScrollEnd,
+    ]
+  );
+
+  return (
+    <View className="safe-area flex-1" style={{ backgroundColor: colors['--background'] }}>
+      {calendar}
+
+      {atTop && (
+        <TouchableOpacity
+          onPress={handleAddMonths}
+          disabled={loadingMore}
+          style={{
+            position: 'absolute',
+            top: 20,
+            alignSelf: 'center',
+            backgroundColor: colors['--primary'],
+            paddingHorizontal: 16,
+            paddingVertical: 10,
+            borderRadius: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          {loadingMore ? (
+            <ActivityIndicator color={colors['--primary-foreground']} />
+          ) : (
+            <Text
+              style={{
+                color: colors['--primary-foreground'],
+                fontWeight: 'bold',
+              }}
+            >
+              {t('Commons.LoadMoreMonths')}
+            </Text>
+          )}
+        </TouchableOpacity>
+      )}
 
       <PrevPayUpdateModal
         selected={selected}

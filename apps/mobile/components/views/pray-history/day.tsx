@@ -48,8 +48,8 @@ const DayComponent: React.FC<IDayComponentProps> = ({
     >
       <Text
         style={{
-          color: count > 0 ? colors['--primary-foreground'] : colors['--foreground'],
-          opacity: 1,
+          color: colors['--foreground'],
+          opacity: count > 0 ? 1 : 0.85,
         }}
       >
         {date.day}

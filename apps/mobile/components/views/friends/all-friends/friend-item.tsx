@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
-import { View, Image, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { formatDistanceToNow } from 'date-fns';
 import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated';
 
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
-import { FRIENDS } from '@/constants/images';
 
 import { FriendItemProps } from './types';
 import { useDeleteFriend } from '@/hooks/friends/member/useDelete';
@@ -15,6 +14,7 @@ import { useRejectRequest } from '@/hooks/friends/member/useReject';
 import { FriendActivity } from '@/types/friends';
 import { useAuthStore } from '@/store/auth/auth-session';
 import SwiperButton from '@/components/shared/swiper';
+import Image from '@/components/ui/image';
 
 export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
   const { t } = useTranslation();
@@ -80,10 +80,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
       >
         <Pressable className="px-4 py-3 active:bg-muted/30">
           <View className="flex-row items-center">
-            <Image
-              source={{ uri: item.photo || FRIENDS.guest }}
-              className="w-11 h-11 rounded-full bg-muted"
-            />
+            <Image source={item.photo} className="w-11 h-11" />
 
             <View className="flex-1 ml-3">
               <View className="flex-row items-center gap-1.5">
