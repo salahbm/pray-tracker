@@ -9,14 +9,16 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
 import GoBack from '@/components/shared/go-back';
 import Leaderboard from '@/components/views/awards/leaderboard';
+import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 
 export default function LeaderboardScreen() {
   const { t } = useTranslation();
+    const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 50);
 
   return (
     <SafeAreaView className="main-area">
       <GoBack title={t('Leaderboard.Title')} />
-      <Leaderboard showCount={false} />
+      <Leaderboard data={data?.data!} isLoading={isLoading} refetch={refetch} />
     </SafeAreaView>
   );
 }

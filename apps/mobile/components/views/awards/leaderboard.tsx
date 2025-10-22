@@ -17,11 +17,17 @@ import { X } from 'lucide-react-native';
 import Image from '@/components/ui/image';
 
 export default function Leaderboard({
-  showCount,
+  data,
+  isLoading,
   imageClassName,
+  refetch,
+  scrollEnabled = true,
 }: {
-  showCount: boolean;
+  data: TUser[];
+  isLoading: boolean;
   imageClassName?: string;
+  refetch: () => void;
+  scrollEnabled?: boolean;
 }) {
   const { t } = useTranslation();
   const { user } = useAuthStore();
@@ -30,14 +36,13 @@ export default function Leaderboard({
 
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
 
-  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, showCount ? 10 : 100);
 
   return (
-    <View>
+    <View className="flex-1 h-full">
       <Loader visible={isLoading} className="bg-transparent" />
 
       <FlatList
-        data={data?.data}
+          data={data}
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => setSelectedUser(item)}>
@@ -63,6 +68,7 @@ export default function Leaderboard({
           </TouchableOpacity>
         )}
         showsVerticalScrollIndicator={false}
+        scrollEnabled={scrollEnabled}
         className="mt-4"
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
         ListEmptyComponent={
@@ -78,12 +84,10 @@ export default function Leaderboard({
             tintColor={colors['--primary']}
           />
         }
-        scrollEnabled={!showCount}
       />
 
       {/* User Details Modal */}
       <Modal visible={!!selectedUser} onRequestClose={() => setSelectedUser(null)}>
-        <View className="bg-muted p-6 rounded-md flex-row gap-4 items-center py-12 relative">
           <TouchableOpacity
             onPress={() => setSelectedUser(null)}
             className="absolute top-4 right-4"
@@ -101,7 +105,7 @@ export default function Leaderboard({
             </View>
             <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
           </View>
-        </View>
+
       </Modal>
     </View>
   );

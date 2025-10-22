@@ -136,7 +136,8 @@
     "Cancel": "Cancel",
     "Update": "Update",
     "Updating": "Updating...",
-    "LoadMoreMonths": "+ Load 6 More Months"
+    "LoadMoreMonths": "+ Load 6 More Months",
+    "Save": "Save"
   },
   "Friends": {
     "Freemium": {
@@ -336,7 +337,11 @@
         "Fetching": "Fetching location...",
         "Unknown": "Unknown"
       },
-      "TimeLeft": "left until next prayer"
+      "Notifier": {
+        "Title": "Prayer Reminder",
+        "Description": "How many minutes before prayer do you want a reminder?",
+        "MinutesBefore": "{{minutes}} minutes before prayer"
+      }
     },
     "Tabs": {
       "Qibla": "Qibla Direction",

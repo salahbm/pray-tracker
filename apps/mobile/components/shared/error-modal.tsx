@@ -42,13 +42,9 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
   const { colors } = useThemeStore();
   return (
     <Modal
-      isVisible={isVisible}
-      onBackdropPress={onClose}
-      onBackButtonPress={onClose}
-      useNativeDriver={Platform.OS !== 'web'}
-      hideModalContentWhileAnimating
-      backdropTransitionOutTiming={0}
-      className="flex items-center justify-center"
+      visible={isVisible}
+      onRequestClose={onClose}
+
     >
       <View className={cn('w-4/5  rounded-lg p-5 items-center shadow-lg bg-popover ', modalStyle)}>
         {showIcon && (

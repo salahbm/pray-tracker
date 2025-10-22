@@ -23,6 +23,7 @@ import { cn } from '@/lib/utils';
 import CreateGroupSheet from '@/components/views/friends/groups/create-group-sheet';
 import EditGroupSheet from '@/components/views/friends/groups/edit-group-sheet';
 import DeleteGroupSheet from '@/components/views/friends/groups/delete-group-sheet';
+import PrayerNotifierSheet from '@/components/views/qibla/pray-notifier-sheet';
 
 interface ISheetWrapperProps {}
 
@@ -84,6 +85,9 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
       <CreateGroupSheet sheetRef={createSheetRef} />
       <EditGroupSheet sheetRef={editSheetRef} />
       <DeleteGroupSheet sheetRef={deleteSheetRef} />
+
+      {/* PRAY NOTIFIER */}
+      <PrayerNotifierSheet />
     </Fragment>
   );
 };

@@ -161,7 +161,7 @@ export const useCreatePray = () => {
       }
 
       queryClient.invalidateQueries({
-        queryKey: QueryKeys.leaderboard.friends,
+        queryKey: QueryKeys.leaderboard.global,
         type: 'all',
         exact: false,
       });
