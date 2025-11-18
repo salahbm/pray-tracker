@@ -10,7 +10,7 @@ import { IMAGES } from '@/constants/images';
 import { useSignUp } from '@/hooks/auth/useSignUp';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signUpSchema, TSignUpSchema } from '@/app/(auth)/schema';
+import { signUpSchema, TSignUpSchema } from '@/lib/validation/auth';
 import FormField from '@/components/shared/form-field';
 
 interface ISignUp {

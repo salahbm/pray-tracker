@@ -39,6 +39,7 @@ export interface FriendActivity {
   id: string; // friendship ID
   userId: string;
   friendId: string;
+  friendUserId: string; // counterpart user id
   username: string;
   email: string;
   photo: string;
@@ -46,5 +47,6 @@ export interface FriendActivity {
   type: 'sent' | 'received' | 'friend'; // sent = request sent by me, received = request received by me, friend = accepted
   createdAt: Date;
   // For accepted friends, include prayers
-  prays?: Omit<IPrays, 'id' | 'createdAt' | 'updatedAt'>[];
+  prays: Omit<IPrays, 'id' | 'createdAt' | 'updatedAt'>[];
+  isSender: boolean;
 }

@@ -2,19 +2,18 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
-import { IResponseArray } from '@/types/api';
-import { IFriend } from '@/types/friends';
+import { IResponse } from '@/types/api';
 
 import useMutation from '../../common/useMutation';
 
 type TParams = {
-  friendId: string;
+  userId: string;
   friendshipId: string;
 };
 
-const deleteFriend = async (data: TParams): Promise<IResponseArray<IFriend>> =>
-  await agent.delete<IResponseArray<IFriend>>(
-    `/friends/remove?friendId=${data.friendId}&friendshipId=${data.friendshipId}`
+const deleteFriend = async (data: TParams): Promise<IResponse<null>> =>
+  await agent.delete<IResponse<null>>(
+    `/friends/remove?userId=${data.userId}&friendshipId=${data.friendshipId}`
   );
 
 export const useDeleteFriend = () => {
@@ -29,6 +28,14 @@ export const useDeleteFriend = () => {
         });
         await queryClient.invalidateQueries({
           queryKey: QueryKeys.friends.groups,
+          type: 'all',
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.friends.groupMembers,
+          type: 'all',
+        });
+        await queryClient.invalidateQueries({
+          queryKey: QueryKeys.leaderboard.friends,
           type: 'all',
         });
       },

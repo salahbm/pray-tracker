@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import agent from '@/lib/agent';
-import { IResponse, IResponseArray } from '@/types/api';
+import { IResponse } from '@/types/api';
 import { IFriend } from '@/types/friends';
 
 import useMutation from '../../common/useMutation';
@@ -9,12 +9,11 @@ import QueryKeys from '@/constants/query-keys';
 
 type TParams = {
   friendshipId: string;
-  friendId: string;
   userId: string;
 };
 
-const acceptRequest = async (data: TParams): Promise<IResponseArray<IResponse<IFriend>>> => {
-  const response = await agent.patch<IResponseArray<IResponse<IFriend>>>('/friends/accept', {
+const acceptRequest = async (data: TParams): Promise<IResponse<IFriend>> => {
+  const response = await agent.patch<IResponse<IFriend>>('/friends/accept', {
     userId: data.userId,
     friendshipId: data.friendshipId,
   });

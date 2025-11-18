@@ -84,7 +84,7 @@ export default function HomeScreen() {
     data: leaderboard,
     isLoading: isLoadingLeaderboard,
     refetch: refetchLeaderboard,
-  } = useGetGlobalLeaderboard(1, 10);
+  } = useGetGlobalLeaderboard(1, 10, { enabled: !!user });
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();

@@ -79,10 +79,10 @@ export class FriendsController {
   @Delete('remove')
   async removeFriend(
     @Query('friendshipId') friendshipId: string,
-    @Query('friendId') friendId: string,
+    @Query('userId') userId: string,
     @Headers('locale') locale?: Locale,
   ) {
-    return this.friendsService.removeFriend(friendshipId, friendId, locale);
+    return this.friendsService.removeFriend(friendshipId, userId, locale);
   }
 
   // Group Management Endpoints

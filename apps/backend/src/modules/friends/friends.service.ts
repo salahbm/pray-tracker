@@ -129,7 +129,7 @@ export class FriendsService {
       friendships.map(async (friendship) => {
         const isSender = friendship.userId === userId;
         const friendData = isSender ? friendship.friend : friendship.user;
-        const friendId = friendData.id;
+        const friendUserId = friendData?.id;
 
         let type: 'sent' | 'received' | 'friend';
         if (friendship.status === FriendStatus.ACCEPTED) {
@@ -145,10 +145,10 @@ export class FriendsService {
           Prayer,
           'id' | 'userId' | 'createdAt' | 'updatedAt' | 'date'
         >[];
-        if (friendship.status === FriendStatus.ACCEPTED) {
+        if (friendship.status === FriendStatus.ACCEPTED && friendUserId) {
           const prayers = await this.prisma.prayer.findMany({
             where: {
-              userId: friendId,
+              userId: friendUserId,
               date: {
                 gte: today,
               },
@@ -177,13 +177,15 @@ export class FriendsService {
           id: friendship.id,
           userId: friendship.userId,
           friendId: friendship.friendId,
-          username: friendData.name,
-          email: friendData.email,
-          photo: friendData.image || '',
+          friendUserId: friendUserId ?? '',
+          username: friendData?.name ?? '',
+          email: friendData?.email ?? '',
+          photo: friendData?.image || '',
           status: friendship.status,
           type,
           createdAt: friendship.createdAt,
-          ...(prays.length > 0 && { prays }),
+          prays,
+          isSender,
         };
       }),
     );
@@ -243,18 +245,25 @@ export class FriendsService {
       );
     }
 
-    // Only the receiver can reject
-    if (friendship.friendId !== userId || friendship.userId !== userId) {
+    const isReceiver = friendship.friendId === userId;
+    const isSender = friendship.userId === userId;
+
+    if (!isReceiver && !isSender) {
       throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+    }
+
+    if (friendship.status !== FriendStatus.PENDING) {
+      throw new BadRequestException(getLocalizedMessage('BAD_REQUEST', locale));
     }
 
     await this.prisma.friend.delete({
       where: { id: friendshipId },
     });
 
-    return {
-      message: getLocalizedMessage('FRIEND_REQUEST_REJECTED', locale),
-    };
+    return createSuccessResponse(
+      null,
+      getLocalizedMessage('FRIEND_REQUEST_REJECTED', locale),
+    );
   }
 
   /**
@@ -262,7 +271,7 @@ export class FriendsService {
    */
   async removeFriend(
     friendshipId: string,
-    friendId: string,
+    userId: string,
     locale: Locale = 'en',
   ) {
     const friendship = await this.prisma.friend.findUnique({
@@ -275,7 +284,7 @@ export class FriendsService {
       );
     }
 
-    if (friendship.userId !== friendId || friendship.friendId !== friendId) {
+    if (friendship.userId !== userId && friendship.friendId !== userId) {
       throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
     }
 
@@ -283,7 +292,10 @@ export class FriendsService {
       where: { id: friendshipId },
     });
 
-    return createSuccessResponse(getLocalizedMessage('FRIEND_REMOVED', locale));
+    return createSuccessResponse(
+      null,
+      getLocalizedMessage('FRIEND_REMOVED', locale),
+    );
   }
 
   /**
