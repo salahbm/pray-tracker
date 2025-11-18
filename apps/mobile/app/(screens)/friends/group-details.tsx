@@ -71,8 +71,10 @@ const GroupDetails = () => {
   const availableFriends =
     allFriends?.pages
       ?.flatMap(page => page.data || [])
-      ?.filter(friend => !groupData?.members.some(member => member.userId === friend.friendId)) ||
-    [];
+      ?.filter(friend => friend.type === 'friend')
+      ?.filter(
+        friend => !groupData?.members.some(member => member.userId === friend.friendUserId)
+      ) || [];
 
   const handleAddMember = async (friendId: string) => {
     if (!user?.id) return;
@@ -280,7 +282,7 @@ const GroupDetails = () => {
               {availableFriends.map((friend, index) => (
                 <Animated.View key={friend.id} entering={FadeInRight.delay(index * 50).springify()}>
                   <Pressable
-                    onPress={() => handleAddMember(friend.friendId)}
+                    onPress={() => handleAddMember(friend.friendUserId)}
                     disabled={isAdding}
                     className={cn(
                       'flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80'

@@ -7,7 +7,7 @@ import { TouchableOpacity, View } from 'react-native';
 import Loader from '@/components/shared/loader';
 import { Text } from '@/components/ui/text';
 import { useLoginUser } from '@/hooks/auth/useSignIn';
-import { signInSchema, TSignInSchema } from '@/app/(auth)/schema';
+import { signInSchema, TSignInSchema } from '@/lib/validation/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormField from '@/components/shared/form-field';

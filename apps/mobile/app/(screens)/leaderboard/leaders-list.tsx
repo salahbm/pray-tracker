@@ -5,10 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import GoBack from '@/components/shared/go-back';
 import Leaderboard from '@/components/views/awards/leaderboard';
 import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 export default function LeaderboardScreen() {
   const { t } = useTranslation();
-  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 50);
+  const { user } = useAuthStore();
+  const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 50, {
+    enabled: !!user,
+  });
 
   return (
     <SafeAreaView className="main-area">

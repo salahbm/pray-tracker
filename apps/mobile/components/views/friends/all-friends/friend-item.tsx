@@ -25,31 +25,29 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
   const { mutateAsync: rejectFriendRequest, isPending: isRejecting } = useRejectRequest();
 
   const handleReject = async (item: FriendActivity) => {
-    if (item.type === 'friend') return;
+    if (item.type === 'friend' || !user?.id) return;
 
     await rejectFriendRequest({
       friendshipId: item.id,
-      friendId: item.friendId,
-      userId: item.userId,
+      userId: user.id,
     });
   };
 
   const handleApprove = async (item: FriendActivity) => {
-    if (item.type !== 'received') return;
+    if (item.type !== 'received' || !user?.id) return;
 
     await acceptFriendRequest({
       friendshipId: item.id,
-      friendId: item.friendId,
-      userId: user?.id!,
+      userId: user.id,
     });
   };
 
   const handleRemoveFriend = async (item: FriendActivity) => {
-    if (item.type !== 'friend') return;
+    if (item.type !== 'friend' || !user?.id) return;
 
     await deleteFriend({
       friendshipId: item.id,
-      friendId: item.type === 'friend' ? item.friendId : item.id,
+      userId: user.id,
     });
   };
 

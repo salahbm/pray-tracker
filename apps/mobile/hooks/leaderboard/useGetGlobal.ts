@@ -20,9 +20,18 @@ const getGlobalLeaderboard = async (
 ): Promise<LeaderboardResponse> =>
   await agent.get<LeaderboardResponse>(`/leaderboard/global?page=${page}&limit=${limit}`);
 
-export const useGetGlobalLeaderboard = (page: number = 1, limit: number = 50) =>
+interface UseGlobalLeaderboardOptions {
+  enabled?: boolean;
+}
+
+export const useGetGlobalLeaderboard = (
+  page: number = 1,
+  limit: number = 50,
+  options: UseGlobalLeaderboardOptions = {}
+) =>
   useQuery({
     queryKey: [...QueryKeys.leaderboard.global, page, limit],
     queryFn: () => getGlobalLeaderboard(page, limit),
     placeholderData: keepPreviousData,
+    enabled: options.enabled ?? true,
   });
