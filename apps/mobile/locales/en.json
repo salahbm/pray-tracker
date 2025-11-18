@@ -322,13 +322,15 @@
       "Degrees": "degrees",
       "Errors": {
         "Location": "Location permission required",
-        "Magnetometer": "Magnetometer not available"
+        "Magnetometer": "Magnetometer not available",
+        "MagnetometerUnavailable": "Magnetometer not available on this device"
       },
       "Help": "Point your phone towards Qibla Degrees and align with Your Direction",
       "YourDirection": "Your Direction",
       "QiblaDirection": "Qibla Direction"
     },
     "PrayerTimes": {
+      "TimeLeft": "Time left until the next prayer",
       "Errors": {
         "Message": "Location permission is required to calculate prayer times",
         "Title": "Permission Denied"

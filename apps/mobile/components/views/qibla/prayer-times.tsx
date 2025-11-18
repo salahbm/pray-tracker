@@ -4,24 +4,24 @@ import { format } from 'date-fns';
 import * as Location from 'expo-location';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, FlatList, Pressable, Text, View } from 'react-native';
+import { Alert, FlatList, Text, View } from 'react-native';
 
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
+import { Button } from '@/components/ui/button';
 import { SALAHS } from '@/constants/enums';
 import useTimeLeft from '@/hooks/common/useTimeLeft';
 import { cn } from '@/lib/utils';
+import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useThemeStore } from '@/store/defaults/theme';
 import { Settings2Icon } from 'lucide-react-native';
-import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
-import { Button } from '@/components/ui/button';
 
 const PrayerTimer = () => {
   const { t } = useTranslation();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
   const [location, setLocation] = useState(t('Qibla.PrayerTimes.Location.Fetching'));
-    const { open} = usePrayNotifierBottomSheetStore();
-  
+  const { open } = usePrayNotifierBottomSheetStore();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { colors } = useThemeStore();
@@ -114,8 +114,8 @@ const PrayerTimer = () => {
   return (
     <View className="py-4 h-full">
       <View className="bg-accent p-6 rounded-2xl mb-6 shadow-lg relative">
-        <Button size='icon' variant='ghost' className="absolute top-3 right-3" onPress={() => open()}>
-          <Settings2Icon className='w-6 h-6' color={colors['--accent-foreground']} />
+        <Button size="icon" variant="ghost" className="absolute top-3 right-3" onPress={open}>
+          <Settings2Icon className="w-6 h-6" color={colors['--accent-foreground']} />
         </Button>
         <Text className="text-accent-foreground text-5xl font-extrabold text-center">
           {timeLeft}

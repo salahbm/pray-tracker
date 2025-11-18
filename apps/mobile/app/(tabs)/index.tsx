@@ -80,8 +80,11 @@ export default function HomeScreen() {
   } = useGetPrays(user?.id!, year);
 
   const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!);
-    const { data, isLoading, refetch } = useGetGlobalLeaderboard(1, 10);
-  
+  const {
+    data: leaderboard,
+    isLoading: isLoadingLeaderboard,
+    refetch: refetchLeaderboard,
+  } = useGetGlobalLeaderboard(1, 10);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
@@ -204,7 +207,7 @@ export default function HomeScreen() {
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
-              refetch();
+              refetchLeaderboard();
             }}
             tintColor={colors['--primary']}
           />
@@ -241,7 +244,13 @@ export default function HomeScreen() {
               <ChevronRight size={12} color={colors['--foreground']} />
             </Button>
           </View>
-          <Leaderboard data={data?.data!} isLoading={isLoading} imageClassName="w-24 h-24" refetch={refetch} scrollEnabled={false} />
+          <Leaderboard
+            data={leaderboard?.data ?? []}
+            isLoading={isLoadingLeaderboard}
+            imageClassName="w-24 h-24"
+            refetch={refetchLeaderboard}
+            scrollEnabled={false}
+          />
         </View>
 
         {/* LOTTIE CONFETTI */}
