@@ -41,11 +41,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
 }) => {
   const { colors } = useThemeStore();
   return (
-    <Modal
-      visible={isVisible}
-      onRequestClose={onClose}
-
-    >
+    <Modal visible={isVisible} onRequestClose={onClose}>
       <View className={cn('w-4/5  rounded-lg p-5 items-center shadow-lg bg-popover ', modalStyle)}>
         {showIcon && (
           <Ionicons

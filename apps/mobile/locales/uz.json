@@ -18,6 +18,9 @@
       "Cancel": "Bekor qilish",
       "Confirm": "Tasdiqlash"
     },
+    "ViewAll": "Hammasini ko'rish",
+    "Cancel": "Bekor qilish",
+    "Save": "Saqlash",
     "NotFound": {
       "404": "Sahifa topilmadi",
       "noData": "Ma'lumot topilmadi"
@@ -98,6 +101,7 @@
       "Help": "Telefoningizni Qibla tomon yo'naltiring va Ka'baga moslashtiring",
       "Errors": {
         "Magnetometer": "Magnitometr mavjud emas",
+        "MagnetometerUnavailable": "Bu qurilmada magnitometr mavjud emas",
         "Location": "Joylashuvga ruxsat kerak"
       }
     },
@@ -110,8 +114,18 @@
       "Errors": {
         "Title": "Ruxsat Berilmadi",
         "Message": "Namoz vaqtlarini hisoblash uchun joylashuvga ruxsat kerak"
+      },
+      "Notifier": {
+        "Title": "Namoz eslatmasi",
+        "Description": "Namozdan qancha vaqt oldin eslatma olmoqchisiz?",
+        "MinutesBefore": "Namozdan {{minutes}} daqiqa oldin"
       }
     }
+  },
+  "Leaderboard": {
+    "Title": "Yetakchilar jadvali",
+    "Point": "ball",
+    "Points": "ballar"
   },
   "Auth": {
     "Email": {

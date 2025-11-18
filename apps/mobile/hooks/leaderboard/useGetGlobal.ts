@@ -22,7 +22,7 @@ const getGlobalLeaderboard = async (
 
 export const useGetGlobalLeaderboard = (page: number = 1, limit: number = 50) =>
   useQuery({
-    queryKey: QueryKeys.leaderboard.global,
+    queryKey: [...QueryKeys.leaderboard.global, page, limit],
     queryFn: () => getGlobalLeaderboard(page, limit),
     placeholderData: keepPreviousData,
   });

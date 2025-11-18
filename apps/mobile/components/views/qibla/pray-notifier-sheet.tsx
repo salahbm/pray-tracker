@@ -9,33 +9,29 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Minus, Plus, Bell } from 'lucide-react-native';
+import { Bell, Minus, Plus } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { useThemeStore } from '@/store/defaults/theme';
+
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
+import { useThemeStore } from '@/store/defaults/theme';
 
-
-
-const PrayerNotifierSheet: React.FC= () => {
+const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
 
-  const [minutes, setMinutes] = useState(10);  
+  const [minutes, setMinutes] = useState(10);
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0);
 
+  const { sheetRef, close } = usePrayNotifierBottomSheetStore();
 
-  const {sheetRef, close} = usePrayNotifierBottomSheetStore();
-
-  // Animate sheet appearance
   React.useEffect(() => {
     opacity.value = withTiming(1, { duration: 300 });
-  }, []);
+  }, [opacity]);
 
-  // Counter bounce animation
   const counterScale = useSharedValue(1);
   const counterStyle = useAnimatedStyle(() => ({
     transform: [{ scale: counterScale.value }],
@@ -59,14 +55,9 @@ const PrayerNotifierSheet: React.FC= () => {
     }
   };
 
-
-
   const handleSave = () => {
-
-
-    close()
+    close();
   };
-  
 
   const fadeInStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -96,7 +87,6 @@ const PrayerNotifierSheet: React.FC= () => {
           </Text>
         </View>
 
-        {/* Counter Section */}
         <View className="flex-row justify-center items-center gap-6 mt-4">
           <Animated.View entering={FadeInLeft.delay(100)}>
             <Button
@@ -117,8 +107,7 @@ const PrayerNotifierSheet: React.FC= () => {
           <Animated.View entering={FadeInRight.delay(100)}>
             <Button
               variant="outline"
-            className="size-12 rounded-full border-border backdrop-blur-md"
-
+              className="size-12 rounded-full border-border backdrop-blur-md"
               onPress={handlePlus}
             >
               <Plus size={20} color={colors['--foreground']} />
@@ -130,14 +119,9 @@ const PrayerNotifierSheet: React.FC= () => {
           {t('Qibla.PrayerTimes.Notifier.MinutesBefore', { minutes })}
         </Text>
 
-        {/* Action Buttons */}
         <View className="flex-row gap-3 mt-6">
           <Animated.View entering={FadeInDown.delay(200)} className="flex-1">
-            <Button
-              variant="outline"
-              onPress={() => sheetRef.current?.close()}
-              className="flex-1"
-            >
+            <Button variant="outline" onPress={close} className="flex-1">
               <Text>{t('Commons.Cancel')}</Text>
             </Button>
           </Animated.View>
