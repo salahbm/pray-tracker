@@ -5,6 +5,8 @@
 import i18n from '@/i18n.config';
 import Constants from 'expo-constants';
 
+import { useAuthStore } from '@/store/auth/auth-session';
+
 /**
  * Custom API error for unified handling
  */
@@ -93,6 +95,9 @@ class Agent {
     const data = isJson ? await response.json() : await response.text();
 
     if (!response.ok) {
+      if (response.status === 401) {
+        useAuthStore.getState().clearUserAndSession();
+      }
       const message =
         isJson && (data.message || data.error)
           ? data.message || data.error
@@ -116,6 +121,8 @@ class Agent {
     // Get current language and add to headers
     const currentLanguage = i18n.language || 'en';
 
+    const token = useAuthStore.getState().session?.token;
+
     console.log('LOGGING AGENT 🤖', url, currentLanguage, JSON.stringify(body || {}, null, 2));
 
     const config: RequestInit = {
@@ -124,6 +131,7 @@ class Agent {
         ...this.defaultHeaders,
         'Accept-Language': currentLanguage,
         Locale: currentLanguage,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...headers,
       },
       signal,
@@ -144,7 +152,13 @@ class Agent {
       return await this.processResponse<T>(res);
     } catch (err) {
       if (err instanceof ApiError) throw err;
-      throw new ApiError((err as Error).message ?? 'Network error', 0, undefined, err);
+      const fallbackMessage = (err as Error).message ?? 'Network error';
+      throw new ApiError(
+        `Network error while calling ${url}: ${fallbackMessage}`,
+        0,
+        undefined,
+        err
+      );
     }
   }
 
