@@ -54,11 +54,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message = exception.message;
       error = exception.name;
     }
-    // Try to get localized error message
-    const localizedMessage = this.getLocalizedMessage(error, message, locale);
+    // Resolve error key and get localized message
+    const errorKey = this.resolveErrorKey(error, message);
+    const localizedMessage = this.getLocalizedMessage(
+      errorKey,
+      message,
+      locale,
+    );
 
     const errorResponse = createErrorResponse(
-      error,
+      errorKey,
       localizedMessage,
       status,
       request.url,
@@ -69,13 +74,29 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(status).json(errorResponse);
   }
 
+  private resolveErrorKey(error: string, message: string): ErrorKey {
+    if (ERROR_MESSAGES[error as ErrorKey]) {
+      return error as ErrorKey;
+    }
+
+    const normalizedMessage = message?.toLowerCase?.() ?? '';
+
+    const matchedEntry = Object.entries(ERROR_MESSAGES).find(([, locales]) =>
+      Object.values(locales).some(
+        (translation) => translation.toLowerCase() === normalizedMessage,
+      ),
+    );
+
+    return (matchedEntry?.[0] as ErrorKey) || 'INTERNAL_SERVER_ERROR';
+  }
+
   private getLocalizedMessage(
-    error: string,
+    errorKey: ErrorKey,
     defaultMessage: string,
     locale: Locale,
   ): string {
-    if (ERROR_MESSAGES[error as ErrorKey]) {
-      return getLocalizedMessage(error as ErrorKey, locale);
+    if (ERROR_MESSAGES[errorKey]) {
+      return getLocalizedMessage(errorKey, locale);
     }
 
     // Return default message if no localized version found

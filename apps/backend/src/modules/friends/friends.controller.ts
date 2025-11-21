@@ -41,6 +41,7 @@ export class FriendsController {
     @Query('userId') userId: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @Headers('locale') locale?: Locale,
   ) {
     const pageNum = page ? parseInt(page, 10) : 1;
     const limitNum = limit ? parseInt(limit, 10) : 20;
@@ -48,6 +49,7 @@ export class FriendsController {
       userId,
       pageNum,
       limitNum,
+      locale,
     );
     return { data: activities };
   }
@@ -109,8 +111,13 @@ export class FriendsController {
   async getGroupMembers(
     @Param('groupId') groupId: string,
     @Query('userId') userId: string,
+    @Headers('locale') locale?: Locale,
   ) {
-    const members = await this.friendsService.getGroupMembers(groupId, userId);
+    const members = await this.friendsService.getGroupMembers(
+      groupId,
+      userId,
+      locale,
+    );
     return { data: members };
   }
 

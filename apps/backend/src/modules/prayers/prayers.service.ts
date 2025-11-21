@@ -3,6 +3,8 @@ import { Prayer, Prisma } from 'generated/prisma';
 import { PrismaService } from '@/db/prisma.service';
 import { CreatePrayerDto } from './dto/create-prayer.dto';
 import { UpdatePrayerDto } from './dto/update-prayer.dto';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
+import { Locale } from '@/common/utils/response.utils';
 
 @Injectable()
 export class PrayersService {
@@ -117,13 +119,16 @@ export class PrayersService {
   /**
    * Get a specific prayer by ID
    */
-  async findOne(id: string): Promise<Prayer> {
+  async findOne(id: string, locale: Locale = 'en'): Promise<Prayer> {
     const prayer = await this.prisma.prayer.findUnique({
       where: { id },
     });
 
     if (!prayer) {
-      throw new NotFoundException('Prayer not found');
+      throw new NotFoundException({
+        error: 'NOT_FOUND',
+        message: getLocalizedMessage('NOT_FOUND', locale),
+      });
     }
 
     return prayer;
@@ -132,27 +137,37 @@ export class PrayersService {
   /**
    * Update a prayer
    */
-  async update(id: string, updatePrayerDto: UpdatePrayerDto): Promise<Prayer> {
+  async update(
+    id: string,
+    updatePrayerDto: UpdatePrayerDto,
+    locale: Locale = 'en',
+  ): Promise<Prayer> {
     try {
       return await this.prisma.prayer.update({
         where: { id },
         data: updatePrayerDto,
       });
     } catch {
-      throw new NotFoundException('Prayer not found');
+      throw new NotFoundException({
+        error: 'NOT_FOUND',
+        message: getLocalizedMessage('NOT_FOUND', locale),
+      });
     }
   }
 
   /**
    * Delete a prayer
    */
-  async remove(id: string): Promise<Prayer> {
+  async remove(id: string, locale: Locale = 'en'): Promise<Prayer> {
     try {
       return await this.prisma.prayer.delete({
         where: { id },
       });
     } catch {
-      throw new NotFoundException('Prayer not found');
+      throw new NotFoundException({
+        error: 'NOT_FOUND',
+        message: getLocalizedMessage('NOT_FOUND', locale),
+      });
     }
   }
 

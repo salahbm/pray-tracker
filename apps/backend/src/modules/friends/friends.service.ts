@@ -26,16 +26,18 @@ export class FriendsService {
     });
 
     if (!friend) {
-      throw new NotFoundException(
-        getLocalizedMessage('USER_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'USER_NOT_FOUND',
+        message: getLocalizedMessage('USER_NOT_FOUND', locale),
+      });
     }
 
     // Check if trying to add self
     if (userId === friend.id) {
-      throw new BadRequestException(
-        getLocalizedMessage('CANNOT_SEND_REQUEST_TO_SELF', locale),
-      );
+      throw new BadRequestException({
+        error: 'CANNOT_SEND_REQUEST_TO_SELF',
+        message: getLocalizedMessage('CANNOT_SEND_REQUEST_TO_SELF', locale),
+      });
     }
 
     // Check if friendship already exists (in either direction)
@@ -50,13 +52,15 @@ export class FriendsService {
 
     if (existingFriendship) {
       if (existingFriendship.status === FriendStatus.ACCEPTED) {
-        throw new BadRequestException(
-          getLocalizedMessage('ALREADY_FRIENDS', locale),
-        );
+        throw new BadRequestException({
+          error: 'ALREADY_FRIENDS',
+          message: getLocalizedMessage('ALREADY_FRIENDS', locale),
+        });
       }
-      throw new BadRequestException(
-        getLocalizedMessage('FRIEND_REQUEST_ALREADY_EXISTS', locale),
-      );
+      throw new BadRequestException({
+        error: 'FRIEND_REQUEST_ALREADY_EXISTS',
+        message: getLocalizedMessage('FRIEND_REQUEST_ALREADY_EXISTS', locale),
+      });
     }
 
     // Create friend request
@@ -206,14 +210,18 @@ export class FriendsService {
     });
 
     if (!friendship) {
-      throw new NotFoundException(
-        getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'FRIEND_REQUEST_NOT_FOUND',
+        message: getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
+      });
     }
 
     // Only the receiver can accept
     if (friendship.friendId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     const updatedFriendship = await this.prisma.friend.update({
@@ -240,20 +248,27 @@ export class FriendsService {
     });
 
     if (!friendship) {
-      throw new NotFoundException(
-        getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'FRIEND_REQUEST_NOT_FOUND',
+        message: getLocalizedMessage('FRIEND_REQUEST_NOT_FOUND', locale),
+      });
     }
 
     const isReceiver = friendship.friendId === userId;
     const isSender = friendship.userId === userId;
 
     if (!isReceiver && !isSender) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     if (friendship.status !== FriendStatus.PENDING) {
-      throw new BadRequestException(getLocalizedMessage('BAD_REQUEST', locale));
+      throw new BadRequestException({
+        error: 'BAD_REQUEST',
+        message: getLocalizedMessage('BAD_REQUEST', locale),
+      });
     }
 
     await this.prisma.friend.delete({
@@ -279,13 +294,17 @@ export class FriendsService {
     });
 
     if (!friendship) {
-      throw new NotFoundException(
-        getLocalizedMessage('FRIEND_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'FRIEND_NOT_FOUND',
+        message: getLocalizedMessage('FRIEND_NOT_FOUND', locale),
+      });
     }
 
     if (friendship.userId !== userId && friendship.friendId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     await this.prisma.friend.delete({
@@ -398,14 +417,18 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException(
-        getLocalizedMessage('GROUP_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'GROUP_NOT_FOUND',
+        message: getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      });
     }
 
     // Verify user owns the group
     if (group.userId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     // Get prayers for each member
@@ -471,11 +494,17 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException('Group not found');
+      throw new NotFoundException({
+        error: 'GROUP_NOT_FOUND',
+        message: getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      });
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     const updatedGroup = await this.prisma.friendGroup.update({
@@ -501,13 +530,17 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException(
-        getLocalizedMessage('GROUP_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'GROUP_NOT_FOUND',
+        message: getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      });
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     await this.prisma.friendGroup.delete({
@@ -537,13 +570,17 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException(
-        getLocalizedMessage('GROUP_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'GROUP_NOT_FOUND',
+        message: getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      });
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     // Verify they are friends
@@ -557,7 +594,10 @@ export class FriendsService {
     });
 
     if (!friendship) {
-      throw new BadRequestException('You can only add friends to groups');
+      throw new BadRequestException({
+        error: 'ONLY_FRIENDS_CAN_BE_ADDED',
+        message: getLocalizedMessage('ONLY_FRIENDS_CAN_BE_ADDED', locale),
+      });
     }
 
     // Check if already a member
@@ -571,7 +611,10 @@ export class FriendsService {
     });
 
     if (existingMember) {
-      throw new BadRequestException('User is already a member of this group');
+      throw new BadRequestException({
+        error: 'ALREADY_GROUP_MEMBER',
+        message: getLocalizedMessage('ALREADY_GROUP_MEMBER', locale),
+      });
     }
 
     const member = await this.prisma.friendGroupMember.create({
@@ -612,13 +655,17 @@ export class FriendsService {
     });
 
     if (!group) {
-      throw new NotFoundException(
-        getLocalizedMessage('GROUP_NOT_FOUND', locale),
-      );
+      throw new NotFoundException({
+        error: 'GROUP_NOT_FOUND',
+        message: getLocalizedMessage('GROUP_NOT_FOUND', locale),
+      });
     }
 
     if (group.userId !== userId) {
-      throw new BadRequestException(getLocalizedMessage('FORBIDDEN', locale));
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
+      });
     }
 
     const member = await this.prisma.friendGroupMember.findUnique({
@@ -626,15 +673,19 @@ export class FriendsService {
     });
 
     if (!member || member.groupId !== groupId) {
-      throw new NotFoundException(getLocalizedMessage('NOT_FOUND', locale));
+      throw new NotFoundException({
+        error: 'NOT_FOUND',
+        message: getLocalizedMessage('NOT_FOUND', locale),
+      });
     }
 
     await this.prisma.friendGroupMember.delete({
       where: { id: memberId },
     });
 
-    return createSuccessResponse({
-      message: getLocalizedMessage('MEMBER_REMOVED', locale),
-    });
+    return createSuccessResponse(
+      null,
+      getLocalizedMessage('MEMBER_REMOVED', locale),
+    );
   }
 }
