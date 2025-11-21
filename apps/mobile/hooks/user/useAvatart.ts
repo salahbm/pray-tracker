@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from '@/constants/query-keys';
 import agent from '@/lib/agent';
+import { User } from '@/types/user';
 
 import useMutation from '../common/useMutation';
 interface UploadImageArgs {
@@ -11,24 +12,44 @@ interface UploadImageArgs {
   oldPath?: string;
 }
 
+interface PresignResponse {
+  uploadUrl: string;
+  fileKey: string;
+  publicUrl: string;
+}
+
 const uploadImage = async ({
   imageUri,
   fileExt,
-  userId,
   oldPath,
-}: UploadImageArgs): Promise<{ photo: string }> => {
-  const formData = new FormData();
+}: UploadImageArgs): Promise<{ image: string; user: User }> => {
+  const contentType = `image/${fileExt === 'jpg' ? 'jpeg' : fileExt}`;
+  const fileName = `avatar-${Date.now()}.${fileExt}`;
 
-  formData.append('avatar', {
-    uri: imageUri,
-    name: `avatar.${fileExt}`,
-    type: `image/${fileExt}`,
-  } as any);
+  const presign = await agent.post<PresignResponse>(`/files/avatar/presign`, {
+    fileName,
+    contentType,
+  });
 
-  formData.append('fileExt', fileExt);
-  if (oldPath) formData.append('oldPath', oldPath);
+  const fileResponse = await fetch(imageUri);
+  const fileBlob = await fileResponse.blob();
 
-  const res = await agent.post<{ photo: string }>(`/users/${userId}/avatar`, formData);
+  const uploadResponse = await fetch(presign.uploadUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': contentType,
+    },
+    body: fileBlob,
+  });
+
+  if (!uploadResponse.ok) {
+    throw new Error('Failed to upload image');
+  }
+
+  const res = await agent.post<{ image: string; user: User }>(`/files/avatar/confirm`, {
+    fileKey: presign.fileKey,
+    oldFileKey: oldPath,
+  });
 
   return res;
 };

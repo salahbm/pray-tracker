@@ -8,6 +8,7 @@ import { UsersModule } from './modules/users/user.module';
 import { PrayersModule } from './modules/prayers/prayers.module';
 import { FriendsModule } from './modules/friends/friends.module';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
+import { FilesModule } from './modules/files/files.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
     PrayersModule,
     FriendsModule,
     LeaderboardModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
