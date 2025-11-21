@@ -33,7 +33,9 @@ export type ErrorKey =
   | 'GROUP_DELETED'
   | 'GROUP_NOT_FOUND'
   | 'MEMBER_ADDED'
-  | 'MEMBER_REMOVED';
+  | 'MEMBER_REMOVED'
+  | 'ONLY_FRIENDS_CAN_BE_ADDED'
+  | 'ALREADY_GROUP_MEMBER';
 
 type ErrorMessages = Record<ErrorKey, Record<Locale, string>>;
 
@@ -236,19 +238,32 @@ export const ERROR_MESSAGES: ErrorMessages = {
     ru: 'Участник успешно удален из группы',
     kr: '멤버가 그룹에서 성공적으로 제거되었습니다',
   },
+  ONLY_FRIENDS_CAN_BE_ADDED: {
+    en: 'You can only add friends to groups',
+    uz: "Faqat do'stlarni guruhlarga qo'shishingiz mumkin",
+    ru: 'В группы можно добавлять только друзей',
+    kr: '친구만 그룹에 추가할 수 있습니다',
+  },
+  ALREADY_GROUP_MEMBER: {
+    en: 'User is already a member of this group',
+    uz: "Foydalanuvchi allaqachon ushbu guruh a'zosi",
+    ru: 'Пользователь уже является участником этой группы',
+    kr: '사용자는 이미 이 그룹의 멤버입니다',
+  },
 };
 
 export function getLocalizedMessage(
   key: ErrorKey,
   locale: Locale = 'en',
 ): string {
-  return ERROR_MESSAGES[key]?.[locale] || ERROR_MESSAGES[key]?.en
-    ? 'An error occurred'
-    : ERROR_MESSAGES[key]?.ru
-      ? 'Произошла ошибка'
-      : ERROR_MESSAGES[key]?.uz
-        ? 'Kechirasiz, xatolik yuz berdi'
-        : ERROR_MESSAGES[key]?.kr
-          ? '오류가 발생했습니다'
-          : 'An error occurred';
+  const localized = ERROR_MESSAGES[key]?.[locale];
+
+  if (localized) return localized;
+
+  if (ERROR_MESSAGES[key]?.en) return ERROR_MESSAGES[key].en;
+  if (ERROR_MESSAGES[key]?.ru) return ERROR_MESSAGES[key].ru;
+  if (ERROR_MESSAGES[key]?.uz) return ERROR_MESSAGES[key].uz;
+  if (ERROR_MESSAGES[key]?.kr) return ERROR_MESSAGES[key].kr;
+
+  return 'An error occurred';
 }

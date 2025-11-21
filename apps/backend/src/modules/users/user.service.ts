@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/db/prisma.service';
 import { User, Prisma } from 'generated/prisma';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
+import { Locale } from '@/common/utils/response.utils';
 
 @Injectable()
 export class UsersService {
@@ -61,10 +63,17 @@ export class UsersService {
   /**
    * Update user profile
    */
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+    locale: Locale = 'en',
+  ): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException({
+        error: 'USER_NOT_FOUND',
+        message: getLocalizedMessage('USER_NOT_FOUND', locale),
+      });
     }
 
     return this.prisma.user.update({
@@ -76,10 +85,13 @@ export class UsersService {
   /**
    * Delete user
    */
-  async remove(id: string): Promise<User> {
+  async remove(id: string, locale: Locale = 'en'): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException({
+        error: 'USER_NOT_FOUND',
+        message: getLocalizedMessage('USER_NOT_FOUND', locale),
+      });
     }
 
     return this.prisma.user.delete({
@@ -90,7 +102,7 @@ export class UsersService {
   /**
    * Get user statistics
    */
-  async getUserStats(userId: string) {
+  async getUserStats(userId: string, locale: Locale = 'en') {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -106,7 +118,10 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new NotFoundException({
+        error: 'USER_NOT_FOUND',
+        message: getLocalizedMessage('USER_NOT_FOUND', locale),
+      });
     }
 
     return {

@@ -9,6 +9,7 @@ import {
   Req,
   Query,
   UnauthorizedException,
+  Headers,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -16,6 +17,7 @@ import { AuthGuard } from '@/common/guards/auth.guard';
 import type { Request } from 'express';
 import { Prisma } from 'generated/prisma';
 import { parsePaginationParams, createPaginatedResponse } from '@/common/utils';
+import { type Locale } from '@/common/utils/response.utils';
 
 @Controller('users')
 @UseGuards(AuthGuard)
@@ -52,6 +54,7 @@ export class UsersController {
   async updateCurrentUser(
     @Req() request: Request,
     @Body() updateUserDto: UpdateUserDto,
+    @Headers('locale') locale?: Locale,
   ) {
     const userId: string = request['user']?.id;
 
@@ -59,7 +62,7 @@ export class UsersController {
       throw new UnauthorizedException('No active session found');
     }
 
-    return this.usersService.update(userId, updateUserDto);
+    return this.usersService.update(userId, updateUserDto, locale);
   }
 
   /**
