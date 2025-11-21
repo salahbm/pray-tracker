@@ -38,8 +38,8 @@ export const useSession = () => {
       setUser(data.user);
       if (data.access_token) {
         setSession({
-          access_token: data.access_token,
-          refresh_token: data.refresh_token,
+          token: data.access_token,
+          refreshToken: data.refresh_token,
         });
       }
     }
