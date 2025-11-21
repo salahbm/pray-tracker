@@ -12,10 +12,8 @@ interface IUserLogin {
 
 interface ISignInResponse {
   user: User;
-  session: {
-    token: string;
-    expiresAt: number;
-  };
+  redirect: string;
+  token: string;
 }
 
 async function signInWithEmail(params: IUserLogin): Promise<ISignInResponse> {
@@ -32,8 +30,7 @@ export const useLoginUser = () => {
     onSuccess: async data => {
       setUser(data.user);
       setSession({
-        token: data.session.token,
-        expiresAt: data.session.expiresAt,
+        token: data.token,
       });
       queryClient.invalidateQueries({ queryKey: QueryKeys.users.all });
     },

@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Modal as RNModal,
   Dimensions,
-  StyleSheet,
-  View,
-  TouchableOpacity,
+  Modal as RNModal,
   ModalProps,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 interface IModalProps extends ModalProps {
@@ -35,26 +35,26 @@ const Modal: React.FC<IModalProps> = ({ visible, children, onRequestClose, ...pr
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
   backdrop: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
     bottom: 0,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
     zIndex: 1,
   },
   content: {
-    width: Dimensions.get('window').width * 0.9,
-    maxWidth: 420,
     borderRadius: 16,
     elevation: 8,
+    maxWidth: 420,
+    width: Dimensions.get('window').width * 0.9,
     zIndex: 2,
+  },
+  overlay: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 

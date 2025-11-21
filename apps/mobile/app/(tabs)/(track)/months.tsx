@@ -1,28 +1,29 @@
-import { debounce } from '@/utils/debounce';
+import { format } from 'date-fns';
 import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  ActivityIndicator,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  View,
-  TouchableOpacity,
   Text,
-  ActivityIndicator,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { CalendarList, DateData, LocaleConfig } from 'react-native-calendars';
-import { RenderHeader } from '@/components/views/pray-history/month-header';
-import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
-import { useThemeStore } from '@/store/defaults/theme';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { useGetPrays } from '@/hooks/prays';
-import { format } from 'date-fns';
-import { IPrays } from '@/types/prays';
-import { getMonthTheme } from '@/styles/calendar.theme';
+
 import DayComponent from '@/components/views/pray-history/day';
-import { useLanguage } from '@/hooks/common/useTranslation';
-import { setCalendarLocale } from '@/utils/month-names';
+import { RenderHeader } from '@/components/views/pray-history/month-header';
 import PrevPayUpdateModal from '@/components/views/pray-history/prev-pray-modal';
-import { useTranslation } from 'react-i18next';
+import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
+import { useLanguage } from '@/hooks/common/useTranslation';
+import { useGetPrays } from '@/hooks/prays';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
+import { getMonthTheme } from '@/styles/calendar.theme';
+import { IPrays } from '@/types/prays';
+import { debounce } from '@/utils/debounce';
+import { setCalendarLocale } from '@/utils/month-names';
 
 const today = new Date().toISOString();
 

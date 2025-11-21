@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
 import { Text } from '@/components/ui/text';
+import { cn } from '@/lib/utils';
 
 import { TabCounts, TabKey } from './types';
-import { cn } from '@/lib/utils';
 
 interface TabsProps {
   activeTab: TabKey;

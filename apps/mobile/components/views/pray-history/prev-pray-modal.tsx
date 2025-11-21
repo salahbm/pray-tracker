@@ -1,16 +1,17 @@
-import { IPrays } from '@/types/prays';
-import React from 'react';
-import { View } from 'react-native';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { useUpdateOldPray } from '@/hooks/prays';
 import { format } from 'date-fns';
-import { Text } from '@/components/ui/text';
-import Modal from '@/components/shared/modal';
-import { cn } from '@/lib/utils';
-import { useTranslation } from 'react-i18next';
-import { PRAYER_POINTS } from '@/constants/enums';
-import { Button } from '@/components/ui/button';
 import Checkbox from 'expo-checkbox';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+
+import Modal from '@/components/shared/modal';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { PRAYER_POINTS } from '@/constants/enums';
+import { useUpdateOldPray } from '@/hooks/prays';
+import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { IPrays } from '@/types/prays';
 import { triggerHaptic } from '@/utils/haptics';
 
 interface IPrevPayUpdateModalProps {

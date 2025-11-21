@@ -10,8 +10,8 @@ import { FRIENDS } from '@/constants/images';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
-import { triggerHaptic } from '@/utils/haptics';
 import { useAuthBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { triggerHaptic } from '@/utils/haptics';
 
 interface HomeHeaderProps {
   user?: { name: string; photo?: string };

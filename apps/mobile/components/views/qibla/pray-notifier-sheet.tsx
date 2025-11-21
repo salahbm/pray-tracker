@@ -1,4 +1,6 @@
+import { Bell, Minus, Plus } from 'lucide-react-native';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import Animated, {
   FadeInDown,
@@ -9,8 +11,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Bell, Minus, Plus } from 'lucide-react-native';
-import { useTranslation } from 'react-i18next';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
@@ -70,7 +70,7 @@ const PrayerNotifierSheet: React.FC = () => {
 
   return (
     <CustomBottomSheet sheetRef={sheetRef} snapPoints={['45%']}>
-      <Animated.View style={[fadeInStyle]} className="gap-5 pb-8">
+      <Animated.View style={fadeInStyle} className="gap-5 pb-8">
         <View className="items-center mb-3">
           <Animated.View
             entering={FadeInRight.delay(100).springify()}
@@ -98,7 +98,7 @@ const PrayerNotifierSheet: React.FC = () => {
             </Button>
           </Animated.View>
 
-          <Animated.View style={[counterStyle]}>
+          <Animated.View style={counterStyle}>
             <Text className="text-4xl font-extrabold text-foreground min-w-[70px] text-center">
               {minutes}
             </Text>

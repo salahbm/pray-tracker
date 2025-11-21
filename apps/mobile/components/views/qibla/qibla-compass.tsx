@@ -4,9 +4,10 @@ import * as Location from 'expo-location';
 import { Magnetometer, MagnetometerMeasurement } from 'expo-sensors';
 import { CircleHelp, RefreshCcw } from 'lucide-react-native';
 import React, { Reducer, useCallback, useEffect, useReducer, useRef } from 'react';
-import { Image, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Image, View } from 'react-native';
 
+import Kaaba from '@/assets/icons/kaaba.svg';
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
@@ -16,7 +17,6 @@ import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
-import Kaaba from '@/assets/icons/kaaba.svg';
 
 interface State {
   loading: boolean;

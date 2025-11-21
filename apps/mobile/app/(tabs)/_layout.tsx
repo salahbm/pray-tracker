@@ -1,4 +1,4 @@
-import { Compass, Home, Users, Calendar } from '@components/shared/icons';
+import { Calendar, Compass, Home, Users } from '@components/shared/icons';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { useMemo } from 'react';

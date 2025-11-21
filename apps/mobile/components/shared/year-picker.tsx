@@ -1,21 +1,22 @@
-import React, { useRef, useState, useMemo, useEffect, useCallback, memo } from 'react';
+import * as Haptics from 'expo-haptics';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  Animated,
   Dimensions,
+  Easing,
+  FlatList as RNFlatList,
+  InteractionManager,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   View,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  FlatList as RNFlatList,
-  InteractionManager,
-  Animated,
-  Easing,
-  Platform,
 } from 'react-native';
-import * as Haptics from 'expo-haptics';
-import { useTranslation } from 'react-i18next';
 
 import { useThemeStore } from '@/store/defaults/theme';
+
 import { Button } from '../ui/button';
 import { Text } from '../ui/text';
 import Modal from './modal';
@@ -58,17 +59,15 @@ const Row = memo(function Row({
     >
       <Animated.Text
         className="text-center"
-        style={[
-          {
-            transform: [{ scale: animatedStyle.scale }],
-            opacity: animatedStyle.opacity,
-            color:
-              (animatedStyle.color as any) ??
-              (selected ? colors['--primary'] : colors['--muted-foreground']),
-            fontSize: selected ? 24 : 18,
-            fontWeight: selected ? 'bold' : 'normal',
-          },
-        ]}
+        style={{
+          transform: [{ scale: animatedStyle.scale }],
+          opacity: animatedStyle.opacity,
+          color:
+            (animatedStyle.color as any) ??
+            (selected ? colors['--primary'] : colors['--muted-foreground']),
+          fontSize: selected ? 24 : 18,
+          fontWeight: selected ? 'bold' : 'normal',
+        }}
       >
         {year}
       </Animated.Text>
@@ -373,35 +372,35 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
 };
 
 const styles = StyleSheet.create({
-  title: { fontSize: 20, fontWeight: '700', marginBottom: 20 },
+  buttonsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'flex-end',
+    marginTop: 16,
+    zIndex: 6,
+  },
+  indicator: {
+    borderBottomWidth: 1,
+    borderRadius: 8,
+    borderTopWidth: 1,
+    height: ITEM_HEIGHT,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: '50%',
+    transform: [{ translateY: -ITEM_HEIGHT / 2 }],
+    zIndex: 5,
+  },
   pickerBox: {
     alignSelf: 'center',
     height: ITEM_HEIGHT * VISIBLE_ITEMS,
-    width: '100%',
     justifyContent: 'center',
     overflow: 'hidden',
     position: 'relative',
+    width: '100%',
   },
-  indicator: {
-    position: 'absolute',
-    top: '50%',
-    left: 0,
-    right: 0,
-    transform: [{ translateY: -ITEM_HEIGHT / 2 }],
-    height: ITEM_HEIGHT,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderRadius: 8,
-    zIndex: 5,
-  },
-  row: { justifyContent: 'center', alignItems: 'center' },
-  buttonsRow: {
-    marginTop: 16,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 8,
-    zIndex: 6,
-  },
+  row: { alignItems: 'center', justifyContent: 'center' },
+  title: { fontSize: 20, fontWeight: '700', marginBottom: 20 },
 });
 
 export default YearPicker;

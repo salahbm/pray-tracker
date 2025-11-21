@@ -1,7 +1,4 @@
 import BottomSheet from '@gorhom/bottom-sheet';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { onboarding } from '@/constants/onboarding';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,12 +12,15 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
-import { useOnboarding } from '@/store/defaults/onboarding';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { onboarding } from '@/constants/onboarding';
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { useOnboarding } from '@/store/defaults/onboarding';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const BANNER_HEIGHT = 400;

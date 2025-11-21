@@ -1,25 +1,25 @@
+import { Search } from 'lucide-react-native';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, RefreshControl, FlatList } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { z } from 'zod';
 
+import GoBack from '@/components/shared/go-back';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
-import { fireToast } from '@/providers/toaster';
-
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
 import { useRequest } from '@/hooks/friends/member/useRequest';
+import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
 import { FriendActivity } from '@/types/friends';
+
 import FriendItem from './friend-item';
 import Tabs from './tabs';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search } from 'lucide-react-native';
-import GoBack from '@/components/shared/go-back';
-import { z } from 'zod';
 
 type TabKey = 'all' | 'requests' | 'friends';
 

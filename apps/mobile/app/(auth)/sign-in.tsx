@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
+import FormField from '@/components/shared/form-field';
 import Loader from '@/components/shared/loader';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useLoginUser } from '@/hooks/auth/useSignIn';
 import { signInSchema, TSignInSchema } from '@/lib/validation/auth';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import FormField from '@/components/shared/form-field';
 
 interface ISignIn {
   onSuccess: () => void;

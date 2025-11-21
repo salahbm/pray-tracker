@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import {
-  Controller,
   Control,
+  Controller,
+  ControllerRenderProps,
+  FieldPath,
   FieldValues,
   Path,
-  FieldPath,
-  ControllerRenderProps,
 } from 'react-hook-form';
-import { View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
+
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 

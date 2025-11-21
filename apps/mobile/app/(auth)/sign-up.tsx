@@ -1,17 +1,17 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import React, { Fragment, useState } from 'react';
-import { Image, View, Modal, TouchableOpacity } from 'react-native';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Image, Modal, TouchableOpacity, View } from 'react-native';
 
+import FormField from '@/components/shared/form-field';
+import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
-import Loader from '@/components/shared/loader';
 import { IMAGES } from '@/constants/images';
 import { useSignUp } from '@/hooks/auth/useSignUp';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema, TSignUpSchema } from '@/lib/validation/auth';
-import FormField from '@/components/shared/form-field';
 
 interface ISignUp {
   onSuccess: () => void;

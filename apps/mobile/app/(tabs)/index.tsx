@@ -1,6 +1,8 @@
 import confetti from '@assets/gif/confetti.json';
 import { format } from 'date-fns';
+import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
+import { ChevronRight } from 'lucide-react-native';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
@@ -9,12 +11,16 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { DayData } from '@/components/shared/heat-map/heat';
 import Loader from '@/components/shared/loader';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import Leaderboard from '@/components/views/awards/leaderboard';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { useCurrentDate } from '@/hooks/common/useCurrentDate';
+import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { useCreatePray } from '@/hooks/prays/usePostPray';
@@ -23,13 +29,6 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
-
-import { ChevronRight } from 'lucide-react-native';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { router } from 'expo-router';
-import Leaderboard from '@/components/views/awards/leaderboard';
-import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 
 const initialState = {
   prayers: {
@@ -84,7 +83,7 @@ export default function HomeScreen() {
     data: leaderboard,
     isLoading: isLoadingLeaderboard,
     refetch: refetchLeaderboard,
-  } = useGetGlobalLeaderboard(1, 10, { enabled: !!user });
+  } = useGetGlobalLeaderboard(1, 10);
 
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();

@@ -1,10 +1,11 @@
-import { defaultColorMap } from '@/components/shared/heat-map/constant';
-import { getOpacityByNumber } from '@/components/shared/heat-map/helpers';
-import { Text } from '@/components/ui/text';
 import { format } from 'date-fns';
 import React from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
+
+import { defaultColorMap } from '@/components/shared/heat-map/constant';
+import { getOpacityByNumber } from '@/components/shared/heat-map/helpers';
+import { Text } from '@/components/ui/text';
 
 interface IDayComponentProps {
   date?: DateData;

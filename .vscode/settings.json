@@ -10,5 +10,17 @@
     "headerClassName",
     "style"
   ],
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "cSpell.words": [
+    "DHUHR",
+    "FAJR",
+    "ISHA",
+    "MAGHRIB",
+    "NAFL"
+  ]
 }

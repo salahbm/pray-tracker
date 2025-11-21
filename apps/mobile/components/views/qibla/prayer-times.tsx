@@ -2,6 +2,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
+import { Settings2Icon } from 'lucide-react-native';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, FlatList, Text, View } from 'react-native';
@@ -14,7 +15,6 @@ import useTimeLeft from '@/hooks/common/useTimeLeft';
 import { cn } from '@/lib/utils';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useThemeStore } from '@/store/defaults/theme';
-import { Settings2Icon } from 'lucide-react-native';
 
 const PrayerTimer = () => {
   const { t } = useTranslation();

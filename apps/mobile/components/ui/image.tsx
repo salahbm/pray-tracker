@@ -1,8 +1,9 @@
-import { FRIENDS } from '@/constants/images';
-import { cn } from '@/lib/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 import { Image as RNImage } from 'react-native';
+
+import { FRIENDS } from '@/constants/images';
+import { cn } from '@/lib/utils';
 
 interface IImageProps extends VariantProps<typeof imageVariants> {
   source?: string;

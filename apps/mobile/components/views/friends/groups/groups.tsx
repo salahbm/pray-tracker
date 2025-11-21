@@ -1,8 +1,8 @@
 import { router } from 'expo-router';
-import { FolderPlus, Users, ChevronRight, Edit2, Sparkles } from 'lucide-react-native';
+import { ChevronRight, Edit2, FolderPlus, Sparkles, Users } from 'lucide-react-native';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshControl, ScrollView, View, Image, Pressable } from 'react-native';
+import { Image, Pressable, RefreshControl, ScrollView, View } from 'react-native';
 import Animated, {
   FadeInDown,
   FadeInRight,
@@ -14,14 +14,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
+import SwiperButton from '@/components/shared/swiper';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useGetGroups } from '@/hooks/friends/group/useGetGroups';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
-import SwiperButton from '@/components/shared/swiper';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const FriendsGroups = () => {
   const { t } = useTranslation();

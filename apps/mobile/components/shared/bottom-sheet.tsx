@@ -1,4 +1,3 @@
-import { cn } from '@/lib/utils';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
@@ -6,8 +5,10 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { AnimatedStyle } from 'react-native-reanimated';
-import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+
+import { cn } from '@/lib/utils';
 
 interface IBottomSheet {
   sheetRef: React.RefObject<BottomSheet | null>;

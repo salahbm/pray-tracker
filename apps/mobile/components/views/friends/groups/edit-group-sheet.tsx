@@ -1,14 +1,15 @@
-import { View } from 'react-native';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { Edit2 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { useThemeStore } from '@/store/defaults/theme';
+import { View } from 'react-native';
+
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 import { useUpdateGroup } from '@/hooks/friends/group/useUpdateGroup';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface EditGroupSheetProps {
   sheetRef: React.RefObject<BottomSheet | null>;

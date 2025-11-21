@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -6,13 +7,13 @@ import { useOptimistic, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
   RefreshControl,
   ScrollView,
   TouchableOpacity,
   View,
-  Pressable,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
 } from 'react-native';
 import Animated, {
   FadeInDown,
@@ -25,6 +26,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
+import SwiperButton from '@/components/shared/swiper';
 import {
   Accordion,
   AccordionContent,
@@ -36,14 +38,12 @@ import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
 import { useAddMember } from '@/hooks/friends/member/useAddMember';
+import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
 import { useGetGroupMembers } from '@/hooks/friends/member/useGetGroupMembers';
 import { useRemoveMember } from '@/hooks/friends/member/useRemoveMember';
+import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
-import { Ionicons } from '@expo/vector-icons';
-import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
-import SwiperButton from '@/components/shared/swiper';
-import { cn } from '@/lib/utils';
 
 const GroupDetails = () => {
   const { t } = useTranslation();

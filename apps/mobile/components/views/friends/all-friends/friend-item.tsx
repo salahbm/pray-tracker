@@ -1,20 +1,20 @@
-import React, { useMemo } from 'react';
-import { View, Pressable } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { formatDistanceToNow } from 'date-fns';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Pressable, View } from 'react-native';
 import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated';
 
-import { Text } from '@/components/ui/text';
+import SwiperButton from '@/components/shared/swiper';
 import { Button } from '@/components/ui/button';
+import Image from '@/components/ui/image';
+import { Text } from '@/components/ui/text';
+import { useAcceptRequest } from '@/hooks/friends/member/useAccept';
+import { useDeleteFriend } from '@/hooks/friends/member/useDelete';
+import { useRejectRequest } from '@/hooks/friends/member/useReject';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { FriendActivity } from '@/types/friends';
 
 import { FriendItemProps } from './types';
-import { useDeleteFriend } from '@/hooks/friends/member/useDelete';
-import { useAcceptRequest } from '@/hooks/friends/member/useAccept';
-import { useRejectRequest } from '@/hooks/friends/member/useReject';
-import { FriendActivity } from '@/types/friends';
-import { useAuthStore } from '@/store/auth/auth-session';
-import SwiperButton from '@/components/shared/swiper';
-import Image from '@/components/ui/image';
 
 export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
   const { t } = useTranslation();

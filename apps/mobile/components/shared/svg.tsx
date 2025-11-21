@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Svg, { G, Circle, Rect, Ellipse, Path, Line } from 'react-native-svg';
 import { useColorScheme } from 'react-native';
+import Svg, { Circle, Ellipse, G, Line, Path, Rect } from 'react-native-svg';
 
 export const TrackIllustration = () => {
   const scheme = useColorScheme();

@@ -41,7 +41,6 @@ export class FriendsController {
     @Query('userId') userId: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
-    @Headers('locale') locale?: Locale,
   ) {
     const pageNum = page ? parseInt(page, 10) : 1;
     const limitNum = limit ? parseInt(limit, 10) : 20;
@@ -49,7 +48,6 @@ export class FriendsController {
       userId,
       pageNum,
       limitNum,
-      locale,
     );
     return { data: activities };
   }

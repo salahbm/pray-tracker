@@ -1,3 +1,4 @@
+import { X } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native';
@@ -13,7 +14,6 @@ import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
-import { X } from 'lucide-react-native';
 
 interface LeaderboardProps {
   data?: TUser[];

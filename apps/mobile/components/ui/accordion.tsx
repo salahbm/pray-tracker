@@ -1,6 +1,4 @@
 import * as AccordionPrimitive from '@rn-primitives/accordion';
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import Animated, {
@@ -14,6 +12,9 @@ import Animated, {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated';
+
+import { TextClassContext } from '@/components/ui/text';
+import { cn } from '@/lib/utils';
 
 import { ChevronDown } from '../shared/icons';
 

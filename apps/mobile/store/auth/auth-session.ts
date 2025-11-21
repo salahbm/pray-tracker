@@ -9,7 +9,6 @@ interface AuthState {
   session: {
     token: string;
     refreshToken?: string;
-    expiresAt?: number;
   } | null;
   setUser: (user: User | null) => void;
   setSession: (session: AuthState['session']) => void;
