@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { userKeys } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { User } from '@/types/user';
 
@@ -26,11 +26,13 @@ const uploadImage = async ({
   const contentType = `image/${fileExt === 'jpg' ? 'jpeg' : fileExt}`;
   const fileName = `avatar-${Date.now()}.${fileExt}`;
 
+  // Step 1: Get presigned URL
   const presign = await agent.post<PresignResponse>(`/files/avatar/presign`, {
     fileName,
     contentType,
   });
 
+  // Step 2: Upload image to S3/R2
   const fileResponse = await fetch(imageUri);
   const fileBlob = await fileResponse.blob();
 
@@ -46,9 +48,10 @@ const uploadImage = async ({
     throw new Error('Failed to upload image');
   }
 
+  // Step 3: Confirm upload and delete old image
   const res = await agent.post<{ image: string; user: User }>(`/files/avatar/confirm`, {
     fileKey: presign.fileKey,
-    oldFileKey: oldPath,
+    oldFileKey: oldPath || undefined, // Pass oldPath as oldFileKey
   });
 
   return res;
@@ -62,7 +65,7 @@ export const useUploadImage = () => {
       onSuccess: async data => {
         if (data) {
           await queryClient.invalidateQueries({
-            queryKey: [userKeys],
+            queryKey: QueryKeys.users.all,
           });
         }
       },

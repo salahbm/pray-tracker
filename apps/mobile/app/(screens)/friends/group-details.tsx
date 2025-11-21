@@ -186,9 +186,8 @@ const GroupDetails = () => {
                           <View className="flex-row items-center gap-3">
                             <Animated.View entering={ZoomIn.delay(index * 50)}>
                               <Image
-                                source={{ uri: member.photo }}
+                                source={member.photo ? { uri: member.photo } : FRIENDS.guest}
                                 className="size-14 rounded-full bg-muted border border-border"
-                                defaultSource={FRIENDS.guest}
                               />
                             </Animated.View>
                             <View>
@@ -289,9 +288,8 @@ const GroupDetails = () => {
                     )}
                   >
                     <Image
-                      source={{ uri: friend.photo }}
+                      source={friend.photo ? { uri: friend.photo } : FRIENDS.guest}
                       className="size-12 rounded-full bg-muted"
-                      defaultSource={FRIENDS.guest}
                     />
                     <View className="flex-1">
                       <Text className="font-bold">{friend.username}</Text>

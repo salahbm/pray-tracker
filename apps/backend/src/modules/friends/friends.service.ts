@@ -127,6 +127,8 @@ export class FriendsService {
     // Get today's date for prayers
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
     // Transform friendships into activities
     const activities = await Promise.all(
@@ -150,11 +152,13 @@ export class FriendsService {
           'id' | 'userId' | 'createdAt' | 'updatedAt' | 'date'
         >[];
         if (friendship.status === FriendStatus.ACCEPTED && friendUserId) {
+          // Get today's prayer specifically
           const prayers = await this.prisma.prayer.findMany({
             where: {
               userId: friendUserId,
               date: {
                 gte: today,
+                lt: tomorrow,
               },
             },
             select: {
@@ -165,6 +169,7 @@ export class FriendsService {
               isha: true,
               nafl: true,
             },
+            take: 1,
           });
 
           prays = prayers.map((prayer) => ({
@@ -434,14 +439,18 @@ export class FriendsService {
     // Get prayers for each member
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
     const membersWithPrayers = await Promise.all(
       group.members.map(async (member) => {
+        // Get today's prayer specifically
         const prayers = await this.prisma.prayer.findMany({
           where: {
             userId: member.userId,
             date: {
               gte: today,
+              lt: tomorrow,
             },
           },
           select: {
@@ -452,6 +461,7 @@ export class FriendsService {
             isha: true,
             nafl: true,
           },
+          take: 1,
         });
 
         return {

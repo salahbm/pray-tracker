@@ -27,7 +27,7 @@ const EditProfile = () => {
   const [username, setUserName] = useState<string>(user?.name || '');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [image, setImage] = useState<string>(user?.image);
+  const [image, setImage] = useState<string>(user?.image ?? '');
   console.log(' image:', image);
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ const EditProfile = () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.status !== 'granted') {
-      fireToast.error('Permission required.');
+      fireToast.error(t('Profile.EditProfile.ErrorPermission'));
       return;
     }
 
