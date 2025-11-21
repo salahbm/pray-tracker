@@ -24,10 +24,10 @@ const EditProfile = () => {
   const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
   const { mutateAsync: uploadImage, isPending: imageUploading } = useUploadImage();
 
-  const [username, setUserName] = useState<string>(user?.username || '');
-  const [firstName, setFirstName] = useState<string>(user?.firstName || '');
-  const [lastName, setLastName] = useState<string>(user?.lastName || '');
-  const [image, setImage] = useState<string>(user?.photo);
+  const [username, setUserName] = useState<string>(user?.name || '');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [image, setImage] = useState<string>(user?.image);
   console.log(' image:', image);
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
@@ -54,7 +54,7 @@ const EditProfile = () => {
     if (!result.canceled && result.assets.length > 0) {
       const selectedImage = result.assets[0];
       const fileExt = selectedImage.uri?.split('.').pop()?.toLowerCase() ?? 'jpeg';
-      const oldPath = user?.photo?.split('/').pop();
+      const oldPath = user?.image;
 
       try {
         const data = await uploadImage({
@@ -64,7 +64,11 @@ const EditProfile = () => {
           oldPath,
         });
 
-        setImage(data?.photo);
+        if (data?.user) {
+          setUser(data.user);
+        }
+
+        setImage(data?.user?.image);
         setIsFieldUpdated(true);
       } catch (uploadError) {
         fireToast.error(uploadError.message || 'Failed to upload.');
@@ -77,16 +81,14 @@ const EditProfile = () => {
       // Prepare updated user payload
       const payload = {
         id: user?.id,
-        username,
-        firstName,
-        lastName,
-        photo: image, // New uploaded image
+        name: username || `${firstName} ${lastName}`.trim(),
+        image,
       };
 
       // Update user in DB
       const res = await updateUser(payload);
 
-      if (res) {
+      if (res?.data) {
         setUser(res.data);
       }
     } catch (error) {
