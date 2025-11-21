@@ -6,7 +6,13 @@ import { User } from '@/types/user';
 
 interface AuthState {
   user: User | null;
+  session: {
+    token: string;
+    refreshToken?: string;
+    expiresAt?: number;
+  } | null;
   setUser: (user: User | null) => void;
+  setSession: (session: AuthState['session']) => void;
   clearUserAndSession: () => void;
 }
 
@@ -14,6 +20,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     set => ({
       user: null,
+      session: null,
       setUser: (user: User | null) => {
         if (!user) {
           set({ user: null });
@@ -21,7 +28,15 @@ export const useAuthStore = create<AuthState>()(
         }
         set({ user });
       },
-      clearUserAndSession: () => set({ user: null }),
+      setSession: session => {
+        if (!session) {
+          set({ session: null });
+          return;
+        }
+
+        set({ session });
+      },
+      clearUserAndSession: () => set({ user: null, session: null }),
     }),
     {
       name: 'auth-store',
