@@ -10,9 +10,12 @@ import { FriendsModule } from './modules/friends/friends.module';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 import { FilesModule } from './modules/files/files.module';
 
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from '@/common/guards/auth.guard';
+
 @Module({
   imports: [
-    BetterAuthModule.forRoot({ auth }),
+    BetterAuthModule.forRoot({ auth, global: false }),
     AuthModule,
     UsersModule,
     PrayersModule,
@@ -21,6 +24,12 @@ import { FilesModule } from './modules/files/files.module';
     FilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

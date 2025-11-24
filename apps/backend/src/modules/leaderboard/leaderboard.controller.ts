@@ -1,10 +1,12 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { LeaderboardService } from './leaderboard.service';
+import { Public } from '@/common/decorators/public.decorator';
 
 @Controller('leaderboard')
 export class LeaderboardController {
   constructor(private readonly leaderboardService: LeaderboardService) {}
 
+  @Public()
   @Get('global')
   async getGlobalLeaderboard(
     @Query('page') page?: string,

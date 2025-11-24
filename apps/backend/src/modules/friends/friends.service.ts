@@ -471,14 +471,14 @@ export class FriendsService {
           email: member.user.email,
           photo: member.user.image || '',
           createdAt: member.user.createdAt,
-          prays: prayers.map((prayer) => ({
-            fajr: prayer.fajr ?? 0,
-            dhuhr: prayer.dhuhr ?? 0,
-            asr: prayer.asr ?? 0,
-            maghrib: prayer.maghrib ?? 0,
-            isha: prayer.isha ?? 0,
-            nafl: prayer.nafl ?? 0,
-          })),
+          prayer: {
+            fajr: prayers[0]?.fajr ?? 0,
+            dhuhr: prayers[0]?.dhuhr ?? 0,
+            asr: prayers[0]?.asr ?? 0,
+            maghrib: prayers[0]?.maghrib ?? 0,
+            isha: prayers[0]?.isha ?? 0,
+            nafl: prayers[0]?.nafl ?? 0,
+          },
         };
       }),
     );

@@ -39,7 +39,8 @@ export function createErrorResponse(
   message: string,
   statusCode: number,
   path?: string,
-): ErrorResponse {
+  debug?: unknown,
+): ErrorResponse & { debug?: unknown } {
   return {
     success: false,
     error,
@@ -47,5 +48,6 @@ export function createErrorResponse(
     statusCode,
     timestamp: new Date().toISOString(),
     ...(path && { path }),
+    ...(debug ? { debug } : {}),
   };
 }

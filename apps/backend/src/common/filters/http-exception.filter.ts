@@ -67,6 +67,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
       localizedMessage,
       status,
       request.url,
+      {
+        stack: exception instanceof Error ? exception.stack : undefined,
+        originalError: exception instanceof Error ? exception.name : undefined,
+        originalMessage: exception instanceof Error ? exception.message : undefined,
+      },
     );
 
     console.log('LOGGING ERROR 🤖', errorResponse);

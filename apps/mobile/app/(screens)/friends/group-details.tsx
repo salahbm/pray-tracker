@@ -196,52 +196,46 @@ const GroupDetails = () => {
                             </View>
                           </View>
                         </AccordionTrigger>
-                        <AccordionContent>
-                          {member.prays.length > 0 ? (
-                            [
-                              { name: SALAHS.FAJR, value: member.prays[0].fajr },
-                              { name: SALAHS.DHUHR, value: member.prays[0].dhuhr },
-                              { name: SALAHS.ASR, value: member.prays[0].asr },
-                              { name: SALAHS.MAGHRIB, value: member.prays[0].maghrib },
-                              { name: SALAHS.ISHA, value: member.prays[0].isha },
-                              { name: SALAHS.NAFL, value: member.prays[0].nafl },
-                            ].map(({ name, value }) => (
-                              <View
-                                key={name}
-                                className="flex-row items-center justify-between py-1"
-                              >
-                                <Text className="capitalize font-semibold">
-                                  {t(`Commons.Salahs.${name}`)}
-                                </Text>
-                                <View className="flex-row gap-4">
-                                  {[
-                                    PRAYER_POINTS.MISSED,
-                                    PRAYER_POINTS.LATE,
-                                    PRAYER_POINTS.ON_TIME,
-                                  ].map(val => (
-                                    <Checkbox
-                                      key={`${name}-${val}`}
-                                      value={value === val}
-                                      disabled
-                                      color={
-                                        value === val
-                                          ? val === PRAYER_POINTS.ON_TIME
-                                            ? colors['--primary']
-                                            : val === PRAYER_POINTS.LATE
-                                              ? colors['--secondary']
-                                              : colors['--destructive']
-                                          : undefined
-                                      }
-                                    />
-                                  ))}
-                                </View>
+                        <AccordionContent className='pr-4 pl-7'>
+                          {[
+                            { name: SALAHS.FAJR, value: member.prayer.fajr },
+                            { name: SALAHS.DHUHR, value: member.prayer.dhuhr },
+                            { name: SALAHS.ASR, value: member.prayer.asr },
+                            { name: SALAHS.MAGHRIB, value: member.prayer.maghrib },
+                            { name: SALAHS.ISHA, value: member.prayer.isha },
+                            { name: SALAHS.NAFL, value: member.prayer.nafl },
+                          ].map(({ name, value }) => (
+                            <View
+                              key={name}
+                              className="flex-row items-center justify-between py-1"
+                            >
+                              <Text className="capitalize font-semibold">
+                                {t(`Commons.Salahs.${name}`)}
+                              </Text>
+                              <View className="flex-row gap-4">
+                                {[
+                                  PRAYER_POINTS.MISSED,
+                                  PRAYER_POINTS.LATE,
+                                  PRAYER_POINTS.ON_TIME,
+                                ].map(val => (
+                                  <Checkbox
+                                    key={`${name}-${val}`}
+                                    value={value === val}
+                                    disabled
+                                    color={
+                                      value === val
+                                        ? val === PRAYER_POINTS.ON_TIME
+                                          ? colors['--primary']
+                                          : val === PRAYER_POINTS.LATE
+                                            ? colors['--secondary']
+                                            : colors['--destructive']
+                                        : undefined
+                                    }
+                                  />
+                                ))}
                               </View>
-                            ))
-                          ) : (
-                            <Text className="text-sm text-muted-foreground text-center py-2">
-                              {t('Friends.Pro.NoPrayers')}
-                            </Text>
-                          )}
+                            </View>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>

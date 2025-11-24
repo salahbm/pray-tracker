@@ -9,7 +9,8 @@ export class LeaderboardService {
    * Get global leaderboard
    */
   async getGlobalLeaderboard(page: number = 1, limit: number = 50) {
-    const skip = (page - 1) * limit;
+    const pageNum = Math.max(1, page);
+    const skip = (pageNum - 1) * limit;
 
     const [users, total] = await Promise.all([
       this.prisma.user.findMany({
@@ -39,7 +40,7 @@ export class LeaderboardService {
         rank: skip + index + 1,
       })),
       pagination: {
-        page,
+        page: pageNum,
         limit,
         total,
         totalPages: Math.ceil(total / limit),

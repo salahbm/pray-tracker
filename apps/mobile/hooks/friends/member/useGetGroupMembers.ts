@@ -18,7 +18,7 @@ interface GroupMember {
   username: string;
   email: string;
   photo: string;
-  prays: Prayer[];
+  prayer: Prayer;
 }
 
 interface GroupMembersResponse {
