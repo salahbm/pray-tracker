@@ -4,6 +4,8 @@ export interface User {
   email: string;
   image: string;
   locale: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface TUser {

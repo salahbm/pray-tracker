@@ -3,7 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -31,9 +31,9 @@ const EditProfile = () => {
   const [image, setImage] = useState<string>(user?.image ?? '');
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
-  const usernameRef = useRef(null);
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
+  const usernameRef = useRef<TextInput>(null);
+  const firstNameRef = useRef<TextInput>(null);
+  const lastNameRef = useRef<TextInput>(null);
 
   const onPickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -70,8 +70,8 @@ const EditProfile = () => {
 
         setImage(data?.user?.image);
         setIsFieldUpdated(true);
-      } catch (uploadError) {
-        fireToast.error(uploadError.message || 'Failed to upload.');
+      } catch (e) {
+        fireToast.error((e as Error)?.message || 'Failed to upload.');
       }
     }
   };
@@ -86,13 +86,13 @@ const EditProfile = () => {
       };
 
       // Update user in DB
-      const res = await updateUser(payload);
+      const { data } = await updateUser(payload);
 
-      if (res?.data) {
-        setUser(res.data);
+      if (data) {
+        setUser(data);
       }
-    } catch (error) {
-      fireToast.error(error.message);
+    } catch (e) {
+      fireToast.error((e as Error)?.message);
     }
   };
   return (

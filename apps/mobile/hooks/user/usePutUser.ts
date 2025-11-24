@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { userKeys } from '@/constants/query-keys';
+
 import agent from '@/lib/agent';
+import QueryKeys from '@/constants/query-keys';
 
 interface IUserParams {
   id: string;
@@ -26,7 +27,7 @@ export const usePutUser = () => {
     mutationFn: updateUser,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [userKeys],
+        queryKey: QueryKeys.users.detail,
       });
     },
   });
