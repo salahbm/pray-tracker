@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {  Platform, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -45,8 +45,10 @@ const Account = () => {
       <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
         <GoBack title={t('Profile.Account.Title')} />
-<Image source={user?.image}className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10" />
-       
+        <Image
+          source={user?.image}
+          className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10"
+        />
 
         {/* Account Info */}
         <View className="mt-20">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {  ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -54,11 +54,10 @@ const EditPwd = () => {
       <GoBack title={t('Profile.EditPassword.Title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <Image
-          source={user?.image }
+          source={user?.image}
           className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
-          />
-        
-        
+        />
+
         <View className="flex-1 gap-6">
           <Input
             label={t('Profile.EditPassword.Fields.NewPassword.Label')}

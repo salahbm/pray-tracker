@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator,  TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -105,14 +105,11 @@ const EditProfile = () => {
         <GoBack title={t('Profile.EditProfile.Title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
+            <Image
+              source={image}
+              className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
+            />
 
-
-              <Image
-                source={image}
-
-                className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
-              />
-          
             <TouchableOpacity
               onPress={onPickImage}
               disabled={imageUploading}

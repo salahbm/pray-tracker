@@ -51,11 +51,10 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
             }
           }}
         >
-
-            <Image
-              source={user?.photo ? { uri: user?.photo } : FRIENDS.guest}
-              className={cn('size-14 rounded-full border border-border max-w-14 max-h-14')}
-            />
+          <Image
+            source={user?.photo ? { uri: user?.photo } : FRIENDS.guest}
+            className={cn('size-14 rounded-full border border-border max-w-14 max-h-14')}
+          />
         </TouchableOpacity>
       </AuthWrapper>
 
