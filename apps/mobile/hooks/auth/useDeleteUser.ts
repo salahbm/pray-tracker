@@ -5,11 +5,7 @@ import agent from '@/lib/agent';
 
 import { useLogout } from '../auth/useLogOut';
 
-interface IUserDelete {
-  id: string;
-}
-
-const deleteUser = async (params: IUserDelete) => await agent.delete(`/users/${params.id}`);
+const deleteUser = async (id: string) => await agent.delete(`/users/${id}`);
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();

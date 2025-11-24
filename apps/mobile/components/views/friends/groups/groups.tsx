@@ -160,7 +160,7 @@ const FriendsGroups = () => {
                             className={cn(idx > 0 && '-ml-3')}
                           >
                             <Image
-                              source={{ uri: member.photo ?? FRIENDS.guest }}
+                              source={member.photo ? { uri: member.photo } : FRIENDS.guest}
                               className="size-10 rounded-full bg-muted border-2 border-card"
                               defaultSource={FRIENDS.guest}
                             />

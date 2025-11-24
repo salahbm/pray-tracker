@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, View } from 'react-native';
+import {  ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -13,6 +13,7 @@ import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import Image from '@/components/ui/image';
 
 const EditPwd = () => {
   const { user } = useAuthStore();
@@ -37,15 +38,13 @@ const EditPwd = () => {
   };
 
   const handleUpdate = async () => {
-    if (!validatePasswords()) return;
+    if (!validatePasswords() || !user?.email) return;
 
     if (newPassword) {
       await updatePassword({
         email: user?.email,
         newPassword,
-      }).then(async () => {
-        await logOut(undefined);
-      });
+      }).then(() => logOut(undefined));
     }
   };
 
@@ -54,19 +53,12 @@ const EditPwd = () => {
       <Loader visible={isLoggingOut} />
       <GoBack title={t('Profile.EditPassword.Title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
-        {user?.photo ? (
-          <Image
-            source={{ uri: user.photo }}
-            accessibilityLabel="Profile Photo"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
+        <Image
+          source={user?.image }
+          className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
           />
-        ) : (
-          <Image
-            source={FRIENDS.guest}
-            accessibilityLabel="Guest Profile"
-            className="w-[150px] h-[150px] rounded-full mx-auto border border-border max-w-[150px] max-h-[150px] my-10"
-          />
-        )}
+        
+        
         <View className="flex-1 gap-6">
           <Input
             label={t('Profile.EditPassword.Fields.NewPassword.Label')}

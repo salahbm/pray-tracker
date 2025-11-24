@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, Platform, View } from 'react-native';
+import {  Platform, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -16,6 +16,7 @@ import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useLogout } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { triggerHaptic } from '@/utils/haptics';
+import Image from '@/components/ui/image';
 
 const Account = () => {
   const { user } = useAuthStore();
@@ -28,7 +29,7 @@ const Account = () => {
     if (Platform.OS !== 'web') {
       await triggerHaptic();
     }
-    await deleteUser({ id: user.id, supabaseId: user.supabaseId }).finally(() => {
+    await deleteUser(user?.id!).finally(() => {
       setModalVisible(false);
       router.replace('/(tabs)');
     });
@@ -44,20 +45,8 @@ const Account = () => {
       <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
         <GoBack title={t('Profile.Account.Title')} />
-
-        {user?.photo ? (
-          <Image
-            source={{ uri: user.photo }}
-            accessibilityLabel="Profile Photo"
-            className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10"
-          />
-        ) : (
-          <Image
-            source={FRIENDS.guest}
-            accessibilityLabel="Guest Profile"
-            className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10"
-          />
-        )}
+<Image source={user?.image}className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10" />
+       
 
         {/* Account Info */}
         <View className="mt-20">
@@ -99,7 +88,7 @@ const Account = () => {
       </Button>
 
       {/* Withdraw Account Modal */}
-      {/* <Modal isVisible={modalVisible} onBackdropPress={() => setModalVisible(false)}>
+      <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View className="bg-popover rounded-lg p-6">
           <Text className="text-lg font-bold mb-4 text-center">
             {t('Profile.Account.DeleteConfirm')}
@@ -120,7 +109,7 @@ const Account = () => {
             </Button>
           </View>
         </View>
-      </Modal> */}
+      </Modal>
     </SafeAreaView>
   );
 };

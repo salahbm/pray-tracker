@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Image, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator,  TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -16,6 +16,7 @@ import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import Image from '@/components/ui/image';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
@@ -28,7 +29,6 @@ const EditProfile = () => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [image, setImage] = useState<string>(user?.image ?? '');
-  console.log(' image:', image);
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
   const usernameRef = useRef(null);
@@ -60,7 +60,7 @@ const EditProfile = () => {
         const data = await uploadImage({
           imageUri: selectedImage.uri,
           fileExt,
-          userId: user.id,
+          userId: user?.id!,
           oldPath,
         });
 
@@ -105,21 +105,14 @@ const EditProfile = () => {
         <GoBack title={t('Profile.EditProfile.Title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
-            {image ? (
+
+
               <Image
-                source={{
-                  uri: image,
-                }}
-                accessibilityLabel="Profile Photo"
+                source={image}
+
                 className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
               />
-            ) : (
-              <Image
-                source={FRIENDS.guest}
-                accessibilityLabel="Profile Photo"
-                className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
-              />
-            )}
+          
             <TouchableOpacity
               onPress={onPickImage}
               disabled={imageUploading}
