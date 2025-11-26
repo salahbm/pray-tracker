@@ -6,18 +6,16 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import { BiChevronLeft, BiLogOut, BiMoney } from 'react-icons/bi';
 
-import { useAuth } from '@/hooks/useAuth';
+
 
 interface DashboardHeaderProps {
   user: any;
 }
 
 export function DashboardHeader({ user }: DashboardHeaderProps) {
-  const { signOut, error, loading } = useAuth();
 
-  if (error) {
-    alert(error);
-  }
+
+  
 
   return (
     <header className="bg-white shadow-sm">
@@ -83,7 +81,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                       </Link>
                     )}
                   </MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     {({ focus }) => (
                       <button
                         className={`${
@@ -97,7 +95,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                         Sign out
                       </button>
                     )}
-                  </MenuItem>
+                  </MenuItem> */}
                 </MenuItems>
               </Transition>
             </Menu>

@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLMotionProps, motion, type Variants } from 'framer-motion';
+import { type HTMLMotionProps, motion, Variants } from 'framer-motion';
 
 export function AnimatedContainer({
   variants,

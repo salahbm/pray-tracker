@@ -26,10 +26,10 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
 
   async function handleSubmit(formData: FormData) {
-    const result = await signIn(formData);
-    if (result?.error) {
-      setError(result.error);
-    }
+    // const result = await signIn(formData);
+    // if (result?.error) {
+    //   setError(result.error);
+    // }
   }
 
   return (
