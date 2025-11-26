@@ -1,14 +1,14 @@
+import { Image as ExpoImage, ImageProps as ExpoImageProps } from 'expo-image';
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
-import { Image as RNImage } from 'react-native';
 
 import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';
 
-interface IImageProps extends VariantProps<typeof imageVariants> {
-  source?: string;
+interface IImageProps extends VariantProps<typeof imageVariants>, Omit<ExpoImageProps, 'source' | 'defaultSource'> {
+  source?: string | number;
   className?: string;
-  defaultSource?: string;
+  defaultSource?: string | number;
 }
 
 export const imageVariants = cva('shrink-0 grow-0', {
@@ -46,21 +46,13 @@ const Image: React.FC<IImageProps> = ({
   ...props
 }) => {
   return (
-    <>
-      {source ? (
-        <RNImage
-          source={{ uri: source }}
-          className={cn(imageVariants({ size, radius, border }), className)}
-          {...props}
-        />
-      ) : (
-        <RNImage
-          source={defaultSource ?? FRIENDS.guest}
-          className={cn(imageVariants({ size, radius, border }), className)}
-          {...props}
-        />
-      )}
-    </>
+    <ExpoImage
+      source={source ? (typeof source === 'string' ? { uri: source } : source) : (defaultSource ?? FRIENDS.guest)}
+      className={cn(imageVariants({ size, radius, border }), className)}
+      contentFit="cover"
+      transition={200}
+      {...props}
+    />
   );
 };
 

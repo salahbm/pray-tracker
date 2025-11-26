@@ -15,7 +15,7 @@ import { AuthGuard } from '@/common/guards/auth.guard';
 
 @Module({
   imports: [
-    BetterAuthModule.forRoot({ auth, global: false }),
+    BetterAuthModule.forRoot({ auth, global: false, disableGlobalAuthGuard: true }),
     AuthModule,
     UsersModule,
     PrayersModule,

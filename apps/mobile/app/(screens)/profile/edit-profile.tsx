@@ -46,7 +46,7 @@ const EditProfile = () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsMultipleSelection: false,
       exif: false,
     });
@@ -77,19 +77,21 @@ const EditProfile = () => {
   };
 
   const handleUpdate = async () => {
+    if (!user) return;
+
     try {
       // Prepare updated user payload
       const payload = {
-        id: user?.id,
+        id: user.id,
         name: username || `${firstName} ${lastName}`.trim(),
         image,
       };
 
       // Update user in DB
-      const { data } = await updateUser(payload);
+      const updatedUser = await updateUser(payload);
 
-      if (data) {
-        setUser(data);
+      if (updatedUser) {
+        setUser(updatedUser);
       }
     } catch (e) {
       fireToast.error((e as Error)?.message);

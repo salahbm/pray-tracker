@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-
 import agent from '@/lib/agent';
 import QueryKeys from '@/constants/query-keys';
+import { User } from '@/types/user';
 
 interface IUserParams {
   id: string;
@@ -16,7 +16,7 @@ const updateUser = async (params: IUserParams) => {
   if (!params.id) return null;
 
   const { id, toast, ...updateData } = params;
-  const response = await agent.patch(`/users/me`, updateData);
+  const response = await agent.patch<User>(`/users/me`, updateData);
   return response;
 };
 
