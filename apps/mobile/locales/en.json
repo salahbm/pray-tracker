@@ -349,5 +349,44 @@
       "Qibla": "Qibla Direction",
       "Times": "Prayer Times"
     }
+  },
+  "Subscription": {
+    "Title": "Noor Premium",
+    "Subtitle": "Unlock all premium features and enhance your prayer journey",
+    "UpgradeTitle": "Upgrade to Premium",
+    "UpgradeDescription": "Get unlimited access to all features and support the development of Noor",
+    "ViewPlans": "View Plans",
+    "LoadingPlans": "Loading subscription plans...",
+    "ChoosePlan": "Choose Your Plan",
+    "BestValue": "Best Value",
+    "MonthlyPlan": "Monthly",
+    "YearlyPlan": "Yearly",
+    "Month": "month",
+    "Year": "year",
+    "SaveOneMonth": "Save $5 - Get 2 months free!",
+    "Subscribe": "Start Free Trial",
+    "RestorePurchases": "Restore Purchases",
+    "Terms": "Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Cancel anytime in your account settings.",
+    "Features": {
+      "UnlimitedFriends": "Unlimited Friends",
+      "FriendGroups": "Create Friend Groups",
+      "DetailedStats": "Detailed Prayer Statistics",
+      "PrayerReminders": "Advanced Prayer Reminders",
+      "CustomThemes": "Custom Themes",
+      "AdFree": "Ad-Free Experience",
+      "PrioritySupport": "Priority Support"
+    },
+    "Success": {
+      "PurchaseComplete": "Welcome to Noor Premium! 🎉",
+      "RestoreComplete": "Purchases restored successfully!"
+    },
+    "Errors": {
+      "PackageNotFound": "Subscription package not found",
+      "PurchaseFailed": "Purchase failed. Please try again.",
+      "RestoreFailed": "Failed to restore purchases"
+    },
+    "Info": {
+      "NoPurchasesFound": "No previous purchases found"
+    }
   }
 }

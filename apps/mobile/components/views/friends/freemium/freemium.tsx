@@ -2,11 +2,10 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import React, { memo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ImageSourcePropType, View } from 'react-native';
+import { Image, ImageSourcePropType, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import SwiperButton from '@/components/shared/swiper';
 import {
   Accordion,
   AccordionContent,
@@ -21,12 +20,15 @@ import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 import FreemiumTrackerIntro from './header';
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { useRouter } from 'expo-router';
+import { Crown } from 'lucide-react-native';
 
 const FreemiumFriends = () => {
-  // const { data: pro, refetch, isFetching } = useGetPro();
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   // BOTTOM SHEETS REFERENCES
   const ref = useRef<BottomSheet>(null);
 
@@ -34,7 +36,7 @@ const FreemiumFriends = () => {
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
 
   const handleUpgrade = () => {
-    fireToast.info(t('Friends.Freemium.UpgradePrompt'));
+    router.push('/subscription/paywall');
   };
 
   return (
@@ -43,25 +45,19 @@ const FreemiumFriends = () => {
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
         className="w-full lg:px-4"
-        // refreshControl={
-        //   <RefreshControl
-        //     refreshing={isFetching}
-        //     onRefresh={refetch}
-        //     tintColor={colors['--primary']}
-        //   />
-        // }
+      
       >
         <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
         <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
 
         {FRIENDS_DATA.map(friend => (
-          <SwiperButton key={friend.friend.friendshipId} onPress={handleUpgrade}>
             <Accordion
               type="multiple"
               collapsible
               value={accordionValue}
               onValueChange={setAccordionValue}
+              key={friend.friend.friendshipId}
             >
               <AccordionItem value={String(friend.friend.id)}>
                 <AccordionTrigger>
@@ -119,13 +115,43 @@ const FreemiumFriends = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-          </SwiperButton>
+
         ))}
       </ScrollView>
       {/* BOTTOM SHEET */}
-      {/* <CustomBottomSheet sheetRef={ref}>
-        <CallToAction />
-      </CustomBottomSheet> */}
+      <CustomBottomSheet sheetRef={ref}>
+        <View className="p-6">
+          <View className="items-center mb-6">
+            <View className="size-16 items-center justify-center rounded-full bg-primary/10 mb-4">
+              <Crown size={32} color={colors['--primary']} />
+            </View>
+            <Text className="text-2xl font-bold text-center mb-2">
+              {t('Subscription.UpgradeTitle')}
+            </Text>
+            <Text className="text-base text-muted-foreground text-center">
+              {t('Subscription.UpgradeDescription')}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={handleUpgrade}
+            className="bg-primary rounded-full py-4 items-center justify-center mb-3"
+            activeOpacity={0.8}
+          >
+            <Text className="text-white text-lg font-bold">
+              {t('Subscription.ViewPlans')}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => ref.current?.close()}
+            className="py-3 items-center"
+            activeOpacity={0.7}
+          >
+            <Text className="text-muted-foreground">{t('Commons.Cancel')}</Text>
+          </TouchableOpacity>
+        </View>
+      </CustomBottomSheet>
     </React.Fragment>
   );
 };

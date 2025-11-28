@@ -25,6 +25,10 @@ const QueryKeys = {
     all: ['pro'],
     detail: ['pro', 'detail'],
   },
+  subscriptions: {
+    all: ['subscriptions'],
+    status: (userId: string) => ['subscriptions', 'status', userId],
+  },
 };
 
 export default QueryKeys;

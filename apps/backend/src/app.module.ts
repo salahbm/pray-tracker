@@ -9,19 +9,25 @@ import { PrayersModule } from './modules/prayers/prayers.module';
 import { FriendsModule } from './modules/friends/friends.module';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 import { FilesModule } from './modules/files/files.module';
+import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from '@/common/guards/auth.guard';
 
 @Module({
   imports: [
-    BetterAuthModule.forRoot({ auth, global: false, disableGlobalAuthGuard: true }),
+    BetterAuthModule.forRoot({
+      auth,
+      global: false,
+      disableGlobalAuthGuard: true,
+    }),
     AuthModule,
     UsersModule,
     PrayersModule,
     FriendsModule,
     LeaderboardModule,
     FilesModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [

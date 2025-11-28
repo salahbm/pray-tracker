@@ -31,6 +31,7 @@ model User {
 
   friendGroups     FriendGroup[]       @relation("group_owner")
   groupMemberships FriendGroupMember[] @relation("group_members_user")
+  subscription     Subscription?
 
   sessions Session[]
   accounts Account[]
@@ -154,4 +155,33 @@ enum FriendStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model Subscription {
+  id           String             @id @default(cuid())
+  userId       String             @unique
+  status       SubscriptionStatus @default(ACTIVE)
+  plan         SubscriptionPlan
+  expiresAt    DateTime
+  cancelledAt  DateTime?
+  revenueCatId String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("subscription")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  TRIAL
+}
+
+enum SubscriptionPlan {
+  MONTHLY
+  YEARLY
 }

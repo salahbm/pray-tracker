@@ -22,5 +22,6 @@
     "ISHA",
     "MAGHRIB",
     "NAFL"
-  ]
+  ],
+  "prisma.pinToPrisma6": true
 }
