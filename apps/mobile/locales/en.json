@@ -206,7 +206,7 @@
   },
   "Home": {
     "Charts": {
-      "Title": "Ibadah Progress",
+      "Title": "Ibadah Progress(Monthly)",
       "XAxis": "Time Period",
       "YAxis": "Prayer Count"
     },
@@ -229,6 +229,7 @@
     }
   },
   "Profile": {
+    "Title": "Profile",
     "About": {
       "BuyMeDates": "Buy Me Dates ",
       "Contact": {
@@ -303,6 +304,7 @@
           "Placeholder": "Enter your username"
         }
       },
+    
       "SaveButton": "Save Changes",
       "Title": "Edit Profile",
       "Success": "Profile updated successfully"
@@ -323,8 +325,66 @@
       "Theme": "Theme",
       "Title": "Settings"
     },
-    "Title": "Profile"
-  },
+    "Privacy": {
+      "Title": "Privacy Policy",
+      "DataCollection": {
+        "Title": "Information We Collect",
+        "Content": "We collect only the information you provide to us directly, such as your name, email, profile image, and selected preferences. No sensitive or unnecessary information is collected."
+      },
+      "DataUse": {
+        "Title": "How We Use Your Information",
+        "Content": "Your information is used only to operate the app, maintain your account, provide features, personalize your experience, and improve the overall service. We do not use your data for advertising."
+      },
+      "DataSharing": {
+        "Title": "Data Sharing",
+        "Content": "We do not sell your data. We do not share your personal information with third parties except when required to operate core app services, comply with legal obligations, or protect the security of the platform."
+      },
+      "Security": {
+        "Title": "Data Security",
+        "Content": "We apply standard security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of transmission or storage is completely secure."
+      },
+      "Changes": {
+        "Title": "Changes to This Policy",
+        "Content": "We may update this policy when necessary. If significant changes occur, we will notify you through the app or other appropriate means."
+      },
+      "Contact": {
+        "Title": "Contact Us",
+        "Content": "If you have questions or requests regarding privacy, you can contact us at any time using the support channel provided in the app."
+      }
+    },
+    "Terms": {
+      "Title": "Terms of Service",
+
+      "Agreement": {
+        "Title": "Agreement to Terms",
+        "Content": "By using this app, you agree to these Terms of Service. If you do not agree, you may discontinue using the app at any time."
+      },
+
+      "Usage": {
+        "Title": "Acceptable Use",
+        "Content": "You agree to use the app only for lawful and intended purposes. You must not misuse the service, interfere with its operation, or attempt unauthorized access."
+      },
+
+      "UserContent": {
+        "Title": "User Content",
+        "Content": "You are responsible for any content you submit within the app. You confirm that your content does not violate any laws, rights, or the privacy of others."
+      },
+
+      "Termination": {
+        "Title": "Account Termination",
+        "Content": "We may suspend or terminate access to the app if we detect misuse, violations of these terms, or activity that threatens the safety or operation of the service."
+      },
+
+      "Changes": {
+        "Title": "Changes to These Terms",
+        "Content": "We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the updated terms."
+      },
+
+      "Contact": {
+        "Title": "Contact Us",
+        "Content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
+      }
+    }  },
   "Qibla": {
     "Compass": {
       "Degrees": "degrees",

@@ -31,7 +31,7 @@ export function Language({ onClose }: { onClose: () => void }) {
     onClose();
     if (user) {
       updateUser({
-        ...user,
+        id: user.id,
         locale,
         toast: false,
       });
