@@ -67,7 +67,7 @@ const AllFriends: React.FC = () => {
   const handleSendRequest = async () => {
     if (!user?.id) return;
     if (!z.email().safeParse(friendEmail.trim()).success)
-      return fireToast.error(t('Friends.Pro.InvalidEmail'));
+      return fireToast.error(t('common.errors.invalidEmail'));
 
     await sendFriendRequest({
       userId: user.id,
@@ -93,14 +93,14 @@ const AllFriends: React.FC = () => {
   const ListHeader = useMemo(
     () => (
       <View className="mb-2">
-        <GoBack title={t('Friends.AllFriends')} />
+        <GoBack title={t('friends.allFriends.title')} />
 
         {/* Search/Add friend */}
         <View className="flex-row items-center border border-border rounded-lg mt-3 overflow-hidden">
           <View className="flex-1">
             <Input
               className="px-4 py-3 border-0"
-              placeholder={t('Friends.Pro.SearchPlaceholder')}
+              placeholder={t('friends.allFriends.searchPlaceholder')}
               value={friendEmail}
               onChangeText={setFriendEmail}
               autoCapitalize="none"
@@ -129,9 +129,10 @@ const AllFriends: React.FC = () => {
           setActiveTab={setActiveTab}
           counts={counts}
           renderLabel={(tab, counts) => {
-            if (tab === 'all') return `All (${counts.all})`;
-            if (tab === 'requests') return `Requests (${counts.requests})`;
-            return `Friends (${counts.friends})`;
+            if (tab === 'all') return t('friends.allFriends.all', { count: counts.all });
+            if (tab === 'requests')
+              return t('friends.allFriends.requests', { count: counts.requests });
+            return t('friends.allFriends.friends', { count: counts.friends });
           }}
         />
       </View>
@@ -156,10 +157,10 @@ const AllFriends: React.FC = () => {
         <NoData
           title={
             activeTab === 'requests'
-              ? t('Friends.Pro.NoRequests')
+              ? t('friends.allFriends.noRequests')
               : activeTab === 'friends'
-                ? t('Friends.Pro.NoFriends')
-                : t('Friends.Pro.NoActivity')
+                ? t('friends.allFriends.noFriends')
+                : t('friends.allFriends.noActivity')
           }
         />
       </Animated.View>

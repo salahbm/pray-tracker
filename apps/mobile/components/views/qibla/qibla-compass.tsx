@@ -115,7 +115,7 @@ const QiblaCompass: React.FC = () => {
       const isMagnetAvailable = await Magnetometer.isAvailableAsync();
       if (!isMagnetAvailable) {
         fireToast.error(
-          t('Qibla.Compass.Errors.MagnetometerUnavailable') ||
+          t('qibla.compass.errors.magnetometerUnavailable') ||
             'Magnetometer not available on this device.'
         );
         dispatch({ type: 'STOP_LOADING' });
@@ -124,7 +124,7 @@ const QiblaCompass: React.FC = () => {
 
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        fireToast.error(t('Qibla.Compass.Errors.Location'));
+        fireToast.error(t('qibla.compass.errors.location'));
         dispatch({ type: 'STOP_LOADING' });
         return;
       }
@@ -186,11 +186,11 @@ const QiblaCompass: React.FC = () => {
             : 'font-medium'
         )}
       >
-        {t('Qibla.Compass.YourDirection')}: {state.magnetAngle.toFixed(1)}°
+        {t('qibla.compass.yourDirection')}: {state.magnetAngle.toFixed(1)}°
       </Text>
 
       <Text className="text-lg font-medium text-primary">
-        {t('Qibla.Compass.QiblaDirection')}: {state.qiblaAngle.toFixed(1)}°
+        {t('qibla.compass.qiblaDirection')}: {state.qiblaAngle.toFixed(1)}°
       </Text>
 
       {/* Compass (static dial) */}
@@ -259,7 +259,7 @@ const QiblaCompass: React.FC = () => {
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <Text className="text-sm text-center">{t('Qibla.Compass.Help')}</Text>
+            <Text className="text-sm text-center">{t('qibla.compass.help')}</Text>
           </TooltipContent>
         </Tooltip>
       </View>

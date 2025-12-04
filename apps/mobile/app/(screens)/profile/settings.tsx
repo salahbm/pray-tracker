@@ -1,7 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Switch, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
@@ -11,7 +11,6 @@ import ThemeSwitcher from '@/components/shared/theme-switcher';
 import { Text } from '@/components/ui/text';
 // import { usePushNotifications } from '@/hooks/common/useNotifications';
 import { useLanguage } from '@/hooks/common/useTranslation';
-import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const Settings = () => {
@@ -25,13 +24,13 @@ const Settings = () => {
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
-        <GoBack title={t('Profile.Settings.Title')} />
+        <GoBack title={t('profile.settings.title')} />
         <TouchableOpacity
           className="touchable mt-4"
           onPress={() => themeRef.current?.snapToIndex(1)}
         >
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Settings.Theme')}
+            {t('profile.settings.theme')}
           </Text>
           <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
             <View
@@ -77,7 +76,7 @@ const Settings = () => {
         </TouchableOpacity>
         <TouchableOpacity className="touchable" onPress={() => langRef.current?.snapToIndex(1)}>
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Settings.Language')}
+            {t('profile.settings.language')}
           </Text>
 
           <Text className="text-base text-muted-foreground ml-2">
@@ -88,7 +87,7 @@ const Settings = () => {
         {/* <AuthWrapper mode="signedIn">
           <View className="touchable">
             <Text className="text-base text-muted-foreground ml-2">
-              {t('Profile.Settings.Notifications')}
+              {t('profile.settings.notifications')}
             </Text>
 
 

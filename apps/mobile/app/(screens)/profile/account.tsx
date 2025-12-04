@@ -43,23 +43,23 @@ const Account = () => {
     <SafeAreaView className="safe-area">
       <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
-        <GoBack title={t('Profile.Account.Title')} />
+        <GoBack title={t('profile.account.title')} />
         <Image source={user?.image} className="mt-10 size-[150px] mx-auto" />
 
         {/* Account Info */}
         <View className="mt-20">
           <View className="flex-row justify-between items-center w-full mb-4">
-            <Text className="text-base font-semibold">{t('Profile.Account.Email')}:</Text>
+            <Text className="text-base font-semibold">{t('profile.account.email')}:</Text>
             <Text className="text-base font-semibold">{user?.email ? user.email : '-'}</Text>
           </View>
           <View className="flex-row justify-between items-center w-full mb-4">
-            <Text className="text-base font-semibold">{t('Profile.Account.Created')}:</Text>
+            <Text className="text-base font-semibold">{t('profile.account.created')}:</Text>
             <Text className="text-base font-semibold">
               {user?.createdAt ? format(user.createdAt, 'PPpp') : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full">
-            <Text className="text-base font-semibold">{t('Profile.Account.LastUpdated')}:</Text>
+            <Text className="text-base font-semibold">{t('profile.account.lastUpdated')}:</Text>
             <Text className="text-base font-semibold">
               {user?.updatedAt ? format(user.updatedAt, 'PPpp') : '-'}
             </Text>
@@ -70,7 +70,7 @@ const Account = () => {
       {/* Withdraw Account Button */}
       <Button className="mb-4" variant="link" onPress={() => setModalVisible(true)}>
         <Text className="text-muted-foreground underline font-thin">
-          {t('Profile.Account.DeleteAccount')}
+          {t('profile.account.deleteAccount')}
         </Text>
       </Button>
 
@@ -81,7 +81,7 @@ const Account = () => {
         onPress={handleLogOut}
         disabled={isDeleting}
       >
-        <Text className="text-destructive font-bold">{t('Profile.Account.LogoutButton')}</Text>
+        <Text className="text-destructive font-bold">{t('profile.account.logoutButton')}</Text>
         <LogOut className="stroke-destructive" />
       </Button>
 
@@ -89,21 +89,21 @@ const Account = () => {
       <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View className="bg-popover rounded-lg p-6">
           <Text className="text-lg font-bold mb-4 text-center">
-            {t('Profile.Account.DeleteConfirm')}
+            {t('profile.account.deleteConfirm')}
           </Text>
           <Text className="text-sm text-center text-popover-foreground mb-6">
-            {t('Profile.Account.DeleteMessage')}
+            {t('profile.account.deleteMessage')}
           </Text>
           <View className="flex-row justify-center gap-4">
             <Button variant="outline" onPress={() => setModalVisible(false)}>
-              <Text>{t('Profile.Account.CancelButton')}</Text>
+              <Text>{t('profile.account.cancelButton')}</Text>
             </Button>
             <Button
               className="bg-destructive"
               onPress={handleWithdrawAccount}
               disabled={isDeleting}
             >
-              <Text>{t('Profile.Account.DeleteButton')}</Text>
+              <Text>{t('profile.account.deleteButton')}</Text>
             </Button>
           </View>
         </View>

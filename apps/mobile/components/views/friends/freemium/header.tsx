@@ -50,12 +50,12 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible?: boolean }>
 
         {/* Text title */}
         <Text className="text-center text-md font-medium mt-4 text-secondary-foreground">
-          Prayer Tracker +
+          Noor - Prayer Tracker +
         </Text>
 
         {/* Text description */}
         <Text className="text-center text-sm text-muted-foreground mt-2 px-8">
-          {t('Friends.Freemium.Description')}
+          {t('friends.freemium.description')}
         </Text>
 
         {/* Button */}
@@ -75,7 +75,7 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible?: boolean }>
               }
             }}
           >
-            <Text>{t('Friends.Freemium.UpgradeButton')}</Text>
+            <Text>{t('friends.freemium.upgradeButton')}</Text>
           </Button>
         )} */}
       </React.Fragment>

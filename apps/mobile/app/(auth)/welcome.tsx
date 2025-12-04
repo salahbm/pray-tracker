@@ -163,20 +163,20 @@ const Welcome = () => {
       </Swiper>
 
       <Button onPress={onNextPress} className="w-11/12 mx-auto mb-2">
-        <Text>{isLastSlide ? t('Auth.Welcome.GetStarted') : t('Auth.Welcome.Next')}</Text>
+        <Text>{isLastSlide ? t('qibla.welcome.getStarted') : t('qibla.welcome.next')}</Text>
       </Button>
       <TouchableOpacity
         onPress={onSkipPress}
         className="w-full flex justify-center items-center p-5"
       >
-        <Text className="text-foreground text-md">{t('Auth.Welcome.Skip')}</Text>
+        <Text className="text-foreground text-md">{t('qibla.welcome.skip')}</Text>
       </TouchableOpacity>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
-        <ThemeSwitcher />
+        <ThemeSwitcher onClose={() => themeRef.current?.close()} />
       </CustomBottomSheet>
       <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
-        <Language />
+        <Language onClose={() => langRef.current?.close()} />
       </CustomBottomSheet>
     </SafeAreaView>
   );

@@ -3,7 +3,6 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 import { useTranslation } from 'react-i18next';
 import {
   Animated,
-  Dimensions,
   Easing,
   FlatList as RNFlatList,
   InteractionManager,
@@ -310,7 +309,7 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
     <Modal visible={visible} onRequestClose={handleCancel}>
       <View className="px-4 py-6">
         <Text style={[styles.title, { color: colors['--foreground'] }]}>
-          {t('Commons.YearPicker.Title')}
+          {t('common.yearPicker.title')}
         </Text>
 
         <View style={styles.pickerBox}>
@@ -360,10 +359,10 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
 
         <View style={styles.buttonsRow} pointerEvents="box-none">
           <Button onPress={handleCancel} variant="outline" size="sm">
-            <Text>{t('Commons.YearPicker.Cancel')}</Text>
+            <Text>{t('common.yearPicker.cancel')}</Text>
           </Button>
           <Button onPress={handleConfirm} size="sm">
-            <Text>{t('Commons.YearPicker.Confirm')}</Text>
+            <Text>{t('common.yearPicker.confirm')}</Text>
           </Button>
         </View>
       </View>

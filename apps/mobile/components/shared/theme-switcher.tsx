@@ -1,4 +1,3 @@
-import { CheckCircle } from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Platform, Pressable, View } from 'react-native';
@@ -44,7 +43,7 @@ const ThemeSwitcher = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <View className="flex flex-col gap-3 pt-8 text-left">
-      <Text className="font-bold text-xl mb-4">{t('Commons.Themes.Title')}</Text>
+      <Text className="font-bold text-xl mb-4">{t('profile.settings.theme')}</Text>
       {Object.values(THEMES).map(theme => {
         const themeStyles = THEME_COLORS[theme] || THEME_COLORS[THEMES.light];
         const isActive = currentTheme === theme;
@@ -59,7 +58,7 @@ const ThemeSwitcher = ({ onClose }: { onClose: () => void }) => {
               <Text
                 className={cn('text-md text-foreground', isActive ? 'font-bold' : 'font-normal ')}
               >
-                {t(`Commons.Themes.${theme}`)}
+                {t(`common.themes.${theme}`)}
               </Text>
             </View>
             <Animated.View

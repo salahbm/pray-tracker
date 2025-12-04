@@ -101,7 +101,7 @@ export default function HomeScreen() {
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
       if (prayers[prayer] === value) return;
-      if (!user) return fireToast.error(t('Commons.Unauthorized.description'));
+      if (!user) return fireToast.error(t('commons.unauthorized.description'));
       await triggerHaptic();
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
@@ -122,7 +122,7 @@ export default function HomeScreen() {
     async (date: string, details: { data: DayData | null | undefined }) => {
       // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
-      if (isDateAfterToday) return fireToast.info(t('Home.Errors.FutureDate'));
+      if (isDateAfterToday) return fireToast.info(t('home.errors.futureDate'));
 
       // if today, scroll to top
       if (date === format(today, 'yyyy-MM-dd')) {
@@ -232,14 +232,14 @@ export default function HomeScreen() {
 
         <View>
           <View className="flex-row items-center justify-between mt-6">
-            <Text className="text-xl font-semibold">{t('Leaderboard.Title')}</Text>
+            <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
             <Button
               className="flex-row items-center gap-2"
               size="sm"
               variant="ghost"
               onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
             >
-              <Text className="text-xs font-extralight">{t('Commons.ViewAll')}</Text>
+              <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
               <ChevronRight size={12} color={colors['--foreground']} />
             </Button>
           </View>

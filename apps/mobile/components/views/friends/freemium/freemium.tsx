@@ -16,7 +16,6 @@ import { Text } from '@/components/ui/text';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { FRIENDS_DATA } from '@/constants/friends';
 import { cn } from '@/lib/utils';
-import { fireToast } from '@/providers/toaster';
 import { useThemeStore } from '@/store/defaults/theme';
 
 import FreemiumTrackerIntro from './header';
@@ -48,7 +47,7 @@ const FreemiumFriends = () => {
       >
         <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
-        <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
+        <Text className="text-xl font-bold mb-3">{t('friends.title')}</Text>
 
         {FRIENDS_DATA.map(friend => (
           <Accordion
@@ -86,7 +85,7 @@ const FreemiumFriends = () => {
                   return prayerEntries.map(([prayer, value]) => (
                     <View key={prayer} className="flex-row items-center justify-between py-1">
                       <Text className={cn('capitalize font-semibold')}>
-                        {t(`Commons.Salahs.${prayer}`)}
+                        {t(`common.salahs.${prayer}`)}
                       </Text>
 
                       <View className="flex-row gap-4">
@@ -124,10 +123,10 @@ const FreemiumFriends = () => {
               <Crown size={32} color={colors['--primary']} />
             </View>
             <Text className="text-2xl font-bold text-center mb-2">
-              {t('Subscription.UpgradeTitle')}
+              {t('subscription.upgradeTitle')}
             </Text>
             <Text className="text-base text-muted-foreground text-center">
-              {t('Subscription.UpgradeDescription')}
+              {t('subscription.upgradeDescription')}
             </Text>
           </View>
 
@@ -136,7 +135,7 @@ const FreemiumFriends = () => {
             className="bg-primary rounded-full py-4 items-center justify-center mb-3"
             activeOpacity={0.8}
           >
-            <Text className="text-white text-lg font-bold">{t('Subscription.ViewPlans')}</Text>
+            <Text className="text-white text-lg font-bold">{t('subscription.viewPlans')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -144,7 +143,7 @@ const FreemiumFriends = () => {
             className="py-3 items-center"
             activeOpacity={0.7}
           >
-            <Text className="text-muted-foreground">{t('Commons.Cancel')}</Text>
+            <Text className="text-muted-foreground">{t('common.actions.cancel')}</Text>
           </TouchableOpacity>
         </View>
       </CustomBottomSheet>

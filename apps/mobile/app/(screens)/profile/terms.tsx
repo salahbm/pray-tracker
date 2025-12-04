@@ -12,42 +12,42 @@ export default function TermsScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-row items-center p-4 border-b border-border">
-        <GoBack title={t('Profile.Terms.Title')} />
+        <GoBack title={t('profile.terms.title')} />
       </View>
       <ScrollView className="flex-1 p-4">
         <View className="flex flex-col gap-6">
           <View>
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Terms.Agreement.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.Agreement.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.terms.agreement.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.terms.agreement.content')}</Text>
           </View>
 
           <View>
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Terms.Usage.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.Usage.Content')}</Text>
-          </View>
-
-          <View>
-            <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Terms.UserContent.Title')}
-            </Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.UserContent.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.terms.usage.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.terms.usage.content')}</Text>
           </View>
 
           <View>
             <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Terms.Termination.Title')}
+              {t('profile.terms.userContent.title')}
             </Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.Termination.Content')}</Text>
+            <Text className="text-muted-foreground">{t('profile.terms.userContent.content')}</Text>
           </View>
 
           <View>
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Terms.Changes.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.Changes.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">
+              {t('profile.terms.termination.title')}
+            </Text>
+            <Text className="text-muted-foreground">{t('profile.terms.termination.content')}</Text>
+          </View>
+
+          <View>
+            <Text className="text-lg font-semibold mb-2">{t('profile.terms.changes.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.terms.changes.content')}</Text>
           </View>
 
           <View className="mb-10">
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Terms.Contact.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Terms.Contact.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.terms.contact.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.terms.contact.content')}</Text>
           </View>
         </View>
       </ScrollView>

@@ -45,13 +45,13 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
     <React.Fragment>
       <View className="w-full mt-16">
         <Text className="text-3xl font-bold text-primary mb-12 text-center">
-          {t('Auth.SignIn.Title')}
+          {t('auth.signIn.title')}
         </Text>
         <FormField
           control={form.control}
           name="email"
           required
-          label={t('Auth.Email.Label')}
+          label={t('auth.email.label')}
           className="mb-4"
           render={({ field, fieldState }) => (
             <Input
@@ -59,7 +59,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
               onChangeText={field.onChange}
               onBlur={field.onBlur}
               error={fieldState.error?.message}
-              placeholder={t('Auth.Email.Placeholder')}
+              placeholder={t('auth.email.placeholder')}
               autoCapitalize="none"
               keyboardType="email-address"
               autoCorrect={false}
@@ -72,14 +72,14 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
           control={form.control}
           name="password"
           required
-          label={t('Auth.Password.Label')}
+          label={t('auth.password.label')}
           className="mb-10"
           render={({ field }) => (
             <Input
               value={field.value}
               onChangeText={field.onChange}
               onBlur={field.onBlur}
-              placeholder={t('Auth.Password.Placeholder')}
+              placeholder={t('auth.password.placeholder')}
               secureTextEntry
               returnKeyType="done"
               onSubmitEditing={form.handleSubmit(onSignInPress)}
@@ -88,7 +88,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
         />
         <Button className="mb-4" disabled={isPending} onPress={form.handleSubmit(onSignInPress)}>
           <Loader visible={isPending} size="small" />
-          <Text className="font-bold">{t('Auth.SignIn.Button')}</Text>
+          <Text className="font-bold">{t('auth.signIn.button')}</Text>
         </Button>
         {/* OAuth */}
         {/* <OAuth onSuccess={onSuccess} /> */}
@@ -96,16 +96,16 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
 
       <View className="flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center">
-          {t('Auth.SignIn.NoAccount')}
+          {t('auth.signIn.noAccount')}
         </Text>
         <Button variant="link" onPress={onNavigate}>
-          <Text className="font-primary">{t('Auth.SignIn.SignUpLink')}</Text>
+          <Text className="font-primary">{t('auth.signIn.signUpLink')}</Text>
         </Button>
       </View>
 
       <View className="justify-center items-center">
         <TouchableOpacity onPress={onForgotPassword}>
-          <Text className="font-primary underline text-sm">{t('Auth.SignIn.ForgotPassword')}</Text>
+          <Text className="font-primary underline text-sm">{t('auth.signIn.forgotPassword')}</Text>
         </TouchableOpacity>
       </View>
     </React.Fragment>

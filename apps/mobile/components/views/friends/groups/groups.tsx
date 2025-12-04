@@ -62,9 +62,9 @@ const FriendsGroups = () => {
           className="flex-row justify-between items-center mb-6"
         >
           <View>
-            <Text className="text-2xl font-bold">{t('Friends.Groups.Title')}</Text>
+            <Text className="text-2xl font-bold">{t('friends.groups.title')}</Text>
             <Text className="text-sm text-muted-foreground mt-1">
-              {t('Friends.Groups.GroupsCount', { count: groups?.length || 0 })}
+              {t('friends.groups.groupsCount', { count: groups?.length || 0 })}
             </Text>
           </View>
           <View className="flex-row gap-2">
@@ -114,7 +114,7 @@ const FriendsGroups = () => {
                   <SwiperButton
                     key={group.id}
                     onPress={() => openDeleteSheet(group)}
-                    title={t('Commons.Delete')}
+                    title={t('common.actions.delete')}
                     size="sm"
                     className="ml-2"
                   >
@@ -127,7 +127,7 @@ const FriendsGroups = () => {
                             <Text className="text-lg font-bold">{group.name}</Text>
                             <View className="flex-row items-center gap-2">
                               <Text className="text-xs text-primary font-semibold">
-                                {t('Friends.Groups.MembersCount', { count: group.memberCount })}
+                                {t('friends.groups.membersCount', { count: group.memberCount })}
                               </Text>
                             </View>
                           </View>
@@ -185,7 +185,7 @@ const FriendsGroups = () => {
           </Animated.View>
         ) : (
           <Animated.View entering={FadeInDown.delay(200)}>
-            <NoData title={t('Friends.Groups.NoGroups')} className="mt-[45%]" />
+            <NoData title={t('friends.groups.noGroups')} className="mt-[45%]" />
           </Animated.View>
         )}
       </ScrollView>

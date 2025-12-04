@@ -71,7 +71,7 @@ export default function Leaderboard({
                 {item.username}
               </Text>
               <Text className="text-base font-bold">
-                {item.totalPoints} {t('Leaderboard.Points')}
+                {item.totalPoints} {t('leaderboard.points')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -90,25 +90,46 @@ export default function Leaderboard({
       />
 
       {/* User Details Modal */}
-      <Modal visible={!!selectedUser} onRequestClose={() => setSelectedUser(null)}>
-        <TouchableOpacity onPress={() => setSelectedUser(null)} className="absolute top-4 right-4">
-          <X size={20} color={colors['--foreground']} />
-        </TouchableOpacity>
-        <Image
-          source={selectedUser?.photo}
-          size="lg"
-          defaultSource={FRIENDS.guest}
-          className="mb-4"
-        />
-        <View>
-          <View className="flex-row items-center gap-3">
-            <Text className="text-xl font-medium">{selectedUser?.username}</Text>
-            <Text className="text-xs text-muted-foreground">·</Text>
-            <Text className="text-lg text-muted-foreground">
-              {selectedUser?.totalPoints} {t('Leaderboard.Points')}
-            </Text>
+      <Modal
+        visible={!!selectedUser}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setSelectedUser(null)}
+      >
+        <View className="w-full bg-background rounded-2xl p-6 shadow-lg">
+          {/* Close button */}
+          <TouchableOpacity
+            onPress={() => setSelectedUser(null)}
+            className="absolute right-4 top-0 p-2"
+          >
+            <Text className="text-foreground text-xl">×</Text>
+          </TouchableOpacity>
+
+          {/* Avatar */}
+          <View className="items-center mb-4 mt-2">
+            <Image
+              source={selectedUser?.photo}
+              size="lg"
+              defaultSource={FRIENDS.guest}
+              className="rounded-full mb-3"
+            />
           </View>
-          <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
+
+          {/* Username + Points */}
+          <View className="items-center mb-3">
+            <Text className="text-xl font-semibold">{selectedUser?.username}</Text>
+
+            <View className="flex-row items-center mt-1">
+              <Text className="text-sm text-muted-foreground">
+                {selectedUser?.totalPoints} {t('leaderboard.points')}
+              </Text>
+            </View>
+          </View>
+
+          {/* Email */}
+          <View className="items-center">
+            <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
+          </View>
         </View>
       </Modal>
     </View>

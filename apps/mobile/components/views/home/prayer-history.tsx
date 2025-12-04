@@ -86,7 +86,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
     <React.Fragment>
       <View className="mt-6">
         <View className="flex flex-row justify-between items-center mb-4">
-          <Text className={cn('text-xl font-semibold')}>{t('Home.PrayerHistory.Title')}</Text>
+          <Text className={cn('text-xl font-semibold')}>{t('home.prayerHistory.title')}</Text>
           <Button variant="outline" size="sm" onPress={togglePicker}>
             <Text>{year}</Text>
           </Button>
@@ -128,16 +128,16 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
               <View className={cn('p-4 bg-muted rounded-md')}>
                 <View className="w-full flex flex-row items-center justify-between">
                   <Text className={cn('text-md text-muted-foreground')}>
-                    {t('Home.PrayerHistory.Date')}: {clickedData.date}
+                    {t('home.prayerHistory.date')}: {clickedData.date}
                   </Text>
                   <Button variant="outline" size="sm" onPress={() => setAccordionState()}>
-                    <Text>{t('Home.PrayerHistory.Close')}</Text>
+                    <Text>{t('home.prayerHistory.close')}</Text>
                   </Button>
                 </View>
                 {Object.entries(clickedData.details.data).map(([prayer, value]) => (
                   <View key={prayer} className="flex-row items-center justify-between mt-2">
                     <Text className={cn('capitalize font-semibold')}>
-                      {t(`Commons.Salahs.${prayer}`)}
+                      {t(`common.salahs.${prayer}`)}
                     </Text>
 
                     <View className="flex-row gap-8">

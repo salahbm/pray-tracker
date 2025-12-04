@@ -16,10 +16,10 @@ const QiblaScreen = () => {
       <Tabs value={value} onValueChange={setValue} className="main-area">
         <TabsList className="flex-row w-full">
           <TabsTrigger value="qibla" className="flex-1">
-            <Text>{t('Qibla.Tabs.Qibla')}</Text>
+            <Text>{t('qibla.tabs.qibla')}</Text>
           </TabsTrigger>
           <TabsTrigger value="salahs" className="flex-1">
-            <Text>{t('Qibla.Tabs.Times')}</Text>
+            <Text>{t('qibla.tabs.times')}</Text>
           </TabsTrigger>
         </TabsList>
         <TabsContent value="qibla">

@@ -39,7 +39,7 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
 
   return (
     <React.Fragment>
-      <Text className={cn('text-xl font-semibold mt-6 mb-4')}>{t('Home.Charts.Title')}</Text>
+      <Text className={cn('text-xl font-semibold mt-6 mb-4')}>{t('home.charts.title')}</Text>
       <LineChart
         data={transformPraysToLineData}
         initialSpacing={0}
@@ -80,13 +80,37 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
           activatePointersDelay: 200,
           autoAdjustPointerLabelPosition: true,
           activatePointersOnLongPress: true,
-          pointerLabelComponent: point => (
+          pointerLabelComponent: (
+            point: {
+              value:
+                | string
+                | number
+                | bigint
+                | boolean
+                | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+                | Iterable<React.ReactNode>
+                | React.ReactPortal
+                | Promise<
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactPortal
+                    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+                    | Iterable<React.ReactNode>
+                    | null
+                    | undefined
+                  >
+                | null
+                | undefined;
+            }[]
+          ) => (
             <View className="flex-col items-start justify-center px-2 py-1 bg-background border border-border rounded-md">
               <Text className="text-sm">
-                {t('Home.PrayerHistory.Date')}: {point[0].text}
+                {t('home.prayerHistory.date')}: {(point[0] as unknown as { text: string }).text}
               </Text>
               <Text className="text-sm">
-                {t('Home.Charts.YAxis')}: {point[0].value}
+                {t('home.charts.yAxis')}: {point[0].value}
               </Text>
             </View>
           ),

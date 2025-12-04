@@ -29,15 +29,15 @@ const EditPwd = () => {
 
   const validatePasswords = () => {
     if (!currentPassword) {
-      fireToast.error(t('Profile.EditPassword.Errors.CurrentPasswordRequired'));
+      fireToast.error(t('profile.editPassword.errors.currentPasswordRequired'));
       return false;
     }
     if (newPassword.length < 8) {
-      fireToast.error(t('Profile.EditPassword.Errors.MinPasswordLength'));
+      fireToast.error(t('profile.editPassword.errors.minPasswordLength'));
       return false;
     }
     if (newPassword !== confirmPassword) {
-      fireToast.error(t('Profile.EditPassword.Errors.PasswordMismatch'));
+      fireToast.error(t('profile.editPassword.errors.passwordMismatch'));
       return false;
     }
     return true;
@@ -53,21 +53,21 @@ const EditPwd = () => {
         revokeOtherSessions: true,
       });
 
-      fireToast.success(t('Profile.EditPassword.Success'));
+      fireToast.success(t('profile.editPassword.success'));
 
       // Log out user after password change
       setTimeout(() => {
         logOut(undefined);
       }, 1000);
     } catch (error) {
-      fireToast.error((error as Error)?.message || t('Profile.EditPassword.Errors.UpdateFailed'));
+      fireToast.error((error as Error)?.message || t('profile.editPassword.errors.updateFailed'));
     }
   };
 
   return (
     <SafeAreaView className="main-area">
       <Loader visible={isLoggingOut} />
-      <GoBack title={t('Profile.EditPassword.Title')} />
+      <GoBack title={t('profile.editPassword.title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <Image
           source={user?.image}
@@ -76,8 +76,8 @@ const EditPwd = () => {
 
         <View className="flex-1 gap-6">
           <Input
-            label={t('Profile.EditPassword.Fields.CurrentPassword.Label')}
-            placeholder={t('Profile.EditPassword.Fields.CurrentPassword.Placeholder')}
+            label={t('profile.editPassword.fields.currentPassword.label')}
+            placeholder={t('profile.editPassword.fields.currentPassword.placeholder')}
             autoCapitalize="none"
             secureTextEntry
             returnKeyType="next"
@@ -87,8 +87,8 @@ const EditPwd = () => {
           />
           <Input
             ref={newPwdRef}
-            label={t('Profile.EditPassword.Fields.NewPassword.Label')}
-            placeholder={t('Profile.EditPassword.Fields.NewPassword.Placeholder')}
+            label={t('profile.editPassword.fields.newPassword.label')}
+            placeholder={t('profile.editPassword.fields.newPassword.placeholder')}
             autoCapitalize="none"
             secureTextEntry
             returnKeyType="next"
@@ -99,8 +99,8 @@ const EditPwd = () => {
           <Input
             ref={confirmPwdRef}
             onSubmitEditing={handleUpdate}
-            label={t('Profile.EditPassword.Fields.ConfirmPassword.Label')}
-            placeholder={t('Profile.EditPassword.Fields.ConfirmPassword.Placeholder')}
+            label={t('profile.editPassword.fields.confirmPassword.label')}
+            placeholder={t('profile.editPassword.fields.confirmPassword.placeholder')}
             autoCapitalize="none"
             secureTextEntry
             returnKeyType="done"
@@ -111,7 +111,7 @@ const EditPwd = () => {
       </ScrollView>
       <View className="pb-4">
         <Button onPress={handleUpdate} disabled={isPending}>
-          <Text>{t('Profile.EditPassword.SaveButton')}</Text>
+          <Text>{t('profile.editPassword.saveButton')}</Text>
         </Button>
       </View>
     </SafeAreaView>

@@ -71,7 +71,7 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
             size="sm"
             onPress={() => calendarRef?.current?.scrollToDay?.(format(new Date(), 'yyyy-MM-dd'))}
           >
-            <Text className="text-primary-foreground font-medium">{t('Commons.today')}</Text>
+            <Text className="text-primary-foreground font-medium">{t('common.today')}</Text>
           </Button>
         </View>
       </SafeAreaView>

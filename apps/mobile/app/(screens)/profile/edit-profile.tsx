@@ -91,7 +91,7 @@ const EditProfile = () => {
   return (
     <SafeAreaView className="safe-area">
       <View className="main-area">
-        <GoBack title={t('Profile.EditProfile.Title')} />
+        <GoBack title={t('profile.editProfile.title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
             <Image source={image} className="size-[150px]" />
@@ -111,8 +111,8 @@ const EditProfile = () => {
         </View>
         <View className="flex gap-6 pb-12 border-t border-border pt-10">
           <Input
-            label={t('Profile.EditProfile.Fields.Username.Label')}
-            placeholder={t('Profile.EditProfile.Fields.Username.Placeholder')}
+            label={t('profile.editProfile.fields.username.label')}
+            placeholder={t('profile.editProfile.fields.username.placeholder')}
             value={username}
             onChangeText={setUserName}
             onFocus={() => setIsFieldUpdated(true)}
@@ -125,7 +125,7 @@ const EditProfile = () => {
       </View>
       <View className="bg-background px-5 py-4">
         <Button onPress={handleUpdate} disabled={isLoading || imageUploading || !isFieldUpdated}>
-          <Text>{t('Profile.EditProfile.SaveButton')}</Text>
+          <Text>{t('profile.editProfile.saveButton')}</Text>
         </Button>
       </View>
     </SafeAreaView>

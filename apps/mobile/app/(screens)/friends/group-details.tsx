@@ -3,7 +3,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
 import { UserPlus, Users } from 'lucide-react-native';
-import { useOptimistic, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Image,
@@ -128,7 +128,7 @@ const GroupDetails = () => {
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
               <Text className="text-sm text-muted-foreground mt-1">
-                {t('Friends.Groups.MembersCount', { count: groupData?.members.length || 0 })}
+                {t('common.groups.membersCount', { count: groupData?.members.length || 0 })}
               </Text>
             </View>
           </View>
@@ -171,7 +171,7 @@ const GroupDetails = () => {
                 >
                   <SwiperButton
                     size="sm"
-                    title={t('Friends.Pro.Remove')}
+                    title={t('common.actions.remove')}
                     onPress={() => handleRemoveMember(member.id)}
                     disabled={isRemoving}
                   >
@@ -207,7 +207,7 @@ const GroupDetails = () => {
                           ].map(({ name, value }) => (
                             <View key={name} className="flex-row items-center justify-between py-1">
                               <Text className="capitalize font-semibold">
-                                {t(`Commons.Salahs.${name}`)}
+                                {t(`common.salahs.${name}`)}
                               </Text>
                               <View className="flex-row gap-4">
                                 {[
@@ -242,7 +242,7 @@ const GroupDetails = () => {
             </Animated.View>
           ) : (
             <Animated.View entering={FadeInDown.delay(200)}>
-              <NoData title={t('Friends.Groups.NoMembers')} className="mt-[45%]" />
+              <NoData title={t('common.groups.noMembers')} className="mt-[45%]" />
             </Animated.View>
           )}
         </ScrollView>
@@ -260,10 +260,10 @@ const GroupDetails = () => {
             <View className="bg-primary/10 p-4 rounded-full mb-3">
               <UserPlus size={32} color={colors['--primary']} />
             </View>
-            <Text className="text-2xl font-bold text-center">{t('Friends.Groups.AddMember')}</Text>
+            <Text className="text-2xl font-bold text-center">{t('common.groups.addMember')}</Text>
             <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
               {availableFriends.length}{' '}
-              {t('Friends.Pro.FriendsAvailable', { count: availableFriends.length })}
+              {t('common.groups.friendsAvailable', { count: availableFriends.length })}
             </Text>
           </View>
 
@@ -297,7 +297,7 @@ const GroupDetails = () => {
             <View className="items-center py-8">
               <Users size={48} color={colors['--muted-foreground']} />
               <Text className="text-muted-foreground mt-4 text-center">
-                {t('Friends.Groups.NoAvailableFriends')}
+                {t('common.groups.noAvailableFriends')}
               </Text>
             </View>
           )}
@@ -307,7 +307,7 @@ const GroupDetails = () => {
             onPress={() => addMemberSheetRef.current?.close()}
             className="mt-2"
           >
-            <Text>{t('Commons.Cancel')}</Text>
+            <Text>{t('common.actions.cancel')}</Text>
           </Button>
         </View>
       </CustomBottomSheet>

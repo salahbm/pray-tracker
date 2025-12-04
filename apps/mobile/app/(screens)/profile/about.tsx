@@ -22,7 +22,7 @@ const About = () => {
   return (
     <SafeAreaView className="safe-area">
       <ScrollView className="main-area">
-        <GoBack title={t('Profile.About.Title')} />
+        <GoBack title={t('profile.about.title')} />
 
         <View className="mt-8 gap-8">
           {/* App Logo */}
@@ -37,19 +37,19 @@ const About = () => {
 
           {/* Mission */}
           <View className="gap-2">
-            <Text className="text-xl font-bold">{t('Profile.About.Mission.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.About.Mission.Description')}</Text>
+            <Text className="text-xl font-bold">{t('profile.about.mission.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.about.mission.description')}</Text>
           </View>
 
           {/* Credits */}
           <View className="gap-2">
-            <Text className="text-xl font-bold">{t('Profile.About.Credits.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.About.Credits.Description')}</Text>
+            <Text className="text-xl font-bold">{t('profile.about.credits.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.about.credits.description')}</Text>
           </View>
 
           {/* Contact & Support */}
           <View className="gap-4">
-            <Text className="text-xl font-bold">{t('Profile.About.Contact.Title')}</Text>
+            <Text className="text-xl font-bold">{t('profile.about.contact.title')}</Text>
 
             <View className="flex-row gap-8 mt-4 justify-center">
               <TouchableOpacity

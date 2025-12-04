@@ -1,106 +1,92 @@
 {
-  "Auth": {
-    "Email": {
-      "Label": "Email",
-      "Placeholder": "Enter your email"
+  "auth": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email"
     },
-    "ForgotPassword": {
-      "Button": "Send Verification",
-      "RememberedPassword": "Remembered your password?",
-      "SignInLink": "Sign In",
-      "Success": {
-        "Button": "Update Password",
-        "Message": "You have successfully verified your account.",
-        "Title": "Verified"
-      },
-      "Title": "Reset Password",
-      "Verification": {
-        "Button": "Verify Email",
-        "Message": "We've sent a verification code to {{email}}.",
-        "Placeholder": "Enter Code",
-        "Title": "Verification"
+    "forgotPassword": {
+      "button": "Send Verification",
+      "rememberedPassword": "Remembered your password?",
+      "signInLink": "Sign In",
+      "message": "Verification code sent to {{email}}."
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    },
+    "signIn": {
+      "button": "Sign In",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "title": "Welcome back"
+    },
+    "signUp": {
+      "title": "Join Us",
+      "button": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign In",
+      "subtitle": "Create an account to continue",
+      "success": {
+        "button": "Bismillah",
+        "message": "You have successfully signed up.",
+        "title": "As-salaam-alaikum!"
       }
     },
-    "Password": {
-      "Label": "Password",
-      "Placeholder": "Enter your password"
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username"
     },
-    "SignIn": {
-      "Button": "Sign In",
-      "ForgotPassword": "Forgot your password?",
-      "NoAccount": "Don't have an account?",
-      "SignUpLink": "Sign up",
-      "Title": "Welcome back"
-    },
-    "SignUp": {
-      "Button": "Sign Up",
-      "HasAccount": "Already have an account?",
-      "SignInLink": "Sign In",
-      "Subtitle": "Create an account to continue",
-      "Success": {
-        "Button": "Bismillah",
-        "Message": "You have successfully signed up.",
-        "Title": "As-salaam-alaikum!"
-      },
-      "Title": "Join Us",
-      "Verification": {
-        "Button": "Verify Email",
-        "Message": "We've sent a verification code to {{email}}.",
-        "Placeholder": "12345",
-        "Title": "Verification"
-      }
-    },
-    "Username": {
-      "Label": "Username",
-      "Placeholder": "Enter your username"
-    },
-    "Welcome": {
-      "GetStarted": "Get Started",
-      "Guest": "Guest",
-      "Next": "Next",
-      "Onboarding": {
-        "Aware": {
+    "welcome": {
+      "getStarted": "Get Started",
+      "guest": "Guest",
+      "next": "Next",
+      "skip": "Skip",
+      "onboarding": {
+        "aware": {
           "description": "Keep track of your last prayer and plan your day around your Salah schedule.",
           "title": "Stay Aware of Your Last Prayer"
         },
-        "Journey": {
+        "journey": {
           "description": "Reflect on your progress and see how far you've come in maintaining regular prayers.",
           "title": "Check Your Prayer Journey"
         },
-        "Remind": {
+        "remind": {
           "description": "Get timely notifications and reminders to ensure you never miss your Salah.",
           "title": "Never Miss a Prayer Again"
         },
-        "Share": {
+        "share": {
           "description": "Motivate others and yourself by sharing your prayer journey with your loved ones.",
           "title": "Share Your Progress with Friends"
         },
-        "Track": {
+        "track": {
           "description": "Keep a record of your daily prayers effortlessly and stay consistent in your ibadah.",
           "title": "Track Your Prayers with Ease"
         }
-      },
-      "Skip": "Skip"
+      }
     }
   },
-  "Leaderboard": {
-    "Title": "Leaderboard",
-    "Point": "pts",
-    "Points": "Points"
+  "leaderboard": {
+    "title": "Leaderboard",
+    "point": "pts",
+    "points": "Points"
   },
-  "Commons": {
-    "Notifications": {
-      "Description": "Time for {{salah}} at :"
+  "common": {
+    "notifications": {
+      "description": "Time for {{salah}} at :"
     },
-    "NotFound": {
+    "notFound": {
       "404": "Page not found",
       "noData": "No data found"
     },
-    "Unauthorized": {
+    "unauthorized": {
       "title": "Unauthorized",
       "description": "Please login to access this feature"
     },
-    "Salahs": {
+    "errors": {
+      "invalidEmail": "Invalid email"
+    },
+    "salahs": {
       "asr": "Asr",
       "dhuhr": "Dhuhr",
       "fajr": "Fajr",
@@ -109,8 +95,8 @@
       "nafl": "Nafl",
       "sunrise": "Sunrise"
     },
-    "Themes": {
-      "Title": "Choose Theme",
+    "themes": {
+      "title": "Choose Theme",
       "dark": "Dark",
       "emerald_green": "Emerald Green",
       "forest_green": "Forest Green",
@@ -121,340 +107,279 @@
       "sunset": "Sunset",
       "vibrant_orange": "Vibrant Orange"
     },
-    "YearPicker": {
-      "Cancel": "Cancel",
-      "Confirm": "Confirm",
-      "Title": "Select a Year"
+    "yearPicker": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "title": "Select a Year"
     },
-    "ViewAll": "View All",
-    "choose": "Choose a language",
+    "viewAll": "View All",
     "today": "Today",
-    "Delete": "Delete",
-    "Deleting": "Deleting...",
-    "Create": "Create",
-    "Creating": "Creating...",
-    "Cancel": "Cancel",
-    "Update": "Update",
-    "Updating": "Updating...",
-    "LoadMoreMonths": "+ Load 6 More Months",
-    "Save": "Save"
-  },
-  "Friends": {
-    "Freemium": {
-      "Description": "Enjoy enhanced features to support your prayer journey — track progress, stay consistent, and connect with your circle.",
-      "Title": "Prayer Tracker +",
-      "UpgradeButton": "Bismillah, I'm in",
-      "UpgradePrompt": "Access this feature to enhance your experience"
-    },
-    "Groups": {
-      "Title": "Groups",
-      "CreateTitle": "Create New Group",
-      "CreateDescription": "Create a group to organize your friends and track prayers together",
-      "EditTitle": "Edit Group",
-      "EditDescription": "Update the group name",
-      "DeleteTitle": "Delete Group",
-      "DeleteDescription": "Are you sure you want to delete '{{name}}'? This action cannot be undone.",
-      "GroupNamePlaceholder": "Enter group name",
-      "Members": "members",
-      "NoGroups": "No groups yet. Create one to get started!",
-      "NoMembers": "No members in this group yet",
-      "AddMember": "Add Member",
-      "NoAvailableFriends": "All your friends are already in this group",
-      "FriendsAvailable_one": "{{count}} friend available",
-      "FriendsAvailable_other": "{{count}} friends available",
-      "MembersCount_one": "{{count}} member",
-      "MembersCount_other": "{{count}} members",
-      "GroupsCount_one": "{{count}} group",
-      "GroupsCount_other": "{{count}} groups"
-    },
-    "Pro": {
-      "Accept": "Accept",
-      "ApprovedFriends": "Approved Friends",
-      "BismillahMessage": "Bismillah, let's begin this blessed journey together",
-      "Cancel": "Cancel",
-      "FeaturesTitle": "Pro Features",
-      "Future": "And more features coming soon, In sha Allah",
-      "InvalidEmail": "Please enter a valid email",
-      "LessFeatures": "Show Less",
-      "MoreFeatures": "See More Features",
-      "NoFriends": "No approved friends found",
-      "NoRequests": "No pending requests",
-      "NoActivity": "No friend activity yet",
-      "NoPending": "Pending requests not found",
-      "PendingTitle": "Pending Requests",
-      "Reject": "Reject",
-      "Remove": "Remove",
-      "RequestBody": "New friend request from {{email}}",
-      "RequestTitle": "Friend Request ",
-      "RequestSent": "sent you a friend request",
-      "RequestReceived": "wants to be your friend",
-      "IsFriend": "is your friend",
-      "SearchPlaceholder": "Enter Friend's Email",
-      "SendRequest": "Send Request",
-      "SentRequests": "Requests You've Sent",
-      "SubscribeButton": "Support Our Mission",
-      "SuccessMessage": "Alhamdulillah! Welcome to Pro ",
-      "TeamMessage": "Alhamdulillah, this project is built and maintained with dedication and love. We strive to help you maintain your prayers and grow spiritually, seeking Allah's pleasure in every feature we create.",
-      "TeamTitle": "Meet the Team",
-      "Title": "Join Prayer Tracker +",
-      "ViewPending": "View Pending Requests",
-      "WelcomeMessage": "Your support helps us spread khair (goodness) and assist the Ummah in strengthening their connection with Allah (SWT).",
-      "WelcomeTitle": "As-salaam-alaikum! "
-    },
-    "Title": "Friends",
-    "AllFriends": "All Friends"
-  },
-  "Home": {
-    "Charts": {
-      "Title": "Ibadah Progress(Monthly)",
-      "XAxis": "Time Period",
-      "YAxis": "Prayer Count"
-    },
-    "Errors": {
-      "FutureDate": "You cannot select a future date"
-    },
-    "PrayerHistory": {
-      "Close": "Close",
-      "Date": "Date",
-      "Details": "Prayer Details",
-      "SelectYear": "Select Hijri Year",
-      "Title": "Prayer Journey"
-    },
-    "TodaysPrayers": {
-      "Late": "Late",
-      "Missed": "Missed",
-      "OnTime": "On Time",
-      "SubTitle": "May Allah (ﷻ) accept your prayers",
-      "Title": "Today's Prayers"
+    "loadMoreMonths": "+ Load 6 More Months",
+    "chooseLanguage": "Choose a language",
+    "actions": {
+      "delete": "Delete",
+      "deleting": "Deleting...",
+      "create": "Create",
+      "creating": "Creating...",
+      "cancel": "Cancel",
+      "update": "Update",
+      "updating": "Updating...",
+      "save": "Save",
+      "remove":"Remove",
+      "requestSent":"Request Sent",
+      "requestReceived":"Request Received",
+      "accept":"Accept",
+      "reject":"Reject"
     }
   },
-  "Profile": {
-    "Title": "Profile",
-    "About": {
-      "BuyMeDates": "Buy Me Dates ",
-      "Contact": {
-        "Title": "Connect With Us"
-      },
-      "Credits": {
-        "Description": "Developed with love and dedication by the Pray Tracker team. Special thanks to our community for their continuous support and feedback.",
-        "Title": "Credits"
-      },
-      "Feedback": "Send Feedback",
-      "Mission": {
-        "Description": "Pray Tracker is dedicated to helping Muslims maintain their daily prayers, track their spiritual journey, and build a stronger connection with Allah. Our goal is to make prayer tracking simple, meaningful, and rewarding.",
-        "Title": "Our Mission"
-      },
-      "Title": "About",
-      "Version": {
-        "Build": "Build: {{buildNumber}}",
-        "Number": "Version: {{version}}",
-        "Released": "Released: March 2024",
-        "Title": "Version Info"
-      }
+  "friends": {
+    "title": "Friends",
+    "freemium": {
+      "description": "Enjoy enhanced features to support your prayer journey — track progress, stay consistent, and connect with your circle.",
+      "title": "Prayer Tracker +",
+      "upgradeButton": "Bismillah, I'm in",
+      "upgradePrompt": "Access this feature to enhance your experience"
     },
-    "Account": {
-      "CancelButton": "Cancel",
-      "Created": "Created",
-      "DeleteAccount": "Delete Account",
-      "DeleteButton": "Yes, Delete My Account",
-      "DeleteConfirm": "Are you sure you want to delete your account?",
-      "DeleteMessage": "This action is irreversible, and we will be sad to see you go. All your data will be permanently deleted.",
-      "Email": "Email",
-      "LastUpdated": "Last Updated",
-      "LogoutButton": "Logout",
-      "Title": "Account"
+    "groups": {
+      "title": "Groups",
+      "createTitle": "Create New Group",
+      "createDescription": "Create a group to organize your friends and track prayers together",
+      "editTitle": "Edit Group",
+      "editDescription": "Update the group name",
+      "deleteTitle": "Delete Group",
+      "deleteDescription": "Are you sure you want to delete '{{name}}'? This action cannot be undone.",
+      "groupNamePlaceholder": "Enter group name",
+      "members": "members",
+      "noGroups": "No groups yet. Create one to get started!",
+      "noMembers": "No members in this group yet",
+      "addMember": "Add Member",
+      "noAvailableFriends": "All your friends are already in this group",
+      "friendsAvailable_one": "{{count}} friend available",
+      "friendsAvailable_other": "{{count}} friends available",
+      "membersCount_one": "{{count}} member",
+      "membersCount_other": "{{count}} members",
+      "groupsCount_one": "{{count}} group",
+      "groupsCount_other": "{{count}} groups"
     },
-    "EditPassword": {
-      "Fields": {
-        "ConfirmPassword": {
-          "Label": "Confirm Password",
-          "Placeholder": "Confirm your new password"
-        },
-        "CurrentPassword": {
-          "Label": "Current Password",
-          "Placeholder": "Enter your current password"
-        },
-        "NewPassword": {
-          "Label": "New Password",
-          "Placeholder": "Enter your new password"
-        }
-      },
-      "Errors": {
-        "CurrentPasswordRequired": "Current password is required",
-        "MinPasswordLength": "Password must be at least 8 characters",
-        "PasswordMismatch": "Passwords do not match",
-        "UpdateFailed": "Failed to update password"
-      },
-      "SaveButton": "Update Password",
-      "Success": "Password updated successfully. You will be logged out.",
-      "Title": "Edit Password"
-    },
-    "EditProfile": {
-      "Fields": {
-        "FirstName": {
-          "Label": "First Name",
-          "Placeholder": "Enter your first name"
-        },
-        "LastName": {
-          "Label": "Last Name",
-          "Placeholder": "Enter your last name"
-        },
-        "Username": {
-          "Label": "Username",
-          "Placeholder": "Enter your username"
-        }
-      },
-    
-      "SaveButton": "Save Changes",
-      "Title": "Edit Profile",
-      "Success": "Profile updated successfully"
-    },
-    "Navigation": {
-      "About": "About",
-      "Account": "Account",
-      "EditPassword": "Edit Password",
-      "EditProfile": "Edit Profile",
-      "Feedback": "Feedback & Support",
-      "PrivacySecurity": "Privacy & Security",
-      "Settings": "Settings",
-      "TermsConditions": "Terms & Conditions"
-    },
-    "Settings": {
-      "Language": "Language",
-      "Notifications": "Notifications",
-      "Theme": "Theme",
-      "Title": "Settings"
-    },
-    "Privacy": {
-      "Title": "Privacy Policy",
-      "DataCollection": {
-        "Title": "Information We Collect",
-        "Content": "We collect only the information you provide to us directly, such as your name, email, profile image, and selected preferences. No sensitive or unnecessary information is collected."
-      },
-      "DataUse": {
-        "Title": "How We Use Your Information",
-        "Content": "Your information is used only to operate the app, maintain your account, provide features, personalize your experience, and improve the overall service. We do not use your data for advertising."
-      },
-      "DataSharing": {
-        "Title": "Data Sharing",
-        "Content": "We do not sell your data. We do not share your personal information with third parties except when required to operate core app services, comply with legal obligations, or protect the security of the platform."
-      },
-      "Security": {
-        "Title": "Data Security",
-        "Content": "We apply standard security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of transmission or storage is completely secure."
-      },
-      "Changes": {
-        "Title": "Changes to This Policy",
-        "Content": "We may update this policy when necessary. If significant changes occur, we will notify you through the app or other appropriate means."
-      },
-      "Contact": {
-        "Title": "Contact Us",
-        "Content": "If you have questions or requests regarding privacy, you can contact us at any time using the support channel provided in the app."
-      }
-    },
-    "Terms": {
-      "Title": "Terms of Service",
-
-      "Agreement": {
-        "Title": "Agreement to Terms",
-        "Content": "By using this app, you agree to these Terms of Service. If you do not agree, you may discontinue using the app at any time."
-      },
-
-      "Usage": {
-        "Title": "Acceptable Use",
-        "Content": "You agree to use the app only for lawful and intended purposes. You must not misuse the service, interfere with its operation, or attempt unauthorized access."
-      },
-
-      "UserContent": {
-        "Title": "User Content",
-        "Content": "You are responsible for any content you submit within the app. You confirm that your content does not violate any laws, rights, or the privacy of others."
-      },
-
-      "Termination": {
-        "Title": "Account Termination",
-        "Content": "We may suspend or terminate access to the app if we detect misuse, violations of these terms, or activity that threatens the safety or operation of the service."
-      },
-
-      "Changes": {
-        "Title": "Changes to These Terms",
-        "Content": "We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the updated terms."
-      },
-
-      "Contact": {
-        "Title": "Contact Us",
-        "Content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
-      }
-    }  },
-  "Qibla": {
-    "Compass": {
-      "Degrees": "degrees",
-      "Errors": {
-        "Location": "Location permission required",
-        "Magnetometer": "Magnetometer not available",
-        "MagnetometerUnavailable": "Magnetometer not available on this device"
-      },
-      "Help": "Point your phone towards Qibla Degrees and align with Your Direction",
-      "YourDirection": "Your Direction",
-      "QiblaDirection": "Qibla Direction"
-    },
-    "PrayerTimes": {
-      "TimeLeft": "Time left until the next prayer",
-      "Errors": {
-        "Message": "Location permission is required to calculate prayer times",
-        "Title": "Permission Denied"
-      },
-      "Location": {
-        "Fetching": "Fetching location...",
-        "Unknown": "Unknown"
-      },
-      "Notifier": {
-        "Title": "Prayer Reminder",
-        "Description": "How many minutes before prayer do you want a reminder?",
-        "MinutesBefore": "{{minutes}} minutes before prayer"
-      }
-    },
-    "Tabs": {
-      "Qibla": "Qibla Direction",
-      "Times": "Prayer Times"
+    "allFriends":{
+      "title":"All Friends",
+      "isFriend":"You are friends with {{name}}",
+      "requestSent":"You sent a friend request to {{name}}",
+      "requestReceived":"You received a friend request from {{name}}",
+      "noRequests":"You have no requests yet",
+      "noFriends":"You have no friends yet",
+      "noActivity":"No friends found",
+      "all":"All {{count}}",
+      "requests":"Requests {{count}}",
+      "friends":"Friends {{count}}",
+      "searchPlaceholder":"Search friends by email"
     }
   },
-  "Subscription": {
-    "Title": "Noor Premium",
-    "Subtitle": "Unlock all premium features and enhance your prayer journey",
-    "UpgradeTitle": "Upgrade to Premium",
-    "UpgradeDescription": "Get unlimited access to all features and support the development of Noor",
-    "ViewPlans": "View Plans",
-    "LoadingPlans": "Loading subscription plans...",
-    "ChoosePlan": "Choose Your Plan",
-    "BestValue": "Best Value",
-    "MonthlyPlan": "Monthly",
-    "YearlyPlan": "Yearly",
-    "Month": "month",
-    "Year": "year",
-    "SaveOneMonth": "Save $5 - Get 2 months free!",
-    "Subscribe": "Start Free Trial",
-    "RestorePurchases": "Restore Purchases",
-    "Terms": "Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Cancel anytime in your account settings.",
-    "Features": {
-      "UnlimitedFriends": "Unlimited Friends",
-      "FriendGroups": "Create Friend Groups",
-      "DetailedStats": "Detailed Prayer Statistics",
-      "PrayerReminders": "Advanced Prayer Reminders",
-      "CustomThemes": "Custom Themes",
-      "AdFree": "Ad-Free Experience",
-      "PrioritySupport": "Priority Support"
+  "home": {
+    "charts": {
+      "title": "Ibadah Progress(Monthly)",
+      "xAxis": "Time Period",
+      "yAxis": "Prayer Count"
     },
-    "Success": {
-      "PurchaseComplete": "Welcome to Noor Premium! 🎉",
-      "RestoreComplete": "Purchases restored successfully!"
+    "errors": {
+      "futureDate": "You cannot select a future date"
     },
-    "Errors": {
-      "PackageNotFound": "Subscription package not found",
-      "PurchaseFailed": "Purchase failed. Please try again.",
-      "RestoreFailed": "Failed to restore purchases"
+    "prayerHistory": {
+      "close": "Close",
+      "date": "Date",
+      "details": "Prayer Details",
+      "selectYear": "Select Hijri Year",
+      "title": "Prayer Journey"
     },
-    "Info": {
-      "NoPurchasesFound": "No previous purchases found"
+    "todaysPrayers": {
+      "late": "Late",
+      "missed": "Missed",
+      "onTime": "On Time",
+      "subTitle": "May Allah (ﷻ) accept your prayers",
+      "title": "Today's Prayers"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "about": {
+      "contact": {
+        "title": "Connect With Us"
+      },
+      "credits": {
+        "description": "Developed with love and dedication by the Noor - Pray Tracker team. Special thanks to our community for their continuous support and feedback.",
+        "title": "Credits"
+      },
+      "feedback": "Send Feedback",
+      "mission": {
+        "description": "Noor - Pray Tracker is dedicated to helping Muslims maintain their daily prayers, track their spiritual journey, and build a stronger connection with Allah. Our goal is to make prayer tracking simple, meaningful, and rewarding.",
+        "title": "Our Mission"
+      },
+      "title": "About",
+      "version": {
+        "build": "Build: {{buildNumber}}",
+        "number": "Version: {{version}}",
+        "released": "Released: March 2024",
+        "title": "Version Info"
+      }
+    },
+    "account": {
+      "cancelButton": "Cancel",
+      "created": "Created",
+      "deleteAccount": "Delete Account",
+      "deleteButton": "Yes, Delete My Account",
+      "deleteConfirm": "Are you sure you want to delete your account?",
+      "deleteMessage": "This action is irreversible, and we will be sad to see you go. All your data will be permanently deleted.",
+      "email": "Email",
+      "lastUpdated": "Last Updated",
+      "logoutButton": "Logout",
+      "title": "Account"
+    },
+    "editPassword": {
+      "fields": {
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm your new password"
+        },
+        "currentPassword": {
+          "label": "Current Password",
+          "placeholder": "Enter your current password"
+        },
+        "newPassword": {
+          "label": "New Password",
+          "placeholder": "Enter your new password"
+        }
+      },
+      "errors": {
+        "currentPasswordRequired": "Current password is required",
+        "minPasswordLength": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "updateFailed": "Failed to update password"
+      },
+      "saveButton": "Update Password",
+      "success": "Password updated successfully. You will be logged out.",
+      "title": "Edit Password"
+    },
+    "editProfile": {
+      "fields": {
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Enter your first name"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Enter your last name"
+        },
+        "username": {
+          "label": "Username",
+          "placeholder": "Enter your username"
+        }
+      },
+      "saveButton": "Save Changes",
+      "title": "Edit Profile",
+      "success": "Profile updated successfully"
+    },
+    "navigation": {
+      "about": "About",
+      "account": "Account",
+      "editPassword": "Edit Password",
+      "editProfile": "Edit Profile",
+      "feedback": "Feedback & Support",
+      "privacySecurity": "Privacy & Security",
+      "settings": "Settings",
+      "termsConditions": "Terms & Conditions"
+    },
+    "settings": {
+      "language": "Language",
+      "notifications": "Notifications",
+      "theme": "Theme",
+      "title": "Settings"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "dataCollection": {
+        "title": "Information We Collect",
+        "content": "We collect only the information you provide to us directly, such as your name, email, profile image, and selected preferences. No sensitive or unnecessary information is collected."
+      },
+      "dataUse": {
+        "title": "How We Use Your Information",
+        "content": "Your information is used only to operate the app, maintain your account, provide features, personalize your experience, and improve the overall service. We do not use your data for advertising."
+      },
+      "dataSharing": {
+        "title": "Data Sharing",
+        "content": "We do not sell your data. We do not share your personal information with third parties except when required to operate core app services, comply with legal obligations, or protect the security of the platform."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We apply standard security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of transmission or storage is completely secure."
+      },
+      "changes": {
+        "title": "Changes to This Policy",
+        "content": "We may update this policy when necessary. If significant changes occur, we will notify you through the app or other appropriate means."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have questions or requests regarding privacy, you can contact us at any time using the support channel provided in the app."
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "agreement": {
+        "title": "Agreement to Terms",
+        "content": "By using this app, you agree to these Terms of Service. If you do not agree, you may discontinue using the app at any time."
+      },
+      "usage": {
+        "title": "Acceptable Use",
+        "content": "You agree to use the app only for lawful and intended purposes. You must not misuse the service, interfere with its operation, or attempt unauthorized access."
+      },
+      "userContent": {
+        "title": "User Content",
+        "content": "You are responsible for any content you submit within the app. You confirm that your content does not violate any laws, rights, or the privacy of others."
+      },
+      "termination": {
+        "title": "Account Termination",
+        "content": "We may suspend or terminate access to the app if we detect misuse, violations of these terms, or activity that threatens the safety or operation of the service."
+      },
+      "changes": {
+        "title": "Changes to These Terms",
+        "content": "We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the updated terms."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
+      }
+    }
+  },
+  "qibla": {
+    "compass": {
+      "degrees": "degrees",
+      "errors": {
+        "location": "Location permission required",
+        "magnetometer": "Magnetometer not available",
+        "magnetometerUnavailable": "Magnetometer not available on this device"
+      },
+      "help": "Point your phone towards Qibla Degrees and align with Your Direction",
+      "yourDirection": "Your Direction",
+      "qiblaDirection": "Qibla Direction"
+    },
+    "prayerTimes": {
+      "timeLeft": "Time left until the next prayer",
+      "errors": {
+        "message": "Location permission is required to calculate prayer times",
+        "title": "Permission Denied"
+      },
+      "location": {
+        "fetching": "Fetching location...",
+        "unknown": "Unknown"
+      },
+      "notifier": {
+        "title": "Prayer Reminder",
+        "description": "How many minutes before prayer do you want a reminder?",
+        "minutesBefore": "{{minutes}} minutes before prayer"
+      }
+    },
+    "tabs": {
+      "qibla": "Qibla Direction",
+      "times": "Prayer Times"
     }
   }
 }

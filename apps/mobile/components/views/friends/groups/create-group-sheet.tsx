@@ -42,14 +42,14 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-primary/10 p-4 rounded-full mb-3">
             <FolderPlus size={32} color={colors['--primary']} />
           </View>
-          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.CreateTitle')}</Text>
+          <Text className="text-2xl font-bold text-center">{t('friends.groups.createTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-            {t('Friends.Groups.CreateDescription')}
+            {t('friends.groups.createDescription')}
           </Text>
         </View>
 
         <BottomSheetTextInput
-          placeholder={t('Friends.Groups.GroupNamePlaceholder')}
+          placeholder={t('friends.groups.groupNamePlaceholder')}
           value={groupName}
           onChangeText={setGroupName}
           placeholderTextColor={colors['--muted-foreground']}
@@ -65,14 +65,14 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
             }}
             className="flex-1"
           >
-            <Text>{t('Commons.Cancel')}</Text>
+            <Text>{t('common.actions.cancel')}</Text>
           </Button>
           <Button
             onPress={handleCreateGroup}
             disabled={isCreating || !groupName.trim()}
             className="flex-1"
           >
-            <Text>{isCreating ? t('Commons.Creating') : t('Commons.Create')}</Text>
+            <Text>{isCreating ? t('common.actions.creating') : t('common.actions.create')}</Text>
           </Button>
         </View>
       </View>

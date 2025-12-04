@@ -80,10 +80,10 @@ const PrayerNotifierSheet: React.FC = () => {
           </Animated.View>
 
           <Text className="text-2xl font-bold text-center">
-            {t('Qibla.PrayerTimes.Notifier.Title')}
+            {t('qibla.prayerTimes.notifier.title')}
           </Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-            {t('Qibla.PrayerTimes.Notifier.Description')}
+            {t('qibla.prayerTimes.notifier.description')}
           </Text>
         </View>
 
@@ -116,13 +116,13 @@ const PrayerNotifierSheet: React.FC = () => {
         </View>
 
         <Text className="text-center text-muted-foreground mt-2">
-          {t('Qibla.PrayerTimes.Notifier.MinutesBefore', { minutes })}
+          {t('qibla.prayerTimes.notifier.minutesBefore', { minutes })}
         </Text>
 
         <View className="flex-row gap-3 mt-6">
           <Animated.View entering={FadeInDown.delay(200)} className="flex-1">
             <Button variant="outline" onPress={close} className="flex-1">
-              <Text>{t('Commons.Cancel')}</Text>
+              <Text>{t('common.actions.cancel')}</Text>
             </Button>
           </Animated.View>
 
@@ -132,7 +132,7 @@ const PrayerNotifierSheet: React.FC = () => {
             className="flex-1"
           >
             <Button variant="default" onPress={handleSave} className="flex-1">
-              <Text>{t('Commons.Save')}</Text>
+              <Text>{t('common.actions.save')}</Text>
             </Button>
           </Animated.View>
         </View>

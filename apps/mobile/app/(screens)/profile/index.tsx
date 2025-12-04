@@ -25,7 +25,7 @@ const ProfilePage = () => {
     <View className="flex-1">
       {/* Header */}
       <View className="mb-5">
-        <Text className="text-xl font-bold text-muted-foreground">{t('Profile.Title')}</Text>
+        <Text className="text-xl font-bold text-muted-foreground">{t('profile.title')}</Text>
       </View>
       <AuthWrapper mode="signedIn">
         {/* Account*/}
@@ -36,7 +36,7 @@ const ProfilePage = () => {
           <View className="flex-row items-center">
             <Feather name="user" size={20} color={colors['--muted-foreground']} />
             <Text className="text-base text-muted-foreground ml-2">
-              {t('Profile.Navigation.Account')}
+              {t('profile.navigation.account')}
             </Text>
           </View>
           <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -49,7 +49,7 @@ const ProfilePage = () => {
           <View className="flex-row items-center">
             <Feather name="edit" size={20} color={colors['--muted-foreground']} />
             <Text className="text-base text-muted-foreground ml-2">
-              {t('Profile.Navigation.EditProfile')}
+              {t('profile.navigation.editProfile')}
             </Text>
           </View>
           <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -62,7 +62,7 @@ const ProfilePage = () => {
           <View className="flex-row items-center">
             <Feather name="lock" size={20} color={colors['--muted-foreground']} />
             <Text className="text-base text-muted-foreground ml-2">
-              {t('Profile.Navigation.EditPassword')}
+              {t('profile.navigation.editPassword')}
             </Text>
           </View>
           <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -77,7 +77,7 @@ const ProfilePage = () => {
         <View className="flex-row items-center">
           <Feather name="settings" size={20} color={colors['--muted-foreground']} />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.Settings')}
+            {t('profile.navigation.settings')}
           </Text>
         </View>
         <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -94,7 +94,7 @@ const ProfilePage = () => {
         <View className="flex-row items-center">
           <Feather name="lock" size={20} color={colors['--muted-foreground']} />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.PrivacySecurity')}
+            {t('profile.navigation.privacySecurity')}
           </Text>
         </View>
         <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -108,7 +108,7 @@ const ProfilePage = () => {
         <View className="flex-row items-center">
           <Feather name="file-text" size={20} color={colors['--muted-foreground']} />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.TermsConditions')}
+            {t('profile.navigation.termsConditions')}
           </Text>
         </View>
         <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -125,7 +125,7 @@ const ProfilePage = () => {
         <View className="flex-row items-center">
           <Feather name="message-square" size={20} color={colors['--muted-foreground']} />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.Feedback')}
+            {t('profile.navigation.feedback')}
           </Text>
         </View>
         <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
@@ -138,7 +138,7 @@ const ProfilePage = () => {
         <View className="flex-row items-center">
           <Feather name="info" size={20} color={colors['--muted-foreground']} />
           <Text className="text-base text-muted-foreground ml-2">
-            {t('Profile.Navigation.About')}
+            {t('profile.navigation.about')}
           </Text>
         </View>
         <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />

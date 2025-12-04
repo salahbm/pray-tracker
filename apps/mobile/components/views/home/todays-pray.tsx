@@ -20,35 +20,35 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
   return (
     <React.Fragment>
       <View className="flex-row items-center justify-between mt-6 mb-2">
-        <Text className={cn('text-xl font-semibold')}>{t('Home.TodaysPrayers.Title')}</Text>
+        <Text className={cn('text-xl font-semibold')}>{t('home.todaysPrayers.title')}</Text>
         <View className="flex-1 flex-row justify-end gap-3">
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
             className={cn('text-sm font-bold text-center max-w-16')}
           >
-            {t('Home.TodaysPrayers.Missed')}
+            {t('home.todaysPrayers.missed')}
           </Text>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
             className={cn('text-sm font-bold text-center max-w-16')}
           >
-            {t('Home.TodaysPrayers.Late')}
+            {t('home.todaysPrayers.late')}
           </Text>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
             className={cn('text-sm font-bold text-center max-w-16')}
           >
-            {t('Home.TodaysPrayers.OnTime')}
+            {t('home.todaysPrayers.onTime')}
           </Text>
         </View>
       </View>
-      <Text className="text-sm text-muted-foreground mb-4">{t('Home.TodaysPrayers.SubTitle')}</Text>
+      <Text className="text-sm text-muted-foreground mb-4">{t('home.todaysPrayers.subTitle')}</Text>
       {Object.entries(prayers).map(([prayer, value]) => (
         <View key={prayer} className="flex-row items-center justify-between">
-          <Text className={cn('capitalize font-semibold')}>{t(`Commons.Salahs.${prayer}`)}</Text>
+          <Text className={cn('capitalize font-semibold')}>{t(`common.salahs.${prayer}`)}</Text>
           <View className="flex-1 flex-row justify-end">
             {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map((val, index) => (
               <View

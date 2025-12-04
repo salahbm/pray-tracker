@@ -38,6 +38,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     await mutateAsync(form.getValues()).then(() => {
       onSuccess();
       setShowSuccessModal(true);
+      form.reset();
     });
   };
 
@@ -45,17 +46,17 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
     <Fragment>
       <View className="w-full mt-16">
         <Text className="text-3xl font-bold text-primary mb-2 text-center">
-          {t('Auth.SignUp.Title')}
+          {t('auth.signUp.title')}
         </Text>
         <Text className="text-sm text-muted-foreground text-center mb-6">
-          {t('Auth.SignUp.Subtitle')}
+          {t('auth.signUp.subtitle')}
         </Text>
 
         <FormField
           control={form.control}
           name="name"
           required
-          label={t('Auth.Username.Label')}
+          label={t('auth.username.label')}
           className="mb-4"
           render={({ field, fieldState }) => (
             <Input
@@ -63,7 +64,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               onChangeText={field.onChange}
               onBlur={field.onBlur}
               error={fieldState.error?.message}
-              placeholder={t('Auth.Username.Placeholder')}
+              placeholder={t('auth.username.placeholder')}
             />
           )}
         />
@@ -72,7 +73,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           control={form.control}
           name="email"
           required
-          label={t('Auth.Email.Label')}
+          label={t('auth.email.label')}
           className="mb-4"
           render={({ field, fieldState }) => (
             <Input
@@ -80,7 +81,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               onChangeText={field.onChange}
               onBlur={field.onBlur}
               error={fieldState.error?.message}
-              placeholder={t('Auth.Email.Placeholder')}
+              placeholder={t('auth.email.placeholder')}
               autoCapitalize="none"
               keyboardType="email-address"
               autoCorrect={false}
@@ -94,7 +95,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
           control={form.control}
           name="password"
           required
-          label={t('Auth.Password.Label')}
+          label={t('auth.password.label')}
           className="mb-10"
           render={({ field, fieldState }) => (
             <Input
@@ -102,7 +103,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               onChangeText={field.onChange}
               onBlur={field.onBlur}
               error={fieldState.error?.message}
-              placeholder={t('Auth.Password.Placeholder')}
+              placeholder={t('auth.password.placeholder')}
               secureTextEntry
               onSubmitEditing={form.handleSubmit(onSignUpPress)}
             />
@@ -111,16 +112,16 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
 
         <Button onPress={form.handleSubmit(onSignUpPress)} disabled={isPending}>
           <Loader visible={isPending} size="small" />
-          <Text>{t('Auth.SignUp.Button')}</Text>
+          <Text>{t('auth.signUp.button')}</Text>
         </Button>
       </View>
 
       <View className="mt-2 flex flex-row justify-center items-center">
         <Text className="text-sm text-muted-foreground text-center">
-          {t('Auth.SignUp.HasAccount')}
+          {t('auth.signUp.hasAccount')}
         </Text>
         <Button variant="link" onPress={onNavigate}>
-          <Text>{t('Auth.SignUp.SignInLink')}</Text>
+          <Text>{t('auth.signUp.signInLink')}</Text>
         </Button>
 
         {/* ✅ SUCCESS MODAL */}
@@ -141,13 +142,13 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
             <View className="bg-muted px-7 py-9 rounded-2xl min-h-[300px] max-h-screen-safe w-[95%] mx-auto">
               <Image source={IMAGES.check} className="w-20 h-20 mx-auto my-5" />
               <Text className="text-3xl font-bold text-center">
-                {t('Auth.SignUp.Success.Title')}
+                {t('auth.signUp.success.title')}
               </Text>
               <Text className="text-base text-muted-foreground text-center mt-2">
-                {t('Auth.SignUp.Success.Message')}
+                {t('auth.signUp.success.message')}
               </Text>
               <Button onPress={() => setShowSuccessModal(false)} className="mt-5">
-                <Text>{t('Auth.SignUp.Success.Button')}</Text>
+                <Text>{t('auth.signUp.success.button')}</Text>
               </Button>
             </View>
           </View>

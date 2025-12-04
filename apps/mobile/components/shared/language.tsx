@@ -43,7 +43,7 @@ export function Language({ onClose }: { onClose: () => void }) {
 
   return (
     <ScrollView contentContainerClassName="flex-1 flex  justify-between items-start gap-4 w-full pt-4">
-      <Text className="text-xl font-bold ">{t('Commons.choose')}</Text>
+      <Text className="text-xl font-bold ">{t('common.chooseLanguage')}</Text>
       {locales.map(lang => (
         <TouchableOpacity
           key={lang}

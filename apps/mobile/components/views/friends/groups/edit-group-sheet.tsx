@@ -44,14 +44,14 @@ const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-primary/10 p-4 rounded-full mb-3">
             <Edit2 size={32} color={colors['--primary']} />
           </View>
-          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.EditTitle')}</Text>
+          <Text className="text-2xl font-bold text-center">{t('friends.groups.editTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-            {t('Friends.Groups.EditDescription')}
+            {t('friends.groups.editDescription')}
           </Text>
         </View>
 
         <BottomSheetTextInput
-          placeholder={t('Friends.Groups.GroupNamePlaceholder')}
+          placeholder={t('friends.groups.groupNamePlaceholder')}
           value={groupName}
           onChangeText={setGroupName}
           className="web:flex h-10 native:h-12 web:w-full rounded-md border border-input bg-background px-3 web:py-2 text-base lg:text-sm native:text-lg native:leading-[1.25] text-foreground  web:ring-offset-background file:border-0 file:bg-transparent file:font-medium web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2"
@@ -67,14 +67,14 @@ const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
             }}
             className="flex-1"
           >
-            <Text>{t('Commons.Cancel')}</Text>
+            <Text>{t('common.actions.cancel')}</Text>
           </Button>
           <Button
             onPress={handleUpdateGroup}
             disabled={isUpdating || !groupName.trim()}
             className="flex-1"
           >
-            <Text>{isUpdating ? t('Commons.Updating') : t('Commons.Update')}</Text>
+            <Text>{isUpdating ? t('common.updating') : t('common.update')}</Text>
           </Button>
         </View>
       </View>

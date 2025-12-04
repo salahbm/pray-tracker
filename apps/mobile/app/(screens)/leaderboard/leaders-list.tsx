@@ -16,7 +16,7 @@ export default function LeaderboardScreen() {
 
   return (
     <SafeAreaView className="main-area">
-      <GoBack title={t('Leaderboard.Title')} />
+      <GoBack title={t('leaderboard.title')} />
       <Leaderboard data={data?.data ?? []} isLoading={isLoading} refetch={refetch} />
     </SafeAreaView>
   );

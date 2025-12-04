@@ -32,7 +32,7 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center p-6">
-        <Text className="text-muted-foreground">{t('Commons.Loading')}</Text>
+        <Text className="text-muted-foreground">{t('common.loading')}</Text>
       </View>
     );
   }
@@ -49,10 +49,10 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
         <Crown size={40} color={colors['--primary']} />
       </View>
 
-      <Text className="text-2xl font-bold text-center mb-2">{t('Subscription.UpgradeTitle')}</Text>
+      <Text className="text-2xl font-bold text-center mb-2">{t('subscription.upgradeTitle')}</Text>
 
       <Text className="text-base text-muted-foreground text-center mb-6">
-        {t('Subscription.UpgradeDescription')}
+        {t('subscription.upgradeDescription')}
       </Text>
 
       {showUpgradeButton && (
@@ -63,7 +63,7 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
         >
           <View className="flex-row items-center">
             <Crown size={20} color="white" />
-            <Text className="text-white text-lg font-bold ml-2">{t('Subscription.ViewPlans')}</Text>
+            <Text className="text-white text-lg font-bold ml-2">{t('subscription.viewPlans')}</Text>
           </View>
         </TouchableOpacity>
       )}

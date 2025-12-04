@@ -57,9 +57,9 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
   );
 
   const statusMessage = useMemo(() => {
-    if (item.type === 'friend') return t('Friends.Pro.IsFriend');
-    if (item.type === 'sent') return t('Friends.Pro.RequestSent');
-    return t('Friends.Pro.RequestReceived');
+    if (item.type === 'friend') return t('friends.allFriends.isFriend', { name: item.username });
+    if (item.type === 'sent') return t('friends.allFriends.requestSent', { name: item.username });
+    return t('friends.allFriends.requestReceived', { name: item.username });
   }, [item.type, t]);
 
   return (
@@ -71,7 +71,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
     >
       <SwiperButton
         size="sm"
-        title={t('Friends.Pro.Remove')}
+        title={t('common.actions.remove')}
         onPress={() => handleRemoveFriend(item)}
         disabled={isDeleting}
         enabled={item.type === 'friend'}
@@ -103,7 +103,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
                 onPress={() => handleReject(item)}
                 className="rounded-lg px-4 h-8"
               >
-                <Text className="text-xs font-semibold">{t('Friends.Pro.Cancel')}</Text>
+                <Text className="text-xs font-semibold">{t('common.actions.cancel')}</Text>
               </Button>
             )}
 
@@ -116,7 +116,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
                   onPress={() => handleReject(item)}
                   className="rounded-lg px-3 h-8"
                 >
-                  <Text className="text-xs font-semibold">{t('Friends.Pro.Reject')}</Text>
+                  <Text className="text-xs font-semibold">{t('common.actions.reject')}</Text>
                 </Button>
                 <Button
                   size="sm"
@@ -124,7 +124,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
                   onPress={() => handleApprove(item)}
                   className="rounded-lg px-3 h-8"
                 >
-                  <Text className="text-xs font-semibold">{t('Friends.Pro.Accept')}</Text>
+                  <Text className="text-xs font-semibold">{t('common.actions.accept')}</Text>
                 </Button>
               </View>
             )}

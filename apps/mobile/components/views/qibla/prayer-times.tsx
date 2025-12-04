@@ -19,7 +19,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 const PrayerTimer = () => {
   const { t } = useTranslation();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
-  const [location, setLocation] = useState(t('Qibla.PrayerTimes.Location.Fetching'));
+  const [location, setLocation] = useState(t('qibla.prayerTimes.location.fetching'));
   const { open } = usePrayNotifierBottomSheetStore();
 
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ const PrayerTimer = () => {
       setLoading(true);
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert(t('Qibla.PrayerTimes.Errors.Title'), t('Qibla.PrayerTimes.Errors.Message'));
+        Alert.alert(t('qibla.prayerTimes.errors.title'), t('qibla.prayerTimes.errors.message'));
         setError(true);
         setLoading(false);
         return;
@@ -53,7 +53,7 @@ const PrayerTimer = () => {
 
       if (reverseGeocode.length > 0) {
         const { city, region, country } = reverseGeocode[0];
-        const unknown = t('Qibla.PrayerTimes.Location.Unknown');
+        const unknown = t('qibla.prayerTimes.location.unknown');
         setLocation(`${city || unknown}, ${region || unknown}, ${country || unknown}`);
       }
 
@@ -120,7 +120,7 @@ const PrayerTimer = () => {
         <Text className="text-accent-foreground text-5xl font-extrabold text-center">
           {timeLeft}
         </Text>
-        <Text className="text-muted text-sm text-center">{t('Qibla.PrayerTimes.TimeLeft')}</Text>
+        <Text className="text-muted text-sm text-center">{t('qibla.prayerTimes.timeLeft')}</Text>
         <Text className="text-foreground text-lg text-center mt-3">{location}</Text>
       </View>
 
@@ -150,7 +150,7 @@ const PrayerTimer = () => {
                   currentSalah ? 'text-accent-foreground' : 'text-muted-foreground'
                 )}
               >
-                {t(`Commons.Salahs.${item?.name}`)}
+                {t(`common.salahs.${item?.name}`)}
               </Text>
               <Text
                 className={cn(

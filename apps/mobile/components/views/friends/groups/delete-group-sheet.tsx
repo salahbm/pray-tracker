@@ -42,9 +42,9 @@ const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
           <View className="bg-destructive/10 p-4 rounded-full mb-3">
             <Trash2 size={32} color={colors['--destructive']} />
           </View>
-          <Text className="text-2xl font-bold text-center">{t('Friends.Groups.DeleteTitle')}</Text>
+          <Text className="text-2xl font-bold text-center">{t('friends.groups.deleteTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-            {t('Friends.Groups.DeleteDescription', { name: selectedGroup?.name })}
+            {t('friends.groups.deleteDescription', { name: selectedGroup?.name })}
           </Text>
         </View>
 
@@ -57,7 +57,7 @@ const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
             }}
             className="flex-1"
           >
-            <Text>{t('Commons.Cancel')}</Text>
+            <Text>{t('common.actions.cancel')}</Text>
           </Button>
           <Button
             variant="destructive"
@@ -65,7 +65,7 @@ const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
             disabled={isDeleting}
             className="flex-1"
           >
-            <Text>{isDeleting ? t('Commons.Deleting') : t('Commons.Delete')}</Text>
+            <Text>{isDeleting ? t('common.actions.deleting') : t('common.actions.delete')}</Text>
           </Button>
         </View>
       </View>

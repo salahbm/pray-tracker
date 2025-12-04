@@ -12,48 +12,48 @@ export default function PrivacyScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-row items-center p-4 border-b border-border">
-        <GoBack title={t('Profile.Privacy.Title')} />
+        <GoBack title={t('profile.privacy.title')} />
       </View>
       <ScrollView className="flex-1 p-4">
         <View className="flex flex-col gap-6">
           <View>
             <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Privacy.DataCollection.Title')}
+              {t('profile.privacy.dataCollection.title')}
             </Text>
             <Text className="text-muted-foreground">
-              {t('Profile.Privacy.DataCollection.Content')}
+              {t('profile.privacy.dataCollection.content')}
             </Text>
           </View>
 
           <View>
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Privacy.DataUse.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Privacy.DataUse.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.privacy.dataUse.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.privacy.dataUse.content')}</Text>
           </View>
 
           <View>
             <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Privacy.DataSharing.Title')}
+              {t('profile.privacy.dataSharing.title')}
             </Text>
             <Text className="text-muted-foreground">
-              {t('Profile.Privacy.DataSharing.Content')}
+              {t('profile.privacy.dataSharing.content')}
             </Text>
           </View>
 
           <View>
             <Text className="text-lg font-semibold mb-2">
-              {t('Profile.Privacy.Security.Title')}
+              {t('profile.privacy.security.title')}
             </Text>
-            <Text className="text-muted-foreground">{t('Profile.Privacy.Security.Content')}</Text>
+            <Text className="text-muted-foreground">{t('profile.privacy.security.content')}</Text>
           </View>
 
           <View>
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Privacy.Changes.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Privacy.Changes.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.privacy.changes.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.privacy.changes.content')}</Text>
           </View>
 
           <View className="mb-10">
-            <Text className="text-lg font-semibold mb-2">{t('Profile.Privacy.Contact.Title')}</Text>
-            <Text className="text-muted-foreground">{t('Profile.Privacy.Contact.Content')}</Text>
+            <Text className="text-lg font-semibold mb-2">{t('profile.privacy.contact.title')}</Text>
+            <Text className="text-muted-foreground">{t('profile.privacy.contact.content')}</Text>
           </View>
         </View>
       </ScrollView>

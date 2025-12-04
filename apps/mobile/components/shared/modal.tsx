@@ -25,7 +25,6 @@ const Modal: React.FC<IModalProps> = ({ visible, children, onRequestClose, ...pr
     >
       <View style={styles.overlay}>
         <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={onRequestClose} />
-
         <View style={styles.content} className="bg-muted overflow-hidden">
           {children}
         </View>

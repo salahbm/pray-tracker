@@ -1,6 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet';
-import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import React, { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity, View } from 'react-native';
 
@@ -35,7 +33,7 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
     <View className={cn('flex-row items-center justify-between border-b border-border pb-5')}>
       <View>
         <Text numberOfLines={1} className={cn('text-xl font-bold max-w-[250px] truncate')}>
-          {user ? `Salaam, ${user.name} 👋` : `Salaam, ${t('Auth.Welcome.Guest')} 👋`}
+          {user ? `Salaam, ${user.name} 👋` : `Salaam, ${t('auth.welcome.guest')} 👋`}
         </Text>
         <Text className={cn('text-muted-foreground')}>
           {today.toLocaleDateString(currentLanguage)}
@@ -61,7 +59,7 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
       <AuthWrapper mode="signedOut">
         <View className="flex-row justify-end gap-5 items-center">
           <Button size="sm" onPress={handlePresentSignIn}>
-            <Text>{t('Auth.SignUp.SignInLink')}</Text>
+            <Text>{t('auth.signUp.signInLink')}</Text>
           </Button>
           <TouchableOpacity
             onPress={async () => {
