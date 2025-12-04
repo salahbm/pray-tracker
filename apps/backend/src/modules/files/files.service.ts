@@ -22,6 +22,7 @@ export class FilesService {
     this.s3Client = new S3Client({
       region: 'auto',
       endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      forcePathStyle: true,
       credentials: {
         accessKeyId: env.R2_ACCESS_KEY_ID,
         secretAccessKey: env.R2_SECRET_ACCESS_KEY,
@@ -88,7 +89,7 @@ export class FilesService {
 
     try {
       const uploadUrl = await getSignedUrl(this.s3Client, command, {
-        expiresIn: 300, // 5 minutes for upload
+        expiresIn: 604800, // 7 days for upload
       });
 
       return {

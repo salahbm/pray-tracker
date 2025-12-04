@@ -213,7 +213,7 @@ export default function HomeScreen() {
         }
       >
         {/* HEADER */}
-        <HomeHeader today={today} user={user!} />
+        <HomeHeader today={today} />
         {/* Today's Prayers */}
         <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
         {/* PRAYER HISTORY */}

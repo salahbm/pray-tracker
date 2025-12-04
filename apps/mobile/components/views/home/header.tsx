@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
@@ -10,13 +10,15 @@ import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
 import { useAuthBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { triggerHaptic } from '@/utils/haptics';
+import { useAuthStore } from '@/store/auth/auth-session';
+import Image from '@/components/ui/image';
 
 interface HomeHeaderProps {
-  user?: { name: string; photo?: string };
   today: Date;
 }
-const HomeHeader = ({ user, today }: HomeHeaderProps) => {
+const HomeHeader = ({ today }: HomeHeaderProps) => {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { currentLanguage } = useLanguage();
   const { profileSheetRef } = useProfileBottomSheetStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
@@ -50,7 +52,7 @@ const HomeHeader = ({ user, today }: HomeHeaderProps) => {
           }}
         >
           <Image
-            source={user?.photo ? { uri: user?.photo } : FRIENDS.guest}
+            src={user?.image}
             className={cn('size-14 rounded-full border border-border max-w-14 max-h-14')}
           />
         </TouchableOpacity>

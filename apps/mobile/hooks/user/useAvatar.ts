@@ -5,6 +5,7 @@ import agent from '@/lib/agent';
 import { User } from '@/types/user';
 
 import useMutation from '../common/useMutation';
+import { useAuthStore } from '@/store/auth/auth-session';
 interface UploadImageArgs {
   imageUri: string;
   fileExt: string;
@@ -67,11 +68,13 @@ const uploadImage = async ({
 
 export const useUploadImage = () => {
   const queryClient = useQueryClient();
+  const { setUser } = useAuthStore();
   return useMutation({
     mutationFn: uploadImage,
     options: {
       onSuccess: async data => {
         if (data) {
+          setUser(data.user);
           await queryClient.invalidateQueries({
             queryKey: QueryKeys.users.all,
           });
