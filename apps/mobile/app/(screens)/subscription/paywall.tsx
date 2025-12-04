@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Check, X, Sparkles, Crown } from 'lucide-react-native';
+import { Check, Sparkles, Crown } from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useRevenueCatOfferings, usePurchasePackage } from '@/hooks/subscriptions/useRevenueCat';
-import { PurchasePackage } from '@/types/subscription';
 
 const PREMIUM_FEATURES = [
   'Subscription.Features.UnlimitedFriends',
