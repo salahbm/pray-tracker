@@ -73,7 +73,6 @@ const About = () => {
               </TouchableOpacity>
             </View>
           </View>
-
         </View>
       </ScrollView>
     </SafeAreaView>

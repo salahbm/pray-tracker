@@ -49,9 +49,7 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
         <Crown size={40} color={colors['--primary']} />
       </View>
 
-      <Text className="text-2xl font-bold text-center mb-2">
-        {t('Subscription.UpgradeTitle')}
-      </Text>
+      <Text className="text-2xl font-bold text-center mb-2">{t('Subscription.UpgradeTitle')}</Text>
 
       <Text className="text-base text-muted-foreground text-center mb-6">
         {t('Subscription.UpgradeDescription')}
@@ -65,9 +63,7 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
         >
           <View className="flex-row items-center">
             <Crown size={20} color="white" />
-            <Text className="text-white text-lg font-bold ml-2">
-              {t('Subscription.ViewPlans')}
-            </Text>
+            <Text className="text-white text-lg font-bold ml-2">{t('Subscription.ViewPlans')}</Text>
           </View>
         </TouchableOpacity>
       )}
@@ -80,7 +76,7 @@ export const PremiumGuard: React.FC<PremiumGuardProps> = ({
  */
 export const PremiumBadge: React.FC<{ size?: 'sm' | 'md' | 'lg' }> = ({ size = 'md' }) => {
   const { colors } = useThemeStore();
-  
+
   const sizeClasses = {
     sm: 'px-2 py-0.5',
     md: 'px-3 py-1',
@@ -102,9 +98,7 @@ export const PremiumBadge: React.FC<{ size?: 'sm' | 'md' | 'lg' }> = ({ size = '
   return (
     <View className={`flex-row items-center bg-primary/10 rounded-full ${sizeClasses[size]}`}>
       <Crown size={iconSizes[size]} color={colors['--primary']} />
-      <Text className={`${textSizes[size]} font-semibold text-primary ml-1`}>
-        Premium
-      </Text>
+      <Text className={`${textSizes[size]} font-semibold text-primary ml-1`}>Premium</Text>
     </View>
   );
 };

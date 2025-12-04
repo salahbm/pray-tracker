@@ -15,14 +15,14 @@ export const useUpdateGroup = () => {
 
   return useMutation({
     mutationFn: async ({ groupId, name, userId }: UpdateGroupPayload) => {
-      const response = await agent.patch<IResponse<UpdateGroupPayload>>(
+      const response = await agent.patch<{ message: string; data: any }>(
         `/friends/groups/${groupId}?userId=${userId}`,
         {
           groupId,
           name,
         }
       );
-      return response.data;
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.friends.groups });

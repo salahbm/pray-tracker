@@ -14,11 +14,11 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
   const { colors } = useThemeStore();
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
-  
+
     const now = new Date();
-    const currentMonth = now.getMonth();     // 0–11
+    const currentMonth = now.getMonth(); // 0–11
     const currentYear = now.getFullYear();
-  
+
     return [...lineData]
       .filter(pray => {
         const d = new Date(pray.date);

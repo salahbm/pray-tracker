@@ -99,18 +99,21 @@ const MonthScreen = () => {
     );
   }, [prays]);
 
-  const onDayPress = useCallback((day: DateData) => {
-    // Prevent selecting future dates
-    const selectedDate = new Date(day.dateString);
-    const todayDate = new Date(today);
-    
-    if (selectedDate > todayDate) {
-      fireToast.info(t('Home.Errors.FutureDate'));
-      return;
-    }
-    
-    setSelected(day.dateString);
-  }, [today, t]);
+  const onDayPress = useCallback(
+    (day: DateData) => {
+      // Prevent selecting future dates
+      const selectedDate = new Date(day.dateString);
+      const todayDate = new Date(today);
+
+      if (selectedDate > todayDate) {
+        fireToast.info(t('Home.Errors.FutureDate'));
+        return;
+      }
+
+      setSelected(day.dateString);
+    },
+    [today, t]
+  );
 
   const marked = useMemo(() => {
     const entries: Record<string, MarkedDateProps> = {

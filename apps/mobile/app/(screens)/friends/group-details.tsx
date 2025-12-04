@@ -196,7 +196,7 @@ const GroupDetails = () => {
                             </View>
                           </View>
                         </AccordionTrigger>
-                        <AccordionContent className='pr-4 pl-7'>
+                        <AccordionContent className="pr-4 pl-7">
                           {[
                             { name: SALAHS.FAJR, value: member.prayer.fajr },
                             { name: SALAHS.DHUHR, value: member.prayer.dhuhr },
@@ -205,10 +205,7 @@ const GroupDetails = () => {
                             { name: SALAHS.ISHA, value: member.prayer.isha },
                             { name: SALAHS.NAFL, value: member.prayer.nafl },
                           ].map(({ name, value }) => (
-                            <View
-                              key={name}
-                              className="flex-row items-center justify-between py-1"
-                            >
+                            <View key={name} className="flex-row items-center justify-between py-1">
                               <Text className="capitalize font-semibold">
                                 {t(`Commons.Salahs.${name}`)}
                               </Text>

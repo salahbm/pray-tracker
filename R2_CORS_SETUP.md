@@ -1,19 +1,23 @@
 # Cloudflare R2 CORS Configuration
 
 ## Issue
+
 Image uploads are failing with "Failed to upload image" error because the R2 bucket doesn't have CORS (Cross-Origin Resource Sharing) configured. This prevents the mobile app from uploading files directly to R2 using presigned URLs.
 
 ## Solution
+
 You need to configure CORS on your R2 bucket to allow uploads from your application.
 
 ## Steps to Configure CORS
 
 ### 1. Access Cloudflare Dashboard
+
 1. Log in to your Cloudflare account
 2. Navigate to **R2** in the sidebar
 3. Click on your bucket (e.g., `noon-prayer-tracker`)
 
 ### 2. Configure CORS Rules
+
 1. Click on the **Settings** tab
 2. Scroll down to **CORS Policy**
 3. Click **Edit CORS Policy**
@@ -22,28 +26,17 @@ You need to configure CORS on your R2 bucket to allow uploads from your applicat
 ```json
 [
   {
-    "AllowedOrigins": [
-      "*"
-    ],
-    "AllowedMethods": [
-      "GET",
-      "PUT",
-      "POST",
-      "DELETE",
-      "HEAD"
-    ],
-    "AllowedHeaders": [
-      "*"
-    ],
-    "ExposeHeaders": [
-      "ETag"
-    ],
+    "AllowedOrigins": ["*"],
+    "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
+    "AllowedHeaders": ["*"],
+    "ExposeHeaders": ["ETag"],
     "MaxAgeSeconds": 3600
   }
 ]
 ```
 
 ### 3. Save Configuration
+
 Click **Save** to apply the CORS policy.
 
 ## Alternative: More Restrictive CORS (Recommended for Production)
@@ -59,18 +52,9 @@ For production, you should restrict the allowed origins to your specific domains
       "exp://192.168.0.141:8081",
       "https://your-production-domain.com"
     ],
-    "AllowedMethods": [
-      "GET",
-      "PUT",
-      "HEAD"
-    ],
-    "AllowedHeaders": [
-      "Content-Type",
-      "Content-Length"
-    ],
-    "ExposeHeaders": [
-      "ETag"
-    ],
+    "AllowedMethods": ["GET", "PUT", "HEAD"],
+    "AllowedHeaders": ["Content-Type", "Content-Length"],
+    "ExposeHeaders": ["ETag"],
     "MaxAgeSeconds": 3600
   }
 ]
@@ -87,11 +71,13 @@ After configuring CORS:
 ## Common Issues
 
 ### Issue: Still getting CORS errors
+
 - **Solution**: Make sure you saved the CORS policy and it's active
 - **Solution**: Clear your app cache and restart
 - **Solution**: Check that the bucket name in your environment variables matches the bucket with CORS configured
 
 ### Issue: Uploads work but images don't display
+
 - **Solution**: This is a different issue - make sure your R2 bucket has public access enabled or you're using presigned URLs for viewing (which we are)
 
 ## Additional Notes

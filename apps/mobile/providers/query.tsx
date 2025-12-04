@@ -50,6 +50,7 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
           // ✅ Handle success with toast feedback
           onSuccess: (data, variables: unknown, context: unknown) => {
             console.info('Mutation success:', data);
+            if (!data) return;
             if ((data as IResponse<unknown>).success && (data as IResponse<unknown>)?.message) {
               fireToast.success((data as IResponse<unknown>).message ?? 'Success');
             }

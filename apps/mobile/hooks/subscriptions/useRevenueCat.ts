@@ -63,8 +63,7 @@ export const useRevenueCatCustomer = () => {
 
       // Check if user has active premium entitlement
       const hasPremium =
-        info.entitlements.active['premium'] !== undefined ||
-        info.activeSubscriptions.length > 0;
+        info.entitlements.active['premium'] !== undefined || info.activeSubscriptions.length > 0;
       setIsPremium(hasPremium);
     } catch (err) {
       console.error('Error fetching customer info:', err);

@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 
-
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
   // const { data } = await getUser();
 

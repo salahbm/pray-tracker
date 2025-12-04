@@ -27,7 +27,6 @@ const EditProfile = () => {
   const [image, setImage] = useState<string>(user?.image ?? '');
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
-
   const onPickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -91,17 +90,11 @@ const EditProfile = () => {
   };
   return (
     <SafeAreaView className="safe-area">
-      <View
-        className="main-area"
-      >
+      <View className="main-area">
         <GoBack title={t('Profile.EditProfile.Title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
-            <Image
-              source={image}
-              className='size-[150px]'
-
-            />
+            <Image source={image} className="size-[150px]" />
 
             <TouchableOpacity
               onPress={onPickImage}

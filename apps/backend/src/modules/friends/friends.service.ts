@@ -694,7 +694,7 @@ export class FriendsService {
     });
 
     return createSuccessResponse(
-      null,
+      true,
       getLocalizedMessage('MEMBER_REMOVED', locale),
     );
   }

@@ -16,10 +16,10 @@ export const useDeleteGroup = () => {
 
   return useMutation({
     mutationFn: async ({ groupId, userId }: DeleteGroupPayload) => {
-      const response = await agent.delete<IResponseArray<IResponse<IFriend>>>(
+      const response = await agent.delete<{ message: string }>(
         `/friends/groups/${groupId}?userId=${userId}`
       );
-      return response.data;
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.friends.groups });

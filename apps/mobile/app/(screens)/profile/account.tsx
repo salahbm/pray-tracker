@@ -44,10 +44,7 @@ const Account = () => {
       <Loader visible={isDeleting || isLoggingOut} />
       <View className="main-area">
         <GoBack title={t('Profile.Account.Title')} />
-        <Image
-          source={user?.image}
-          className="mt-10 size-[150px] mx-auto"
-        />
+        <Image source={user?.image} className="mt-10 size-[150px] mx-auto" />
 
         {/* Account Info */}
         <View className="mt-20">

@@ -32,11 +32,12 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
   });
 
   const onSignInPress = useCallback(
-    async (data: TSignInSchema) =>{
-      Keyboard.dismiss(); 
+    async (data: TSignInSchema) => {
+      Keyboard.dismiss();
       await signIn(data).then(() => {
-        onSuccess()
-      })},
+        onSuccess();
+      });
+    },
     [signIn, onSuccess]
   );
 

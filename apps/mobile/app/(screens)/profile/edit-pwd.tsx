@@ -26,7 +26,6 @@ const EditPwd = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const newPwdRef = useRef<TextInput | null>(null);
   const confirmPwdRef = useRef<TextInput | null>(null);
-  
 
   const validatePasswords = () => {
     if (!currentPassword) {
@@ -53,9 +52,9 @@ const EditPwd = () => {
         newPassword,
         revokeOtherSessions: true,
       });
-      
+
       fireToast.success(t('Profile.EditPassword.Success'));
-      
+
       // Log out user after password change
       setTimeout(() => {
         logOut(undefined);
@@ -93,7 +92,7 @@ const EditPwd = () => {
             autoCapitalize="none"
             secureTextEntry
             returnKeyType="next"
-            onSubmitEditing={() => confirmPwdRef.current?.focus()}  
+            onSubmitEditing={() => confirmPwdRef.current?.focus()}
             value={newPassword}
             onChangeText={setNewPassword}
           />

@@ -18,7 +18,7 @@ const updatePassword = async (data: UpdatePasswordPayload): Promise<ChangePasswo
     newPassword: data.newPassword,
     revokeOtherSessions: data.revokeOtherSessions ?? true,
   });
-  
+
   return response;
 };
 

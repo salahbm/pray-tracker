@@ -51,7 +51,9 @@ const uploadImage = async ({
       statusText: uploadResponse.statusText,
       error: errorText,
     });
-    throw new Error(`Failed to upload image: ${uploadResponse.status} ${uploadResponse.statusText}`);
+    throw new Error(
+      `Failed to upload image: ${uploadResponse.status} ${uploadResponse.statusText}`
+    );
   }
 
   // Step 3: Confirm upload and delete old image

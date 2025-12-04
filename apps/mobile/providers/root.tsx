@@ -18,8 +18,12 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
         <QueryProvider>
           <ThemeProvider>
             <BottomSheet>
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}>
-              {children}
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
+              >
+                {children}
               </KeyboardAvoidingView>
               <ToastProvider />
               <PortalHost />

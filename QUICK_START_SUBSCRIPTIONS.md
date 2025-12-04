@@ -5,6 +5,7 @@
 All code is implemented and ready! Here's what you have:
 
 ### Backend ✅
+
 - ✅ Database schema with Subscription model
 - ✅ Migration completed and applied
 - ✅ Subscription service with webhook handling
@@ -12,6 +13,7 @@ All code is implemented and ready! Here's what you have:
 - ✅ Module integrated into app
 
 ### Mobile ✅
+
 - ✅ RevenueCat SDK installed (`react-native-purchases`)
 - ✅ Beautiful paywall screen with animations
 - ✅ Premium guard component
@@ -32,6 +34,7 @@ All code is implemented and ready! Here's what you have:
 ### 2. Configure Environment Variables (2 minutes)
 
 **Mobile** (`apps/mobile/.env`):
+
 ```bash
 EXPO_PUBLIC_API_URL=http://localhost:4000
 EXPO_PUBLIC_REVENUECAT_IOS_KEY=appl_xxxxxxxxxxxxx
@@ -39,6 +42,7 @@ EXPO_PUBLIC_REVENUECAT_ANDROID_KEY=goog_xxxxxxxxxxxxx
 ```
 
 **Backend** (`apps/backend/.env`):
+
 ```bash
 REVENUECAT_WEBHOOK_SECRET=your_strong_secret_here
 ```
@@ -46,12 +50,14 @@ REVENUECAT_WEBHOOK_SECRET=your_strong_secret_here
 ### 3. Create Products in App Stores (30 minutes)
 
 #### iOS - App Store Connect
+
 1. Go to https://appstoreconnect.apple.com/
 2. Create auto-renewable subscriptions:
    - `noor_monthly_4.99` → $4.99/month
    - `noor_yearly_54.99` → $54.99/year
 
 #### Android - Google Play Console
+
 1. Go to https://play.google.com/console/
 2. Create subscriptions:
    - `noor_monthly_4.99` → $4.99/month
@@ -114,7 +120,7 @@ function MyComponent() {
   if (subscription?.isPremium) {
     return <PremiumContent />;
   }
-  
+
   return <FreeContent />;
 }
 ```
@@ -140,7 +146,7 @@ import { useRouter } from 'expo-router';
 
 function MyComponent() {
   const router = useRouter();
-  
+
   const handleUpgrade = () => {
     router.push('/subscription/paywall');
   };
@@ -175,20 +181,24 @@ function MyComponent() {
 ## 🆘 Quick Troubleshooting
 
 **Offerings not loading?**
+
 - Check API keys in `.env`
 - Verify offerings are "Current" in RevenueCat
 
 **Webhook not working?**
+
 - Use ngrok for local testing: `ngrok http 4000`
 - Update webhook URL in RevenueCat
 
 **Purchase not reflecting?**
+
 - Check backend logs
 - Verify webhook secret matches
 
 ## ✨ Premium Features
 
 Your users get:
+
 - ✅ Unlimited Friends
 - ✅ Friend Groups
 - ✅ Detailed Statistics

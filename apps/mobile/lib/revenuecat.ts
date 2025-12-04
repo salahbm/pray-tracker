@@ -20,9 +20,7 @@ export const ENTITLEMENT_ID = 'premium';
  */
 export const initializeRevenueCat = async (userId?: string) => {
   try {
-    const apiKey = Constants.platform?.ios
-      ? REVENUECAT_API_KEY_IOS
-      : REVENUECAT_API_KEY_ANDROID;
+    const apiKey = Constants.platform?.ios ? REVENUECAT_API_KEY_IOS : REVENUECAT_API_KEY_ANDROID;
 
     if (!apiKey) {
       console.warn('RevenueCat API key not found. Subscriptions will not work.');

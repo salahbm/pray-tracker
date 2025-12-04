@@ -45,77 +45,75 @@ const FreemiumFriends = () => {
         contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         showsVerticalScrollIndicator={false}
         className="w-full lg:px-4"
-      
       >
         <FreemiumTrackerIntro ref={ref} />
         <View className="border-b border-border my-8" />
         <Text className="text-xl font-bold mb-3">{t('Friends.Title')}</Text>
 
         {FRIENDS_DATA.map(friend => (
-            <Accordion
-              type="multiple"
-              collapsible
-              value={accordionValue}
-              onValueChange={setAccordionValue}
-              key={friend.friend.friendshipId}
-            >
-              <AccordionItem value={String(friend.friend.id)}>
-                <AccordionTrigger>
-                  <View className="flex-row items-center gap-3">
-                    <Image
-                      source={friend.friend.photo as ImageSourcePropType}
-                      className="size-14 rounded-full bg-muted max-w-14 max-h-14"
-                    />
-                    <View>
-                      <Text className="text-base font-medium text-muted-foreground">
-                        {friend.friend.username}
-                      </Text>
-                      <Text className="text-sm">{friend.friend.email}</Text>
-                    </View>
+          <Accordion
+            type="multiple"
+            collapsible
+            value={accordionValue}
+            onValueChange={setAccordionValue}
+            key={friend.friend.friendshipId}
+          >
+            <AccordionItem value={String(friend.friend.id)}>
+              <AccordionTrigger>
+                <View className="flex-row items-center gap-3">
+                  <Image
+                    source={friend.friend.photo as ImageSourcePropType}
+                    className="size-14 rounded-full bg-muted max-w-14 max-h-14"
+                  />
+                  <View>
+                    <Text className="text-base font-medium text-muted-foreground">
+                      {friend.friend.username}
+                    </Text>
+                    <Text className="text-sm">{friend.friend.email}</Text>
                   </View>
-                </AccordionTrigger>
+                </View>
+              </AccordionTrigger>
 
-                <AccordionContent>
-                  {friend.prays.map(salah => {
-                    // Extract only prayer-related fields
-                    const prayerEntries = Object.entries(salah).filter(([key]) =>
-                      Object.values(SALAHS)
-                        .map(s => s.toLowerCase())
-                        .includes(key.toLowerCase())
-                    );
+              <AccordionContent>
+                {friend.prays.map(salah => {
+                  // Extract only prayer-related fields
+                  const prayerEntries = Object.entries(salah).filter(([key]) =>
+                    Object.values(SALAHS)
+                      .map(s => s.toLowerCase())
+                      .includes(key.toLowerCase())
+                  );
 
-                    return prayerEntries.map(([prayer, value]) => (
-                      <View key={prayer} className="flex-row items-center justify-between py-1">
-                        <Text className={cn('capitalize font-semibold')}>
-                          {t(`Commons.Salahs.${prayer}`)}
-                        </Text>
+                  return prayerEntries.map(([prayer, value]) => (
+                    <View key={prayer} className="flex-row items-center justify-between py-1">
+                      <Text className={cn('capitalize font-semibold')}>
+                        {t(`Commons.Salahs.${prayer}`)}
+                      </Text>
 
-                        <View className="flex-row gap-4">
-                          {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
-                            val => (
-                              <Checkbox
-                                key={`${prayer}-${val}`}
-                                value={value === val}
-                                color={
-                                  value === val
-                                    ? val === PRAYER_POINTS.ON_TIME
-                                      ? colors['--primary']
-                                      : val === PRAYER_POINTS.LATE
-                                        ? colors['--secondary']
-                                        : colors['--destructive']
-                                    : undefined
-                                }
-                              />
-                            )
-                          )}
-                        </View>
+                      <View className="flex-row gap-4">
+                        {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
+                          val => (
+                            <Checkbox
+                              key={`${prayer}-${val}`}
+                              value={value === val}
+                              color={
+                                value === val
+                                  ? val === PRAYER_POINTS.ON_TIME
+                                    ? colors['--primary']
+                                    : val === PRAYER_POINTS.LATE
+                                      ? colors['--secondary']
+                                      : colors['--destructive']
+                                  : undefined
+                              }
+                            />
+                          )
+                        )}
                       </View>
-                    ));
-                  })}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
+                    </View>
+                  ));
+                })}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         ))}
       </ScrollView>
       {/* BOTTOM SHEET */}
@@ -138,9 +136,7 @@ const FreemiumFriends = () => {
             className="bg-primary rounded-full py-4 items-center justify-center mb-3"
             activeOpacity={0.8}
           >
-            <Text className="text-white text-lg font-bold">
-              {t('Subscription.ViewPlans')}
-            </Text>
+            <Text className="text-white text-lg font-bold">{t('Subscription.ViewPlans')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity

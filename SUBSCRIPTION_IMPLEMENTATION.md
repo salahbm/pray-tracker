@@ -9,9 +9,11 @@ Complete RevenueCat integration for Noor Pray Tracker with monthly ($4.99) and y
 ### Backend (NestJS)
 
 #### 1. Database Schema
+
 **File**: `apps/backend/prisma/schema.prisma`
 
 Added `Subscription` model with:
+
 - User relationship (one-to-one)
 - Status tracking (ACTIVE, EXPIRED, CANCELLED, TRIAL)
 - Plan types (MONTHLY, YEARLY)
@@ -34,17 +36,21 @@ model Subscription {
 ```
 
 #### 2. Subscription Module
+
 **Files**:
+
 - `apps/backend/src/modules/subscriptions/subscriptions.module.ts`
 - `apps/backend/src/modules/subscriptions/subscriptions.service.ts`
 - `apps/backend/src/modules/subscriptions/subscriptions.controller.ts`
 
 **Endpoints**:
+
 - `GET /subscriptions/status` - Get user's subscription status
 - `GET /subscriptions/is-premium` - Check if user is premium
 - `POST /subscriptions/webhook` - RevenueCat webhook handler
 
 **Webhook Events Handled**:
+
 - `INITIAL_PURCHASE` - New subscription
 - `RENEWAL` - Subscription renewed
 - `CANCELLATION` - Subscription cancelled
@@ -53,6 +59,7 @@ model Subscription {
 - `PRODUCT_CHANGE` - Plan changed (monthly ↔ yearly)
 
 #### 3. Environment Variables
+
 **File**: `apps/backend/.env.example`
 
 ```bash
@@ -62,35 +69,44 @@ REVENUECAT_WEBHOOK_SECRET=your_webhook_secret_here
 ### Mobile App (React Native / Expo)
 
 #### 1. Dependencies Installed
+
 - `react-native-purchases` - RevenueCat SDK
 
 #### 2. Type Definitions
+
 **File**: `apps/mobile/types/subscription.d.ts`
 
 Interfaces for:
+
 - `Subscription` - User subscription data
 - `PurchasePackage` - RevenueCat package
 - `CustomerInfo` - RevenueCat customer data
 - Enums for status and plans
 
 #### 3. RevenueCat Configuration
+
 **File**: `apps/mobile/lib/revenuecat.ts`
 
 Functions:
+
 - `initializeRevenueCat()` - Initialize SDK on app start
 - `setRevenueCatUserId()` - Set user ID after login
 - `clearRevenueCatUserId()` - Clear on logout
 
 Product IDs:
+
 - `noor_monthly_4.99` - Monthly subscription
 - `noor_yearly_54.99` - Yearly subscription
 
 #### 4. Custom Hooks
+
 **Files**:
+
 - `apps/mobile/hooks/subscriptions/useSubscription.ts`
 - `apps/mobile/hooks/subscriptions/useRevenueCat.ts`
 
 **Hooks**:
+
 - `useSubscription(userId)` - Get subscription status from backend
 - `useRevenueCatOfferings()` - Fetch available packages
 - `useRevenueCatCustomer()` - Get customer info and premium status
@@ -99,6 +115,7 @@ Product IDs:
 #### 5. UI Components
 
 **Paywall Screen**: `apps/mobile/app/(screens)/subscription/paywall.tsx`
+
 - Beautiful, modern design with animations
 - Plan selection (monthly/yearly)
 - Feature list with checkmarks
@@ -107,20 +124,24 @@ Product IDs:
 - Loading and error states
 
 **Premium Guard**: `apps/mobile/components/shared/premium-guard.tsx`
+
 - Wraps premium features
 - Shows upgrade prompt for free users
 - `<PremiumGuard>` component
 - `<PremiumBadge>` component
 
 **Updated Freemium Component**: `apps/mobile/components/views/friends/freemium/freemium.tsx`
+
 - Bottom sheet with upgrade CTA
 - Navigation to paywall
 - Crown icon and premium messaging
 
 #### 6. Translations
+
 **File**: `apps/mobile/locales/en.json`
 
 Added complete `Subscription` namespace with:
+
 - Titles and descriptions
 - Plan names and pricing
 - Feature list
@@ -128,6 +149,7 @@ Added complete `Subscription` namespace with:
 - Terms and conditions
 
 #### 7. Query Keys
+
 **File**: `apps/mobile/constants/query-keys.ts`
 
 ```typescript
@@ -138,6 +160,7 @@ subscriptions: {
 ```
 
 #### 8. Environment Variables
+
 **File**: `apps/mobile/.env.example`
 
 ```bash
@@ -190,7 +213,9 @@ apps/
 ## 🚀 Next Steps
 
 ### 1. RevenueCat Setup (Required)
+
 Follow the detailed guide in `REVENUECAT_SETUP.md`:
+
 - Create RevenueCat account
 - Configure iOS/Android apps
 - Create products in App Store Connect / Google Play
@@ -198,6 +223,7 @@ Follow the detailed guide in `REVENUECAT_SETUP.md`:
 - Configure webhook
 
 ### 2. Environment Configuration
+
 ```bash
 # Mobile app
 cd apps/mobile
@@ -211,6 +237,7 @@ cp .env.example .env
 ```
 
 ### 3. Initialize RevenueCat on App Start
+
 Add to your app initialization (e.g., in `_layout.tsx` or `App.tsx`):
 
 ```typescript
@@ -231,6 +258,7 @@ useEffect(() => {
 ```
 
 ### 4. Protect Premium Features
+
 Wrap premium features with the guard:
 
 ```typescript
@@ -246,6 +274,7 @@ function FriendGroupsScreen() {
 ```
 
 ### 5. Testing
+
 1. Set up sandbox accounts (iOS/Android)
 2. Test purchases in development
 3. Test webhook locally with ngrok
@@ -253,10 +282,10 @@ function FriendGroupsScreen() {
 
 ## 💰 Pricing Structure
 
-| Plan | Price | Savings |
-|------|-------|---------|
-| Monthly | $4.99/month | - |
-| Yearly | $54.99/year | $5 (2 months free) |
+| Plan    | Price       | Savings            |
+| ------- | ----------- | ------------------ |
+| Monthly | $4.99/month | -                  |
+| Yearly  | $54.99/year | $5 (2 months free) |
 
 ## ✨ Premium Features
 
@@ -271,6 +300,7 @@ function FriendGroupsScreen() {
 ## 🔄 Subscription Flow
 
 ### Purchase Flow
+
 1. User taps "Upgrade to Premium"
 2. Navigate to `/subscription/paywall`
 3. User selects plan (monthly/yearly)
@@ -281,6 +311,7 @@ function FriendGroupsScreen() {
 8. User gets premium access
 
 ### Restore Flow
+
 1. User taps "Restore Purchases"
 2. RevenueCat checks previous purchases
 3. If found, backend updated via webhook
@@ -297,11 +328,13 @@ function FriendGroupsScreen() {
 ## 📊 Monitoring
 
 ### Backend
+
 - Check subscription service logs
 - Monitor webhook events
 - Query `subscription` table
 
 ### RevenueCat Dashboard
+
 - Active subscriptions
 - Revenue metrics
 - Churn rate
@@ -322,6 +355,7 @@ function FriendGroupsScreen() {
 ## ✅ Migration Status
 
 Database migration completed successfully:
+
 ```
 ✔ Migration: 20251128074440_add_subscriptions
 ✔ Prisma Client generated

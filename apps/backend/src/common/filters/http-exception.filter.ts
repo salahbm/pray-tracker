@@ -70,7 +70,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       {
         stack: exception instanceof Error ? exception.stack : undefined,
         originalError: exception instanceof Error ? exception.name : undefined,
-        originalMessage: exception instanceof Error ? exception.message : undefined,
+        originalMessage:
+          exception instanceof Error ? exception.message : undefined,
       },
     );
 

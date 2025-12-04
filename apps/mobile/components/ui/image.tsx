@@ -5,7 +5,8 @@ import React from 'react';
 import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';
 
-interface IImageProps extends VariantProps<typeof imageVariants>, Omit<ExpoImageProps, 'source' | 'defaultSource'> {
+interface IImageProps
+  extends VariantProps<typeof imageVariants>, Omit<ExpoImageProps, 'source' | 'defaultSource'> {
   source?: string | number;
   className?: string;
   defaultSource?: string | number;
@@ -56,15 +57,15 @@ const Image: React.FC<IImageProps> = ({
 
   const imageSource =
     hasError || !source
-      ? defaultSource ?? FRIENDS.guest
+      ? (defaultSource ?? FRIENDS.guest)
       : typeof source === 'string'
-      ? { uri: source }
-      : source;
+        ? { uri: source }
+        : source;
 
   return (
     <ExpoImage
       source={imageSource}
-      className={cn(imageVariants({ size, radius, border, aspectRatio }),className)}
+      className={cn(imageVariants({ size, radius, border, aspectRatio }), className)}
       onError={() => setHasError(true)}
       {...props}
     />

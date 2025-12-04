@@ -40,7 +40,7 @@ export default function PaywallScreen() {
   }, []);
 
   const handlePurchase = async () => {
-    const pkg = packages.find((p) =>
+    const pkg = packages.find(p =>
       selectedPlan === 'monthly'
         ? p.identifier.includes('monthly')
         : p.identifier.includes('yearly')
@@ -74,8 +74,8 @@ export default function PaywallScreen() {
     }
   };
 
-  const monthlyPackage = packages.find((p) => p.identifier.includes('monthly'));
-  const yearlyPackage = packages.find((p) => p.identifier.includes('yearly'));
+  const monthlyPackage = packages.find(p => p.identifier.includes('monthly'));
+  const yearlyPackage = packages.find(p => p.identifier.includes('yearly'));
 
   const monthlyPrice = monthlyPackage?.product.priceString || '$4.99';
   const yearlyPrice = yearlyPackage?.product.priceString || '$54.99';
@@ -97,16 +97,11 @@ export default function PaywallScreen() {
       showsVerticalScrollIndicator={false}
     >
       {/* Header */}
-      <Animated.View
-        entering={FadeInUp.delay(100)}
-        className="items-center px-6 pt-16 pb-8"
-      >
+      <Animated.View entering={FadeInUp.delay(100)} className="items-center px-6 pt-16 pb-8">
         <View className="mb-4 size-20 items-center justify-center rounded-full bg-primary/10">
           <Crown size={40} color={colors['--primary']} />
         </View>
-        <Text className="text-3xl font-bold text-center mb-2">
-          {t('Subscription.Title')}
-        </Text>
+        <Text className="text-3xl font-bold text-center mb-2">{t('Subscription.Title')}</Text>
         <Text className="text-base text-muted-foreground text-center">
           {t('Subscription.Subtitle')}
         </Text>
@@ -137,9 +132,7 @@ export default function PaywallScreen() {
           onPress={() => setSelectedPlan('yearly')}
           className={cn(
             'mb-4 rounded-2xl border-2 p-4 relative overflow-hidden',
-            selectedPlan === 'yearly'
-              ? 'border-primary bg-primary/5'
-              : 'border-border bg-card'
+            selectedPlan === 'yearly' ? 'border-primary bg-primary/5' : 'border-border bg-card'
           )}
           activeOpacity={0.7}
         >
@@ -152,12 +145,8 @@ export default function PaywallScreen() {
 
           <View className="flex-row items-center justify-between mt-4">
             <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">
-                {t('Subscription.YearlyPlan')}
-              </Text>
-              <Text className="text-sm text-muted-foreground mb-2">
-                {yearlySavings}
-              </Text>
+              <Text className="text-xl font-bold mb-1">{t('Subscription.YearlyPlan')}</Text>
+              <Text className="text-sm text-muted-foreground mb-2">{yearlySavings}</Text>
               <Text className="text-2xl font-bold text-primary">
                 {yearlyPrice}
                 <Text className="text-sm text-muted-foreground font-normal">
@@ -169,9 +158,7 @@ export default function PaywallScreen() {
             <View
               className={cn(
                 'size-6 rounded-full border-2 items-center justify-center',
-                selectedPlan === 'yearly'
-                  ? 'border-primary bg-primary'
-                  : 'border-muted-foreground'
+                selectedPlan === 'yearly' ? 'border-primary bg-primary' : 'border-muted-foreground'
               )}
             >
               {selectedPlan === 'yearly' && <Check size={16} color="white" strokeWidth={3} />}
@@ -184,17 +171,13 @@ export default function PaywallScreen() {
           onPress={() => setSelectedPlan('monthly')}
           className={cn(
             'rounded-2xl border-2 p-4',
-            selectedPlan === 'monthly'
-              ? 'border-primary bg-primary/5'
-              : 'border-border bg-card'
+            selectedPlan === 'monthly' ? 'border-primary bg-primary/5' : 'border-border bg-card'
           )}
           activeOpacity={0.7}
         >
           <View className="flex-row items-center justify-between">
             <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">
-                {t('Subscription.MonthlyPlan')}
-              </Text>
+              <Text className="text-xl font-bold mb-1">{t('Subscription.MonthlyPlan')}</Text>
               <Text className="text-2xl font-bold text-primary">
                 {monthlyPrice}
                 <Text className="text-sm text-muted-foreground font-normal">
@@ -206,9 +189,7 @@ export default function PaywallScreen() {
             <View
               className={cn(
                 'size-6 rounded-full border-2 items-center justify-center',
-                selectedPlan === 'monthly'
-                  ? 'border-primary bg-primary'
-                  : 'border-muted-foreground'
+                selectedPlan === 'monthly' ? 'border-primary bg-primary' : 'border-muted-foreground'
               )}
             >
               {selectedPlan === 'monthly' && <Check size={16} color="white" strokeWidth={3} />}
@@ -246,9 +227,7 @@ export default function PaywallScreen() {
           className="py-3 items-center"
           activeOpacity={0.7}
         >
-          <Text className="text-primary font-semibold">
-            {t('Subscription.RestorePurchases')}
-          </Text>
+          <Text className="text-primary font-semibold">{t('Subscription.RestorePurchases')}</Text>
         </TouchableOpacity>
       </Animated.View>
 
@@ -265,9 +244,7 @@ export default function PaywallScreen() {
 
       {/* Terms */}
       <Animated.View entering={FadeInDown.delay(1000)} className="px-6 mt-4">
-        <Text className="text-xs text-muted-foreground text-center">
-          {t('Subscription.Terms')}
-        </Text>
+        <Text className="text-xs text-muted-foreground text-center">{t('Subscription.Terms')}</Text>
       </Animated.View>
     </ScrollView>
   );

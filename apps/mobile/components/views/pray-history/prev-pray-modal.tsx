@@ -73,7 +73,8 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
                           await updateOldPray({
                             id: user?.id!,
                             date: new Date(selected),
-                            fajr: prayer === 'fajr' ? val : normalizePrayerValue(selectedPray?.fajr),
+                            fajr:
+                              prayer === 'fajr' ? val : normalizePrayerValue(selectedPray?.fajr),
                             dhuhr:
                               prayer === 'dhuhr' ? val : normalizePrayerValue(selectedPray?.dhuhr),
                             asr: prayer === 'asr' ? val : normalizePrayerValue(selectedPray?.asr),
@@ -81,8 +82,10 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
                               prayer === 'maghrib'
                                 ? val
                                 : normalizePrayerValue(selectedPray?.maghrib),
-                            isha: prayer === 'isha' ? val : normalizePrayerValue(selectedPray?.isha),
-                            nafl: prayer === 'nafl' ? val : normalizePrayerValue(selectedPray?.nafl),
+                            isha:
+                              prayer === 'isha' ? val : normalizePrayerValue(selectedPray?.isha),
+                            nafl:
+                              prayer === 'nafl' ? val : normalizePrayerValue(selectedPray?.nafl),
                           });
                         }}
                         color={

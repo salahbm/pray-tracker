@@ -18,13 +18,12 @@
 //   return <DashboardContent userId={data.user.id.trim().toString()} />;
 // }
 
+import { NextPage } from 'next';
 
-import { NextPage } from 'next'
-
-type SampleProps = {}
+type SampleProps = {};
 
 const Sample: NextPage<SampleProps> = () => {
-  return <div>Sample Page</div>
-}
+  return <div>Sample Page</div>;
+};
 
-export default Sample
+export default Sample;
