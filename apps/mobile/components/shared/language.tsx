@@ -12,14 +12,12 @@ export const FLAGS = {
   en: '🇺🇸',
   ru: '🇷🇺',
   uz: '🇺🇿',
-  ko: '🇰🇷',
 } as const;
 
 export const LANGUAGES = {
   en: 'English',
   ru: 'Русский',
   uz: 'O`zbekcha',
-  ko: '한국어',
 } as const;
 
 export function Language({ onClose }: { onClose: () => void }) {

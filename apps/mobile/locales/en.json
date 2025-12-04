@@ -297,7 +297,8 @@
         }
       },
       "SaveButton": "Save Changes",
-      "Title": "Edit Profile"
+      "Title": "Edit Profile",
+      "Success": "Profile updated successfully"
     },
     "Navigation": {
       "About": "About",

@@ -11,7 +11,6 @@ import Loader from '@/components/shared/loader';
 import Modal from '@/components/shared/modal';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { FRIENDS } from '@/constants/images';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useLogout } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -47,7 +46,7 @@ const Account = () => {
         <GoBack title={t('Profile.Account.Title')} />
         <Image
           source={user?.image}
-          className="w-[150px] h-[150px] max-w-[150px] max-h-[150px] rounded-full mx-auto border border-border mt-10"
+          className="mt-10 size-[150px] mx-auto"
         />
 
         {/* Account Info */}

@@ -12,14 +12,27 @@ import { IPrays } from '@/types/prays';
 const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-
   const transformPraysToLineData = useMemo((): lineDataItem[] => {
     if (!lineData) return [];
-
+  
+    const now = new Date();
+    const currentMonth = now.getMonth();     // 0–11
+    const currentYear = now.getFullYear();
+  
     return [...lineData]
+      .filter(pray => {
+        const d = new Date(pray.date);
+        return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+      })
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .map(pray => ({
-        value: pray.asr + pray.dhuhr + pray.fajr + pray.isha + pray.maghrib + pray.nafl,
+        value:
+          (pray.asr ?? 0) +
+          (pray.dhuhr ?? 0) +
+          (pray.fajr ?? 0) +
+          (pray.isha ?? 0) +
+          (pray.maghrib ?? 0) +
+          (pray.nafl ?? 0),
         text: format(new Date(pray.date), 'dd.MM.yy'),
       }));
   }, [lineData]);

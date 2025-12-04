@@ -6,8 +6,6 @@ const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
 const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
 const R2_BUCKET = process.env.R2_BUCKET;
-const R2_PUBLIC_BASE_URL = process.env.R2_PUBLIC_BASE_URL;
-const R2_REGION = process.env.R2_REGION || 'auto';
 
 if (!BETTER_AUTH_URL) {
   throw new Error('BETTER_AUTH_URL is not defined');
@@ -30,9 +28,6 @@ if (!R2_ACCOUNT_ID) {
 if (!R2_BUCKET) {
   throw new Error('R2_BUCKET is not defined');
 }
-if (!R2_PUBLIC_BASE_URL) {
-  throw new Error('R2_PUBLIC_BASE_URL is not defined');
-}
 
 export const env = {
   BETTER_AUTH_URL,
@@ -42,6 +37,4 @@ export const env = {
   R2_SECRET_ACCESS_KEY,
   R2_ACCOUNT_ID,
   R2_BUCKET,
-  R2_PUBLIC_BASE_URL,
-  R2_REGION,
 };

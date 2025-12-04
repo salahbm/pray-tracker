@@ -1,17 +1,15 @@
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
-import { FRIENDS } from '@/constants/images';
-import { useUploadImage } from '@/hooks/user/useAvatart';
+import { useUploadImage } from '@/hooks/user/useAvatar';
 import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -26,14 +24,9 @@ const EditProfile = () => {
   const { mutateAsync: uploadImage, isPending: imageUploading } = useUploadImage();
 
   const [username, setUserName] = useState<string>(user?.name || '');
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
   const [image, setImage] = useState<string>(user?.image ?? '');
   const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
-  const usernameRef = useRef<TextInput>(null);
-  const firstNameRef = useRef<TextInput>(null);
-  const lastNameRef = useRef<TextInput>(null);
 
   const onPickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -80,18 +73,17 @@ const EditProfile = () => {
     if (!user) return;
 
     try {
-      // Prepare updated user payload
-      const payload = {
+      const updatedUser = await updateUser({
         id: user.id,
-        name: username || `${firstName} ${lastName}`.trim(),
+        name: username,
         image,
-      };
-
-      // Update user in DB
-      const updatedUser = await updateUser(payload);
+      });
 
       if (updatedUser) {
         setUser(updatedUser);
+        setUserName(updatedUser.name);
+        setIsFieldUpdated(false);
+        fireToast.success(t('Profile.EditProfile.Success'));
       }
     } catch (e) {
       fireToast.error((e as Error)?.message);
@@ -99,17 +91,16 @@ const EditProfile = () => {
   };
   return (
     <SafeAreaView className="safe-area">
-      <ScrollView
+      <View
         className="main-area"
-        keyboardShouldPersistTaps="handled"
-        automaticallyAdjustKeyboardInsets
       >
         <GoBack title={t('Profile.EditProfile.Title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
             <Image
               source={image}
-              className="w-[150px] h-[150px] rounded-full border border-border max-w-[150px] max-h-[150px]"
+              className='size-[150px]'
+
             />
 
             <TouchableOpacity
@@ -125,7 +116,7 @@ const EditProfile = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View className="flex gap-6 pb-12">
+        <View className="flex gap-6 pb-12 border-t border-border pt-10">
           <Input
             label={t('Profile.EditProfile.Fields.Username.Label')}
             placeholder={t('Profile.EditProfile.Fields.Username.Placeholder')}
@@ -134,36 +125,11 @@ const EditProfile = () => {
             onFocus={() => setIsFieldUpdated(true)}
             autoCapitalize="words"
             keyboardType="default"
-            returnKeyType="next"
-            onSubmitEditing={() => firstNameRef.current?.focus()}
-            ref={usernameRef}
-          />
-          <Input
-            label={t('Profile.EditProfile.Fields.FirstName.Label')}
-            placeholder={t('Profile.EditProfile.Fields.FirstName.Placeholder')}
-            value={firstName}
-            onChangeText={setFirstName}
-            autoCapitalize="words"
-            keyboardType="default"
-            returnKeyType="next"
-            onSubmitEditing={() => lastNameRef.current?.focus()}
-            ref={firstNameRef}
-            onFocus={() => setIsFieldUpdated(true)}
-          />
-          <Input
-            ref={lastNameRef}
-            label={t('Profile.EditProfile.Fields.LastName.Label')}
-            placeholder={t('Profile.EditProfile.Fields.LastName.Placeholder')}
-            value={lastName}
-            onChangeText={setLastName}
-            autoCapitalize="words"
-            keyboardType="default"
             returnKeyType="done"
-            onSubmitEditing={() => handleUpdate()}
-            onFocus={() => setIsFieldUpdated(true)}
+            onSubmitEditing={handleUpdate}
           />
         </View>
-      </ScrollView>
+      </View>
       <View className="bg-background px-5 py-4">
         <Button onPress={handleUpdate} disabled={isLoading || imageUploading || !isFieldUpdated}>
           <Text>{t('Profile.EditProfile.SaveButton')}</Text>

@@ -7,6 +7,7 @@ import {
   S3Client,
   DeleteObjectCommand,
   PutObjectCommand,
+  GetObjectCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { env } from '@/config/env.config';
@@ -19,7 +20,7 @@ export class FilesService {
 
   constructor(private readonly prisma: PrismaService) {
     this.s3Client = new S3Client({
-      region: env.R2_REGION,
+      region: 'auto',
       endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       credentials: {
         accessKeyId: env.R2_ACCESS_KEY_ID,
@@ -32,20 +33,45 @@ export class FilesService {
     return `users/${userId}/${Date.now()}-${fileName}`;
   }
 
-  private buildPublicUrl(key: string) {
-    const baseUrl = env.R2_PUBLIC_BASE_URL.replace(/\/$/, '');
-    return `${baseUrl}/${key}`;
+  private async buildPublicUrl(key: string) {
+    // Generate a presigned URL with 7 days expiration for viewing
+    const command = new GetObjectCommand({
+      Bucket: env.R2_BUCKET,
+      Key: key,
+    });
+
+    try {
+      const presignedUrl = await getSignedUrl(this.s3Client, command, {
+        expiresIn: 604800, // 7 days in seconds
+      });
+      return presignedUrl;
+    } catch (error) {
+      this.logger.error(
+        'Failed to create presigned URL for viewing',
+        error as Error,
+      );
+      throw new InternalServerErrorException('Failed to create view URL');
+    }
   }
 
   private extractKeyFromUrl(path?: string) {
     if (!path) return undefined;
 
-    const sanitizedBase = env.R2_PUBLIC_BASE_URL.replace(/\/$/, '');
-    const normalized = path.replace(`${sanitizedBase}/`, '');
+    try {
+      // If it's a presigned URL, extract the key from the URL path
+      if (path.includes('r2.cloudflarestorage.com')) {
+        const url = new URL(path);
+        // The pathname starts with '/', so remove it
+        const key = url.pathname.substring(1);
+        return key;
+      }
 
-    return normalized.startsWith('http')
-      ? normalized.split('/').slice(3).join('/')
-      : normalized;
+      // If it's already a key (not a URL), return as is
+      return path;
+    } catch {
+      this.logger.warn(`Failed to extract key from URL: ${path}`);
+      return undefined;
+    }
   }
 
   async createAvatarPresignedUrl(
@@ -62,12 +88,13 @@ export class FilesService {
 
     try {
       const uploadUrl = await getSignedUrl(this.s3Client, command, {
-        expiresIn: 300,
+        expiresIn: 300, // 5 minutes for upload
       });
+
       return {
         uploadUrl,
         fileKey: key,
-        publicUrl: this.buildPublicUrl(key),
+        publicUrl: '', // Will be generated after upload confirmation
       };
     } catch (error) {
       this.logger.error('Failed to create presigned URL', error as Error);
@@ -80,7 +107,8 @@ export class FilesService {
     fileKey: string,
     oldFileKey?: string,
   ) {
-    const publicUrl = this.buildPublicUrl(fileKey);
+    // Generate presigned URL for viewing (7 days expiration)
+    const publicUrl = await this.buildPublicUrl(fileKey);
 
     try {
       const user = await this.prisma.user.update({

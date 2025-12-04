@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native';
+import { Keyboard, TouchableOpacity, View } from 'react-native';
 
 import FormField from '@/components/shared/form-field';
 import Loader from '@/components/shared/loader';
@@ -32,10 +32,11 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
   });
 
   const onSignInPress = useCallback(
-    async (data: TSignInSchema) =>
+    async (data: TSignInSchema) =>{
+      Keyboard.dismiss(); 
       await signIn(data).then(() => {
-        onSuccess();
-      }),
+        onSuccess()
+      })},
     [signIn, onSuccess]
   );
 

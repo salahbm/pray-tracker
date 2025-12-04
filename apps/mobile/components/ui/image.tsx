@@ -1,4 +1,4 @@
-import { Image as ExpoImage, ImageProps as ExpoImageProps } from 'expo-image';
+import { Image as ExpoImage, ImageProps as ExpoImageProps } from 'react-native';
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 
@@ -11,7 +11,7 @@ interface IImageProps extends VariantProps<typeof imageVariants>, Omit<ExpoImage
   defaultSource?: string | number;
 }
 
-export const imageVariants = cva('shrink-0 grow-0', {
+export const imageVariants = cva('shrink-0 object-contain', {
   variants: {
     size: {
       sm: 'w-8 h-8',
@@ -28,11 +28,17 @@ export const imageVariants = cva('shrink-0 grow-0', {
       yes: 'border border-border',
       no: 'border-none',
     },
+    aspectRatio: {
+      square: 'aspect-square',
+      video: 'aspect-video',
+      portrait: 'aspect-[3/2]',
+    },
   },
   defaultVariants: {
     size: 'md',
     radius: 'full',
     border: 'yes',
+    aspectRatio: 'square',
   },
 });
 
@@ -43,14 +49,23 @@ const Image: React.FC<IImageProps> = ({
   size,
   radius,
   border,
+  aspectRatio,
   ...props
 }) => {
+  const [hasError, setHasError] = React.useState(false);
+
+  const imageSource =
+    hasError || !source
+      ? defaultSource ?? FRIENDS.guest
+      : typeof source === 'string'
+      ? { uri: source }
+      : source;
+
   return (
     <ExpoImage
-      source={source ? (typeof source === 'string' ? { uri: source } : source) : (defaultSource ?? FRIENDS.guest)}
-      className={cn(imageVariants({ size, radius, border }), className)}
-      contentFit="cover"
-      transition={200}
+      source={imageSource}
+      className={cn(imageVariants({ size, radius, border, aspectRatio }),className)}
+      onError={() => setHasError(true)}
       {...props}
     />
   );

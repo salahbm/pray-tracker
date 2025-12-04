@@ -1,5 +1,4 @@
 import enLocalization from '@locales/en.json';
-import koLocalization from '@locales/ko.json';
 import ruLocalization from '@locales/ru.json';
 import uzLocalization from '@locales/uz.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,7 +9,6 @@ import { Platform } from 'react-native';
 
 const resources = {
   en: { translation: enLocalization },
-  ko: { translation: koLocalization },
   uz: { translation: uzLocalization },
   ru: { translation: ruLocalization },
 };
