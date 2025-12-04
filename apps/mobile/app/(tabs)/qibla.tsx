@@ -11,12 +11,11 @@ import { useLocalSearchParams } from 'expo-router';
 const QiblaScreen = () => {
   const { t } = useTranslation();
   const { tab } = useLocalSearchParams();
-  const [value, setValue] = useState(tab as string || 'salahs');
+  const [value, setValue] = useState((tab as string) || 'salahs');
   return (
     <SafeAreaView className="safe-area">
       <Tabs value={value} onValueChange={setValue} className="main-area">
         <TabsList className="flex-row w-full">
-     
           <TabsTrigger value="salahs" className="flex-1">
             <Text>{t('qibla.tabs.times')}</Text>
           </TabsTrigger>

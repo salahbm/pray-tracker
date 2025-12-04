@@ -24,9 +24,7 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
               >
-                <NotificationNavProvider> 
-                {children}
-                </NotificationNavProvider>
+                <NotificationNavProvider>{children}</NotificationNavProvider>
               </KeyboardAvoidingView>
               <ToastProvider />
               <PortalHost />
@@ -38,6 +36,5 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
     </SafeAreaProvider>
   );
 };
-
 
 export { RootProvider };

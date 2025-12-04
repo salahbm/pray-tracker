@@ -21,8 +21,7 @@ export const useNotificationStore = create<NotificationState>()(
         isEnabled: true,
         minutesBefore: 10,
       },
-      setPrayerNotifications: settings =>
-        set({ prayerNotifications: settings }),
+      setPrayerNotifications: settings => set({ prayerNotifications: settings }),
       setMinutesBefore: minutes =>
         set(state => ({
           prayerNotifications: {

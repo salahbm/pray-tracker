@@ -10,12 +10,11 @@ export default function NotificationNavProvider({ children }: { children: React.
     switch (data.type) {
       case 'prayer_reminder':
         router.push({
-            pathname: '/(tabs)/qibla',
-            params: {
-             tab: 'salahs'   
-            }
-        }
-        );
+          pathname: '/(tabs)/qibla',
+          params: {
+            tab: 'salahs',
+          },
+        });
         break;
 
       case 'open_friends':

@@ -30,12 +30,11 @@ export const requestNotificationPermissions = async (): Promise<boolean> => {
     // Configure notification handler
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
-        shouldShowAlert: true,
         shouldPlaySound: true,
         shouldSetBadge: true,
         shouldShowBanner: true,
-        shouldShowList: true
-      })
+        shouldShowList: true,
+      }),
     });
 
     // Android: register notification channel
@@ -47,7 +46,7 @@ export const requestNotificationPermissions = async (): Promise<boolean> => {
         lightColor: '#FF231F7C',
         sound: 'default',
         enableVibrate: true,
-        showBadge: true
+        showBadge: true,
       });
     }
 
@@ -111,20 +110,20 @@ export const schedulePrayerNotificationWithOffset = async (
 
   const title = i18n.t('common.notifications.prayer.title', {
     emoji,
-    prayer: capitalize(prayerName)
+    prayer: capitalize(prayerName),
   });
 
   const body =
     minutesBefore === 0
       ? i18n.t('common.notifications.prayer.bodyNow', {
           prayer: capitalize(prayerName),
-          time: formattedTime
+          time: formattedTime,
         })
       : i18n.t('common.notifications.prayer.bodyBefore', {
           prayer: capitalize(prayerName),
           minutes: minutesBefore,
           plural: minutesBefore > 1 ? 's' : '',
-          time: formattedTime
+          time: formattedTime,
         });
 
   await Notifications.scheduleNotificationAsync({
@@ -136,13 +135,13 @@ export const schedulePrayerNotificationWithOffset = async (
       data: {
         prayerName: capitalize(prayerName),
         prayerTime: prayerTime.toISOString(),
-        type: 'prayer_reminder'
-      }
+        type: 'prayer_reminder',
+      },
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DATE,
-      date: notificationTime
-    }
+      date: notificationTime,
+    },
   });
 };
 
@@ -166,9 +165,9 @@ export const sendTestPrayerNotification = async () => {
       body,
       sound: 'default',
       priority: Notifications.AndroidNotificationPriority.HIGH,
-      data: { type: 'test_notification' }
+      data: { type: 'test_notification' },
     },
-    trigger: null // Fire immediately
+    trigger: null, // Fire immediately
   });
 };
 

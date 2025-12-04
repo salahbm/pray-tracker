@@ -12,7 +12,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
@@ -75,16 +74,12 @@ const PrayerNotifierSheet: React.FC = () => {
       });
 
       // Show success toast
-      fireToast.success(
-        t('qibla.prayerTimes.notifier.success.message', { minutes })
-      );
+      fireToast.success(t('qibla.prayerTimes.notifier.success.message', { minutes }));
 
       close();
     } catch (error) {
       console.error('Error saving prayer notification settings:', error);
-      fireToast.error(
-        t('qibla.prayerTimes.notifier.error.message')
-      );
+      fireToast.error(t('qibla.prayerTimes.notifier.error.message'));
     }
   };
 

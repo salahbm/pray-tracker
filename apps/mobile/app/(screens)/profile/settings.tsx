@@ -1,17 +1,20 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native';
+import { Switch, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import GoBack from '@/components/shared/go-back';
 import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
+
 import { Text } from '@/components/ui/text';
-// import { usePushNotifications } from '@/hooks/common/useNotifications';
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { cancelAllPrayerNotifications } from '@/lib/notifications';
+import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
+import { DeviceEventEmitter } from 'react-native';
 
 const Settings = () => {
   const themeRef = useRef<BottomSheet>(null);
@@ -19,7 +22,21 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
-  // const { isNotificationEnabled, toggleNotifications } = usePushNotifications();
+  const { prayerNotifications, toggleEnabled } = useNotificationStore();
+
+  const handleToggleNotifications = async (enabled: boolean) => {
+    toggleEnabled();
+
+    if (enabled) {
+      // Trigger rescheduling when enabled
+      DeviceEventEmitter.emit('prayer-notifications-updated', {
+        minutesBefore: prayerNotifications.minutesBefore,
+      });
+    } else {
+      // Cancel all notifications when disabled
+      await cancelAllPrayerNotifications();
+    }
+  };
 
   return (
     <SafeAreaView className="safe-area">
@@ -84,26 +101,24 @@ const Settings = () => {
             {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
           </Text>
         </TouchableOpacity>
-        {/* <AuthWrapper mode="signedIn">
-          <View className="touchable">
-            <Text className="text-base text-muted-foreground ml-2">
-              {t('profile.settings.notifications')}
-            </Text>
 
+        <View className="touchable">
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('profile.settings.notifications')}
+          </Text>
 
-            <Switch
-              trackColor={{
-                false: colors['--muted'],
-                true: colors['--muted'],
-              }}
-              thumbColor={
-                isNotificationEnabled ? colors['--primary'] : colors['--muted-foreground']
-              }
-              value={isNotificationEnabled}
-              onValueChange={enabled => toggleNotifications(enabled)}
-            />
-          </View>
-        </AuthWrapper> */}
+          <Switch
+            trackColor={{
+              false: colors['--muted'],
+              true: colors['--primary'],
+            }}
+            thumbColor={
+              prayerNotifications.isEnabled ? colors['--background'] : colors['--muted-foreground']
+            }
+            value={prayerNotifications.isEnabled}
+            onValueChange={handleToggleNotifications}
+          />
+        </View>
       </View>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>

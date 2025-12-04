@@ -85,17 +85,9 @@ const useTimeLeft = (prayerTimes: PrayerTimes) => {
 
       for (const { name, time } of prayers) {
         if (time > new Date()) {
-          await schedulePrayerNotificationWithOffset(
-            name,
-            time,
-            prayerNotifications.minutesBefore
-          );
+          await schedulePrayerNotificationWithOffset(name, time, prayerNotifications.minutesBefore);
         }
       }
-
-      console.log(
-        `✅ Scheduled ${prayers.length} prayer notifications (${prayerNotifications.minutesBefore} min before)`
-      );
     } catch (error) {
       console.error('Error scheduling prayer notifications:', error);
     }
@@ -106,7 +98,6 @@ const useTimeLeft = (prayerTimes: PrayerTimes) => {
     scheduleNotifications();
 
     const handleSettingsUpdate = () => {
-      console.log('🔔 Prayer notification settings updated, rescheduling...');
       scheduleNotifications();
     };
 
