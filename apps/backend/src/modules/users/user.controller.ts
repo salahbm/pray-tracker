@@ -10,6 +10,7 @@ import {
   Query,
   UnauthorizedException,
   Headers,
+  Post,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -63,6 +64,23 @@ export class UsersController {
     }
 
     return this.usersService.update(userId, updateUserDto, locale);
+  }
+
+  /**
+   * Save push notification token for current user
+   */
+  @Post('me/push-token')
+  async savePushToken(
+    @Req() request: Request,
+    @Body('pushToken') pushToken: string,
+  ) {
+    const userId: string = request['user']?.id;
+
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
+
+    return this.usersService.savePushToken(userId, pushToken);
   }
 
   /**

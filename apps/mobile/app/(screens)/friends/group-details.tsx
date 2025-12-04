@@ -128,7 +128,7 @@ const GroupDetails = () => {
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
               <Text className="text-sm text-muted-foreground mt-1">
-                {t('common.groups.membersCount', { count: groupData?.members.length || 0 })}
+                {t('friends.groups.membersCount', { count: groupData?.members.length || 0 })}
               </Text>
             </View>
           </View>
@@ -242,7 +242,7 @@ const GroupDetails = () => {
             </Animated.View>
           ) : (
             <Animated.View entering={FadeInDown.delay(200)}>
-              <NoData title={t('common.groups.noMembers')} className="mt-[45%]" />
+              <NoData title={t('friends.groups.noMembers')} className="mt-[45%]" />
             </Animated.View>
           )}
         </ScrollView>
@@ -260,10 +260,9 @@ const GroupDetails = () => {
             <View className="bg-primary/10 p-4 rounded-full mb-3">
               <UserPlus size={32} color={colors['--primary']} />
             </View>
-            <Text className="text-2xl font-bold text-center">{t('common.groups.addMember')}</Text>
+            <Text className="text-2xl font-bold text-center">{t('friends.groups.addMember')}</Text>
             <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
-              {availableFriends.length}{' '}
-              {t('common.groups.friendsAvailable', { count: availableFriends.length })}
+              {t('friends.groups.friendsAvailable', { count: availableFriends.length })}
             </Text>
           </View>
 
@@ -297,7 +296,7 @@ const GroupDetails = () => {
             <View className="items-center py-8">
               <Users size={48} color={colors['--muted-foreground']} />
               <Text className="text-muted-foreground mt-4 text-center">
-                {t('common.groups.noAvailableFriends')}
+                {t('friends.groups.noAvailableFriends')}
               </Text>
             </View>
           )}

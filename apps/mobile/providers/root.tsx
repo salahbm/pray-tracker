@@ -1,5 +1,6 @@
 import { PortalHost } from '@rn-primitives/portal';
 import React from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import BottomSheet from './bottom-sheet';
@@ -8,9 +9,8 @@ import QueryProvider from './query';
 import { ThemeProvider } from './theme';
 import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
-import { KeyboardAvoidingView } from 'react-native';
-import { Platform } from 'react-native';
 import NotificationNavProvider from './notification-nav';
+import { PushTokenProvider } from './push-token';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -19,13 +19,15 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
         <QueryProvider>
           <ThemeProvider>
             <BottomSheet>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                style={{ flex: 1 }}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
-              >
-                <NotificationNavProvider>{children}</NotificationNavProvider>
-              </KeyboardAvoidingView>
+              <PushTokenProvider>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                  style={{ flex: 1 }}
+                  keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
+                >
+                  <NotificationNavProvider>{children}</NotificationNavProvider>
+                </KeyboardAvoidingView>
+              </PushTokenProvider>
               <ToastProvider />
               <PortalHost />
               <SheetWrapper />

@@ -7,10 +7,14 @@ import { PrismaService } from '@/db/prisma.service';
 import { FriendStatus, Prayer } from 'generated/prisma';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { createSuccessResponse, Locale } from '@/common/utils/response.utils';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class FriendsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notificationsService: NotificationsService,
+  ) {}
 
   /**
    * Send a friend request
@@ -81,6 +85,21 @@ export class FriendsService {
         },
       },
     });
+
+    // Send push notification to the friend
+    const sender = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true, email: true },
+    });
+
+    if (sender) {
+      await this.notificationsService.sendFriendRequestNotification(
+        friend.id,
+        sender.name,
+        sender.email,
+        (friend.locale as 'en' | 'ru' | 'uz') || 'en',
+      );
+    }
 
     return {
       message: getLocalizedMessage('FRIEND_REQUEST_SENT', locale),
@@ -233,6 +252,25 @@ export class FriendsService {
       where: { id: friendshipId },
       data: { status: FriendStatus.ACCEPTED },
     });
+
+    // Send push notification to the requester
+    const accepter = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true },
+    });
+
+    const requester = await this.prisma.user.findUnique({
+      where: { id: friendship.userId },
+      select: { locale: true },
+    });
+
+    if (accepter && requester) {
+      await this.notificationsService.sendFriendRequestAcceptedNotification(
+        friendship.userId,
+        accepter.name,
+        (requester.locale as 'en' | 'ru' | 'uz') || 'en',
+      );
+    }
 
     return {
       message: getLocalizedMessage('FRIEND_REQUEST_ACCEPTED', locale),
@@ -644,6 +682,26 @@ export class FriendsService {
         },
       },
     });
+
+    // Send push notification to the added member
+    const adder = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true },
+    });
+
+    const addedUser = await this.prisma.user.findUnique({
+      where: { id: friendId },
+      select: { locale: true },
+    });
+
+    if (adder && addedUser) {
+      await this.notificationsService.sendAddedToGroupNotification(
+        friendId,
+        group.name,
+        adder.name,
+        (addedUser.locale as 'en' | 'ru' | 'uz') || 'en',
+      );
+    }
 
     return {
       message: getLocalizedMessage('MEMBER_ADDED', locale),

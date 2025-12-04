@@ -22,6 +22,7 @@ model User {
   emailVerified Boolean @default(false)
   image         String?
   locale        String? @default("en")
+  pushToken     String? // Expo push notification token
 
   prayers     Prayer[]
   totalPoints Int?     @default(0)

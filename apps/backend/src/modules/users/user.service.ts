@@ -100,6 +100,29 @@ export class UsersService {
   }
 
   /**
+   * Save push notification token
+   */
+  async savePushToken(userId: string, pushToken: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException({
+        error: 'USER_NOT_FOUND',
+        message: getLocalizedMessage('USER_NOT_FOUND', 'en'),
+      });
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { pushToken },
+    });
+
+    return {
+      message: 'Push token saved successfully',
+      success: true,
+    };
+  }
+
+  /**
    * Get user statistics
    */
   async getUserStats(userId: string, locale: Locale = 'en') {

@@ -179,8 +179,7 @@
       "friendsAvailable_other": "{{count}} friends available",
       "membersCount_one": "{{count}} member",
       "membersCount_other": "{{count}} members",
-      "groupsCount_one": "{{count}} group",
-      "groupsCount_other": "{{count}} groups"
+      "groupsCount_one": "{{count}} group"
     },
     "allFriends":{
       "title":"All Friends",

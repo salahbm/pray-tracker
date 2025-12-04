@@ -6,7 +6,7 @@ export default function NotificationNavProvider({ children }: { children: React.
   const handleNavigation = (data: any) => {
     if (!data) return;
 
-    // Example navigation logic
+    // Navigation logic based on notification type
     switch (data.type) {
       case 'prayer_reminder':
         router.push({
@@ -17,12 +17,14 @@ export default function NotificationNavProvider({ children }: { children: React.
         });
         break;
 
-      case 'open_friends':
+      case 'FRIEND_REQUEST':
+      case 'FRIEND_REQUEST_ACCEPTED':
+      case 'ADDED_TO_GROUP':
         router.push('/(tabs)/friends');
         break;
 
       default:
-        if (data.navigateTo) router.push(data.navigateTo); // flexible routing
+        if (data.navigateTo) router.push(data.navigateTo);
         break;
     }
   };
