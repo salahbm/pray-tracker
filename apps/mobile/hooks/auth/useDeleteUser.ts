@@ -11,7 +11,7 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationFn: deleteUser,
-    onSuccess:  () => {
+    onSuccess: () => {
       clearUserAndSession();
       // 3) Cancel all queries immediately
       queryClient.cancelQueries();
