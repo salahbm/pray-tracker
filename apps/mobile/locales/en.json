@@ -73,7 +73,28 @@
   },
   "common": {
     "notifications": {
-      "description": "Time for {{salah}} at :"
+      "description": "Time for {{salah}} at :",
+      "prayer": {
+        "title": "{{emoji}} {{prayer}} Prayer Reminder",
+        "bodyNow": "It's time for {{prayer}} prayer - {{time}}",
+        "bodyBefore": "{{prayer}} prayer in {{minutes}} minute{{plural}} - {{time}}",
+        "test": {
+          "title": "🕌 Prayer Notifications Test",
+          "body": "Your prayer notifications are working correctly! 🎉"
+        }
+      },
+      "emojis": {
+        "fajr": "🌅",
+        "sunrise": "☀️",
+        "dhuhr": "🌞",
+        "asr": "🌤️",
+        "maghrib": "🌆",
+        "isha": "🌙",
+        "default": "🕌"
+      },
+      "permissions": {
+        "denied": "Notification permissions not granted. Please enable notifications in your device settings."
+      }
     },
     "notFound": {
       "404": "Page not found",
@@ -177,9 +198,7 @@
   },
   "home": {
     "charts": {
-      "title": "Ibadah Progress(Monthly)",
-      "xAxis": "Time Period",
-      "yAxis": "Prayer Count"
+      "title": "Ibadah Progress(Monthly)"
     },
     "errors": {
       "futureDate": "You cannot select a future date"
@@ -188,7 +207,6 @@
       "close": "Close",
       "date": "Date",
       "details": "Prayer Details",
-      "selectYear": "Select Hijri Year",
       "title": "Prayer Journey"
     },
     "todaysPrayers": {
@@ -374,7 +392,13 @@
       "notifier": {
         "title": "Prayer Reminder",
         "description": "How many minutes before prayer do you want a reminder?",
-        "minutesBefore": "{{minutes}} minutes before prayer"
+        "minutesBefore": "{{minutes}} minutes before prayer",
+        "success": {
+          "message": "Prayer reminders set to {{minutes}} minutes before prayer time"
+        },
+        "error": {
+          "message": "Failed to save prayer reminder settings. Please try again."
+        }
       }
     },
     "tabs": {

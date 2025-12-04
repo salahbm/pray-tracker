@@ -1,15 +1,21 @@
 import { PrayerTimes } from 'adhan';
-import * as Notifications from 'expo-notifications';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DeviceEventEmitter } from 'react-native';
 
 import { SALAHS } from '@/constants/enums';
-import { scheduleNextPrayerNotification } from '@/utils/notification';
+import {
+  cancelAllPrayerNotifications,
+  requestNotificationPermissions,
+  schedulePrayerNotificationWithOffset,
+} from '@/lib/notifications';
+import { useNotificationStore } from '@/store/defaults/notification';
 
 const useTimeLeft = (prayerTimes: PrayerTimes) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [currentPrayer, setCurrentPrayer] = useState('');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { prayerNotifications } = useNotificationStore();
 
   const prayers = useMemo(
     () => [
@@ -31,14 +37,13 @@ const useTimeLeft = (prayerTimes: PrayerTimes) => {
     let nextPrayerTime = null;
 
     for (let i = 0; i < prayers.length; i++) {
-      if (now >= prayers[i].time) {
-        current = prayers[i].name;
-      }
+      if (now >= prayers[i].time) current = prayers[i].name;
       if (now < prayers[i].time && !nextPrayerTime) {
         nextPrayerTime = prayers[i].time;
       }
     }
 
+    // If the last prayer passed → schedule Fajr tomorrow
     if (!nextPrayerTime) {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
@@ -50,7 +55,6 @@ const useTimeLeft = (prayerTimes: PrayerTimes) => {
     }
 
     const diff = Math.max(0, Math.floor((nextPrayerTime.getTime() - now.getTime()) / 1000));
-
     const hours = String(Math.floor(diff / 3600)).padStart(2, '0');
     const minutes = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
     const seconds = String(Math.floor(diff % 60)).padStart(2, '0');
@@ -65,40 +69,57 @@ const useTimeLeft = (prayerTimes: PrayerTimes) => {
     return () => clearInterval(interval);
   }, [updatePrayerStatus]);
 
-  // 📆 Schedule local notifications once on load
-  useEffect(() => {
-    if (!prayerTimes) return;
+  // 📆 Schedule notifications with offset
+  const scheduleNotifications = useCallback(async () => {
+    if (!prayerTimes || !prayerNotifications.isEnabled) return;
 
-    // Cancel all existing notifications first
-    const cleanup = async () => {
-      await Notifications.cancelAllScheduledNotificationsAsync();
-    };
+    try {
+      // Request permissions first
+      const hasPermission = await requestNotificationPermissions();
+      if (!hasPermission) {
+        console.warn('⚠️ Cannot schedule notifications: permissions not granted');
+        return;
+      }
 
-    // Schedule new notifications
-    const scheduleNotifications = async () => {
-      await cleanup();
+      await cancelAllPrayerNotifications();
 
       for (const { name, time } of prayers) {
         if (time > new Date()) {
-          await scheduleNextPrayerNotification(
-            t(`Commons.Salahs.${name}`),
-            t('Commons.Notifications.Description', {
-              salah: name.toLocaleUpperCase(),
-            }),
-            time?.toString()
+          await schedulePrayerNotificationWithOffset(
+            name,
+            time,
+            prayerNotifications.minutesBefore
           );
         }
       }
-    };
 
+      console.log(
+        `✅ Scheduled ${prayers.length} prayer notifications (${prayerNotifications.minutesBefore} min before)`
+      );
+    } catch (error) {
+      console.error('Error scheduling prayer notifications:', error);
+    }
+  }, [prayerTimes, prayers, prayerNotifications]);
+
+  // Listen for global "prayer settings updated" events
+  useEffect(() => {
     scheduleNotifications();
 
-    // Cleanup when component unmounts or prayerTimes changes
-    return () => {
-      cleanup();
+    const handleSettingsUpdate = () => {
+      console.log('🔔 Prayer notification settings updated, rescheduling...');
+      scheduleNotifications();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prayerTimes]); // Only depend on prayerTimes, not prayers or t
+
+    // 📡 Listen for settings updates via DeviceEventEmitter
+    const subscription = DeviceEventEmitter.addListener(
+      'prayer-notifications-updated',
+      handleSettingsUpdate
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [scheduleNotifications]);
 
   return { timeLeft, currentPrayer };
 };

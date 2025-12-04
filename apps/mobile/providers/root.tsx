@@ -10,6 +10,7 @@ import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
 import { KeyboardAvoidingView } from 'react-native';
 import { Platform } from 'react-native';
+import NotificationNavProvider from './notification-nav';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -23,7 +24,9 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
               >
+                <NotificationNavProvider> 
                 {children}
+                </NotificationNavProvider>
               </KeyboardAvoidingView>
               <ToastProvider />
               <PortalHost />
@@ -35,5 +38,6 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
     </SafeAreaProvider>
   );
 };
+
 
 export { RootProvider };

@@ -1,7 +1,7 @@
 import { Bell, Minus, Plus } from 'lucide-react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { DeviceEventEmitter, View } from 'react-native';
 import Animated, {
   FadeInDown,
   FadeInLeft,
@@ -12,21 +12,30 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
+import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
+import { fireToast } from '@/providers/toaster';
 
 const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
+  const { prayerNotifications, setMinutesBefore } = useNotificationStore();
 
-  const [minutes, setMinutes] = useState(10);
+  const [minutes, setMinutes] = useState(prayerNotifications.minutesBefore);
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0);
 
   const { sheetRef, close } = usePrayNotifierBottomSheetStore();
+
+  // Sync local state with store when sheet opens
+  useEffect(() => {
+    setMinutes(prayerNotifications.minutesBefore);
+  }, [prayerNotifications.minutesBefore]);
 
   React.useEffect(() => {
     opacity.value = withTiming(1, { duration: 300 });
@@ -55,8 +64,28 @@ const PrayerNotifierSheet: React.FC = () => {
     }
   };
 
-  const handleSave = () => {
-    close();
+  const handleSave = async () => {
+    try {
+      // Save settings to store
+      setMinutesBefore(minutes);
+
+      // Trigger notification rescheduling via React Native event emitter
+      DeviceEventEmitter.emit('prayer-notifications-updated', {
+        minutesBefore: minutes,
+      });
+
+      // Show success toast
+      fireToast.success(
+        t('qibla.prayerTimes.notifier.success.message', { minutes })
+      );
+
+      close();
+    } catch (error) {
+      console.error('Error saving prayer notification settings:', error);
+      fireToast.error(
+        t('qibla.prayerTimes.notifier.error.message')
+      );
+    }
   };
 
   const fadeInStyle = useAnimatedStyle(() => ({
