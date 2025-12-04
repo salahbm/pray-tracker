@@ -278,7 +278,14 @@
           "Placeholder": "Enter your new password"
         }
       },
+      "Errors": {
+        "CurrentPasswordRequired": "Current password is required",
+        "MinPasswordLength": "Password must be at least 8 characters",
+        "PasswordMismatch": "Passwords do not match",
+        "UpdateFailed": "Failed to update password"
+      },
       "SaveButton": "Update Password",
+      "Success": "Password updated successfully. You will be logged out.",
       "Title": "Edit Password"
     },
     "EditProfile": {

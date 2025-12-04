@@ -47,9 +47,6 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
             p => format(new Date(p.date), 'yyyy-MM-dd') === selected
           );
 
-          if (!selectedPray)
-            return <Text className="text-muted-foreground">{t('Home.PrayerHistory.NoData')}</Text>;
-
           // iterate through prayer keys
           const prayerKeys: (keyof IPrays)[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'nafl'];
 
@@ -57,7 +54,7 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
             typeof val === 'number' ? val : undefined;
 
           return prayerKeys.map(prayer => {
-            const value = selectedPray[prayer];
+            const value = selectedPray?.[prayer];
 
             return (
               <View key={prayer} className="flex-row items-center justify-between mt-2">
@@ -76,16 +73,16 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
                           await updateOldPray({
                             id: user?.id!,
                             date: new Date(selected),
-                            fajr: prayer === 'fajr' ? val : normalizePrayerValue(selectedPray.fajr),
+                            fajr: prayer === 'fajr' ? val : normalizePrayerValue(selectedPray?.fajr),
                             dhuhr:
-                              prayer === 'dhuhr' ? val : normalizePrayerValue(selectedPray.dhuhr),
-                            asr: prayer === 'asr' ? val : normalizePrayerValue(selectedPray.asr),
+                              prayer === 'dhuhr' ? val : normalizePrayerValue(selectedPray?.dhuhr),
+                            asr: prayer === 'asr' ? val : normalizePrayerValue(selectedPray?.asr),
                             maghrib:
                               prayer === 'maghrib'
                                 ? val
-                                : normalizePrayerValue(selectedPray.maghrib),
-                            isha: prayer === 'isha' ? val : normalizePrayerValue(selectedPray.isha),
-                            nafl: prayer === 'nafl' ? val : normalizePrayerValue(selectedPray.nafl),
+                                : normalizePrayerValue(selectedPray?.maghrib),
+                            isha: prayer === 'isha' ? val : normalizePrayerValue(selectedPray?.isha),
+                            nafl: prayer === 'nafl' ? val : normalizePrayerValue(selectedPray?.nafl),
                           });
                         }}
                         color={

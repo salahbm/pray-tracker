@@ -31,7 +31,7 @@ const About = () => {
               source={currentTheme === 'light' ? IMAGES.icon_light : IMAGES.icon_dark}
               className="w-32 h-32 rounded-full max-w-32 max-h-32"
             />
-            <Text className="mt-2 text-2xl font-bold">Pray Tracker</Text>
+            <Text className="mt-2 text-2xl font-bold">Noor - Pray Tracker</Text>
             <Text className="text-muted-foreground text-sm mt-2">V {version}</Text>
           </View>
 
@@ -74,16 +74,6 @@ const About = () => {
             </View>
           </View>
 
-          {/* Buy Me Dates */}
-          <TouchableOpacity
-            onPress={() => handleLink('buymeacoffee.com/salahbm')}
-            className="bg-accent p-4 rounded-lg items-center flex-row justify-center gap-2 mb-10"
-          >
-            <Ionicons name="gift-outline" size={24} color="white" />
-            <Text className="text-accent-foreground font-bold">
-              {t('Profile.About.BuyMeDates')}
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -18,6 +18,7 @@ import PrevPayUpdateModal from '@/components/views/pray-history/prev-pray-modal'
 import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useGetPrays } from '@/hooks/prays';
+import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { getMonthTheme } from '@/styles/calendar.theme';
@@ -99,8 +100,17 @@ const MonthScreen = () => {
   }, [prays]);
 
   const onDayPress = useCallback((day: DateData) => {
+    // Prevent selecting future dates
+    const selectedDate = new Date(day.dateString);
+    const todayDate = new Date(today);
+    
+    if (selectedDate > todayDate) {
+      fireToast.info(t('Home.Errors.FutureDate'));
+      return;
+    }
+    
     setSelected(day.dateString);
-  }, []);
+  }, [today, t]);
 
   const marked = useMemo(() => {
     const entries: Record<string, MarkedDateProps> = {

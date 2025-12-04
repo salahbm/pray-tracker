@@ -8,6 +8,8 @@ import QueryProvider from './query';
 import { ThemeProvider } from './theme';
 import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
+import { KeyboardAvoidingView } from 'react-native';
+import { Platform } from 'react-native';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,7 +18,9 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
         <QueryProvider>
           <ThemeProvider>
             <BottomSheet>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}>
               {children}
+              </KeyboardAvoidingView>
               <ToastProvider />
               <PortalHost />
               <SheetWrapper />

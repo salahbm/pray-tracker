@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -8,7 +8,6 @@ import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
-import { FRIENDS } from '@/constants/images';
 import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
@@ -22,29 +21,47 @@ const EditPwd = () => {
   const { logOut, isLoggingOut } = useLogout();
 
   //   States
+  const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const newPwdRef = useRef<TextInput | null>(null);
+  const confirmPwdRef = useRef<TextInput | null>(null);
+  
 
   const validatePasswords = () => {
-    if (newPassword.length < 6) {
-      fireToast.error('Password must be at least 6 characters.');
+    if (!currentPassword) {
+      fireToast.error(t('Profile.EditPassword.Errors.CurrentPasswordRequired'));
+      return false;
+    }
+    if (newPassword.length < 8) {
+      fireToast.error(t('Profile.EditPassword.Errors.MinPasswordLength'));
       return false;
     }
     if (newPassword !== confirmPassword) {
-      fireToast.error('Passwords do not match.');
+      fireToast.error(t('Profile.EditPassword.Errors.PasswordMismatch'));
       return false;
     }
     return true;
   };
 
   const handleUpdate = async () => {
-    if (!validatePasswords() || !user?.email) return;
+    if (!validatePasswords()) return;
 
-    if (newPassword) {
+    try {
       await updatePassword({
-        email: user?.email,
+        currentPassword,
         newPassword,
-      }).then(() => logOut(undefined));
+        revokeOtherSessions: true,
+      });
+      
+      fireToast.success(t('Profile.EditPassword.Success'));
+      
+      // Log out user after password change
+      setTimeout(() => {
+        logOut(undefined);
+      }, 1000);
+    } catch (error) {
+      fireToast.error((error as Error)?.message || t('Profile.EditPassword.Errors.UpdateFailed'));
     }
   };
 
@@ -60,18 +77,34 @@ const EditPwd = () => {
 
         <View className="flex-1 gap-6">
           <Input
+            label={t('Profile.EditPassword.Fields.CurrentPassword.Label')}
+            placeholder={t('Profile.EditPassword.Fields.CurrentPassword.Placeholder')}
+            autoCapitalize="none"
+            secureTextEntry
+            returnKeyType="next"
+            value={currentPassword}
+            onSubmitEditing={() => newPwdRef.current?.focus()}
+            onChangeText={setCurrentPassword}
+          />
+          <Input
+            ref={newPwdRef}
             label={t('Profile.EditPassword.Fields.NewPassword.Label')}
             placeholder={t('Profile.EditPassword.Fields.NewPassword.Placeholder')}
             autoCapitalize="none"
             secureTextEntry
+            returnKeyType="next"
+            onSubmitEditing={() => confirmPwdRef.current?.focus()}  
             value={newPassword}
             onChangeText={setNewPassword}
           />
           <Input
+            ref={confirmPwdRef}
+            onSubmitEditing={handleUpdate}
             label={t('Profile.EditPassword.Fields.ConfirmPassword.Label')}
             placeholder={t('Profile.EditPassword.Fields.ConfirmPassword.Placeholder')}
             autoCapitalize="none"
             secureTextEntry
+            returnKeyType="done"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
