@@ -1,23 +1,25 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
-
-import { useLogout } from '../auth/useLogOut';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { router } from 'expo-router';
 
 const deleteUser = async (id: string) => await agent.delete(`/users/${id}`);
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
-  const { logOut } = useLogout();
+  const { clearUserAndSession } = useAuthStore();
 
   return useMutation({
     mutationFn: deleteUser,
-    onSuccess: async () => {
-      logOut();
-      await queryClient.invalidateQueries({
-        queryKey: QueryKeys.users.all,
-      });
+    onSuccess:  () => {
+      clearUserAndSession();
+      // 3) Cancel all queries immediately
+      queryClient.cancelQueries();
+
+      // 4) Clear ALL cached data
+      queryClient.clear();
+
+      router.replace('/(tabs)');
     },
   });
 };
