@@ -5,10 +5,35 @@
       "placeholder": "Enter your email"
     },
     "forgotPassword": {
+      "title": "Forgot Password",
       "button": "Send Verification",
       "rememberedPassword": "Remembered your password?",
       "signInLink": "Sign In",
-      "message": "Verification code sent to {{email}}."
+      "message": "If an account exists for {{email}}, you will receive a password reset link. Please check your email."
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your new password",
+      "button": "Reset Password",
+      "rememberedPassword": "Remembered your password?",
+      "signInLink": "Sign In",
+      "success": "Password reset successfully! Redirecting to sign in...",
+      "fields": {
+        "newPassword": {
+          "label": "New Password",
+          "placeholder": "Enter new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm new password"
+        }
+      },
+      "errors": {
+        "invalidToken": "Invalid or expired reset token",
+        "minPasswordLength": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "failed": "Failed to reset password. Please try again."
+      }
     },
     "password": {
       "label": "Password",
@@ -364,6 +389,43 @@
         "title": "Contact Us",
         "content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
       }
+    }
+  },
+  "subscription": {
+    "title": "Noor - Pray Tracker Premium",
+    "subtitle": "Unlock all features to enhance your prayer journey",
+    "loadingPlans": "Loading plans...",
+    "choosePlan": "Choose a plan",
+    "bestValue": "Best value",
+    "yearlyPlan": "Yearly",
+    "monthlyPlan": "Monthly",
+    "year": "year",
+    "month": "month",
+    "saveOneMonth": "Save 1 month",
+    "subscribe": "Subscribe",
+    "restorePurchases": "Restore purchases",
+    "terms": "Subscription auto-renews. Cancel anytime.",
+    "success": {
+      "purchaseComplete": "Purchase complete",
+      "restoreComplete": "Restore complete"
+    },
+    "info": {
+      "noPurchasesFound": "No previous purchases found"
+    },
+    "errors": {
+      "packageNotFound": "Package not found",
+      "purchaseFailed": "Purchase failed",
+      "restoreFailed": "Restore failed"
+    },
+    "features": {
+      "unlimitedFriends": "Unlimited friends",
+      "friendGroups": "Friend groups",
+      "detailedStats": "Detailed statistics",
+      "prayerReminders": "Prayer reminders",
+      "customThemes": "Custom themes",
+      "adFree": "Ad-free",
+      "prioritySupport": "Priority support",
+      "newFeatures": "New features"
     }
   },
   "qibla": {

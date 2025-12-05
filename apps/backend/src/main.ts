@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { env } from '@config/env.config';
-import { ALLOWED_ORIGINS } from '@/config/cors.configt';
+import { ALLOWED_ORIGINS } from '@/config/cors.config';
 import { HttpExceptionFilter } from '@/common/filters/http-exception.filter';
 
 async function bootstrap() {

@@ -35,7 +35,6 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
   // Assumes currentLanguage is a two-letter code like 'en', 'fr'; adjust keys/mappings as needed
   const localeMap: { [key: string]: any } = {
     en: allLocales.enUS,
-    ko: allLocales.ko,
     uz: allLocales.uz,
     ru: allLocales.ru,
     // Add more mappings here based on your app's supported languages, e.g., 'pt': allLocales.ptBR

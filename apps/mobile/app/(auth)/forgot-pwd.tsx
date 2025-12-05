@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useRouter } from 'expo-router';
 
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
@@ -11,15 +12,15 @@ import { fireToast } from '@/providers/toaster';
 
 export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () => void }) {
   const { t } = useTranslation();
+  const router = useRouter();
   const [email, setEmail] = useState('');
 
-  const { sendRequest, isRequestPending } = useResetPwd();
+  const { mutateAsync, isPending } = useResetPwd();
 
   const onResetPassword = useCallback(async () => {
-    await sendRequest
-      .mutateAsync(email)
-      .then(() => fireToast.success(t('auth.forgotPassword.message', { email })));
-  }, [email, sendRequest]);
+    await mutateAsync(email)
+      .then(() => {fireToast.success(t('auth.forgotPassword.message', { email })); setEmail('');});
+  }, [email, mutateAsync]);
 
   return (
     <React.Fragment>
@@ -39,8 +40,8 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
           textContentType="emailAddress"
           spellCheck={false}
         />
-        <Button onPress={onResetPassword} disabled={isRequestPending}>
-          <Loader visible={isRequestPending} size="small" />
+        <Button onPress={onResetPassword} disabled={isPending}>
+          <Loader visible={isPending} size="small" />
           <Text className="font-bold">{t('auth.forgotPassword.button')}</Text>
         </Button>
       </View>
@@ -49,10 +50,21 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
         <Text className="text-sm text-muted-foreground text-center">
           {t('auth.forgotPassword.rememberedPassword')}
         </Text>
-        <Button variant="link" onPress={onNavigate} disabled={isRequestPending}>
+        <Button variant="link" onPress={onNavigate} disabled={isPending}>
           <Text className="font-primary">{t('auth.forgotPassword.signInLink')}</Text>
         </Button>
       </View>
+
+      {/* Test button - Remove in production */}
+      {__DEV__ && (
+        <Button 
+          variant="outline" 
+          onPress={() => router.push('/reset-pwd?token=test-token-123')}
+          className="mt-4"
+        >
+          <Text className="text-xs">🧪 Test Reset Screen</Text>
+        </Button>
+      )}
     </React.Fragment>
   );
 }

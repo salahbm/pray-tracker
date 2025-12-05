@@ -11,15 +11,16 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useRevenueCatOfferings, usePurchasePackage } from '@/hooks/subscriptions/useRevenueCat';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 
 const PREMIUM_FEATURES = [
-  'Subscription.Features.UnlimitedFriends',
-  'Subscription.Features.FriendGroups',
-  'Subscription.Features.DetailedStats',
-  'Subscription.Features.PrayerReminders',
-  'Subscription.Features.CustomThemes',
-  'Subscription.Features.AdFree',
-  'Subscription.Features.PrioritySupport',
+  'subscription.features.unlimitedFriends',
+  'subscription.features.friendGroups',
+  'subscription.features.detailedStats',
+  'subscription.features.prayerReminders',
+  'subscription.features.customThemes',
+  'subscription.features.adFree',
+  'subscription.features.prioritySupport',
 ];
 
 export default function PaywallScreen() {
@@ -27,6 +28,7 @@ export default function PaywallScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
+  const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');
 
@@ -46,17 +48,17 @@ export default function PaywallScreen() {
     );
 
     if (!pkg) {
-      fireToast.error(t('Subscription.Errors.PackageNotFound'));
+      fireToast.error(t('subscription.errors.packageNotFound'));
       return;
     }
 
     const result = await purchase(pkg);
 
     if (result.success) {
-      fireToast.success(t('Subscription.Success.PurchaseComplete'));
+      fireToast.success(t('subscription.success.purchaseComplete'));
       router.back();
     } else if (!result.cancelled) {
-      fireToast.error(result.error || t('Subscription.Errors.PurchaseFailed'));
+      fireToast.error(result.error || t('subscription.errors.purchaseFailed'));
     }
   };
 
@@ -64,12 +66,12 @@ export default function PaywallScreen() {
     const result = await restorePurchases();
 
     if (result.success && result.hasPremium) {
-      fireToast.success(t('Subscription.Success.RestoreComplete'));
+      fireToast.success(t('subscription.success.restoreComplete'));
       router.back();
     } else if (result.success && !result.hasPremium) {
-      fireToast.info(t('Subscription.Info.NoPurchasesFound'));
+      fireToast.info(t('subscription.info.noPurchasesFound'));
     } else {
-      fireToast.error(result.error || t('Subscription.Errors.RestoreFailed'));
+      fireToast.error(result.error || t('subscription.errors.restoreFailed'));
     }
   };
 
@@ -78,20 +80,20 @@ export default function PaywallScreen() {
 
   const monthlyPrice = monthlyPackage?.product.priceString || '$4.99';
   const yearlyPrice = yearlyPackage?.product.priceString || '$54.99';
-  const yearlySavings = t('Subscription.SaveOneMonth');
+  const yearlySavings = t('subscription.saveOneMonth');
 
   if (loadingOfferings) {
     return (
       <View className="flex-1 items-center justify-center bg-background">
         <ActivityIndicator size="large" color={colors['--primary']} />
-        <Text className="mt-4 text-muted-foreground">{t('Subscription.LoadingPlans')}</Text>
+        <Text className="mt-4 text-muted-foreground">{t('subscription.loadingPlans')}</Text>
       </View>
     );
   }
 
   return (
     <ScrollView
-      className="flex-1 bg-background"
+      className="flex-1 "
       contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
       showsVerticalScrollIndicator={false}
     >
@@ -100,14 +102,14 @@ export default function PaywallScreen() {
         <View className="mb-4 size-20 items-center justify-center rounded-full bg-primary/10">
           <Crown size={40} color={colors['--primary']} />
         </View>
-        <Text className="text-3xl font-bold text-center mb-2">{t('Subscription.Title')}</Text>
+        <Text className="text-3xl font-bold text-center mb-2">{t('subscription.title')}</Text>
         <Text className="text-base text-muted-foreground text-center">
-          {t('Subscription.Subtitle')}
+          {t('subscription.subtitle')}
         </Text>
       </Animated.View>
 
       {/* Features List */}
-      <Animated.View entering={FadeInDown.delay(200)} className="px-6 mb-8">
+      <Animated.View entering={FadeInDown.delay(200)} className=" mb-8">
         {PREMIUM_FEATURES.map((feature, index) => (
           <Animated.View
             key={feature}
@@ -123,8 +125,8 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Pricing Plans */}
-      <Animated.View entering={FadeInDown.delay(600)} className="px-6 mb-6">
-        <Text className="text-lg font-semibold mb-4">{t('Subscription.ChoosePlan')}</Text>
+      <Animated.View entering={FadeInDown.delay(600)} className=" mb-6">
+        <Text className="text-lg font-semibold mb-4">{t('subscription.choosePlan')}</Text>
 
         {/* Yearly Plan */}
         <TouchableOpacity
@@ -138,18 +140,18 @@ export default function PaywallScreen() {
           {/* Best Value Badge */}
           <View className="absolute top-0 right-0 bg-primary px-3 py-1 rounded-bl-xl">
             <Text className="text-xs font-bold text-primary-foreground">
-              {t('Subscription.BestValue')}
+              {t('subscription.bestValue')}
             </Text>
           </View>
 
           <View className="flex-row items-center justify-between mt-4">
             <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">{t('Subscription.YearlyPlan')}</Text>
+              <Text className="text-xl font-bold mb-1">{t('subscription.yearlyPlan')}</Text>
               <Text className="text-sm text-muted-foreground mb-2">{yearlySavings}</Text>
               <Text className="text-2xl font-bold text-primary">
                 {yearlyPrice}
                 <Text className="text-sm text-muted-foreground font-normal">
-                  /{t('Subscription.Year')}
+                  /{t('subscription.year')}
                 </Text>
               </Text>
             </View>
@@ -176,11 +178,11 @@ export default function PaywallScreen() {
         >
           <View className="flex-row items-center justify-between">
             <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">{t('Subscription.MonthlyPlan')}</Text>
+              <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
               <Text className="text-2xl font-bold text-primary">
                 {monthlyPrice}
                 <Text className="text-sm text-muted-foreground font-normal">
-                  /{t('Subscription.Month')}
+                  /{t('subscription.month')}
                 </Text>
               </Text>
             </View>
@@ -198,7 +200,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Subscribe Button */}
-      <Animated.View entering={FadeInDown.delay(700)} className="px-6 mb-4">
+      <Animated.View entering={FadeInDown.delay(700)} className=" mb-4">
         <TouchableOpacity
           onPress={handlePurchase}
           disabled={purchasing}
@@ -211,7 +213,7 @@ export default function PaywallScreen() {
             <View className="flex-row items-center">
               <Sparkles size={20} color="white" />
               <Text className="text-white text-lg font-bold ml-2">
-                {t('Subscription.Subscribe')}
+                {t('subscription.subscribe')}
               </Text>
             </View>
           )}
@@ -219,31 +221,31 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Restore Purchases */}
-      <Animated.View entering={FadeInDown.delay(800)} className="px-6 mb-4">
+      <Animated.View entering={FadeInDown.delay(800)} className=" mb-4">
         <TouchableOpacity
           onPress={handleRestore}
           disabled={purchasing}
           className="py-3 items-center"
           activeOpacity={0.7}
         >
-          <Text className="text-primary font-semibold">{t('Subscription.RestorePurchases')}</Text>
+          <Text className="text-primary font-semibold">{t('subscription.restorePurchases')}</Text>
         </TouchableOpacity>
       </Animated.View>
 
       {/* Close Button */}
-      <Animated.View entering={FadeInDown.delay(900)} className="px-6">
+      <Animated.View entering={FadeInDown.delay(900)} className="">
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={() => paywallSheetRef.current?.close()}
           className="py-3 items-center"
           activeOpacity={0.7}
         >
-          <Text className="text-muted-foreground">{t('Commons.Cancel')}</Text>
+          <Text className="text-muted-foreground">{t('common.actions.cancel')}</Text>
         </TouchableOpacity>
       </Animated.View>
 
       {/* Terms */}
-      <Animated.View entering={FadeInDown.delay(1000)} className="px-6 mt-4">
-        <Text className="text-xs text-muted-foreground text-center">{t('Subscription.Terms')}</Text>
+      <Animated.View entering={FadeInDown.delay(1000)} className=" mt-4 pb-20">
+        <Text className="text-xs text-muted-foreground text-center">{t('subscription.terms')}</Text>
       </Animated.View>
     </ScrollView>
   );

@@ -1,29 +1,18 @@
-import React, { Fragment, useCallback, useState } from 'react';
-import { View } from 'react-native';
+import React, { Fragment, useCallback } from 'react';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import ProfilePage from '@/app/(screens)/profile';
-import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { useAuthBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { useAuthBottomSheetStore, usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import SignInScreen from '@/app/(auth)/sign-in';
 import SignUpScreen from '@/app/(auth)/sign-up';
 import ForgotPasswordScreen from '@/app/(auth)/forgot-pwd';
 import { triggerHaptic } from '@/utils/haptics';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Text } from '@/components/ui/text';
-import { FolderPlus, Edit2, Trash2 } from 'lucide-react-native';
-import { useTranslation } from 'react-i18next';
-import { useThemeStore } from '@/store/defaults/theme';
-import { useCreateGroup } from '@/hooks/friends/group/useCreateGroup';
-import { useUpdateGroup } from '@/hooks/friends/group/useUpdateGroup';
-import { useDeleteGroup } from '@/hooks/friends/group/useDeleteGroup';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { cn } from '@/lib/utils';
 import CreateGroupSheet from '@/components/views/friends/groups/create-group-sheet';
 import EditGroupSheet from '@/components/views/friends/groups/edit-group-sheet';
 import DeleteGroupSheet from '@/components/views/friends/groups/delete-group-sheet';
 import PrayerNotifierSheet from '@/components/views/qibla/pray-notifier-sheet';
+import PaywallScreen from '@/app/(screens)/subscription/paywall';
+
 
 interface ISheetWrapperProps {}
 
@@ -31,6 +20,7 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
   const { profileSheetRef } = useProfileBottomSheetStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   const { createSheetRef, editSheetRef, deleteSheetRef } = useFriendsBottomSheetStore();
+  const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   // Callbacks to present each sheet
   const handlePresentSignIn = useCallback(async () => {
@@ -73,7 +63,6 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
       <CustomBottomSheet sheetRef={forgotPwdRef}>
         <ForgotPasswordScreen
           onNavigate={handlePresentSignIn}
-          onSuccess={() => forgotPwdRef.current?.close()}
         />
       </CustomBottomSheet>
       {/* PROFILE */}
@@ -88,6 +77,11 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
 
       {/* PRAY NOTIFIER */}
       <PrayerNotifierSheet />
+
+      {/* PAYWALL SHEET */}
+      <CustomBottomSheet sheetRef={paywallSheetRef} index={0} snapPoints={['100%']}>
+        <PaywallScreen />
+      </CustomBottomSheet>
     </Fragment>
   );
 };

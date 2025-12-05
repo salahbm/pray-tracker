@@ -2,11 +2,12 @@ import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { PrismaClient } from 'generated/prisma';
 import { env } from '@/config/env.config';
-import { ALLOWED_ORIGINS } from '@/config/cors.configt';
+import { ALLOWED_ORIGINS } from '@/config/cors.config';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
 import { getLocaleFromRequest } from '@/common/utils/headers';
+import { sendPasswordResetEmail } from './email-sender';
 
 const prisma = new PrismaClient();
 
@@ -29,6 +30,13 @@ export const auth = betterAuth({
     requireEmailVerification: false,
     minPasswordLength: 8,
     maxPasswordLength: 20,
+    resetPassword: {
+      enabled: true,
+    },
+
+    sendResetPassword: async ({ user, url, token }) => {
+      await sendPasswordResetEmail(user.email, url, token);
+    },
   },
 
   hooks: {

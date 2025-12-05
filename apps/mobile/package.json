@@ -5,10 +5,11 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
+    "android": "expo run:android",
     "dev": "expo start --ios --clear",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@backpackapp-io/react-native-toast": "0.14.0",
@@ -33,6 +34,7 @@
     "expo-haptics": "~15.0.7",
     "expo-image": "~3.0.10",
     "expo-image-picker": "17.0.8",
+    "expo-linear-gradient": "15.0.7",
     "expo-linking": "~8.0.9",
     "expo-localization": "17.0.7",
     "expo-location": "19.0.7",

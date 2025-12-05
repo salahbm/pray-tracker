@@ -1,14 +1,16 @@
-import BottomSheet from '@gorhom/bottom-sheet';
-import React, { forwardRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Text, View } from 'react-native';
 
 import { FRIENDS } from '@/constants/images';
+import { Button } from '@/components/ui/button';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 
-const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible?: boolean }>(
-  ({ isProVisible = false }, ref) => {
+const FreemiumTrackerIntro =(
+  () => {
     const { t } = useTranslation();
-
+    const { paywallSheetRef } = usePaywallBottomSheetStore();
+ 
     return (
       <React.Fragment>
         {/* Overlapping images with curved border */}
@@ -59,30 +61,23 @@ const FreemiumTrackerIntro = forwardRef<BottomSheet, { isProVisible?: boolean }>
         </Text>
 
         {/* Button */}
-        {/* {isProVisible && (
+
           <Button
             className="mt-8 rounded-full mx-8 shadow-lg"
             size="lg"
             width="full"
-            onPress={() => {
-              if (
-                ref &&
-                'current' in ref &&
-                ref.current &&
-                typeof ref.current.snapToIndex === 'function'
-              ) {
-                ref.current.snapToIndex(2);
-              }
-            }}
+            onPress={() => paywallSheetRef.current?.snapToIndex(0)}
           >
             <Text>{t('friends.freemium.upgradeButton')}</Text>
           </Button>
-        )} */}
+
+
+
       </React.Fragment>
     );
   }
 );
 
-FreemiumTrackerIntro.displayName = 'FreemiumTrackerIntro';
+
 
 export default FreemiumTrackerIntro;

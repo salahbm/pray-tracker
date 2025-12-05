@@ -21,7 +21,8 @@
     "FAJR",
     "ISHA",
     "MAGHRIB",
-    "NAFL"
+    "NAFL",
+    "Noor"
   ],
   "prisma.pinToPrisma6": true
 }

@@ -101,7 +101,7 @@ export default function HomeScreen() {
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
       if (prayers[prayer] === value) return;
-      if (!user) return fireToast.error(t('commons.unauthorized.description'));
+      if (!user) return fireToast.error(t('common.unauthorized.description'));
       await triggerHaptic();
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
