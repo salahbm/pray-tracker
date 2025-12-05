@@ -5,7 +5,6 @@ import share_with_friends from '@assets/gif/share_with_friends.json';
 import clock_sand from '@assets/gif/clock_sand.json';
 import man_premium from '@assets/gif/man_premium.json';
 
-
 export const gifs = {
   man_looking_through,
   man_praying,

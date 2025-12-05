@@ -1,10 +1,27 @@
 import { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, TouchableOpacity, ActivityIndicator, Image, Dimensions, FlatList } from 'react-native';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Check, Sparkles, Users, TrendingUp, Bell, Palette, Shield, Zap } from 'lucide-react-native';
+import {
+  Check,
+  Sparkles,
+  Users,
+  TrendingUp,
+  Bell,
+  Palette,
+  Shield,
+  Zap,
+} from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -25,45 +42,45 @@ const PREMIUM_FEATURES = [
     key: 'unlimitedFriends',
     title: 'subscription.features.unlimitedFriends',
     icon: Users,
-    image: FRIENDS.friend_3
+    image: FRIENDS.friend_3,
   },
   {
     key: 'friendGroups',
     title: 'subscription.features.friendGroups',
     icon: Users,
-    image: IMAGES.check
+    image: IMAGES.check,
   },
   {
     key: 'detailedStats',
     title: 'subscription.features.detailedStats',
     icon: TrendingUp,
-    image: IMAGES.check
+    image: IMAGES.check,
   },
   {
     key: 'prayerReminders',
     title: 'subscription.features.prayerReminders',
     icon: Bell,
-    image: IMAGES.check
+    image: IMAGES.check,
   },
   {
     key: 'customThemes',
     title: 'subscription.features.customThemes',
     icon: Palette,
-    image: IMAGES.check
+    image: IMAGES.check,
   },
   {
     key: 'adFree',
     title: 'subscription.features.adFree',
     icon: Shield,
-    image: IMAGES.check
+    image: IMAGES.check,
   },
 ];
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const {user} = useAuthStore();
-  const {signInSheetRef}=useAuthBottomSheetStore();
+  const { user } = useAuthStore();
+  const { signInSheetRef } = useAuthBottomSheetStore();
   const insets = useSafeAreaInsets();
   const { colors, currentTheme } = useThemeStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
@@ -133,39 +150,29 @@ export default function PaywallScreen() {
     item,
     index,
   }: {
-    item: typeof PREMIUM_FEATURES[0];
+    item: (typeof PREMIUM_FEATURES)[0];
     index: number;
   }) => {
     const Icon = item.icon;
-  
+
     return (
-      <View
-        style={{ width: SCREEN_WIDTH - 80 }}
-        className="mr-4 h-fit aspect-[3/4]"
-      >
+      <View style={{ width: SCREEN_WIDTH - 80 }} className="mr-4 h-fit aspect-[3/4]">
         <View className="bg-card rounded-2xl overflow-hidden h-full border border-border relative">
-  
           {/* Full Image */}
           <Image
             source={item.image}
             className="absolute inset-0 w-full h-full"
             resizeMode="cover"
           />
-  
-          {/* Gradient for readability */}
-          <View
-            className="absolute inset-x-0 bottom-0 p-5"
-          >
 
-              <Text className="text-base font-semibold flex-1 text-white">
-                {t(item.title)}
-              </Text>
+          {/* Gradient for readability */}
+          <View className="absolute inset-x-0 bottom-0 p-5">
+            <Text className="text-base font-semibold flex-1 text-white">{t(item.title)}</Text>
           </View>
         </View>
       </View>
     );
   };
-  
 
   if (loadingOfferings) {
     return (
@@ -182,27 +189,23 @@ export default function PaywallScreen() {
       contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
       showsVerticalScrollIndicator={false}
     >
-
-       
       {/* Header */}
       <Animated.View entering={FadeInUp.delay(100)} className="items-center  mb-8">
-      
-   
         <LottieView
-                          source={gifs.man_premium}
-                          autoPlay
-                          loop
-                          style={{ height: 320, width: '100%' }}
-                          resizeMode="cover"
-                        />
-{/* 
+          source={gifs.man_premium}
+          autoPlay
+          loop
+          style={{ height: 320, width: '100%' }}
+          resizeMode="cover"
+        />
+        {/* 
 <Image
           source={currentTheme === 'light' ? IMAGES.icon_light : IMAGES.icon_dark}
           className="w-40 h-40 rounded-full border border-border mb-6"
         /> */}
-      <Text className="text-2xl font-bold text-center mb-2">{t('subscription.title')} +</Text>
+        <Text className="text-2xl font-bold text-center mb-2">{t('subscription.title')} +</Text>
 
-     <Text className="text-base text-muted-foreground text-center max-w-sm leading-6">
+        <Text className="text-base text-muted-foreground text-center max-w-sm leading-6">
           {t('subscription.subtitle')}
         </Text>
       </Animated.View>
@@ -213,11 +216,11 @@ export default function PaywallScreen() {
           ref={flatListRef}
           data={PREMIUM_FEATURES}
           renderItem={renderFeatureCard}
-          keyExtractor={(item) => item.key}
+          keyExtractor={item => item.key}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onMomentumScrollEnd={(event) => {
+          onMomentumScrollEnd={event => {
             const index = Math.round(event.nativeEvent.contentOffset.x / (SCREEN_WIDTH - 80 + 16));
             setActiveFeatureIndex(index);
           }}
@@ -225,13 +228,12 @@ export default function PaywallScreen() {
           decelerationRate="fast"
           contentContainerStyle={{ paddingLeft: 4 }}
         />
-        
+
         {/* Pagination Dots */}
         <View className="flex-row justify-center mt-5 gap-2">
           {PREMIUM_FEATURES.map((_, index) => (
             <View
               key={index}
-
               className={cn(
                 'h-1.5 rounded-full',
                 index === activeFeatureIndex ? 'w-6' : 'w-1.5',
@@ -256,7 +258,7 @@ export default function PaywallScreen() {
           activeOpacity={0.7}
         >
           {/* Best Value Badge */}
-          <View 
+          <View
             className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-2xl"
             style={{ backgroundColor: colors['--primary'] }}
           >
@@ -271,7 +273,9 @@ export default function PaywallScreen() {
               <Text className="text-sm text-muted-foreground mb-3">{yearlySavings}</Text>
               <View className="flex-row items-baseline">
                 <Text className="text-3xl font-bold text-primary">{yearlyPrice}</Text>
-                <Text className="text-sm text-muted-foreground ml-1">/{t('subscription.year')}</Text>
+                <Text className="text-sm text-muted-foreground ml-1">
+                  /{t('subscription.year')}
+                </Text>
               </View>
             </View>
 
@@ -280,9 +284,13 @@ export default function PaywallScreen() {
                 'size-7 rounded-full border-2 items-center justify-center',
                 selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
               )}
-              style={{ backgroundColor: selectedPlan === 'yearly' ? colors['--primary'] : 'transparent' }}
+              style={{
+                backgroundColor: selectedPlan === 'yearly' ? colors['--primary'] : 'transparent',
+              }}
             >
-              {selectedPlan === 'yearly' && <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />}
+              {selectedPlan === 'yearly' && (
+                <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
+              )}
             </View>
           </View>
         </TouchableOpacity>
@@ -301,7 +309,9 @@ export default function PaywallScreen() {
               <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
               <View className="flex-row items-baseline mt-2">
                 <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
-                <Text className="text-sm text-muted-foreground ml-1">/{t('subscription.month')}</Text>
+                <Text className="text-sm text-muted-foreground ml-1">
+                  /{t('subscription.month')}
+                </Text>
               </View>
             </View>
 
@@ -310,15 +320,17 @@ export default function PaywallScreen() {
                 'size-7 rounded-full border-2 items-center justify-center',
                 selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
               )}
-              style={{ backgroundColor: selectedPlan === 'monthly' ? colors['--primary'] : 'transparent' }}
+              style={{
+                backgroundColor: selectedPlan === 'monthly' ? colors['--primary'] : 'transparent',
+              }}
             >
-              {selectedPlan === 'monthly' && <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />}
+              {selectedPlan === 'monthly' && (
+                <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
+              )}
             </View>
           </View>
         </TouchableOpacity>
       </Animated.View>
-
-   
 
       {/* Subscribe Button */}
       <Animated.View entering={FadeInDown.delay(600)} className="my-4">
@@ -334,15 +346,16 @@ export default function PaywallScreen() {
           ) : (
             <View className="flex-row items-center">
               <Sparkles size={20} color={colors['--primary-foreground']} strokeWidth={2.5} />
-              <Text className="font-bold text-lg ml-2" style={{ color: colors['--primary-foreground'] }}>
+              <Text
+                className="font-bold text-lg ml-2"
+                style={{ color: colors['--primary-foreground'] }}
+              >
                 {t('subscription.subscribe')}
               </Text>
             </View>
           )}
         </TouchableOpacity>
       </Animated.View>
-
-      
 
       {/* Restore Purchases */}
       <Animated.View entering={FadeInDown.delay(700)} className="mb-4">

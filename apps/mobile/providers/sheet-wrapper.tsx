@@ -22,7 +22,7 @@ interface ISheetWrapperProps {}
 
 const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
   const { profileSheetRef } = useProfileBottomSheetStore();
-  const {visited}=useOnboarding()
+  const { visited } = useOnboarding();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   const { createSheetRef, editSheetRef, deleteSheetRef } = useFriendsBottomSheetStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
@@ -82,9 +82,11 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
       <PrayerNotifierSheet />
 
       {/* PAYWALL SHEET */}
-{visited &&      <CustomBottomSheet sheetRef={paywallSheetRef} index={0} snapPoints={['90%', '100%']}>
-        <PaywallScreen />
-      </CustomBottomSheet>}
+      {visited && (
+        <CustomBottomSheet sheetRef={paywallSheetRef} index={0} snapPoints={['90%', '100%']}>
+          <PaywallScreen />
+        </CustomBottomSheet>
+      )}
     </Fragment>
   );
 };

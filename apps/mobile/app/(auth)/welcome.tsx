@@ -61,7 +61,7 @@ const Welcome = () => {
         {onboarding.map((item, index) => (
           <View key={item.id} className="flex-1 bg-background">
             <Animated.ScrollView
-            showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
                 useNativeDriver: Platform.OS !== 'web',
               })}
