@@ -1,46 +1,50 @@
-import onboarding1 from '@assets/onboarding/onboarding_1.png';
-import onboarding2 from '@assets/onboarding/onboarding_2.png';
-import onboarding3 from '@assets/onboarding/onboarding_3.png';
-import onboarding4 from '@assets/onboarding/onboarding_4.png';
-import onboarding5 from '@assets/onboarding/onboarding_5.png';
 
-export const images = {
-  onboarding1,
-  onboarding2,
-  onboarding3,
-  onboarding4,
-  onboarding5,
+
+import man_looking_through from '@assets/gif/man_looking_through.json';
+import man_praying from '@assets/gif/man_praying.json';
+import moon_candles from '@assets/gif/moon_candles.json';
+import share_with_friends from '@assets/gif/share_with_friends.json';
+import clock_sand from '@assets/gif/clock_sand.json';
+
+
+
+export const gifs = {
+  man_looking_through,
+  man_praying,
+  moon_candles,
+  share_with_friends,
+  clock_sand,
 };
 
 export const onboarding = [
   {
     id: 1,
-    titleKey: 'Auth.Welcome.Onboarding.Track.title',
-    descriptionKey: 'Auth.Welcome.Onboarding.Track.description',
-    image: images.onboarding1,
+    titleKey: 'auth.welcome.onboarding.track.title',
+    descriptionKey: 'auth.welcome.onboarding.track.description',
+    gif: gifs.man_praying,
   },
   {
     id: 2,
-    titleKey: 'Auth.Welcome.Onboarding.Share.title',
-    descriptionKey: 'Auth.Welcome.Onboarding.Share.description',
-    image: images.onboarding2,
+    titleKey: 'auth.welcome.onboarding.share.title',
+    descriptionKey: 'auth.welcome.onboarding.share.description',
+    gif: gifs.share_with_friends,
   },
   {
     id: 3,
-    titleKey: 'Auth.Welcome.Onboarding.Remind.title',
-    descriptionKey: 'Auth.Welcome.Onboarding.Remind.description',
-    image: images.onboarding3,
+    titleKey: 'auth.welcome.onboarding.remind.title',
+    descriptionKey: 'auth.welcome.onboarding.remind.description',
+    gif: gifs.clock_sand,
   },
   {
     id: 4,
-    titleKey: 'Auth.Welcome.Onboarding.Journey.title',
-    descriptionKey: 'Auth.Welcome.Onboarding.Journey.description',
-    image: images.onboarding4,
+    titleKey: 'auth.welcome.onboarding.journey.title',
+    descriptionKey: 'auth.welcome.onboarding.journey.description',
+    gif: gifs.moon_candles,
   },
   {
     id: 5,
-    titleKey: 'Auth.Welcome.Onboarding.Aware.title',
-    descriptionKey: 'Auth.Welcome.Onboarding.Aware.description',
-    image: images.onboarding5,
+    titleKey: 'auth.welcome.onboarding.aware.title',
+    descriptionKey: 'auth.welcome.onboarding.aware.description',
+    gif: gifs.man_looking_through,
   },
 ];

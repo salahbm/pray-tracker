@@ -74,7 +74,11 @@ export const useUploadImage = () => {
     options: {
       onSuccess: async data => {
         if (data) {
-          setUser(data.user);
+          setUser({
+            ...data.user,
+            image: data.image,
+            name: data.user.name,
+          });
           await queryClient.invalidateQueries({
             queryKey: QueryKeys.users.all,
           });

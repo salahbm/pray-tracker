@@ -1,7 +1,7 @@
 import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { FolderPlus } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
@@ -31,6 +31,7 @@ const CreateGroupSheet: React.FC<CreateGroupSheetProps> = ({ sheetRef }) => {
       name: groupName.trim(),
     }).then(() => {
       setGroupName('');
+      Keyboard.dismiss();
       sheetRef.current?.close();
     });
   };

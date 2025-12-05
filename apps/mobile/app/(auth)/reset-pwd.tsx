@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import Loader from '@/components/shared/loader';
@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useResetPassword } from '@/hooks/auth/useResetPassword';
 import { fireToast } from '@/providers/toaster';
+import { useAuthBottomSheetStore } from '@/store/bottom-sheets';
 
 export default function ResetPasswordScreen() {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export default function ResetPasswordScreen() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [token, setToken] = useState<string>('');
+  const {signInSheetRef}=useAuthBottomSheetStore()
 
   const { mutateAsync, isPending } = useResetPassword();
 
@@ -52,7 +54,9 @@ export default function ResetPasswordScreen() {
 
       // Navigate to sign-in after 1 second
       setTimeout(() => {
-        router.replace('/(auth)/sign-in');
+        Keyboard.dismiss()
+        router.replace('/(tabs)')
+        signInSheetRef.current?.snapToIndex(1)
       }, 1000);
     } catch (error) {
       fireToast.error(t('auth.resetPassword.errors.failed'));
@@ -111,12 +115,24 @@ export default function ResetPasswordScreen() {
         </Text>
         <Button
           variant="link"
-          onPress={() => router.replace('/(auth)/sign-in')}
+          onPress={() => {
+            router.replace('/(tabs)')
+            signInSheetRef.current?.snapToIndex(1)
+          }}
           disabled={isPending}
         >
           <Text className="font-primary">{t('auth.resetPassword.signInLink')}</Text>
         </Button>
       </View>
+
+        <Button
+          variant="link"
+          onPress={() => router.replace('/(tabs)')}
+          disabled={isPending}
+        >
+          <Text className="font-primary">{t('auth.resetPassword.goBackHome')}</Text>
+        </Button>
+
     </View>
   );
 }

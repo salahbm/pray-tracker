@@ -17,6 +17,7 @@
       "button": "Reset Password",
       "rememberedPassword": "Remembered your password?",
       "signInLink": "Sign In",
+      "goBackHome":"Go Back Home",
       "success": "Password reset successfully! Redirecting to sign in...",
       "fields": {
         "newPassword": {
@@ -199,12 +200,14 @@
       "noGroups": "No groups yet. Create one to get started!",
       "noMembers": "No members in this group yet",
       "addMember": "Add Member",
+      "groupCount": "{{count}} group",
+      "groupCount_one": "{{count}} group",
+      "groupCount_other": "{{count}} groups",
       "noAvailableFriends": "All your friends are already in this group",
       "friendsAvailable_one": "{{count}} friend available",
       "friendsAvailable_other": "{{count}} friends available",
       "membersCount_one": "{{count}} member",
-      "membersCount_other": "{{count}} members",
-      "groupsCount_one": "{{count}} group"
+      "membersCount_other": "{{count}} members"
     },
     "allFriends":{
       "title":"All Friends",

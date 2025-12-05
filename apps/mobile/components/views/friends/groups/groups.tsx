@@ -64,7 +64,7 @@ const FriendsGroups = () => {
           <View>
             <Text className="text-2xl font-bold">{t('friends.groups.title')}</Text>
             <Text className="text-sm text-muted-foreground mt-1">
-              {t('friends.groups.groupsCount', { count: groups?.length || 0 })}
+              {t('friends.groups.groupCount', { count: groups?.length || 0 })}
             </Text>
           </View>
           <View className="flex-row gap-2">

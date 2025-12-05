@@ -4,7 +4,6 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Animated,
-  Image,
   Platform,
   TouchableOpacity,
   useWindowDimensions,
@@ -22,6 +21,7 @@ import { onboarding } from '@/constants/onboarding';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useOnboarding } from '@/store/defaults/onboarding';
 import { useThemeStore } from '@/store/defaults/theme';
+import LottieView from 'lottie-react-native';
 
 const BANNER_HEIGHT = 400;
 
@@ -84,11 +84,14 @@ const Welcome = () => {
                   ],
                 }}
               >
-                <Image
-                  source={item.image}
-                  className="w-full object-cover"
-                  style={{ height: BANNER_HEIGHT }}
-                />
+             <LottieView
+  source={item.gif}
+  autoPlay
+  loop
+  style={{ height: BANNER_HEIGHT, width: '100%' }}
+  resizeMode="cover"
+/>
+
               </Animated.View>
 
               <View
@@ -163,13 +166,13 @@ const Welcome = () => {
       </Swiper>
 
       <Button onPress={onNextPress} className="w-11/12 mx-auto mb-2">
-        <Text>{isLastSlide ? t('qibla.welcome.getStarted') : t('qibla.welcome.next')}</Text>
+        <Text>{isLastSlide ? t('auth.welcome.getStarted') : t('auth.welcome.next')}</Text>
       </Button>
       <TouchableOpacity
         onPress={onSkipPress}
         className="w-full flex justify-center items-center p-5"
       >
-        <Text className="text-foreground text-md">{t('qibla.welcome.skip')}</Text>
+        <Text className="text-foreground text-md">{t('auth.welcome.skip')}</Text>
       </TouchableOpacity>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>

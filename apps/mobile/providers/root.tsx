@@ -12,6 +12,7 @@ import SheetWrapper from './sheet-wrapper';
 import NotificationNavProvider from './notification-nav';
 import { PushTokenProvider } from './push-token';
 
+
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <SafeAreaProvider>
@@ -19,19 +20,19 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
         <QueryProvider>
           <ThemeProvider>
             <BottomSheet>
-              <PushTokenProvider>
-                <KeyboardAvoidingView
-                  behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                  style={{ flex: 1 }}
-                  keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
-                >
-                  <NotificationNavProvider>{children}</NotificationNavProvider>
-                </KeyboardAvoidingView>
-              </PushTokenProvider>
-              <ToastProvider />
-              <PortalHost />
-              <SheetWrapper />
-            </BottomSheet>
+                <PushTokenProvider>
+                  <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                    style={{ flex: 1 }}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
+                  >
+                    <NotificationNavProvider>{children}</NotificationNavProvider>
+                  </KeyboardAvoidingView>
+                </PushTokenProvider>
+                <ToastProvider />
+                <PortalHost />
+                <SheetWrapper />
+              </BottomSheet>
           </ThemeProvider>
         </QueryProvider>
       </I18nProvider>

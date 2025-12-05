@@ -6,9 +6,7 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Text } from '@/components/ui/text';
 import { useUploadImage } from '@/hooks/user/useAvatar';
 import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
@@ -25,13 +23,12 @@ const EditProfile = () => {
 
   const [username, setUserName] = useState<string>(user?.name || '');
   const [image, setImage] = useState<string>(user?.image ?? '');
-  const [isFieldUpdated, setIsFieldUpdated] = useState<boolean>(false);
 
   const onPickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.status !== 'granted') {
-      fireToast.error(t('Profile.EditProfile.ErrorPermission'));
+      fireToast.error(t('profile.editProfile.errorPermission'));
       return;
     }
 
@@ -61,7 +58,6 @@ const EditProfile = () => {
         }
 
         setImage(data?.user?.image);
-        setIsFieldUpdated(true);
       } catch (e) {
         fireToast.error((e as Error)?.message || 'Failed to upload.');
       }
@@ -81,8 +77,7 @@ const EditProfile = () => {
       if (updatedUser) {
         setUser(updatedUser);
         setUserName(updatedUser.name);
-        setIsFieldUpdated(false);
-        fireToast.success(t('Profile.EditProfile.Success'));
+        fireToast.success(t('profile.editProfile.success'));
       }
     } catch (e) {
       fireToast.error((e as Error)?.message);
@@ -115,7 +110,6 @@ const EditProfile = () => {
             placeholder={t('profile.editProfile.fields.username.placeholder')}
             value={username}
             onChangeText={setUserName}
-            onFocus={() => setIsFieldUpdated(true)}
             autoCapitalize="words"
             keyboardType="default"
             returnKeyType="done"
@@ -123,11 +117,11 @@ const EditProfile = () => {
           />
         </View>
       </View>
-      <View className="bg-background px-5 py-4">
+      {/* <View className="bg-background px-5 py-4">
         <Button onPress={handleUpdate} disabled={isLoading || imageUploading || !isFieldUpdated}>
           <Text>{t('profile.editProfile.saveButton')}</Text>
         </Button>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
