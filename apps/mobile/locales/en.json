@@ -181,12 +181,6 @@
   },
   "friends": {
     "title": "Friends",
-    "freemium": {
-      "description": "Enjoy enhanced features to support your prayer journey — track progress, stay consistent, and connect with your circle.",
-      "title": "Prayer Tracker +",
-      "upgradeButton": "Bismillah, I'm in",
-      "upgradePrompt": "Access this feature to enhance your experience"
-    },
     "groups": {
       "title": "Groups",
       "createTitle": "Create New Group",
@@ -395,40 +389,40 @@
     }
   },
   "subscription": {
-    "title": "Noor - Pray Tracker Premium",
-    "subtitle": "Unlock all features to enhance your prayer journey",
+    "title": "Noor Premium",
+    "subtitle": "Strengthen your faith journey with powerful tools for prayer consistency, community accountability, and spiritual growth.",
     "loadingPlans": "Loading plans...",
-    "choosePlan": "Choose a plan",
-    "bestValue": "Best value",
-    "yearlyPlan": "Yearly",
-    "monthlyPlan": "Monthly",
+    "choosePlan": "Choose Your Plan",
+    "bestValue": "BEST VALUE - Save 17%",
+    "yearlyPlan": "Annual Plan",
+    "monthlyPlan": "Monthly Plan",
     "year": "year",
     "month": "month",
-    "saveOneMonth": "Save 1 month",
-    "subscribe": "Subscribe",
-    "restorePurchases": "Restore purchases",
-    "terms": "Subscription auto-renews. Cancel anytime.",
+    "saveOneMonth": "Save $5 per year • Popular Choice",
+    "subscribe": "Bismillah, I'm in",
+    "restorePurchases": "Restore Previous Purchase",
+    "terms": "Auto-renews unless cancelled. Cancel anytime from your account settings. By subscribing, you agree to our Terms of Service.",
     "success": {
-      "purchaseComplete": "Purchase complete",
-      "restoreComplete": "Restore complete"
+      "purchaseComplete": "Alhamdulillah! Welcome to Noor Premium",
+      "restoreComplete": "Your premium access has been restored"
     },
     "info": {
-      "noPurchasesFound": "No previous purchases found"
+      "noPurchasesFound": "No previous purchases found for this account"
     },
     "errors": {
-      "packageNotFound": "Package not found",
-      "purchaseFailed": "Purchase failed",
-      "restoreFailed": "Restore failed"
+      "packageNotFound": "Subscription plan not available",
+      "purchaseFailed": "Purchase failed. Please try again.",
+      "restoreFailed": "Unable to restore purchases. Please try again."
     },
     "features": {
-      "unlimitedFriends": "Unlimited friends",
-      "friendGroups": "Friend groups",
-      "detailedStats": "Detailed statistics",
-      "prayerReminders": "Prayer reminders",
-      "customThemes": "Custom themes",
-      "adFree": "Ad-free",
-      "prioritySupport": "Priority support",
-      "newFeatures": "New features"
+      "unlimitedFriends": "Connect with unlimited friends and family to encourage each other in prayer consistency and spiritual growth.",
+      "friendGroups": "Create prayer circles and accountability groups to stay motivated together on your faith journey.",
+      "detailedStats": "Gain deep insights into your prayer patterns with beautiful charts and streaks that inspire consistency.",
+      "prayerReminders": "Never miss a prayer with smart, customizable reminders that adapt to your location and schedule.",
+      "customThemes": "Personalize your spiritual space with beautiful Islamic-themed designs and color schemes.",
+      "adFree": "Focus on what matters most - your prayers - with a completely ad-free, distraction-free experience.",
+      "prioritySupport": "Get dedicated support from our team to help you make the most of your prayer tracking journey.",
+      "newFeatures": "Be the first to access new features and improvements as we continuously enhance your experience."
     }
   },
   "qibla": {

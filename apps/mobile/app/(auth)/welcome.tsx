@@ -61,6 +61,7 @@ const Welcome = () => {
         {onboarding.map((item, index) => (
           <View key={item.id} className="flex-1 bg-background">
             <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
               onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
                 useNativeDriver: Platform.OS !== 'web',
               })}
@@ -89,7 +90,7 @@ const Welcome = () => {
 
               <View
                 style={{ minHeight: windowHeight - BANNER_HEIGHT }}
-                className="bg-background rounded-t-3xl -mt-5 px-5 pt-10"
+                className="bg-background rounded-t-3xl -mt-5 px-5 pt-10 border-[0.2px] border-border"
               >
                 {index === 0 && (
                   <View className="touchable px-6">
