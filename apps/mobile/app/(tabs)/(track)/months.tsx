@@ -102,15 +102,16 @@ const MonthScreen = () => {
   const onDayPress = useCallback(
     (day: DateData) => {
       // Prevent selecting future dates
-      if (!user) {
-        fireToast.info(t('common.unauthorized.description'));
-        return;
-      }
+   
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date(today);
 
       if (selectedDate > todayDate) {
         fireToast.info(t('home.errors.futureDate'));
+        return;
+      }
+      if (!user) {
+        fireToast.info(t('common.unauthorized.description'));
         return;
       }
 

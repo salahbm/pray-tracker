@@ -3,7 +3,7 @@ import '@styles/global.css';
 
 import { RootProvider } from '@/providers';
 
-import App from './app';
+import App from './App';
 
 export default function Layout() {
   return (

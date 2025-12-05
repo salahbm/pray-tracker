@@ -8,19 +8,14 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import {
   Check,
-  Sparkles,
-  Users,
-  TrendingUp,
-  Bell,
-  Palette,
-  Shield,
-  Zap,
+  Sparkles
 } from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
@@ -29,52 +24,13 @@ import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useRevenueCatOfferings, usePurchasePackage } from '@/hooks/subscriptions/useRevenueCat';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
-import { FRIENDS, IMAGES } from '@/constants/images';
+import { IMAGES } from '@/constants/images';
 import { useAuthStore } from '@/store/auth/auth-session';
 import LottieView from 'lottie-react-native';
-import { gifs } from '@/constants/onboarding';
-import { LinearGradient } from 'react-native-svg';
+import PREMIUM_FEATURES from '@/constants/premium-features';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const PREMIUM_FEATURES = [
-  {
-    key: 'unlimitedFriends',
-    title: 'subscription.features.unlimitedFriends',
-    icon: Users,
-    image: FRIENDS.friend_3,
-  },
-  {
-    key: 'friendGroups',
-    title: 'subscription.features.friendGroups',
-    icon: Users,
-    image: IMAGES.check,
-  },
-  {
-    key: 'detailedStats',
-    title: 'subscription.features.detailedStats',
-    icon: TrendingUp,
-    image: IMAGES.check,
-  },
-  {
-    key: 'prayerReminders',
-    title: 'subscription.features.prayerReminders',
-    icon: Bell,
-    image: IMAGES.check,
-  },
-  {
-    key: 'customThemes',
-    title: 'subscription.features.customThemes',
-    icon: Palette,
-    image: IMAGES.check,
-  },
-  {
-    key: 'adFree',
-    title: 'subscription.features.adFree',
-    icon: Shield,
-    image: IMAGES.check,
-  },
-];
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
@@ -98,6 +54,7 @@ export default function PaywallScreen() {
 
   const handlePurchase = async () => {
     if (!user) {
+      paywallSheetRef.current?.close();
       signInSheetRef.current?.snapToIndex(1);
       return;
     }
@@ -124,6 +81,7 @@ export default function PaywallScreen() {
 
   const handleRestore = async () => {
     if (!user) {
+      paywallSheetRef.current?.close();
       signInSheetRef.current?.snapToIndex(1);
       return;
     }
@@ -148,31 +106,31 @@ export default function PaywallScreen() {
 
   const renderFeatureCard = ({
     item,
-    index,
   }: {
     item: (typeof PREMIUM_FEATURES)[0];
-    index: number;
-  }) => {
-    const Icon = item.icon;
-
-    return (
-      <View style={{ width: SCREEN_WIDTH - 80 }} className="mr-4 h-fit aspect-[3/4]">
-        <View className="bg-card rounded-2xl overflow-hidden h-full border border-border relative">
-          {/* Full Image */}
-          <Image
-            source={item.image}
-            className="absolute inset-0 w-full h-full"
-            resizeMode="cover"
+  }) => (
+    <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">
+      <View className="rounded-3xl overflow-hidden">
+        {/* Lottie Animation */}
+        <View className="bg-primary/5 items-center justify-center" style={{ height: 280 }}>
+          <LottieView
+            source={item.gif}
+            autoPlay
+            loop
+            style={{ height: 240, width: '100%' }}
+            resizeMode="contain"
           />
-
-          {/* Gradient for readability */}
-          <View className="absolute inset-x-0 bottom-0 p-5">
-            <Text className="text-base font-semibold flex-1 text-white">{t(item.title)}</Text>
-          </View>
+        </View>
+        <View className="border-t-[0.5px] border-primary w-[200px] mx-auto" />
+        {/* Feature Title */}
+        <View className="p-6 px-10">
+          <Text className="text-lg font-bold text-center text-muted-foreground leading-6">
+            {t(item.title)}
+          </Text>
         </View>
       </View>
-    );
-  };
+    </View>
+  )
 
   if (loadingOfferings) {
     return (
@@ -190,54 +148,43 @@ export default function PaywallScreen() {
       showsVerticalScrollIndicator={false}
     >
       {/* Header */}
-      <Animated.View entering={FadeInUp.delay(100)} className="items-center  mb-8">
-        <LottieView
-          source={gifs.man_premium}
-          autoPlay
-          loop
-          style={{ height: 320, width: '100%' }}
-          resizeMode="cover"
-        />
-        {/* 
-<Image
-          source={currentTheme === 'light' ? IMAGES.icon_light : IMAGES.icon_dark}
-          className="w-40 h-40 rounded-full border border-border mb-6"
-        /> */}
+      <Animated.View entering={FadeInUp.delay(100)} className="items-center p-6">
         <Text className="text-2xl font-bold text-center mb-2">{t('subscription.title')} +</Text>
-
         <Text className="text-base text-muted-foreground text-center max-w-sm leading-6">
           {t('subscription.subtitle')}
         </Text>
       </Animated.View>
 
       {/* Feature Carousel */}
-      <Animated.View entering={FadeInDown.delay(200)} className="my-8">
-        <FlatList
-          ref={flatListRef}
-          data={PREMIUM_FEATURES}
-          renderItem={renderFeatureCard}
-          keyExtractor={item => item.key}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onMomentumScrollEnd={event => {
-            const index = Math.round(event.nativeEvent.contentOffset.x / (SCREEN_WIDTH - 80 + 16));
-            setActiveFeatureIndex(index);
-          }}
-          snapToInterval={SCREEN_WIDTH - 80 + 16}
-          decelerationRate="fast"
-          contentContainerStyle={{ paddingLeft: 4 }}
-        />
+      <Animated.View entering={FadeInDown.delay(200)} className="mb-6">
+        <GestureDetector gesture={Gesture.Pan().activeOffsetX([-10, 10])}>
+          <FlatList
+            horizontal
+            ref={flatListRef}
+            pagingEnabled={false}
+            data={PREMIUM_FEATURES}
+            renderItem={renderFeatureCard}
+            keyExtractor={item => item.key}
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={event => {
+              const index = Math.round(event.nativeEvent.contentOffset.x / (SCREEN_WIDTH - 64 + 16));
+              setActiveFeatureIndex(index);
+            }}
+            snapToAlignment="start"
+            decelerationRate="fast"
+            contentContainerStyle={{ paddingLeft: 6 }}
+          />
+        </GestureDetector>
 
         {/* Pagination Dots */}
-        <View className="flex-row justify-center mt-5 gap-2">
+        <View className="flex-row justify-center mt-4 gap-3">
           {PREMIUM_FEATURES.map((_, index) => (
-            <View
+            <TouchableOpacity
               key={index}
+              onPress={() => flatListRef.current?.scrollToIndex({ index })}
               className={cn(
-                'h-1.5 rounded-full',
-                index === activeFeatureIndex ? 'w-6' : 'w-1.5',
-                index === activeFeatureIndex ? 'bg-primary' : 'bg-primary opacity-50'
+                'h-2 rounded-full transition-all',
+                index === activeFeatureIndex ? 'w-8 bg-primary' : 'w-2 bg-primary opacity-50'
               )}
             />
           ))}
@@ -245,8 +192,8 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Pricing Plans */}
-      <Animated.View entering={FadeInDown.delay(400)} className="mb-6">
-        <Text className="text-xl font-bold mb-5">{t('subscription.choosePlan')}</Text>
+      <Animated.View entering={FadeInDown.delay(400)} className="px-6 my-6">
+        <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
 
         {/* Yearly Plan */}
         <TouchableOpacity
@@ -333,7 +280,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Subscribe Button */}
-      <Animated.View entering={FadeInDown.delay(600)} className="my-4">
+      <Animated.View entering={FadeInDown.delay(600)} className="px-6 mb-4">
         <TouchableOpacity
           onPress={handlePurchase}
           disabled={purchasing}
@@ -358,7 +305,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Restore Purchases */}
-      <Animated.View entering={FadeInDown.delay(700)} className="mb-4">
+      <Animated.View entering={FadeInDown.delay(700)} className="px-6 mb-2">
         <TouchableOpacity
           onPress={handleRestore}
           disabled={purchasing}
@@ -370,7 +317,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Close Button */}
-      <Animated.View entering={FadeInDown.delay(800)} className="mb-4">
+      <Animated.View entering={FadeInDown.delay(800)} className="px-6 mb-6">
         <TouchableOpacity
           onPress={() => paywallSheetRef.current?.close()}
           className="py-3 items-center"
@@ -381,7 +328,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Terms */}
-      <Animated.View entering={FadeInDown.delay(900)} className="px-6 pb-10">
+      <Animated.View entering={FadeInDown.delay(900)} className="px-8 pb-10">
         <Text className="text-xs text-muted-foreground text-center leading-5">
           {t('subscription.terms')}
         </Text>
