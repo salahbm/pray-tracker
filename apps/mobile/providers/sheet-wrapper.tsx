@@ -1,7 +1,11 @@
 import React, { Fragment, useCallback } from 'react';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import ProfilePage from '@/app/(screens)/profile';
-import { useAuthBottomSheetStore, usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import {
+  useAuthBottomSheetStore,
+  usePaywallBottomSheetStore,
+  useProfileBottomSheetStore,
+} from '@/store/bottom-sheets';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import SignInScreen from '@/app/(auth)/sign-in';
 import SignUpScreen from '@/app/(auth)/sign-up';
@@ -12,7 +16,6 @@ import EditGroupSheet from '@/components/views/friends/groups/edit-group-sheet';
 import DeleteGroupSheet from '@/components/views/friends/groups/delete-group-sheet';
 import PrayerNotifierSheet from '@/components/views/qibla/pray-notifier-sheet';
 import PaywallScreen from '@/app/(screens)/subscription/paywall';
-
 
 interface ISheetWrapperProps {}
 
@@ -61,9 +64,7 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
       </CustomBottomSheet>
       {/* FORGOT  PASSWORD  SHEET */}
       <CustomBottomSheet sheetRef={forgotPwdRef}>
-        <ForgotPasswordScreen
-          onNavigate={handlePresentSignIn}
-        />
+        <ForgotPasswordScreen onNavigate={handlePresentSignIn} />
       </CustomBottomSheet>
       {/* PROFILE */}
       <CustomBottomSheet sheetRef={profileSheetRef}>

@@ -19,16 +19,13 @@ import { useThemeStore } from '@/store/defaults/theme';
 
 import FreemiumTrackerIntro from './header';
 
-
 const FreemiumFriends = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
 
-
   // Accordion
   const [accordionValue, setAccordionValue] = useState<string[]>([]);
-
 
   return (
     <React.Fragment>

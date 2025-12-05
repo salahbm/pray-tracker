@@ -49,7 +49,7 @@ export default function ResetPasswordScreen() {
       fireToast.success(t('auth.resetPassword.success'));
       setNewPassword('');
       setConfirmPassword('');
-      
+
       // Navigate to sign-in after 1 second
       setTimeout(() => {
         router.replace('/(auth)/sign-in');
@@ -109,7 +109,11 @@ export default function ResetPasswordScreen() {
         <Text className="text-sm text-muted-foreground text-center">
           {t('auth.resetPassword.rememberedPassword')}
         </Text>
-        <Button variant="link" onPress={() => router.replace('/(auth)/sign-in')} disabled={isPending}>
+        <Button
+          variant="link"
+          onPress={() => router.replace('/(auth)/sign-in')}
+          disabled={isPending}
+        >
           <Text className="font-primary">{t('auth.resetPassword.signInLink')}</Text>
         </Button>
       </View>

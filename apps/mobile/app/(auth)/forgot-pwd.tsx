@@ -18,8 +18,10 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
   const { mutateAsync, isPending } = useResetPwd();
 
   const onResetPassword = useCallback(async () => {
-    await mutateAsync(email)
-      .then(() => {fireToast.success(t('auth.forgotPassword.message', { email })); setEmail('');});
+    await mutateAsync(email).then(() => {
+      fireToast.success(t('auth.forgotPassword.message', { email }));
+      setEmail('');
+    });
   }, [email, mutateAsync]);
 
   return (
@@ -57,8 +59,8 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
 
       {/* Test button - Remove in production */}
       {__DEV__ && (
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           onPress={() => router.push('/reset-pwd?token=test-token-123')}
           className="mt-4"
         >
