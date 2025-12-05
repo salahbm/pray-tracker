@@ -2,13 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Animated,
-  Platform,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { Animated, Platform, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 
@@ -84,14 +78,13 @@ const Welcome = () => {
                   ],
                 }}
               >
-             <LottieView
-  source={item.gif}
-  autoPlay
-  loop
-  style={{ height: BANNER_HEIGHT, width: '100%' }}
-  resizeMode="cover"
-/>
-
+                <LottieView
+                  source={item.gif}
+                  autoPlay
+                  loop
+                  style={{ height: BANNER_HEIGHT, width: '100%' }}
+                  resizeMode="cover"
+                />
               </Animated.View>
 
               <View

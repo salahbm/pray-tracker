@@ -36,7 +36,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
       Keyboard.dismiss();
       await signIn(data).then(() => {
         onSuccess();
-        Keyboard.dismiss()
+        Keyboard.dismiss();
         form.reset();
       });
     },

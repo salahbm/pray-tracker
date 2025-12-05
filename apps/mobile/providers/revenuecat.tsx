@@ -8,7 +8,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
  * and sets the user ID when the user is authenticated
  */
 export const RevenueCatProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore(state => state.user);
 
   useEffect(() => {
     // Initialize RevenueCat on mount

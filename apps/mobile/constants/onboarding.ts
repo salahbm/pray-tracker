@@ -1,12 +1,8 @@
-
-
 import man_looking_through from '@assets/gif/man_looking_through.json';
 import man_praying from '@assets/gif/man_praying.json';
 import moon_candles from '@assets/gif/moon_candles.json';
 import share_with_friends from '@assets/gif/share_with_friends.json';
 import clock_sand from '@assets/gif/clock_sand.json';
-
-
 
 export const gifs = {
   man_looking_through,

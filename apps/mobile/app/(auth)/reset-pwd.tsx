@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
@@ -18,16 +19,49 @@ export default function ResetPasswordScreen() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [token, setToken] = useState<string>('');
-  const {signInSheetRef}=useAuthBottomSheetStore()
+  const { signInSheetRef } = useAuthBottomSheetStore();
 
   const { mutateAsync, isPending } = useResetPassword();
 
   useEffect(() => {
-    // Extract token from URL params
-    if (params.token && typeof params.token === 'string') {
-      setToken(params.token);
-    }
-  }, [params.token]);
+    const checkToken = async () => {
+      if (params.token && typeof params.token === 'string') {
+        // Check if this token has already been visited
+        const visitedTokenData = await AsyncStorage.getItem(`reset_token_visited_${params.token}`);
+
+        if (visitedTokenData) {
+          try {
+            const parsed = JSON.parse(visitedTokenData);
+            const hoursSinceVisited = (Date.now() - parsed.timestamp) / (1000 * 60 * 60);
+
+            // If token was visited less than 24 hours ago, redirect to home
+            if (hoursSinceVisited < 24) {
+              router.replace('/(tabs)');
+              return;
+            } else {
+              // Clean up old token data
+              await AsyncStorage.removeItem(`reset_token_visited_${params.token}`);
+            }
+          } catch {
+            // If parsing fails, assume token is visited
+            router.replace('/(tabs)');
+            return;
+          }
+        }
+
+        // Mark this token as visited immediately to prevent re-navigation
+        const visitedData = JSON.stringify({
+          visited: true,
+          timestamp: Date.now(),
+        });
+        await AsyncStorage.setItem(`reset_token_visited_${params.token}`, visitedData);
+
+        setToken(params.token);
+      }
+    };
+
+    checkToken();
+  }, [params.token, router]);
 
   const onResetPassword = useCallback(async () => {
     // Validation
@@ -48,20 +82,26 @@ export default function ResetPasswordScreen() {
 
     try {
       await mutateAsync({ token, newPassword });
+
       fireToast.success(t('auth.resetPassword.success'));
       setNewPassword('');
       setConfirmPassword('');
+      Keyboard.dismiss();
 
-      // Navigate to sign-in after 1 second
+      // Clear the token to prevent re-navigation
+      setToken('');
+
+      // Navigate to tabs and open sign-in sheet after a short delay
       setTimeout(() => {
-        Keyboard.dismiss()
-        router.replace('/(tabs)')
-        signInSheetRef.current?.snapToIndex(1)
+        router.replace('/(tabs)');
+        setTimeout(() => {
+          signInSheetRef.current?.snapToIndex(1);
+        }, 300);
       }, 1000);
     } catch (error) {
       fireToast.error(t('auth.resetPassword.errors.failed'));
     }
-  }, [token, newPassword, confirmPassword, mutateAsync, t, router]);
+  }, [token, newPassword, confirmPassword, mutateAsync, t, router, signInSheetRef]);
 
   return (
     <View className="flex-1 bg-background p-6 justify-center">
@@ -116,8 +156,11 @@ export default function ResetPasswordScreen() {
         <Button
           variant="link"
           onPress={() => {
-            router.replace('/(tabs)')
-            signInSheetRef.current?.snapToIndex(1)
+            setToken('');
+            router.replace('/(tabs)');
+            setTimeout(() => {
+              signInSheetRef.current?.snapToIndex(1);
+            }, 300);
           }}
           disabled={isPending}
         >
@@ -125,14 +168,16 @@ export default function ResetPasswordScreen() {
         </Button>
       </View>
 
-        <Button
-          variant="link"
-          onPress={() => router.replace('/(tabs)')}
-          disabled={isPending}
-        >
-          <Text className="font-primary">{t('auth.resetPassword.goBackHome')}</Text>
-        </Button>
-
+      <Button
+        variant="link"
+        onPress={() => {
+          setToken('');
+          router.replace('/(tabs)');
+        }}
+        disabled={isPending}
+      >
+        <Text className="font-primary">{t('auth.resetPassword.goBackHome')}</Text>
+      </Button>
     </View>
   );
 }

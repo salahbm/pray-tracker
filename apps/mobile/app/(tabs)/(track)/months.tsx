@@ -245,7 +245,7 @@ const MonthScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              {t('Commons.LoadMoreMonths')}
+              {t('common.loadMoreMonths')}
             </Text>
           )}
         </TouchableOpacity>

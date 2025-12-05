@@ -15,7 +15,7 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
   const { t } = useTranslation();
   const router = useRouter();
   const [email, setEmail] = useState('');
-  const {forgotPwdRef}=useAuthBottomSheetStore()
+  const { forgotPwdRef } = useAuthBottomSheetStore();
 
   const { mutateAsync, isPending } = useResetPwd();
 
@@ -23,8 +23,8 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
     await mutateAsync(email).then(() => {
       fireToast.success(t('auth.forgotPassword.message', { email }));
       setEmail('');
-      Keyboard.dismiss()
-      forgotPwdRef.current?.close()
+      Keyboard.dismiss();
+      forgotPwdRef.current?.close();
     });
   }, [email, mutateAsync]);
 

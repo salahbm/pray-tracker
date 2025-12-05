@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { userKeys } from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { User } from '@/types/user';
+import QueryKeys from '@/constants/query-keys';
 
 interface SessionResponse {
   access_token: string;
@@ -26,7 +26,7 @@ export const useSession = () => {
   const { setUser, user, setSession } = useAuthStore();
 
   const { data, isFetched } = useQuery({
-    queryKey: [userKeys, 'session'],
+    queryKey: QueryKeys.users.session,
     queryFn: getSession,
     staleTime: 1000 * 60 * 5,
     retry: 1,

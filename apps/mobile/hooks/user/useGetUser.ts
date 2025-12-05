@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { userKeys } from '@/constants/query-keys';
+import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { User } from '@/types/user';
 
@@ -12,7 +12,7 @@ const getUser = async (userId: string): Promise<User> => {
 
 export const useGetUser = (userId: string) =>
   useQuery({
-    queryKey: [userKeys.detail(userId)],
+    queryKey: [...QueryKeys.users.detail, { userId }],
     queryFn: () => getUser(userId),
     enabled: !!userId,
   });

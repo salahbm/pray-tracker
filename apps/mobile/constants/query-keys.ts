@@ -2,6 +2,7 @@ const QueryKeys = {
   users: {
     all: ['users'],
     detail: ['users', 'detail'],
+    session: ['users', 'session'],
   },
   awards: {
     all: ['awards'],
