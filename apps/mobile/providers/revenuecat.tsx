@@ -1,5 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
-import { initializeRevenueCat } from '@/lib/revenuecat';
+import { useEffect } from 'react';
+import {
+  getRevenueCatOfferings,
+  getRevenueCatUserInfo,
+  initializeRevenueCat,
+} from '@/lib/revenuecat';
 import { useAuthStore } from '@/store/auth/auth-session';
 
 /**
@@ -7,13 +11,13 @@ import { useAuthStore } from '@/store/auth/auth-session';
  * Initializes RevenueCat SDK when the app starts
  * and sets the user ID when the user is authenticated
  */
-export const RevenueCatProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useAuthStore(state => state.user);
-
+export const RevenueCatProvider = () => {
   useEffect(() => {
     // Initialize RevenueCat on mount
-    initializeRevenueCat(user?.id);
-  }, [user?.id]);
+    initializeRevenueCat();
+    getRevenueCatUserInfo();
+    getRevenueCatOfferings();
+  }, []);
 
-  return <Fragment>{children}</Fragment>;
+  return null;
 };

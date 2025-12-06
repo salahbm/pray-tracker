@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Noor",
-    "slug": "Noor - Pray Tracker",
+    "slug": "noor-pray-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon-light-rounded.png",
-    "scheme": "mobile",
+    "scheme": "noor",
     "userInterfaceStyle": "automatic",
     "owner": "Muhammad Salah",
     "newArchEnabled": true,

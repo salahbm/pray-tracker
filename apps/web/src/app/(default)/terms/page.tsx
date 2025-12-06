@@ -80,8 +80,8 @@ const TermsPage = () => {
         <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
         <p className="text-foreground-accent mb-4">
           If you have any questions or concerns about these Terms, please email us at{' '}
-          <a href="mailto:salahbm.dev@gmail.com" className="text-primary hover:underline">
-            salahbm.dev@gmail.com
+          <a href="mailto:noorpraytracker@gmail.com" className="text-primary hover:underline">
+            noorpraytracker@gmail.com
           </a>
         </p>
       </section>

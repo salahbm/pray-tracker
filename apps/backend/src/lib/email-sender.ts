@@ -27,7 +27,7 @@ export async function sendPasswordResetEmail(
     }
 
     // Create mobile deep link - Expo Router format with (auth) group
-    const mobileResetUrl = `mobile://(auth)/reset-pwd?token=${resetToken}`;
+    const mobileResetUrl = `noor://(auth)/reset-pwd?token=${resetToken}`;
 
     // Template path - works in both dev (ts-node) and prod (compiled)
     // In dev: __dirname = /path/to/apps/backend/src/lib

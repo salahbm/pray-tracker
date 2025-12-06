@@ -22,7 +22,7 @@ export const footerDetails: {
       url: '#testimonials',
     },
   ],
-  email: 'salahbm.dev@gmail.com',
+  email: 'noorpraytracker@gmail.com',
   // telephone: '+1 (123) 456-7890',
   socials: {
     github: 'https://github.com/salahbm/Pray-Tracker',
@@ -32,6 +32,6 @@ export const footerDetails: {
     // youtube: 'https://youtube.com',
     linkedin: 'https://www.linkedin.com/in/salahbm/',
     // threads: 'https://www.threads.net',
-    instagram: 'https://www.instagram.com/im._.salah',
+    instagram: 'https://www.instagram.com/mkhd.salah',
   },
 };

@@ -63,7 +63,7 @@ const About = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => handleLink('mailto:salahbm.dev@gmail.com')}
+                onPress={() => handleLink('mailto:noorpraytracker@gmail.com')}
                 className="items-center"
               >
                 <View className="w-12 h-12 bg-secondary rounded-full items-center justify-center">

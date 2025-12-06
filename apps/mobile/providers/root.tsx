@@ -11,6 +11,7 @@ import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
 import NotificationNavProvider from './notification-nav';
 import { PushTokenProvider } from './push-token';
+import { RevenueCatProvider } from './revenuecat';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -25,7 +26,10 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
                   style={{ flex: 1 }}
                   keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
                 >
-                  <NotificationNavProvider>{children}</NotificationNavProvider>
+                  <NotificationNavProvider>
+                    {children}
+                    <RevenueCatProvider />
+                  </NotificationNavProvider>
                 </KeyboardAvoidingView>
               </PushTokenProvider>
               <ToastProvider />

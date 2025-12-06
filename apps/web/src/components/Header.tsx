@@ -49,7 +49,7 @@ const Header: React.FC<{ userId?: string }> = ({ userId }) => {
                 </Link>
               </li>
             ))}
-            <li>
+            {/* <li>
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
@@ -67,12 +67,12 @@ const Header: React.FC<{ userId?: string }> = ({ userId }) => {
                   <BiLogIn className="text-lg" />
                 </Link>
               )}
-            </li>
+            </li> */}
           </ul>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            {isAuthenticated ? (
+            {/* {isAuthenticated ? (
               <Link
                 href="/dashboard"
                 className="text-white text-sm font-semibold bg-gradient-to-r from-primary to-primary-accent px-3 py-1 rounded-full transition-colors duration-200 flex items-center gap-1"
@@ -87,7 +87,7 @@ const Header: React.FC<{ userId?: string }> = ({ userId }) => {
               >
                 Sign In
               </Link>
-            )}
+            )} */}
             <button
               onClick={toggleMenu}
               type="button"
