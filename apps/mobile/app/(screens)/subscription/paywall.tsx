@@ -13,10 +13,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import {
-  Check,
-  Sparkles
-} from 'lucide-react-native';
+import { Check, Sparkles } from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -30,7 +27,6 @@ import LottieView from 'lottie-react-native';
 import PREMIUM_FEATURES from '@/constants/premium-features';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
@@ -104,11 +100,7 @@ export default function PaywallScreen() {
   const yearlyPrice = yearlyPackage?.product.priceString || '$54.99';
   const yearlySavings = t('subscription.saveOneMonth');
 
-  const renderFeatureCard = ({
-    item,
-  }: {
-    item: (typeof PREMIUM_FEATURES)[0];
-  }) => (
+  const renderFeatureCard = ({ item }: { item: (typeof PREMIUM_FEATURES)[0] }) => (
     <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">
       <View className="rounded-3xl overflow-hidden">
         {/* Lottie Animation */}
@@ -130,7 +122,7 @@ export default function PaywallScreen() {
         </View>
       </View>
     </View>
-  )
+  );
 
   if (loadingOfferings) {
     return (
@@ -167,7 +159,9 @@ export default function PaywallScreen() {
             keyExtractor={item => item.key}
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={event => {
-              const index = Math.round(event.nativeEvent.contentOffset.x / (SCREEN_WIDTH - 64 + 16));
+              const index = Math.round(
+                event.nativeEvent.contentOffset.x / (SCREEN_WIDTH - 64 + 16)
+              );
               setActiveFeatureIndex(index);
             }}
             snapToAlignment="start"
@@ -192,7 +186,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Pricing Plans */}
-      <Animated.View entering={FadeInDown.delay(400)} className="px-6 my-6">
+      <Animated.View entering={FadeInDown.delay(400)} className=" my-6">
         <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
 
         {/* Yearly Plan */}
@@ -206,7 +200,7 @@ export default function PaywallScreen() {
         >
           {/* Best Value Badge */}
           <View
-            className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-2xl"
+            className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl"
             style={{ backgroundColor: colors['--primary'] }}
           >
             <Text className="text-xs font-bold text-primary-foreground">
@@ -280,7 +274,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Subscribe Button */}
-      <Animated.View entering={FadeInDown.delay(600)} className="px-6 mb-4">
+      <Animated.View entering={FadeInDown.delay(600)} className=" mb-4">
         <TouchableOpacity
           onPress={handlePurchase}
           disabled={purchasing}
@@ -305,7 +299,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Restore Purchases */}
-      <Animated.View entering={FadeInDown.delay(700)} className="px-6 mb-2">
+      <Animated.View entering={FadeInDown.delay(700)} className=" mb-2">
         <TouchableOpacity
           onPress={handleRestore}
           disabled={purchasing}
@@ -317,7 +311,7 @@ export default function PaywallScreen() {
       </Animated.View>
 
       {/* Close Button */}
-      <Animated.View entering={FadeInDown.delay(800)} className="px-6 mb-6">
+      <Animated.View entering={FadeInDown.delay(800)} className=" mb-6">
         <TouchableOpacity
           onPress={() => paywallSheetRef.current?.close()}
           className="py-3 items-center"

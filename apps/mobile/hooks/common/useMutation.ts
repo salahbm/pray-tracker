@@ -5,10 +5,8 @@ import {
   type UseMutationResult,
 } from '@tanstack/react-query';
 
-import { ErrorData } from '@/types/api';
-
 export type IMutationOptions<T, V = T> = Omit<
-  UseMutationOptions<T, ErrorData, V>,
+  UseMutationOptions<T, Error, V>,
   'queryKey' | 'queryFn'
 >;
 
@@ -20,7 +18,7 @@ type UseMutationProps<TData, TVariables> = {
 const useMutation = <TData, TVariables = TData>({
   mutationFn,
   options,
-}: UseMutationProps<TData, TVariables>): UseMutationResult<TData, ErrorData, TVariables> =>
+}: UseMutationProps<TData, TVariables>): UseMutationResult<TData, Error, TVariables> =>
   useDefaultMutation({ mutationFn, ...options });
 
 export default useMutation;

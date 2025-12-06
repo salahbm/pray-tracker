@@ -102,7 +102,7 @@ const MonthScreen = () => {
   const onDayPress = useCallback(
     (day: DateData) => {
       // Prevent selecting future dates
-   
+
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date(today);
 

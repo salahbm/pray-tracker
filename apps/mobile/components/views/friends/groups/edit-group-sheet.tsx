@@ -74,7 +74,7 @@ const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
             disabled={isUpdating || !groupName.trim()}
             className="flex-1"
           >
-            <Text>{isUpdating ? t('common.updating') : t('common.update')}</Text>
+            <Text>{isUpdating ? t('common.actions.updating') : t('common.actions.update')}</Text>
           </Button>
         </View>
       </View>

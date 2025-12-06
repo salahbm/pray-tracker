@@ -1,17 +1,17 @@
-import { gifs } from "./onboarding";
+import { gifs } from './images';
 
 const PREMIUM_FEATURES = [
+  {
+    key: 'friendGroups',
+    title: 'subscription.features.friendGroups',
+    gif: gifs.friendships,
+  },
   {
     key: 'unlimitedFriends',
     title: 'subscription.features.unlimitedFriends',
     gif: gifs.friends_group,
   },
-  {
-    key: 'friendGroups',
-    title: 'subscription.features.friendGroups',
 
-    gif: gifs.friendships,
-  },
   {
     key: 'detailedStats',
     title: 'subscription.features.detailedStats',
@@ -33,6 +33,5 @@ const PREMIUM_FEATURES = [
     gif: gifs.learning,
   },
 ];
-
 
 export default PREMIUM_FEATURES;
