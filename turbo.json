@@ -6,7 +6,24 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "generated/**"],
+      "env": [
+        "DATABASE_URL",
+        "DIRECT_URL",
+        "PUBLIC_API_PORT",
+        "BETTER_AUTH_URL",
+        "BETTER_AUTH_SECRET",
+        "R2_ACCESS_KEY_ID",
+        "R2_SECRET_ACCESS_KEY",
+        "R2_ACCOUNT_ID",
+        "R2_BUCKET",
+        "R2_S3_API_URL",
+        "EMAIL_HOST",
+        "EMAIL_PORT",
+        "EMAIL_SECURE",
+        "EMAIL_USER",
+        "EMAIL_PASS"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]

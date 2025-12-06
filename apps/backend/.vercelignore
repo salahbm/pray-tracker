@@ -1,0 +1,16 @@
+node_modules
+src
+test
+.env
+.env.example
+.gitignore
+.prettierrc
+eslint.config.mjs
+nest-cli.json
+tsconfig.json
+tsconfig.build.json
+tsconfig.build.tsbuildinfo
+README.md
+SETUP_COMPLETE.md
+*.md
+.turbo
