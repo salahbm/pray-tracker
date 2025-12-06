@@ -1,10 +1,10 @@
 export const siteDetails = {
-  siteName: 'Pray Tracker',
+  siteName: 'Noor',
   siteUrl: 'https://pray-tracker.vercel.app/',
   metadata: {
-    title: 'Pray Tracker - Your Smart Prayer Companion',
+    title: 'Noor - Pray Tracker Your Smart Prayer Companion',
     description:
-      'Pray Tracker helps Muslims maintain their daily prayers with accurate prayer times, Qibla direction, and smart tracking features.',
+      'Noor - Pray Tracker helps Muslims maintain their daily prayers with accurate prayer times, Qibla direction, and smart tracking features.',
   },
   language: 'en-us',
   locale: 'en-US',
