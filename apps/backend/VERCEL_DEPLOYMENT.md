@@ -11,11 +11,13 @@ The backend is configured to run as a Vercel serverless function with the follow
 
 ## Files Created for Vercel Deployment
 
-1. **`vercel.json`** - Vercel configuration
-2. **`src/serverless.ts`** - Serverless entry point with Express adapter
-3. **`nest-cli.serverless.json`** - NestJS CLI config for serverless build
-4. **`tsconfig.prod.json`** - Production TypeScript config (CommonJS)
-5. **`.vercelignore`** - Files to exclude from deployment
+1. **`vercel.json`** - Vercel configuration with rewrites
+2. **`api/index.js`** - Vercel serverless function entry point
+3. **`src/serverless.ts`** - Serverless handler with Express adapter
+4. **`nest-cli.serverless.json`** - NestJS CLI config for serverless build
+5. **`tsconfig.prod.json`** - Production TypeScript config (CommonJS)
+6. **`.vercelignore`** - Files to exclude from deployment
+7. **`.eslintignore`** - Ignore api directory from linting
 
 ## Environment Variables
 
@@ -42,10 +44,19 @@ Make sure all environment variables are set in your Vercel project settings:
 
 ## Build Process
 
-The build script runs in this order:
+The build script (`vercel-build`) runs in this order:
 1. `prisma generate` - Generate Prisma Client
 2. `nest build -p tsconfig.prod.json` - Build main application (CommonJS)
 3. `nest build -c nest-cli.serverless.json -p tsconfig.prod.json` - Build serverless entry point
+4. Vercel deploys `api/index.js` which imports `dist/serverless.js`
+
+## How It Works
+
+1. **Build Phase**: Vercel runs `vercel-build` script which compiles TypeScript to CommonJS in `dist/`
+2. **Entry Point**: `api/index.js` serves as the Vercel serverless function entry point
+3. **Handler**: `api/index.js` imports the compiled `dist/serverless.js` handler
+4. **Routing**: All requests (`/*`) are rewritten to `/api/index` via `vercel.json`
+5. **Execution**: The NestJS app is cached and reused across warm invocations
 
 ## Deployment Steps
 
