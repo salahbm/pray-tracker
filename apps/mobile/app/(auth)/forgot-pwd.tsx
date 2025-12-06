@@ -60,17 +60,6 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
           <Text className="font-primary">{t('auth.forgotPassword.signInLink')}</Text>
         </Button>
       </View>
-
-      {/* Test button - Remove in production */}
-      {__DEV__ && (
-        <Button
-          variant="outline"
-          onPress={() => router.push('/reset-pwd?token=test-token-123')}
-          className="mt-4"
-        >
-          <Text className="text-xs">🧪 Test Reset Screen</Text>
-        </Button>
-      )}
     </React.Fragment>
   );
 }

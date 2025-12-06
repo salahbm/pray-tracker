@@ -6,6 +6,7 @@ import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import { useSession } from '@/hooks/auth/useSessions';
+import { cleanupExpiredTokens } from '@/utils/deep-link-token';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -27,6 +28,11 @@ export default function App() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  // Cleanup expired deep link tokens on app start
+  useEffect(() => {
+    cleanupExpiredTokens();
+  }, []);
 
   if (!loaded) {
     return null;

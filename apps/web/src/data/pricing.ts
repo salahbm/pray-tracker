@@ -14,7 +14,7 @@ export const tiers: IPricing[] = [
   },
   {
     name: 'Pro Monthly',
-    price: 2.99,
+    price: 4.99,
     features: [
       'All Free features',
       'Detailed prayer analytics',
@@ -27,7 +27,7 @@ export const tiers: IPricing[] = [
   },
   {
     name: 'Pro Yearly',
-    price: 24.99,
+    price: 54.99,
     features: [
       'All Pro Monthly features',
       '2 months free',

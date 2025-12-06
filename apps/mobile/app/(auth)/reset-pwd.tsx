@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,7 @@ import { Text } from '@/components/ui/text';
 import { useResetPassword } from '@/hooks/auth/useResetPassword';
 import { fireToast } from '@/providers/toaster';
 import { useAuthBottomSheetStore } from '@/store/bottom-sheets';
+import { isTokenVisited, markTokenAsVisited } from '@/utils/deep-link-token';
 
 export default function ResetPasswordScreen() {
   const { t } = useTranslation();
@@ -19,44 +19,40 @@ export default function ResetPasswordScreen() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [token, setToken] = useState<string>('');
+  const [isValidating, setIsValidating] = useState(true);
   const { signInSheetRef } = useAuthBottomSheetStore();
 
   const { mutateAsync, isPending } = useResetPassword();
 
   useEffect(() => {
     const checkToken = async () => {
-      if (params.token && typeof params.token === 'string') {
+      try {
+        if (!params.token || typeof params.token !== 'string') {
+          // No token provided, redirect immediately
+          router.replace('/(tabs)');
+          return;
+        }
+
+        const tokenParam = params.token;
+
         // Check if this token has already been visited
-        const visitedTokenData = await AsyncStorage.getItem(`reset_token_visited_${params.token}`);
+        const visited = await isTokenVisited(tokenParam);
 
-        if (visitedTokenData) {
-          try {
-            const parsed = JSON.parse(visitedTokenData);
-            const hoursSinceVisited = (Date.now() - parsed.timestamp) / (1000 * 60 * 60);
-
-            // If token was visited less than 24 hours ago, redirect to home
-            if (hoursSinceVisited < 24) {
-              router.replace('/(tabs)');
-              return;
-            } else {
-              // Clean up old token data
-              await AsyncStorage.removeItem(`reset_token_visited_${params.token}`);
-            }
-          } catch {
-            // If parsing fails, assume token is visited
-            router.replace('/(tabs)');
-            return;
-          }
+        if (visited) {
+          // Token already used, redirect to home
+          router.replace('/(tabs)');
+          return;
         }
 
         // Mark this token as visited immediately to prevent re-navigation
-        const visitedData = JSON.stringify({
-          visited: true,
-          timestamp: Date.now(),
-        });
-        await AsyncStorage.setItem(`reset_token_visited_${params.token}`, visitedData);
+        await markTokenAsVisited(tokenParam);
 
-        setToken(params.token);
+        // Token is valid and fresh, set it
+        setToken(tokenParam);
+        setIsValidating(false);
+      } catch (error) {
+        // On any error, redirect to home
+        router.replace('/(tabs)');
       }
     };
 
@@ -88,20 +84,29 @@ export default function ResetPasswordScreen() {
       setConfirmPassword('');
       Keyboard.dismiss();
 
-      // Clear the token to prevent re-navigation
-      setToken('');
+      // Clear navigation history and navigate to home
+      if (router.canGoBack()) {
+        router.dismissAll();
+      }
+      router.replace('/(tabs)');
 
-      // Navigate to tabs and open sign-in sheet after a short delay
+      // Open sign-in sheet after navigation
       setTimeout(() => {
-        router.replace('/(tabs)');
-        setTimeout(() => {
-          signInSheetRef.current?.snapToIndex(1);
-        }, 300);
-      }, 1000);
+        signInSheetRef.current?.snapToIndex(1);
+      }, 500);
     } catch (error) {
       fireToast.error(t('auth.resetPassword.errors.failed'));
     }
   }, [token, newPassword, confirmPassword, mutateAsync, t, router, signInSheetRef]);
+
+  // Show loader while validating token
+  if (isValidating) {
+    return (
+      <View className="flex-1 bg-background justify-center items-center">
+        <Loader visible={true} size="large" />
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1 bg-background p-6 justify-center">
@@ -141,12 +146,6 @@ export default function ResetPasswordScreen() {
           <Loader visible={isPending} size="small" />
           <Text className="font-bold">{t('auth.resetPassword.button')}</Text>
         </Button>
-
-        {!token && (
-          <Text className="text-sm text-destructive mt-4 text-center">
-            {t('auth.resetPassword.errors.invalidToken')}
-          </Text>
-        )}
       </View>
 
       <View className="mt-6 flex flex-row justify-center items-center">
@@ -156,11 +155,13 @@ export default function ResetPasswordScreen() {
         <Button
           variant="link"
           onPress={() => {
-            setToken('');
+            if (router.canGoBack()) {
+              router.dismissAll();
+            }
             router.replace('/(tabs)');
             setTimeout(() => {
               signInSheetRef.current?.snapToIndex(1);
-            }, 300);
+            }, 500);
           }}
           disabled={isPending}
         >
@@ -171,7 +172,9 @@ export default function ResetPasswordScreen() {
       <Button
         variant="link"
         onPress={() => {
-          setToken('');
+          if (router.canGoBack()) {
+            router.dismissAll();
+          }
           router.replace('/(tabs)');
         }}
         disabled={isPending}
