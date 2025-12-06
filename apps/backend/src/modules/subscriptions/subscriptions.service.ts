@@ -37,8 +37,7 @@ export class SubscriptionsService {
     }
 
     const isPremium =
-      subscription.status === SubscriptionStatus.ACTIVE ||
-      subscription.status === SubscriptionStatus.TRIAL;
+      subscription.status === 'ACTIVE' || subscription.status === 'TRIAL';
 
     return {
       isPremium,

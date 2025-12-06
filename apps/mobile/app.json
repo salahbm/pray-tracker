@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon-light-rounded.png",
     "scheme": "noor",
     "userInterfaceStyle": "automatic",
-    "owner": "Muhammad Salah",
+    "owner": "salahbm_dev",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
@@ -16,7 +16,10 @@
         "light": "./assets/images/icon-light.png"
       },
       "bundleIdentifier": "com.noor.praytracker",
-      "appleTeamId": "A2Y67UR23Z"
+      "appleTeamId": "A2Y67UR23Z",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -89,6 +92,12 @@
       "en": "./locales/en.json",
       "ru": "./locales/ru.json",
       "uz": "./locales/uz.json"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a3cc0051-f95d-4139-934d-27b073f49f78"
+      }
     }
   }
 }

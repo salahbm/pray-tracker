@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useSavePushToken } from './useSavePushToken';
 import { useAuthStore } from '@/store/auth/auth-session';
 
+const projectId = 'a3cc0051-f95d-4139-934d-27b073f49f78';
+
 /**
  * Hook to register Expo push token with backend
  * Uses existing notification permission system
@@ -26,7 +28,7 @@ export const useRegisterPushToken = () => {
 
         // Get Expo push token
         // In managed workflow, projectId is inferred from app.json
-        const tokenData = await Notifications.getExpoPushTokenAsync();
+        const tokenData = await Notifications.getExpoPushTokenAsync({ projectId });
 
         const token = tokenData.data;
 

@@ -117,7 +117,6 @@ export class UsersService {
     });
 
     return {
-      message: 'Push token saved successfully',
       success: true,
     };
   }

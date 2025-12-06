@@ -350,8 +350,36 @@ export class FriendsService {
       });
     }
 
-    await this.prisma.friend.delete({
-      where: { id: friendshipId },
+    // Determine which user is being removed
+    const removedFriendId =
+      friendship.userId === userId ? friendship.friendId : friendship.userId;
+
+    // Use a transaction to ensure all operations succeed or fail together
+    await this.prisma.$transaction(async (tx) => {
+      // 1. Delete the friendship
+      await tx.friend.delete({
+        where: { id: friendshipId },
+      });
+
+      // 2. Remove the friend from all groups owned by the current user
+      await tx.friendGroupMember.deleteMany({
+        where: {
+          userId: removedFriendId,
+          group: {
+            userId: userId, // Only from groups owned by current user
+          },
+        },
+      });
+
+      // 3. Also remove current user from groups owned by the removed friend
+      await tx.friendGroupMember.deleteMany({
+        where: {
+          userId: userId,
+          group: {
+            userId: removedFriendId,
+          },
+        },
+      });
     });
 
     return createSuccessResponse(

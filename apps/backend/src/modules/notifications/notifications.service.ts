@@ -72,13 +72,36 @@ export class NotificationsService {
       // Check for errors in tickets
       for (const ticket of tickets) {
         if (ticket.status === 'error') {
-          this.logger.error(
-            `Error in push notification ticket: ${ticket.message}`,
-          );
+          const errorMessage = ticket.message || 'Unknown error';
+
+          // Check if it's an APNs credentials error
+          if (errorMessage.includes('APNs credentials')) {
+            this.logger.warn(
+              `APNs credentials not configured. This is expected in development. ` +
+                `Run 'eas credentials' to configure push notification credentials for production.`,
+            );
+          } else if (errorMessage.includes('DeviceNotRegistered')) {
+            this.logger.warn(
+              `Device token is no longer valid for user ${userId}. Token may have expired.`,
+            );
+            // Optionally: Clear the invalid token from database
+            await this.prisma.user.update({
+              where: { id: userId },
+              data: { pushToken: null },
+            });
+          } else {
+            this.logger.error(
+              `Error in push notification ticket: ${errorMessage}`,
+            );
+          }
         }
       }
 
-      this.logger.log(`Push notification sent to user ${userId}`);
+      if (tickets.some((t) => t.status === 'ok')) {
+        this.logger.log(
+          `Push notification sent successfully to user ${userId}`,
+        );
+      }
     } catch (error) {
       this.logger.error(
         `Failed to send push notification to user ${userId}: ${error}`,

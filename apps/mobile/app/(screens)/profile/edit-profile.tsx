@@ -68,11 +68,22 @@ const EditProfile = () => {
     if (!user) return;
 
     try {
-      const updatedUser = await updateUser({
+      // Only include fields that have changed
+      const updateData: { id: string; name?: string; image?: string } = {
         id: user.id,
-        name: username,
-        image,
-      });
+      };
+
+      // Only update name if it changed
+      if (username !== user.name) {
+        updateData.name = username;
+      }
+
+      // Only update image if it changed
+      if (image !== user.image) {
+        updateData.image = image;
+      }
+
+      const updatedUser = await updateUser(updateData);
 
       if (updatedUser) {
         setUser(updatedUser);
