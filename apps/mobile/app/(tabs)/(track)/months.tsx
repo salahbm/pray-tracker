@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { useColorScheme } from 'nativewind';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
@@ -39,22 +39,23 @@ type MarkedDateProps = {
 
 const MonthScreen = () => {
   const { t } = useTranslation();
-  const { currentLanguage } = useLanguage();
-  const { colorScheme } = useColorScheme();
+  const { user } = useAuthStore();
   const { colors } = useThemeStore();
+  const { colorScheme } = useColorScheme();
+  const { currentLanguage } = useLanguage();
   const calendarRef = useRef<any>(null);
 
+  const [year, setYear] = useState(2025);
+  const [atTop, setAtTop] = useState(false);
   const [selected, setSelected] = useState('');
   const [visibleMonths, setVisibleMonths] = useState(12);
   const [renderVersion, setRenderVersion] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [atTop, setAtTop] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
 
+  const { data: prays , isLoading: isLoadingPrays} = useGetPrays(user?.id!, year);
+  
   const theme = useMemo(() => getMonthTheme(colors), [colors]);
-  const { user } = useAuthStore();
-  const { data: prays } = useGetPrays(user?.id!, 2025);
-
   const monthControlsCallback = useHeaderMonthControls(calendarRef);
 
   const handleVisibleMonthsChange = useMemo(
@@ -62,6 +63,7 @@ const MonthScreen = () => {
       debounce((months: any[]) => {
         if (months?.[0]?.dateString) {
           lastVisibleMonthRef.current = new Date(months[0].dateString);
+          setYear(new Date(months[0].dateString).getFullYear());
         }
         monthControlsCallback(months);
       }, 10),
@@ -241,7 +243,7 @@ const MonthScreen = () => {
             alignItems: 'center',
           }}
         >
-          {loadingMore ? (
+          {loadingMore || isLoadingPrays ? (
             <ActivityIndicator color={colors['--primary-foreground']} />
           ) : (
             <Text

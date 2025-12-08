@@ -111,16 +111,20 @@ export default function HomeScreen() {
       if (value === PRAYER_POINTS.ON_TIME) {
         confettiRef.current?.play(0);
       }
+      
+      // Update local state immediately for instant feedback
       const updatedPrayers = { ...prayers, [prayer]: value };
+      dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
+      
+      // Send ONLY the changed prayer field to backend
+      // This prevents race conditions when multiple prayers are clicked rapidly
       await createPray({
         id: user?.id,
         date: today,
-        ...updatedPrayers,
-      }).then(() => {
-        dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
+        [prayer]: value, // Only send the single prayer that changed
       });
     },
-    [prayers, createPray, user?.id, today]
+    [prayers, createPray, user?.id, today, dispatch]
   );
 
   const handleDayClick = useCallback(

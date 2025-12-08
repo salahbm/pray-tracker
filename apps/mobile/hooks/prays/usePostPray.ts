@@ -150,15 +150,15 @@ export const useCreatePray = () => {
     },
     onSuccess: (data, variables, context) => {
       // Update cache with real data from server
-      const year = variables.date.getFullYear();
-      const dateStr = format(variables.date, 'yyyy-MM-dd');
-      const todayKey = [...QueryKeys.prays.today, { id: variables.id }];
-      const praysKey = [...QueryKeys.prays.list, { id: variables.id, year }];
+      // const year = variables.date.getFullYear();
+      // const dateStr = format(variables.date, 'yyyy-MM-dd');
+      // const todayKey = [...QueryKeys.prays.today, { id: variables.id }];
+      // const praysKey = [...QueryKeys.prays.list, { id: variables.id, year }];
 
-      // Update today's prayer with real data
-      if (context?.isToday) {
-        queryClient.setQueryData<IPrays>(todayKey, data);
-      }
+      // // Update today's prayer with real data
+      // if (context?.isToday) {
+      //   queryClient.setQueryData<IPrays>(todayKey, data);
+      // }
 
       queryClient.invalidateQueries({
         queryKey: QueryKeys.leaderboard.global,
@@ -167,21 +167,21 @@ export const useCreatePray = () => {
       });
 
       // Update prayers list with real data
-      queryClient.setQueryData<IPrays[]>(praysKey, old => {
-        if (!old) return [data];
+      // queryClient.setQueryData<IPrays[]>(praysKey, old => {
+      //   if (!old) return [data];
 
-        const existingIndex = old.findIndex(
-          pray => format(new Date(pray.date), 'yyyy-MM-dd') === dateStr
-        );
+      //   const existingIndex = old.findIndex(
+      //     pray => format(new Date(pray.date), 'yyyy-MM-dd') === dateStr
+      //   );
 
-        if (existingIndex !== -1) {
-          return old.map((pray, index) => (index === existingIndex ? data : pray));
-        } else {
-          return [...old, data].sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-          );
-        }
-      });
+      //   if (existingIndex !== -1) {
+      //     return old.map((pray, index) => (index === existingIndex ? data : pray));
+      //   } else {
+      //     return [...old, data].sort(
+      //       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      //     );
+      //   }
+      // });
     },
     onError: (err, newPrayer, context) => {
       // Rollback to previous values on error
