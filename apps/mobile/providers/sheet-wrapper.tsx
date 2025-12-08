@@ -68,10 +68,6 @@ const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
       <CustomBottomSheet sheetRef={forgotPwdRef}>
         <ForgotPasswordScreen onNavigate={handlePresentSignIn} />
       </CustomBottomSheet>
-      {/* PROFILE */}
-      <CustomBottomSheet sheetRef={profileSheetRef}>
-        <ProfilePage />
-      </CustomBottomSheet>
 
       {/* GROUPS */}
       <CreateGroupSheet sheetRef={createSheetRef} />

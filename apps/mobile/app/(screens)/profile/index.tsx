@@ -4,20 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
 
 import { AuthWrapper } from '@/providers/session';
-import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const ProfilePage = () => {
   const { colors } = useThemeStore();
   const { t } = useTranslation();
-  const { profileSheetRef } = useProfileBottomSheetStore();
 
   const handleLink = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Error opening link:', err));
   };
 
   const handleNavigate = (screen: string) => {
-    profileSheetRef.current?.close();
     router.push(screen as RelativePathString);
   };
 

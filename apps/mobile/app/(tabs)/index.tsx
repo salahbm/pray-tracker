@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { ChevronRight } from 'lucide-react-native';
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
@@ -29,6 +29,9 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import ProfilePage from '../(screens)/profile';
+import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
 
 const initialState = {
   prayers: {
@@ -88,6 +91,8 @@ export default function HomeScreen() {
   // MUTATIONS
   const { mutateAsync: createPray } = useCreatePray();
   const { mutateAsync: updateOldPray } = useUpdateOldPray();
+
+  const { profileSheetRef } = useProfileBottomSheetStore();
 
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
@@ -270,6 +275,10 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
+      {/* PROFILE */}
+      <CustomBottomSheet sheetRef={profileSheetRef}>
+        <ProfilePage />
+      </CustomBottomSheet>
     </SafeAreaView>
   );
 }
