@@ -9,8 +9,7 @@ import QueryProvider from './query';
 import { ThemeProvider } from './theme';
 import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
-import NotificationNavProvider from './notification-context';
-import { RevenueCatProvider } from './revenuecat';
+import NotificationProvider from './notification-context';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -26,11 +25,10 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
               >
                 {children}
               </KeyboardAvoidingView>
-              <RevenueCatProvider />
               <ToastProvider />
               <PortalHost />
               <SheetWrapper />
-              <NotificationNavProvider />
+              <NotificationProvider />
             </BottomSheet>
           </ThemeProvider>
         </QueryProvider>

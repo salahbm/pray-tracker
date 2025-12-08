@@ -1,15 +1,17 @@
 import spaceMono from '@assets/fonts/SpaceMono-Regular.ttf';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRootNavigationState } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import { useSession } from '@/hooks/auth/useSessions';
 import { cleanupExpiredTokens } from '@/utils/deep-link-token';
+import { initializeRevenueCat } from '@/lib/revenuecat';
 
 export const unstable_settings = {
   anchor: '(tabs)',
+  initialRouteName: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -22,16 +24,20 @@ export default function App() {
     SpaceMono: spaceMono,
   });
 
+  const navState = useRootNavigationState();
+  console.log(`🚀 ~ navState:`, navState);
+
   // Hide the splash screen once fonts are loaded
   useEffect(() => {
-    if (loaded) {
+    if (loaded && navState?.stale === false) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, navState]);
 
   // Cleanup expired deep link tokens on app start
   useEffect(() => {
     cleanupExpiredTokens();
+    initializeRevenueCat();
   }, []);
 
   if (!loaded) {

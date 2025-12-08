@@ -28,7 +28,7 @@ const QueryKeys = {
   },
   subscriptions: {
     all: ['subscriptions'],
-    status: (userId: string) => ['subscriptions', 'status', userId],
+    status: ['subscriptions', 'status'],
   },
 };
 

@@ -9,7 +9,7 @@ import QueryKeys from '@/constants/query-keys';
  */
 export const useSubscription = (userId?: string) => {
   return useQuery({
-    queryKey: QueryKeys.subscriptions.status(userId || ''),
+    queryKey: [...QueryKeys.subscriptions.status, { userId }],
     queryFn: async () => {
       const response = await agent.get<IResponse<Subscription>>('/subscriptions/status');
       return response.data;

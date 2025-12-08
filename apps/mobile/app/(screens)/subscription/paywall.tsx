@@ -48,22 +48,6 @@ export default function PaywallScreen() {
   } = useRevenueCatOfferings();
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
 
-  // Debug logging
-  useEffect(() => {
-    if (packages.length > 0) {
-      console.log(
-        '✅ Packages loaded:',
-        packages.map(p => ({
-          identifier: p.identifier,
-          productId: p.product.identifier,
-        }))
-      );
-    }
-    if (offeringsError) {
-      console.error('❌ Offerings error:', offeringsError);
-    }
-  }, [packages, offeringsError]);
-
   const handlePurchase = async () => {
     if (!user) {
       paywallSheetRef.current?.close();
@@ -79,9 +63,6 @@ export default function PaywallScreen() {
           ? productId === 'noor_monthly_premium'
           : productId === 'noor_annual_premium';
 
-      console.log(
-        `Checking package: ${productId}, selectedPlan: ${selectedPlan}, match: ${isMatch}`
-      );
       return isMatch;
     });
 
@@ -125,7 +106,7 @@ export default function PaywallScreen() {
   };
 
   const monthlyPackage = packages.find(p => p.identifier.includes('monthly'));
-  const yearlyPackage = packages.find(p => p.identifier.includes('yearly'));
+  const yearlyPackage = packages.find(p => p.identifier.includes('annual'));
 
   const monthlyPrice = monthlyPackage?.product.priceString || '$4.99';
   const yearlyPrice = yearlyPackage?.product.priceString || '$54.99';

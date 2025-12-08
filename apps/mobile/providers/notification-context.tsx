@@ -9,10 +9,12 @@ Notifications.setNotificationHandler({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 });
 
-export default function NotificationNavProvider({ children }: { children: React.ReactNode }) {
+export default function NotificationProvider() {
   useRegisterPushToken();
 
   const handleNavigation = (data: any) => {
@@ -28,7 +30,7 @@ export default function NotificationNavProvider({ children }: { children: React.
 
       case 'FRIEND_REQUEST':
       case 'FRIEND_REQUEST_ACCEPTED':
-        router.push('/(tabs)/friends/all-friends');
+        router.push('/(screens)/friends/all-friends');
         break;
 
       case 'ADDED_TO_GROUP':

@@ -60,7 +60,7 @@ export const useRevenueCatCustomer = () => {
     try {
       setLoading(true);
       const info = await Purchases.getCustomerInfo();
-      setCustomerInfo(info as any);
+      setCustomerInfo(info);
 
       // Check if user has active premium entitlement
       const hasPremium =
