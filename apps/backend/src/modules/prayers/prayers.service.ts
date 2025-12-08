@@ -26,7 +26,7 @@ export class PrayersService {
 
     await this.prisma.user.update({
       where: { id: userId },
-      data: { totalPoints },
+      data: { totalPoints: { increment: totalPoints } },
     });
 
     return this.prisma.prayer.upsert({

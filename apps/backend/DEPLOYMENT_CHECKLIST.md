@@ -15,6 +15,7 @@
 ## 🚀 Deployment Steps
 
 ### 1. Commit and Push Changes
+
 ```bash
 git add .
 git commit -m "Configure backend for Vercel deployment"
@@ -26,6 +27,7 @@ git push
 Go to your Vercel project settings and add these variables:
 
 **Required:**
+
 - `DATABASE_URL`
 - `DIRECT_URL`
 - `PUBLIC_API_PORT` (set to 4000)
@@ -33,6 +35,7 @@ Go to your Vercel project settings and add these variables:
 - `BETTER_AUTH_SECRET` (generate with: `openssl rand -base64 32`)
 
 **Optional (for full functionality):**
+
 - `R2_ACCESS_KEY_ID`
 - `R2_SECRET_ACCESS_KEY`
 - `R2_ACCOUNT_ID`
@@ -47,12 +50,14 @@ Go to your Vercel project settings and add these variables:
 ### 3. Deploy
 
 **Option A: Via Vercel Dashboard**
+
 1. Connect your GitHub repository
 2. Select the `apps/backend` directory as the root
 3. Vercel will auto-detect and run `vercel-build`
 4. Deploy!
 
 **Option B: Via CLI**
+
 ```bash
 cd apps/backend
 vercel --prod
@@ -71,33 +76,42 @@ curl https://your-app.vercel.app/api/auth/me
 ## 🔍 Troubleshooting
 
 ### Issue: 404 NOT_FOUND
+
 **Cause**: Build artifacts not found or routing misconfigured
-**Solution**: 
+**Solution**:
+
 - Ensure `vercel-build` script runs successfully
 - Check that `dist/serverless.js` exists after build
 - Verify `api/index.js` is present
 
 ### Issue: Build Fails
+
 **Cause**: Missing dependencies or environment variables
 **Solution**:
+
 - Check build logs in Vercel dashboard
 - Ensure all environment variables are set
 - Verify `DATABASE_URL` is accessible from Vercel
 
 ### Issue: ERR_REQUIRE_ESM
+
 **Cause**: Module system mismatch
 **Solution**: Already fixed! We use CommonJS in production via `tsconfig.prod.json`
 
 ### Issue: Database Connection Errors
+
 **Cause**: Connection pooling or timeout issues
 **Solution**:
+
 - Use connection pooling (Prisma Accelerate or PgBouncer)
 - Increase timeout settings
 - Use `DIRECT_URL` for migrations only
 
 ### Issue: Cold Start Timeout
+
 **Cause**: First request takes too long
 **Solution**:
+
 - Optimize imports (lazy load heavy dependencies)
 - Use Prisma connection pooling
 - Consider upgrading to Vercel Pro for longer timeouts

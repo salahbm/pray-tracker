@@ -18,7 +18,8 @@
       "bundleIdentifier": "com.noor.praytracker",
       "appleTeamId": "A2Y67UR23Z",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": ["remote-notification", "fetch"]
       }
     },
     "android": {

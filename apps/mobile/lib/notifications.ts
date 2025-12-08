@@ -43,7 +43,7 @@ export const requestNotificationPermissions = async (): Promise<boolean> => {
         name: 'Prayer Reminders',
         importance: Notifications.AndroidImportance.HIGH,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
+        lightColor: '#9EF010',
         sound: 'default',
         enableVibrate: true,
         showBadge: true,
@@ -150,41 +150,4 @@ export const schedulePrayerNotificationWithOffset = async (
  */
 export const cancelAllPrayerNotifications = async () => {
   await Notifications.cancelAllScheduledNotificationsAsync();
-};
-
-/**
- * Sends an immediate test notification for verification.
- */
-export const sendTestPrayerNotification = async () => {
-  const title = i18n.t('common.notifications.prayer.test.title');
-  const body = i18n.t('common.notifications.prayer.test.body');
-
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title,
-      body,
-      sound: 'default',
-      priority: Notifications.AndroidNotificationPriority.HIGH,
-      data: { type: 'test_notification' },
-    },
-    trigger: null, // Fire immediately
-  });
-};
-
-// ============================================================================
-// DEBUG UTILITIES
-// ============================================================================
-
-/**
- * Returns all scheduled notifications for inspection.
- * @returns Promise containing an array of scheduled notifications.
- */
-export const getScheduledNotifications = async () => {
-  try {
-    const notifications = await Notifications.getAllScheduledNotificationsAsync();
-    return notifications;
-  } catch (error) {
-    console.error('Failed to retrieve scheduled notifications:', error);
-    return [];
-  }
 };

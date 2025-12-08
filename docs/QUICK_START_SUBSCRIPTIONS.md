@@ -53,15 +53,15 @@ REVENUECAT_WEBHOOK_SECRET=your_strong_secret_here
 
 1. Go to https://appstoreconnect.apple.com/
 2. Create auto-renewable subscriptions:
-   - `noor_monthly_4.99` → $4.99/month
-   - `noor_yearly_54.99` → $54.99/year
+   - `noor_monthly_premium` → $4.99/month
+   - `noor_annual_premium` → $54.99/year
 
 #### Android - Google Play Console
 
 1. Go to https://play.google.com/console/
 2. Create subscriptions:
-   - `noor_monthly_4.99` → $4.99/month
-   - `noor_yearly_54.99` → $54.99/year
+   - `noor_monthly_premium` → $4.99/month
+   - `noor_annual_premium` → $54.99/year
 
 ### 4. Configure RevenueCat Dashboard (10 minutes)
 

@@ -4,7 +4,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  Image,
   Dimensions,
   FlatList,
 } from 'react-native';
@@ -21,10 +20,10 @@ import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useRevenueCatOfferings, usePurchasePackage } from '@/hooks/subscriptions/useRevenueCat';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
-import { IMAGES } from '@/constants/images';
 import { useAuthStore } from '@/store/auth/auth-session';
 import LottieView from 'lottie-react-native';
 import PREMIUM_FEATURES from '@/constants/premium-features';
+import { gifs } from '@/constants/images';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -34,19 +33,36 @@ export default function PaywallScreen() {
   const { user } = useAuthStore();
   const { signInSheetRef } = useAuthBottomSheetStore();
   const insets = useSafeAreaInsets();
-  const { colors, currentTheme } = useThemeStore();
+  const { colors } = useThemeStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');
   const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
-  const { packages, loading: loadingOfferings } = useRevenueCatOfferings();
+  const {
+    packages,
+    offerings,
+    loading: loadingOfferings,
+    error: offeringsError,
+  } = useRevenueCatOfferings();
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
 
+  // Debug logging
   useEffect(() => {
-    setSelectedPlan('yearly');
-  }, []);
+    if (packages.length > 0) {
+      console.log(
+        '✅ Packages loaded:',
+        packages.map(p => ({
+          identifier: p.identifier,
+          productId: p.product.identifier,
+        }))
+      );
+    }
+    if (offeringsError) {
+      console.error('❌ Offerings error:', offeringsError);
+    }
+  }, [packages, offeringsError]);
 
   const handlePurchase = async () => {
     if (!user) {
@@ -54,16 +70,31 @@ export default function PaywallScreen() {
       signInSheetRef.current?.snapToIndex(1);
       return;
     }
-    const pkg = packages.find(p =>
-      selectedPlan === 'monthly'
-        ? p.identifier.includes('monthly')
-        : p.identifier.includes('yearly')
-    );
+
+    // Find package by product identifier
+    const pkg = packages.find(p => {
+      const productId = p.product.identifier;
+      const isMatch =
+        selectedPlan === 'monthly'
+          ? productId === 'noor_monthly_premium'
+          : productId === 'noor_annual_premium';
+
+      console.log(
+        `Checking package: ${productId}, selectedPlan: ${selectedPlan}, match: ${isMatch}`
+      );
+      return isMatch;
+    });
 
     if (!pkg) {
+      console.error(
+        '❌ Package not found. Available packages:',
+        packages.map(p => p.product.identifier)
+      );
       fireToast.error(t('subscription.errors.packageNotFound'));
       return;
     }
+
+    console.log('✅ Purchasing package:', pkg.product.identifier);
 
     const result = await purchase(pkg);
 
@@ -126,8 +157,14 @@ export default function PaywallScreen() {
 
   if (loadingOfferings) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color={colors['--primary']} />
+      <View className="flex-1 items-center justify-center min-h-[90vh]">
+        <LottieView
+          source={gifs.clock_sand}
+          autoPlay
+          loop
+          style={{ height: 240, width: '100%' }}
+          resizeMode="contain"
+        />
         <Text className="mt-4 text-muted-foreground">{t('subscription.loadingPlans')}</Text>
       </View>
     );
@@ -194,7 +231,7 @@ export default function PaywallScreen() {
           onPress={() => setSelectedPlan('yearly')}
           className={cn(
             'mb-4 rounded-2xl border-2 p-5 relative',
-            selectedPlan === 'yearly' ? 'border-primary bg-primary/5' : 'border-border bg-card'
+            selectedPlan === 'yearly' ? 'border-primary bg-card' : 'border-border bg-popover'
           )}
           activeOpacity={0.7}
         >
@@ -241,7 +278,7 @@ export default function PaywallScreen() {
           onPress={() => setSelectedPlan('monthly')}
           className={cn(
             'rounded-2xl border-2 p-5',
-            selectedPlan === 'monthly' ? 'border-primary bg-primary/5' : 'border-border bg-card'
+            selectedPlan === 'monthly' ? 'border-primary bg-card' : 'border-border bg-popover'
           )}
           activeOpacity={0.7}
         >

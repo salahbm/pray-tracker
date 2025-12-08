@@ -48,14 +48,14 @@ This guide will help you set up RevenueCat for the Noor Pray Tracker app to enab
 
 **Monthly Subscription:**
 
-- Product ID: `noor_monthly_4.99`
+- Product ID: `noor_monthly_premium`
 - Reference Name: Noor Premium Monthly
 - Subscription Group: Premium
 - Price: $4.99/month
 
 **Yearly Subscription:**
 
-- Product ID: `noor_yearly_54.99`
+- Product ID: `noor_annual_premium`
 - Reference Name: Noor Premium Yearly
 - Subscription Group: Premium
 - Price: $54.99/year
@@ -69,13 +69,13 @@ This guide will help you set up RevenueCat for the Noor Pray Tracker app to enab
 
 **Monthly Subscription:**
 
-- Product ID: `noor_monthly_4.99`
+- Product ID: `noor_monthly_premium`
 - Name: Noor Premium Monthly
 - Price: $4.99/month
 
 **Yearly Subscription:**
 
-- Product ID: `noor_yearly_54.99`
+- Product ID: `noor_annual_premium`
 - Name: Noor Premium Yearly
 - Price: $54.99/year
 
@@ -84,8 +84,8 @@ This guide will help you set up RevenueCat for the Noor Pray Tracker app to enab
 1. In RevenueCat dashboard, go to **Products**
 2. Click **Add Product**
 3. Add both products:
-   - `noor_monthly_4.99` (iOS & Android)
-   - `noor_yearly_54.99` (iOS & Android)
+   - `noor_monthly_premium` (iOS & Android)
+   - `noor_annual_premium` (iOS & Android)
 
 ### 4. Create Entitlements
 
@@ -100,8 +100,8 @@ This guide will help you set up RevenueCat for the Noor Pray Tracker app to enab
 2. Click **Create Offering**
 3. Create a "default" offering
 4. Add both packages:
-   - Monthly package → `noor_monthly_4.99`
-   - Yearly package → `noor_yearly_54.99`
+   - Monthly package → `noor_monthly_premium`
+   - Yearly package → `noor_annual_premium`
 5. Make this the **Current Offering**
 
 ### 6. Configure Webhook (Backend Integration)

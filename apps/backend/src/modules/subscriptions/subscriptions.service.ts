@@ -193,7 +193,7 @@ export class SubscriptionsService {
   private getPlanFromProductId(productId: string): SubscriptionPlan {
     if (productId.includes('monthly')) {
       return SubscriptionPlan.MONTHLY;
-    } else if (productId.includes('yearly')) {
+    } else if (productId.includes('yearly') || productId.includes('annual')) {
       return SubscriptionPlan.YEARLY;
     }
     return SubscriptionPlan.MONTHLY; // default

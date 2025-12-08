@@ -40,6 +40,7 @@ model User {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@map("user")
+  @@index([email])
 }
 
 model Session {

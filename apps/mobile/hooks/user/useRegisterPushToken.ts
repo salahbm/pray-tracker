@@ -28,14 +28,16 @@ export const useRegisterPushToken = () => {
 
         // Get Expo push token
         // In managed workflow, projectId is inferred from app.json
-        const tokenData = await Notifications.getExpoPushTokenAsync({ projectId });
-
-        const token = tokenData.data;
+        const pushTokenString = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId,
+          })
+        ).data;
 
         // Save token to backend
-        savePushToken(token, {
+        savePushToken(pushTokenString, {
           onSuccess: () => {
-            console.log('✅ Push token registered:', token);
+            console.log('✅ Push token registered:', pushTokenString);
           },
           onError: error => {
             console.error('❌ Failed to register push token:', error);

@@ -1,24 +1,36 @@
 import { useEffect } from 'react';
 import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
+import { useRegisterPushToken } from '@/hooks/user/useRegisterPushToken';
+
+// Foreground notification display settings must be set before component renders
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function NotificationNavProvider({ children }: { children: React.ReactNode }) {
+  useRegisterPushToken();
+
   const handleNavigation = (data: any) => {
     if (!data) return;
 
-    // Navigation logic based on notification type
     switch (data.type) {
       case 'prayer_reminder':
         router.push({
           pathname: '/(tabs)/qibla',
-          params: {
-            tab: 'salahs',
-          },
+          params: { tab: 'salahs' },
         });
         break;
 
       case 'FRIEND_REQUEST':
       case 'FRIEND_REQUEST_ACCEPTED':
+        router.push('/(tabs)/friends/all-friends');
+        break;
+
       case 'ADDED_TO_GROUP':
         router.push('/(tabs)/friends');
         break;
@@ -29,8 +41,8 @@ export default function NotificationNavProvider({ children }: { children: React.
     }
   };
 
+  // Cold start / background open
   useEffect(() => {
-    // 1. Handle cold start notifications
     (async () => {
       const last = await Notifications.getLastNotificationResponseAsync();
       if (last) {
@@ -39,7 +51,6 @@ export default function NotificationNavProvider({ children }: { children: React.
       }
     })();
 
-    // 2. Handle notification interactions when app is open or backgrounded
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data;
       handleNavigation(data);
@@ -48,5 +59,21 @@ export default function NotificationNavProvider({ children }: { children: React.
     return () => sub.remove();
   }, []);
 
-  return <>{children}</>;
+  // Foreground listener
+  useEffect(() => {
+    const notificationListener = Notifications.addNotificationReceivedListener(n => {
+      console.log('FOREGROUND', n);
+    });
+
+    const responseListener = Notifications.addNotificationResponseReceivedListener(r => {
+      console.log('INTERACTION', r);
+    });
+
+    return () => {
+      notificationListener.remove();
+      responseListener.remove();
+    };
+  }, []);
+
+  return null;
 }

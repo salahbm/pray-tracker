@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Purchases, { PurchasesOfferings, CustomerInfo } from 'react-native-purchases';
 import { PurchasePackage } from '@/types/subscription';
+import { ENTITLEMENT_ID } from '@/lib/revenuecat';
 
 /**
  * Hook to fetch available subscription packages from RevenueCat
@@ -63,7 +64,8 @@ export const useRevenueCatCustomer = () => {
 
       // Check if user has active premium entitlement
       const hasPremium =
-        info.entitlements.active['premium'] !== undefined || info.activeSubscriptions.length > 0;
+        info.entitlements.active[ENTITLEMENT_ID] !== undefined ||
+        info.activeSubscriptions.length > 0;
       setIsPremium(hasPremium);
     } catch (err) {
       console.error('Error fetching customer info:', err);
@@ -96,7 +98,7 @@ export const usePurchasePackage = () => {
 
       // Check if purchase was successful
       const hasPremium =
-        customerInfo.entitlements.active['premium'] !== undefined ||
+        customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
 
       return {
@@ -126,7 +128,7 @@ export const usePurchasePackage = () => {
       const customerInfo = await Purchases.restorePurchases();
 
       const hasPremium =
-        customerInfo.entitlements.active['premium'] !== undefined ||
+        customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
 
       return {

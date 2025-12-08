@@ -1,3 +1,6 @@
 import AllFriends from '@/components/views/friends/all-friends';
+import { FunctionComponent } from 'react';
 
-export default AllFriends;
+const AllFriendsScreen: FunctionComponent = () => <AllFriends />;
+
+export default AllFriendsScreen;

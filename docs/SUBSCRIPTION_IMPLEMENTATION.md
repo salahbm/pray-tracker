@@ -95,8 +95,8 @@ Functions:
 
 Product IDs:
 
-- `noor_monthly_4.99` - Monthly subscription
-- `noor_yearly_54.99` - Yearly subscription
+- `noor_monthly_premium` - Monthly subscription
+- `noor_annual_premium` - Yearly subscription
 
 #### 4. Custom Hooks
 
