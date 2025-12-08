@@ -101,13 +101,9 @@
     "notifications": {
       "description": "Time for {{salah}} at :",
       "prayer": {
-        "title": "{{emoji}} {{prayer}} Prayer Reminder",
+        "title": " {{prayer}} {{emoji}} Prayer Reminder",
         "bodyNow": "It's time for {{prayer}} prayer - {{time}}",
-        "bodyBefore": "{{prayer}} prayer in {{minutes}} minute{{plural}} - {{time}}",
-        "test": {
-          "title": "🕌 Prayer Notifications Test",
-          "body": "Your prayer notifications are working correctly! 🎉"
-        }
+        "bodyBefore": "{{prayer}} prayer in {{minutes}} minute{{plural}} - {{time}}"
       },
       "emojis": {
         "fajr": "🌅",

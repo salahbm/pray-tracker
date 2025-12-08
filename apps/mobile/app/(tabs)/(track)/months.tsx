@@ -53,8 +53,8 @@ const MonthScreen = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
 
-  const { data: prays , isLoading: isLoadingPrays} = useGetPrays(user?.id!, year);
-  
+  const { data: prays, isLoading: isLoadingPrays } = useGetPrays(user?.id!, year);
+
   const theme = useMemo(() => getMonthTheme(colors), [colors]);
   const monthControlsCallback = useHeaderMonthControls(calendarRef);
 

@@ -11,7 +11,7 @@ import ThemeSwitcher from '@/components/shared/theme-switcher';
 
 import { Text } from '@/components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
-import { cancelAllPrayerNotifications } from '@/lib/notifications';
+import { cancelAllPrayerNotifications } from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
 import { DeviceEventEmitter } from 'react-native';

@@ -8,7 +8,7 @@ import {
   cancelAllPrayerNotifications,
   requestNotificationPermissions,
   schedulePrayerNotificationWithOffset,
-} from '@/lib/notifications';
+} from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
 
 const useTimeLeft = (prayerTimes: PrayerTimes) => {

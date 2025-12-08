@@ -144,10 +144,3 @@ export const schedulePrayerNotificationWithOffset = async (
     },
   });
 };
-
-/**
- * Cancels all scheduled prayer notifications.
- */
-export const cancelAllPrayerNotifications = async () => {
-  await Notifications.cancelAllScheduledNotificationsAsync();
-};
