@@ -10,7 +10,10 @@ async function bootstrap() {
     bodyParser: false,
     logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
-  const port: number = Number(env.PUBLIC_API_PORT) || 4000;
+
+  // Render uses PORT environment variable
+  const port: number =
+    Number(process.env.PORT) || Number(env.PUBLIC_API_PORT) || 4000;
 
   // Enable global exception filter for localized error handling
   app.useGlobalFilters(new HttpExceptionFilter());
@@ -29,7 +32,11 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(port);
+  // Bind to 0.0.0.0 for Render (required for external access)
+  await app.listen(port, '0.0.0.0');
+
+  console.log(`🚀 Application is running on: http://0.0.0.0:${port}`);
+  console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
 }
 
 bootstrap().catch((err) => {
