@@ -76,9 +76,7 @@ const Account = () => {
         {isPremium ? (
           <View className="mt-10">
             <View className="flex-row justify-between items-center w-full mb-4">
-              <Text className="text-base font-semibold">
-                {t('profile.account.premiumProduct')}
-              </Text>
+              <Text className="text-base font-semibold">{t('profile.account.premiumProduct')}</Text>
               <Text className="text-base font-semibold">{productId}</Text>
             </View>
 
@@ -90,9 +88,7 @@ const Account = () => {
             </View>
 
             <View className="flex-row justify-between items-center w-full">
-              <Text className="text-base font-semibold">
-                {t('profile.account.expires')}
-              </Text>
+              <Text className="text-base font-semibold">{t('profile.account.expires')}</Text>
               <Text className="text-base font-semibold">
                 {expirationDate ? format(new Date(expirationDate), 'PPpp') : 'Lifetime'}
               </Text>
