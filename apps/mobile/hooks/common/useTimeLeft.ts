@@ -7,9 +7,9 @@ import { SALAHS } from '@/constants/enums';
 import {
   cancelAllPrayerNotifications,
   requestNotificationPermissions,
-  schedulePrayerNotificationWithOffset,
 } from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
+import { schedulePrayerNotificationWithOffset } from '@/lib/reminder';
 
 const useTimeLeft = (prayerTimes: PrayerTimes) => {
   const [timeLeft, setTimeLeft] = useState('');

@@ -57,6 +57,7 @@ const TodaysPray = ({ prayers, handlePrayerChange }: IPrayers) => {
               >
                 <Checkbox
                   value={value === val}
+                  hitSlop={{ top: 8, bottom: 8, left: 12, right: 12 }}
                   onValueChange={() => handlePrayerChange(prayer, val)}
                   color={
                     value === val

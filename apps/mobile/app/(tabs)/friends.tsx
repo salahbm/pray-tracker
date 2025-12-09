@@ -1,28 +1,12 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View } from 'react-native';
-import LottieView from 'lottie-react-native';
 import FriendsGroups from '@/components/views/friends/groups/groups';
 import { useAuthStore } from '@/store/auth/auth-session';
 import PaywallScreen from '../(screens)/subscription/paywall';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
-import { gifs } from '@/constants/images';
 
 const FriendsScreen = () => {
   const { user } = useAuthStore();
-  const { isPremium, loading } = useRevenueCatCustomer();
-  if (loading) {
-    return (
-      <View className="flex-1 items-center justify-center min-h-[90vh]">
-        <LottieView
-          source={gifs.clock_sand}
-          autoPlay
-          loop
-          style={{ height: 240, width: '100%' }}
-          resizeMode="contain"
-        />
-      </View>
-    );
-  }
+  const { isPremium } = useRevenueCatCustomer();
   return (
     <SafeAreaView className="main-area">
       {user && isPremium ? <FriendsGroups /> : <PaywallScreen />}

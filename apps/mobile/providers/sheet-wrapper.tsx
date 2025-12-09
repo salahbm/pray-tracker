@@ -18,10 +18,7 @@ import PrayerNotifierSheet from '@/components/views/qibla/pray-notifier-sheet';
 import PaywallScreen from '@/app/(screens)/subscription/paywall';
 import { useOnboarding } from '@/store/defaults/onboarding';
 
-interface ISheetWrapperProps {}
-
-const SheetWrapper: React.FC<ISheetWrapperProps> = props => {
-  const { profileSheetRef } = useProfileBottomSheetStore();
+const SheetWrapper = () => {
   const { visited } = useOnboarding();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   const { createSheetRef, editSheetRef, deleteSheetRef } = useFriendsBottomSheetStore();

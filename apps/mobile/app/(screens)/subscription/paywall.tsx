@@ -136,21 +136,6 @@ export default function PaywallScreen() {
     </View>
   );
 
-  if (loadingOfferings) {
-    return (
-      <View className="flex-1 items-center justify-center min-h-[90vh]">
-        <LottieView
-          source={gifs.clock_sand}
-          autoPlay
-          loop
-          style={{ height: 240, width: '100%' }}
-          resizeMode="contain"
-        />
-        <Text className="mt-4 text-muted-foreground">{t('subscription.loadingPlans')}</Text>
-      </View>
-    );
-  }
-
   return (
     <ScrollView
       className="flex-1 relative"
@@ -202,94 +187,104 @@ export default function PaywallScreen() {
           ))}
         </View>
       </Animated.View>
+      {loadingOfferings ? (
+        <View className="flex-1 items-center justify-center min-h-[40vh]">
+          <LottieView
+            source={gifs.clock_sand}
+            autoPlay
+            loop
+            style={{ height: 240, width: '100%' }}
+            resizeMode="contain"
+          />
+        </View>
+      ) : (
+        <Animated.View entering={FadeInDown.delay(400)} className=" my-6">
+          <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
 
-      {/* Pricing Plans */}
-      <Animated.View entering={FadeInDown.delay(400)} className=" my-6">
-        <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
-
-        {/* Yearly Plan */}
-        <TouchableOpacity
-          onPress={() => setSelectedPlan('yearly')}
-          className={cn(
-            'mb-4 rounded-2xl border-2 p-5 relative',
-            selectedPlan === 'yearly' ? 'border-primary bg-card' : 'border-border bg-popover'
-          )}
-          activeOpacity={0.7}
-        >
-          {/* Best Value Badge */}
-          <View
-            className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl"
-            style={{ backgroundColor: colors['--primary'] }}
+          {/* Yearly Plan */}
+          <TouchableOpacity
+            onPress={() => setSelectedPlan('yearly')}
+            className={cn(
+              'mb-4 rounded-2xl border-2 p-5 relative',
+              selectedPlan === 'yearly' ? 'border-primary bg-card' : 'border-border bg-popover'
+            )}
+            activeOpacity={0.7}
           >
-            <Text className="text-xs font-bold text-primary-foreground">
-              {t('subscription.bestValue')}
-            </Text>
-          </View>
+            {/* Best Value Badge */}
+            <View
+              className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl"
+              style={{ backgroundColor: colors['--primary'] }}
+            >
+              <Text className="text-xs font-bold text-primary-foreground">
+                {t('subscription.bestValue')}
+              </Text>
+            </View>
 
-          <View className="flex-row items-center justify-between mt-6">
-            <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">{t('subscription.yearlyPlan')}</Text>
-              <Text className="text-sm text-muted-foreground mb-3">{yearlySavings}</Text>
-              <View className="flex-row items-baseline">
-                <Text className="text-3xl font-bold text-primary">{yearlyPrice}</Text>
-                <Text className="text-sm text-muted-foreground ml-1">
-                  /{t('subscription.year')}
-                </Text>
+            <View className="flex-row items-center justify-between mt-6">
+              <View className="flex-1">
+                <Text className="text-xl font-bold mb-1">{t('subscription.yearlyPlan')}</Text>
+                <Text className="text-sm text-muted-foreground mb-3">{yearlySavings}</Text>
+                <View className="flex-row items-baseline">
+                  <Text className="text-3xl font-bold text-primary">{yearlyPrice}</Text>
+                  <Text className="text-sm text-muted-foreground ml-1">
+                    /{t('subscription.year')}
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                className={cn(
+                  'size-7 rounded-full border-2 items-center justify-center',
+                  selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
+                )}
+                style={{
+                  backgroundColor: selectedPlan === 'yearly' ? colors['--primary'] : 'transparent',
+                }}
+              >
+                {selectedPlan === 'yearly' && (
+                  <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
+                )}
               </View>
             </View>
+          </TouchableOpacity>
 
-            <View
-              className={cn(
-                'size-7 rounded-full border-2 items-center justify-center',
-                selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
-              )}
-              style={{
-                backgroundColor: selectedPlan === 'yearly' ? colors['--primary'] : 'transparent',
-              }}
-            >
-              {selectedPlan === 'yearly' && (
-                <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
-              )}
-            </View>
-          </View>
-        </TouchableOpacity>
+          {/* Monthly Plan */}
+          <TouchableOpacity
+            onPress={() => setSelectedPlan('monthly')}
+            className={cn(
+              'rounded-2xl border-2 p-5',
+              selectedPlan === 'monthly' ? 'border-primary bg-card' : 'border-border bg-popover'
+            )}
+            activeOpacity={0.7}
+          >
+            <View className="flex-row items-center justify-between">
+              <View className="flex-1">
+                <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
+                <View className="flex-row items-baseline mt-2">
+                  <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
+                  <Text className="text-sm text-muted-foreground ml-1">
+                    /{t('subscription.month')}
+                  </Text>
+                </View>
+              </View>
 
-        {/* Monthly Plan */}
-        <TouchableOpacity
-          onPress={() => setSelectedPlan('monthly')}
-          className={cn(
-            'rounded-2xl border-2 p-5',
-            selectedPlan === 'monthly' ? 'border-primary bg-card' : 'border-border bg-popover'
-          )}
-          activeOpacity={0.7}
-        >
-          <View className="flex-row items-center justify-between">
-            <View className="flex-1">
-              <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
-              <View className="flex-row items-baseline mt-2">
-                <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
-                <Text className="text-sm text-muted-foreground ml-1">
-                  /{t('subscription.month')}
-                </Text>
+              <View
+                className={cn(
+                  'size-7 rounded-full border-2 items-center justify-center',
+                  selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
+                )}
+                style={{
+                  backgroundColor: selectedPlan === 'monthly' ? colors['--primary'] : 'transparent',
+                }}
+              >
+                {selectedPlan === 'monthly' && (
+                  <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
+                )}
               </View>
             </View>
-
-            <View
-              className={cn(
-                'size-7 rounded-full border-2 items-center justify-center',
-                selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
-              )}
-              style={{
-                backgroundColor: selectedPlan === 'monthly' ? colors['--primary'] : 'transparent',
-              }}
-            >
-              {selectedPlan === 'monthly' && (
-                <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
-              )}
-            </View>
-          </View>
-        </TouchableOpacity>
-      </Animated.View>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
 
       {/* Subscribe Button */}
       <Animated.View entering={FadeInDown.delay(600)} className=" mb-4">

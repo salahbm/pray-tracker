@@ -150,6 +150,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
                             <Checkbox
                               key={val}
                               value={value === val}
+                              hitSlop={{ top: 8, bottom: 8, left: 12, right: 12 }}
                               onValueChange={() => {
                                 handleUpdateClickedDay(clickedData.date, {
                                   data: {

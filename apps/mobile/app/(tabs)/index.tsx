@@ -105,16 +105,20 @@ export default function HomeScreen() {
   // FUNCTIONS
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
-      if (prayers[prayer] === value) return;
       if (!user) return fireToast.error(t('common.unauthorized.description'));
+      if (prayers[prayer] === value) return;
+
+      // Haptic feedback
       await triggerHaptic();
-      if (value === PRAYER_POINTS.ON_TIME) {
-        confettiRef.current?.play(0);
-      }
 
       // Update local state immediately for instant feedback
       const updatedPrayers = { ...prayers, [prayer]: value };
       dispatch({ type: 'SET_PRAYERS', payload: updatedPrayers });
+
+      // Confetti animation
+      if (value === PRAYER_POINTS.ON_TIME) {
+        confettiRef.current?.play(0);
+      }
 
       // Send ONLY the changed prayer field to backend
       // This prevents race conditions when multiple prayers are clicked rapidly
@@ -140,6 +144,7 @@ export default function HomeScreen() {
           animated: true,
         });
       }
+      // Haptic feedback
       await triggerHaptic();
 
       dispatch({
