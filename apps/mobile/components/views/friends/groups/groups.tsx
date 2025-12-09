@@ -22,6 +22,7 @@ import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import { useThemeStore } from '@/store/defaults/theme';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const FriendsGroups = () => {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ const FriendsGroups = () => {
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
 
+  const { refetch: refetchCustomer, loading: customerLoading, isPremium } = useRevenueCatCustomer();
   const { data: groups, isLoading, refetch } = useGetGroups(user?.id ?? '');
   const { createSheetRef, editSheetRef, deleteSheetRef, setGroupName, setSelectedGroup } =
     useFriendsBottomSheetStore();
@@ -50,7 +52,10 @@ const FriendsGroups = () => {
         refreshControl={
           <RefreshControl
             refreshing={isLoading}
-            onRefresh={refetch}
+            onRefresh={() => {
+              refetch();
+              refetchCustomer();
+            }}
             tintColor={colors['--primary']}
           />
         }

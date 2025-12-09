@@ -17,7 +17,7 @@ import { useOnboarding } from '@/store/defaults/onboarding';
 import { useThemeStore } from '@/store/defaults/theme';
 import LottieView from 'lottie-react-native';
 
-const BANNER_HEIGHT = 400;
+const BANNER_HEIGHT = 500;
 
 const Welcome = () => {
   const { t } = useTranslation();

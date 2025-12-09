@@ -17,7 +17,7 @@
       "button": "Reset Password",
       "rememberedPassword": "Remembered your password?",
       "signInLink": "Sign In",
-      "goBackHome":"Go Back Home",
+      "goBackHome": "Go Back Home",
       "success": "Password reset successfully! Redirecting to sign in...",
       "fields": {
         "newPassword": {
@@ -168,11 +168,11 @@
       "update": "Update",
       "updating": "Updating...",
       "save": "Save",
-      "remove":"Remove",
-      "requestSent":"Request Sent",
-      "requestReceived":"Request Received",
-      "accept":"Accept",
-      "reject":"Reject"
+      "remove": "Remove",
+      "requestSent": "Request Sent",
+      "requestReceived": "Request Received",
+      "accept": "Accept",
+      "reject": "Reject"
     }
   },
   "friends": {
@@ -199,18 +199,18 @@
       "membersCount_one": "{{count}} member",
       "membersCount_other": "{{count}} members"
     },
-    "allFriends":{
-      "title":"All Friends",
-      "isFriend":"You are friends with {{name}}",
-      "requestSent":"You sent a friend request to {{name}}",
-      "requestReceived":"You received a friend request from {{name}}",
-      "noRequests":"You have no requests yet",
-      "noFriends":"You have no friends yet",
-      "noActivity":"No friends found",
-      "all":"All {{count}}",
-      "requests":"Requests {{count}}",
-      "friends":"Friends {{count}}",
-      "searchPlaceholder":"Search friends by email"
+    "allFriends": {
+      "title": "All Friends",
+      "isFriend": "You are friends with {{name}}",
+      "requestSent": "You sent a friend request to {{name}}",
+      "requestReceived": "You received a friend request from {{name}}",
+      "noRequests": "You have no requests yet",
+      "noFriends": "You have no friends yet",
+      "noActivity": "No friends found",
+      "all": "All {{count}}",
+      "requests": "Requests {{count}}",
+      "friends": "Friends {{count}}",
+      "searchPlaceholder": "Search friends by email"
     }
   },
   "home": {
@@ -267,7 +267,10 @@
       "email": "Email",
       "lastUpdated": "Last Updated",
       "logoutButton": "Logout",
-      "title": "Account"
+      "title": "Account",
+      "premiumProduct": "Premium Product",
+      "purchased": "Purchased",
+      "expires": "Expires"
     },
     "editPassword": {
       "fields": {

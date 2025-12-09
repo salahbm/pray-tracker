@@ -18,7 +18,11 @@ import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
-import { useRevenueCatOfferings, usePurchasePackage } from '@/hooks/subscriptions/useRevenueCat';
+import {
+  useRevenueCatOfferings,
+  usePurchasePackage,
+  useRevenueCatCustomer,
+} from '@/hooks/subscriptions/useRevenueCat';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAuthStore } from '@/store/auth/auth-session';
 import LottieView from 'lottie-react-native';
@@ -26,6 +30,12 @@ import PREMIUM_FEATURES from '@/constants/premium-features';
 import { gifs } from '@/constants/images';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+const monthlyId = 'noor_monthly_premium';
+const yearlyId = 'noor_annual_premium';
+
+const test_monthlyId = 'test_monthly';
+const test_yearlyId = 'test_annual';
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
@@ -46,7 +56,9 @@ export default function PaywallScreen() {
     loading: loadingOfferings,
     error: offeringsError,
   } = useRevenueCatOfferings();
+
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
+  const { refetch: refetchCustomerInfo } = useRevenueCatCustomer();
 
   const handlePurchase = async () => {
     if (!user) {
@@ -59,9 +71,7 @@ export default function PaywallScreen() {
     const pkg = packages.find(p => {
       const productId = p.product.identifier;
       const isMatch =
-        selectedPlan === 'monthly'
-          ? productId === 'noor_monthly_premium'
-          : productId === 'noor_annual_premium';
+        selectedPlan === 'monthly' ? productId === test_monthlyId : productId === test_yearlyId;
 
       return isMatch;
     });
@@ -80,6 +90,8 @@ export default function PaywallScreen() {
     const result = await purchase(pkg);
 
     if (result.success) {
+      // Refetch customer info to update UI immediately
+      await refetchCustomerInfo();
       fireToast.success(t('subscription.success.purchaseComplete'));
       router.back();
     } else if (!result.cancelled) {
@@ -96,6 +108,8 @@ export default function PaywallScreen() {
     const result = await restorePurchases();
 
     if (result.success && result.hasPremium) {
+      // Refetch customer info to update UI immediately
+      await refetchCustomerInfo();
       fireToast.success(t('subscription.success.restoreComplete'));
       router.back();
     } else if (result.success && !result.hasPremium) {

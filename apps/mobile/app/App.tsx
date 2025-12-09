@@ -25,7 +25,6 @@ export default function App() {
   });
 
   const navState = useRootNavigationState();
-  console.log(`🚀 ~ navState:`, navState);
 
   // Hide the splash screen once fonts are loaded
   useEffect(() => {

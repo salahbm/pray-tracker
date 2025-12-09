@@ -16,6 +16,7 @@ import { useLogout } from '@/hooks/auth/useLogOut';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { triggerHaptic } from '@/utils/haptics';
 import Image from '@/components/ui/image';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const Account = () => {
   const { user } = useAuthStore();
@@ -23,6 +24,13 @@ const Account = () => {
   const { logOut, isLoggingOut } = useLogout();
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const [modalVisible, setModalVisible] = useState(false);
+  const { isPremium, customerInfo } = useRevenueCatCustomer();
+
+  const premiumInfo = Object.values(customerInfo?.entitlements.active || {})[0];
+
+  const productId = premiumInfo?.productIdentifier; // monthly / annual
+  const purchaseDate = premiumInfo?.latestPurchaseDate;
+  const expirationDate = premiumInfo?.expirationDate;
 
   const handleWithdrawAccount = async () => {
     if (Platform.OS !== 'web') {
@@ -65,6 +73,32 @@ const Account = () => {
             </Text>
           </View>
         </View>
+        {isPremium ? (
+          <View className="mt-10">
+            <View className="flex-row justify-between items-center w-full mb-4">
+              <Text className="text-base font-semibold">
+                {t('profile.account.premiumProduct')}
+              </Text>
+              <Text className="text-base font-semibold">{productId}</Text>
+            </View>
+
+            <View className="flex-row justify-between items-center w-full mb-4">
+              <Text className="text-base font-semibold">{t('profile.account.purchased')}</Text>
+              <Text className="text-base font-semibold">
+                {purchaseDate ? format(new Date(purchaseDate), 'PPpp') : '-'}
+              </Text>
+            </View>
+
+            <View className="flex-row justify-between items-center w-full">
+              <Text className="text-base font-semibold">
+                {t('profile.account.expires')}
+              </Text>
+              <Text className="text-base font-semibold">
+                {expirationDate ? format(new Date(expirationDate), 'PPpp') : 'Lifetime'}
+              </Text>
+            </View>
+          </View>
+        ) : null}
       </View>
 
       {/* Withdraw Account Button */}

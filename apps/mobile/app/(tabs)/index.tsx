@@ -32,6 +32,7 @@ import { triggerHaptic } from '@/utils/haptics';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import ProfilePage from '../(screens)/profile';
 import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const initialState = {
   prayers: {
@@ -74,6 +75,8 @@ export default function HomeScreen() {
   const { colors } = useThemeStore();
   // QUERIES
   const { user } = useAuthStore();
+  const { refetch: refetchCustomer, isPremium } = useRevenueCatCustomer();
+  console.log(`file: index.tsx:79 ~ isPremium:`, isPremium);
 
   const {
     data: prays,
@@ -221,6 +224,7 @@ export default function HomeScreen() {
               refetchTodaysPrays();
               refetchPrays();
               refetchLeaderboard();
+              refetchCustomer();
             }}
             tintColor={colors['--primary']}
           />

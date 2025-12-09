@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Purchases, { PurchasesOfferings, CustomerInfo } from 'react-native-purchases';
 import { PurchasePackage } from '@/types/subscription';
 import { ENTITLEMENT_ID } from '@/lib/revenuecat';
+import { useQueryClient } from '@tanstack/react-query';
+import QueryKeys from '@/constants/query-keys';
 
 /**
  * Hook to fetch available subscription packages from RevenueCat
@@ -51,12 +53,9 @@ export const useRevenueCatCustomer = () => {
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    fetchCustomerInfo();
-  }, []);
-
-  const fetchCustomerInfo = async () => {
+  const fetchCustomerInfo = useCallback(async () => {
     try {
       setLoading(true);
       const info = await Purchases.getCustomerInfo();
@@ -67,12 +66,22 @@ export const useRevenueCatCustomer = () => {
         info.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         info.activeSubscriptions.length > 0;
       setIsPremium(hasPremium);
+
+      // Invalidate backend subscription queries to sync
+      queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
+
+      return { info, hasPremium };
     } catch (err) {
       console.error('Error fetching customer info:', err);
+      return { info: null, hasPremium: false };
     } finally {
       setLoading(false);
     }
-  };
+  }, [queryClient]);
+
+  useEffect(() => {
+    fetchCustomerInfo();
+  }, [fetchCustomerInfo]);
 
   return {
     customerInfo,
@@ -88,6 +97,7 @@ export const useRevenueCatCustomer = () => {
 export const usePurchasePackage = () => {
   const [purchasing, setPurchasing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const purchase = async (pkg: PurchasePackage) => {
     try {
@@ -100,6 +110,11 @@ export const usePurchasePackage = () => {
       const hasPremium =
         customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
+
+      // Invalidate all subscription-related queries to trigger refetch
+      if (hasPremium) {
+        await queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
+      }
 
       return {
         success: hasPremium,
@@ -130,6 +145,9 @@ export const usePurchasePackage = () => {
       const hasPremium =
         customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
+
+      // Invalidate all subscription-related queries to trigger refetch
+      await queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
 
       return {
         success: true,
