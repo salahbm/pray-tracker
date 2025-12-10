@@ -17,7 +17,7 @@ import { useOnboarding } from '@/store/defaults/onboarding';
 import { useThemeStore } from '@/store/defaults/theme';
 import LottieView from 'lottie-react-native';
 
-const BANNER_HEIGHT = 500;
+const BANNER_HEIGHT = 450;
 
 const Welcome = () => {
   const { t } = useTranslation();
@@ -88,10 +88,7 @@ const Welcome = () => {
                 />
               </Animated.View>
 
-              <View
-                style={{ minHeight: windowHeight - BANNER_HEIGHT }}
-                className="bg-background rounded-t-3xl -mt-5 px-5 pt-10 border-[0.2px] border-border"
-              >
+              <View className="bg-background rounded-t-3xl -mt-5 px-5 pt-10 border-[0.2px] border-border min-h-fit h-full">
                 {index === 0 && (
                   <View className="touchable px-6">
                     <TouchableOpacity onPress={() => langRef.current?.snapToIndex(1)}>

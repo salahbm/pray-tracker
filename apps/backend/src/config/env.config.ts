@@ -7,10 +7,7 @@ const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
 const R2_BUCKET = process.env.R2_BUCKET;
 
-const EMAIL_HOST = process.env.EMAIL_HOST;
-const EMAIL_PORT = process.env.EMAIL_PORT;
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASS = process.env.EMAIL_PASS;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 if (!BETTER_AUTH_URL) {
   throw new Error('BETTER_AUTH_URL is not defined');
@@ -33,17 +30,8 @@ if (!R2_ACCOUNT_ID) {
 if (!R2_BUCKET) {
   throw new Error('R2_BUCKET is not defined');
 }
-if (!EMAIL_HOST) {
-  throw new Error('EMAIL_HOST is not defined');
-}
-if (!EMAIL_PORT) {
-  throw new Error('EMAIL_PORT is not defined');
-}
-if (!EMAIL_USER) {
-  throw new Error('EMAIL_USER is not defined');
-}
-if (!EMAIL_PASS) {
-  throw new Error('EMAIL_PASS is not defined');
+if (!RESEND_API_KEY) {
+  throw new Error('RESEND_API_KEY is not defined');
 }
 
 export const env = {
@@ -54,8 +42,5 @@ export const env = {
   R2_SECRET_ACCESS_KEY,
   R2_ACCOUNT_ID,
   R2_BUCKET,
-  EMAIL_HOST,
-  EMAIL_PORT,
-  EMAIL_USER,
-  EMAIL_PASS,
+  RESEND_API_KEY,
 };

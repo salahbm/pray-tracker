@@ -36,9 +36,6 @@ export const useRegisterPushToken = () => {
 
         // Save token to backend
         savePushToken(pushTokenString, {
-          onSuccess: () => {
-            console.log('✅ Push token registered:', pushTokenString);
-          },
           onError: error => {
             console.error('❌ Failed to register push token:', error);
           },

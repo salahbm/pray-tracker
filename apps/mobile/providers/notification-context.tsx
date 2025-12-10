@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
 import { useRegisterPushToken } from '@/hooks/user/useRegisterPushToken';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 // Foreground notification display settings must be set before component renders
 Notifications.setNotificationHandler({
@@ -16,6 +17,7 @@ Notifications.setNotificationHandler({
 
 export default function NotificationProvider() {
   useRegisterPushToken();
+  const { isPremium } = useRevenueCatCustomer();
 
   const handleNavigation = (data: any) => {
     if (!data) return;
@@ -30,11 +32,16 @@ export default function NotificationProvider() {
 
       case 'FRIEND_REQUEST':
       case 'FRIEND_REQUEST_ACCEPTED':
-        router.push('/(screens)/friends/all-friends');
+        if (isPremium) {
+          router.push('/(screens)/friends/all-friends');
+        } else {
+          router.push('/(tabs)/friends');
+        }
         break;
 
       case 'ADDED_TO_GROUP':
         router.push('/(tabs)/friends');
+
         break;
 
       default:

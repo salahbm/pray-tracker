@@ -1,17 +1,9 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import * as pug from 'pug';
-import { env } from '@/config/env.config';
 import path from 'path';
-// Create a transporter using Gmail SMTP
-const transporter = nodemailer.createTransport({
-  host: env.EMAIL_HOST, // smtp.gmail.com for Gmail
-  port: parseInt(env.EMAIL_PORT),
-  secure: false, // true for 465, false for other ports like 587
-  auth: {
-    user: env.EMAIL_USER,
-    pass: env.EMAIL_PASS, // Use App Password for Gmail
-  },
-});
+import { env } from '@/config/env.config';
+
+const resend = new Resend(env.RESEND_API_KEY);
 
 export async function sendPasswordResetEmail(
   email: string,
@@ -19,19 +11,14 @@ export async function sendPasswordResetEmail(
   token?: string,
 ): Promise<void> {
   try {
-    // Extract token from URL if not provided
     let resetToken = token;
     if (!resetToken && resetUrl) {
       const urlObj = new URL(resetUrl);
       resetToken = urlObj.searchParams.get('token') || '';
     }
 
-    // Create mobile deep link - Expo Router format with (auth) group
     const mobileResetUrl = `noor://(auth)/reset-pwd?token=${resetToken}`;
 
-    // Template path - works in both dev (ts-node) and prod (compiled)
-    // In dev: __dirname = /path/to/apps/backend/src/lib
-    // In prod: __dirname = /path/to/apps/backend/dist/lib
     const templatePath = path.join(
       __dirname,
       '..',
@@ -41,15 +28,16 @@ export async function sendPasswordResetEmail(
       'reset-password.pug',
     );
 
-    // Send the email
-    await transporter.sendMail({
-      from: `Noor Pray Tracker <${env.EMAIL_USER}>`,
+    const html = pug.renderFile(templatePath, {
+      email,
+      resetUrl: mobileResetUrl,
+    });
+
+    await resend.emails.send({
+      from: 'Noor <noorpraytracker@gmail.com>',
       to: email,
       subject: 'Reset Your Password - Noor Pray Tracker',
-      html: pug.renderFile(templatePath, {
-        email,
-        resetUrl: mobileResetUrl,
-      }),
+      html,
     });
   } catch (error) {
     console.error('Failed to send password reset email:', error);

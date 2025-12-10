@@ -1,0 +1,467 @@
+{
+    "auth": {
+      "email": {
+        "label": "Emel",
+        "placeholder": "Masukkan emel anda"
+      },
+      "forgotPassword": {
+        "title": "Lupa Kata Laluan",
+        "button": "Hantar Pengesahan",
+        "rememberedPassword": "Sudah ingat kata laluan?",
+        "signInLink": "Log Masuk",
+        "message": "Jika akaun untuk {{email}} wujud, pautan reset kata laluan akan dihantar. Sila semak emel anda."
+      },
+      "resetPassword": {
+        "title": "Reset Kata Laluan",
+        "subtitle": "Masukkan kata laluan baru",
+        "button": "Reset Kata Laluan",
+        "rememberedPassword": "Sudah ingat kata laluan?",
+        "signInLink": "Log Masuk",
+        "goBackHome": "Kembali ke Laman Utama",
+        "success": "Kata laluan berjaya direset! Mengalihkan ke halaman log masuk...",
+        "fields": {
+          "newPassword": {
+            "label": "Kata Laluan Baru",
+            "placeholder": "Masukkan kata laluan baru"
+          },
+          "confirmPassword": {
+            "label": "Sahkan Kata Laluan",
+            "placeholder": "Sahkan kata laluan baru"
+          }
+        },
+        "errors": {
+          "invalidToken": "Token tidak sah atau telah luput",
+          "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
+          "passwordMismatch": "Kata laluan tidak sepadan",
+          "failed": "Gagal reset kata laluan. Sila cuba lagi."
+        }
+      },
+      "password": {
+        "label": "Kata Laluan",
+        "placeholder": "Masukkan kata laluan anda"
+      },
+      "signIn": {
+        "button": "Log Masuk",
+        "forgotPassword": "Lupa kata laluan?",
+        "noAccount": "Belum ada akaun?",
+        "signUpLink": "Daftar",
+        "title": "Selamat kembali"
+      },
+      "signUp": {
+        "title": "Sertai Kami",
+        "button": "Daftar",
+        "hasAccount": "Sudah ada akaun?",
+        "signInLink": "Log Masuk",
+        "subtitle": "Cipta akaun untuk meneruskan",
+        "success": {
+          "button": "Bismillah",
+          "message": "Pendaftaran berjaya.",
+          "title": "Assalamualaikum!"
+        }
+      },
+      "username": {
+        "label": "Nama Pengguna",
+        "placeholder": "Masukkan nama pengguna"
+      },
+      "welcome": {
+        "getStarted": "Mula",
+        "guest": "Tetamu",
+        "next": "Seterusnya",
+        "skip": "Langkau",
+        "onboarding": {
+          "aware": {
+            "description": "Jejaki solat terakhir anda dan rancang hari mengikut jadual solat.",
+            "title": "Ingat Solat Terakhir Anda"
+          },
+          "journey": {
+            "description": "Lihat perkembangan dan sejauh mana anda kekal konsisten dalam solat.",
+            "title": "Perjalanan Solat Anda"
+          },
+          "remind": {
+            "description": "Dapatkan notifikasi tepat pada masanya supaya tidak terlepas solat.",
+            "title": "Jangan Tinggal Solat Lagi"
+          },
+          "share": {
+            "description": "Kongsi perjalanan solat anda dengan orang tersayang untuk saling memberi semangat.",
+            "title": "Kongsi Dengan Rakan"
+          },
+          "track": {
+            "description": "Catat solat harian dengan mudah dan kekal istiqamah dalam ibadah.",
+            "title": "Jejaki Solat Dengan Mudah"
+          }
+        }
+      }
+    },
+    "leaderboard": {
+      "title": "Papan Kedudukan",
+      "point": "mata",
+      "points": "Mata"
+    },
+    "common": {
+      "notifications": {
+        "description": "Waktu {{salah}} pada:",
+        "prayer": {
+          "title": "{{prayer}} {{emoji}} Peringatan Solat",
+          "bodyNow": "Sudah masuk waktu solat {{prayer}} - {{time}}",
+          "bodyBefore": "Solat {{prayer}} dalam {{minutes}} minit{{plural}} - {{time}}"
+        },
+        "emojis": {
+          "fajr": "🌅",
+          "sunrise": "☀️",
+          "dhuhr": "🌞",
+          "asr": "🌤️",
+          "maghrib": "🌆",
+          "isha": "🌙",
+          "default": "🕌"
+        },
+        "permissions": {
+          "denied": "Kebenaran notifikasi tidak diberi. Sila aktifkan dalam tetapan peranti."
+        }
+      },
+      "notFound": {
+        "404": "Halaman tidak ditemui",
+        "noData": "Tiada data ditemui"
+      },
+      "unauthorized": {
+        "title": "Tidak Dibenarkan",
+        "description": "Sila log masuk untuk mengakses ciri ini"
+      },
+      "errors": {
+        "invalidEmail": "Emel tidak sah"
+      },
+      "salahs": {
+        "asr": "Asar",
+        "dhuhr": "Zuhur",
+        "fajr": "Subuh",
+        "isha": "Isyak",
+        "maghrib": "Maghrib",
+        "nafl": "Sunat",
+        "sunrise": "Matahari Terbit"
+      },
+      "themes": {
+        "title": "Pilih Tema",
+        "dark": "Gelap",
+        "emerald_green": "Hijau Zamrud",
+        "forest_green": "Hijau Rimba",
+        "light": "Cerah",
+        "ocean_breeze": "Bayu Laut",
+        "pink_rose": "Mawar Merah Jambu",
+        "royal_purple": "Ungu Diraja",
+        "sunset": "Senja",
+        "vibrant_orange": "Oren Terang"
+      },
+      "yearPicker": {
+        "cancel": "Batal",
+        "confirm": "Sahkan",
+        "title": "Pilih Tahun"
+      },
+      "viewAll": "Lihat Semua",
+      "today": "Hari Ini",
+      "loadMoreMonths": "+ Muat 6 Bulan Lagi",
+      "chooseLanguage": "Pilih bahasa",
+      "actions": {
+        "delete": "Padam",
+        "deleting": "Memadam...",
+        "create": "Cipta",
+        "creating": "Mencipta...",
+        "cancel": "Batal",
+        "update": "Kemaskini",
+        "updating": "Mengemaskini...",
+        "save": "Simpan",
+        "remove": "Buang",
+        "requestSent": "Permintaan Dihantar",
+        "requestReceived": "Permintaan Diterima",
+        "accept": "Terima",
+        "reject": "Tolak"
+      }
+    },
+    "friends": {
+      "title": "Rakan",
+      "groups": {
+        "title": "Kumpulan",
+        "createTitle": "Cipta Kumpulan Baru",
+        "createDescription": "Cipta kumpulan untuk susun rakan dan jejak solat bersama",
+        "editTitle": "Edit Kumpulan",
+        "editDescription": "Kemaskini nama kumpulan",
+        "deleteTitle": "Padam Kumpulan",
+        "deleteDescription": "Anda pasti mahu padam '{{name}}'? Tindakan ini tidak boleh diundur.",
+        "groupNamePlaceholder": "Masukkan nama kumpulan",
+        "members": "ahli",
+        "noGroups": "Belum ada kumpulan. Cipta satu untuk mula!",
+        "noMembers": "Belum ada ahli dalam kumpulan ini",
+        "addMember": "Tambah Ahli",
+        "groupCount": "{{count}} kumpulan",
+        "groupCount_one": "{{count}} kumpulan",
+        "groupCount_other": "{{count}} kumpulan",
+        "noAvailableFriends": "Semua rakan sudah berada dalam kumpulan ini",
+        "friendsAvailable_one": "{{count}} rakan tersedia",
+        "friendsAvailable_other": "{{count}} rakan tersedia",
+        "membersCount_one": "{{count}} ahli",
+        "membersCount_other": "{{count}} ahli"
+      },
+      "allFriends": {
+        "title": "Semua Rakan",
+        "isFriend": "Anda berkawan dengan {{name}}",
+        "requestSent": "Anda hantar permintaan kepada {{name}}",
+        "requestReceived": "{{name}} hantar permintaan kepada anda",
+        "noRequests": "Tiada permintaan lagi",
+        "noFriends": "Belum ada rakan",
+        "noActivity": "Tiada rakan ditemui",
+        "all": "Semua {{count}}",
+        "requests": "Permintaan {{count}}",
+        "friends": "Rakan {{count}}",
+        "searchPlaceholder": "Cari rakan melalui emel"
+      }
+    },
+    "home": {
+      "charts": {
+        "title": "Perkembangan Ibadah (Bulanan)"
+      },
+      "errors": {
+        "futureDate": "Anda tidak boleh pilih tarikh akan datang"
+      },
+      "prayerHistory": {
+        "close": "Tutup",
+        "date": "Tarikh",
+        "details": "Butiran Solat",
+        "title": "Perjalanan Solat"
+      },
+      "todaysPrayers": {
+        "late": "Lewat",
+        "missed": "Terlepas",
+        "onTime": "Tepat Masa",
+        "subTitle": "Semoga Allah (ﷻ) menerima solat anda",
+        "title": "Solat Hari Ini"
+      }
+    },
+    "profile": {
+      "title": "Profil",
+      "about": {
+        "contact": {
+          "title": "Hubungi Kami"
+        },
+        "credits": {
+          "description": "Dibangunkan dengan penuh kasih dan dedikasi oleh pasukan Noor - Pray Tracker. Jutaan terima kasih atas sokongan dan maklum balas komuniti.",
+          "title": "Penghargaan"
+        },
+        "feedback": "Hantar Maklum Balas",
+        "mission": {
+          "description": "Noor - Pray Tracker membantu umat Islam menjaga solat harian, jejak perjalanan spiritual, dan bina hubungan lebih kukuh dengan Allah. Matlamat kami ialah menjadikan penjejakan solat mudah, bermakna, dan bermanfaat.",
+          "title": "Misi Kami"
+        },
+        "title": "Tentang",
+        "version": {
+          "build": "Binaan: {{buildNumber}}",
+          "number": "Versi: {{version}}",
+          "released": "Dikeluarkan: Mac 2024",
+          "title": "Info Versi"
+        }
+      },
+      "account": {
+        "cancelButton": "Batal",
+        "created": "Dicipta",
+        "deleteAccount": "Padam Akaun",
+        "deleteButton": "Ya, Padam Akaun Saya",
+        "deleteConfirm": "Anda pasti mahu padam akaun?",
+        "deleteMessage": "Tindakan ini tidak boleh dibatalkan. Semua data akan dipadam selamanya.",
+        "email": "Emel",
+        "lastUpdated": "Kemaskini Terakhir",
+        "logoutButton": "Log Keluar",
+        "title": "Akaun",
+        "premiumProduct": "Premium",
+        "purchased": "Dibeli",
+        "expires": "Tamat"
+      },
+      "editPassword": {
+        "fields": {
+          "confirmPassword": {
+            "label": "Sahkan Kata Laluan",
+            "placeholder": "Sahkan kata laluan baru"
+          },
+          "currentPassword": {
+            "label": "Kata Laluan Semasa",
+            "placeholder": "Masukkan kata laluan semasa"
+          },
+          "newPassword": {
+            "label": "Kata Laluan Baru",
+            "placeholder": "Masukkan kata laluan baru"
+          }
+        },
+        "errors": {
+          "currentPasswordRequired": "Kata laluan semasa diperlukan",
+          "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
+          "passwordMismatch": "Kata laluan tidak sepadan",
+          "updateFailed": "Gagal kemaskini kata laluan"
+        },
+        "saveButton": "Kemaskini Kata Laluan",
+        "success": "Kata laluan berjaya dikemaskini. Anda akan log keluar.",
+        "title": "Ubah Kata Laluan"
+      },
+      "editProfile": {
+        "fields": {
+          "firstName": {
+            "label": "Nama Pertama",
+            "placeholder": "Masukkan nama pertama"
+          },
+          "lastName": {
+            "label": "Nama Akhir",
+            "placeholder": "Masukkan nama akhir"
+          },
+          "username": {
+            "label": "Nama Pengguna",
+            "placeholder": "Masukkan nama pengguna"
+          }
+        },
+        "saveButton": "Simpan Perubahan",
+        "title": "Ubah Profil",
+        "success": "Profil berjaya dikemaskini"
+      },
+      "navigation": {
+        "about": "Tentang",
+        "account": "Akaun",
+        "editPassword": "Kata Laluan",
+        "editProfile": "Profil",
+        "feedback": "Maklum Balas & Sokongan",
+        "privacySecurity": "Privasi & Keselamatan",
+        "settings": "Tetapan",
+        "termsConditions": "Terma & Syarat"
+      },
+      "settings": {
+        "language": "Bahasa",
+        "notifications": "Notifikasi",
+        "theme": "Tema",
+        "title": "Tetapan"
+      },
+      "privacy": {
+        "title": "Polisi Privasi",
+        "dataCollection": {
+          "title": "Maklumat Yang Dikumpul",
+          "content": "Kami hanya mengumpul maklumat yang anda beri secara langsung, seperti nama, emel, gambar profil, dan pilihan. Tiada data sensitif dikumpul."
+        },
+        "dataUse": {
+          "title": "Bagaimana Kami Guna Maklumat",
+          "content": "Maklumat digunakan untuk operasi aplikasi, penyelenggaraan akaun, ciri, personalisasi, dan peningkatan servis. Tidak digunakan untuk iklan."
+        },
+        "dataSharing": {
+          "title": "Perkongsian Data",
+          "content": "Kami tidak jual data anda. Kami hanya berkongsi jika diperlukan untuk operasi asas, undang-undang, atau keselamatan."
+        },
+        "security": {
+          "title": "Keselamatan Data",
+          "content": "Kami guna langkah keselamatan standard. Tetapi tiada kaedah adalah 100% selamat."
+        },
+        "changes": {
+          "title": "Perubahan Polisi",
+          "content": "Kami mungkin kemaskini dari masa ke masa. Jika ada perubahan besar, anda akan dimaklumkan."
+        },
+        "contact": {
+          "title": "Hubungi Kami",
+          "content": "Jika ada soalan tentang privasi, hubungi kami melalui saluran sokongan dalam aplikasi."
+        }
+      },
+      "terms": {
+        "title": "Terma Perkhidmatan",
+        "agreement": {
+          "title": "Persetujuan",
+          "content": "Dengan menggunakan aplikasi ini, anda bersetuju dengan terma. Jika tidak bersetuju, anda boleh berhenti bila-bila masa."
+        },
+        "usage": {
+          "title": "Penggunaan Yang Betul",
+          "content": "Gunakan aplikasi untuk tujuan yang sah. Jangan salah guna, ganggu sistem, atau cuba akses tanpa kebenaran."
+        },
+        "userContent": {
+          "title": "Kandungan Pengguna",
+          "content": "Anda bertanggungjawab atas kandungan yang anda hantar. Ia tidak boleh melanggar undang-undang atau privasi orang lain."
+        },
+        "termination": {
+          "title": "Penamatan Akaun",
+          "content": "Akaun boleh dihentikan jika ada penyalahgunaan atau ancaman terhadap keselamatan."
+        },
+        "changes": {
+          "title": "Perubahan Terma",
+          "content": "Terma boleh dikemaskini. Penggunaan berterusan bermaksud anda terima terma baru."
+        },
+        "contact": {
+          "title": "Hubungi Kami",
+          "content": "Untuk soalan tentang terma, hubungi kami melalui sokongan aplikasi."
+        }
+      }
+    },
+    "subscription": {
+      "title": "Noor Premium",
+      "subtitle": "Kukuhkan perjalanan iman dengan alat untuk konsisten solat, sokongan komuniti, dan pertumbuhan rohani.",
+      "loadingPlans": "Memuat pelan...",
+      "choosePlan": "Pilih Pelan",
+      "bestValue": "PALING JIMAT - Jimat 17%",
+      "yearlyPlan": "Tahunan",
+      "monthlyPlan": "Bulanan",
+      "year": "tahun",
+      "month": "bulan",
+      "saveOneMonth": "Jimat $5 setahun • Pilihan popular",
+      "subscribe": "Bismillah, saya ikut",
+      "restorePurchases": "Pulihkan Pembelian",
+      "terms": "Diperbaharui automatik kecuali dibatalkan. Boleh batal pada bila-bila masa melalui tetapan akaun. Dengan melanggan, anda bersetuju dengan Terma Perkhidmatan.",
+      "success": {
+        "purchaseComplete": "Alhamdulillah! Selamat datang ke Noor Premium",
+        "restoreComplete": "Akses premium anda telah dipulihkan"
+      },
+      "info": {
+        "noPurchasesFound": "Tiada pembelian terdahulu untuk akaun ini"
+      },
+      "errors": {
+        "packageNotFound": "Pelan langganan tidak tersedia",
+        "purchaseFailed": "Pembelian gagal. Sila cuba lagi.",
+        "restoreFailed": "Gagal memulihkan pembelian. Sila cuba lagi."
+      },
+      "features": {
+        "unlimitedFriends": "Sambung dengan rakan & keluarga tanpa had untuk saling mengingatkan solat.",
+        "friendGroups": "Bina kumpulan solat & sokongan — lebih mudah untuk istiqamah.",
+        "detailedStats": "Dapatkan statistik solat dengan grafik & streak yang cantik.",
+        "prayerReminders": "Jangan tinggal solat dengan peringatan bijak mengikut lokasi & jadual.",
+        "customThemes": "Hiasi aplikasi dengan tema & warna Islamik yang indah.",
+        "adFree": "Tanpa iklan — fokus pada ibadah.",
+        "prioritySupport": "Sokongan keutamaan dari pasukan kami.",
+        "newFeatures": "Akses ciri baru lebih awal."
+      }
+    },
+    "qibla": {
+      "compass": {
+        "degrees": "darjah",
+        "errors": {
+          "location": "Kebenaran lokasi diperlukan",
+          "magnetometer": "Magnetometer tidak tersedia",
+          "magnetometerUnavailable": "Tiada magnetometer pada peranti ini"
+        },
+        "help": "Halakan telefon ke darjah kiblat dan sejajarkan arah anda",
+        "yourDirection": "Arah Anda",
+        "qiblaDirection": "Arah Kiblat"
+      },
+      "prayerTimes": {
+        "timeLeft": "Masa berbaki untuk solat seterusnya",
+        "errors": {
+          "message": "Kebenaran lokasi diperlukan untuk kira waktu solat",
+          "title": "Kebenaran Ditolak"
+        },
+        "location": {
+          "fetching": "Mendapatkan lokasi...",
+          "unknown": "Tidak diketahui"
+        },
+        "notifier": {
+          "title": "Peringatan Solat",
+          "description": "Berapa minit sebelum solat anda mahu diingatkan?",
+          "minutesBefore": "{{minutes}} minit sebelum solat",
+          "success": {
+            "message": "Peringatan diset {{minutes}} minit sebelum waktu solat"
+          },
+          "error": {
+            "message": "Gagal simpan tetapan peringatan. Sila cuba lagi."
+          }
+        }
+      },
+      "tabs": {
+        "qibla": "Arah Kiblat",
+        "times": "Waktu Solat"
+      }
+    }
+  }
+  
