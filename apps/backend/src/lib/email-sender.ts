@@ -34,9 +34,9 @@ export async function sendPasswordResetEmail(
     });
 
     await resend.emails.send({
-      from: 'Noor <noorpraytracker@gmail.com>',
+      from: 'Noor App <onboarding@resend.dev>',
       to: email,
-      subject: 'Reset Your Password - Noor Pray Tracker',
+      subject: 'Reset Your Password - Noor App',
       html,
     });
   } catch (error) {

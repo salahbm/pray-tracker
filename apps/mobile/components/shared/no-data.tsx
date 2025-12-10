@@ -27,7 +27,7 @@ const NoData = ({
         style={{ width: 150, height: 150 }}
         resizeMode="contain"
       />
-      {title && <Text className="text-xl text-muted-foreground mt-2">{t(title)}</Text>}
+      {title && <Text className="text-xl text-center text-muted-foreground mt-2">{t(title)}</Text>}
     </View>
   );
 };
