@@ -332,60 +332,70 @@
         "theme": "Tema",
         "title": "Tetapan"
       },
-      "privacy": {
-        "title": "Polisi Privasi",
-        "dataCollection": {
-          "title": "Maklumat Yang Dikumpul",
-          "content": "Kami hanya mengumpul maklumat yang anda beri secara langsung, seperti nama, emel, gambar profil, dan pilihan. Tiada data sensitif dikumpul."
-        },
-        "dataUse": {
-          "title": "Bagaimana Kami Guna Maklumat",
-          "content": "Maklumat digunakan untuk operasi aplikasi, penyelenggaraan akaun, ciri, personalisasi, dan peningkatan servis. Tidak digunakan untuk iklan."
-        },
-        "dataSharing": {
-          "title": "Perkongsian Data",
-          "content": "Kami tidak jual data anda. Kami hanya berkongsi jika diperlukan untuk operasi asas, undang-undang, atau keselamatan."
-        },
-        "security": {
-          "title": "Keselamatan Data",
-          "content": "Kami guna langkah keselamatan standard. Tetapi tiada kaedah adalah 100% selamat."
-        },
-        "changes": {
-          "title": "Perubahan Polisi",
-          "content": "Kami mungkin kemaskini dari masa ke masa. Jika ada perubahan besar, anda akan dimaklumkan."
-        },
-        "contact": {
-          "title": "Hubungi Kami",
-          "content": "Jika ada soalan tentang privasi, hubungi kami melalui saluran sokongan dalam aplikasi."
-        }
-      },
-      "terms": {
-        "title": "Terma Perkhidmatan",
-        "agreement": {
-          "title": "Persetujuan",
-          "content": "Dengan menggunakan aplikasi ini, anda bersetuju dengan terma. Jika tidak bersetuju, anda boleh berhenti bila-bila masa."
-        },
-        "usage": {
-          "title": "Penggunaan Yang Betul",
-          "content": "Gunakan aplikasi untuk tujuan yang sah. Jangan salah guna, ganggu sistem, atau cuba akses tanpa kebenaran."
-        },
-        "userContent": {
-          "title": "Kandungan Pengguna",
-          "content": "Anda bertanggungjawab atas kandungan yang anda hantar. Ia tidak boleh melanggar undang-undang atau privasi orang lain."
-        },
-        "termination": {
-          "title": "Penamatan Akaun",
-          "content": "Akaun boleh dihentikan jika ada penyalahgunaan atau ancaman terhadap keselamatan."
-        },
-        "changes": {
-          "title": "Perubahan Terma",
-          "content": "Terma boleh dikemaskini. Penggunaan berterusan bermaksud anda terima terma baru."
-        },
-        "contact": {
-          "title": "Hubungi Kami",
-          "content": "Untuk soalan tentang terma, hubungi kami melalui sokongan aplikasi."
-        }
-      }
+  "privacy": {
+  "title": "Dasar Privasi",
+  "dataCollection": {
+    "title": "Maklumat yang Kami Kumpulkan",
+    "content": "Kami hanya mengumpul maklumat yang anda berikan secara langsung kepada kami, seperti nama, e-mel, imej profil dan pilihan yang dipilih. Tiada maklumat sensitif atau tidak perlu dikumpul."
+  },
+  "dataUse": {
+    "title": "Cara Kami Menggunakan Maklumat Anda",
+    "content": "Maklumat anda digunakan hanya untuk mengendalikan aplikasi, mengekalkan akaun anda, menyediakan ciri, memperibadikan pengalaman anda dan meningkatkan perkhidmatan keseluruhan. Kami tidak menggunakan data anda untuk pengiklanan."
+  },
+  "dataSharing": {
+    "title": "Perkongsian Data",
+    "content": "Kami tidak menjual data anda. Kami tidak berkongsi maklumat peribadi anda dengan pihak ketiga kecuali apabila diperlukan untuk menjalankan perkhidmatan teras, mematuhi kewajipan undang-undang atau melindungi keselamatan platform."
+  },
+  "security": {
+    "title": "Keselamatan Data",
+    "content": "Kami menggunakan langkah keselamatan standard untuk melindungi maklumat anda daripada akses tanpa kebenaran, pendedahan atau penyalahgunaan. Walau bagaimanapun, tiada kaedah penghantaran atau penyimpanan yang sepenuhnya selamat."
+  },
+  "subscriptions": {
+    "title": "Langganan",
+    "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan langganan yang tersedia termasuk:\n\n• Langganan Bulanan: Diperbaharui setiap bulan.\n• Langganan Tahunan: Diperbaharui setiap tahun.\n\nPembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun Apple ID anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat.\n\nAnda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan.\n\nHarga langganan dipaparkan dengan jelas dalam aplikasi sebelum pembelian dan mungkin berbeza mengikut wilayah. Semua pembelian diproses dengan selamat oleh Apple. Kami tidak mempunyai akses kepada maklumat pembayaran anda."
+  },
+  "changes": {
+    "title": "Perubahan kepada Dasar Ini",
+    "content": "Kami boleh mengemas kini dasar ini apabila perlu. Jika berlaku perubahan penting, kami akan memaklumkan anda melalui aplikasi atau cara lain yang sesuai."
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "content": "Jika anda mempunyai sebarang soalan atau permintaan berkaitan privasi atau langganan, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
+  }
+}
+,
+"terms": {
+  "title": "Terma Perkhidmatan",
+  "agreement": {
+    "title": "Persetujuan kepada Terma",
+    "content": "Dengan menggunakan aplikasi ini, anda bersetuju dengan Terma Perkhidmatan ini. Jika anda tidak bersetuju, anda boleh berhenti menggunakan aplikasi pada bila-bila masa."
+  },
+  "usage": {
+    "title": "Penggunaan yang Dibenarkan",
+    "content": "Anda bersetuju untuk menggunakan aplikasi hanya untuk tujuan yang sah dan dimaksudkan. Anda tidak boleh menyalahguna perkhidmatan, mengganggu operasinya, atau cuba mendapatkan akses tanpa kebenaran."
+  },
+  "subscriptions": {
+    "title": "Langganan",
+    "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan yang tersedia termasuk langganan bulanan dan tahunan. Pembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat. Anda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan. Semua pembelian diproses dengan selamat oleh Apple dan kami tidak mempunyai akses kepada maklumat pembayaran anda. Harga mungkin berbeza mengikut wilayah dan dipaparkan dengan jelas dalam aplikasi sebelum pembelian."
+  },
+  "userContent": {
+    "title": "Kandungan Pengguna",
+    "content": "Anda bertanggungjawab untuk sebarang kandungan yang dihantar dalam aplikasi. Anda mengesahkan bahawa kandungan anda tidak melanggar undang-undang, hak, atau privasi orang lain."
+  },
+  "termination": {
+    "title": "Penamatan Akaun",
+    "content": "Kami boleh menggantung atau menamatkan akses ke aplikasi jika kami mengesan penyalahgunaan, pelanggaran terma ini, atau aktiviti yang mengancam keselamatan atau operasi perkhidmatan."
+  },
+  "changes": {
+    "title": "Perubahan kepada Terma",
+    "content": "Kami boleh mengemas kini Terma Perkhidmatan ini dari semasa ke semasa. Terus menggunakan aplikasi selepas perubahan bermakna anda menerima terma yang dikemas kini."
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "content": "Jika anda mempunyai sebarang pertanyaan mengenai terma ini, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
+  }
+}
+
     },
     "subscription": {
       "title": "Noor Premium",

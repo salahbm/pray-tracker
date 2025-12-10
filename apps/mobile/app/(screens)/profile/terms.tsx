@@ -26,6 +26,16 @@ export default function TermsScreen() {
             <Text className="text-muted-foreground">{t('profile.terms.usage.content')}</Text>
           </View>
 
+          {/* NEW SECTION FOR APPLE REVIEW */}
+          <View>
+            <Text className="text-lg font-semibold mb-2">
+              {t('profile.terms.subscriptions.title')}
+            </Text>
+            <Text className="text-muted-foreground whitespace-pre-line">
+              {t('profile.terms.subscriptions.content')}
+            </Text>
+          </View>
+
           <View>
             <Text className="text-lg font-semibold mb-2">
               {t('profile.terms.userContent.title')}

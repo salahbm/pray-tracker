@@ -46,6 +46,16 @@ export default function PrivacyScreen() {
             <Text className="text-muted-foreground">{t('profile.privacy.security.content')}</Text>
           </View>
 
+          {/* NEW SECTION FOR APPLE REVIEW */}
+          <View>
+            <Text className="text-lg font-semibold mb-2">
+              {t('profile.privacy.subscriptions.title')}
+            </Text>
+            <Text className="text-muted-foreground whitespace-pre-line">
+              {t('profile.privacy.subscriptions.content')}
+            </Text>
+          </View>
+
           <View>
             <Text className="text-lg font-semibold mb-2">{t('profile.privacy.changes.title')}</Text>
             <Text className="text-muted-foreground">{t('profile.privacy.changes.content')}</Text>

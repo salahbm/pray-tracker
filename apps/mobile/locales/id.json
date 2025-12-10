@@ -332,60 +332,70 @@
         "theme": "Tema",
         "title": "Pengaturan"
       },
-      "privacy": {
-        "title": "Kebijakan Privasi",
-        "dataCollection": {
-          "title": "Informasi yang Kami Kumpulkan",
-          "content": "Kami hanya mengumpulkan informasi yang kamu berikan secara langsung: nama, email, foto profil, dan preferensi. Kami tidak mengumpulkan data sensitif yang tidak diperlukan."
-        },
-        "dataUse": {
-          "title": "Bagaimana Data Digunakan",
-          "content": "Data kamu digunakan untuk menjalankan aplikasi, akun, fitur, personalisasi, dan peningkatan layanan. Tidak digunakan untuk iklan."
-        },
-        "dataSharing": {
-          "title": "Berbagi Data",
-          "content": "Kami tidak menjual data. Kami tidak membagikan informasi pribadi dengan pihak ketiga kecuali untuk layanan inti, kewajiban hukum, atau keamanan."
-        },
-        "security": {
-          "title": "Keamanan Data",
-          "content": "Kami menerapkan perlindungan standar untuk mencegah akses yang tidak sah. Namun tidak ada sistem yang sepenuhnya aman."
-        },
-        "changes": {
-          "title": "Perubahan Kebijakan",
-          "content": "Kebijakan ini dapat diperbarui jika diperlukan. Jika ada perubahan besar, kami akan memberi tahu melalui aplikasi."
-        },
-        "contact": {
-          "title": "Hubungi Kami",
-          "content": "Jika ada pertanyaan mengenai privasi, kamu bisa menghubungi kami kapan saja melalui menu dukungan."
-        }
-      },
-      "terms": {
-        "title": "Syarat Layanan",
-        "agreement": {
-          "title": "Persetujuan",
-          "content": "Dengan menggunakan aplikasi ini, kamu setuju dengan syarat layanan. Jika tidak setuju, silakan hentikan penggunaan."
-        },
-        "usage": {
-          "title": "Penggunaan yang Baik",
-          "content": "Kamu setuju menggunakan aplikasi untuk tujuan yang benar. Tidak boleh menyalahgunakan, merusak, atau mencoba akses ilegal."
-        },
-        "userContent": {
-          "title": "Konten Pengguna",
-          "content": "Kamu bertanggung jawab atas konten yang kamu kirim. Konten tidak boleh melanggar hukum atau hak privasi orang lain."
-        },
-        "termination": {
-          "title": "Penghentian Akun",
-          "content": "Akun dapat dihentikan jika ada penyalahgunaan, pelanggaran, atau ancaman pada keamanan aplikasi."
-        },
-        "changes": {
-          "title": "Perubahan Syarat",
-          "content": "Syarat dapat diperbarui dari waktu ke waktu. Penggunaan terus-menerus berarti kamu menerima syarat yang baru."
-        },
-        "contact": {
-          "title": "Hubungi Kami",
-          "content": "Jika ada pertanyaan tentang syarat ini, hubungi kami melalui dukungan di aplikasi."
-        }
-      }
+    "privacy": {
+  "title": "Kebijakan Privasi",
+  "dataCollection": {
+    "title": "Informasi yang Kami Kumpulkan",
+    "content": "Kami hanya mengumpulkan informasi yang Anda berikan secara langsung kepada kami, seperti nama, email, gambar profil, dan preferensi yang dipilih. Kami tidak mengumpulkan informasi sensitif atau yang tidak perlu."
+  },
+  "dataUse": {
+    "title": "Cara Kami Menggunakan Informasi Anda",
+    "content": "Informasi Anda digunakan hanya untuk mengoperasikan aplikasi, memelihara akun Anda, menyediakan fitur, mempersonalisasi pengalaman Anda, dan meningkatkan layanan secara keseluruhan. Kami tidak menggunakan data Anda untuk iklan."
+  },
+  "dataSharing": {
+    "title": "Berbagi Data",
+    "content": "Kami tidak menjual data Anda. Kami tidak membagikan informasi pribadi Anda kepada pihak ketiga kecuali jika diperlukan untuk menjalankan layanan inti, memenuhi kewajiban hukum, atau melindungi keamanan platform."
+  },
+  "security": {
+    "title": "Keamanan Data",
+    "content": "Kami menerapkan langkah-langkah keamanan standar untuk melindungi informasi Anda dari akses tidak sah, pengungkapan, atau penyalahgunaan. Namun, tidak ada metode transmisi atau penyimpanan yang sepenuhnya aman."
+  },
+  "subscriptions": {
+    "title": "Langganan",
+    "content": "Noor Pray Tracker menawarkan langganan yang diperbarui otomatis. Pilihan langganan yang tersedia meliputi:\n\n• Langganan Bulanan: Diperbarui setiap bulan.\n• Langganan Tahunan: Diperbarui setiap tahun.\n\nPembayaran akan dibebankan ke akun Apple ID Anda saat pembelian dikonfirmasi. Langganan diperbarui secara otomatis kecuali dibatalkan setidaknya 24 jam sebelum akhir periode saat ini. Akun Apple ID Anda akan dikenakan biaya untuk perpanjangan dalam 24 jam sebelum periode saat ini berakhir.\n\nAnda dapat mengelola atau membatalkan langganan kapan saja melalui pengaturan perangkat Anda: Pengaturan → Apple ID → Langganan.\n\nHarga langganan ditampilkan dengan jelas di aplikasi sebelum pembelian dan dapat bervariasi menurut wilayah. Semua pembelian diproses secara aman oleh Apple. Kami tidak memiliki akses ke informasi pembayaran Anda."
+  },
+  "changes": {
+    "title": "Perubahan Kebijakan Ini",
+    "content": "Kami dapat memperbarui kebijakan ini jika diperlukan. Jika terjadi perubahan penting, kami akan memberi tahu Anda melalui aplikasi atau melalui cara lain yang sesuai."
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "content": "Jika Anda memiliki pertanyaan atau permintaan terkait privasi atau langganan, Anda dapat menghubungi kami kapan saja melalui saluran dukungan yang tersedia di aplikasi."
+  }
+}
+,
+    "terms": {
+  "title": "Syarat Layanan",
+  "agreement": {
+    "title": "Persetujuan terhadap Syarat",
+    "content": "Dengan menggunakan aplikasi ini, Anda menyetujui Syarat Layanan ini. Jika Anda tidak setuju, Anda dapat berhenti menggunakan aplikasi kapan saja."
+  },
+  "usage": {
+    "title": "Penggunaan yang Diperbolehkan",
+    "content": "Anda setuju untuk menggunakan aplikasi hanya untuk tujuan yang sah dan sesuai. Anda tidak boleh menyalahgunakan layanan, mengganggu operasinya, atau mencoba mengakses tanpa izin."
+  },
+  "subscriptions": {
+    "title": "Langganan",
+    "content": "Noor Pray Tracker menawarkan langganan yang diperbarui otomatis. Opsi yang tersedia termasuk langganan bulanan dan tahunan. Pembayaran akan dibebankan ke akun Apple ID Anda saat pembelian dikonfirmasi. Langganan diperbarui secara otomatis kecuali dibatalkan setidaknya 24 jam sebelum akhir periode saat ini. Akun Anda akan dikenakan biaya untuk perpanjangan dalam 24 jam sebelum akhir periode saat ini. Anda dapat mengelola atau membatalkan langganan kapan saja melalui pengaturan perangkat Anda: Pengaturan → Apple ID → Langganan. Semua pembelian diproses dengan aman oleh Apple dan kami tidak memiliki akses ke informasi pembayaran Anda. Harga dapat berbeda sesuai wilayah dan ditampilkan dengan jelas di aplikasi sebelum pembelian."
+  },
+  "userContent": {
+    "title": "Konten Pengguna",
+    "content": "Anda bertanggung jawab atas konten apa pun yang Anda kirim di dalam aplikasi. Anda menyatakan bahwa konten Anda tidak melanggar hukum, hak, atau privasi orang lain."
+  },
+  "termination": {
+    "title": "Penghentian Akun",
+    "content": "Kami dapat menangguhkan atau menghentikan akses ke aplikasi jika kami mendeteksi penyalahgunaan, pelanggaran syarat ini, atau aktivitas yang mengancam keamanan atau operasi layanan."
+  },
+  "changes": {
+    "title": "Perubahan Syarat",
+    "content": "Kami dapat memperbarui Syarat Layanan ini dari waktu ke waktu. Melanjutkan penggunaan aplikasi setelah perubahan berarti Anda menerima syarat yang diperbarui."
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "content": "Jika Anda memiliki pertanyaan mengenai syarat ini, Anda dapat menghubungi kami kapan saja melalui saluran dukungan yang tersedia di aplikasi."
+  }
+}
+
     },
     "subscription": {
       "title": "Noor Premium",

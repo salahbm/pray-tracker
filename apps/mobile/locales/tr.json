@@ -333,59 +333,69 @@
         "title": "Ayarlar"
       },
       "privacy": {
-        "title": "Gizlilik Politikası",
-        "dataCollection": {
-          "title": "Hangi Bilgileri Topluyoruz",
-          "content": "Sadece doğrudan verdiğiniz bilgileri toplarız: ad, e-posta, profil resmi ve ayarlar. Gereksiz veya hassas veri toplamayız."
-        },
-        "dataUse": {
-          "title": "Bilgilerinizi Nasıl Kullanıyoruz",
-          "content": "Bilgileriniz hesabın çalışması, özellikler, kişiselleştirme ve hizmeti geliştirmek için kullanılır. Reklam için kullanılmaz."
-        },
-        "dataSharing": {
-          "title": "Veri Paylaşımı",
-          "content": "Verilerinizi satmayız. Temel hizmetler, yasal zorunluluklar veya güvenlik için gerekli olmadıkça üçüncü kişilerle paylaşmayız."
-        },
-        "security": {
-          "title": "Güvenlik",
-          "content": "Bilgilerinizi korumak için standart güvenlik önlemleri uygulanır. Ancak hiçbir sistem tamamen güvenli değildir."
-        },
-        "changes": {
-          "title": "Politika Değişiklikleri",
-          "content": "Gerekirse bu politika güncellenebilir. Önemli değişikliklerde uygulama üzerinden bilgilendirileceksiniz."
-        },
-        "contact": {
-          "title": "İletişim",
-          "content": "Gizlilikle ilgili sorular için uygulamadaki destek kanalından bize ulaşabilirsiniz."
-        }
-      },
-      "terms": {
-        "title": "Hizmet Şartları",
-        "agreement": {
-          "title": "Şartlara Onay",
-          "content": "Bu uygulamayı kullanarak şartları kabul etmiş olursunuz. Kabul etmiyorsanız kullanmayı bırakabilirsiniz."
-        },
-        "usage": {
-          "title": "Doğru Kullanım",
-          "content": "Uygulamayı yalnızca yasal ve uygun amaçlar için kullanmayı kabul ediyorsunuz. Hizmete zarar vermek veya izinsiz erişim denemek yasaktır."
-        },
-        "userContent": {
-          "title": "Kullanıcı İçeriği",
-          "content": "Uygulamaya gönderilen içerikten siz sorumlusunuz. İçerik yasaları veya başkalarının haklarını ihlal etmemelidir."
-        },
-        "termination": {
-          "title": "Hesap Sonlandırma",
-          "content": "Kötüye kullanım, şart ihlali veya güvenlik tehdidi tespit edilirse hesap askıya alınabilir veya kapatılabilir."
-        },
-        "changes": {
-          "title": "Şartlardaki Değişiklikler",
-          "content": "Şartlar zaman zaman güncellenebilir. Uygulamayı kullanmaya devam etmeniz yeni şartları kabul ettiğiniz anlamına gelir."
-        },
-        "contact": {
-          "title": "İletişim",
-          "content": "Bu şartlarla ilgili sorular için uygulamadaki destek kanalından bize ulaşabilirsiniz."
-        }
-      }
+  "title": "Gizlilik Politikası",
+  "dataCollection": {
+    "title": "Topladığımız Bilgiler",
+    "content": "Sadece doğrudan sağladığınız bilgileri topluyoruz; adınız, e-posta adresiniz, profil resminiz ve seçili tercihleriniz gibi. Hassas veya gereksiz hiçbir bilgi toplanmaz."
+  },
+  "dataUse": {
+    "title": "Bilgilerinizi Nasıl Kullanıyoruz",
+    "content": "Bilgileriniz yalnızca uygulamayı çalıştırmak, hesabınızı sürdürmek, özellikler sunmak, deneyiminizi kişiselleştirmek ve hizmeti iyileştirmek için kullanılır. Verilerinizi reklam için kullanmayız."
+  },
+  "dataSharing": {
+    "title": "Veri Paylaşımı",
+    "content": "Verilerinizi satmayız. Kişisel bilgilerinizi yalnızca temel uygulama hizmetlerini yürütmek, yasal yükümlülüklere uymak veya platform güvenliğini korumak gerektiğinde üçüncü taraflarla paylaşırız."
+  },
+  "security": {
+    "title": "Veri Güvenliği",
+    "content": "Bilgilerinizi yetkisiz erişim, ifşa veya kötüye kullanıma karşı korumak için standart güvenlik önlemleri uygularız. Ancak hiçbir aktarım veya depolama yöntemi tamamen güvenli değildir."
+  },
+  "subscriptions": {
+    "title": "Abonelikler",
+    "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut abonelik seçenekleri şunları içerir:\n\n• Aylık Abonelik: Her ay yenilenir.\n• Yıllık Abonelik: Her yıl yenilenir.\n\nÖdeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Apple ID hesabınız mevcut dönem bitmeden 24 saat önce yenileme için ücretlendirilir.\n\nAboneliğinizi cihaz ayarlarından istediğiniz zaman yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler.\n\nAbonelik fiyatları, satın almadan önce uygulamada açıkça görüntülenir ve bölgeye göre değişebilir. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir. Ödeme bilgilerinize erişimimiz yoktur."
+  },
+  "changes": {
+    "title": "Bu Politikadaki Değişiklikler",
+    "content": "Bu politikayı gerektiğinde güncelleyebiliriz. Önemli değişiklikler olduğunda, uygulama veya diğer uygun yollarla sizi bilgilendireceğiz."
+  },
+  "contact": {
+    "title": "Bize Ulaşın",
+    "content": "Gizlilik veya abonelikler ile ilgili sorularınız veya talepleriniz varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bize ulaşabilirsiniz."
+  }
+},
+
+    "terms": {
+  "title": "Hizmet Şartları",
+  "agreement": {
+    "title": "Şartlara Onay",
+    "content": "Bu uygulamayı kullanarak, bu Hizmet Şartlarını kabul edersiniz. Kabul etmiyorsanız, uygulamayı istediğiniz zaman kullanmayı bırakabilirsiniz."
+  },
+  "usage": {
+    "title": "Kabul Edilebilir Kullanım",
+    "content": "Uygulamayı yalnızca yasal ve amaçlanan amaçlar için kullanmayı kabul edersiniz. Hizmete yanlış kullanımda bulunmamalı, işleyişine müdahale etmemeli veya yetkisiz erişim denememelisiniz."
+  },
+  "subscriptions": {
+    "title": "Abonelikler",
+    "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut seçenekler aylık ve yıllık abonelikleri içerir. Ödeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Hesabınız, mevcut dönemin bitiminden 24 saat önce yenileme için ücretlendirilir. Aboneliği herhangi bir zamanda cihaz ayarlarından yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir ve ödeme bilgilerinize erişimimiz yoktur. Fiyatlar bölgeye göre değişebilir ve satın alma öncesinde uygulamada açıkça görüntülenir."
+  },
+  "userContent": {
+    "title": "Kullanıcı İçeriği",
+    "content": "Uygulamada gönderdiğiniz içerikten siz sorumlusunuz. İçeriğinizin herhangi bir yasayı, hakkı veya başkalarının gizliliğini ihlal etmediğini doğrularsınız."
+  },
+  "termination": {
+    "title": "Hesap Sonlandırma",
+    "content": "Bu şartların ihlalini, kötüye kullanımı veya hizmetin güvenliğini tehdit eden bir faaliyet tespit edersek, uygulamaya erişimi askıya alabilir veya sonlandırabiliriz."
+  },
+  "changes": {
+    "title": "Şartlardaki Değişiklikler",
+    "content": "Bu Hizmet Şartlarını zaman zaman güncelleyebiliriz. Değişikliklerden sonra uygulamayı kullanmaya devam etmek, güncellenmiş şartları kabul ettiğiniz anlamına gelir."
+  },
+  "contact": {
+    "title": "Bize Ulaşın",
+    "content": "Bu şartlarla ilgili sorularınız varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bizimle iletişime geçebilirsiniz."
+  }
+}
+
     },
     "subscription": {
       "title": "Noor Premium",
