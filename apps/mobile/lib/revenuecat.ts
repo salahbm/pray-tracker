@@ -1,5 +1,4 @@
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
-import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 // RevenueCat API Keys (get these from RevenueCat dashboard)
@@ -11,6 +10,9 @@ export const PRODUCT_IDS = {
   MONTHLY: 'noor_monthly_premium',
   YEARLY: 'noor_annual_premium',
 } as const;
+
+// const test_monthlyId = 'test_monthly';
+// const test_yearlyId = 'test_annual';
 
 // Entitlement identifier (from RevenueCat dashboard)
 export const ENTITLEMENT_ID = 'entl3374d315b3';

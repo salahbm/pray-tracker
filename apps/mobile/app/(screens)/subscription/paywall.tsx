@@ -28,14 +28,11 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import LottieView from 'lottie-react-native';
 import PREMIUM_FEATURES from '@/constants/premium-features';
 import { gifs } from '@/constants/images';
+import { PRODUCT_IDS } from '@/lib/revenuecat';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const monthlyId = 'noor_monthly_premium';
-const yearlyId = 'noor_annual_premium';
 
-const test_monthlyId = 'test_monthly';
-const test_yearlyId = 'test_annual';
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
@@ -50,12 +47,7 @@ export default function PaywallScreen() {
   const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
-  const {
-    packages,
-    offerings,
-    loading: loadingOfferings,
-    error: offeringsError,
-  } = useRevenueCatOfferings();
+  const { packages, loading: loadingOfferings } = useRevenueCatOfferings();
 
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
   const { refetch: refetchCustomerInfo } = useRevenueCatCustomer();
@@ -70,8 +62,7 @@ export default function PaywallScreen() {
     // Find package by product identifier
     const pkg = packages.find(p => {
       const productId = p.product.identifier;
-      const isMatch =
-        selectedPlan === 'monthly' ? productId === test_monthlyId : productId === test_yearlyId;
+      const isMatch = selectedPlan === 'monthly' ? productId === PRODUCT_IDS.MONTHLY : productId === PRODUCT_IDS.YEARLY;
 
       return isMatch;
     });

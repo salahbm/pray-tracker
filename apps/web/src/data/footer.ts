@@ -25,13 +25,13 @@ export const footerDetails: {
   email: 'noorpraytracker@gmail.com',
   // telephone: '+1 (123) 456-7890',
   socials: {
-    github: 'https://github.com/salahbm/Pray-Tracker',
+    github: 'https://github.com/salahbm/pray-tracker',
     // x: 'https://twitter.com/x',
     // twitter: 'https://twitter.com/Twitter',
     // facebook: 'https://facebook.com',
     // youtube: 'https://youtube.com',
-    linkedin: 'https://www.linkedin.com/in/salahbm/',
+    // linkedin: 'https://www.linkedin.com/in/salahbm/',
     // threads: 'https://www.threads.net',
-    instagram: 'https://www.instagram.com/mkhd.salah',
+    instagram: 'https://www.instagram.com/noor__app',
   },
 };
