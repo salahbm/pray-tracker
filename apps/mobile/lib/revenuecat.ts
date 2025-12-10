@@ -50,7 +50,6 @@ export const initializeRevenueCat = async () => {
 export const setRevenueCatUserId = async (userId: string) => {
   try {
     await Purchases.logIn(userId);
-    console.log('RevenueCat user ID set:', userId);
   } catch (error) {
     console.error('Failed to set RevenueCat user ID:', error);
   }
@@ -62,7 +61,6 @@ export const setRevenueCatUserId = async (userId: string) => {
 export const clearRevenueCatUserId = async () => {
   try {
     await Purchases.logOut();
-    console.log('RevenueCat user logged out');
   } catch (error) {
     console.error('Failed to log out RevenueCat user:', error);
   }
@@ -71,7 +69,6 @@ export const clearRevenueCatUserId = async () => {
 export const getRevenueCatUserInfo = async () => {
   try {
     const purchaserInfo = await Purchases.getCustomerInfo();
-    console.log(`STRINGIFIED 👉:`, JSON.stringify(purchaserInfo, null, 2));
     return purchaserInfo;
   } catch (error) {
     console.error('Failed to get RevenueCat user ID:', error);
@@ -83,10 +80,8 @@ export const getRevenueCatOfferings = async () => {
   try {
     const offerings = await Purchases.getOfferings();
     if (offerings.current === null || offerings.current.availablePackages.length === 0) {
-      console.error('Failed to get RevenueCat offerings:');
       return null;
     }
-    console.log(`STRINGIFIED 👉:`, JSON.stringify(offerings, null, 2));
     return offerings;
   } catch (error) {
     console.error('Failed to get RevenueCat offerings:', error);
