@@ -5,10 +5,36 @@
       "placeholder": "Email manzilingizni kiriting"
     },
     "forgotPassword": {
-      "button": "Tasdiqlashni yuborish",
-      "rememberedPassword": "Parolingiz esingizga tushdimi?",
+      "title": "Parolni unutdingizmi",
+      "button": "Tasdiqlash yuborish",
+      "rememberedPassword": "Parolni esladingizmi?",
       "signInLink": "Kirish",
-      "message": "Tasdiqlash kodi {{email}} manziliga yuborildi."
+      "message": "Agar {{email}} uchun akkaunt mavjud bo‘lsa, sizga parolni tiklash havolasi yuboriladi. Pochtangizni tekshiring."
+    },
+    "resetPassword": {
+      "title": "Parolni tiklash",
+      "subtitle": "Yangi parolni kiriting",
+      "button": "Parolni tiklash",
+      "rememberedPassword": "Parolni esladingizmi?",
+      "signInLink": "Kirish",
+      "goBackHome": "Bosh sahifaga qaytish",
+      "success": "Parol muvaffaqiyatli yangilandi! Kirish sahifasiga yo‘naltirilmoqda...",
+      "fields": {
+        "newPassword": {
+          "label": "Yangi parol",
+          "placeholder": "Yangi parolni kiriting"
+        },
+        "confirmPassword": {
+          "label": "Parolni tasdiqlash",
+          "placeholder": "Yangi parolni tasdiqlang"
+        }
+      },
+      "errors": {
+        "invalidToken": "Yaroqsiz yoki muddati o‘tgan token",
+        "minPasswordLength": "Parol kamida 8 ta belgidan iborat bo‘lishi kerak",
+        "passwordMismatch": "Parollar mos kelmayapti",
+        "failed": "Parolni tiklashda xatolik. Iltimos, yana urinib ko‘ring."
+      }
     },
     "password": {
       "label": "Parol",
@@ -17,19 +43,19 @@
     "signIn": {
       "button": "Kirish",
       "forgotPassword": "Parolni unutdingizmi?",
-      "noAccount": "Hisobingiz yo‘qmi?",
+      "noAccount": "Akkauntingiz yo‘qmi?",
       "signUpLink": "Ro‘yxatdan o‘tish",
       "title": "Xush kelibsiz"
     },
     "signUp": {
       "title": "Bizga qo‘shiling",
       "button": "Ro‘yxatdan o‘tish",
-      "hasAccount": "Hisobingiz bormi?",
+      "hasAccount": "Akkauntingiz bormi?",
       "signInLink": "Kirish",
-      "subtitle": "Davom ettirish uchun hisob yarating",
+      "subtitle": "Davom etish uchun akkaunt yarating",
       "success": {
         "button": "Bismillah",
-        "message": "Muvaffaqiyatli ro‘yxatdan o‘tdingiz.",
+        "message": "Siz muvaffaqiyatli ro‘yxatdan o‘tdingiz.",
         "title": "Assalomu alaykum!"
       }
     },
@@ -44,23 +70,23 @@
       "skip": "O‘tkazib yuborish",
       "onboarding": {
         "aware": {
-          "description": "Oxirgi namozingizni kuzatib boring va kuningizni namoz jadvaliga qarab rejalashtiring.",
-          "title": "Oxirgi namozingizdan boxabar bo‘ling"
+          "description": "Oxirgi namozingizni kuzatib boring va kuningizni salat jadvalingizga qarab rejalashtiring.",
+          "title": "Oxirgi namozingizni yodda saqlang"
         },
         "journey": {
-          "description": "Ruhiy rivojlanishingizni kuzating va doimiylikda qay darajada ekaningizni ko‘ring.",
-          "title": "Ibadat yo‘lingizni tekshiring"
+          "description": "Rivojlanishingizga nazar soling va muntazam namozni qanday davom ettirganingizni ko‘ring.",
+          "title": "Namoz yo‘lingizni ko‘ring"
         },
         "remind": {
-          "description": "Namozni o‘tkazib yubormaslik uchun o‘z vaqtida eslatmalar oling.",
-          "title": "Hech qachon namozni o‘tkazib yubormang"
+          "description": "O‘z vaqtida eslatmalar oling va namozni o‘tkazib yubormang.",
+          "title": "Namozni yana hech qachon o‘tkazib yubormang"
         },
         "share": {
-          "description": "O‘z ibodat yo‘lingizni boshqalar bilan bo‘lishib, ilhom bering.",
-          "title": "Do‘stlar bilan ulashing"
+          "description": "Do‘stlaringiz bilan tajriba almashing — bir-biringizni motivatsiya qiling.",
+          "title": "Do‘stlaringiz bilan ulashing"
         },
         "track": {
-          "description": "Kunlik namozlaringizni oson qayd eting va muntazam bo‘ling.",
+          "description": "Har kuni namozlaringizni oson yozib boring va ibodatda barqaror bo‘ling.",
           "title": "Namozlaringizni qulay kuzating"
         }
       }
@@ -68,20 +94,16 @@
   },
   "leaderboard": {
     "title": "Reyting",
-    "point": "ball",
-    "points": "Ballar"
+    "point": "ochko",
+    "points": "Ochko"
   },
   "common": {
     "notifications": {
       "description": "{{salah}} vaqti:",
       "prayer": {
-        "title": "{{emoji}} {{prayer}} namozi eslatmasi",
-        "bodyNow": "{{prayer}} namozi vaqti bo‘ldi — {{time}}",
-        "bodyBefore": "{{prayer}} namoziga {{minutes}} daqiqa{{plural}} qoldi — {{time}}",
-        "test": {
-          "title": "🕌 Namoz eslatmalari testi",
-          "body": "Namoz eslatmalari to‘g‘ri ishlamoqda! 🎉"
-        }
+        "title": "{{prayer}} {{emoji}} Namoz eslatmasi",
+        "bodyNow": "{{prayer}} vaqti keldi — {{time}}",
+        "bodyBefore": "{{prayer}} {{minutes}} daqiqa{{plural}} ichida — {{time}}"
       },
       "emojis": {
         "fajr": "🌅",
@@ -93,23 +115,23 @@
         "default": "🕌"
       },
       "permissions": {
-        "denied": "Bildirishnoma ruxsatlari berilmagan. Iltimos, qurilma sozlamalaridan yoqing."
+        "denied": "Bildirishnoma ruxsatlari berilmagan. Qurilma sozlamalaridan yoqing."
       }
     },
     "notFound": {
       "404": "Sahifa topilmadi",
-      "noData": "Ma’lumot topilmadi"
+      "noData": "Maʼlumot topilmadi"
     },
     "unauthorized": {
-      "title": "Ruxsatsiz",
-      "description": "Bu funksiyadan foydalanish uchun tizimga kiring"
+      "title": "Ruxsat berilmagan",
+      "description": "Ushbu funksiyadan foydalanish uchun tizimga kiring"
     },
     "errors": {
-      "invalidEmail": "Noto‘g‘ri email"
+      "invalidEmail": "Email noto‘g‘ri"
     },
     "salahs": {
       "asr": "Asr",
-      "dhuhr": "Peshin",
+      "dhuhr": "Zuhr",
       "fajr": "Bomdod",
       "isha": "Xufton",
       "maghrib": "Shom",
@@ -117,16 +139,16 @@
       "sunrise": "Quyosh chiqishi"
     },
     "themes": {
-      "title": "Mavzu tanlash",
+      "title": "Mavzuni tanlang",
       "dark": "Qorong‘i",
-      "emerald_green": "Zumrad Yashil",
-      "forest_green": "O‘rmon Yashil",
+      "emerald_green": "Zumradday yashil",
+      "forest_green": "O‘rmon yashili",
       "light": "Yorug‘",
       "ocean_breeze": "Dengiz shabadasi",
-      "pink_rose": "Pushti Atirgul",
-      "royal_purple": "Qirollik Binafsha",
+      "pink_rose": "Pushti gul",
+      "royal_purple": "Qirollik binafsha",
       "sunset": "Quyosh botishi",
-      "vibrant_orange": "Jonli to‘q sariq"
+      "vibrant_orange": "Yorqin to‘q sariq"
     },
     "yearPicker": {
       "cancel": "Bekor qilish",
@@ -155,65 +177,60 @@
   },
   "friends": {
     "title": "Do‘stlar",
-    "freemium": {
-      "description": "Namoz yo‘lingizda yordam beradigan qulay funksiyalar — rivojlanishni kuzating, doimiy bo‘ling va do‘stlaringiz bilan bog‘laning.",
-      "title": "Prayer Tracker +",
-      "upgradeButton": "Bismillah, boshlaymiz",
-      "upgradePrompt": "Ushbu funksiyani ochish uchun yangilang"
-    },
     "groups": {
       "title": "Guruhlar",
       "createTitle": "Yangi guruh yaratish",
-      "createDescription": "Do‘stlaringizni bir joyga jamlash va ibodatni kuzatish uchun guruh yarating",
+      "createDescription": "Do‘stlaringizni tashkil qiling va namozni birga kuzating",
       "editTitle": "Guruhni tahrirlash",
       "editDescription": "Guruh nomini yangilang",
       "deleteTitle": "Guruhni o‘chirish",
-      "deleteDescription": "'{{name}}' guruhini o‘chirishni istaysizmi? Bu amal qaytarilmaydi.",
+      "deleteDescription": "'{{name}}' guruhini o‘chirishni xohlaysizmi? Bu amal qaytarilmaydi.",
       "groupNamePlaceholder": "Guruh nomini kiriting",
-      "members": "a’zolar",
+      "members": "aʼzolar",
       "noGroups": "Hozircha guruh yo‘q. Yaratishni boshlang!",
-      "noMembers": "Bu guruhda hali a’zo yo‘q",
-      "addMember": "A’zo qo‘shish",
-      "noAvailableFriends": "Barcha do‘stlaringiz allaqachon ushbu guruhda",
+      "noMembers": "Bu guruhda hali aʼzo yo‘q",
+      "addMember": "Aʼzo qo‘shish",
+      "groupCount": "{{count}} guruh",
+      "groupCount_one": "{{count}} guruh",
+      "groupCount_other": "{{count}} guruh",
+      "noAvailableFriends": "Barcha do‘stlaringiz allaqachon bu guruhda",
       "friendsAvailable_one": "{{count}} do‘st mavjud",
-      "friendsAvailable_other": "{{count}} do‘stlar mavjud",
-      "membersCount_one": "{{count}} a’zo",
-      "membersCount_other": "{{count}} a’zolar",
-      "groupsCount_one": "{{count}} guruh",
-      "groupsCount_other": "{{count}} guruhlar"
+      "friendsAvailable_other": "{{count}} do‘st mavjud",
+      "membersCount_one": "{{count}} aʼzo",
+      "membersCount_other": "{{count}} aʼzo"
     },
     "allFriends": {
       "title": "Barcha do‘stlar",
-      "isFriend": "Siz {{name}} bilan do‘stsiz",
-      "requestSent": "Siz {{name}} ga do‘stlik so‘rovi yubordingiz",
-      "requestReceived": "Sizga {{name}} do‘stlik so‘rovi yubordi",
+      "isFriend": "{{name}} bilan do‘stmiz",
+      "requestSent": "{{name}}ga do‘stlik so‘rovi yuborildi",
+      "requestReceived": "{{name}} sizga do‘stlik so‘rovi yubordi",
       "noRequests": "Hozircha so‘rovlar yo‘q",
       "noFriends": "Hozircha do‘stlaringiz yo‘q",
-      "noActivity": "Do‘stlar topilmadi",
-      "all": "Jami {{count}}",
+      "noActivity": "Hech narsa topilmadi",
+      "all": "Barchasi {{count}}",
       "requests": "So‘rovlar {{count}}",
       "friends": "Do‘stlar {{count}}",
-      "searchPlaceholder": "Do‘stlarni email orqali qidiring"
+      "searchPlaceholder": "Email orqali qidirish"
     }
   },
   "home": {
     "charts": {
-      "title": "Ibadat rivoji (oylik)"
+      "title": "Ibadat progressi (oylik)"
     },
     "errors": {
-      "futureDate": "Kelajakdagi sanani tanlab bo‘lmaydi"
+      "futureDate": "Kelajak sanani tanlab bo‘lmaydi"
     },
     "prayerHistory": {
       "close": "Yopish",
       "date": "Sana",
       "details": "Namoz tafsilotlari",
-      "title": "Ibadat yo‘li"
+      "title": "Namoz yo‘li"
     },
     "todaysPrayers": {
       "late": "Kechikkan",
       "missed": "O‘tkazib yuborilgan",
       "onTime": "O‘z vaqtida",
-      "subTitle": "Alloh (ﷻ) ibodatlaringizni qabul qilsin",
+      "subTitle": "Alloh (ﷻ) namozlaringizni qabul qilsin",
       "title": "Bugungi namozlar"
     }
   },
@@ -224,57 +241,60 @@
         "title": "Biz bilan bog‘laning"
       },
       "credits": {
-        "description": "Ushbu ilova Noor – Pray Tracker jamoasi tomonidan mehr va fidoyilik bilan ishlab chiqilgan. Doimiy yordami uchun hamjamiyatimizga minnatdorchilik bildiramiz.",
-        "title": "Mualliflar"
+        "description": "Noor - Pray Tracker jamoasi muhabbat va ehtirom bilan ishlab chiqdi. Doimiy qo‘llab-quvvatlagan hamjamiyatimizga minnatdorchilik.",
+        "title": "Minnatdorchilik"
       },
-      "feedback": "Fikr bildirish",
+      "feedback": "Fikr-mulohaza yuborish",
       "mission": {
-        "description": "Noor – Pray Tracker musulmonlarga namozni muntazam ado etish, ruhiy rivojlanishni kuzatish va Allohga yaqinlashishda yordam berishga bag‘ishlangan.",
-        "title": "Bizning maqsad"
+        "description": "Noor - Pray Tracker musulmonlarga kundalik namozni saqlash, ruhiy yo‘lini kuzatish va Allohga yaqinroq bo‘lishga yordam beradi. Bizning maqsadimiz — namozni kuzatishni qulay, mazmunli va foydali qilish.",
+        "title": "Bizning vazifamiz"
       },
       "title": "Haqida",
       "version": {
         "build": "Build: {{buildNumber}}",
         "number": "Versiya: {{version}}",
         "released": "Chiqarilgan: Mart 2024",
-        "title": "Versiya ma’lumoti"
+        "title": "Versiya maʼlumoti"
       }
     },
     "account": {
       "cancelButton": "Bekor qilish",
       "created": "Yaratilgan",
-      "deleteAccount": "Hisobni o‘chirish",
-      "deleteButton": "Ha, hisobimni o‘chir",
-      "deleteConfirm": "Haqiqatan ham hisobingizni o‘chirmoqchimisiz?",
-      "deleteMessage": "Bu amalni qaytarib bo‘lmaydi. Barcha ma’lumotlaringiz o‘chiriladi.",
+      "deleteAccount": "Akkauntni o‘chirish",
+      "deleteButton": "Ha, akkauntni o‘chir",
+      "deleteConfirm": "Haqiqatan akkauntni o‘chirib tashlamoqchimisiz?",
+      "deleteMessage": "Bu amal qaytarilmaydi. Barcha maʼlumotlaringiz o‘chirilib ketadi.",
       "email": "Email",
       "lastUpdated": "Oxirgi yangilanish",
       "logoutButton": "Chiqish",
-      "title": "Hisob"
+      "title": "Akkaunt",
+      "premiumProduct": "Premium",
+      "purchased": "Sotib olingan",
+      "expires": "Tugaydi"
     },
     "editPassword": {
       "fields": {
         "confirmPassword": {
           "label": "Parolni tasdiqlash",
-          "placeholder": "Yangi parolingizni tasdiqlang"
+          "placeholder": "Yangi parolni tasdiqlang"
         },
         "currentPassword": {
           "label": "Joriy parol",
-          "placeholder": "Joriy parolingizni kiriting"
+          "placeholder": "Joriy parolni kiriting"
         },
         "newPassword": {
           "label": "Yangi parol",
-          "placeholder": "Yangi parolingizni kiriting"
+          "placeholder": "Yangi parolni kiriting"
         }
       },
       "errors": {
-        "currentPasswordRequired": "Joriy parol kiritilishi shart",
-        "minPasswordLength": "Parol kamida 8 ta belgidan iborat bo‘lishi kerak",
-        "passwordMismatch": "Parollar mos kelmadi",
-        "updateFailed": "Parolni yangilash amalga oshmadi"
+        "currentPasswordRequired": "Joriy parol talab qilinadi",
+        "minPasswordLength": "Parol kamida 8 belgidan iborat bo‘lishi kerak",
+        "passwordMismatch": "Parollar mos emas",
+        "updateFailed": "Parolni yangilashda xatolik"
       },
       "saveButton": "Parolni yangilash",
-      "success": "Parol muvaffaqiyatli yangilandi. Siz tizimdan chiqasiz.",
+      "success": "Parol muvaffaqiyatli yangilandi. Siz tizimdan chiqarilasiz.",
       "title": "Parolni tahrirlash"
     },
     "editProfile": {
@@ -292,19 +312,19 @@
           "placeholder": "Foydalanuvchi nomini kiriting"
         }
       },
-      "saveButton": "O‘zgarishlarni saqlash",
+      "saveButton": "Saqlash",
       "title": "Profilni tahrirlash",
       "success": "Profil muvaffaqiyatli yangilandi"
     },
     "navigation": {
       "about": "Haqida",
-      "account": "Hisob",
-      "editPassword": "Parolni tahrirlash",
-      "editProfile": "Profilni tahrirlash",
-      "feedback": "Fikr bildirish",
-      "privacySecurity": "Maxfiylik va Xavfsizlik",
+      "account": "Akkaunt",
+      "editPassword": "Parol",
+      "editProfile": "Profil",
+      "feedback": "Qo‘llab-quvvatlash",
+      "privacySecurity": "Maxfiylik va xavfsizlik",
       "settings": "Sozlamalar",
-      "termsConditions": "Shartlar"
+      "termsConditions": "Foydalanish shartlari"
     },
     "settings": {
       "language": "Til",
@@ -315,94 +335,131 @@
     "privacy": {
       "title": "Maxfiylik siyosati",
       "dataCollection": {
-        "title": "Yig‘iladigan ma’lumotlar",
-        "content": "Biz faqat siz to‘g‘ridan-to‘g‘ri taqdim etgan ma’lumotlarni yig‘amiz: ism, email, profil rasmi va tanlovlar. Keraksiz yoki sezgir ma’lumotlar yig‘ilmaydi."
+        "title": "Qanday maʼlumot yig‘amiz",
+        "content": "Biz faqat siz bergan maʼlumotlarni yig‘amiz: ism, email, profil rasmi va sozlamalar. Hech qanday ortiqcha yoki sezgir maʼlumot yig‘ilmaydi."
       },
       "dataUse": {
-        "title": "Ma’lumotdan foydalanish",
-        "content": "Ma’lumotlaringiz faqat ilovani ishlatish, profilingizni boshqarish, xususiyatlarni taqdim etish, tajribani shaxsiylashtirish va xizmatni yaxshilash uchun ishlatiladi. Reklama uchun ishlatilmaydi."
+        "title": "Maʼlumotlardan qanday foydalanamiz",
+        "content": "Maʼlumotlaringiz akkaunt ishlashi, funksiyalar, tajriba va xizmatni yaxshilash uchun ishlatiladi. Reklama uchun foydalanilmaydi."
       },
       "dataSharing": {
-        "title": "Ma’lumotni ulashish",
-        "content": "Biz ma’lumotlaringizni sotmaymiz va uchinchi tomonlarga bermaymiz, faqat zarur texnik xizmatlar yoki qonuniy talablar bo‘lsa bundan mustasno."
+        "title": "Maʼlumot almashish",
+        "content": "Maʼlumotlaringiz sotilmaydi. Uchinchi tomon bilan faqat xizmat ishlashi yoki qonun talab qilsa almashiladi."
       },
       "security": {
         "title": "Xavfsizlik",
-        "content": "Ma’lumotlaringizni himoya qilish uchun standart xavfsizlik choralarini ko‘ramiz. Ammo hech bir tizim 100% xavfsiz emas."
+        "content": "Maʼlumotlaringizni himoya qilish uchun standart choralar qo‘llanadi, lekin hech bir usul 100% xavfsiz emas."
       },
       "changes": {
         "title": "O‘zgarishlar",
-        "content": "Maxfiylik siyosati zaruratga ko‘ra yangilanib turadi. Muhim o‘zgarishlar haqida sizni xabardor qilamiz."
+        "content": "Siyosat zarur bo‘lganda yangilanadi. Katta o‘zgarishlar haqida xabardor qilamiz."
       },
       "contact": {
-        "title": "Aloqa",
-        "content": "Agar savollaringiz bo‘lsa, ilova orqali biz bilan bog‘lanishingiz mumkin."
+        "title": "Bog‘lanish",
+        "content": "Savol yoki so‘rovlar uchun ilova ichidagi qo‘llab-quvvatlash kanaliga murojaat qiling."
       }
     },
     "terms": {
-      "title": "Xizmat ko‘rsatish shartlari",
+      "title": "Foydalanish shartlari",
       "agreement": {
         "title": "Shartlarga rozilik",
-        "content": "Ilovadan foydalanish orqali siz ushbu shartlarga rozilik bildirasiz. Agar rozi bo‘lmasangiz, foydalanishni to‘xtatishingiz mumkin."
+        "content": "Ilovadan foydalanish orqali siz shartlarga rozilik bildirasiz. Rozilik bo‘lmasa, foydalanishni to‘xtatishingiz mumkin."
       },
       "usage": {
-        "title": "Ruxsat etilgan foydalanish",
-        "content": "Ilovadan faqat qonuniy va to‘g‘ri maqsadlarda foydalaning. Xizmatni buzish yoki noqonuniy kirishga urinish taqiqlanadi."
+        "title": "To‘g‘ri foydalanish",
+        "content": "Ilovadan faqat halol va maqsadli foydalanishga rozisiz. Xizmatga zarar yetkazish yoki ruxsatsiz kirishga harakat qilish mumkin emas."
       },
       "userContent": {
         "title": "Foydalanuvchi kontenti",
-        "content": "Ilovaga joylagan kontentingiz uchun siz javobgarsiz. U qonunga zid bo‘lmasligi va boshqalar huquqlarini buzmasligi kerak."
+        "content": "Ilova ichidagi kontent uchun siz javobgar siz. U qonun va boshqa shaxs huquqlarini buzmasligi kerak."
       },
       "termination": {
-        "title": "Hisobni yopish",
-        "content": "Shartlar buzilganda yoki xavfli faoliyat aniqlansa, ilovaga kirish to‘xtatilishi mumkin."
+        "title": "Akkauntni o‘chirish",
+        "content": "Shartlarni buzish yoki xavfli faoliyat aniqlansa, kirish cheklanishi yoki akkaunt o‘chirilishi mumkin."
       },
       "changes": {
         "title": "Shartlar yangilanishi",
-        "content": "Shartlar vaqti-vaqti bilan yangilanadi. Ilovadan foydalanishni davom ettirsangiz, yangilangan shartlarni qabul qilgan bo‘lasiz."
+        "content": "Shartlar vaqti-vaqti bilan yangilanadi. Ilovadan foydalanishda davom etish — yangiliklarni qabul qilish demak."
       },
       "contact": {
-        "title": "Aloqa",
-        "content": "Savollar bo‘lsa, biz bilan ilova orqali bog‘laning."
+        "title": "Bog‘lanish",
+        "content": "Savollaringiz bo‘lsa, qo‘llab-quvvatlash kanali orqali murojaat qiling."
       }
+    }
+  },
+  "subscription": {
+    "title": "Noor Premium",
+    "subtitle": "Namozdagi barqarorlik, jamoat va ruhiy o‘sish uchun kuchli vositalar bilan imoningizni mustahkamlang.",
+    "loadingPlans": "Rejalar yuklanmoqda...",
+    "choosePlan": "Rejani tanlang",
+    "bestValue": "ENG YAXSHI NARX — 17% tejang",
+    "yearlyPlan": "Yillik reja",
+    "monthlyPlan": "Oylik reja",
+    "year": "yil",
+    "month": "oy",
+    "saveOneMonth": "Yiliga $5 tejang • Mashhur tanlov",
+    "subscribe": "Bismillah, qo‘shilaman",
+    "restorePurchases": "Oldingi xaridlarni tiklash",
+    "terms": "Avtomatik uzayadi, istalgan payt bekor qilishingiz mumkin. Obuna bo‘lish orqali Shartlarga rozilik bildirasiz.",
+    "success": {
+      "purchaseComplete": "Alhamdulillah! Noor Premiumga xush kelibsiz",
+      "restoreComplete": "Premium kirish tiklandi"
+    },
+    "info": {
+      "noPurchasesFound": "Bu akkaunt uchun xaridlar topilmadi"
+    },
+    "errors": {
+      "packageNotFound": "Obuna rejasi mavjud emas",
+      "purchaseFailed": "Xarid amalga oshmadi. Yana urinib ko‘ring.",
+      "restoreFailed": "Tiklash imkoni bo‘lmadi. Yana urinib ko‘ring."
+    },
+    "features": {
+      "unlimitedFriends": "Cheksiz do‘stlar bilan bog‘laning va bir-biringizni namozda qo‘llab-quvvatlang.",
+      "friendGroups": "Namoz doiralari va guruhlar yarating — birgalikda motivatsiya kuchliroq.",
+      "detailedStats": "Go‘zal grafiklar va seriyalar orqali namoz odatlaringizni chuqur tahlil qiling.",
+      "prayerReminders": "Aqlli eslatmalar bilan namozni o‘tkazib yubormang — joylashuv va jadvalga moslashadi.",
+      "customThemes": "Islom ruhidagi mavzular va rang sxemalari bilan ilovani shaxsiylashtiring.",
+      "adFree": "Reklamasiz muhit — eʼtibor namozda.",
+      "prioritySupport": "Jamoamiz sizga tez va maxsus yordam ko‘rsatadi.",
+      "newFeatures": "Yangi funksiyalarni birinchi bo‘lib sinab ko‘ring."
     }
   },
   "qibla": {
     "compass": {
       "degrees": "daraja",
       "errors": {
-        "location": "Joylashuv ruxsati talab qilinadi",
-        "magnetometer": "Magnetometr mavjud emas",
-        "magnetometerUnavailable": "Ushbu qurilmada magnetometr yo‘q"
+        "location": "Joylashuvga ruxsat talab qilinadi",
+        "magnetometer": "Magnitometr mavjud emas",
+        "magnetometerUnavailable": "Ushbu qurilmada magnitometr mavjud emas"
       },
-      "help": "Telefonni Qibla tomonga qaratib, yo‘nalish bilan moslang",
+      "help": "Telefoningizni qibla graduslari tomon burib, yo‘nalishni tekislang",
       "yourDirection": "Sizning yo‘nalishingiz",
       "qiblaDirection": "Qibla yo‘nalishi"
     },
     "prayerTimes": {
       "timeLeft": "Keyingi namozgacha qolgan vaqt",
       "errors": {
-        "message": "Namoz vaqtlarini hisoblash uchun joylashuv ruxsati kerak",
+        "message": "Namoz vaqtlari uchun joylashuvga ruxsat kerak",
         "title": "Ruxsat berilmadi"
       },
       "location": {
         "fetching": "Joylashuv aniqlanmoqda...",
-        "unknown": "Noma’lum"
+        "unknown": "Nomaʼlum"
       },
       "notifier": {
         "title": "Namoz eslatmasi",
-        "description": "Namozdan necha daqiqa oldin eslatma berilsin?",
-        "minutesBefore": "{{minutes}} daqiqa oldin",
+        "description": "Namozdan necha daqiqa oldin eslatma kerak?",
+        "minutesBefore": "Namozdan {{minutes}} daqiqa oldin",
         "success": {
-          "message": "Namoz eslatmalari {{minutes}} daqiqa oldinga o‘rnatildi"
+          "message": "Namoz eslatmalari: {{minutes}} daqiqa oldin"
         },
         "error": {
-          "message": "Eslatma sozlamalarini saqlab bo‘lmadi. Qayta urinib ko‘ring."
+          "message": "Sozlamalarni saqlashda xatolik. Yana urinib ko‘ring."
         }
       }
     },
     "tabs": {
-      "qibla": "Qibla yo‘nalishi",
+      "qibla": "Qibla",
       "times": "Namoz vaqtlari"
     }
   }

@@ -42,7 +42,7 @@ export async function sendPasswordResetEmail(
     );
 
     // Send the email
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: `Noor Pray Tracker <${env.EMAIL_USER}>`,
       to: email,
       subject: 'Reset Your Password - Noor Pray Tracker',
@@ -51,9 +51,6 @@ export async function sendPasswordResetEmail(
         resetUrl: mobileResetUrl,
       }),
     });
-
-    console.log('Password reset email sent:', info.messageId);
-    console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
   } catch (error) {
     console.error('Failed to send password reset email:', error);
     throw new Error('Failed to send password reset email');

@@ -1,6 +1,9 @@
 import enLocalization from '@locales/en.json';
 import ruLocalization from '@locales/ru.json';
 import uzLocalization from '@locales/uz.json';
+import trLocalization from '@locales/tr.json';
+import idLocalization from '@locales/id.json';
+import msLocalization from '@locales/ms.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 import i18n from 'i18next';
@@ -11,6 +14,9 @@ const resources = {
   en: { translation: enLocalization },
   uz: { translation: uzLocalization },
   ru: { translation: ruLocalization },
+  tr: { translation: trLocalization },
+  id: { translation: idLocalization },
+  ms: { translation: msLocalization },
 };
 
 export type Language = keyof typeof resources;

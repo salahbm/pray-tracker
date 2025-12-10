@@ -92,7 +92,10 @@
     "locales": {
       "en": "./locales/en.json",
       "ru": "./locales/ru.json",
-      "uz": "./locales/uz.json"
+      "uz": "./locales/uz.json",
+      "id": "./locales/id.json",
+      "ms": "./locales/ms.json",
+      "tr": "./locales/tr.json"
     },
     "extra": {
       "router": {},

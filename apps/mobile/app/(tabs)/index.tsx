@@ -76,7 +76,6 @@ export default function HomeScreen() {
   // QUERIES
   const { user } = useAuthStore();
   const { refetch: refetchCustomer, isPremium } = useRevenueCatCustomer();
-  console.log(`file: index.tsx:79 ~ isPremium:`, isPremium);
 
   const {
     data: prays,

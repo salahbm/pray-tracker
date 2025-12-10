@@ -10,7 +10,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "clean": "pnpm store prune && rm -rf node_modules && rm -rf .next && rm -rf .expo && rm -rf .turbo && find . -name \"node_modules\" -type d -prune -exec rm -rf {} + && rm -rf pnpm-lock.yaml"
+    "clean": "pnpm store prune && rm -rf node_modules && rm -rf .next && rm -rf .expo && rm -rf .turbo && find . -name \"node_modules\" -type d -prune -exec rm -rf {} + && rm -rf pnpm-lock.yaml",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "devDependencies": {
     "@commitlint/cli": "20.1.0",
@@ -35,12 +37,15 @@
   },
   "dependencies": {
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "expo": "~54.0.27",
+    "react-native": "0.81.5"
   },
   "pnpm": {
     "overrides": {
       "react": "19.1.0",
       "react-dom": "19.1.0"
     }
-  }
+  },
+  "version": "1.0.0"
 }

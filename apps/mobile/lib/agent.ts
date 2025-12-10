@@ -123,8 +123,6 @@ class Agent {
 
     const token = useAuthStore.getState().session?.token;
 
-    console.log('LOGGING AGENT 🤖', url, currentLanguage, JSON.stringify(body || {}, null, 2));
-
     const config: RequestInit = {
       method,
       headers: {

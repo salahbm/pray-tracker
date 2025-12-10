@@ -264,7 +264,6 @@ export const ERROR_MESSAGES: ErrorMessages = {
     en: 'Error message in English',
     uz: "Xato xabari o'zbekcha",
     ru: 'Сообщение об ошибке на русском',
-    kr: '한국어 오류 메시지',
   },
 };
 ```
