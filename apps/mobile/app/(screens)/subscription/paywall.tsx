@@ -32,8 +32,6 @@ import { PRODUCT_IDS } from '@/lib/revenuecat';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-
-
 export default function PaywallScreen() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -62,7 +60,10 @@ export default function PaywallScreen() {
     // Find package by product identifier
     const pkg = packages.find(p => {
       const productId = p.product.identifier;
-      const isMatch = selectedPlan === 'monthly' ? productId === PRODUCT_IDS.MONTHLY : productId === PRODUCT_IDS.YEARLY;
+      const isMatch =
+        selectedPlan === 'monthly'
+          ? productId === PRODUCT_IDS.MONTHLY
+          : productId === PRODUCT_IDS.YEARLY;
 
       return isMatch;
     });
