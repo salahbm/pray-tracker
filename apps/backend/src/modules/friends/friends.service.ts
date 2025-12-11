@@ -450,6 +450,7 @@ export class FriendsService {
       id: group.id,
       name: group.name,
       memberCount: group.members.length,
+      creatorId: group.userId,
       members: group.members.map((member) => ({
         id: member.id,
         userId: member.userId,
@@ -496,8 +497,11 @@ export class FriendsService {
       });
     }
 
-    // Verify user owns the group
-    if (group.userId !== userId) {
+    // Verify user owns the group or is a member
+    if (
+      group.userId !== userId ||
+      group.members.some((member) => member.userId !== userId)
+    ) {
       throw new BadRequestException({
         error: 'FORBIDDEN',
         message: getLocalizedMessage('FORBIDDEN', locale),
@@ -654,7 +658,8 @@ export class FriendsService {
       });
     }
 
-    if (group.userId !== userId) {
+    // owner or group member can add members
+    if (group.userId !== userId || group.userId !== friendId) {
       throw new BadRequestException({
         error: 'FORBIDDEN',
         message: getLocalizedMessage('FORBIDDEN', locale),
@@ -759,7 +764,7 @@ export class FriendsService {
       });
     }
 
-    if (group.userId !== userId) {
+    if (group.userId !== userId || group.userId !== memberId) {
       throw new BadRequestException({
         error: 'FORBIDDEN',
         message: getLocalizedMessage('FORBIDDEN', locale),
