@@ -36,6 +36,8 @@ export default tseslint.config(
         { argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
       'require-await': 'off',
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',

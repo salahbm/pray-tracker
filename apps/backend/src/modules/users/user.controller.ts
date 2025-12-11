@@ -16,7 +16,7 @@ import { UsersService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import type { Request } from 'express';
-import { Prisma } from 'generated/prisma';
+import { Prisma } from '../../generated/prisma';
 import { parsePaginationParams, createPaginatedResponse } from '@/common/utils';
 import { type Locale } from '@/common/utils/response.utils';
 

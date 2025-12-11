@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from 'generated/prisma';
 import { env } from '@/config/env.config';
 import { ALLOWED_ORIGINS } from '@/config/cors.config';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
@@ -8,8 +8,9 @@ import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
 import { getLocaleFromRequest } from '@/common/utils/headers';
 import { sendPasswordResetEmail } from './email-sender';
+import { PrismaService } from '@/db/prisma.service';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaService();
 
 export const auth = betterAuth({
   baseURL: env.BETTER_AUTH_URL, // Used to build callback URLs & cookies

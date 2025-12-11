@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prayer, Prisma } from 'generated/prisma';
+import { Prayer, Prisma } from '../../generated/prisma';
 import { PrismaService } from '@/db/prisma.service';
 import { CreatePrayerDto } from './dto/create-prayer.dto';
 import { UpdatePrayerDto } from './dto/update-prayer.dto';
@@ -303,6 +303,6 @@ export class PrayersService {
         userId,
         ...where,
       },
-    });
+    }) as Promise<number>;
   }
 }

@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '@/db/prisma.service';
-import { FriendStatus, Prayer } from 'generated/prisma';
+import { FriendStatus, Prayer } from '../../generated/prisma';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { createSuccessResponse, Locale } from '@/common/utils/response.utils';
 import { NotificationsService } from '../notifications/notifications.service';

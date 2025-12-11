@@ -1,28 +1,23 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from 'generated/prisma';
+// src/prisma.service.ts
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../generated/prisma';
 
-/**
- * PrismaService configured for Neon Postgres
- * Works with Neon's connection pooling out of the box
- */
 @Injectable()
-export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
+export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
-    super({
-      log:
-        process.env.NODE_ENV === 'development'
-          ? ['query', 'error', 'warn']
-          : ['error'],
-    });
+    const connectionString = process.env.DATABASE_URL;
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaPg(pool);
+    super({ adapter });
   }
 
   async onModuleInit() {
     await this.$connect();
   }
 
+  // Use the standard NestJS lifecycle hook instead of a custom method
   async onModuleDestroy() {
     await this.$disconnect();
   }

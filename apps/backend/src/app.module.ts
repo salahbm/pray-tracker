@@ -13,6 +13,7 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
 
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from '@/common/guards/auth.guard';
+import { PrismaService } from '@/db/prisma.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthGuard } from '@/common/guards/auth.guard';
   controllers: [AppController],
   providers: [
     AppService,
+    PrismaService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,

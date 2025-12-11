@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/db/prisma.service';
-import { User, Prisma } from 'generated/prisma';
+import { User, Prisma } from '../../generated/prisma';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { Locale } from '@/common/utils/response.utils';
