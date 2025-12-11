@@ -23,7 +23,7 @@ const FriendsScreen = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center min-h-screen">
+      <View className="flex-1 items-center justify-center min-h-screen bg-background">
         <LottieView
           source={gifs.clock_sand}
           autoPlay

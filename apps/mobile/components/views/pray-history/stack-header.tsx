@@ -1,6 +1,6 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { addDays, format, subDays } from 'date-fns';
-import * as allLocales from 'date-fns/locale'; // Renamed for clarity
+import * as allLocales from 'date-fns/locale';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
-import { Language } from '@/i18n.config';
+import { LocaleConfig } from 'react-native-calendars';
 
 interface CalendarRef {
   current: {
@@ -28,6 +28,8 @@ interface IStackHeaderProps {
 export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage(); // Get current language (e.g., 'en', 'fr')
+  if (!options.title || !options.headerBackTitle) return null;
+
   const calendarRef = options?.calendarRef;
   const currentDate = new Date();
 
@@ -57,9 +59,11 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
     (_, index) => format(addDays(firstDayOfWeek, index), 'eee', { locale: selectedLocale }) // 'eee' for short names
   );
 
-  // Use locale for title and year too
-  const title = options?.title ?? format(currentDate, 'MMMM', { locale: selectedLocale });
-  const year = options?.headerBackTitle ?? format(currentDate, 'yyyy', { locale: selectedLocale });
+  // Use locale for title is name of the month in english and year too
+  const monthIndex = LocaleConfig.locales['en']?.monthNames?.indexOf(options.title) || 0;
+  const year = Number(options.headerBackTitle);
+  const date = new Date(year, monthIndex, 1);
+  const title = format(date, 'MMMM', { locale: selectedLocale });
 
   return (
     <View className="bg-background border-b border-border">

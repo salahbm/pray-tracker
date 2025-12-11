@@ -25,8 +25,8 @@ import { getMonthTheme } from '@/styles/calendar.theme';
 import { IPrays } from '@/types/prays';
 import { debounce } from '@/utils/debounce';
 import { setCalendarLocale } from '@/utils/month-names';
-
-const today = new Date().toISOString();
+import { Language } from '@/i18n.config';
+import { router } from 'expo-router';
 
 type MarkedDateProps = {
   marked: boolean;
@@ -48,10 +48,11 @@ const MonthScreen = () => {
   const [year, setYear] = useState(2025);
   const [atTop, setAtTop] = useState(false);
   const [selected, setSelected] = useState('');
-  const [visibleMonths, setVisibleMonths] = useState(12);
+  const [visibleMonths, setVisibleMonths] = useState(3);
   const [renderVersion, setRenderVersion] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
+  const initialMonthRef = useRef<string>(new Date().toISOString());
 
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(user?.id!, year);
 
@@ -72,8 +73,8 @@ const MonthScreen = () => {
 
   // Locale updates
   useEffect(() => {
-    setCalendarLocale(currentLanguage as 'en' | 'ru' | 'uz' | 'ar');
-    LocaleConfig.defaultLocale = currentLanguage as any;
+    setCalendarLocale(currentLanguage as Language);
+    LocaleConfig.defaultLocale = currentLanguage;
     setRenderVersion(prev => prev + 1);
   }, [currentLanguage]);
 
@@ -104,10 +105,14 @@ const MonthScreen = () => {
   const onDayPress = useCallback(
     (day: DateData) => {
       // Prevent selecting future dates
-
       const selectedDate = new Date(day.dateString);
-      const todayDate = new Date(today);
-
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+      selectedDate.setHours(0, 0, 0, 0);
+      if (selectedDate === todayDate) {
+        router.replace('/(tabs)');
+        return;
+      }
       if (selectedDate > todayDate) {
         fireToast.info(t('home.errors.futureDate'));
         return;
@@ -119,10 +124,11 @@ const MonthScreen = () => {
 
       setSelected(day.dateString);
     },
-    [today, t]
+    [t, user]
   );
 
   const marked = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0];
     const entries: Record<string, MarkedDateProps> = {
       [today]: {
         marked: true,
@@ -151,6 +157,10 @@ const MonthScreen = () => {
     setLoadingMore(true);
 
     const targetMonth = lastVisibleMonthRef.current;
+    const targetMonthString = format(targetMonth, 'yyyy-MM-dd');
+
+    // Update the initial month ref to prevent jumping back to today
+    initialMonthRef.current = targetMonthString;
 
     setTimeout(() => {
       setVisibleMonths(prev => prev + 6);
@@ -161,7 +171,7 @@ const MonthScreen = () => {
         if (calendarRef.current?.scrollToMonth) {
           calendarRef.current.scrollToMonth(targetMonth, false);
         }
-      }, 250);
+      }, 300);
     }, 400);
   }, [loadingMore]);
 
@@ -181,13 +191,13 @@ const MonthScreen = () => {
         key={calendarKey}
         ref={calendarRef}
         style={{ backgroundColor: colors['--background'] }}
-        current={today}
+        current={initialMonthRef.current}
         pastScrollRange={visibleMonths}
         futureScrollRange={1}
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}
-        renderHeader={RenderHeader}
+        renderHeader={date => <RenderHeader date={date} locale={currentLanguage} />}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
         scrollEventThrottle={32}
@@ -222,7 +232,6 @@ const MonthScreen = () => {
       handleScrollEnd,
     ]
   );
-
   return (
     <View className="safe-area flex-1" style={{ backgroundColor: colors['--background'] }}>
       {calendar}
@@ -241,6 +250,11 @@ const MonthScreen = () => {
             borderRadius: 20,
             flexDirection: 'row',
             alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
           }}
         >
           {loadingMore || isLoadingPrays ? (

@@ -37,8 +37,12 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
         <Text numberOfLines={1} className={cn('text-xl font-bold max-w-[250px] truncate')}>
           {user ? `Salaam, ${user.name} 👋` : `Salaam, ${t('auth.welcome.guest')} 👋`}
         </Text>
-        <Text className={cn('text-muted-foreground')}>
-          {today.toLocaleDateString(currentLanguage)}
+        <Text className={cn('text-muted-foreground capitalize')}>
+          {today.toLocaleDateString(currentLanguage, {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
         </Text>
       </View>
 

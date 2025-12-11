@@ -1,11 +1,12 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
 
 import { defaultColorMap } from '@/components/shared/heat-map/constant';
 import { getOpacityByNumber } from '@/components/shared/heat-map/helpers';
 import { Text } from '@/components/ui/text';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 interface IDayComponentProps {
   date?: DateData;
@@ -21,6 +22,12 @@ const DayComponent: React.FC<IDayComponentProps> = ({
   colors,
 }) => {
   if (!date) return null;
+
+  const { isPremium, refetch } = useRevenueCatCustomer();
+
+  useLayoutEffect(() => {
+    refetch();
+  }, [isPremium, refetch]);
 
   // fallback to 0 if user not logged in or no data
   const count = prayerCountByDate[date.dateString] ?? 0;

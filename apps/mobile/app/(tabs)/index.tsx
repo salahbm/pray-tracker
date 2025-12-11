@@ -1,6 +1,6 @@
 import confetti from '@assets/gif/confetti.json';
 import { format } from 'date-fns';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { ChevronRight } from 'lucide-react-native';
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
@@ -19,7 +19,7 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
-import { useCurrentDate } from '@/hooks/common/useCurrentDate';
+
 import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
@@ -69,8 +69,17 @@ function reducer(state: typeof initialState, action: { type: string; payload?: a
 export default function HomeScreen() {
   const { t } = useTranslation();
   // DATE STATE
-  const today = useCurrentDate();
-  const [year, setYear] = useState(today.getFullYear());
+  const [today, setToday] = useState(new Date());
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  // Update date when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      const now = new Date();
+      setToday(now);
+      setYear(now.getFullYear());
+    }, [])
+  );
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   // QUERIES
