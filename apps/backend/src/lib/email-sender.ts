@@ -34,7 +34,6 @@ export async function sendPasswordResetEmail(
     const html = pug.renderFile(templatePath, {
       email,
       resetUrl: mobileResetUrl,
-      locale,
     });
 
     await resend.emails.send({
