@@ -424,7 +424,9 @@ export class FriendsService {
    */
   async getGroups(userId: string) {
     const groups = await this.prisma.friendGroup.findMany({
-      where: { userId },
+      where: {
+        OR: [{ userId }, { members: { some: { userId } } }],
+      },
       include: {
         members: {
           include: {
