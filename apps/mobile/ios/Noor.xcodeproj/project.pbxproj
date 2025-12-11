@@ -7,45 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A320CD2B1160035AB7EF8DF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8B90E9FCF4B55FE54820506D /* PrivacyInfo.xcprivacy */; };
+		0A9D4AD1B5B94979A10530B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C56EAD710FBF491DB1734293 /* InfoPlist.strings */; };
+		0D2FED5E8A5C495DAD554782 /* notification_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0B3BA79056884EDB8ED7FEC6 /* notification_sound.mp3 */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		19896FA8E1644B2ABB88E96E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71B282EB772F4F15A60F03AC /* InfoPlist.strings */; };
-		1A284B89A3414205A98A90F5 /* notification_sound_other.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45BDE6471DC24202B23EF317 /* notification_sound_other.mp3 */; };
-		23B3137054927F2C6215701E /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC53747B575E01A55CFAB29 /* ExpoModulesProvider.swift */; };
-		2F35BD94A5054ECB803E56C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24BD4EF268F0433E97625F66 /* InfoPlist.strings */; };
-		338E1A187C7349309B300B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 796AAD3201D74DC8947DEF15 /* InfoPlist.strings */; };
+		1941B45087EA4B56A6348AA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 415DC97551D84D40AF494390 /* InfoPlist.strings */; };
+		3479E2A470410DB3860736CF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D6871964BB2316E2CADAA97C /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		4D05A075804044D49FE4E6E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7399F0809574CE986AB6EF0 /* InfoPlist.strings */; };
-		8C605985483268EED9F17F69 /* libPods-Noor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E4D441630D4A235E5CA235 /* libPods-Noor.a */; };
-		943BF45B5B9340439B2F430F /* notification_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8CE923A31E9E491583C40618 /* notification_sound.mp3 */; };
+		52D69444EB3340E1A4B4B361 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F68E60EA6E9C4735AC2E1D4B /* InfoPlist.strings */; };
+		6C4CC5903682442497A21486 /* notification_sound_other.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D0B926EED754CB29772D60F /* notification_sound_other.mp3 */; };
+		8370961A40134C3D8B536633 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C08B9D4A90274466A00BB01B /* InfoPlist.strings */; };
+		B98BC5D00334BF4258B2DFF3 /* libPods-Noor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44116F4BF0F8278C6A9CC0 /* libPods-Noor.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		BBA2DD8E23A940BEA3DAAADF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A347958EA6FF4966A19D9450 /* InfoPlist.strings */; };
-		F0703A9B7E6E40239E2CA999 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2218C2E18A54C8D919D4230 /* InfoPlist.strings */; };
+		D282A7A5F74A42879961181B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7780AEDB051D4747B317D8F5 /* InfoPlist.strings */; };
+		D286C1689113EAE1DD45FEE7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E2E7237DF456A5FDD9E1B /* ExpoModulesProvider.swift */; };
+		E33A64A94F834003B5CE9984 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC4BF0D87B5E42A594ACAD78 /* InfoPlist.strings */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B3BA79056884EDB8ED7FEC6 /* notification_sound.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound.mp3; path = Noor/notification_sound.mp3; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Noor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Noor/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Noor/Info.plist; sourceTree = "<group>"; };
-		151A0F278B739C082A7C3317 /* Pods-Noor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noor.release.xcconfig"; path = "Target Support Files/Pods-Noor/Pods-Noor.release.xcconfig"; sourceTree = "<group>"; };
-		24BD4EF268F0433E97625F66 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		31E4D441630D4A235E5CA235 /* libPods-Noor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Noor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		45BDE6471DC24202B23EF317 /* notification_sound_other.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound_other.mp3; path = Noor/notification_sound_other.mp3; sourceTree = "<group>"; };
-		71B282EB772F4F15A60F03AC /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		796AAD3201D74DC8947DEF15 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8B90E9FCF4B55FE54820506D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Noor/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8CE923A31E9E491583C40618 /* notification_sound.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound.mp3; path = Noor/notification_sound.mp3; sourceTree = "<group>"; };
-		9FC53747B575E01A55CFAB29 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Noor/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		A347958EA6FF4966A19D9450 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3B9E2E7237DF456A5FDD9E1B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Noor/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		415DC97551D84D40AF494390 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ms.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7780AEDB051D4747B317D8F5 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D0B926EED754CB29772D60F /* notification_sound_other.mp3 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound_other.mp3; path = Noor/notification_sound_other.mp3; sourceTree = "<group>"; };
+		8E0EB966E4E2A48E215AA344 /* Pods-Noor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noor.debug.xcconfig"; path = "Target Support Files/Pods-Noor/Pods-Noor.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Noor/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D7399F0809574CE986AB6EF0 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ms.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BB44116F4BF0F8278C6A9CC0 /* libPods-Noor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Noor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C08B9D4A90274466A00BB01B /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C56EAD710FBF491DB1734293 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D6871964BB2316E2CADAA97C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Noor/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		EC4BF0D87B5E42A594ACAD78 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Noor/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* Noor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Noor-Bridging-Header.h"; path = "Noor/Noor-Bridging-Header.h"; sourceTree = "<group>"; };
-		F2218C2E18A54C8D919D4230 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FF88A301CD10F441B2728196 /* Pods-Noor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noor.debug.xcconfig"; path = "Target Support Files/Pods-Noor/Pods-Noor.debug.xcconfig"; sourceTree = "<group>"; };
+		F5CBB7A20442B2BBAD863533 /* Pods-Noor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noor.release.xcconfig"; path = "Target Support Files/Pods-Noor/Pods-Noor.release.xcconfig"; sourceTree = "<group>"; };
+		F68E60EA6E9C4735AC2E1D4B /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C605985483268EED9F17F69 /* libPods-Noor.a in Frameworks */,
+				B98BC5D00334BF4258B2DFF3 /* libPods-Noor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,57 +69,56 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				8CE923A31E9E491583C40618 /* notification_sound.mp3 */,
-				45BDE6471DC24202B23EF317 /* notification_sound_other.mp3 */,
-				8B90E9FCF4B55FE54820506D /* PrivacyInfo.xcprivacy */,
+				0B3BA79056884EDB8ED7FEC6 /* notification_sound.mp3 */,
+				7D0B926EED754CB29772D60F /* notification_sound_other.mp3 */,
+				D6871964BB2316E2CADAA97C /* PrivacyInfo.xcprivacy */,
 			);
 			name = Noor;
+			sourceTree = "<group>";
+		};
+		282910ABB9E84557A718518F /* tr.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				C56EAD710FBF491DB1734293 /* InfoPlist.strings */,
+			);
+			name = tr.lproj;
+			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				31E4D441630D4A235E5CA235 /* libPods-Noor.a */,
+				BB44116F4BF0F8278C6A9CC0 /* libPods-Noor.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		37F289052AC140F09D257895 /* ru.lproj */ = {
+		334416D47E9D4415BBB4E996 /* id.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				71B282EB772F4F15A60F03AC /* InfoPlist.strings */,
-			);
-			name = ru.lproj;
-			path = "";
-			sourceTree = "<group>";
-		};
-		54332383AA1D427AAB3E4A22 /* id.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				F2218C2E18A54C8D919D4230 /* InfoPlist.strings */,
+				EC4BF0D87B5E42A594ACAD78 /* InfoPlist.strings */,
 			);
 			name = id.lproj;
 			path = "";
 			sourceTree = "<group>";
 		};
-		68E60B684C5049C891A7B906 /* tr.lproj */ = {
+		3E23310C42544A07B01C98CD /* uz.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				A347958EA6FF4966A19D9450 /* InfoPlist.strings */,
+				7780AEDB051D4747B317D8F5 /* InfoPlist.strings */,
 			);
-			name = tr.lproj;
+			name = uz.lproj;
 			path = "";
 			sourceTree = "<group>";
 		};
-		6FC5C679F7F71B320533AA90 /* Pods */ = {
+		7CE6A1BEDA7F494CBE8B7E47 /* ru.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				FF88A301CD10F441B2728196 /* Pods-Noor.debug.xcconfig */,
-				151A0F278B739C082A7C3317 /* Pods-Noor.release.xcconfig */,
+				F68E60EA6E9C4735AC2E1D4B /* InfoPlist.strings */,
 			);
-			name = Pods;
-			path = Pods;
+			name = ru.lproj;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -136,8 +135,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				6FC5C679F7F71B320533AA90 /* Pods */,
-				B592A7E33129353D8D2D68F1 /* ExpoModulesProviders */,
+				D855D9C46816D95E129ACAFC /* Pods */,
+				C3A6369A2F1B0FFE72F635F1 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -152,62 +151,63 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9D9E37627C3144A079A4DDFC /* Noor */ = {
+		A1C728B8FDF04E8FA7AD81B1 /* ms.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				9FC53747B575E01A55CFAB29 /* ExpoModulesProvider.swift */,
+				415DC97551D84D40AF494390 /* InfoPlist.strings */,
 			);
-			name = Noor;
-			sourceTree = "<group>";
-		};
-		ACABA4A547804AA594DA835C /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				24BD4EF268F0433E97625F66 /* InfoPlist.strings */,
-			);
-			name = en.lproj;
+			name = ms.lproj;
 			path = "";
 			sourceTree = "<group>";
 		};
-		B592A7E33129353D8D2D68F1 /* ExpoModulesProviders */ = {
+		A47F78DE3DE1407BAF58F2FE /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				9D9E37627C3144A079A4DDFC /* Noor */,
+				C08B9D4A90274466A00BB01B /* InfoPlist.strings */,
 			);
-			name = ExpoModulesProviders;
+			name = en.lproj;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
-				ACABA4A547804AA594DA835C /* en.lproj */,
-				37F289052AC140F09D257895 /* ru.lproj */,
-				D2F52846F3BA4FB891BA0BF9 /* uz.lproj */,
-				54332383AA1D427AAB3E4A22 /* id.lproj */,
-				FBDDAE21D1F64202A2B91CAA /* ms.lproj */,
-				68E60B684C5049C891A7B906 /* tr.lproj */,
+				A47F78DE3DE1407BAF58F2FE /* en.lproj */,
+				7CE6A1BEDA7F494CBE8B7E47 /* ru.lproj */,
+				3E23310C42544A07B01C98CD /* uz.lproj */,
+				334416D47E9D4415BBB4E996 /* id.lproj */,
+				A1C728B8FDF04E8FA7AD81B1 /* ms.lproj */,
+				282910ABB9E84557A718518F /* tr.lproj */,
 			);
 			name = Supporting;
 			path = Noor/Supporting;
 			sourceTree = "<group>";
 		};
-		D2F52846F3BA4FB891BA0BF9 /* uz.lproj */ = {
+		C3A6369A2F1B0FFE72F635F1 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				796AAD3201D74DC8947DEF15 /* InfoPlist.strings */,
+				F35A73A5B070EB85C646C0D4 /* Noor */,
 			);
-			name = uz.lproj;
-			path = "";
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		FBDDAE21D1F64202A2B91CAA /* ms.lproj */ = {
+		D855D9C46816D95E129ACAFC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D7399F0809574CE986AB6EF0 /* InfoPlist.strings */,
+				8E0EB966E4E2A48E215AA344 /* Pods-Noor.debug.xcconfig */,
+				F5CBB7A20442B2BBAD863533 /* Pods-Noor.release.xcconfig */,
 			);
-			name = ms.lproj;
-			path = "";
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F35A73A5B070EB85C646C0D4 /* Noor */ = {
+			isa = PBXGroup;
+			children = (
+				3B9E2E7237DF456A5FDD9E1B /* ExpoModulesProvider.swift */,
+			);
+			name = Noor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,13 +218,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Noor" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				8E9BAAADC5C6769AC969C36F /* [Expo] Configure project */,
+				AFDE16F36403517D4361C942 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				8C839803EDAC2F256A488710 /* [CP] Embed Pods Frameworks */,
+				64639D7299525A9A4BD11837 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,15 +274,15 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				2F35BD94A5054ECB803E56C3 /* InfoPlist.strings in Resources */,
-				19896FA8E1644B2ABB88E96E /* InfoPlist.strings in Resources */,
-				338E1A187C7349309B300B84 /* InfoPlist.strings in Resources */,
-				F0703A9B7E6E40239E2CA999 /* InfoPlist.strings in Resources */,
-				4D05A075804044D49FE4E6E0 /* InfoPlist.strings in Resources */,
-				BBA2DD8E23A940BEA3DAAADF /* InfoPlist.strings in Resources */,
-				943BF45B5B9340439B2F430F /* notification_sound.mp3 in Resources */,
-				1A284B89A3414205A98A90F5 /* notification_sound_other.mp3 in Resources */,
-				0A320CD2B1160035AB7EF8DF /* PrivacyInfo.xcprivacy in Resources */,
+				8370961A40134C3D8B536633 /* InfoPlist.strings in Resources */,
+				52D69444EB3340E1A4B4B361 /* InfoPlist.strings in Resources */,
+				D282A7A5F74A42879961181B /* InfoPlist.strings in Resources */,
+				E33A64A94F834003B5CE9984 /* InfoPlist.strings in Resources */,
+				1941B45087EA4B56A6348AA5 /* InfoPlist.strings in Resources */,
+				0A9D4AD1B5B94979A10530B6 /* InfoPlist.strings in Resources */,
+				0D2FED5E8A5C495DAD554782 /* notification_sound.mp3 in Resources */,
+				6C4CC5903682442497A21486 /* notification_sound_other.mp3 in Resources */,
+				3479E2A470410DB3860736CF /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +326,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64639D7299525A9A4BD11837 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Noor/Pods-Noor-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Noor/Pods-Noor-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
@@ -378,29 +400,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Noor/Pods-Noor-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C839803EDAC2F256A488710 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Noor/Pods-Noor-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Noor/Pods-Noor-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8E9BAAADC5C6769AC969C36F /* [Expo] Configure project */ = {
+		AFDE16F36403517D4361C942 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -432,7 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				23B3137054927F2C6215701E /* ExpoModulesProvider.swift in Sources */,
+				D286C1689113EAE1DD45FEE7 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +441,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF88A301CD10F441B2728196 /* Pods-Noor.debug.xcconfig */;
+			baseConfigurationReference = 8E0EB966E4E2A48E215AA344 /* Pods-Noor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -478,7 +478,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 151A0F278B739C082A7C3317 /* Pods-Noor.release.xcconfig */;
+			baseConfigurationReference = F5CBB7A20442B2BBAD863533 /* Pods-Noor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

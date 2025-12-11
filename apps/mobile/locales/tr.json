@@ -103,7 +103,7 @@
         "prayer": {
           "title": "{{prayer}} {{emoji}} Namaz Hatırlatıcısı",
           "bodyNow": "{{prayer}} vakti geldi – {{time}}",
-          "bodyBefore": "{{prayer}} {{minutes}} dakika{{plural}} sonra – {{time}}"
+          "bodyBefore": "{{prayer}} {{minutes}} dakika sonra – {{time}}"
         },
         "emojis": {
           "fajr": "🌅",

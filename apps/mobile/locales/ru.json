@@ -103,7 +103,7 @@
       "prayer": {
         "title": "Напоминание: {{prayer}} {{emoji}}",
         "bodyNow": "Время молитвы {{prayer}} — {{time}}",
-        "bodyBefore": "Молитва {{prayer}} через {{minutes}} минут{{plural}} — {{time}}"
+        "bodyBefore": "Молитва {{prayer}} через {{minutes}} минут — {{time}}"
       },
       "emojis": {
         "fajr": "🌅",

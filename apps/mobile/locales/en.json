@@ -103,7 +103,7 @@
       "prayer": {
         "title": " {{prayer}} {{emoji}} Prayer Reminder",
         "bodyNow": "It's time for {{prayer}} prayer - {{time}}",
-        "bodyBefore": "{{prayer}} prayer in {{minutes}} minute{{plural}} - {{time}}"
+        "bodyBefore": "{{prayer}} prayer in {{minutes}} minute - {{time}}"
       },
       "emojis": {
         "fajr": "🌅",

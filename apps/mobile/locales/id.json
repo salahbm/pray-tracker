@@ -103,7 +103,7 @@
         "prayer": {
           "title": "{{prayer}} {{emoji}} Pengingat Shalat",
           "bodyNow": "Saatnya shalat {{prayer}} - {{time}}",
-          "bodyBefore": "Shalat {{prayer}} dalam {{minutes}} menit{{plural}} - {{time}}"
+          "bodyBefore": "Shalat {{prayer}} dalam {{minutes}} menit - {{time}}"
         },
         "emojis": {
           "fajr": "🌅",

@@ -103,7 +103,7 @@
       "prayer": {
         "title": "{{prayer}} {{emoji}} Namoz eslatmasi",
         "bodyNow": "{{prayer}} vaqti keldi — {{time}}",
-        "bodyBefore": "{{prayer}} {{minutes}} daqiqa{{plural}} ichida — {{time}}"
+        "bodyBefore": "{{prayer}} {{minutes}} daqiqa ichida — {{time}}"
       },
       "emojis": {
         "fajr": "🌅",
