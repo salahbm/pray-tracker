@@ -30,6 +30,7 @@ import PREMIUM_FEATURES from '@/constants/premium-features';
 import { gifs } from '@/constants/images';
 import { PRODUCT_IDS } from '@/lib/revenuecat';
 import { Button } from '@/components/ui/button';
+import { Activity } from '@/components/ui/activity';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
