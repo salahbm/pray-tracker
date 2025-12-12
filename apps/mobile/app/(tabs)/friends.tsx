@@ -37,7 +37,7 @@ const FriendsScreen = () => {
 
   return (
     <SafeAreaView className="main-area">
-      {user && isPremium ? <FriendsGroups /> : <PaywallScreen />}
+      {user ? <FriendsGroups /> : <PaywallScreen />}
     </SafeAreaView>
   );
 };

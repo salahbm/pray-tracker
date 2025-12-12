@@ -497,17 +497,6 @@ export class FriendsService {
       });
     }
 
-    // Verify user owns the group or is a member
-    if (
-      group.userId !== userId ||
-      group.members.some((member) => member.userId !== userId)
-    ) {
-      throw new BadRequestException({
-        error: 'FORBIDDEN',
-        message: getLocalizedMessage('FORBIDDEN', locale),
-      });
-    }
-
     // Get prayers for each member
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -659,12 +648,12 @@ export class FriendsService {
     }
 
     // owner or group member can add members
-    if (group.userId !== userId || group.userId !== friendId) {
-      throw new BadRequestException({
-        error: 'FORBIDDEN',
-        message: getLocalizedMessage('FORBIDDEN', locale),
-      });
-    }
+    // if (group.userId !== userId) {
+    //   throw new BadRequestException({
+    //     error: 'FORBIDDEN',
+    //     message: getLocalizedMessage('FORBIDDEN', locale),
+    //   });
+    // }
 
     // Verify they are friends
     const friendship = await this.prisma.friend.findFirst({
@@ -764,13 +753,6 @@ export class FriendsService {
       });
     }
 
-    if (group.userId !== userId || group.userId !== memberId) {
-      throw new BadRequestException({
-        error: 'FORBIDDEN',
-        message: getLocalizedMessage('FORBIDDEN', locale),
-      });
-    }
-
     const member = await this.prisma.friendGroupMember.findUnique({
       where: { id: memberId },
     });
@@ -779,6 +761,14 @@ export class FriendsService {
       throw new NotFoundException({
         error: 'NOT_FOUND',
         message: getLocalizedMessage('NOT_FOUND', locale),
+      });
+    }
+
+    // deletion can be done only by creator or member self
+    if (group.userId !== userId && userId !== member.userId) {
+      throw new BadRequestException({
+        error: 'FORBIDDEN',
+        message: getLocalizedMessage('FORBIDDEN', locale),
       });
     }
 

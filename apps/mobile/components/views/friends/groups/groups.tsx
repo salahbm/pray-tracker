@@ -23,6 +23,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import { useThemeStore } from '@/store/defaults/theme';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
+import { Activity } from '@/components/ui/activity';
 
 const FriendsGroups = () => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ const FriendsGroups = () => {
   const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
 
-  const { refetch: refetchCustomer, loading: customerLoading, isPremium } = useRevenueCatCustomer();
+  const { refetch: refetchCustomer } = useRevenueCatCustomer();
   const { data: groups, isLoading, refetch } = useGetGroups(user?.id ?? '');
   const { createSheetRef, editSheetRef, deleteSheetRef, setGroupName, setSelectedGroup } =
     useFriendsBottomSheetStore();
@@ -119,6 +120,7 @@ const FriendsGroups = () => {
                   <SwiperButton
                     key={group.id}
                     onPress={() => openDeleteSheet(group)}
+                    disabled={group.creatorId !== user?.id}
                     title={t('common.actions.delete')}
                     size="sm"
                     className="ml-2"
@@ -141,15 +143,17 @@ const FriendsGroups = () => {
 
                       {/* Action Buttons */}
                       <View className="flex-row items-center gap-1 ml-2">
-                        <Pressable
-                          onPress={e => {
-                            e.stopPropagation();
-                            openEditSheet({ id: group.id, name: group.name });
-                          }}
-                          className="p-2.5 bg-muted/50 rounded-xl active:opacity-70"
-                        >
-                          <Edit2 size={18} color={colors['--muted-foreground']} />
-                        </Pressable>
+                        <Activity mode={group.creatorId !== user?.id ? 'hidden' : 'visible'}>
+                          <Pressable
+                            onPress={e => {
+                              e.stopPropagation();
+                              openEditSheet({ id: group.id, name: group.name });
+                            }}
+                            className="p-2.5 bg-muted/50 rounded-xl active:opacity-70"
+                          >
+                            <Edit2 size={18} color={colors['--muted-foreground']} />
+                          </Pressable>
+                        </Activity>
 
                         <ChevronRight size={20} color={colors['--muted-foreground']} />
                       </View>
