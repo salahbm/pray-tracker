@@ -28,7 +28,29 @@ interface IStackHeaderProps {
 export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage(); // Get current language (e.g., 'en', 'fr')
-  if (!options.title || !options.headerBackTitle) return null;
+
+  if (!options.title || !options.headerBackTitle)
+    return (
+      <View className="bg-background border-b border-border">
+        <SafeAreaView edges={['top']} className="px-6 pt-2">
+          <View className="flex-row justify-between items-center">
+            <View>
+              <View className="h-3 w-12 bg-muted rounded-md animate-pulse" /> {/* year */}
+              <View className="h-6 w-24 bg-muted rounded-md mt-1 animate-pulse" /> {/* title */}
+            </View>
+            <Button size="sm" disabled>
+              <Text className="text-primary-foreground font-medium">{t('common.today')}</Text>
+            </Button>
+          </View>
+        </SafeAreaView>
+
+        <View className="flex-row justify-between py-2 px-8 gap-1">
+          {Array.from({ length: 7 }).map((_, i) => (
+            <View key={i} className="h-4 w-7 bg-muted rounded-md animate-pulse" />
+          ))}
+        </View>
+      </View>
+    );
 
   const calendarRef = options?.calendarRef;
   const currentDate = new Date();

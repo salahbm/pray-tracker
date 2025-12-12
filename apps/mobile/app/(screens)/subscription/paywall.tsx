@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   View,
   ScrollView,
@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Check, Feather, Sparkles } from 'lucide-react-native';
+import { Check, Sparkles } from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -29,8 +29,6 @@ import LottieView from 'lottie-react-native';
 import PREMIUM_FEATURES from '@/constants/premium-features';
 import { gifs } from '@/constants/images';
 import { PRODUCT_IDS } from '@/lib/revenuecat';
-import { Button } from '@/components/ui/button';
-import { Activity } from '@/components/ui/activity';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
