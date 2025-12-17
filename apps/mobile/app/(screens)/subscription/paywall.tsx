@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
+  Linking,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
@@ -332,12 +333,12 @@ export default function PaywallScreen() {
       {/* Navigate to the Privacy and Terms */}
       <Animated.View
         entering={FadeInDown.delay(800)}
-        className=" mb-6 flex-row justify-center items-center gap-2 mt-2"
+        className="mb-6 flex-row justify-center items-center gap-2 mt-2"
       >
         <TouchableOpacity
           onPress={() => {
             paywallSheetRef.current?.close();
-            router.push('/(screens)/profile/privacy');
+            Linking.openURL('https://pray-tracker.vercel.app/privacy');
           }}
           activeOpacity={0.7}
         >
@@ -345,11 +346,13 @@ export default function PaywallScreen() {
             {t('profile.navigation.privacySecurity')}
           </Text>
         </TouchableOpacity>
+
         <Text className="text-muted-foreground text-xs font-semibold">|</Text>
+
         <TouchableOpacity
           onPress={() => {
             paywallSheetRef.current?.close();
-            router.push('/(screens)/profile/terms');
+            Linking.openURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
           }}
           activeOpacity={0.7}
         >
