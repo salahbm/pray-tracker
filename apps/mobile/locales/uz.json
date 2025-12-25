@@ -45,7 +45,8 @@
       "forgotPassword": "Parolni unutdingizmi?",
       "noAccount": "Akkauntingiz yo‘qmi?",
       "signUpLink": "Ro‘yxatdan o‘tish",
-      "title": "Xush kelibsiz"
+      "title": "Xush kelibsiz",
+      "accountRequired": "Akkaunt talab qilinadi, chunki bu ilova namoz tarixingizni saqlaydi, namozlaringizni akkauntingizga yuklaydi, obuna holatini boshqaradi va do'stlaringiz bilan bog'lanish imkonini beradi. Akkauntisiz bu xizmatlarning hech biri ishlamaydi."
     },
     "signUp": {
       "title": "Bizga qo‘shiling",

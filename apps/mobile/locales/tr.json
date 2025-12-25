@@ -45,7 +45,8 @@
         "forgotPassword": "Şifrenizi mi unuttunuz?",
         "noAccount": "Hesabınız yok mu?",
         "signUpLink": "Kayıt ol",
-        "title": "Tekrar hoş geldiniz"
+        "title": "Tekrar hoş geldiniz",
+        "accountRequired": "Bu uygulama namaz geçmişinizi saklar, namazlarınızı hesabınıza yükler, abonelik durumunuzu yönetir ve arkadaşlarınızla bağlantı kurmanızı sağlar. Hesap olmadan bu hizmetlerin hiçbiri çalışamaz."
       },
       "signUp": {
         "title": "Bize Katılın",

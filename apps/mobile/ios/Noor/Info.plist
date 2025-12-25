@@ -50,7 +50,7 @@
     <key>NSCameraUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your camera</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location so it can provide you with accurate prayer times and qibla directions based on your current location.</string>
+    <string>Allow $(PRODUCT_NAME) to access your location to calculate daily prayer times and qibla direction based on your city, for example updating prayer times automatically when you travel or when the app is not open.</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your location</string>
     <key>NSLocationWhenInUseUsageDescription</key>

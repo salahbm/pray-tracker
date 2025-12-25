@@ -45,7 +45,8 @@
         "forgotPassword": "Lupa kata laluan?",
         "noAccount": "Belum ada akaun?",
         "signUpLink": "Daftar",
-        "title": "Selamat kembali"
+        "title": "Selamat kembali",
+        "accountRequired": "Akaun diperlukan kerana aplikasi ini menyimpan sejarah solat anda, memuat naik solat ke akaun anda, mengurus status langganan, dan membolehkan anda berhubung dengan rakan. Tanpa akaun, tiada perkhidmatan ini boleh berfungsi."
       },
       "signUp": {
         "title": "Sertai Kami",
