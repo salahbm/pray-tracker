@@ -15,6 +15,7 @@ interface Group {
   id: string;
   name: string;
   memberCount: number;
+  creatorId: string;
   members: GroupMember[];
   createdAt: string;
   updatedAt: string;

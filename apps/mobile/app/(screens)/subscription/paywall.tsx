@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   View,
   ScrollView,
@@ -6,13 +6,14 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
+  Linking,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Check, Feather, Sparkles } from 'lucide-react-native';
+import { Check, Sparkles } from 'lucide-react-native';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -29,7 +30,6 @@ import LottieView from 'lottie-react-native';
 import PREMIUM_FEATURES from '@/constants/premium-features';
 import { gifs } from '@/constants/images';
 import { PRODUCT_IDS } from '@/lib/revenuecat';
-import { Button } from '@/components/ui/button';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -333,12 +333,12 @@ export default function PaywallScreen() {
       {/* Navigate to the Privacy and Terms */}
       <Animated.View
         entering={FadeInDown.delay(800)}
-        className=" mb-6 flex-row justify-center items-center gap-2 mt-2"
+        className="mb-6 flex-row justify-center items-center gap-2 mt-2"
       >
         <TouchableOpacity
           onPress={() => {
             paywallSheetRef.current?.close();
-            router.push('/(screens)/profile/privacy');
+            Linking.openURL('https://pray-tracker.vercel.app/privacy');
           }}
           activeOpacity={0.7}
         >
@@ -346,11 +346,13 @@ export default function PaywallScreen() {
             {t('profile.navigation.privacySecurity')}
           </Text>
         </TouchableOpacity>
+
         <Text className="text-muted-foreground text-xs font-semibold">|</Text>
+
         <TouchableOpacity
           onPress={() => {
             paywallSheetRef.current?.close();
-            router.push('/(screens)/profile/terms');
+            Linking.openURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
           }}
           activeOpacity={0.7}
         >

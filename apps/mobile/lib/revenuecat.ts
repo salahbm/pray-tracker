@@ -7,12 +7,9 @@ const REVENUECAT_API_KEY_ANDROID = process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KE
 
 // Product identifiers (must match App Store Connect / Google Play Console)
 export const PRODUCT_IDS = {
-  MONTHLY: 'noor_monthly_premium',
-  YEARLY: 'noor_annual_premium',
+  MONTHLY: __DEV__ ? 'test_monthly' : 'noor_monthly_premium',
+  YEARLY: __DEV__ ? 'test_annual' : 'noor_annual_premium',
 } as const;
-
-// const test_monthlyId = 'test_monthly';
-// const test_yearlyId = 'test_annual';
 
 // Entitlement identifier (from RevenueCat dashboard)
 export const ENTITLEMENT_ID = 'entl3374d315b3';

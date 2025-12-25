@@ -109,9 +109,7 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
               <Text className="text-sm">
                 {t('home.prayerHistory.date')}: {(point[0] as unknown as { text: string }).text}
               </Text>
-              <Text className="text-sm">
-                {t('home.charts.yAxis')}: {point[0].value}
-              </Text>
+              <Text className="text-sm">{point[0].value}</Text>
             </View>
           ),
         }}
