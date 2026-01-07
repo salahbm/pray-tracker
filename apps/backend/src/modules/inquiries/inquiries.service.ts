@@ -131,7 +131,7 @@ export class InquiriesService {
       });
     }
 
-    return this.prisma.$transaction(async tx => {
+    return this.prisma.$transaction(async (tx) => {
       const message = await tx.inquiryMessage.create({
         data: {
           inquiryId,

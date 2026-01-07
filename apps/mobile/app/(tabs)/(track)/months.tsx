@@ -48,7 +48,7 @@ const MonthScreen = () => {
   const [year, setYear] = useState(2025);
   const [atTop, setAtTop] = useState(false);
   const [selected, setSelected] = useState('');
-  const [visibleMonths, setVisibleMonths] = useState(3);
+  const [visibleMonths, setVisibleMonths] = useState(2);
   const [renderVersion, setRenderVersion] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
@@ -193,7 +193,7 @@ const MonthScreen = () => {
         style={{ backgroundColor: colors['--background'] }}
         current={initialMonthRef.current}
         pastScrollRange={visibleMonths}
-        futureScrollRange={1}
+        futureScrollRange={2}
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}

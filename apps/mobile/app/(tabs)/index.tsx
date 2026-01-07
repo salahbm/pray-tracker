@@ -219,7 +219,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="safe-area">
-      <Loader visible={isLoadingPrays} />
+      <Loader visible={isLoadingPrays} className="bg-transparent" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}

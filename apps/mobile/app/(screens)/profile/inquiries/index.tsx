@@ -14,19 +14,19 @@ import { useGetInquiries } from '@/hooks/inquiries/useGetInquiries';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryListItem } from '@/types/inquiries';
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 
 const InquiryListScreen = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { user } = useAuthStore();
-  const [email, setEmail] = useState(user?.email ?? '');
-  const [activeEmail, setActiveEmail] = useState(user?.email ?? '');
-  const { data, isLoading } = useGetInquiries(activeEmail);
+  const isLoggedIn = !!user;
+
+  // Only logged-in users can view inquiry list
+  const { data, isLoading, refetch } = useGetInquiries(user?.email);
 
   const renderItem = ({ item }: { item: InquiryListItem }) => {
-    const updatedAt = item.updatedAt
-      ? format(new Date(item.updatedAt), 'MMM d, yyyy')
-      : undefined;
+    const updatedAt = item.updatedAt ? format(new Date(item.updatedAt), 'MMM d, yyyy') : undefined;
     const statusLabel =
       item.status === 'CLOSED'
         ? t('profile.inquiries.list.status.closed')
@@ -39,7 +39,7 @@ const InquiryListScreen = () => {
         onPress={() =>
           router.push({
             pathname: '/(screens)/profile/inquiries/[id]',
-            params: { id: item.id, email: activeEmail },
+            params: { id: item.id, email: user?.email },
           })
         }
       >
@@ -68,66 +68,76 @@ const InquiryListScreen = () => {
   return (
     <SafeAreaView className="main-area">
       <GoBack title={t('profile.inquiries.title')} />
-      <View className="flex-1">
-        <View className="flex-row items-center justify-between mb-4">
-          <Text className="text-lg font-semibold">{t('profile.inquiries.list.title')}</Text>
-          <Button
-            variant="secondary"
-            size="sm"
-            onPress={() => router.push('/(screens)/profile/inquiries/new')}
-          >
-            <Text className="text-sm">{t('profile.inquiries.list.newButton')}</Text>
-          </Button>
-        </View>
+      <View className="flex-1 relative pt-10">
+        {/* Content */}
+        {!isLoggedIn ? (
+          <View className="flex-1">
+            {/* Centered content */}
+            <View className="flex-1 items-center justify-center px-6">
+              <View className="bg-muted rounded-full p-4 mb-4">
+                <Feather name="lock" size={32} color={colors['--muted-foreground']} />
+              </View>
 
-        <View className="gap-3 mb-4">
-          <Input
-            label={t('profile.inquiries.list.emailLabel')}
-            placeholder={t('profile.inquiries.list.emailPlaceholder')}
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-            keyboardType="email-address"
-          />
-          <Button
-            variant="secondary"
-            width="full"
-            onPress={() => setActiveEmail(email.trim())}
-            disabled={!email.trim()}
-          >
-            <Text>{t('profile.inquiries.list.loadButton')}</Text>
-          </Button>
-        </View>
+              <Text className="text-base font-semibold mb-2">
+                {t('profile.inquiries.loginRequired')}
+              </Text>
 
-        {!activeEmail ? (
-          <View className="flex-1 items-center justify-center px-6">
-            <Text className="text-sm text-muted-foreground text-center">
-              {t('profile.inquiries.list.emailRequired')}
-            </Text>
+              <Text className="text-sm text-muted-foreground text-center mb-6">
+                {t('profile.inquiries.loginRequiredDescription')}
+              </Text>
+            </View>
+
+            {/* Bottom button */}
+            <View className="pb-6">
+              <Button
+                variant="default"
+                onPress={() => router.push('/(screens)/profile/inquiries/new')}
+                className="w-full"
+              >
+                <Text>{t('profile.inquiries.newButton')}</Text>
+              </Button>
+            </View>
           </View>
         ) : isLoading ? (
           <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="small" color={colors['--primary']} />
+            <ActivityIndicator size="large" color={colors['--primary']} />
           </View>
         ) : (
-          <FlatList
-            data={data ?? []}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-            ListEmptyComponent={
-              <View className="items-center mt-12 px-6">
-                <View className="bg-muted rounded-full p-4 mb-4">
-                  <Feather name="message-square" size={24} color={colors['--primary']} />
+          <View className="flex-1">
+            <FlatList
+              data={data ?? []}
+              keyExtractor={item => item.id}
+              renderItem={renderItem}
+              refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
+              contentContainerStyle={{ paddingBottom: 96 }} // space for button
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={
+                <View className="items-center mt-12 px-6">
+                  <View className="bg-muted rounded-full p-4 mb-4">
+                    <Feather name="message-square" size={32} color={colors['--primary']} />
+                  </View>
+                  <Text className="text-base font-semibold mb-2">
+                    {t('profile.inquiries.list.emptyTitle')}
+                  </Text>
+                  <Text className="text-sm text-muted-foreground text-center">
+                    {t('profile.inquiries.list.emptyDescription')}
+                  </Text>
                 </View>
-                <Text className="text-base font-semibold">
-                  {t('profile.inquiries.list.emptyTitle')}
-                </Text>
-                <Text className="text-sm text-muted-foreground text-center mt-2">
-                  {t('profile.inquiries.list.emptyDescription')}
-                </Text>
-              </View>
-            }
-          />
+              }
+            />
+
+            {/* Fixed bottom button */}
+            <View className="absolute bottom-6 left-4 right-4">
+              <Button
+                variant="default"
+                size="lg"
+                className="w-full "
+                onPress={() => router.push('/(screens)/profile/inquiries/new')}
+              >
+                <Text className="text-lg font-medium">{t('profile.inquiries.list.newButton')}</Text>
+              </Button>
+            </View>
+          </View>
         )}
       </View>
     </SafeAreaView>

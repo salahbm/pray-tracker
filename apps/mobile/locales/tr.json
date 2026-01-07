@@ -1,335 +1,338 @@
 {
-    "auth": {
-      "email": {
-        "label": "E-posta",
-        "placeholder": "E-posta adresinizi girin"
-      },
-      "forgotPassword": {
-        "title": "Şifreyi Unuttum",
-        "button": "Doğrulama Gönder",
-        "rememberedPassword": "Şifrenizi hatırladınız mı?",
-        "signInLink": "Giriş Yap",
-        "message": "Eğer {{email}} için bir hesap varsa, şifre sıfırlama bağlantısı gönderilecektir. Lütfen e-postanızı kontrol edin."
-      },
-      "resetPassword": {
-        "title": "Şifreyi Sıfırla",
-        "subtitle": "Yeni şifrenizi girin",
-        "button": "Şifreyi Sıfırla",
-        "rememberedPassword": "Şifrenizi hatırladınız mı?",
-        "signInLink": "Giriş Yap",
-        "goBackHome": "Ana sayfaya dön",
-        "success": "Şifre başarıyla sıfırlandı! Giriş sayfasına yönlendiriliyor...",
-        "fields": {
-          "newPassword": {
-            "label": "Yeni Şifre",
-            "placeholder": "Yeni şifreyi girin"
-          },
-          "confirmPassword": {
-            "label": "Şifreyi Onayla",
-            "placeholder": "Yeni şifreyi onaylayın"
-          }
-        },
-        "errors": {
-          "invalidToken": "Geçersiz veya süresi dolmuş bağlantı",
-          "minPasswordLength": "Şifre en az 8 karakter olmalı",
-          "passwordMismatch": "Şifreler eşleşmiyor",
-          "failed": "Şifre sıfırlanamadı. Lütfen tekrar deneyin."
-        }
-      },
-      "password": {
-        "label": "Şifre",
-        "placeholder": "Şifrenizi girin"
-      },
-      "signIn": {
-        "button": "Giriş Yap",
-        "forgotPassword": "Şifrenizi mi unuttunuz?",
-        "noAccount": "Hesabınız yok mu?",
-        "signUpLink": "Kayıt ol",
-        "title": "Tekrar hoş geldiniz",
-        "accountRequired": "Bu uygulama namaz geçmişinizi saklar, namazlarınızı hesabınıza yükler, abonelik durumunuzu yönetir ve arkadaşlarınızla bağlantı kurmanızı sağlar. Hesap olmadan bu hizmetlerin hiçbiri çalışamaz."
-      },
-      "signUp": {
-        "title": "Bize Katılın",
-        "button": "Kayıt Ol",
-        "hasAccount": "Zaten hesabınız var mı?",
-        "signInLink": "Giriş Yap",
-        "subtitle": "Devam etmek için bir hesap oluşturun",
-        "success": {
-          "button": "Bismillah",
-          "message": "Başarıyla kayıt oldunuz.",
-          "title": "Esselamu Aleyküm!"
-        }
-      },
-      "username": {
-        "label": "Kullanıcı Adı",
-        "placeholder": "Kullanıcı adınızı girin"
-      },
-      "welcome": {
-        "getStarted": "Başla",
-        "guest": "Misafir",
-        "next": "İleri",
-        "skip": "Geç",
-        "onboarding": {
-          "aware": {
-            "description": "Son kıldığınız namazı takip edin ve gününüzü namaz vakitlerine göre planlayın.",
-            "title": "Son Namazınızı Hatırlayın"
-          },
-          "journey": {
-            "description": "İlerlemenizi görün ve düzenli namaz konusunda ne kadar yol aldığınızı fark edin.",
-            "title": "Namaz Yolculuğunuzu Görün"
-          },
-          "remind": {
-            "description": "Zamanında bildirimler alın ve namazı kaçırmayın.",
-            "title": "Bir Daha Namaz Kaçırmayın"
-          },
-          "share": {
-            "description": "Namaz yolculuğunuzu sevdiklerinizle paylaşarak birbirinizi teşvik edin.",
-            "title": "İlerlemenizi Paylaşın"
-          },
-          "track": {
-            "description": "Günlük namazlarınızı kolayca kaydedin ve ibadette düzenli kalın.",
-            "title": "Namazlarınızı Kolayca Takip Edin"
-          }
-        }
-      }
+  "auth": {
+    "email": {
+      "label": "E-posta",
+      "placeholder": "E-posta adresinizi girin"
     },
-    "leaderboard": {
-      "title": "Sıralama",
-      "point": "puan",
-      "points": "Puan"
+    "forgotPassword": {
+      "title": "Şifreyi Unuttum",
+      "button": "Doğrulama Gönder",
+      "rememberedPassword": "Şifrenizi hatırladınız mı?",
+      "signInLink": "Giriş Yap",
+      "message": "Eğer {{email}} için bir hesap varsa, şifre sıfırlama bağlantısı gönderilecektir. Lütfen e-postanızı kontrol edin."
     },
-    "common": {
-      "notifications": {
-        "description": "{{salah}} vakti:",
-        "prayer": {
-          "title": "{{prayer}} {{emoji}} Namaz Hatırlatıcısı",
-          "bodyNow": "{{prayer}} vakti geldi – {{time}}",
-          "bodyBefore": "{{prayer}} {{minutes}} dakika sonra – {{time}}"
+    "resetPassword": {
+      "title": "Şifreyi Sıfırla",
+      "subtitle": "Yeni şifrenizi girin",
+      "button": "Şifreyi Sıfırla",
+      "rememberedPassword": "Şifrenizi hatırladınız mı?",
+      "signInLink": "Giriş Yap",
+      "goBackHome": "Ana sayfaya dön",
+      "success": "Şifre başarıyla sıfırlandı! Giriş sayfasına yönlendiriliyor...",
+      "fields": {
+        "newPassword": {
+          "label": "Yeni Şifre",
+          "placeholder": "Yeni şifreyi girin"
         },
-        "emojis": {
-          "fajr": "🌅",
-          "sunrise": "☀️",
-          "dhuhr": "🌞",
-          "asr": "🌤️",
-          "maghrib": "🌆",
-          "isha": "🌙",
-          "default": "🕌"
-        },
-        "permissions": {
-          "denied": "Bildirim izinleri verilmedi. Lütfen cihaz ayarlarından etkinleştirin."
+        "confirmPassword": {
+          "label": "Şifreyi Onayla",
+          "placeholder": "Yeni şifreyi onaylayın"
         }
-      },
-      "notFound": {
-        "404": "Sayfa bulunamadı",
-        "noData": "Veri bulunamadı"
-      },
-      "unauthorized": {
-        "title": "Yetkisiz erişim",
-        "description": "Bu özelliğe erişmek için giriş yapın"
       },
       "errors": {
-        "invalidEmail": "Geçersiz e-posta"
-      },
-      "salahs": {
-        "asr": "İkindi",
-        "dhuhr": "Öğle",
-        "fajr": "Sabah",
-        "isha": "Yatsı",
-        "maghrib": "Akşam",
-        "nafl": "Nafile",
-        "sunrise": "Güneş"
-      },
-      "themes": {
-        "title": "Tema Seç",
-        "dark": "Koyu",
-        "emerald_green": "Zümrüt Yeşili",
-        "forest_green": "Orman Yeşili",
-        "light": "Açık",
-        "ocean_breeze": "Okyanus Esintisi",
-        "pink_rose": "Pembe Gül",
-        "royal_purple": "Asil Mor",
-        "sunset": "Gün Batımı",
-        "vibrant_orange": "Canlı Turuncu"
-      },
-      "yearPicker": {
-        "cancel": "İptal",
-        "confirm": "Onayla",
-        "title": "Yıl Seçin"
-      },
-      "viewAll": "Hepsini Gör",
-      "today": "Bugün",
-      "loadMoreMonths": "+ 6 Ay Daha Yükle",
-      "chooseLanguage": "Dil seçin",
-      "actions": {
-        "delete": "Sil",
-        "deleting": "Siliniyor...",
-        "create": "Oluştur",
-        "creating": "Oluşturuluyor...",
-        "cancel": "İptal",
-        "update": "Güncelle",
-        "updating": "Güncelleniyor...",
-        "save": "Kaydet",
-        "remove": "Kaldır",
-        "requestSent": "İstek gönderildi",
-        "requestReceived": "İstek alındı",
-        "accept": "Kabul Et",
-        "reject": "Reddet"
+        "invalidToken": "Geçersiz veya süresi dolmuş bağlantı",
+        "minPasswordLength": "Şifre en az 8 karakter olmalı",
+        "passwordMismatch": "Şifreler eşleşmiyor",
+        "failed": "Şifre sıfırlanamadı. Lütfen tekrar deneyin."
       }
     },
-    "friends": {
-      "title": "Arkadaşlar",
-      "groups": {
-        "title": "Gruplar",
-        "createTitle": "Yeni Grup Oluştur",
-        "createDescription": "Arkadaşlarınızı organize edin ve namazları birlikte takip edin",
-        "editTitle": "Grubu Düzenle",
-        "editDescription": "Grup adını güncelleyin",
-        "deleteTitle": "Grubu Sil",
-        "deleteDescription": "'{{name}}' grubunu silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
-        "groupNamePlaceholder": "Grup adı girin",
-        "members": "üyeler",
-        "noGroups": "Henüz grup yok. Bir tane oluşturarak başlayın!",
-        "noMembers": "Bu grupta henüz üye yok",
-        "addMember": "Üye Ekle",
-        "groupCount": "{{count}} grup",
-        "groupCount_one": "{{count}} grup",
-        "groupCount_other": "{{count}} grup",
-        "noAvailableFriends": "Tüm arkadaşlarınız zaten bu grupta",
-        "friendsAvailable_one": "{{count}} arkadaş mevcut",
-        "friendsAvailable_other": "{{count}} arkadaş mevcut",
-        "membersCount_one": "{{count}} üye",
-        "membersCount_other": "{{count}} üye"
-      },
-      "allFriends": {
-        "title": "Tüm Arkadaşlar",
-        "isFriend": "{{name}} ile arkadaşsınız",
-        "requestSent": "{{name}}'e arkadaşlık isteği gönderdiniz",
-        "requestReceived": "{{name}} size arkadaşlık isteği gönderdi",
-        "noRequests": "Henüz istek yok",
-        "noFriends": "Henüz arkadaşınız yok",
-        "noActivity": "Arkadaş bulunamadı",
-        "all": "Tümü {{count}}",
-        "requests": "İstekler {{count}}",
-        "friends": "Arkadaşlar {{count}}",
-        "searchPlaceholder": "E-posta ile ara"
+    "password": {
+      "label": "Şifre",
+      "placeholder": "Şifrenizi girin"
+    },
+    "signIn": {
+      "button": "Giriş Yap",
+      "forgotPassword": "Şifrenizi mi unuttunuz?",
+      "noAccount": "Hesabınız yok mu?",
+      "signUpLink": "Kayıt ol",
+      "title": "Tekrar hoş geldiniz",
+      "accountRequired": "Bu uygulama namaz geçmişinizi saklar, namazlarınızı hesabınıza yükler, abonelik durumunuzu yönetir ve arkadaşlarınızla bağlantı kurmanızı sağlar. Hesap olmadan bu hizmetlerin hiçbiri çalışamaz."
+    },
+    "signUp": {
+      "title": "Bize Katılın",
+      "button": "Kayıt Ol",
+      "hasAccount": "Zaten hesabınız var mı?",
+      "signInLink": "Giriş Yap",
+      "subtitle": "Devam etmek için bir hesap oluşturun",
+      "success": {
+        "button": "Bismillah",
+        "message": "Başarıyla kayıt oldunuz.",
+        "title": "Esselamu Aleyküm!"
       }
     },
-    "home": {
-      "charts": {
-        "title": "İbadet İlerlemesi (Aylık)"
+    "username": {
+      "label": "Kullanıcı Adı",
+      "placeholder": "Kullanıcı adınızı girin"
+    },
+    "welcome": {
+      "getStarted": "Başla",
+      "guest": "Misafir",
+      "next": "İleri",
+      "skip": "Geç",
+      "onboarding": {
+        "aware": {
+          "description": "Son kıldığınız namazı takip edin ve gününüzü namaz vakitlerine göre planlayın.",
+          "title": "Son Namazınızı Hatırlayın"
+        },
+        "journey": {
+          "description": "İlerlemenizi görün ve düzenli namaz konusunda ne kadar yol aldığınızı fark edin.",
+          "title": "Namaz Yolculuğunuzu Görün"
+        },
+        "remind": {
+          "description": "Zamanında bildirimler alın ve namazı kaçırmayın.",
+          "title": "Bir Daha Namaz Kaçırmayın"
+        },
+        "share": {
+          "description": "Namaz yolculuğunuzu sevdiklerinizle paylaşarak birbirinizi teşvik edin.",
+          "title": "İlerlemenizi Paylaşın"
+        },
+        "track": {
+          "description": "Günlük namazlarınızı kolayca kaydedin ve ibadette düzenli kalın.",
+          "title": "Namazlarınızı Kolayca Takip Edin"
+        }
+      }
+    }
+  },
+  "leaderboard": {
+    "title": "Sıralama",
+    "point": "puan",
+    "points": "Puan"
+  },
+  "common": {
+    "notifications": {
+      "description": "{{salah}} vakti:",
+      "prayer": {
+        "title": "{{prayer}} {{emoji}} Namaz Hatırlatıcısı",
+        "bodyNow": "{{prayer}} vakti geldi – {{time}}",
+        "bodyBefore": "{{prayer}} {{minutes}} dakika sonra – {{time}}"
       },
-      "errors": {
-        "futureDate": "Gelecekteki bir tarih seçemezsiniz"
+      "emojis": {
+        "fajr": "🌅",
+        "sunrise": "☀️",
+        "dhuhr": "🌞",
+        "asr": "🌤️",
+        "maghrib": "🌆",
+        "isha": "🌙",
+        "default": "🕌"
       },
-      "prayerHistory": {
-        "close": "Kapat",
-        "date": "Tarih",
-        "details": "Namaz Detayları",
-        "title": "Namaz Yolculuğu"
-      },
-      "todaysPrayers": {
-        "late": "Geç",
-        "missed": "Kaçtı",
-        "onTime": "Vaktinde",
-        "subTitle": "Allah (ﷻ) namazlarınızı kabul etsin",
-        "title": "Bugünkü Namazlar"
+      "permissions": {
+        "denied": "Bildirim izinleri verilmedi. Lütfen cihaz ayarlarından etkinleştirin."
       }
     },
-    "profile": {
-      "title": "Profil",
-      "about": {
-        "contact": {
-          "title": "Bizimle İletişime Geçin"
+    "notFound": {
+      "404": "Sayfa bulunamadı",
+      "noData": "Veri bulunamadı"
+    },
+    "unauthorized": {
+      "title": "Yetkisiz erişim",
+      "description": "Bu özelliğe erişmek için giriş yapın"
+    },
+    "errors": {
+      "invalidEmail": "Geçersiz e-posta"
+    },
+    "salahs": {
+      "asr": "İkindi",
+      "dhuhr": "Öğle",
+      "fajr": "Sabah",
+      "isha": "Yatsı",
+      "maghrib": "Akşam",
+      "nafl": "Nafile",
+      "sunrise": "Güneş"
+    },
+    "themes": {
+      "title": "Tema Seç",
+      "dark": "Koyu",
+      "emerald_green": "Zümrüt Yeşili",
+      "forest_green": "Orman Yeşili",
+      "light": "Açık",
+      "ocean_breeze": "Okyanus Esintisi",
+      "pink_rose": "Pembe Gül",
+      "royal_purple": "Asil Mor",
+      "sunset": "Gün Batımı",
+      "vibrant_orange": "Canlı Turuncu"
+    },
+    "yearPicker": {
+      "cancel": "İptal",
+      "confirm": "Onayla",
+      "title": "Yıl Seçin"
+    },
+    "viewAll": "Hepsini Gör",
+    "today": "Bugün",
+    "loadMoreMonths": "+ 6 Ay Daha Yükle",
+    "chooseLanguage": "Dil seçin",
+    "actions": {
+      "delete": "Sil",
+      "deleting": "Siliniyor...",
+      "create": "Oluştur",
+      "creating": "Oluşturuluyor...",
+      "cancel": "İptal",
+      "update": "Güncelle",
+      "updating": "Güncelleniyor...",
+      "save": "Kaydet",
+      "remove": "Kaldır",
+      "requestSent": "İstek gönderildi",
+      "requestReceived": "İstek alındı",
+      "accept": "Kabul Et",
+      "reject": "Reddet"
+    }
+  },
+  "friends": {
+    "title": "Arkadaşlar",
+    "groups": {
+      "title": "Gruplar",
+      "createTitle": "Yeni Grup Oluştur",
+      "createDescription": "Arkadaşlarınızı organize edin ve namazları birlikte takip edin",
+      "editTitle": "Grubu Düzenle",
+      "editDescription": "Grup adını güncelleyin",
+      "deleteTitle": "Grubu Sil",
+      "deleteDescription": "'{{name}}' grubunu silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
+      "groupNamePlaceholder": "Grup adı girin",
+      "members": "üyeler",
+      "noGroups": "Henüz grup yok. Bir tane oluşturarak başlayın!",
+      "noMembers": "Bu grupta henüz üye yok",
+      "addMember": "Üye Ekle",
+      "groupCount": "{{count}} grup",
+      "groupCount_one": "{{count}} grup",
+      "groupCount_other": "{{count}} grup",
+      "noAvailableFriends": "Tüm arkadaşlarınız zaten bu grupta",
+      "friendsAvailable_one": "{{count}} arkadaş mevcut",
+      "friendsAvailable_other": "{{count}} arkadaş mevcut",
+      "membersCount_one": "{{count}} üye",
+      "membersCount_other": "{{count}} üye"
+    },
+    "allFriends": {
+      "title": "Tüm Arkadaşlar",
+      "isFriend": "{{name}} ile arkadaşsınız",
+      "requestSent": "{{name}}'e arkadaşlık isteği gönderdiniz",
+      "requestReceived": "{{name}} size arkadaşlık isteği gönderdi",
+      "noRequests": "Henüz istek yok",
+      "noFriends": "Henüz arkadaşınız yok",
+      "noActivity": "Arkadaş bulunamadı",
+      "all": "Tümü {{count}}",
+      "requests": "İstekler {{count}}",
+      "friends": "Arkadaşlar {{count}}",
+      "searchPlaceholder": "E-posta ile ara"
+    }
+  },
+  "home": {
+    "charts": {
+      "title": "İbadet İlerlemesi (Aylık)"
+    },
+    "errors": {
+      "futureDate": "Gelecekteki bir tarih seçemezsiniz"
+    },
+    "prayerHistory": {
+      "close": "Kapat",
+      "date": "Tarih",
+      "details": "Namaz Detayları",
+      "title": "Namaz Yolculuğu"
+    },
+    "todaysPrayers": {
+      "late": "Geç",
+      "missed": "Kaçtı",
+      "onTime": "Vaktinde",
+      "subTitle": "Allah (ﷻ) namazlarınızı kabul etsin",
+      "title": "Bugünkü Namazlar"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "about": {
+      "contact": {
+        "title": "Bizimle İletişime Geçin"
+      },
+      "credits": {
+        "description": "Noor - Namaz Takip uygulaması, sevgi ve özveriyle geliştirildi. Sürekli destekleri için topluluğumuza teşekkür ederiz.",
+        "title": "Teşekkürler"
+      },
+      "feedback": "Geri Bildirim Gönder",
+      "mission": {
+        "description": "Noor - Namaz Takip uygulaması, Müslümanların günlük namazlarını korumasına, manevi yolculuğunu takip etmesine ve Allah’a olan bağını güçlendirmesine yardımcı olur. Amacımız, namaz takibini kolay, anlamlı ve faydalı kılmaktır.",
+        "title": "Misyonumuz"
+      },
+      "title": "Hakkında",
+      "version": {
+        "build": "Sürüm: {{buildNumber}}",
+        "number": "Versiyon: {{version}}",
+        "released": "Yayın: Mart 2024",
+        "title": "Sürüm Bilgisi"
+      }
+    },
+    "account": {
+      "cancelButton": "İptal",
+      "created": "Oluşturuldu",
+      "deleteAccount": "Hesabı Sil",
+      "deleteButton": "Evet, Hesabımı Sil",
+      "deleteConfirm": "Hesabınızı silmek istediğinizden emin misiniz?",
+      "deleteMessage": "Bu işlem geri alınamaz. Tüm verileriniz kalıcı olarak silinecek.",
+      "email": "E-posta",
+      "lastUpdated": "Son Güncelleme",
+      "logoutButton": "Çıkış Yap",
+      "title": "Hesap",
+      "premiumProduct": "Premium",
+      "purchased": "Satın alındı",
+      "expires": "Sona eriyor"
+    },
+    "editPassword": {
+      "fields": {
+        "confirmPassword": {
+          "label": "Şifreyi Onayla",
+          "placeholder": "Yeni şifrenizi onaylayın"
         },
-        "credits": {
-          "description": "Noor - Namaz Takip uygulaması, sevgi ve özveriyle geliştirildi. Sürekli destekleri için topluluğumuza teşekkür ederiz.",
-          "title": "Teşekkürler"
+        "currentPassword": {
+          "label": "Mevcut Şifre",
+          "placeholder": "Mevcut şifrenizi girin"
         },
-        "feedback": "Geri Bildirim Gönder",
-        "mission": {
-          "description": "Noor - Namaz Takip uygulaması, Müslümanların günlük namazlarını korumasına, manevi yolculuğunu takip etmesine ve Allah’a olan bağını güçlendirmesine yardımcı olur. Amacımız, namaz takibini kolay, anlamlı ve faydalı kılmaktır.",
-          "title": "Misyonumuz"
-        },
-        "title": "Hakkında",
-        "version": {
-          "build": "Sürüm: {{buildNumber}}",
-          "number": "Versiyon: {{version}}",
-          "released": "Yayın: Mart 2024",
-          "title": "Sürüm Bilgisi"
+        "newPassword": {
+          "label": "Yeni Şifre",
+          "placeholder": "Yeni şifrenizi girin"
         }
       },
-      "account": {
-        "cancelButton": "İptal",
-        "created": "Oluşturuldu",
-        "deleteAccount": "Hesabı Sil",
-        "deleteButton": "Evet, Hesabımı Sil",
-        "deleteConfirm": "Hesabınızı silmek istediğinizden emin misiniz?",
-        "deleteMessage": "Bu işlem geri alınamaz. Tüm verileriniz kalıcı olarak silinecek.",
-        "email": "E-posta",
-        "lastUpdated": "Son Güncelleme",
-        "logoutButton": "Çıkış Yap",
-        "title": "Hesap",
-        "premiumProduct": "Premium",
-        "purchased": "Satın alındı",
-        "expires": "Sona eriyor"
+      "errors": {
+        "currentPasswordRequired": "Mevcut şifre gerekli",
+        "minPasswordLength": "Şifre en az 8 karakter olmalı",
+        "passwordMismatch": "Şifreler eşleşmiyor",
+        "updateFailed": "Şifre güncellenemedi"
       },
-      "editPassword": {
-        "fields": {
-          "confirmPassword": {
-            "label": "Şifreyi Onayla",
-            "placeholder": "Yeni şifrenizi onaylayın"
-          },
-          "currentPassword": {
-            "label": "Mevcut Şifre",
-            "placeholder": "Mevcut şifrenizi girin"
-          },
-          "newPassword": {
-            "label": "Yeni Şifre",
-            "placeholder": "Yeni şifrenizi girin"
-          }
+      "saveButton": "Şifreyi Güncelle",
+      "success": "Şifre başarıyla güncellendi. Hesaptan çıkış yapılacak.",
+      "title": "Şifreyi Düzenle"
+    },
+    "editProfile": {
+      "fields": {
+        "firstName": {
+          "label": "Ad",
+          "placeholder": "Adınızı girin"
         },
-        "errors": {
-          "currentPasswordRequired": "Mevcut şifre gerekli",
-          "minPasswordLength": "Şifre en az 8 karakter olmalı",
-          "passwordMismatch": "Şifreler eşleşmiyor",
-          "updateFailed": "Şifre güncellenemedi"
+        "lastName": {
+          "label": "Soyad",
+          "placeholder": "Soyadınızı girin"
         },
-        "saveButton": "Şifreyi Güncelle",
-        "success": "Şifre başarıyla güncellendi. Hesaptan çıkış yapılacak.",
-        "title": "Şifreyi Düzenle"
+        "username": {
+          "label": "Kullanıcı Adı",
+          "placeholder": "Kullanıcı adınızı girin"
+        }
       },
-      "editProfile": {
-        "fields": {
-          "firstName": {
-            "label": "Ad",
-            "placeholder": "Adınızı girin"
-          },
-          "lastName": {
-            "label": "Soyad",
-            "placeholder": "Soyadınızı girin"
-          },
-          "username": {
-            "label": "Kullanıcı Adı",
-            "placeholder": "Kullanıcı adınızı girin"
-          }
-        },
-        "saveButton": "Değişiklikleri Kaydet",
-        "title": "Profili Düzenle",
-        "success": "Profil başarıyla güncellendi"
-      },
-      "navigation": {
-        "about": "Hakkında",
-        "account": "Hesap",
-        "editPassword": "Şifre",
-        "editProfile": "Profil",
-        "feedback": "Destek",
-        "privacySecurity": "Gizlilik ve Güvenlik",
-        "settings": "Ayarlar",
-        "termsConditions": "Şartlar ve Koşullar"
-      },
-      "inquiries": {
-        "title": "Geri Bildirim ve Destek",
-        "list": {
+      "saveButton": "Değişiklikleri Kaydet",
+      "title": "Profili Düzenle",
+      "success": "Profil başarıyla güncellendi"
+    },
+    "navigation": {
+      "about": "Hakkında",
+      "account": "Hesap",
+      "editPassword": "Şifre",
+      "editProfile": "Profil",
+      "feedback": "Destek",
+      "privacySecurity": "Gizlilik ve Güvenlik",
+      "settings": "Ayarlar",
+      "termsConditions": "Şartlar ve Koşullar"
+    },
+    "inquiries": {
+      "title": "Geri Bildirim ve Destek",
+      "loginRequired": "Giriş Gerekli",
+      "loginRequiredDescription": "Taleplerinizi ve destek kayıtlarınızı görüntülemek için lütfen giriş yapın.",
+      "newButton": "Yeni Talep Gönder",
+      "list": {
         "title": "Talepleriniz",
         "newButton": "Yeni",
         "emailLabel": "E-posta",
@@ -341,9 +344,9 @@
         "noMessages": "Henüz mesaj yok.",
         "status": {
           "open": "Açık",
-            "closed": "Kapalı"
-          }
-        },
+          "closed": "Kapalı"
+        }
+      },
       "new": {
         "title": "Yeni Talep",
         "emailLabel": "E-posta",
@@ -354,6 +357,7 @@
         "messagePlaceholder": "Sorununuzu veya geri bildiriminizi yazın",
         "submitButton": "Talep Gönder",
         "success": "Talep başarıyla gönderildi",
+        "successAnonymous": "Teşekkür ederiz! Talebinizi e-posta ile yanıtlamayı bekliyoruz.",
         "error": "Talep gönderilemedi",
         "validationError": "Lütfen e-posta, konu ve mesajı doldurun"
       },
@@ -368,153 +372,151 @@
         "emptyMessages": "Henüz mesaj yok.",
         "error": "Yanıt gönderilemedi"
       }
+    },
+    "settings": {
+      "language": "Dil",
+      "notifications": "Bildirimler",
+      "theme": "Tema",
+      "title": "Ayarlar"
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası",
+      "dataCollection": {
+        "title": "Topladığımız Bilgiler",
+        "content": "Sadece doğrudan sağladığınız bilgileri topluyoruz; adınız, e-posta adresiniz, profil resminiz ve seçili tercihleriniz gibi. Hassas veya gereksiz hiçbir bilgi toplanmaz."
       },
-      "settings": {
-        "language": "Dil",
-        "notifications": "Bildirimler",
-        "theme": "Tema",
-        "title": "Ayarlar"
+      "dataUse": {
+        "title": "Bilgilerinizi Nasıl Kullanıyoruz",
+        "content": "Bilgileriniz yalnızca uygulamayı çalıştırmak, hesabınızı sürdürmek, özellikler sunmak, deneyiminizi kişiselleştirmek ve hizmeti iyileştirmek için kullanılır. Verilerinizi reklam için kullanmayız."
       },
-      "privacy": {
-  "title": "Gizlilik Politikası",
-  "dataCollection": {
-    "title": "Topladığımız Bilgiler",
-    "content": "Sadece doğrudan sağladığınız bilgileri topluyoruz; adınız, e-posta adresiniz, profil resminiz ve seçili tercihleriniz gibi. Hassas veya gereksiz hiçbir bilgi toplanmaz."
-  },
-  "dataUse": {
-    "title": "Bilgilerinizi Nasıl Kullanıyoruz",
-    "content": "Bilgileriniz yalnızca uygulamayı çalıştırmak, hesabınızı sürdürmek, özellikler sunmak, deneyiminizi kişiselleştirmek ve hizmeti iyileştirmek için kullanılır. Verilerinizi reklam için kullanmayız."
-  },
-  "dataSharing": {
-    "title": "Veri Paylaşımı",
-    "content": "Verilerinizi satmayız. Kişisel bilgilerinizi yalnızca temel uygulama hizmetlerini yürütmek, yasal yükümlülüklere uymak veya platform güvenliğini korumak gerektiğinde üçüncü taraflarla paylaşırız."
-  },
-  "security": {
-    "title": "Veri Güvenliği",
-    "content": "Bilgilerinizi yetkisiz erişim, ifşa veya kötüye kullanıma karşı korumak için standart güvenlik önlemleri uygularız. Ancak hiçbir aktarım veya depolama yöntemi tamamen güvenli değildir."
-  },
-  "subscriptions": {
-    "title": "Abonelikler",
-    "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut abonelik seçenekleri şunları içerir:\n\n• Aylık Abonelik: Her ay yenilenir.\n• Yıllık Abonelik: Her yıl yenilenir.\n\nÖdeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Apple ID hesabınız mevcut dönem bitmeden 24 saat önce yenileme için ücretlendirilir.\n\nAboneliğinizi cihaz ayarlarından istediğiniz zaman yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler.\n\nAbonelik fiyatları, satın almadan önce uygulamada açıkça görüntülenir ve bölgeye göre değişebilir. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir. Ödeme bilgilerinize erişimimiz yoktur."
-  },
-  "changes": {
-    "title": "Bu Politikadaki Değişiklikler",
-    "content": "Bu politikayı gerektiğinde güncelleyebiliriz. Önemli değişiklikler olduğunda, uygulama veya diğer uygun yollarla sizi bilgilendireceğiz."
-  },
-  "contact": {
-    "title": "Bize Ulaşın",
-    "content": "Gizlilik veya abonelikler ile ilgili sorularınız veya talepleriniz varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bize ulaşabilirsiniz."
-  }
-},
+      "dataSharing": {
+        "title": "Veri Paylaşımı",
+        "content": "Verilerinizi satmayız. Kişisel bilgilerinizi yalnızca temel uygulama hizmetlerini yürütmek, yasal yükümlülüklere uymak veya platform güvenliğini korumak gerektiğinde üçüncü taraflarla paylaşırız."
+      },
+      "security": {
+        "title": "Veri Güvenliği",
+        "content": "Bilgilerinizi yetkisiz erişim, ifşa veya kötüye kullanıma karşı korumak için standart güvenlik önlemleri uygularız. Ancak hiçbir aktarım veya depolama yöntemi tamamen güvenli değildir."
+      },
+      "subscriptions": {
+        "title": "Abonelikler",
+        "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut abonelik seçenekleri şunları içerir:\n\n• Aylık Abonelik: Her ay yenilenir.\n• Yıllık Abonelik: Her yıl yenilenir.\n\nÖdeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Apple ID hesabınız mevcut dönem bitmeden 24 saat önce yenileme için ücretlendirilir.\n\nAboneliğinizi cihaz ayarlarından istediğiniz zaman yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler.\n\nAbonelik fiyatları, satın almadan önce uygulamada açıkça görüntülenir ve bölgeye göre değişebilir. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir. Ödeme bilgilerinize erişimimiz yoktur."
+      },
+      "changes": {
+        "title": "Bu Politikadaki Değişiklikler",
+        "content": "Bu politikayı gerektiğinde güncelleyebiliriz. Önemli değişiklikler olduğunda, uygulama veya diğer uygun yollarla sizi bilgilendireceğiz."
+      },
+      "contact": {
+        "title": "Bize Ulaşın",
+        "content": "Gizlilik veya abonelikler ile ilgili sorularınız veya talepleriniz varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bize ulaşabilirsiniz."
+      }
+    },
 
     "terms": {
-  "title": "Hizmet Şartları",
-  "agreement": {
-    "title": "Şartlara Onay",
-    "content": "Bu uygulamayı kullanarak, bu Hizmet Şartlarını kabul edersiniz. Kabul etmiyorsanız, uygulamayı istediğiniz zaman kullanmayı bırakabilirsiniz."
-  },
-  "usage": {
-    "title": "Kabul Edilebilir Kullanım",
-    "content": "Uygulamayı yalnızca yasal ve amaçlanan amaçlar için kullanmayı kabul edersiniz. Hizmete yanlış kullanımda bulunmamalı, işleyişine müdahale etmemeli veya yetkisiz erişim denememelisiniz."
-  },
-  "subscriptions": {
-    "title": "Abonelikler",
-    "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut seçenekler aylık ve yıllık abonelikleri içerir. Ödeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Hesabınız, mevcut dönemin bitiminden 24 saat önce yenileme için ücretlendirilir. Aboneliği herhangi bir zamanda cihaz ayarlarından yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir ve ödeme bilgilerinize erişimimiz yoktur. Fiyatlar bölgeye göre değişebilir ve satın alma öncesinde uygulamada açıkça görüntülenir."
-  },
-  "userContent": {
-    "title": "Kullanıcı İçeriği",
-    "content": "Uygulamada gönderdiğiniz içerikten siz sorumlusunuz. İçeriğinizin herhangi bir yasayı, hakkı veya başkalarının gizliliğini ihlal etmediğini doğrularsınız."
-  },
-  "termination": {
-    "title": "Hesap Sonlandırma",
-    "content": "Bu şartların ihlalini, kötüye kullanımı veya hizmetin güvenliğini tehdit eden bir faaliyet tespit edersek, uygulamaya erişimi askıya alabilir veya sonlandırabiliriz."
-  },
-  "changes": {
-    "title": "Şartlardaki Değişiklikler",
-    "content": "Bu Hizmet Şartlarını zaman zaman güncelleyebiliriz. Değişikliklerden sonra uygulamayı kullanmaya devam etmek, güncellenmiş şartları kabul ettiğiniz anlamına gelir."
-  },
-  "contact": {
-    "title": "Bize Ulaşın",
-    "content": "Bu şartlarla ilgili sorularınız varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bizimle iletişime geçebilirsiniz."
-  }
-}
-
-    },
-    "subscription": {
-      "title": "Noor Premium",
-      "subtitle": "Namazda düzen, topluluk desteği ve manevi gelişim için güçlü araçlarla iman yolculuğunuzu güçlendirin.",
-      "loadingPlans": "Planlar yükleniyor...",
-      "choosePlan": "Plan Seçin",
-      "bestValue": "EN İYİ FİYAT - %17 Tasarruf",
-      "yearlyPlan": "Yıllık Plan",
-      "monthlyPlan": "Aylık Plan",
-      "year": "yıl",
-      "month": "ay",
-      "saveOneMonth": "Yılda 5$ tasarruf edin • Popüler seçim",
-      "subscribe": "Bismillah, katılıyorum",
-      "restorePurchases": "Önceki satın alımları geri yükle",
-      "terms": "İptal edilmezse otomatik yenilenir. Her zaman hesap ayarlarından iptal edebilirsiniz. Abone olarak şartları kabul etmiş olursunuz.",
-      "success": {
-        "purchaseComplete": "Elhamdülillah! Noor Premium'a hoş geldiniz",
-        "restoreComplete": "Premium erişiminiz geri yüklendi"
+      "title": "Hizmet Şartları",
+      "agreement": {
+        "title": "Şartlara Onay",
+        "content": "Bu uygulamayı kullanarak, bu Hizmet Şartlarını kabul edersiniz. Kabul etmiyorsanız, uygulamayı istediğiniz zaman kullanmayı bırakabilirsiniz."
       },
-      "info": {
-        "noPurchasesFound": "Bu hesap için önceki satın alım bulunamadı"
+      "usage": {
+        "title": "Kabul Edilebilir Kullanım",
+        "content": "Uygulamayı yalnızca yasal ve amaçlanan amaçlar için kullanmayı kabul edersiniz. Hizmete yanlış kullanımda bulunmamalı, işleyişine müdahale etmemeli veya yetkisiz erişim denememelisiniz."
       },
-      "errors": {
-        "packageNotFound": "Abonelik planı mevcut değil",
-        "purchaseFailed": "Satın alma başarısız oldu. Lütfen tekrar deneyin.",
-        "restoreFailed": "Geri yükleme başarısız oldu. Lütfen tekrar deneyin."
+      "subscriptions": {
+        "title": "Abonelikler",
+        "content": "Noor Pray Tracker otomatik yenilenen abonelikler sunar. Mevcut seçenekler aylık ve yıllık abonelikleri içerir. Ödeme, satın alma onayı sırasında Apple ID hesabınıza yansıtılır. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir. Hesabınız, mevcut dönemin bitiminden 24 saat önce yenileme için ücretlendirilir. Aboneliği herhangi bir zamanda cihaz ayarlarından yönetebilir veya iptal edebilirsiniz: Ayarlar → Apple ID → Abonelikler. Tüm satın alma işlemleri Apple tarafından güvenli bir şekilde gerçekleştirilir ve ödeme bilgilerinize erişimimiz yoktur. Fiyatlar bölgeye göre değişebilir ve satın alma öncesinde uygulamada açıkça görüntülenir."
       },
-      "features": {
-        "unlimitedFriends": "Sınırsız arkadaşla bağlantı kurun ve birbirinizi namazda teşvik edin.",
-        "friendGroups": "Namaz halkaları ve destek grupları oluşturun — motivasyon birlikte daha güçlü.",
-        "detailedStats": "Güzel grafikler ve serilerle namaz alışkanlıklarınızı derinlemesine görün.",
-        "prayerReminders": "Akıllı hatırlatmalar sayesinde namazı kaçırmayın — konuma ve zamana uyum sağlar.",
-        "customThemes": "Uygulamayı İslami temalar ve renklerle kişiselleştirin.",
-        "adFree": "Reklamsız deneyim — dikkatiniz namazda olsun.",
-        "prioritySupport": "Ekibimizden öncelikli destek alın.",
-        "newFeatures": "Yeni özelliklere ilk siz erişin."
-      }
-    },
-    "qibla": {
-      "compass": {
-        "degrees": "derece",
-        "errors": {
-          "location": "Konum izni gerekli",
-          "magnetometer": "Manyetometre mevcut değil",
-          "magnetometerUnavailable": "Bu cihazda manyetometre mevcut değil"
-        },
-        "help": "Telefonunuzu kıble derecelerine doğru çevirin ve yönü hizalayın",
-        "yourDirection": "Sizin Yönünüz",
-        "qiblaDirection": "Kıble Yönü"
+      "userContent": {
+        "title": "Kullanıcı İçeriği",
+        "content": "Uygulamada gönderdiğiniz içerikten siz sorumlusunuz. İçeriğinizin herhangi bir yasayı, hakkı veya başkalarının gizliliğini ihlal etmediğini doğrularsınız."
       },
-      "prayerTimes": {
-        "timeLeft": "Sıradaki namaza kalan süre",
-        "errors": {
-          "message": "Namaz vakitlerini hesaplamak için konum izni gerekli",
-          "title": "İzin Reddedildi"
-        },
-        "location": {
-          "fetching": "Konum alınıyor...",
-          "unknown": "Bilinmiyor"
-        },
-        "notifier": {
-          "title": "Namaz Hatırlatıcısı",
-          "description": "Namazdan kaç dakika önce bildirim istiyorsunuz?",
-          "minutesBefore": "Namazdan {{minutes}} dakika önce",
-          "success": {
-            "message": "Hatırlatıcılar {{minutes}} dakika önce olarak ayarlandı"
-          },
-          "error": {
-            "message": "Ayarlar kaydedilemedi. Lütfen tekrar deneyin."
-          }
-        }
+      "termination": {
+        "title": "Hesap Sonlandırma",
+        "content": "Bu şartların ihlalini, kötüye kullanımı veya hizmetin güvenliğini tehdit eden bir faaliyet tespit edersek, uygulamaya erişimi askıya alabilir veya sonlandırabiliriz."
       },
-      "tabs": {
-        "qibla": "Kıble",
-        "times": "Namaz Vakitleri"
+      "changes": {
+        "title": "Şartlardaki Değişiklikler",
+        "content": "Bu Hizmet Şartlarını zaman zaman güncelleyebiliriz. Değişikliklerden sonra uygulamayı kullanmaya devam etmek, güncellenmiş şartları kabul ettiğiniz anlamına gelir."
+      },
+      "contact": {
+        "title": "Bize Ulaşın",
+        "content": "Bu şartlarla ilgili sorularınız varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bizimle iletişime geçebilirsiniz."
       }
     }
+  },
+  "subscription": {
+    "title": "Noor Premium",
+    "subtitle": "Namazda düzen, topluluk desteği ve manevi gelişim için güçlü araçlarla iman yolculuğunuzu güçlendirin.",
+    "loadingPlans": "Planlar yükleniyor...",
+    "choosePlan": "Plan Seçin",
+    "bestValue": "EN İYİ FİYAT - %17 Tasarruf",
+    "yearlyPlan": "Yıllık Plan",
+    "monthlyPlan": "Aylık Plan",
+    "year": "yıl",
+    "month": "ay",
+    "saveOneMonth": "Yılda 5$ tasarruf edin • Popüler seçim",
+    "subscribe": "Bismillah, katılıyorum",
+    "restorePurchases": "Önceki satın alımları geri yükle",
+    "terms": "İptal edilmezse otomatik yenilenir. Her zaman hesap ayarlarından iptal edebilirsiniz. Abone olarak şartları kabul etmiş olursunuz.",
+    "success": {
+      "purchaseComplete": "Elhamdülillah! Noor Premium'a hoş geldiniz",
+      "restoreComplete": "Premium erişiminiz geri yüklendi"
+    },
+    "info": {
+      "noPurchasesFound": "Bu hesap için önceki satın alım bulunamadı"
+    },
+    "errors": {
+      "packageNotFound": "Abonelik planı mevcut değil",
+      "purchaseFailed": "Satın alma başarısız oldu. Lütfen tekrar deneyin.",
+      "restoreFailed": "Geri yükleme başarısız oldu. Lütfen tekrar deneyin."
+    },
+    "features": {
+      "unlimitedFriends": "Sınırsız arkadaşla bağlantı kurun ve birbirinizi namazda teşvik edin.",
+      "friendGroups": "Namaz halkaları ve destek grupları oluşturun — motivasyon birlikte daha güçlü.",
+      "detailedStats": "Güzel grafikler ve serilerle namaz alışkanlıklarınızı derinlemesine görün.",
+      "prayerReminders": "Akıllı hatırlatmalar sayesinde namazı kaçırmayın — konuma ve zamana uyum sağlar.",
+      "customThemes": "Uygulamayı İslami temalar ve renklerle kişiselleştirin.",
+      "adFree": "Reklamsız deneyim — dikkatiniz namazda olsun.",
+      "prioritySupport": "Ekibimizden öncelikli destek alın.",
+      "newFeatures": "Yeni özelliklere ilk siz erişin."
+    }
+  },
+  "qibla": {
+    "compass": {
+      "degrees": "derece",
+      "errors": {
+        "location": "Konum izni gerekli",
+        "magnetometer": "Manyetometre mevcut değil",
+        "magnetometerUnavailable": "Bu cihazda manyetometre mevcut değil"
+      },
+      "help": "Telefonunuzu kıble derecelerine doğru çevirin ve yönü hizalayın",
+      "yourDirection": "Sizin Yönünüz",
+      "qiblaDirection": "Kıble Yönü"
+    },
+    "prayerTimes": {
+      "timeLeft": "Sıradaki namaza kalan süre",
+      "errors": {
+        "message": "Namaz vakitlerini hesaplamak için konum izni gerekli",
+        "title": "İzin Reddedildi"
+      },
+      "location": {
+        "fetching": "Konum alınıyor...",
+        "unknown": "Bilinmiyor"
+      },
+      "notifier": {
+        "title": "Namaz Hatırlatıcısı",
+        "description": "Namazdan kaç dakika önce bildirim istiyorsunuz?",
+        "minutesBefore": "Namazdan {{minutes}} dakika önce",
+        "success": {
+          "message": "Hatırlatıcılar {{minutes}} dakika önce olarak ayarlandı"
+        },
+        "error": {
+          "message": "Ayarlar kaydedilemedi. Lütfen tekrar deneyin."
+        }
+      }
+    },
+    "tabs": {
+      "qibla": "Kıble",
+      "times": "Namaz Vakitleri"
+    }
   }
-  
+}

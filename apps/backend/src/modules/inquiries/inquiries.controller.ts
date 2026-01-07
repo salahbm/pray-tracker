@@ -7,13 +7,14 @@ import {
   Param,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { Public } from '@/common/decorators/public.decorator';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
 import { CreateInquiryMessageDto } from './dto/create-inquiry-message.dto';
 import { InquiriesService } from './inquiries.service';
-import { Locale } from '@/common/utils/response.utils';
+import { type Locale } from '@/common/utils/response.utils';
 
 @Controller('inquiries')
 export class InquiriesController {

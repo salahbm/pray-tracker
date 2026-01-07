@@ -1,18 +1,35 @@
 {
   "name": "pray-tracker",
   "private": true,
+  "version": "1.0.0",
+  "author": "Muhammad Salah",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "start": "turbo run start",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint -- --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
     "clean": "pnpm store prune && rm -rf node_modules && rm -rf .next && rm -rf .expo && rm -rf .turbo && find . -name \"node_modules\" -type d -prune -exec rm -rf {} + && rm -rf pnpm-lock.yaml",
     "android": "expo run:android",
     "ios": "expo run:ios"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx,mjs,yml,yaml,css}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "expo": "~54.0.30",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5"
   },
   "devDependencies": {
     "@commitlint/cli": "20.1.0",
@@ -23,29 +40,14 @@
     "turbo": "^2.7.2",
     "typescript": "5.9.2"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write"
-    ],
-    "*.{md,mdx,mjs,yml,yaml,css}": [
-      "prettier --write"
-    ]
-  },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "expo": "~54.0.30",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-native": "0.81.5"
-  },
   "pnpm": {
     "overrides": {
       "react": "19.1.0",
       "react-dom": "19.1.0"
     }
   },
-  "version": "1.0.0"
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  }
 }

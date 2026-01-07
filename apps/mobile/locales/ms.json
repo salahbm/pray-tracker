@@ -1,335 +1,338 @@
 {
-    "auth": {
-      "email": {
-        "label": "Emel",
-        "placeholder": "Masukkan emel anda"
-      },
-      "forgotPassword": {
-        "title": "Lupa Kata Laluan",
-        "button": "Hantar Pengesahan",
-        "rememberedPassword": "Sudah ingat kata laluan?",
-        "signInLink": "Log Masuk",
-        "message": "Jika akaun untuk {{email}} wujud, pautan reset kata laluan akan dihantar. Sila semak emel anda."
-      },
-      "resetPassword": {
-        "title": "Reset Kata Laluan",
-        "subtitle": "Masukkan kata laluan baru",
-        "button": "Reset Kata Laluan",
-        "rememberedPassword": "Sudah ingat kata laluan?",
-        "signInLink": "Log Masuk",
-        "goBackHome": "Kembali ke Laman Utama",
-        "success": "Kata laluan berjaya direset! Mengalihkan ke halaman log masuk...",
-        "fields": {
-          "newPassword": {
-            "label": "Kata Laluan Baru",
-            "placeholder": "Masukkan kata laluan baru"
-          },
-          "confirmPassword": {
-            "label": "Sahkan Kata Laluan",
-            "placeholder": "Sahkan kata laluan baru"
-          }
-        },
-        "errors": {
-          "invalidToken": "Token tidak sah atau telah luput",
-          "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
-          "passwordMismatch": "Kata laluan tidak sepadan",
-          "failed": "Gagal reset kata laluan. Sila cuba lagi."
-        }
-      },
-      "password": {
-        "label": "Kata Laluan",
-        "placeholder": "Masukkan kata laluan anda"
-      },
-      "signIn": {
-        "button": "Log Masuk",
-        "forgotPassword": "Lupa kata laluan?",
-        "noAccount": "Belum ada akaun?",
-        "signUpLink": "Daftar",
-        "title": "Selamat kembali",
-        "accountRequired": "Akaun diperlukan kerana aplikasi ini menyimpan sejarah solat anda, memuat naik solat ke akaun anda, mengurus status langganan, dan membolehkan anda berhubung dengan rakan. Tanpa akaun, tiada perkhidmatan ini boleh berfungsi."
-      },
-      "signUp": {
-        "title": "Sertai Kami",
-        "button": "Daftar",
-        "hasAccount": "Sudah ada akaun?",
-        "signInLink": "Log Masuk",
-        "subtitle": "Cipta akaun untuk meneruskan",
-        "success": {
-          "button": "Bismillah",
-          "message": "Pendaftaran berjaya.",
-          "title": "Assalamualaikum!"
-        }
-      },
-      "username": {
-        "label": "Nama Pengguna",
-        "placeholder": "Masukkan nama pengguna"
-      },
-      "welcome": {
-        "getStarted": "Mula",
-        "guest": "Tetamu",
-        "next": "Seterusnya",
-        "skip": "Langkau",
-        "onboarding": {
-          "aware": {
-            "description": "Jejaki solat terakhir anda dan rancang hari mengikut jadual solat.",
-            "title": "Ingat Solat Terakhir Anda"
-          },
-          "journey": {
-            "description": "Lihat perkembangan dan sejauh mana anda kekal konsisten dalam solat.",
-            "title": "Perjalanan Solat Anda"
-          },
-          "remind": {
-            "description": "Dapatkan notifikasi tepat pada masanya supaya tidak terlepas solat.",
-            "title": "Jangan Tinggal Solat Lagi"
-          },
-          "share": {
-            "description": "Kongsi perjalanan solat anda dengan orang tersayang untuk saling memberi semangat.",
-            "title": "Kongsi Dengan Rakan"
-          },
-          "track": {
-            "description": "Catat solat harian dengan mudah dan kekal istiqamah dalam ibadah.",
-            "title": "Jejaki Solat Dengan Mudah"
-          }
-        }
-      }
+  "auth": {
+    "email": {
+      "label": "Emel",
+      "placeholder": "Masukkan emel anda"
     },
-    "leaderboard": {
-      "title": "Papan Kedudukan",
-      "point": "mata",
-      "points": "Mata"
+    "forgotPassword": {
+      "title": "Lupa Kata Laluan",
+      "button": "Hantar Pengesahan",
+      "rememberedPassword": "Sudah ingat kata laluan?",
+      "signInLink": "Log Masuk",
+      "message": "Jika akaun untuk {{email}} wujud, pautan reset kata laluan akan dihantar. Sila semak emel anda."
     },
-    "common": {
-      "notifications": {
-        "description": "Waktu {{salah}} pada:",
-        "prayer": {
-          "title": "{{prayer}} {{emoji}} Peringatan Solat",
-          "bodyNow": "Sudah masuk waktu solat {{prayer}} - {{time}}",
-          "bodyBefore": "Solat {{prayer}} dalam {{minutes}} minit - {{time}}"
+    "resetPassword": {
+      "title": "Reset Kata Laluan",
+      "subtitle": "Masukkan kata laluan baru",
+      "button": "Reset Kata Laluan",
+      "rememberedPassword": "Sudah ingat kata laluan?",
+      "signInLink": "Log Masuk",
+      "goBackHome": "Kembali ke Laman Utama",
+      "success": "Kata laluan berjaya direset! Mengalihkan ke halaman log masuk...",
+      "fields": {
+        "newPassword": {
+          "label": "Kata Laluan Baru",
+          "placeholder": "Masukkan kata laluan baru"
         },
-        "emojis": {
-          "fajr": "🌅",
-          "sunrise": "☀️",
-          "dhuhr": "🌞",
-          "asr": "🌤️",
-          "maghrib": "🌆",
-          "isha": "🌙",
-          "default": "🕌"
-        },
-        "permissions": {
-          "denied": "Kebenaran notifikasi tidak diberi. Sila aktifkan dalam tetapan peranti."
+        "confirmPassword": {
+          "label": "Sahkan Kata Laluan",
+          "placeholder": "Sahkan kata laluan baru"
         }
-      },
-      "notFound": {
-        "404": "Halaman tidak ditemui",
-        "noData": "Tiada data ditemui"
-      },
-      "unauthorized": {
-        "title": "Tidak Dibenarkan",
-        "description": "Sila log masuk untuk mengakses ciri ini"
       },
       "errors": {
-        "invalidEmail": "Emel tidak sah"
-      },
-      "salahs": {
-        "asr": "Asar",
-        "dhuhr": "Zuhur",
-        "fajr": "Subuh",
-        "isha": "Isyak",
-        "maghrib": "Maghrib",
-        "nafl": "Sunat",
-        "sunrise": "Matahari Terbit"
-      },
-      "themes": {
-        "title": "Pilih Tema",
-        "dark": "Gelap",
-        "emerald_green": "Hijau Zamrud",
-        "forest_green": "Hijau Rimba",
-        "light": "Cerah",
-        "ocean_breeze": "Bayu Laut",
-        "pink_rose": "Mawar Merah Jambu",
-        "royal_purple": "Ungu Diraja",
-        "sunset": "Senja",
-        "vibrant_orange": "Oren Terang"
-      },
-      "yearPicker": {
-        "cancel": "Batal",
-        "confirm": "Sahkan",
-        "title": "Pilih Tahun"
-      },
-      "viewAll": "Lihat Semua",
-      "today": "Hari Ini",
-      "loadMoreMonths": "+ Muat 6 Bulan Lagi",
-      "chooseLanguage": "Pilih bahasa",
-      "actions": {
-        "delete": "Padam",
-        "deleting": "Memadam...",
-        "create": "Cipta",
-        "creating": "Mencipta...",
-        "cancel": "Batal",
-        "update": "Kemaskini",
-        "updating": "Mengemaskini...",
-        "save": "Simpan",
-        "remove": "Buang",
-        "requestSent": "Permintaan Dihantar",
-        "requestReceived": "Permintaan Diterima",
-        "accept": "Terima",
-        "reject": "Tolak"
+        "invalidToken": "Token tidak sah atau telah luput",
+        "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
+        "passwordMismatch": "Kata laluan tidak sepadan",
+        "failed": "Gagal reset kata laluan. Sila cuba lagi."
       }
     },
-    "friends": {
-      "title": "Rakan",
-      "groups": {
-        "title": "Kumpulan",
-        "createTitle": "Cipta Kumpulan Baru",
-        "createDescription": "Cipta kumpulan untuk susun rakan dan jejak solat bersama",
-        "editTitle": "Edit Kumpulan",
-        "editDescription": "Kemaskini nama kumpulan",
-        "deleteTitle": "Padam Kumpulan",
-        "deleteDescription": "Anda pasti mahu padam '{{name}}'? Tindakan ini tidak boleh diundur.",
-        "groupNamePlaceholder": "Masukkan nama kumpulan",
-        "members": "ahli",
-        "noGroups": "Belum ada kumpulan. Cipta satu untuk mula!",
-        "noMembers": "Belum ada ahli dalam kumpulan ini",
-        "addMember": "Tambah Ahli",
-        "groupCount": "{{count}} kumpulan",
-        "groupCount_one": "{{count}} kumpulan",
-        "groupCount_other": "{{count}} kumpulan",
-        "noAvailableFriends": "Semua rakan sudah berada dalam kumpulan ini",
-        "friendsAvailable_one": "{{count}} rakan tersedia",
-        "friendsAvailable_other": "{{count}} rakan tersedia",
-        "membersCount_one": "{{count}} ahli",
-        "membersCount_other": "{{count}} ahli"
-      },
-      "allFriends": {
-        "title": "Semua Rakan",
-        "isFriend": "Anda berkawan dengan {{name}}",
-        "requestSent": "Anda hantar permintaan kepada {{name}}",
-        "requestReceived": "{{name}} hantar permintaan kepada anda",
-        "noRequests": "Tiada permintaan lagi",
-        "noFriends": "Belum ada rakan",
-        "noActivity": "Tiada rakan ditemui",
-        "all": "Semua {{count}}",
-        "requests": "Permintaan {{count}}",
-        "friends": "Rakan {{count}}",
-        "searchPlaceholder": "Cari rakan melalui emel"
+    "password": {
+      "label": "Kata Laluan",
+      "placeholder": "Masukkan kata laluan anda"
+    },
+    "signIn": {
+      "button": "Log Masuk",
+      "forgotPassword": "Lupa kata laluan?",
+      "noAccount": "Belum ada akaun?",
+      "signUpLink": "Daftar",
+      "title": "Selamat kembali",
+      "accountRequired": "Akaun diperlukan kerana aplikasi ini menyimpan sejarah solat anda, memuat naik solat ke akaun anda, mengurus status langganan, dan membolehkan anda berhubung dengan rakan. Tanpa akaun, tiada perkhidmatan ini boleh berfungsi."
+    },
+    "signUp": {
+      "title": "Sertai Kami",
+      "button": "Daftar",
+      "hasAccount": "Sudah ada akaun?",
+      "signInLink": "Log Masuk",
+      "subtitle": "Cipta akaun untuk meneruskan",
+      "success": {
+        "button": "Bismillah",
+        "message": "Pendaftaran berjaya.",
+        "title": "Assalamualaikum!"
       }
     },
-    "home": {
-      "charts": {
-        "title": "Perkembangan Ibadah (Bulanan)"
+    "username": {
+      "label": "Nama Pengguna",
+      "placeholder": "Masukkan nama pengguna"
+    },
+    "welcome": {
+      "getStarted": "Mula",
+      "guest": "Tetamu",
+      "next": "Seterusnya",
+      "skip": "Langkau",
+      "onboarding": {
+        "aware": {
+          "description": "Jejaki solat terakhir anda dan rancang hari mengikut jadual solat.",
+          "title": "Ingat Solat Terakhir Anda"
+        },
+        "journey": {
+          "description": "Lihat perkembangan dan sejauh mana anda kekal konsisten dalam solat.",
+          "title": "Perjalanan Solat Anda"
+        },
+        "remind": {
+          "description": "Dapatkan notifikasi tepat pada masanya supaya tidak terlepas solat.",
+          "title": "Jangan Tinggal Solat Lagi"
+        },
+        "share": {
+          "description": "Kongsi perjalanan solat anda dengan orang tersayang untuk saling memberi semangat.",
+          "title": "Kongsi Dengan Rakan"
+        },
+        "track": {
+          "description": "Catat solat harian dengan mudah dan kekal istiqamah dalam ibadah.",
+          "title": "Jejaki Solat Dengan Mudah"
+        }
+      }
+    }
+  },
+  "leaderboard": {
+    "title": "Papan Kedudukan",
+    "point": "mata",
+    "points": "Mata"
+  },
+  "common": {
+    "notifications": {
+      "description": "Waktu {{salah}} pada:",
+      "prayer": {
+        "title": "{{prayer}} {{emoji}} Peringatan Solat",
+        "bodyNow": "Sudah masuk waktu solat {{prayer}} - {{time}}",
+        "bodyBefore": "Solat {{prayer}} dalam {{minutes}} minit - {{time}}"
       },
-      "errors": {
-        "futureDate": "Anda tidak boleh pilih tarikh akan datang"
+      "emojis": {
+        "fajr": "🌅",
+        "sunrise": "☀️",
+        "dhuhr": "🌞",
+        "asr": "🌤️",
+        "maghrib": "🌆",
+        "isha": "🌙",
+        "default": "🕌"
       },
-      "prayerHistory": {
-        "close": "Tutup",
-        "date": "Tarikh",
-        "details": "Butiran Solat",
-        "title": "Perjalanan Solat"
-      },
-      "todaysPrayers": {
-        "late": "Lewat",
-        "missed": "Terlepas",
-        "onTime": "Tepat Masa",
-        "subTitle": "Semoga Allah (ﷻ) menerima solat anda",
-        "title": "Solat Hari Ini"
+      "permissions": {
+        "denied": "Kebenaran notifikasi tidak diberi. Sila aktifkan dalam tetapan peranti."
       }
     },
-    "profile": {
-      "title": "Profil",
-      "about": {
-        "contact": {
-          "title": "Hubungi Kami"
+    "notFound": {
+      "404": "Halaman tidak ditemui",
+      "noData": "Tiada data ditemui"
+    },
+    "unauthorized": {
+      "title": "Tidak Dibenarkan",
+      "description": "Sila log masuk untuk mengakses ciri ini"
+    },
+    "errors": {
+      "invalidEmail": "Emel tidak sah"
+    },
+    "salahs": {
+      "asr": "Asar",
+      "dhuhr": "Zuhur",
+      "fajr": "Subuh",
+      "isha": "Isyak",
+      "maghrib": "Maghrib",
+      "nafl": "Sunat",
+      "sunrise": "Matahari Terbit"
+    },
+    "themes": {
+      "title": "Pilih Tema",
+      "dark": "Gelap",
+      "emerald_green": "Hijau Zamrud",
+      "forest_green": "Hijau Rimba",
+      "light": "Cerah",
+      "ocean_breeze": "Bayu Laut",
+      "pink_rose": "Mawar Merah Jambu",
+      "royal_purple": "Ungu Diraja",
+      "sunset": "Senja",
+      "vibrant_orange": "Oren Terang"
+    },
+    "yearPicker": {
+      "cancel": "Batal",
+      "confirm": "Sahkan",
+      "title": "Pilih Tahun"
+    },
+    "viewAll": "Lihat Semua",
+    "today": "Hari Ini",
+    "loadMoreMonths": "+ Muat 6 Bulan Lagi",
+    "chooseLanguage": "Pilih bahasa",
+    "actions": {
+      "delete": "Padam",
+      "deleting": "Memadam...",
+      "create": "Cipta",
+      "creating": "Mencipta...",
+      "cancel": "Batal",
+      "update": "Kemaskini",
+      "updating": "Mengemaskini...",
+      "save": "Simpan",
+      "remove": "Buang",
+      "requestSent": "Permintaan Dihantar",
+      "requestReceived": "Permintaan Diterima",
+      "accept": "Terima",
+      "reject": "Tolak"
+    }
+  },
+  "friends": {
+    "title": "Rakan",
+    "groups": {
+      "title": "Kumpulan",
+      "createTitle": "Cipta Kumpulan Baru",
+      "createDescription": "Cipta kumpulan untuk susun rakan dan jejak solat bersama",
+      "editTitle": "Edit Kumpulan",
+      "editDescription": "Kemaskini nama kumpulan",
+      "deleteTitle": "Padam Kumpulan",
+      "deleteDescription": "Anda pasti mahu padam '{{name}}'? Tindakan ini tidak boleh diundur.",
+      "groupNamePlaceholder": "Masukkan nama kumpulan",
+      "members": "ahli",
+      "noGroups": "Belum ada kumpulan. Cipta satu untuk mula!",
+      "noMembers": "Belum ada ahli dalam kumpulan ini",
+      "addMember": "Tambah Ahli",
+      "groupCount": "{{count}} kumpulan",
+      "groupCount_one": "{{count}} kumpulan",
+      "groupCount_other": "{{count}} kumpulan",
+      "noAvailableFriends": "Semua rakan sudah berada dalam kumpulan ini",
+      "friendsAvailable_one": "{{count}} rakan tersedia",
+      "friendsAvailable_other": "{{count}} rakan tersedia",
+      "membersCount_one": "{{count}} ahli",
+      "membersCount_other": "{{count}} ahli"
+    },
+    "allFriends": {
+      "title": "Semua Rakan",
+      "isFriend": "Anda berkawan dengan {{name}}",
+      "requestSent": "Anda hantar permintaan kepada {{name}}",
+      "requestReceived": "{{name}} hantar permintaan kepada anda",
+      "noRequests": "Tiada permintaan lagi",
+      "noFriends": "Belum ada rakan",
+      "noActivity": "Tiada rakan ditemui",
+      "all": "Semua {{count}}",
+      "requests": "Permintaan {{count}}",
+      "friends": "Rakan {{count}}",
+      "searchPlaceholder": "Cari rakan melalui emel"
+    }
+  },
+  "home": {
+    "charts": {
+      "title": "Perkembangan Ibadah (Bulanan)"
+    },
+    "errors": {
+      "futureDate": "Anda tidak boleh pilih tarikh akan datang"
+    },
+    "prayerHistory": {
+      "close": "Tutup",
+      "date": "Tarikh",
+      "details": "Butiran Solat",
+      "title": "Perjalanan Solat"
+    },
+    "todaysPrayers": {
+      "late": "Lewat",
+      "missed": "Terlepas",
+      "onTime": "Tepat Masa",
+      "subTitle": "Semoga Allah (ﷻ) menerima solat anda",
+      "title": "Solat Hari Ini"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "about": {
+      "contact": {
+        "title": "Hubungi Kami"
+      },
+      "credits": {
+        "description": "Dibangunkan dengan penuh kasih dan dedikasi oleh pasukan Noor - Pray Tracker. Jutaan terima kasih atas sokongan dan maklum balas komuniti.",
+        "title": "Penghargaan"
+      },
+      "feedback": "Hantar Maklum Balas",
+      "mission": {
+        "description": "Noor - Pray Tracker membantu umat Islam menjaga solat harian, jejak perjalanan spiritual, dan bina hubungan lebih kukuh dengan Allah. Matlamat kami ialah menjadikan penjejakan solat mudah, bermakna, dan bermanfaat.",
+        "title": "Misi Kami"
+      },
+      "title": "Tentang",
+      "version": {
+        "build": "Binaan: {{buildNumber}}",
+        "number": "Versi: {{version}}",
+        "released": "Dikeluarkan: Mac 2024",
+        "title": "Info Versi"
+      }
+    },
+    "account": {
+      "cancelButton": "Batal",
+      "created": "Dicipta",
+      "deleteAccount": "Padam Akaun",
+      "deleteButton": "Ya, Padam Akaun Saya",
+      "deleteConfirm": "Anda pasti mahu padam akaun?",
+      "deleteMessage": "Tindakan ini tidak boleh dibatalkan. Semua data akan dipadam selamanya.",
+      "email": "Emel",
+      "lastUpdated": "Kemaskini Terakhir",
+      "logoutButton": "Log Keluar",
+      "title": "Akaun",
+      "premiumProduct": "Premium",
+      "purchased": "Dibeli",
+      "expires": "Tamat"
+    },
+    "editPassword": {
+      "fields": {
+        "confirmPassword": {
+          "label": "Sahkan Kata Laluan",
+          "placeholder": "Sahkan kata laluan baru"
         },
-        "credits": {
-          "description": "Dibangunkan dengan penuh kasih dan dedikasi oleh pasukan Noor - Pray Tracker. Jutaan terima kasih atas sokongan dan maklum balas komuniti.",
-          "title": "Penghargaan"
+        "currentPassword": {
+          "label": "Kata Laluan Semasa",
+          "placeholder": "Masukkan kata laluan semasa"
         },
-        "feedback": "Hantar Maklum Balas",
-        "mission": {
-          "description": "Noor - Pray Tracker membantu umat Islam menjaga solat harian, jejak perjalanan spiritual, dan bina hubungan lebih kukuh dengan Allah. Matlamat kami ialah menjadikan penjejakan solat mudah, bermakna, dan bermanfaat.",
-          "title": "Misi Kami"
-        },
-        "title": "Tentang",
-        "version": {
-          "build": "Binaan: {{buildNumber}}",
-          "number": "Versi: {{version}}",
-          "released": "Dikeluarkan: Mac 2024",
-          "title": "Info Versi"
+        "newPassword": {
+          "label": "Kata Laluan Baru",
+          "placeholder": "Masukkan kata laluan baru"
         }
       },
-      "account": {
-        "cancelButton": "Batal",
-        "created": "Dicipta",
-        "deleteAccount": "Padam Akaun",
-        "deleteButton": "Ya, Padam Akaun Saya",
-        "deleteConfirm": "Anda pasti mahu padam akaun?",
-        "deleteMessage": "Tindakan ini tidak boleh dibatalkan. Semua data akan dipadam selamanya.",
-        "email": "Emel",
-        "lastUpdated": "Kemaskini Terakhir",
-        "logoutButton": "Log Keluar",
-        "title": "Akaun",
-        "premiumProduct": "Premium",
-        "purchased": "Dibeli",
-        "expires": "Tamat"
+      "errors": {
+        "currentPasswordRequired": "Kata laluan semasa diperlukan",
+        "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
+        "passwordMismatch": "Kata laluan tidak sepadan",
+        "updateFailed": "Gagal kemaskini kata laluan"
       },
-      "editPassword": {
-        "fields": {
-          "confirmPassword": {
-            "label": "Sahkan Kata Laluan",
-            "placeholder": "Sahkan kata laluan baru"
-          },
-          "currentPassword": {
-            "label": "Kata Laluan Semasa",
-            "placeholder": "Masukkan kata laluan semasa"
-          },
-          "newPassword": {
-            "label": "Kata Laluan Baru",
-            "placeholder": "Masukkan kata laluan baru"
-          }
+      "saveButton": "Kemaskini Kata Laluan",
+      "success": "Kata laluan berjaya dikemaskini. Anda akan log keluar.",
+      "title": "Ubah Kata Laluan"
+    },
+    "editProfile": {
+      "fields": {
+        "firstName": {
+          "label": "Nama Pertama",
+          "placeholder": "Masukkan nama pertama"
         },
-        "errors": {
-          "currentPasswordRequired": "Kata laluan semasa diperlukan",
-          "minPasswordLength": "Kata laluan mesti sekurang-kurangnya 8 aksara",
-          "passwordMismatch": "Kata laluan tidak sepadan",
-          "updateFailed": "Gagal kemaskini kata laluan"
+        "lastName": {
+          "label": "Nama Akhir",
+          "placeholder": "Masukkan nama akhir"
         },
-        "saveButton": "Kemaskini Kata Laluan",
-        "success": "Kata laluan berjaya dikemaskini. Anda akan log keluar.",
-        "title": "Ubah Kata Laluan"
+        "username": {
+          "label": "Nama Pengguna",
+          "placeholder": "Masukkan nama pengguna"
+        }
       },
-      "editProfile": {
-        "fields": {
-          "firstName": {
-            "label": "Nama Pertama",
-            "placeholder": "Masukkan nama pertama"
-          },
-          "lastName": {
-            "label": "Nama Akhir",
-            "placeholder": "Masukkan nama akhir"
-          },
-          "username": {
-            "label": "Nama Pengguna",
-            "placeholder": "Masukkan nama pengguna"
-          }
-        },
-        "saveButton": "Simpan Perubahan",
-        "title": "Ubah Profil",
-        "success": "Profil berjaya dikemaskini"
-      },
-      "navigation": {
-        "about": "Tentang",
-        "account": "Akaun",
-        "editPassword": "Kata Laluan",
-        "editProfile": "Profil",
-        "feedback": "Maklum Balas & Sokongan",
-        "privacySecurity": "Privasi & Keselamatan",
-        "settings": "Tetapan",
-        "termsConditions": "Terma & Syarat"
-      },
-      "inquiries": {
-        "title": "Maklum Balas & Sokongan",
-        "list": {
+      "saveButton": "Simpan Perubahan",
+      "title": "Ubah Profil",
+      "success": "Profil berjaya dikemaskini"
+    },
+    "navigation": {
+      "about": "Tentang",
+      "account": "Akaun",
+      "editPassword": "Kata Laluan",
+      "editProfile": "Profil",
+      "feedback": "Maklum Balas & Sokongan",
+      "privacySecurity": "Privasi & Keselamatan",
+      "settings": "Tetapan",
+      "termsConditions": "Terma & Syarat"
+    },
+    "inquiries": {
+      "title": "Maklum Balas & Sokongan",
+      "loginRequired": "Log Masuk Diperlukan",
+      "loginRequiredDescription": "Sila log masuk untuk melihat pertanyaan dan tiket sokongan anda.",
+      "newButton": "Hantar Pertanyaan Baharu",
+      "list": {
         "title": "Pertanyaan Anda",
         "newButton": "Baharu",
         "emailLabel": "Emel",
@@ -341,9 +344,9 @@
         "noMessages": "Belum ada mesej.",
         "status": {
           "open": "Dibuka",
-            "closed": "Ditutup"
-          }
-        },
+          "closed": "Ditutup"
+        }
+      },
       "new": {
         "title": "Pertanyaan Baharu",
         "emailLabel": "Emel",
@@ -354,6 +357,7 @@
         "messagePlaceholder": "Terangkan isu atau maklum balas anda",
         "submitButton": "Hantar Pertanyaan",
         "success": "Pertanyaan berjaya dihantar",
+        "successAnonymous": "Terima kasih! Kami akan merespons pertanyaan anda via email.",
         "error": "Tidak dapat menghantar pertanyaan",
         "validationError": "Sila isi emel, subjek dan mesej"
       },
@@ -368,153 +372,150 @@
         "emptyMessages": "Belum ada mesej.",
         "error": "Tidak dapat menghantar balasan"
       }
-      },
-      "settings": {
-        "language": "Bahasa",
-        "notifications": "Notifikasi",
-        "theme": "Tema",
-        "title": "Tetapan"
-      },
-  "privacy": {
-  "title": "Dasar Privasi",
-  "dataCollection": {
-    "title": "Maklumat yang Kami Kumpulkan",
-    "content": "Kami hanya mengumpul maklumat yang anda berikan secara langsung kepada kami, seperti nama, e-mel, imej profil dan pilihan yang dipilih. Tiada maklumat sensitif atau tidak perlu dikumpul."
-  },
-  "dataUse": {
-    "title": "Cara Kami Menggunakan Maklumat Anda",
-    "content": "Maklumat anda digunakan hanya untuk mengendalikan aplikasi, mengekalkan akaun anda, menyediakan ciri, memperibadikan pengalaman anda dan meningkatkan perkhidmatan keseluruhan. Kami tidak menggunakan data anda untuk pengiklanan."
-  },
-  "dataSharing": {
-    "title": "Perkongsian Data",
-    "content": "Kami tidak menjual data anda. Kami tidak berkongsi maklumat peribadi anda dengan pihak ketiga kecuali apabila diperlukan untuk menjalankan perkhidmatan teras, mematuhi kewajipan undang-undang atau melindungi keselamatan platform."
-  },
-  "security": {
-    "title": "Keselamatan Data",
-    "content": "Kami menggunakan langkah keselamatan standard untuk melindungi maklumat anda daripada akses tanpa kebenaran, pendedahan atau penyalahgunaan. Walau bagaimanapun, tiada kaedah penghantaran atau penyimpanan yang sepenuhnya selamat."
-  },
-  "subscriptions": {
-    "title": "Langganan",
-    "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan langganan yang tersedia termasuk:\n\n• Langganan Bulanan: Diperbaharui setiap bulan.\n• Langganan Tahunan: Diperbaharui setiap tahun.\n\nPembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun Apple ID anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat.\n\nAnda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan.\n\nHarga langganan dipaparkan dengan jelas dalam aplikasi sebelum pembelian dan mungkin berbeza mengikut wilayah. Semua pembelian diproses dengan selamat oleh Apple. Kami tidak mempunyai akses kepada maklumat pembayaran anda."
-  },
-  "changes": {
-    "title": "Perubahan kepada Dasar Ini",
-    "content": "Kami boleh mengemas kini dasar ini apabila perlu. Jika berlaku perubahan penting, kami akan memaklumkan anda melalui aplikasi atau cara lain yang sesuai."
-  },
-  "contact": {
-    "title": "Hubungi Kami",
-    "content": "Jika anda mempunyai sebarang soalan atau permintaan berkaitan privasi atau langganan, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
-  }
-}
-,
-"terms": {
-  "title": "Terma Perkhidmatan",
-  "agreement": {
-    "title": "Persetujuan kepada Terma",
-    "content": "Dengan menggunakan aplikasi ini, anda bersetuju dengan Terma Perkhidmatan ini. Jika anda tidak bersetuju, anda boleh berhenti menggunakan aplikasi pada bila-bila masa."
-  },
-  "usage": {
-    "title": "Penggunaan yang Dibenarkan",
-    "content": "Anda bersetuju untuk menggunakan aplikasi hanya untuk tujuan yang sah dan dimaksudkan. Anda tidak boleh menyalahguna perkhidmatan, mengganggu operasinya, atau cuba mendapatkan akses tanpa kebenaran."
-  },
-  "subscriptions": {
-    "title": "Langganan",
-    "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan yang tersedia termasuk langganan bulanan dan tahunan. Pembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat. Anda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan. Semua pembelian diproses dengan selamat oleh Apple dan kami tidak mempunyai akses kepada maklumat pembayaran anda. Harga mungkin berbeza mengikut wilayah dan dipaparkan dengan jelas dalam aplikasi sebelum pembelian."
-  },
-  "userContent": {
-    "title": "Kandungan Pengguna",
-    "content": "Anda bertanggungjawab untuk sebarang kandungan yang dihantar dalam aplikasi. Anda mengesahkan bahawa kandungan anda tidak melanggar undang-undang, hak, atau privasi orang lain."
-  },
-  "termination": {
-    "title": "Penamatan Akaun",
-    "content": "Kami boleh menggantung atau menamatkan akses ke aplikasi jika kami mengesan penyalahgunaan, pelanggaran terma ini, atau aktiviti yang mengancam keselamatan atau operasi perkhidmatan."
-  },
-  "changes": {
-    "title": "Perubahan kepada Terma",
-    "content": "Kami boleh mengemas kini Terma Perkhidmatan ini dari semasa ke semasa. Terus menggunakan aplikasi selepas perubahan bermakna anda menerima terma yang dikemas kini."
-  },
-  "contact": {
-    "title": "Hubungi Kami",
-    "content": "Jika anda mempunyai sebarang pertanyaan mengenai terma ini, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
-  }
-}
-
     },
-    "subscription": {
-      "title": "Noor Premium",
-      "subtitle": "Kukuhkan perjalanan iman dengan alat untuk konsisten solat, sokongan komuniti, dan pertumbuhan rohani.",
-      "loadingPlans": "Memuat pelan...",
-      "choosePlan": "Pilih Pelan",
-      "bestValue": "PALING JIMAT - Jimat 17%",
-      "yearlyPlan": "Tahunan",
-      "monthlyPlan": "Bulanan",
-      "year": "tahun",
-      "month": "bulan",
-      "saveOneMonth": "Jimat $5 setahun • Pilihan popular",
-      "subscribe": "Bismillah, saya ikut",
-      "restorePurchases": "Pulihkan Pembelian",
-      "terms": "Diperbaharui automatik kecuali dibatalkan. Boleh batal pada bila-bila masa melalui tetapan akaun. Dengan melanggan, anda bersetuju dengan Terma Perkhidmatan.",
-      "success": {
-        "purchaseComplete": "Alhamdulillah! Selamat datang ke Noor Premium",
-        "restoreComplete": "Akses premium anda telah dipulihkan"
+    "settings": {
+      "language": "Bahasa",
+      "notifications": "Notifikasi",
+      "theme": "Tema",
+      "title": "Tetapan"
+    },
+    "privacy": {
+      "title": "Dasar Privasi",
+      "dataCollection": {
+        "title": "Maklumat yang Kami Kumpulkan",
+        "content": "Kami hanya mengumpul maklumat yang anda berikan secara langsung kepada kami, seperti nama, e-mel, imej profil dan pilihan yang dipilih. Tiada maklumat sensitif atau tidak perlu dikumpul."
       },
-      "info": {
-        "noPurchasesFound": "Tiada pembelian terdahulu untuk akaun ini"
+      "dataUse": {
+        "title": "Cara Kami Menggunakan Maklumat Anda",
+        "content": "Maklumat anda digunakan hanya untuk mengendalikan aplikasi, mengekalkan akaun anda, menyediakan ciri, memperibadikan pengalaman anda dan meningkatkan perkhidmatan keseluruhan. Kami tidak menggunakan data anda untuk pengiklanan."
       },
-      "errors": {
-        "packageNotFound": "Pelan langganan tidak tersedia",
-        "purchaseFailed": "Pembelian gagal. Sila cuba lagi.",
-        "restoreFailed": "Gagal memulihkan pembelian. Sila cuba lagi."
+      "dataSharing": {
+        "title": "Perkongsian Data",
+        "content": "Kami tidak menjual data anda. Kami tidak berkongsi maklumat peribadi anda dengan pihak ketiga kecuali apabila diperlukan untuk menjalankan perkhidmatan teras, mematuhi kewajipan undang-undang atau melindungi keselamatan platform."
       },
-      "features": {
-        "unlimitedFriends": "Sambung dengan rakan & keluarga tanpa had untuk saling mengingatkan solat.",
-        "friendGroups": "Bina kumpulan solat & sokongan — lebih mudah untuk istiqamah.",
-        "detailedStats": "Dapatkan statistik solat dengan grafik & streak yang cantik.",
-        "prayerReminders": "Jangan tinggal solat dengan peringatan bijak mengikut lokasi & jadual.",
-        "customThemes": "Hiasi aplikasi dengan tema & warna Islamik yang indah.",
-        "adFree": "Tanpa iklan — fokus pada ibadah.",
-        "prioritySupport": "Sokongan keutamaan dari pasukan kami.",
-        "newFeatures": "Akses ciri baru lebih awal."
+      "security": {
+        "title": "Keselamatan Data",
+        "content": "Kami menggunakan langkah keselamatan standard untuk melindungi maklumat anda daripada akses tanpa kebenaran, pendedahan atau penyalahgunaan. Walau bagaimanapun, tiada kaedah penghantaran atau penyimpanan yang sepenuhnya selamat."
+      },
+      "subscriptions": {
+        "title": "Langganan",
+        "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan langganan yang tersedia termasuk:\n\n• Langganan Bulanan: Diperbaharui setiap bulan.\n• Langganan Tahunan: Diperbaharui setiap tahun.\n\nPembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun Apple ID anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat.\n\nAnda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan.\n\nHarga langganan dipaparkan dengan jelas dalam aplikasi sebelum pembelian dan mungkin berbeza mengikut wilayah. Semua pembelian diproses dengan selamat oleh Apple. Kami tidak mempunyai akses kepada maklumat pembayaran anda."
+      },
+      "changes": {
+        "title": "Perubahan kepada Dasar Ini",
+        "content": "Kami boleh mengemas kini dasar ini apabila perlu. Jika berlaku perubahan penting, kami akan memaklumkan anda melalui aplikasi atau cara lain yang sesuai."
+      },
+      "contact": {
+        "title": "Hubungi Kami",
+        "content": "Jika anda mempunyai sebarang soalan atau permintaan berkaitan privasi atau langganan, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
       }
     },
-    "qibla": {
-      "compass": {
-        "degrees": "darjah",
-        "errors": {
-          "location": "Kebenaran lokasi diperlukan",
-          "magnetometer": "Magnetometer tidak tersedia",
-          "magnetometerUnavailable": "Tiada magnetometer pada peranti ini"
-        },
-        "help": "Halakan telefon ke darjah kiblat dan sejajarkan arah anda",
-        "yourDirection": "Arah Anda",
-        "qiblaDirection": "Arah Kiblat"
+    "terms": {
+      "title": "Terma Perkhidmatan",
+      "agreement": {
+        "title": "Persetujuan kepada Terma",
+        "content": "Dengan menggunakan aplikasi ini, anda bersetuju dengan Terma Perkhidmatan ini. Jika anda tidak bersetuju, anda boleh berhenti menggunakan aplikasi pada bila-bila masa."
       },
-      "prayerTimes": {
-        "timeLeft": "Masa berbaki untuk solat seterusnya",
-        "errors": {
-          "message": "Kebenaran lokasi diperlukan untuk kira waktu solat",
-          "title": "Kebenaran Ditolak"
-        },
-        "location": {
-          "fetching": "Mendapatkan lokasi...",
-          "unknown": "Tidak diketahui"
-        },
-        "notifier": {
-          "title": "Peringatan Solat",
-          "description": "Berapa minit sebelum solat anda mahu diingatkan?",
-          "minutesBefore": "{{minutes}} minit sebelum solat",
-          "success": {
-            "message": "Peringatan diset {{minutes}} minit sebelum waktu solat"
-          },
-          "error": {
-            "message": "Gagal simpan tetapan peringatan. Sila cuba lagi."
-          }
-        }
+      "usage": {
+        "title": "Penggunaan yang Dibenarkan",
+        "content": "Anda bersetuju untuk menggunakan aplikasi hanya untuk tujuan yang sah dan dimaksudkan. Anda tidak boleh menyalahguna perkhidmatan, mengganggu operasinya, atau cuba mendapatkan akses tanpa kebenaran."
       },
-      "tabs": {
-        "qibla": "Arah Kiblat",
-        "times": "Waktu Solat"
+      "subscriptions": {
+        "title": "Langganan",
+        "content": "Noor Pray Tracker menawarkan langganan yang diperbaharui secara automatik. Pilihan yang tersedia termasuk langganan bulanan dan tahunan. Pembayaran akan dicaj ke akaun Apple ID anda apabila pembelian disahkan. Langganan akan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum akhir tempoh semasa. Akaun anda akan dicaj untuk pembaharuan dalam masa 24 jam sebelum tempoh semasa tamat. Anda boleh mengurus atau membatalkan langganan pada bila-bila masa melalui tetapan peranti anda: Tetapan → Apple ID → Langganan. Semua pembelian diproses dengan selamat oleh Apple dan kami tidak mempunyai akses kepada maklumat pembayaran anda. Harga mungkin berbeza mengikut wilayah dan dipaparkan dengan jelas dalam aplikasi sebelum pembelian."
+      },
+      "userContent": {
+        "title": "Kandungan Pengguna",
+        "content": "Anda bertanggungjawab untuk sebarang kandungan yang dihantar dalam aplikasi. Anda mengesahkan bahawa kandungan anda tidak melanggar undang-undang, hak, atau privasi orang lain."
+      },
+      "termination": {
+        "title": "Penamatan Akaun",
+        "content": "Kami boleh menggantung atau menamatkan akses ke aplikasi jika kami mengesan penyalahgunaan, pelanggaran terma ini, atau aktiviti yang mengancam keselamatan atau operasi perkhidmatan."
+      },
+      "changes": {
+        "title": "Perubahan kepada Terma",
+        "content": "Kami boleh mengemas kini Terma Perkhidmatan ini dari semasa ke semasa. Terus menggunakan aplikasi selepas perubahan bermakna anda menerima terma yang dikemas kini."
+      },
+      "contact": {
+        "title": "Hubungi Kami",
+        "content": "Jika anda mempunyai sebarang pertanyaan mengenai terma ini, anda boleh menghubungi kami pada bila-bila masa melalui saluran sokongan dalam aplikasi."
       }
     }
+  },
+  "subscription": {
+    "title": "Noor Premium",
+    "subtitle": "Kukuhkan perjalanan iman dengan alat untuk konsisten solat, sokongan komuniti, dan pertumbuhan rohani.",
+    "loadingPlans": "Memuat pelan...",
+    "choosePlan": "Pilih Pelan",
+    "bestValue": "PALING JIMAT - Jimat 17%",
+    "yearlyPlan": "Tahunan",
+    "monthlyPlan": "Bulanan",
+    "year": "tahun",
+    "month": "bulan",
+    "saveOneMonth": "Jimat $5 setahun • Pilihan popular",
+    "subscribe": "Bismillah, saya ikut",
+    "restorePurchases": "Pulihkan Pembelian",
+    "terms": "Diperbaharui automatik kecuali dibatalkan. Boleh batal pada bila-bila masa melalui tetapan akaun. Dengan melanggan, anda bersetuju dengan Terma Perkhidmatan.",
+    "success": {
+      "purchaseComplete": "Alhamdulillah! Selamat datang ke Noor Premium",
+      "restoreComplete": "Akses premium anda telah dipulihkan"
+    },
+    "info": {
+      "noPurchasesFound": "Tiada pembelian terdahulu untuk akaun ini"
+    },
+    "errors": {
+      "packageNotFound": "Pelan langganan tidak tersedia",
+      "purchaseFailed": "Pembelian gagal. Sila cuba lagi.",
+      "restoreFailed": "Gagal memulihkan pembelian. Sila cuba lagi."
+    },
+    "features": {
+      "unlimitedFriends": "Sambung dengan rakan & keluarga tanpa had untuk saling mengingatkan solat.",
+      "friendGroups": "Bina kumpulan solat & sokongan — lebih mudah untuk istiqamah.",
+      "detailedStats": "Dapatkan statistik solat dengan grafik & streak yang cantik.",
+      "prayerReminders": "Jangan tinggal solat dengan peringatan bijak mengikut lokasi & jadual.",
+      "customThemes": "Hiasi aplikasi dengan tema & warna Islamik yang indah.",
+      "adFree": "Tanpa iklan — fokus pada ibadah.",
+      "prioritySupport": "Sokongan keutamaan dari pasukan kami.",
+      "newFeatures": "Akses ciri baru lebih awal."
+    }
+  },
+  "qibla": {
+    "compass": {
+      "degrees": "darjah",
+      "errors": {
+        "location": "Kebenaran lokasi diperlukan",
+        "magnetometer": "Magnetometer tidak tersedia",
+        "magnetometerUnavailable": "Tiada magnetometer pada peranti ini"
+      },
+      "help": "Halakan telefon ke darjah kiblat dan sejajarkan arah anda",
+      "yourDirection": "Arah Anda",
+      "qiblaDirection": "Arah Kiblat"
+    },
+    "prayerTimes": {
+      "timeLeft": "Masa berbaki untuk solat seterusnya",
+      "errors": {
+        "message": "Kebenaran lokasi diperlukan untuk kira waktu solat",
+        "title": "Kebenaran Ditolak"
+      },
+      "location": {
+        "fetching": "Mendapatkan lokasi...",
+        "unknown": "Tidak diketahui"
+      },
+      "notifier": {
+        "title": "Peringatan Solat",
+        "description": "Berapa minit sebelum solat anda mahu diingatkan?",
+        "minutesBefore": "{{minutes}} minit sebelum solat",
+        "success": {
+          "message": "Peringatan diset {{minutes}} minit sebelum waktu solat"
+        },
+        "error": {
+          "message": "Gagal simpan tetapan peringatan. Sila cuba lagi."
+        }
+      }
+    },
+    "tabs": {
+      "qibla": "Arah Kiblat",
+      "times": "Waktu Solat"
+    }
   }
-  
+}

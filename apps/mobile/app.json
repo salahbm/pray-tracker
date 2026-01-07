@@ -12,8 +12,8 @@
     "ios": {
       "supportsTablet": true,
       "icon": {
-        "dark": "./assets/images/icon-dark.png",
-        "light": "./assets/images/icon-light.png"
+        "dark": "./assets/images/icon-dark-rounded.png",
+        "light": "./assets/images/icon-light-rounded.png"
       },
       "bundleIdentifier": "com.noor.praytracker",
       "appleTeamId": "A2Y67UR23Z",
@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon-light.png",
+        "foregroundImage": "./assets/images/icon-light-rounded.png",
         "backgroundColor": "#F9FAFB"
       },
       "edgeToEdgeEnabled": true,
@@ -46,12 +46,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/icon-light.png",
+          "image": "./assets/images/icon-light-rounded.png",
           "imageWidth": 120,
           "resizeMode": "contain",
           "backgroundColor": "#F9FAFB",
           "dark": {
-            "image": "./assets/images/icon-dark.png",
+            "image": "./assets/images/icon-dark-rounded.png",
             "backgroundColor": "#121212"
           }
         }

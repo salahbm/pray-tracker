@@ -329,6 +329,9 @@
     },
     "inquiries": {
       "title": "Feedback & Support",
+      "loginRequired": "Login Required",
+      "loginRequiredDescription": "Please log in to view your inquiries and support tickets.",
+      "newButton": "Send New Inquiry",
       "list": {
         "title": "Your inquiries",
         "newButton": "New",
@@ -354,6 +357,7 @@
         "messagePlaceholder": "Describe your issue or feedback",
         "submitButton": "Send Inquiry",
         "success": "Inquiry sent successfully",
+        "successAnonymous": "Thank you! We will respond to your inquiry via email.",
         "error": "Unable to send your inquiry",
         "validationError": "Please fill in your email, subject, and message"
       },
@@ -375,69 +379,68 @@
       "theme": "Theme",
       "title": "Settings"
     },
-"privacy": {
-  "title": "Privacy Policy",
-  "dataCollection": {
-    "title": "Information We Collect",
-    "content": "We collect only the information you provide to us directly, such as your name, email, profile image, and selected preferences. No sensitive or unnecessary information is collected."
-  },
-  "dataUse": {
-    "title": "How We Use Your Information",
-    "content": "Your information is used only to operate the app, maintain your account, provide features, personalize your experience, and improve the overall service. We do not use your data for advertising."
-  },
-  "dataSharing": {
-    "title": "Data Sharing",
-    "content": "We do not sell your data. We do not share your personal information with third parties except when required to operate core app services, comply with legal obligations, or protect the security of the platform."
-  },
-  "security": {
-    "title": "Data Security",
-    "content": "We apply standard security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of transmission or storage is completely secure."
-  },
-  "subscriptions": {
-    "title": "Subscriptions",
-    "content": "Noor Pray Tracker offers auto-renewable subscriptions. Available subscription options include:\n\n• Monthly Subscription: Renews every month.\n• Annual Subscription: Renews every year.\n\nPayment will be charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou can manage or cancel your subscription at any time in your device settings: Settings → Apple ID → Subscriptions.\n\nPrices for subscriptions are clearly displayed in the app before purchase and may vary by region. All purchases are processed securely by Apple. We do not have access to your payment information."
-  },
-  "changes": {
-    "title": "Changes to This Policy",
-    "content": "We may update this policy when necessary. If significant changes occur, we will notify you through the app or other appropriate means."
-  },
-  "contact": {
-    "title": "Contact Us",
-    "content": "If you have questions or requests regarding privacy or subscriptions, you can contact us at any time using the support channel provided in the app."
-  }
-},
-  "terms": {
-  "title": "Terms of Service",
-  "agreement": {
-    "title": "Agreement to Terms",
-    "content": "By using this app, you agree to these Terms of Service. If you do not agree, you may discontinue using the app at any time."
-  },
-  "usage": {
-    "title": "Acceptable Use",
-    "content": "You agree to use the app only for lawful and intended purposes. You must not misuse the service, interfere with its operation, or attempt unauthorized access."
-  },
-  "subscriptions": {
-    "title": "Subscriptions",
-    "content": "Noor Pray Tracker offers auto-renewable subscriptions. Available options include monthly and annual subscriptions. Payment will be charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage or cancel your subscription at any time in your device settings: Settings → Apple ID → Subscriptions. All purchases are processed securely by Apple and we do not have access to your payment information. Prices may vary by region and are clearly displayed in the app before purchase."
-  },
-  "userContent": {
-    "title": "User Content",
-    "content": "You are responsible for any content you submit within the app. You confirm that your content does not violate any laws, rights, or the privacy of others."
-  },
-  "termination": {
-    "title": "Account Termination",
-    "content": "We may suspend or terminate access to the app if we detect misuse, violations of these terms, or activity that threatens the safety or operation of the service."
-  },
-  "changes": {
-    "title": "Changes to These Terms",
-    "content": "We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the updated terms."
-  },
-  "contact": {
-    "title": "Contact Us",
-    "content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
-  }
-}
-
+    "privacy": {
+      "title": "Privacy Policy",
+      "dataCollection": {
+        "title": "Information We Collect",
+        "content": "We collect only the information you provide to us directly, such as your name, email, profile image, and selected preferences. No sensitive or unnecessary information is collected."
+      },
+      "dataUse": {
+        "title": "How We Use Your Information",
+        "content": "Your information is used only to operate the app, maintain your account, provide features, personalize your experience, and improve the overall service. We do not use your data for advertising."
+      },
+      "dataSharing": {
+        "title": "Data Sharing",
+        "content": "We do not sell your data. We do not share your personal information with third parties except when required to operate core app services, comply with legal obligations, or protect the security of the platform."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We apply standard security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of transmission or storage is completely secure."
+      },
+      "subscriptions": {
+        "title": "Subscriptions",
+        "content": "Noor Pray Tracker offers auto-renewable subscriptions. Available subscription options include:\n\n• Monthly Subscription: Renews every month.\n• Annual Subscription: Renews every year.\n\nPayment will be charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou can manage or cancel your subscription at any time in your device settings: Settings → Apple ID → Subscriptions.\n\nPrices for subscriptions are clearly displayed in the app before purchase and may vary by region. All purchases are processed securely by Apple. We do not have access to your payment information."
+      },
+      "changes": {
+        "title": "Changes to This Policy",
+        "content": "We may update this policy when necessary. If significant changes occur, we will notify you through the app or other appropriate means."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have questions or requests regarding privacy or subscriptions, you can contact us at any time using the support channel provided in the app."
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "agreement": {
+        "title": "Agreement to Terms",
+        "content": "By using this app, you agree to these Terms of Service. If you do not agree, you may discontinue using the app at any time."
+      },
+      "usage": {
+        "title": "Acceptable Use",
+        "content": "You agree to use the app only for lawful and intended purposes. You must not misuse the service, interfere with its operation, or attempt unauthorized access."
+      },
+      "subscriptions": {
+        "title": "Subscriptions",
+        "content": "Noor Pray Tracker offers auto-renewable subscriptions. Available options include monthly and annual subscriptions. Payment will be charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage or cancel your subscription at any time in your device settings: Settings → Apple ID → Subscriptions. All purchases are processed securely by Apple and we do not have access to your payment information. Prices may vary by region and are clearly displayed in the app before purchase."
+      },
+      "userContent": {
+        "title": "User Content",
+        "content": "You are responsible for any content you submit within the app. You confirm that your content does not violate any laws, rights, or the privacy of others."
+      },
+      "termination": {
+        "title": "Account Termination",
+        "content": "We may suspend or terminate access to the app if we detect misuse, violations of these terms, or activity that threatens the safety or operation of the service."
+      },
+      "changes": {
+        "title": "Changes to These Terms",
+        "content": "We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the updated terms."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have questions about these terms, you can contact us at any time using the support channel provided in the app."
+      }
+    }
   },
   "subscription": {
     "title": "Noor Premium",

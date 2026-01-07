@@ -329,6 +329,9 @@
     },
     "inquiries": {
       "title": "Fikr-mulohaza va qo‘llab-quvvatlash",
+      "loginRequired": "Kirish talab qilinadi",
+      "loginRequiredDescription": "So‘rovlaringiz va yordam chiptalaringizni ko‘rish uchun tizimga kiring.",
+      "newButton": "Yangi so‘rov yuborish",
       "list": {
         "title": "Sizning murojaatlaringiz",
         "newButton": "Yangi",
@@ -354,6 +357,7 @@
         "messagePlaceholder": "Muammo yoki fikr-mulohazangizni yozing",
         "submitButton": "Murojaat yuborish",
         "success": "Murojaat yuborildi",
+        "successAnonymous": "Murojaatingiz e-pochta orqali javob beriladi.",
         "error": "Murojaat yuborib bo‘lmadi",
         "validationError": "Iltimos, email, mavzu va xabarni to‘ldiring"
       },
@@ -375,70 +379,68 @@
       "theme": "Mavzu",
       "title": "Sozlamalar"
     },
- "privacy": {
-  "title": "Maxfiylik Siyosati",
-  "dataCollection": {
-    "title": "Yig‘iladigan Ma’lumotlar",
-    "content": "Biz faqat siz to‘g‘ridan-to‘g‘ri taqdim etgan ma’lumotlarni yig‘amiz; masalan, ismingiz, e-pochta manzilingiz, profil rasmi va tanlangan sozlamalar. Hech qanday sezgir yoki keraksiz ma’lumotlar yig‘ilmaydi."
-  },
-  "dataUse": {
-    "title": "Ma’lumotlaringizdan Qanday Foydalanamiz",
-    "content": "Ma’lumotlaringiz faqat ilovani ishlatish, hisobingizni saqlash, funksiyalarni taqdim etish, tajribangizni shaxsiylashtirish va xizmatni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizdan reklama uchun foydalanmaymiz."
-  },
-  "dataSharing": {
-    "title": "Ma’lumot Ulashish",
-    "content": "Biz ma’lumotlaringizni sotmaymiz. Shaxsiy ma’lumotlaringizni faqat asosiy xizmatlarni amalga oshirish, qonun talablariga rioya qilish yoki platforma xavfsizligini ta’minlash uchun uchinchi tomonlar bilan ulashamiz."
-  },
-  "security": {
-    "title": "Ma’lumot Xavfsizligi",
-    "content": "Ma’lumotlaringizni ruxsatsiz kirish, oshkor qilish yoki noto‘g‘ri foydalanishdan himoya qilish uchun standart xavfsizlik choralarini qo‘llaymiz. Biroq, hech qanday uzatish yoki saqlash usuli to‘liq xavfsiz emas."
-  },
-  "subscriptions": {
-    "title": "Obunalar",
-    "content": "Noor Pray Tracker avtomatik yangilanadigan obunalarni taklif qiladi. Mavjud obuna variantlariga quyidagilar kiradi:\n\n• Oylik Obuna: Har oy yangilanadi.\n• Yillik Obuna: Har yili yangilanadi.\n\nTo‘lov xarid tasdiqlanganda Apple ID hisobingizdan yechib olinadi. Obunalar joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, avtomatik ravishda yangilanadi. Apple ID hisobingiz joriy davr tugashidan 24 soat oldin yangilanish uchun to‘lanadi.\n\nObunani qurilma sozlamalaridan istalgan vaqtda boshqarishingiz yoki bekor qilishingiz mumkin: Sozlamalar → Apple ID → Obunalar.\n\nObuna narxlari xariddan oldin ilovada aniq ko‘rsatiladi va mintaqaga qarab farq qilishi mumkin. Barcha xaridlar Apple tomonidan xavfsiz tarzda amalga oshiriladi. Bizda to‘lov ma’lumotlariga kirish huquqi yo‘q."
-  },
-  "changes": {
-    "title": "Ushbu Siyosatdagi O‘zgarishlar",
-    "content": "Zarur bo‘lganda ushbu siyosatni yangilashimiz mumkin. Muhim o‘zgarishlar bo‘lsa, biz sizni ilova orqali yoki boshqa mos vositalar bilan xabardor qilamiz."
-  },
-  "contact": {
-    "title": "Biz bilan Bog‘laning",
-    "content": "Agar maxfiylik yoki obunalar bo‘yicha savollaringiz yoki so‘rovlaringiz bo‘lsa, ilovada taqdim etilgan qo‘llab-quvvatlash kanali orqali istalgan vaqtda biz bilan bog‘lanishingiz mumkin."
-  }
-}
-,
-"terms": {
-  "title": "Xizmat Shartlari",
-  "agreement": {
-    "title": "Shartlarga Rozilik",
-    "content": "Ushbu ilovadan foydalanish orqali siz Xizmat Shartlariga rozilik bildirasiz. Agar rozi bo‘lmasangiz, istalgan vaqtda ilovadan foydalanishni to‘xtatishingiz mumkin."
-  },
-  "usage": {
-    "title": "Qabul Qilingan Foydalanish",
-    "content": "Siz ilovadan faqat qonuniy va mo‘ljallangan maqsadlarda foydalanishga rozilik bildirasiz. Xizmatdan noto‘g‘ri foydalanmasligingiz, uning ishlashiga xalaqit bermasligingiz yoki ruxsatsiz kirishga urinmasligingiz kerak."
-  },
-  "subscriptions": {
-    "title": "Obunalar",
-    "content": "Noor Pray Tracker avtomatik yangilanadigan obunalarni taklif qiladi. Mavjud variantlarga oylik va yillik obunalar kiradi. To‘lov xarid tasdiqlangandan so‘ng Apple ID hisobingizdan yechib olinadi. Obunalar joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, avtomatik ravishda yangilanadi. Hisobingiz joriy davr tugashidan 24 soat oldin yangilanish uchun to‘lanadi. Obunani istalgan vaqtda qurilma sozlamalaridan boshqarishingiz yoki bekor qilishingiz mumkin: Sozlamalar → Apple ID → Obunalar. Barcha xaridlar Apple tomonidan xavfsiz tarzda amalga oshiriladi va bizda to‘lov ma'lumotlariga kirish yo‘q. Narxlar mintaqaga qarab farq qilishi mumkin va xarid qilishdan oldin ilovada aniq ko‘rsatiladi."
-  },
-  "userContent": {
-    "title": "Foydalanuvchi Kontenti",
-    "content": "Ilovada yuborilgan kontent uchun siz javobgarsiz. Kontentingiz hech qanday qonunlarni, huquqlarni yoki boshqalarning maxfiyligini buzmasligini tasdiqlaysiz."
-  },
-  "termination": {
-    "title": "Hisobni Bekor Qilish",
-    "content": "Agar biz noto‘g‘ri foydalanishni, ushbu shartlarning buzilishini yoki xizmat xavfsizligiga tahdid soluvchi faoliyatni aniqlasak, ilovaga kirishni to‘xtatishimiz yoki bekor qilishimiz mumkin."
-  },
-  "changes": {
-    "title": "Shartlardagi O‘zgarishlar",
-    "content": "Biz ushbu Xizmat Shartlarini vaqti-vaqti bilan yangilashimiz mumkin. O‘zgarishlardan keyin ilovadan foydalanishda davom etish — yangilangan shartlarni qabul qilganingizni anglatadi."
-  },
-  "contact": {
-    "title": "Biz bilan Bog‘lanish",
-    "content": "Agar ushbu shartlar bo‘yicha savollaringiz bo‘lsa, ilovada taqdim etilgan qo‘llab-quvvatlash kanali orqali biz bilan istalgan vaqtda bog‘lanishingiz mumkin."
-  }
-}
-
+    "privacy": {
+      "title": "Maxfiylik Siyosati",
+      "dataCollection": {
+        "title": "Yig‘iladigan Ma’lumotlar",
+        "content": "Biz faqat siz to‘g‘ridan-to‘g‘ri taqdim etgan ma’lumotlarni yig‘amiz; masalan, ismingiz, e-pochta manzilingiz, profil rasmi va tanlangan sozlamalar. Hech qanday sezgir yoki keraksiz ma’lumotlar yig‘ilmaydi."
+      },
+      "dataUse": {
+        "title": "Ma’lumotlaringizdan Qanday Foydalanamiz",
+        "content": "Ma’lumotlaringiz faqat ilovani ishlatish, hisobingizni saqlash, funksiyalarni taqdim etish, tajribangizni shaxsiylashtirish va xizmatni yaxshilash uchun ishlatiladi. Biz ma’lumotlaringizdan reklama uchun foydalanmaymiz."
+      },
+      "dataSharing": {
+        "title": "Ma’lumot Ulashish",
+        "content": "Biz ma’lumotlaringizni sotmaymiz. Shaxsiy ma’lumotlaringizni faqat asosiy xizmatlarni amalga oshirish, qonun talablariga rioya qilish yoki platforma xavfsizligini ta’minlash uchun uchinchi tomonlar bilan ulashamiz."
+      },
+      "security": {
+        "title": "Ma’lumot Xavfsizligi",
+        "content": "Ma’lumotlaringizni ruxsatsiz kirish, oshkor qilish yoki noto‘g‘ri foydalanishdan himoya qilish uchun standart xavfsizlik choralarini qo‘llaymiz. Biroq, hech qanday uzatish yoki saqlash usuli to‘liq xavfsiz emas."
+      },
+      "subscriptions": {
+        "title": "Obunalar",
+        "content": "Noor Pray Tracker avtomatik yangilanadigan obunalarni taklif qiladi. Mavjud obuna variantlariga quyidagilar kiradi:\n\n• Oylik Obuna: Har oy yangilanadi.\n• Yillik Obuna: Har yili yangilanadi.\n\nTo‘lov xarid tasdiqlanganda Apple ID hisobingizdan yechib olinadi. Obunalar joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, avtomatik ravishda yangilanadi. Apple ID hisobingiz joriy davr tugashidan 24 soat oldin yangilanish uchun to‘lanadi.\n\nObunani qurilma sozlamalaridan istalgan vaqtda boshqarishingiz yoki bekor qilishingiz mumkin: Sozlamalar → Apple ID → Obunalar.\n\nObuna narxlari xariddan oldin ilovada aniq ko‘rsatiladi va mintaqaga qarab farq qilishi mumkin. Barcha xaridlar Apple tomonidan xavfsiz tarzda amalga oshiriladi. Bizda to‘lov ma’lumotlariga kirish huquqi yo‘q."
+      },
+      "changes": {
+        "title": "Ushbu Siyosatdagi O‘zgarishlar",
+        "content": "Zarur bo‘lganda ushbu siyosatni yangilashimiz mumkin. Muhim o‘zgarishlar bo‘lsa, biz sizni ilova orqali yoki boshqa mos vositalar bilan xabardor qilamiz."
+      },
+      "contact": {
+        "title": "Biz bilan Bog‘laning",
+        "content": "Agar maxfiylik yoki obunalar bo‘yicha savollaringiz yoki so‘rovlaringiz bo‘lsa, ilovada taqdim etilgan qo‘llab-quvvatlash kanali orqali istalgan vaqtda biz bilan bog‘lanishingiz mumkin."
+      }
+    },
+    "terms": {
+      "title": "Xizmat Shartlari",
+      "agreement": {
+        "title": "Shartlarga Rozilik",
+        "content": "Ushbu ilovadan foydalanish orqali siz Xizmat Shartlariga rozilik bildirasiz. Agar rozi bo‘lmasangiz, istalgan vaqtda ilovadan foydalanishni to‘xtatishingiz mumkin."
+      },
+      "usage": {
+        "title": "Qabul Qilingan Foydalanish",
+        "content": "Siz ilovadan faqat qonuniy va mo‘ljallangan maqsadlarda foydalanishga rozilik bildirasiz. Xizmatdan noto‘g‘ri foydalanmasligingiz, uning ishlashiga xalaqit bermasligingiz yoki ruxsatsiz kirishga urinmasligingiz kerak."
+      },
+      "subscriptions": {
+        "title": "Obunalar",
+        "content": "Noor Pray Tracker avtomatik yangilanadigan obunalarni taklif qiladi. Mavjud variantlarga oylik va yillik obunalar kiradi. To‘lov xarid tasdiqlangandan so‘ng Apple ID hisobingizdan yechib olinadi. Obunalar joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, avtomatik ravishda yangilanadi. Hisobingiz joriy davr tugashidan 24 soat oldin yangilanish uchun to‘lanadi. Obunani istalgan vaqtda qurilma sozlamalaridan boshqarishingiz yoki bekor qilishingiz mumkin: Sozlamalar → Apple ID → Obunalar. Barcha xaridlar Apple tomonidan xavfsiz tarzda amalga oshiriladi va bizda to‘lov ma'lumotlariga kirish yo‘q. Narxlar mintaqaga qarab farq qilishi mumkin va xarid qilishdan oldin ilovada aniq ko‘rsatiladi."
+      },
+      "userContent": {
+        "title": "Foydalanuvchi Kontenti",
+        "content": "Ilovada yuborilgan kontent uchun siz javobgarsiz. Kontentingiz hech qanday qonunlarni, huquqlarni yoki boshqalarning maxfiyligini buzmasligini tasdiqlaysiz."
+      },
+      "termination": {
+        "title": "Hisobni Bekor Qilish",
+        "content": "Agar biz noto‘g‘ri foydalanishni, ushbu shartlarning buzilishini yoki xizmat xavfsizligiga tahdid soluvchi faoliyatni aniqlasak, ilovaga kirishni to‘xtatishimiz yoki bekor qilishimiz mumkin."
+      },
+      "changes": {
+        "title": "Shartlardagi O‘zgarishlar",
+        "content": "Biz ushbu Xizmat Shartlarini vaqti-vaqti bilan yangilashimiz mumkin. O‘zgarishlardan keyin ilovadan foydalanishda davom etish — yangilangan shartlarni qabul qilganingizni anglatadi."
+      },
+      "contact": {
+        "title": "Biz bilan Bog‘lanish",
+        "content": "Agar ushbu shartlar bo‘yicha savollaringiz bo‘lsa, ilovada taqdim etilgan qo‘llab-quvvatlash kanali orqali biz bilan istalgan vaqtda bog‘lanishingiz mumkin."
+      }
+    }
   },
   "subscription": {
     "title": "Noor Premium",
