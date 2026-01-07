@@ -327,6 +327,38 @@
         "settings": "Ayarlar",
         "termsConditions": "Şartlar ve Koşullar"
       },
+      "inquiries": {
+        "title": "Geri Bildirim ve Destek",
+        "list": {
+          "title": "Talepleriniz",
+          "newButton": "Yeni",
+          "emptyTitle": "Henüz talep yok",
+          "emptyDescription": "Destek ekibimizle bir konuşma başlatın.",
+          "noMessages": "Henüz mesaj yok.",
+          "status": {
+            "open": "Açık",
+            "closed": "Kapalı"
+          }
+        },
+        "new": {
+          "title": "Yeni Talep",
+          "subjectLabel": "Konu",
+          "subjectPlaceholder": "Neye ihtiyacınız olduğunu anlatın",
+          "messageLabel": "Mesaj",
+          "messagePlaceholder": "Sorununuzu veya geri bildiriminizi yazın",
+          "submitButton": "Talep Gönder",
+          "success": "Talep başarıyla gönderildi",
+          "error": "Talep gönderilemedi",
+          "validationError": "Lütfen konu ve mesajı doldurun"
+        },
+        "detail": {
+          "title": "Talep",
+          "replyPlaceholder": "Yanıt yazın...",
+          "sendButton": "Gönder",
+          "emptyMessages": "Henüz mesaj yok.",
+          "error": "Yanıt gönderilemedi"
+        }
+      },
       "settings": {
         "language": "Dil",
         "notifications": "Bildirimler",

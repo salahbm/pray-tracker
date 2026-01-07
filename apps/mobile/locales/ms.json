@@ -327,6 +327,38 @@
         "settings": "Tetapan",
         "termsConditions": "Terma & Syarat"
       },
+      "inquiries": {
+        "title": "Maklum Balas & Sokongan",
+        "list": {
+          "title": "Pertanyaan Anda",
+          "newButton": "Baharu",
+          "emptyTitle": "Belum ada pertanyaan",
+          "emptyDescription": "Mulakan perbualan dengan pasukan sokongan kami.",
+          "noMessages": "Belum ada mesej.",
+          "status": {
+            "open": "Dibuka",
+            "closed": "Ditutup"
+          }
+        },
+        "new": {
+          "title": "Pertanyaan Baharu",
+          "subjectLabel": "Subjek",
+          "subjectPlaceholder": "Beritahu kami apa yang anda perlukan bantuan",
+          "messageLabel": "Mesej",
+          "messagePlaceholder": "Terangkan isu atau maklum balas anda",
+          "submitButton": "Hantar Pertanyaan",
+          "success": "Pertanyaan berjaya dihantar",
+          "error": "Tidak dapat menghantar pertanyaan",
+          "validationError": "Sila isi subjek dan mesej"
+        },
+        "detail": {
+          "title": "Pertanyaan",
+          "replyPlaceholder": "Tulis balasan...",
+          "sendButton": "Hantar",
+          "emptyMessages": "Belum ada mesej.",
+          "error": "Tidak dapat menghantar balasan"
+        }
+      },
       "settings": {
         "language": "Bahasa",
         "notifications": "Notifikasi",

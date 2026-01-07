@@ -10,6 +10,7 @@ import { FriendsModule } from './modules/friends/friends.module';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 import { FilesModule } from './modules/files/files.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { InquiriesModule } from './modules/inquiries/inquiries.module';
 
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from '@/common/guards/auth.guard';
@@ -29,6 +30,7 @@ import { PrismaService } from '@/db/prisma.service';
     LeaderboardModule,
     FilesModule,
     SubscriptionsModule,
+    InquiriesModule,
   ],
   controllers: [AppController],
   providers: [

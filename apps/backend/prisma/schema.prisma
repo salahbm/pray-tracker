@@ -24,6 +24,8 @@ model User {
 
   prayers     Prayer[]
   totalPoints Int?     @default(0)
+  inquiries   Inquiry[]
+  inquiryMessages InquiryMessage[]
 
   sentRequests     Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
@@ -184,4 +186,46 @@ enum SubscriptionStatus {
 enum SubscriptionPlan {
   MONTHLY
   YEARLY
+}
+
+model Inquiry {
+  id      String        @id @default(cuid())
+  userId  String
+  subject String
+  status  InquiryStatus @default(OPEN)
+
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages InquiryMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("inquiry")
+}
+
+model InquiryMessage {
+  id         String            @id @default(cuid())
+  inquiryId  String
+  senderRole InquirySenderRole
+  body       String
+  userId     String?
+
+  inquiry Inquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([inquiryId])
+  @@map("inquiry_message")
+}
+
+enum InquiryStatus {
+  OPEN
+  CLOSED
+}
+
+enum InquirySenderRole {
+  USER
+  OWNER
 }
