@@ -53,6 +53,7 @@ export const useRevenueCatCustomer = () => {
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState<number>(0);
   const queryClient = useQueryClient();
 
   const fetchCustomerInfo = useCallback(async () => {
@@ -72,7 +73,8 @@ export const useRevenueCatCustomer = () => {
 
       return { info, hasPremium };
     } catch (err) {
-      console.error('Error fetching customer info:', err);
+      console.info('Error fetching customer info:', err);
+      setFailed(prev => prev + 1);
       return { info: null, hasPremium: false };
     } finally {
       setLoading(false);
@@ -80,13 +82,15 @@ export const useRevenueCatCustomer = () => {
   }, [queryClient]);
 
   useEffect(() => {
+    if (failed > 2) return;
     fetchCustomerInfo();
-  }, [fetchCustomerInfo]);
+  }, [fetchCustomerInfo, failed]);
 
   return {
     customerInfo,
     isPremium,
     loading,
+    failed,
     refetch: fetchCustomerInfo,
   };
 };
