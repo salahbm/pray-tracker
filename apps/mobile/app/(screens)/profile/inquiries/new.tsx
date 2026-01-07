@@ -10,21 +10,25 @@ import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useCreateInquiry } from '@/hooks/inquiries/useCreateInquiry';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 const NewInquiryScreen = () => {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { mutateAsync: createInquiry, isPending } = useCreateInquiry();
+  const [email, setEmail] = useState(user?.email ?? '');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async () => {
-    if (!subject.trim() || !message.trim()) {
+    if (!email.trim() || !subject.trim() || !message.trim()) {
       fireToast.error(t('profile.inquiries.new.validationError'));
       return;
     }
 
     try {
       const inquiry = await createInquiry({
+        email: email.trim(),
         subject: subject.trim(),
         message: message.trim(),
       });
@@ -34,7 +38,10 @@ const NewInquiryScreen = () => {
       setMessage('');
 
       if (inquiry?.id) {
-        router.replace(`/(screens)/profile/inquiries/${inquiry.id}`);
+        router.replace({
+          pathname: '/(screens)/profile/inquiries/[id]',
+          params: { id: inquiry.id, email: email.trim() },
+        });
       }
     } catch (error) {
       fireToast.error((error as Error)?.message || t('profile.inquiries.new.error'));
@@ -46,6 +53,14 @@ const NewInquiryScreen = () => {
       <GoBack title={t('profile.inquiries.new.title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <View className="gap-6">
+          <Input
+            label={t('profile.inquiries.new.emailLabel')}
+            placeholder={t('profile.inquiries.new.emailPlaceholder')}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
           <Input
             label={t('profile.inquiries.new.subjectLabel')}
             placeholder={t('profile.inquiries.new.subjectPlaceholder')}

@@ -1,21 +1,27 @@
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { format } from 'date-fns';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useGetInquiries } from '@/hooks/inquiries/useGetInquiries';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryListItem } from '@/types/inquiries';
 
 const InquiryListScreen = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const { data, isLoading } = useGetInquiries();
+  const { user } = useAuthStore();
+  const [email, setEmail] = useState(user?.email ?? '');
+  const [activeEmail, setActiveEmail] = useState(user?.email ?? '');
+  const { data, isLoading } = useGetInquiries(activeEmail);
 
   const renderItem = ({ item }: { item: InquiryListItem }) => {
     const updatedAt = item.updatedAt
@@ -30,7 +36,12 @@ const InquiryListScreen = () => {
     return (
       <TouchableOpacity
         className="border border-border rounded-xl px-4 py-3 mb-3"
-        onPress={() => router.push(`/(screens)/profile/inquiries/${item.id}`)}
+        onPress={() =>
+          router.push({
+            pathname: '/(screens)/profile/inquiries/[id]',
+            params: { id: item.id, email: activeEmail },
+          })
+        }
       >
         <View className="flex-row items-start justify-between gap-2">
           <View className="flex-1">
@@ -69,7 +80,32 @@ const InquiryListScreen = () => {
           </Button>
         </View>
 
-        {isLoading ? (
+        <View className="gap-3 mb-4">
+          <Input
+            label={t('profile.inquiries.list.emailLabel')}
+            placeholder={t('profile.inquiries.list.emailPlaceholder')}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+          <Button
+            variant="secondary"
+            width="full"
+            onPress={() => setActiveEmail(email.trim())}
+            disabled={!email.trim()}
+          >
+            <Text>{t('profile.inquiries.list.loadButton')}</Text>
+          </Button>
+        </View>
+
+        {!activeEmail ? (
+          <View className="flex-1 items-center justify-center px-6">
+            <Text className="text-sm text-muted-foreground text-center">
+              {t('profile.inquiries.list.emailRequired')}
+            </Text>
+          </View>
+        ) : isLoading ? (
           <View className="flex-1 items-center justify-center">
             <ActivityIndicator size="small" color={colors['--primary']} />
           </View>

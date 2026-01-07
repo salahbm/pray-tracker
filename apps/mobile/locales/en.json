@@ -332,6 +332,10 @@
       "list": {
         "title": "Your inquiries",
         "newButton": "New",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Enter your email address",
+        "loadButton": "Load inquiries",
+        "emailRequired": "Enter an email address to view your inquiries.",
         "emptyTitle": "No inquiries yet",
         "emptyDescription": "Start a conversation with our support team.",
         "noMessages": "No messages yet.",
@@ -342,6 +346,8 @@
       },
       "new": {
         "title": "New Inquiry",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Enter your email address",
         "subjectLabel": "Subject",
         "subjectPlaceholder": "Tell us what you need help with",
         "messageLabel": "Message",
@@ -349,10 +355,14 @@
         "submitButton": "Send Inquiry",
         "success": "Inquiry sent successfully",
         "error": "Unable to send your inquiry",
-        "validationError": "Please fill in both subject and message"
+        "validationError": "Please fill in your email, subject, and message"
       },
       "detail": {
         "title": "Inquiry",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Enter your email address",
+        "loadButton": "Load conversation",
+        "emailRequired": "Enter an email address to view this inquiry.",
         "replyPlaceholder": "Write a reply...",
         "sendButton": "Send",
         "emptyMessages": "No messages yet.",

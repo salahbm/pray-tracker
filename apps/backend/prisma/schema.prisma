@@ -190,17 +190,19 @@ enum SubscriptionPlan {
 
 model Inquiry {
   id      String        @id @default(cuid())
-  userId  String
+  userId  String?
+  email   String
   subject String
   status  InquiryStatus @default(OPEN)
 
-  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages InquiryMessage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@index([email])
   @@map("inquiry")
 }
 

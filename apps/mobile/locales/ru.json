@@ -332,6 +332,10 @@
       "list": {
         "title": "Ваши обращения",
         "newButton": "Новое",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Введите ваш email",
+        "loadButton": "Загрузить обращения",
+        "emailRequired": "Введите email, чтобы увидеть обращения.",
         "emptyTitle": "Пока нет обращений",
         "emptyDescription": "Начните диалог с нашей службой поддержки.",
         "noMessages": "Сообщений пока нет.",
@@ -342,6 +346,8 @@
       },
       "new": {
         "title": "Новое обращение",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Введите ваш email",
         "subjectLabel": "Тема",
         "subjectPlaceholder": "Расскажите, с чем нужна помощь",
         "messageLabel": "Сообщение",
@@ -349,10 +355,14 @@
         "submitButton": "Отправить",
         "success": "Обращение отправлено",
         "error": "Не удалось отправить обращение",
-        "validationError": "Заполните тему и сообщение"
+        "validationError": "Заполните email, тему и сообщение"
       },
       "detail": {
         "title": "Обращение",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Введите ваш email",
+        "loadButton": "Загрузить переписку",
+        "emailRequired": "Введите email, чтобы увидеть обращение.",
         "replyPlaceholder": "Напишите ответ...",
         "sendButton": "Отправить",
         "emptyMessages": "Сообщений пока нет.",

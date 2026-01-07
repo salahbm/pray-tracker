@@ -12,15 +12,21 @@ import { Text } from '@/components/ui/text';
 import { useGetInquiry } from '@/hooks/inquiries/useGetInquiry';
 import { useSendInquiryMessage } from '@/hooks/inquiries/useSendInquiryMessage';
 import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryMessage } from '@/types/inquiries';
 
 const InquiryDetailScreen = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { user } = useAuthStore();
+  const { id, email: emailParam } = useLocalSearchParams<{ id: string; email?: string }>();
   const inquiryId = Array.isArray(id) ? id[0] : id;
-  const { data: inquiry, isLoading } = useGetInquiry(inquiryId);
+  const initialEmail =
+    (Array.isArray(emailParam) ? emailParam[0] : emailParam) || user?.email || '';
+  const [email, setEmail] = useState(initialEmail);
+  const [activeEmail, setActiveEmail] = useState(initialEmail);
+  const { data: inquiry, isLoading } = useGetInquiry(inquiryId, activeEmail);
   const { mutateAsync: sendMessage, isPending } = useSendInquiryMessage();
   const [reply, setReply] = useState('');
 
@@ -32,10 +38,10 @@ const InquiryDetailScreen = () => {
   }, [inquiry, t]);
 
   const handleSend = async () => {
-    if (!reply.trim() || !inquiryId) return;
+    if (!reply.trim() || !inquiryId || !activeEmail) return;
 
     try {
-      await sendMessage({ inquiryId, message: reply.trim() });
+      await sendMessage({ inquiryId, message: reply.trim(), email: activeEmail });
       setReply('');
     } catch (error) {
       fireToast.error((error as Error)?.message || t('profile.inquiries.detail.error'));
@@ -72,37 +78,68 @@ const InquiryDetailScreen = () => {
         </View>
       ) : (
         <View className="flex-1">
-          <View className="mb-4">
-            <Text className="text-lg font-semibold">{inquiry?.subject}</Text>
-            <Text className="text-sm text-muted-foreground mt-1">{statusLabel}</Text>
-          </View>
-
-          <FlatList
-            data={inquiry?.messages ?? []}
-            keyExtractor={item => item.id}
-            renderItem={renderMessage}
-            contentContainerStyle={{ paddingBottom: 16 }}
-            ListEmptyComponent={
-              <Text className="text-sm text-muted-foreground">
-                {t('profile.inquiries.detail.emptyMessages')}
-              </Text>
-            }
-          />
-
-          <View className="pt-4">
+          <View className="gap-3 mb-4">
             <Input
-              value={reply}
-              onChangeText={setReply}
-              placeholder={t('profile.inquiries.detail.replyPlaceholder')}
-              multiline
-              className="min-h-[100px]"
+              label={t('profile.inquiries.detail.emailLabel')}
+              placeholder={t('profile.inquiries.detail.emailPlaceholder')}
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
             />
-            <View className="mt-3">
-              <Button onPress={handleSend} disabled={isPending || !reply.trim()} width="full">
-                <Text>{t('profile.inquiries.detail.sendButton')}</Text>
-              </Button>
-            </View>
+            <Button
+              variant="secondary"
+              width="full"
+              onPress={() => setActiveEmail(email.trim())}
+              disabled={!email.trim()}
+            >
+              <Text>{t('profile.inquiries.detail.loadButton')}</Text>
+            </Button>
           </View>
+
+          {!activeEmail ? (
+            <Text className="text-sm text-muted-foreground text-center">
+              {t('profile.inquiries.detail.emailRequired')}
+            </Text>
+          ) : (
+            <>
+              <View className="mb-4">
+                <Text className="text-lg font-semibold">{inquiry?.subject}</Text>
+                <Text className="text-sm text-muted-foreground mt-1">{statusLabel}</Text>
+              </View>
+
+              <FlatList
+                data={inquiry?.messages ?? []}
+                keyExtractor={item => item.id}
+                renderItem={renderMessage}
+                contentContainerStyle={{ paddingBottom: 16 }}
+                ListEmptyComponent={
+                  <Text className="text-sm text-muted-foreground">
+                    {t('profile.inquiries.detail.emptyMessages')}
+                  </Text>
+                }
+              />
+
+              <View className="pt-4">
+                <Input
+                  value={reply}
+                  onChangeText={setReply}
+                  placeholder={t('profile.inquiries.detail.replyPlaceholder')}
+                  multiline
+                  className="min-h-[100px]"
+                />
+                <View className="mt-3">
+                  <Button
+                    onPress={handleSend}
+                    disabled={isPending || !reply.trim()}
+                    width="full"
+                  >
+                    <Text>{t('profile.inquiries.detail.sendButton')}</Text>
+                  </Button>
+                </View>
+              </View>
+            </>
+          )}
         </View>
       )}
     </SafeAreaView>

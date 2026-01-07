@@ -6,6 +6,7 @@ import { InquiryMessage } from '@/types/inquiries';
 
 export type SendInquiryMessagePayload = {
   inquiryId: string;
+  email: string;
   message: string;
 };
 
@@ -14,7 +15,7 @@ const sendInquiryMessage = async (
 ): Promise<InquiryMessage> => {
   const data = await agent.post<InquiryMessage>(
     `/inquiries/${payload.inquiryId}/messages`,
-    { message: payload.message },
+    { message: payload.message, email: payload.email },
   );
   return data;
 };
@@ -27,7 +28,10 @@ export const useSendInquiryMessage = () => {
     onSuccess: (_message, variables) => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.inquiries.all });
       queryClient.invalidateQueries({
-        queryKey: [...QueryKeys.inquiries.detail, { id: variables.inquiryId }],
+        queryKey: [
+          ...QueryKeys.inquiries.detail,
+          { id: variables.inquiryId, email: variables.email },
+        ],
       });
     },
   });

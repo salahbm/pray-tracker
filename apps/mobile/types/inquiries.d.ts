@@ -12,7 +12,8 @@ export interface InquiryMessage {
 
 export interface Inquiry {
   id: string;
-  userId: string;
+  userId?: string | null;
+  email: string;
   subject: string;
   status: InquiryStatus;
   createdAt: Date;
@@ -22,7 +23,8 @@ export interface Inquiry {
 
 export interface InquiryListItem {
   id: string;
-  userId: string;
+  userId?: string | null;
+  email: string;
   subject: string;
   status: InquiryStatus;
   createdAt: Date;

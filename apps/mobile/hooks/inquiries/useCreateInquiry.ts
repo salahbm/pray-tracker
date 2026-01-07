@@ -5,6 +5,7 @@ import agent from '@/lib/agent';
 import { Inquiry } from '@/types/inquiries';
 
 export type CreateInquiryPayload = {
+  email: string;
   subject: string;
   message: string;
 };
@@ -21,7 +22,10 @@ export const useCreateInquiry = () => {
     mutationFn: createInquiry,
     onSuccess: inquiry => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.inquiries.all });
-      queryClient.setQueryData([...QueryKeys.inquiries.detail, { id: inquiry.id }], inquiry);
+      queryClient.setQueryData(
+        [...QueryKeys.inquiries.detail, { id: inquiry.id, email: inquiry.email }],
+        inquiry,
+      );
     },
   });
 };
