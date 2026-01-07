@@ -219,6 +219,24 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.InquiryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InquiryMessageScalarFieldEnum = {
+  id: 'id',
+  inquiryId: 'inquiryId',
+  senderRole: 'senderRole',
+  body: 'body',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -251,6 +269,16 @@ exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
   YEARLY: 'YEARLY'
 };
 
+exports.InquiryStatus = exports.$Enums.InquiryStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED'
+};
+
+exports.InquirySenderRole = exports.$Enums.InquirySenderRole = {
+  USER: 'USER',
+  OWNER: 'OWNER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
@@ -260,7 +288,9 @@ exports.Prisma.ModelName = {
   FriendGroup: 'FriendGroup',
   FriendGroupMember: 'FriendGroupMember',
   Friend: 'Friend',
-  Subscription: 'Subscription'
+  Subscription: 'Subscription',
+  Inquiry: 'Inquiry',
+  InquiryMessage: 'InquiryMessage'
 };
 
 /**

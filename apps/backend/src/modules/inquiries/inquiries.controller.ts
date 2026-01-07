@@ -16,7 +16,7 @@ import { CreateInquiryDto } from './dto/create-inquiry.dto';
 import { CreateInquiryMessageDto } from './dto/create-inquiry-message.dto';
 import { InquiriesService } from './inquiries.service';
 import { createPaginatedResponse, parsePaginationParams } from '@/common/utils';
-import { Locale } from '@/common/utils/response.utils';
+import * as responseUtils from '@/common/utils/response.utils';
 import { Prisma } from '../../generated/prisma';
 
 @Controller('inquiries')
@@ -58,7 +58,7 @@ export class InquiriesController {
   @Get()
   async listAll(
     @Req() request: Request,
-    @Headers('locale') locale: Locale = 'en',
+    @Headers('locale') locale: responseUtils.Locale,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('userId') userId?: string,
@@ -73,7 +73,9 @@ export class InquiriesController {
       page: currentPage,
     } = parsePaginationParams({ page, limit });
 
-    const where: Prisma.InquiryWhereInput | undefined = userId ? { userId } : undefined;
+    const where: Prisma.InquiryWhereInput | undefined = userId
+      ? { userId }
+      : undefined;
 
     const [inquiries, total] = await Promise.all([
       this.inquiriesService.listAll({ skip, take, userId }),
@@ -90,7 +92,7 @@ export class InquiriesController {
   async findOne(
     @Req() request: Request,
     @Param('id') id: string,
-    @Headers('locale') locale: Locale = 'en',
+    @Headers('locale') locale: responseUtils.Locale = 'en',
   ) {
     return this.inquiriesService.findOne(
       id,
@@ -108,7 +110,7 @@ export class InquiriesController {
     @Req() request: Request,
     @Param('id') id: string,
     @Body() dto: CreateInquiryMessageDto,
-    @Headers('locale') locale: Locale = 'en',
+    @Headers('locale') locale: responseUtils.Locale = 'en',
   ) {
     const userId: string = request['user']?.id;
 
@@ -132,7 +134,7 @@ export class InquiriesController {
     @Req() request: Request,
     @Param('id') id: string,
     @Body() dto: CreateInquiryMessageDto,
-    @Headers('locale') locale: Locale = 'en',
+    @Headers('locale') locale: responseUtils.Locale = 'en',
   ) {
     return this.inquiriesService.addMessage(id, dto, {
       senderRole: 'OWNER',

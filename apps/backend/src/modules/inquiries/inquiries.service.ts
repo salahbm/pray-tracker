@@ -33,7 +33,7 @@ export class InquiriesService {
   private getSupportOwnerEmails(): string[] {
     return (process.env.SUPPORT_OWNER_EMAILS || '')
       .split(',')
-      .map(email => email.trim())
+      .map((email) => email.trim())
       .filter(Boolean);
   }
 
@@ -83,7 +83,10 @@ export class InquiriesService {
     }
   }
 
-  async create(userId: string, dto: CreateInquiryDto): Promise<InquiryWithMessages> {
+  async create(
+    userId: string,
+    dto: CreateInquiryDto,
+  ): Promise<InquiryWithMessages> {
     return this.prisma.inquiry.create({
       data: {
         userId,
@@ -197,10 +200,15 @@ export class InquiriesService {
     if (params.senderRole === 'OWNER') {
       this.ensureOwner(params.email, params.locale);
     } else {
-      this.ensureInquiryAccess(inquiry, params.userId, params.email, params.locale);
+      this.ensureInquiryAccess(
+        inquiry,
+        params.userId,
+        params.email,
+        params.locale,
+      );
     }
 
-    return this.prisma.$transaction(async tx => {
+    return this.prisma.$transaction(async (tx) => {
       const message = await tx.inquiryMessage.create({
         data: {
           inquiryId,
