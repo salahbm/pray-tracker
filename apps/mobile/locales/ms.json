@@ -327,6 +327,48 @@
         "settings": "Tetapan",
         "termsConditions": "Terma & Syarat"
       },
+      "inquiries": {
+        "title": "Maklum Balas & Sokongan",
+        "list": {
+        "title": "Pertanyaan Anda",
+        "newButton": "Baharu",
+        "emailLabel": "Emel",
+        "emailPlaceholder": "Masukkan alamat emel anda",
+        "loadButton": "Muat pertanyaan",
+        "emailRequired": "Masukkan emel untuk melihat pertanyaan anda.",
+        "emptyTitle": "Belum ada pertanyaan",
+        "emptyDescription": "Mulakan perbualan dengan pasukan sokongan kami.",
+        "noMessages": "Belum ada mesej.",
+        "status": {
+          "open": "Dibuka",
+            "closed": "Ditutup"
+          }
+        },
+      "new": {
+        "title": "Pertanyaan Baharu",
+        "emailLabel": "Emel",
+        "emailPlaceholder": "Masukkan alamat emel anda",
+        "subjectLabel": "Subjek",
+        "subjectPlaceholder": "Beritahu kami apa yang anda perlukan bantuan",
+        "messageLabel": "Mesej",
+        "messagePlaceholder": "Terangkan isu atau maklum balas anda",
+        "submitButton": "Hantar Pertanyaan",
+        "success": "Pertanyaan berjaya dihantar",
+        "error": "Tidak dapat menghantar pertanyaan",
+        "validationError": "Sila isi emel, subjek dan mesej"
+      },
+      "detail": {
+        "title": "Pertanyaan",
+        "emailLabel": "Emel",
+        "emailPlaceholder": "Masukkan alamat emel anda",
+        "loadButton": "Muat perbualan",
+        "emailRequired": "Masukkan emel untuk melihat pertanyaan ini.",
+        "replyPlaceholder": "Tulis balasan...",
+        "sendButton": "Hantar",
+        "emptyMessages": "Belum ada mesej.",
+        "error": "Tidak dapat menghantar balasan"
+      }
+      },
       "settings": {
         "language": "Bahasa",
         "notifications": "Notifikasi",

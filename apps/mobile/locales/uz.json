@@ -327,6 +327,48 @@
       "settings": "Sozlamalar",
       "termsConditions": "Foydalanish shartlari"
     },
+    "inquiries": {
+      "title": "Fikr-mulohaza va qo‘llab-quvvatlash",
+      "list": {
+        "title": "Sizning murojaatlaringiz",
+        "newButton": "Yangi",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Email manzilingizni kiriting",
+        "loadButton": "Murojaatlarni yuklash",
+        "emailRequired": "Murojaatlarni ko‘rish uchun email kiriting.",
+        "emptyTitle": "Hozircha murojaatlar yo‘q",
+        "emptyDescription": "Qo‘llab-quvvatlash jamoamiz bilan suhbatni boshlang.",
+        "noMessages": "Hozircha xabarlar yo‘q.",
+        "status": {
+          "open": "Ochiq",
+          "closed": "Yopiq"
+        }
+      },
+      "new": {
+        "title": "Yangi murojaat",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Email manzilingizni kiriting",
+        "subjectLabel": "Mavzu",
+        "subjectPlaceholder": "Qanday yordam kerakligini ayting",
+        "messageLabel": "Xabar",
+        "messagePlaceholder": "Muammo yoki fikr-mulohazangizni yozing",
+        "submitButton": "Murojaat yuborish",
+        "success": "Murojaat yuborildi",
+        "error": "Murojaat yuborib bo‘lmadi",
+        "validationError": "Iltimos, email, mavzu va xabarni to‘ldiring"
+      },
+      "detail": {
+        "title": "Murojaat",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Email manzilingizni kiriting",
+        "loadButton": "Suhbatni yuklash",
+        "emailRequired": "Murojaatni ko‘rish uchun email kiriting.",
+        "replyPlaceholder": "Javob yozing...",
+        "sendButton": "Yuborish",
+        "emptyMessages": "Hozircha xabarlar yo‘q.",
+        "error": "Javob yuborib bo‘lmadi"
+      }
+    },
     "settings": {
       "language": "Til",
       "notifications": "Bildirishnomalar",

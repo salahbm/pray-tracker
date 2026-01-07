@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { RelativePathString, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
@@ -9,10 +9,6 @@ import { useThemeStore } from '@/store/defaults/theme';
 const ProfilePage = () => {
   const { colors } = useThemeStore();
   const { t } = useTranslation();
-
-  const handleLink = (url: string) => {
-    Linking.openURL(url).catch(err => console.error('Error opening link:', err));
-  };
 
   const handleNavigate = (screen: string) => {
     router.push(screen as RelativePathString);
@@ -113,11 +109,7 @@ const ProfilePage = () => {
       {/* Feedback Section */}
       <TouchableOpacity
         className="profile-section"
-        onPress={() =>
-          handleLink(
-            'https://docs.google.com/forms/d/1dbjL6wQoh2MwQQChIGiWpSEOaFmWvCaC9w3iDaBZmjE/edit'
-          )
-        }
+        onPress={() => handleNavigate('/(screens)/profile/inquiries')}
       >
         <View className="flex-row items-center">
           <Feather name="message-square" size={20} color={colors['--muted-foreground']} />

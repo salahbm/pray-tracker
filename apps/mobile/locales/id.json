@@ -327,6 +327,48 @@
         "settings": "Pengaturan",
         "termsConditions": "Syarat & Ketentuan"
       },
+      "inquiries": {
+        "title": "Masukan & Dukungan",
+        "list": {
+        "title": "Permintaan Anda",
+        "newButton": "Baru",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Masukkan alamat email Anda",
+        "loadButton": "Muat permintaan",
+        "emailRequired": "Masukkan email untuk melihat permintaan Anda.",
+        "emptyTitle": "Belum ada permintaan",
+        "emptyDescription": "Mulai percakapan dengan tim dukungan kami.",
+        "noMessages": "Belum ada pesan.",
+        "status": {
+          "open": "Terbuka",
+            "closed": "Ditutup"
+          }
+        },
+      "new": {
+        "title": "Permintaan Baru",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Masukkan alamat email Anda",
+        "subjectLabel": "Subjek",
+        "subjectPlaceholder": "Sampaikan kebutuhan bantuan Anda",
+        "messageLabel": "Pesan",
+        "messagePlaceholder": "Jelaskan masalah atau masukan Anda",
+        "submitButton": "Kirim Permintaan",
+        "success": "Permintaan berhasil dikirim",
+        "error": "Tidak dapat mengirim permintaan",
+        "validationError": "Harap isi email, subjek, dan pesan"
+      },
+      "detail": {
+        "title": "Permintaan",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Masukkan alamat email Anda",
+        "loadButton": "Muat percakapan",
+        "emailRequired": "Masukkan email untuk melihat permintaan ini.",
+        "replyPlaceholder": "Tulis balasan...",
+        "sendButton": "Kirim",
+        "emptyMessages": "Belum ada pesan.",
+        "error": "Tidak dapat mengirim balasan"
+      }
+      },
       "settings": {
         "language": "Bahasa",
         "notifications": "Notifikasi",
