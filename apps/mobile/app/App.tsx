@@ -17,6 +17,12 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Set the animation options. This is optional.
+SplashScreen.setOptions({
+  duration: 600,
+  fade: true,
+});
+
 export default function App() {
   useSession();
 
