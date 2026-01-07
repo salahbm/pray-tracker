@@ -15,6 +15,7 @@ import useTimeLeft from '@/hooks/common/useTimeLeft';
 import { cn } from '@/lib/utils';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useThemeStore } from '@/store/defaults/theme';
+import { triggerHaptic } from '@/utils';
 
 const PrayerTimer = () => {
   const { t } = useTranslation();
@@ -114,8 +115,17 @@ const PrayerTimer = () => {
   return (
     <View className="py-4 h-full">
       <View className="bg-accent p-6 rounded-2xl mb-6 shadow-lg relative">
-        <Button size="icon" variant="ghost" className="absolute top-3 right-3" onPress={open}>
-          <Settings2Icon className="w-6 h-6" color={colors['--accent-foreground']} />
+        <Button
+          hitSlop={24}
+          size="icon"
+          variant="ghost"
+          className="absolute top-2 right-2"
+          onPress={async () => {
+            await triggerHaptic();
+            open();
+          }}
+        >
+          <Settings2Icon className="size-8" color={colors['--accent-foreground']} />
         </Button>
         <Text className="text-accent-foreground text-5xl font-extrabold text-center">
           {timeLeft}

@@ -70,6 +70,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
               autoCorrect={false}
               spellCheck={false}
               returnKeyType="next"
+              onSubmitEditing={form.setFocus('password')}
             />
           )}
         />

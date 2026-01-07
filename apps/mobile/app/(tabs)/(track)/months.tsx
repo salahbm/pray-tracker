@@ -193,7 +193,7 @@ const MonthScreen = () => {
         style={{ backgroundColor: colors['--background'] }}
         current={initialMonthRef.current}
         pastScrollRange={visibleMonths}
-        futureScrollRange={2}
+        futureScrollRange={1}
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}

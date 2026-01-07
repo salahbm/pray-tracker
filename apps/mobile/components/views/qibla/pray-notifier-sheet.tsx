@@ -115,7 +115,7 @@ const PrayerNotifierSheet: React.FC = () => {
           <Animated.View entering={FadeInLeft.delay(100)}>
             <Button
               variant="outline"
-              className="size-12 rounded-full border-border/40 bg-background/80 backdrop-blur-md"
+              className="size-12 rounded-full border-border bg-background/80 backdrop-blur-md"
               onPress={handleMinus}
             >
               <Minus size={20} color={colors['--foreground']} />

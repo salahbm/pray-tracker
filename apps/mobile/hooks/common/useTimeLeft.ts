@@ -1,6 +1,5 @@
 import { PrayerTimes } from 'adhan';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter } from 'react-native';
 
 import { SALAHS } from '@/constants/enums';
@@ -14,7 +13,6 @@ import { schedulePrayerNotificationWithOffset } from '@/lib/reminder';
 const useTimeLeft = (prayerTimes: PrayerTimes) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [currentPrayer, setCurrentPrayer] = useState('');
-  const { t, i18n } = useTranslation();
   const { prayerNotifications } = useNotificationStore();
 
   const prayers = useMemo(

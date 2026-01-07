@@ -51,6 +51,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({
         borderRadius: 99,
         backgroundColor: bgColor,
       }}
+      hitSlop={20}
       onPress={() => onDayPress(date)}
       disabled={date.dateString === format(new Date(), 'yyyy-MM-dd')}
     >

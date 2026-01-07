@@ -46,7 +46,7 @@
       "noAccount": "Don't have an account?",
       "signUpLink": "Sign up",
       "title": "Welcome back",
-      "accountRequired": "An account is required because this app stores your prayer history, uploads prayers to your account, manages your subscription status, and allows you to connect with friends. Without an account, none of these services can function."
+      "accountRequired": "Please sign in to continue"
     },
     "signUp": {
       "title": "Join Us",

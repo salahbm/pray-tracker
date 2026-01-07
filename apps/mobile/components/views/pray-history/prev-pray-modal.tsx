@@ -68,6 +68,11 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
                     >
                       <Checkbox
                         value={value === val}
+                        style={{
+                          width: 22,
+                          height: 22,
+                        }}
+                        hitSlop={20}
                         onValueChange={async () => {
                           await triggerHaptic();
                           await updateOldPray({

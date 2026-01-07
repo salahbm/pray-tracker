@@ -318,8 +318,8 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
             style={[
               styles.indicator,
               {
-                borderColor: colors['--primary'],
-                backgroundColor: `${colors['--primary']}15`,
+                // borderColor: colors['--primary'],
+                backgroundColor: `${colors['--primary']}10`,
               },
             ]}
           />
@@ -379,9 +379,7 @@ const styles = StyleSheet.create({
     zIndex: 6,
   },
   indicator: {
-    borderBottomWidth: 1,
     borderRadius: 8,
-    borderTopWidth: 1,
     height: ITEM_HEIGHT,
     left: 0,
     position: 'absolute',

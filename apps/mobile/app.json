@@ -4,7 +4,7 @@
     "slug": "noor-pray-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon-light-rounded.png",
+    "icon": "./assets/images/icon-light.png",
     "scheme": "noor",
     "userInterfaceStyle": "automatic",
     "owner": "salahbm_dev",
@@ -12,8 +12,8 @@
     "ios": {
       "supportsTablet": true,
       "icon": {
-        "dark": "./assets/images/icon-dark-rounded.png",
-        "light": "./assets/images/icon-light-rounded.png"
+        "dark": "./assets/images/icon-dark.png",
+        "light": "./assets/images/icon-light.png"
       },
       "bundleIdentifier": "com.noor.praytracker",
       "appleTeamId": "A2Y67UR23Z",
@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon-light-rounded.png",
+        "foregroundImage": "./assets/images/icon-light.png",
         "backgroundColor": "#F9FAFB"
       },
       "edgeToEdgeEnabled": true,
@@ -47,7 +47,6 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/icon-light-rounded.png",
-          "imageWidth": 120,
           "resizeMode": "contain",
           "backgroundColor": "#F9FAFB",
           "dark": {

@@ -46,7 +46,7 @@
       "noAccount": "Belum punya akun?",
       "signUpLink": "Daftar",
       "title": "Selamat datang kembali",
-      "accountRequired": "Akun diperlukan karena aplikasi ini menyimpan riwayat sholat Anda, mengunggah sholat ke akun Anda, mengelola status langganan, dan memungkinkan Anda terhubung dengan teman. Tanpa akun, tidak ada layanan ini yang dapat berfungsi."
+      "accountRequired": "Silakan masuk untuk melanjutkan"
     },
     "signUp": {
       "title": "Bergabung",
