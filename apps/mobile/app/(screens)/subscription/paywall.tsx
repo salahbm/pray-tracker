@@ -29,6 +29,7 @@ import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
+import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -50,6 +51,7 @@ export default function PaywallScreen() {
 
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
   const { refetch: refetchCustomerInfo } = useRevenueCatCustomer();
+  const { markAsPurchased } = useAppRatingStore();
 
   const handlePurchase = async () => {
     if (!user) {
@@ -86,6 +88,10 @@ export default function PaywallScreen() {
       // Refetch customer info to update UI immediately
       await refetchCustomerInfo();
       fireToast.success(t('subscription.success.purchaseComplete'));
+
+      // Track purchase for app rating
+      await markAsPurchased();
+
       router.back();
     } else if (!result.cancelled) {
       fireToast.error(result.error || t('subscription.errors.purchaseFailed'));

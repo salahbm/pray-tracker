@@ -174,6 +174,25 @@
       "requestReceived": "İstek alındı",
       "accept": "Kabul Et",
       "reject": "Reddet"
+    },
+    "permissions": {
+      "notifications": {
+        "title": "Namaz Bildirimlerini Etkinleştir",
+        "message": "Namazlarını takipte kal. Vakit hatırlatmaları almak için bildirimlere izin ver.",
+        "allow": "Bildirimlere İzin Ver",
+        "settings": "Ayarları Aç"
+      },
+      "location": {
+        "title": "Konum Erişimini Etkinleştir",
+        "message": "Doğru namaz vakitleri ve kıble yönü için konumuna ihtiyacımız var.",
+        "allow": "Konuma İzin Ver",
+        "settings": "Ayarları Aç"
+      }
+    },
+    "offline": {
+      "title": "Çevrimdışı",
+      "message": "Bağlantı geçici olarak kesildi. İnternete bağlanınca yenilenecek.",
+      "waiting": "Ağ Aranıyor"
     }
   },
   "friends": {

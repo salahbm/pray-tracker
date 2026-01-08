@@ -3,11 +3,11 @@ import { format } from 'date-fns';
 import { router, useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { ChevronRight } from 'lucide-react-native';
-import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
@@ -27,7 +27,8 @@ import { useUpdateOldPray } from '@/hooks/prays/useUpdateOldPray';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
@@ -84,6 +85,7 @@ export default function HomeScreen() {
   // QUERIES
   const { user } = useAuthStore();
   const { refetch: refetchCustomer, isPremium } = useRevenueCatCustomer();
+  const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   const {
     data: prays,
@@ -113,6 +115,8 @@ export default function HomeScreen() {
   const { prayers, clickedData, accordion } = state;
 
   // FUNCTIONS
+  const { incrementPrayerToggle } = useAppRatingStore();
+
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
       if (!user) return fireToast.error(t('common.unauthorized.description'));
@@ -138,15 +142,23 @@ export default function HomeScreen() {
         field: prayer as PrayerField,
         value: value as 0 | 1 | 2,
       });
+
+      // Track prayer toggle for app rating
+      await incrementPrayerToggle();
     },
-    [prayers, createPray, user?.id, today, dispatch]
+    [prayers, createPray, user?.id, today, dispatch, incrementPrayerToggle]
   );
 
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
       // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
+      const isMoreThanAWeek = new Date(date) < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isDateAfterToday) return fireToast.info(t('home.errors.futureDate'));
+      if (isMoreThanAWeek && !isPremium) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
 
       // if today, scroll to top
       if (date === format(today, 'yyyy-MM-dd')) {

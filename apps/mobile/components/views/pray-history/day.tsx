@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
 
@@ -23,11 +23,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({
 }) => {
   if (!date) return null;
 
-  const { isPremium, refetch } = useRevenueCatCustomer();
-
-  useLayoutEffect(() => {
-    refetch();
-  }, [isPremium, refetch]);
+  const { isPremium } = useRevenueCatCustomer();
 
   // fallback to 0 if user not logged in or no data
   const count = prayerCountByDate[date.dateString] ?? 0;
@@ -35,7 +31,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({
   // background opacity, but keep text fully visible
   const backgroundOpacity = getOpacityByNumber(defaultColorMap.opacity, count);
   const bgColor =
-    count > 0
+    isPremium && count > 0
       ? `${colors['--primary']}${Math.round(backgroundOpacity * 255)
           .toString(16)
           .padStart(2, '0')}`

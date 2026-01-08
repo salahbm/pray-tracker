@@ -42,10 +42,16 @@ export default function Leaderboard({
     <RefreshControl refreshing={isLoading} onRefresh={refetch} tintColor={colors['--primary']} />
   );
 
+  if (isLoading) {
+    return <Loader visible={isLoading} className="bg-transparent" />;
+  }
+
+  if (leaderboardData.length === 0 && !isLoading) {
+    return <NoData imageClassName={imageClassName} className="mt-[55%]" />;
+  }
+
   return (
     <View className="flex-1 h-full">
-      <Loader visible={isLoading} className="bg-transparent" />
-
       <FlatList
         data={leaderboardData}
         keyExtractor={item => item.id}
@@ -80,12 +86,6 @@ export default function Leaderboard({
         scrollEnabled={scrollEnabled}
         className="mt-4"
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
-        ListEmptyComponent={
-          <NoData
-            imageClassName={imageClassName}
-            className="mt-[15%] [&_img]:w-[20px] [&_img]:h-[20px]"
-          />
-        }
         refreshControl={refreshControl ?? undefined}
       />
 

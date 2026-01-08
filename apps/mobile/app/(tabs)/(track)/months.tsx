@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,9 +19,11 @@ import PrevPayUpdateModal from '@/components/views/pray-history/prev-pray-modal'
 import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useGetPrays } from '@/hooks/prays';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { Language } from '@/i18n.config';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useThemeStore } from '@/store/defaults/theme';
 import { getMonthTheme } from '@/styles/calendar.theme';
 import { IPrays } from '@/types/prays';
@@ -53,6 +55,9 @@ const MonthScreen = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
   const initialMonthRef = useRef<string>(new Date().toISOString());
+
+  const { isPremium, refetch } = useRevenueCatCustomer();
+  const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   const { data: prays, isLoading: isLoadingPrays } = useGetPrays(user?.id!, year);
 
@@ -104,6 +109,10 @@ const MonthScreen = () => {
 
   const onDayPress = useCallback(
     (day: DateData) => {
+      if (!isPremium) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
       // Prevent selecting future dates
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date();
@@ -232,6 +241,14 @@ const MonthScreen = () => {
       handleScrollEnd,
     ]
   );
+
+  // Refetch premium status when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
+
   return (
     <View className="safe-area flex-1" style={{ backgroundColor: colors['--background'] }}>
       {calendar}

@@ -174,6 +174,25 @@
       "requestReceived": "So‘rov qabul qilindi",
       "accept": "Qabul qilish",
       "reject": "Rad etish"
+    },
+    "permissions": {
+      "notifications": {
+        "title": "Namoz bildirishnomalarini yoqing",
+        "message": "Namozlaringizni o‘z vaqtida ado etish uchun bildirishnomalarga ruxsat bering.",
+        "allow": "Bildirishnomalarga ruxsat berish",
+        "settings": "Sozlamalarni ochish"
+      },
+      "location": {
+        "title": "Joylashuvga ruxsat bering",
+        "message": "Aniq namoz vaqtlarini va Qiblani hisoblash uchun joylashuvingiz kerak.",
+        "allow": "Joylashuvga ruxsat berish",
+        "settings": "Sozlamalarni ochish"
+      }
+    },
+    "offline": {
+      "title": "Offline holatda",
+      "message": "Ulanish vaqtincha uzildi. Internetga qaytgach yangilanadi.",
+      "waiting": "Tarmoq qidirilmoqda"
     }
   },
   "friends": {
