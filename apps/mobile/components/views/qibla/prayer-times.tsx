@@ -108,9 +108,7 @@ const PrayerTimer = () => {
     );
   }
 
-  if (error || !prayerTimes) {
-    return <NoData className="mt-[45%]" />;
-  }
+  if (error || !prayerTimes) return null;
 
   return (
     <View className="py-4 h-full">

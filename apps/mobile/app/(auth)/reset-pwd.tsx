@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';

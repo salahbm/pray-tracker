@@ -5,12 +5,12 @@ import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Loader from '@/components/shared/loader';
-import Modal from '@/components/shared/modal';
+import Modal from '@/components/shared/modals/modal';
 import NoData from '@/components/shared/no-data';
 import Image from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { cn } from '@/lib/utils';
+import { cn, gibberishEmail } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
@@ -128,7 +128,9 @@ export default function Leaderboard({
 
           {/* Email */}
           <View className="items-center">
-            <Text className="text-sm text-muted-foreground">{selectedUser?.email}</Text>
+            <Text className="text-sm text-muted-foreground">
+              {gibberishEmail(selectedUser?.email)}
+            </Text>
           </View>
         </View>
       </Modal>

@@ -1,12 +1,13 @@
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
 import { Crown, Lock } from 'lucide-react-native';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { TouchableOpacity, View } from 'react-native';
+
 import { Text } from '@/components/ui/text';
-import { useThemeStore } from '@/store/defaults/theme';
-import { useAuthStore } from '@/store/auth/auth-session';
 import { useSubscription } from '@/hooks/subscriptions/useSubscription';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
 
 interface PremiumGuardProps {
   children: React.ReactNode;

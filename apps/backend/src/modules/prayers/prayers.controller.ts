@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
@@ -13,21 +12,26 @@ import {
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { PrayersService } from './prayers.service';
-import { CreatePrayerDto } from './dto/create-prayer.dto';
 import { UpdatePrayerDto } from './dto/update-prayer.dto';
 import { AuthGuard } from '@/common/guards/auth.guard';
+import { PatchPrayerDto } from './dto/patch-prayer.dto';
 
 @Controller('prayers')
 @UseGuards(AuthGuard)
 export class PrayersController {
   constructor(private readonly prayersService: PrayersService) {}
 
-  /**
-   * Create or update a prayer (upsert)
-   */
-  @Post()
-  async upsert(@Body() createPrayerDto: CreatePrayerDto) {
-    return this.prayersService.upsert(createPrayerDto);
+  // /**
+  //  * Create or update a prayer (upsert)
+  //  */
+  // @Post()
+  // async upsert(@Body() createPrayerDto: CreatePrayerDto) {
+  //   return this.prayersService.upsert(createPrayerDto);
+  // }
+
+  @Patch()
+  patch(@Body() dto: PatchPrayerDto) {
+    return this.prayersService.patch(dto);
   }
 
   /**

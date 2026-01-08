@@ -6,13 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import GoBack from '@/components/shared/go-back';
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
+import Image from '@/components/ui/image';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import Image from '@/components/ui/image';
 
 const EditPwd = () => {
   const { user } = useAuthStore();

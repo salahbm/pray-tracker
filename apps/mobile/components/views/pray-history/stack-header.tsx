@@ -4,12 +4,12 @@ import * as allLocales from 'date-fns/locale';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { LocaleConfig } from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
-import { LocaleConfig } from 'react-native-calendars';
 
 interface CalendarRef {
   current: {

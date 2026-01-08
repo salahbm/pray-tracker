@@ -1,14 +1,13 @@
 import { format } from 'date-fns';
-import Checkbox from 'expo-checkbox';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import Modal from '@/components/shared/modal';
+import Modal from '@/components/shared/modals/modal';
+import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { PRAYER_POINTS } from '@/constants/enums';
-import { useUpdateOldPray } from '@/hooks/prays';
+import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { IPrays } from '@/types/prays';
@@ -29,7 +28,7 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { mutateAsync: updateOldPray } = useUpdateOldPray();
+  const { mutateAsync: patchPray } = usePatchPray();
   return (
     <Modal visible={!!selected} onRequestClose={() => setSelected('')}>
       <View className={cn('p-4 bg-muted rounded-md')}>
@@ -49,10 +48,6 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
 
           // iterate through prayer keys
           const prayerKeys: (keyof IPrays)[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'nafl'];
-
-          const normalizePrayerValue = (val: number | null | undefined) =>
-            typeof val === 'number' ? val : undefined;
-
           return prayerKeys.map(prayer => {
             const value = selectedPray?.[prayer];
 
@@ -60,51 +55,21 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
               <View key={prayer} className="flex-row items-center justify-between mt-2">
                 <Text className="capitalize font-semibold">{t(`common.salahs.${prayer}`)}</Text>
 
-                <View className="flex-row gap-6">
-                  {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(val => (
-                    <View
-                      key={val}
-                      className={cn('relative py-2', prayer === 'nafl' && val < 2 && 'hidden')}
-                    >
-                      <Checkbox
-                        value={value === val}
-                        style={{
-                          width: 22,
-                          height: 22,
-                        }}
-                        hitSlop={20}
-                        onValueChange={async () => {
-                          await triggerHaptic();
-                          await updateOldPray({
-                            id: user?.id!,
-                            date: new Date(selected),
-                            fajr:
-                              prayer === 'fajr' ? val : normalizePrayerValue(selectedPray?.fajr),
-                            dhuhr:
-                              prayer === 'dhuhr' ? val : normalizePrayerValue(selectedPray?.dhuhr),
-                            asr: prayer === 'asr' ? val : normalizePrayerValue(selectedPray?.asr),
-                            maghrib:
-                              prayer === 'maghrib'
-                                ? val
-                                : normalizePrayerValue(selectedPray?.maghrib),
-                            isha:
-                              prayer === 'isha' ? val : normalizePrayerValue(selectedPray?.isha),
-                            nafl:
-                              prayer === 'nafl' ? val : normalizePrayerValue(selectedPray?.nafl),
-                          });
-                        }}
-                        color={
-                          value === val
-                            ? val === PRAYER_POINTS.ON_TIME
-                              ? colors['--primary']
-                              : val === PRAYER_POINTS.LATE
-                                ? colors['--secondary']
-                                : colors['--destructive']
-                            : undefined
-                        }
-                      />
-                    </View>
-                  ))}
+                <View className="flex-row items-center justify-between">
+                  <PrayCheckbox
+                    value={value as number}
+                    prayer={prayer}
+                    handlePrayerChange={async (prayerName, newValue) => {
+                      await triggerHaptic();
+                      await patchPray({
+                        userId: user?.id!,
+                        date: new Date(selected),
+                        field: prayerName as PrayerField,
+                        value: newValue as 0 | 1 | 2,
+                      });
+                    }}
+                    isLoading={false}
+                  />
                 </View>
               </View>
             );

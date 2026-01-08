@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
+import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Platform, TouchableOpacity, useWindowDimensions, View } from 'react-native';
@@ -15,7 +16,6 @@ import { onboarding } from '@/constants/onboarding';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useOnboarding } from '@/store/defaults/onboarding';
 import { useThemeStore } from '@/store/defaults/theme';
-import LottieView from 'lottie-react-native';
 
 const BANNER_HEIGHT = 450;
 

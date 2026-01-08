@@ -2,19 +2,18 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, TouchableOpacity, View } from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import GoBack from '@/components/shared/go-back';
 import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
-
 import { Text } from '@/components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { cancelAllPrayerNotifications } from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
-import { DeviceEventEmitter } from 'react-native';
 
 const Settings = () => {
   const themeRef = useRef<BottomSheet>(null);

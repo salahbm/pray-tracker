@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import { Button } from '@/components/ui/button';
+import Image from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { cn } from '@/lib/utils';
 import { AuthWrapper } from '@/providers/session';
+import { useAuthStore } from '@/store/auth/auth-session';
 import { useAuthBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { triggerHaptic } from '@/utils/haptics';
-import { useAuthStore } from '@/store/auth/auth-session';
-import Image from '@/components/ui/image';
 
 interface HomeHeaderProps {
   today: Date;

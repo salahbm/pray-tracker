@@ -146,10 +146,30 @@ class Agent {
     }
 
     try {
-      const res = await fetch(url, config);
+      // Create timeout controller (60 seconds)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+      // Use the provided signal or the timeout signal
+      const finalSignal = signal || controller.signal;
+
+      const res = await fetch(url, { ...config, signal: finalSignal });
+      clearTimeout(timeoutId);
+
       return await this.processResponse<T>(res);
     } catch (err) {
       if (err instanceof ApiError) throw err;
+
+      // Handle timeout specifically
+      if ((err as Error).name === 'AbortError') {
+        throw new ApiError(
+          'Request timeout - server took too long to respond',
+          408,
+          'TIMEOUT',
+          err
+        );
+      }
+
       const fallbackMessage = (err as Error).message ?? 'Network error';
       throw new ApiError(
         `Network error while calling ${url}: ${fallbackMessage}`,

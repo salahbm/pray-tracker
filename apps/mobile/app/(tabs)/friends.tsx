@@ -1,14 +1,15 @@
+import { useFocusEffect } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
-import LottieView from 'lottie-react-native';
 
 import FriendsGroups from '@/components/views/friends/groups/groups';
-import { useAuthStore } from '@/store/auth/auth-session';
-import PaywallScreen from '../(screens)/subscription/paywall';
-import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { gifs } from '@/constants/images';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
+import { useAuthStore } from '@/store/auth/auth-session';
+
+import PaywallScreen from '../(screens)/subscription/paywall';
 
 const FriendsScreen = () => {
   const { user } = useAuthStore();

@@ -6,13 +6,13 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
+import Image from '@/components/ui/image';
 import { Input } from '@/components/ui/input';
 import { useUploadImage } from '@/hooks/user/useAvatar';
 import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
-import Image from '@/components/ui/image';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();

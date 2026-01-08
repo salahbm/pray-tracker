@@ -16,8 +16,8 @@ import {
 
 import { useThemeStore } from '@/store/defaults/theme';
 
-import { Button } from '../ui/button';
-import { Text } from '../ui/text';
+import { Button } from '../../ui/button';
+import { Text } from '../../ui/text';
 import Modal from './modal';
 
 const ITEM_HEIGHT = 50;

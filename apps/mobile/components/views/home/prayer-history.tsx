@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import Checkbox from 'expo-checkbox';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -7,13 +6,14 @@ import { View } from 'react-native';
 import HeatMap from '@/components/shared/heat-map';
 import { MAX_DISPLAY_POINTS } from '@/components/shared/heat-map/constant';
 import { DayData } from '@/components/shared/heat-map/heat';
-import YearPicker from '@/components/shared/year-picker';
+import YearPicker from '@/components/shared/modals/year-picker';
+import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 import { Accordion, AccordionContent, AccordionItem } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { PRAYER_POINTS } from '@/constants/enums';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { TransformedPrays } from '@/hooks/prays/useGetPrays';
+import { PrayerField } from '@/hooks/prays/usePatchPray';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { ClickedData } from '@/types/global';
@@ -22,12 +22,13 @@ import { triggerHaptic } from '@/utils/haptics';
 
 interface PrayerHistoryProps {
   year: number;
+  isLoading?: boolean;
   setYear: (year: number) => void;
   clickedData: ClickedData;
   accordion: string;
   handleDayClick: (date: string, details: { data: DayData | null | undefined }) => void;
   data?: IPrays[];
-  handleUpdateClickedDay: (date: string, details: { data: DayData }) => void;
+  handleUpdateClickedDay: (date: string, field: PrayerField, value: 0 | 1 | 2) => void;
   dispatch: React.Dispatch<{ type: string; payload?: unknown }>;
 }
 
@@ -43,6 +44,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
     data,
     handleUpdateClickedDay,
     dispatch,
+    isLoading,
   } = params;
   const { colors } = useThemeStore();
 
@@ -84,7 +86,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
 
   return (
     <React.Fragment>
-      <View className="mt-6">
+      <View className="mt-10">
         <View className="flex flex-row justify-between items-center mb-4">
           <Text className={cn('text-xl font-semibold')}>{t('home.prayerHistory.title')}</Text>
           <Button variant="outline" size="sm" onPress={togglePicker}>
@@ -101,9 +103,10 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
         />
 
         <HeatMap
-          data={transformedData ?? null}
           year={year}
+          isLoading={isLoading}
           locale={currentLanguage}
+          data={transformedData ?? null}
           onDayClick={handleDayClick}
           color={{
             theme: colors['--primary'],
@@ -123,61 +126,61 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
       {/* Past Prayer History */}
       <Accordion type="single" value={accordion} onValueChange={setAccordionState}>
         <AccordionItem value="item-1">
-          {clickedData && clickedData.details && (
-            <AccordionContent className="mt-5">
-              <View className={cn('p-4 bg-muted rounded-md')}>
-                <View className="w-full flex flex-row items-center justify-between">
-                  <Text className={cn('text-md text-muted-foreground')}>
-                    {t('home.prayerHistory.date')}: {clickedData.date}
-                  </Text>
-                  <Button variant="outline" size="sm" onPress={() => setAccordionState()}>
-                    <Text>{t('home.prayerHistory.close')}</Text>
-                  </Button>
-                </View>
-                {Object.entries(clickedData.details.data).map(([prayer, value]) => (
-                  <View key={prayer} className="flex-row items-center justify-between mt-2">
-                    <Text className={cn('capitalize font-semibold')}>
-                      {t(`common.salahs.${prayer}`)}
-                    </Text>
+          {clickedData &&
+            clickedData.details &&
+            (() => {
+              // Get live data from prays array instead of stale clickedData
+              const livePrayer = data?.find(
+                p => format(new Date(p.date), 'yyyy-MM-dd') === clickedData.date
+              );
+              const liveData = livePrayer
+                ? {
+                    fajr: livePrayer.fajr,
+                    dhuhr: livePrayer.dhuhr,
+                    asr: livePrayer.asr,
+                    maghrib: livePrayer.maghrib,
+                    isha: livePrayer.isha,
+                    nafl: livePrayer.nafl,
+                  }
+                : clickedData.details.data;
 
-                    <View className="flex-row gap-8">
-                      {[PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME].map(
-                        (val, index) => (
-                          <View
-                            className={cn('relative', prayer === 'nafl' && val < 2 && 'hidden')}
-                            key={index}
-                          >
-                            <Checkbox
-                              key={val}
-                              value={value === val}
-                              hitSlop={{ top: 8, bottom: 8, left: 12, right: 12 }}
-                              onValueChange={() => {
-                                handleUpdateClickedDay(clickedData.date, {
-                                  data: {
-                                    ...clickedData.details.data,
-                                    [prayer]: val,
-                                  },
-                                });
-                              }}
-                              color={
-                                value === val
-                                  ? val === PRAYER_POINTS.ON_TIME
-                                    ? colors['--primary']
-                                    : val === PRAYER_POINTS.LATE
-                                      ? colors['--secondary']
-                                      : colors['--destructive']
-                                  : undefined
-                              }
-                            />
-                          </View>
-                        )
-                      )}
+              return (
+                <AccordionContent className="mt-5">
+                  <View className={cn('p-4 bg-muted rounded-md')}>
+                    <View className="w-full flex flex-row items-center justify-between">
+                      <Text className={cn('text-md text-muted-foreground')}>
+                        {t('home.prayerHistory.date')}: {clickedData.date}
+                      </Text>
+                      <Button variant="outline" size="sm" onPress={() => setAccordionState()}>
+                        <Text>{t('home.prayerHistory.close')}</Text>
+                      </Button>
                     </View>
+                    {Object.entries(liveData).map(([prayer, value]) => (
+                      <View key={prayer} className="flex-row items-center justify-between mt-2">
+                        <Text className={cn('capitalize font-semibold')}>
+                          {t(`common.salahs.${prayer}`)}
+                        </Text>
+
+                        <View className="flex-row items-center justify-end">
+                          <PrayCheckbox
+                            value={value as 0 | 1 | 2}
+                            prayer={prayer}
+                            handlePrayerChange={(prayerName, newValue) => {
+                              handleUpdateClickedDay(
+                                clickedData.date,
+                                prayerName as PrayerField,
+                                newValue as 0 | 1 | 2
+                              );
+                            }}
+                            isLoading={false}
+                          />
+                        </View>
+                      </View>
+                    ))}
                   </View>
-                ))}
-              </View>
-            </AccordionContent>
-          )}
+                </AccordionContent>
+              );
+            })()}
         </AccordionItem>
       </Accordion>
     </React.Fragment>

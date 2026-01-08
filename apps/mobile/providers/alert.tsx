@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 
-import ErrorModal from '@/components/shared/error-modal';
+import ErrorModal from '@/components/shared/modals/error-modal';
 
 interface AlertState {
   isVisible: boolean;

@@ -15,10 +15,10 @@ import Animated, {
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import { fireToast } from '@/providers/toaster';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
-import { fireToast } from '@/providers/toaster';
 
 const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
+import LottieView from 'lottie-react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
-import LottieView from 'lottie-react-native';
 
 import { gifs } from '@/constants/images';
 import { cn } from '@/lib/utils';

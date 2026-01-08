@@ -3,14 +3,14 @@ import { format } from 'date-fns';
 import { router, useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { ChevronRight } from 'lucide-react-native';
-import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
-import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import Leaderboard from '@/components/views/awards/leaderboard';
@@ -19,20 +19,19 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
-
 import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
-import { useCreatePray } from '@/hooks/prays/usePostPray';
+import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
 import { useUpdateOldPray } from '@/hooks/prays/useUpdateOldPray';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+
 import ProfilePage from '../(screens)/profile';
-import { useProfileBottomSheetStore } from '@/store/bottom-sheets';
-import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const initialState = {
   prayers: {
@@ -100,7 +99,7 @@ export default function HomeScreen() {
   } = useGetGlobalLeaderboard(1, 10);
 
   // MUTATIONS
-  const { mutateAsync: createPray } = useCreatePray();
+  const { mutateAsync: createPray } = usePatchPray();
   const { mutateAsync: updateOldPray } = useUpdateOldPray();
 
   const { profileSheetRef } = useProfileBottomSheetStore();
@@ -134,9 +133,10 @@ export default function HomeScreen() {
       // Send ONLY the changed prayer field to backend
       // This prevents race conditions when multiple prayers are clicked rapidly
       await createPray({
-        id: user?.id,
+        userId: user?.id!,
         date: today,
-        [prayer]: value, // Only send the single prayer that changed
+        field: prayer as PrayerField,
+        value: value as 0 | 1 | 2,
       });
     },
     [prayers, createPray, user?.id, today, dispatch]
@@ -172,27 +172,21 @@ export default function HomeScreen() {
   );
 
   const handleUpdateClickedDay = useCallback(
-    async (date: string, details: { data: DayData }) => {
-      if (!details || !details.data) return;
+    async (date: string, field: PrayerField, value: 0 | 1 | 2) => {
+      if (!user?.id) return;
       await triggerHaptic();
 
-      dispatch({ type: 'SET_CLICKED_DATA', payload: { date, details } });
-
-      // Use updateOldPray for historical dates to avoid cache invalidation conflicts
-      await updateOldPray({
-        id: user?.id!,
+      // Send PATCH request with only the changed field
+      await createPray({
+        userId: user.id,
         date: new Date(date),
-        ...details.data,
-      }).catch(() => {
-        dispatch({
-          type: 'SET_CLICKED_DATA',
-          payload: { date, details: state.clickedDataPrevious },
-        });
+        field,
+        value,
       });
 
-      // No need to refetch - optimistic update handles it
+      // The usePatchPray hook handles optimistic updates automatically
     },
-    [updateOldPray, user?.id]
+    [createPray, user?.id]
   );
 
   useEffect(() => {
@@ -218,12 +212,11 @@ export default function HomeScreen() {
   }, [todaysPrays, user]);
 
   return (
-    <SafeAreaView className="safe-area">
-      <Loader visible={isLoadingPrays} className="bg-transparent" />
+    <Fragment>
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 50, paddingTop: insets.top + 2 }}
         className="main-area"
         refreshControl={
           <RefreshControl
@@ -241,15 +234,20 @@ export default function HomeScreen() {
         {/* HEADER */}
         <HomeHeader today={today} />
         {/* Today's Prayers */}
-        <TodaysPray prayers={prayers} handlePrayerChange={handlePrayerChange} />
+        <TodaysPray
+          isLoading={isLoadingPrays}
+          prayers={prayers}
+          handlePrayerChange={handlePrayerChange}
+        />
         {/* PRAYER HISTORY */}
         <PrayerHistory
           data={prays}
-          dispatch={dispatch}
           year={year}
           setYear={setYear}
-          clickedData={clickedData}
+          dispatch={dispatch}
           accordion={accordion}
+          clickedData={clickedData}
+          isLoading={isLoadingPrays}
           handleDayClick={handleDayClick}
           handleUpdateClickedDay={handleUpdateClickedDay}
         />
@@ -257,7 +255,7 @@ export default function HomeScreen() {
         <AreaChart lineData={prays} />
 
         <View>
-          <View className="flex-row items-center justify-between mt-6">
+          <View className="flex-row items-center justify-between mt-10">
             <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
             <Button
               className="flex-row items-center gap-2"
@@ -300,6 +298,6 @@ export default function HomeScreen() {
       <CustomBottomSheet sheetRef={profileSheetRef}>
         <ProfilePage />
       </CustomBottomSheet>
-    </SafeAreaView>
+    </Fragment>
   );
 }

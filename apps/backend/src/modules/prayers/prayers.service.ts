@@ -1,10 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prayer, Prisma } from '../../generated/prisma';
 import { PrismaService } from '@/db/prisma.service';
-import { CreatePrayerDto } from './dto/create-prayer.dto';
 import { UpdatePrayerDto } from './dto/update-prayer.dto';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { Locale } from '@/common/utils/response.utils';
+import { PatchPrayerDto } from './dto/patch-prayer.dto';
+import {
+  clamp012,
+  normalizeDayUtc,
+  withSerializableRetry,
+} from './prayer.utils';
 
 @Injectable()
 export class PrayersService {
@@ -13,102 +18,160 @@ export class PrayersService {
   /**
    * Create or update a prayer (upsert)
    */
-  async upsert(createPrayerDto: CreatePrayerDto): Promise<Prayer> {
-    const { userId, date, ...incomingData } = createPrayerDto;
-    const prayerDate = new Date(date);
+  // async upsert(createPrayerDto: CreatePrayerDto): Promise<Prayer> {
+  //   const { userId, date, ...incomingData } = createPrayerDto;
+  //   const prayerDate = new Date(date);
 
-    // Use a transaction so user.totalPoints and prayer stay consistent
-    return this.prisma.$transaction(async (tx) => {
-      // 1. Get existing prayer for that day (if any)
-      const existing = await tx.prayer.findUnique({
-        where: {
-          userId_date: {
-            userId,
-            date: prayerDate,
-          },
-        },
-      });
+  //   // Use a transaction so user.totalPoints and prayer stay consistent
+  //   return this.prisma.$transaction(async (tx) => {
+  //     // 1. Get existing prayer for that day (if any)
+  //     const existing = await tx.prayer.findUnique({
+  //       where: {
+  //         userId_date: {
+  //           userId,
+  //           date: prayerDate,
+  //         },
+  //       },
+  //     });
 
-      // 2. Calculate delta points
-      const fields: (keyof typeof incomingData)[] = [
-        'fajr',
-        'dhuhr',
-        'asr',
-        'maghrib',
-        'isha',
-        'nafl',
-      ];
+  //     // 2. Calculate delta points
+  //     const fields: (keyof typeof incomingData)[] = [
+  //       'fajr',
+  //       'dhuhr',
+  //       'asr',
+  //       'maghrib',
+  //       'isha',
+  //       'nafl',
+  //     ];
 
-      let delta = 0;
+  //     let delta = 0;
 
-      const updateData: any = {};
+  //     const updateData: any = {};
 
-      for (const field of fields) {
-        // Check if this field was actually provided in the request
-        const wasProvided = incomingData[field] !== undefined;
+  //     for (const field of fields) {
+  //       // Check if this field was actually provided in the request
+  //       const wasProvided = incomingData[field] !== undefined;
 
-        if (wasProvided) {
-          // previous value stored in DB (0 if no row yet)
-          const prev = (existing?.[field] as number | null) ?? 0;
+  //       if (wasProvided) {
+  //         // previous value stored in DB (0 if no row yet)
+  //         const prev = (existing?.[field] as number | null) ?? 0;
 
-          // incoming value from request
-          const next = incomingData[field] as number | null;
+  //         // incoming value from request
+  //         const next = incomingData[field] as number | null;
 
-          // Only add to updateData if field was provided
-          updateData[field] = next;
+  //         // Only add to updateData if field was provided
+  //         updateData[field] = next;
 
-          // Calculate delta for points
-          const nextValue = next ?? 0;
-          delta += nextValue - prev;
-        }
-      }
+  //         // Calculate delta for points
+  //         const nextValue = next ?? 0;
+  //         delta += nextValue - prev;
+  //       }
+  //     }
 
-      // 3. Update user totalPoints by delta (can be negative, zero, or positive)
-      if (delta !== 0) {
-        await tx.user.update({
-          where: { id: userId },
-          data: { totalPoints: { increment: delta } },
-        });
-      }
+  //     // 3. Update user totalPoints by delta (can be negative, zero, or positive)
+  //     if (delta !== 0) {
+  //       await tx.user.update({
+  //         where: { id: userId },
+  //         data: { totalPoints: { increment: delta } },
+  //       });
+  //     }
 
-      // 4. Upsert prayer row with resolved values
-      // For update: only update fields that were provided
-      // For create: need to provide all fields with defaults
-      if (existing) {
-        // Update existing record - only update provided fields
-        return tx.prayer.update({
-          where: {
-            userId_date: {
+  //     // 4. Upsert prayer row with resolved values
+  //     // For update: only update fields that were provided
+  //     // For create: need to provide all fields with defaults
+  //     if (existing) {
+  //       // Update existing record - only update provided fields
+  //       return tx.prayer.update({
+  //         where: {
+  //           userId_date: {
+  //             userId,
+  //             date: prayerDate,
+  //           },
+  //         },
+  //         data: updateData,
+  //       });
+  //     } else {
+  //       // Create new record - provide all fields with defaults
+  //       const createData: any = {
+  //         userId,
+  //         date: prayerDate,
+  //         fajr: null,
+  //         dhuhr: null,
+  //         asr: null,
+  //         maghrib: null,
+  //         isha: null,
+  //         nafl: null,
+  //       };
+
+  //       // Override with provided values
+  //       for (const field of fields) {
+  //         if (incomingData[field] !== undefined) {
+  //           createData[field] = incomingData[field];
+  //         }
+  //       }
+
+  //       return tx.prayer.create({
+  //         data: createData,
+  //       });
+  //     }
+  //   });
+  // }
+
+  async patch(dto: PatchPrayerDto): Promise<Prayer> {
+    const { userId, date, field, value } = dto;
+    const prayerDate = normalizeDayUtc(date);
+    const next = clamp012(value);
+
+    console.log(
+      `[PATCH] ${field}=${next} for user=${userId.slice(0, 8)} date=${date}`,
+    );
+
+    return withSerializableRetry(async () => {
+      return this.prisma.$transaction(
+        async (tx) => {
+          const existing = await tx.prayer.findUnique({
+            where: { userId_date: { userId, date: prayerDate } },
+          });
+
+          const prevRaw = (existing?.[field] as number | null) ?? 0;
+          const prev = clamp012(prevRaw);
+
+          // [Inference] points equal to stored value (0/1/2)
+          const delta = next - prev;
+
+          const prayer = await tx.prayer.upsert({
+            where: { userId_date: { userId, date: prayerDate } },
+            create: {
               userId,
               date: prayerDate,
+              fajr: 0,
+              dhuhr: 0,
+              asr: 0,
+              maghrib: 0,
+              isha: 0,
+              nafl: 0,
+              [field]: next,
             },
-          },
-          data: updateData,
-        });
-      } else {
-        // Create new record - provide all fields with defaults
-        const createData: any = {
-          userId,
-          date: prayerDate,
-          fajr: null,
-          dhuhr: null,
-          asr: null,
-          maghrib: null,
-          isha: null,
-          nafl: null,
-        };
+            update: {
+              [field]: next,
+            },
+          });
 
-        // Override with provided values
-        for (const field of fields) {
-          if (incomingData[field] !== undefined) {
-            createData[field] = incomingData[field];
+          if (delta !== 0) {
+            await tx.user.update({
+              where: { id: userId },
+              data: { totalPoints: { increment: delta } },
+            });
           }
-        }
 
-        return tx.prayer.create({
-          data: createData,
-        });
-      }
+          return prayer;
+        },
+        {
+          isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted,
+          maxWait: 5000, // Wait up to 5s to acquire transaction
+          timeout: 10000, // Transaction timeout 10s
+        },
+      );
     });
   }
 

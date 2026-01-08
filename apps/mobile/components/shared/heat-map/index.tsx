@@ -16,6 +16,7 @@ const HeatMap: React.FC<HeatMapProps> = props => {
     year = new Date().getFullYear(),
     onDayClick,
     locale = 'en',
+    isLoading = false,
   } = props;
 
   const monthLayouts = useRef<Record<string, number>>({});
@@ -107,7 +108,8 @@ const HeatMap: React.FC<HeatMapProps> = props => {
                   return (
                     <TouchableOpacity
                       key={`${month}-cell-${rowIndex}-${dayIndex}`}
-                      className={cn('size-6 shrink-0 rounded m-1')}
+                      hitSlop={10}
+                      className={cn('size-7 shrink-0 rounded m-1')}
                       style={{
                         opacity: dayScore > 0 ? getOpacityByNumber(color.opacity, dayScore) : 1,
                         backgroundColor: dayScore > 0 ? color.theme : defaultBackgroundColor,

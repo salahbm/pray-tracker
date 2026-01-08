@@ -1,35 +1,35 @@
-import { useState, useRef } from 'react';
+import { useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
+import { Check, Sparkles } from 'lucide-react-native';
+import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  View,
-  ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
   Dimensions,
   FlatList,
   Linking,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Check, Sparkles } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '@/components/ui/text';
-import { useThemeStore } from '@/store/defaults/theme';
-import { cn } from '@/lib/utils';
-import { fireToast } from '@/providers/toaster';
+import { gifs } from '@/constants/images';
+import PREMIUM_FEATURES from '@/constants/premium-features';
 import {
-  useRevenueCatOfferings,
   usePurchasePackage,
   useRevenueCatCustomer,
+  useRevenueCatOfferings,
 } from '@/hooks/subscriptions/useRevenueCat';
-import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
-import { useAuthStore } from '@/store/auth/auth-session';
-import LottieView from 'lottie-react-native';
-import PREMIUM_FEATURES from '@/constants/premium-features';
-import { gifs } from '@/constants/images';
 import { PRODUCT_IDS } from '@/lib/revenuecat';
+import { cn } from '@/lib/utils';
+import { fireToast } from '@/providers/toaster';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 

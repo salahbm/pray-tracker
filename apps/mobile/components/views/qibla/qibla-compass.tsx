@@ -172,6 +172,8 @@ const QiblaCompass: React.FC = () => {
     );
   }
 
+  if (state.error || !state.qiblaAngle || !state.magnetAngle) return null;
+
   // Precompute visual rotations (fixes mirror)
   const pointerVisual = toVisual(state.magnetAngle);
   const qiblaVisual = toVisual(state.qiblaAngle);

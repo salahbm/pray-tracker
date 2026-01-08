@@ -1,6 +1,6 @@
-import { Image as ExpoImage, ImageProps as ExpoImageProps } from 'react-native';
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
+import { Image as ExpoImage, ImageProps as ExpoImageProps } from 'react-native';
 
 import { FRIENDS } from '@/constants/images';
 import { cn } from '@/lib/utils';

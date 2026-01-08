@@ -6,8 +6,8 @@ import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import { useSession } from '@/hooks/auth/useSessions';
-import { cleanupExpiredTokens } from '@/utils/deep-link-token';
 import { initializeRevenueCat } from '@/lib/revenuecat';
+import { cleanupExpiredTokens } from '@/utils/deep-link-token';
 
 export const unstable_settings = {
   anchor: '(tabs)',

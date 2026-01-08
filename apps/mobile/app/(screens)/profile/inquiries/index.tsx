@@ -1,9 +1,10 @@
 import { Feather } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { format } from 'date-fns';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
@@ -14,7 +15,6 @@ import { useGetInquiries } from '@/hooks/inquiries/useGetInquiries';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryListItem } from '@/types/inquiries';
-import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 
 const InquiryListScreen = () => {
   const { t } = useTranslation();

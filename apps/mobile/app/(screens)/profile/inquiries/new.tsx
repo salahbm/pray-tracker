@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

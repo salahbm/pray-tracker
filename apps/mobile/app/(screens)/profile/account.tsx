@@ -8,15 +8,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import GoBack from '@/components/shared/go-back';
 import { LogOut } from '@/components/shared/icons';
 import Loader from '@/components/shared/loader';
-import Modal from '@/components/shared/modal';
+import Modal from '@/components/shared/modals/modal';
 import { Button } from '@/components/ui/button';
+import Image from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { useDeleteUser } from '@/hooks/auth/useDeleteUser';
 import { useLogout } from '@/hooks/auth/useLogOut';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { triggerHaptic } from '@/utils/haptics';
-import Image from '@/components/ui/image';
-import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const Account = () => {
   const { user } = useAuthStore();
@@ -75,10 +75,10 @@ const Account = () => {
         </View>
         {isPremium ? (
           <View className="mt-10">
-            <View className="flex-row justify-between items-center w-full mb-4">
+            {/* <View className="flex-row justify-between items-center w-full mb-4">
               <Text className="text-base font-semibold">{t('profile.account.premiumProduct')}</Text>
               <Text className="text-base font-semibold">{productId}</Text>
-            </View>
+            </View> */}
 
             <View className="flex-row justify-between items-center w-full mb-4">
               <Text className="text-base font-semibold">{t('profile.account.purchased')}</Text>

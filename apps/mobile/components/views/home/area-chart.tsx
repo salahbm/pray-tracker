@@ -39,7 +39,7 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
 
   return (
     <React.Fragment>
-      <Text className={cn('text-xl font-semibold mt-6 mb-4')}>{t('home.charts.title')}</Text>
+      <Text className={cn('text-xl font-semibold mt-10 mb-4')}>{t('home.charts.title')}</Text>
       <LineChart
         data={transformPraysToLineData}
         initialSpacing={0}

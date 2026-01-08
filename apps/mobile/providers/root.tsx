@@ -10,6 +10,7 @@ import { ThemeProvider } from './theme';
 import ToastProvider from './toaster';
 import SheetWrapper from './sheet-wrapper';
 import NotificationProvider from './notification-context';
+import { OfflineModal } from '@/components/shared/modals/offline-modal';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -28,6 +29,7 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
               <ToastProvider />
               <PortalHost />
               <SheetWrapper />
+              <OfflineModal />
               <NotificationProvider />
             </BottomSheet>
           </ThemeProvider>
