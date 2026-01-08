@@ -128,7 +128,7 @@ const BounceCheckbox: React.FC<{
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       className="mx-3 my-1.5"
-      hitSlop={20}
+      hitSlop={10}
       disabled={disabled}
     >
       <Animated.View
