@@ -471,7 +471,7 @@
     "monthlyPlan": "Monthly Plan",
     "year": "year",
     "month": "month",
-    "saveOneMonth": "Save $5 per year • Popular Choice",
+    "saveOneMonth": "Save {{savingAmount}} per year • Popular Choice",
     "subscribe": "Bismillah, I'm in",
     "restorePurchases": "Restore Previous Purchase",
     "terms": "Auto-renews unless cancelled. Cancel anytime from your account settings. By subscribing, you agree to our Terms of Service.",

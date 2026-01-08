@@ -472,7 +472,7 @@
     "monthlyPlan": "Aylık Plan",
     "year": "yıl",
     "month": "ay",
-    "saveOneMonth": "Yılda 5$ tasarruf edin • Popüler seçim",
+    "saveOneMonth": "Yılda {{savingAmount}} tasarruf edin • Popüler seçim",
     "subscribe": "Bismillah, katılıyorum",
     "restorePurchases": "Önceki satın alımları geri yükle",
     "terms": "İptal edilmezse otomatik yenilenir. Her zaman hesap ayarlarından iptal edebilirsiniz. Abone olarak şartları kabul etmiş olursunuz.",

@@ -471,7 +471,7 @@
     "monthlyPlan": "Bulanan",
     "year": "tahun",
     "month": "bulan",
-    "saveOneMonth": "Jimat $5 setahun • Pilihan popular",
+    "saveOneMonth": "Jimat {{savingAmount}} setahun • Pilihan popular",
     "subscribe": "Bismillah, saya ikut",
     "restorePurchases": "Pulihkan Pembelian",
     "terms": "Diperbaharui automatik kecuali dibatalkan. Boleh batal pada bila-bila masa melalui tetapan akaun. Dengan melanggan, anda bersetuju dengan Terma Perkhidmatan.",

@@ -471,7 +471,7 @@
     "monthlyPlan": "Bulanan",
     "year": "tahun",
     "month": "bulan",
-    "saveOneMonth": "Hemat $5 per tahun • Pilihan populer",
+    "saveOneMonth": "Hemat {{savingAmount}} per tahun • Pilihan populer",
     "subscribe": "Bismillah, saya ikut",
     "restorePurchases": "Pulihkan Pembelian Sebelumnya",
     "terms": "Akan diperpanjang otomatis kecuali dibatalkan. Bisa dibatalkan kapan saja dari pengaturan akun. Dengan berlangganan, kamu setuju pada Syarat Layanan.",

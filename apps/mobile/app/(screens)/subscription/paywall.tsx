@@ -121,9 +121,18 @@ export default function PaywallScreen() {
   const monthlyPackage = packages.find(p => p.identifier.includes('monthly'));
   const yearlyPackage = packages.find(p => p.identifier.includes('annual'));
 
-  const monthlyPrice = monthlyPackage?.product.priceString || '$4.99';
-  const yearlyPrice = yearlyPackage?.product.priceString || '$54.99';
-  const yearlySavings = t('subscription.saveOneMonth');
+  const monthlyPrice = monthlyPackage?.product.priceString || '$3.99';
+  const yearlyPrice = yearlyPackage?.product.priceString || '$38.99';
+
+  const monthlyPriceNum = monthlyPackage?.product.price || 0;
+  const yearlyPriceNum = yearlyPackage?.product.price || 0;
+
+  // yearly vs 12 months
+  const savingAmount = monthlyPriceNum * 12 - yearlyPriceNum;
+
+  const yearlySavings = t('subscription.saveOneMonth', {
+    savingAmount: savingAmount.toFixed(2),
+  });
 
   const renderFeatureCard = ({ item }: { item: (typeof PREMIUM_FEATURES)[0] }) => (
     <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">

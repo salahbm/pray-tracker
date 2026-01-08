@@ -471,7 +471,7 @@
     "monthlyPlan": "Oylik reja",
     "year": "yil",
     "month": "oy",
-    "saveOneMonth": "Yiliga $5 tejang • Mashhur tanlov",
+    "saveOneMonth": "Yiliga {{savingAmount}} tejang • Mashhur tanlov",
     "subscribe": "Bismillah, qo‘shilaman",
     "restorePurchases": "Oldingi xaridlarni tiklash",
     "terms": "Avtomatik uzayadi, istalgan payt bekor qilishingiz mumkin. Obuna bo‘lish orqali Shartlarga rozilik bildirasiz.",
