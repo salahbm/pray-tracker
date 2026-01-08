@@ -27,6 +27,7 @@ type PrayCheckboxProps = {
   value: number;
   handlePrayerChange: (prayer: string, value: number) => void;
   prayer: string;
+  disabled?: boolean;
   isLoading?: boolean;
   hideMissed?: boolean;
 };
@@ -71,7 +72,8 @@ const BounceCheckbox: React.FC<{
   checked: boolean;
   onPress: () => void;
   activeColor: string;
-}> = ({ checked, onPress, activeColor }) => {
+  disabled?: boolean;
+}> = ({ checked, onPress, activeColor, disabled }) => {
   // Shared Values
   const scale = useSharedValue(1);
   const { colors } = useThemeStore();
@@ -127,6 +129,7 @@ const BounceCheckbox: React.FC<{
       onPressOut={handlePressOut}
       className="mx-3 my-1.5"
       hitSlop={20}
+      disabled={disabled}
     >
       <Animated.View
         className={cn(
@@ -149,6 +152,7 @@ const PrayCheckbox: React.FC<PrayCheckboxProps> = ({
   handlePrayerChange,
   prayer,
   isLoading = false,
+  disabled = false,
   hideMissed = false,
 }) => {
   const { colors } = useThemeStore();
@@ -190,6 +194,7 @@ const PrayCheckbox: React.FC<PrayCheckboxProps> = ({
       {visibleOptions.map(optionVal => (
         <BounceCheckbox
           key={optionVal}
+          disabled={disabled}
           checked={value === optionVal}
           onPress={() => handlePrayerChange(prayer, optionVal)}
           activeColor={getColorForValue(optionVal)}

@@ -1,6 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
 import BottomSheet from '@gorhom/bottom-sheet';
-import Checkbox from 'expo-checkbox';
 import { router, useLocalSearchParams } from 'expo-router';
 import { UserPlus, Users } from 'lucide-react-native';
 import { useRef, useState } from 'react';
@@ -44,6 +43,7 @@ import { useRemoveMember } from '@/hooks/friends/member/useRemoveMember';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -209,27 +209,13 @@ const GroupDetails = () => {
                               <Text className="capitalize font-semibold">
                                 {t(`common.salahs.${name}`)}
                               </Text>
-                              <View className="flex-row gap-4">
-                                {[
-                                  PRAYER_POINTS.MISSED,
-                                  PRAYER_POINTS.LATE,
-                                  PRAYER_POINTS.ON_TIME,
-                                ].map(val => (
-                                  <Checkbox
-                                    key={`${name}-${val}`}
-                                    value={value === val}
-                                    disabled
-                                    color={
-                                      value === val
-                                        ? val === PRAYER_POINTS.ON_TIME
-                                          ? colors['--primary']
-                                          : val === PRAYER_POINTS.LATE
-                                            ? colors['--secondary']
-                                            : colors['--destructive']
-                                        : undefined
-                                    }
-                                  />
-                                ))}
+                              <View className="flex-row">
+                                <PrayCheckbox
+                                  value={value}
+                                  disabled
+                                  handlePrayerChange={() => {}}
+                                  prayer={name}
+                                />
                               </View>
                             </View>
                           ))}
