@@ -54,7 +54,6 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
             return (
               <View key={prayer} className="flex-row items-center justify-between mt-2">
                 <Text className="capitalize font-semibold">{t(`common.salahs.${prayer}`)}</Text>
-
                 <View className="flex-row items-center justify-between">
                   <PrayCheckbox
                     value={value as number}

@@ -1,7 +1,7 @@
 import { BlurView } from 'expo-blur';
 import * as Network from 'expo-network';
 import { WifiOff, X } from 'lucide-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Platform, Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from 'react-native-reanimated';
@@ -13,25 +13,39 @@ import { Text } from '../../ui/text';
 export function OfflineModal() {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const [isOffline, setIsOffline] = useState(true);
-  const [isVisible, setIsVisible] = useState(true);
+
+  const [isOffline, setIsOffline] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const offlineTimeout = useRef<number | null>(null);
 
   useEffect(() => {
-    const checkInitialState = async () => {
-      const networkState = await Network.getNetworkStateAsync();
-      if (!networkState.isConnected) {
-        setIsOffline(true);
-        setIsVisible(true);
-      }
-    };
-    checkInitialState();
-
     const subscription = Network.addNetworkStateListener(state => {
-      setIsOffline(!state.isConnected);
-      if (!state.isConnected) setIsVisible(true);
+      const disconnected = !state.isConnected;
+
+      // Clear pending timer
+      if (offlineTimeout.current !== null) {
+        clearTimeout(offlineTimeout.current);
+        offlineTimeout.current = null;
+      }
+
+      if (disconnected) {
+        offlineTimeout.current = setTimeout(() => {
+          setIsOffline(true);
+          setIsVisible(true);
+        }, 2000);
+      } else {
+        setIsOffline(false);
+        setIsVisible(false);
+      }
     });
 
-    return () => subscription.remove();
+    return () => {
+      subscription.remove();
+      if (offlineTimeout.current !== null) {
+        clearTimeout(offlineTimeout.current);
+      }
+    };
   }, []);
 
   if (!isOffline || !isVisible) return null;

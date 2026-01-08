@@ -19,7 +19,7 @@ SplashScreen.preventAutoHideAsync();
 
 // Set the animation options. This is optional.
 SplashScreen.setOptions({
-  duration: 600,
+  duration: 500,
   fade: true,
 });
 
@@ -30,14 +30,12 @@ export default function App() {
     SpaceMono: spaceMono,
   });
 
-  const navState = useRootNavigationState();
-
   // Hide the splash screen once fonts are loaded
   useEffect(() => {
-    if (loaded && navState?.stale === false) {
+    if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, navState]);
+  }, [loaded]);
 
   // Cleanup expired deep link tokens on app start
   useEffect(() => {
@@ -50,7 +48,7 @@ export default function App() {
   }
 
   return (
-    <Suspense fallback={<ActivityIndicator className="text-primary size-14" />}>
+    <Suspense fallback={<ActivityIndicator size="large" color="primary" />}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

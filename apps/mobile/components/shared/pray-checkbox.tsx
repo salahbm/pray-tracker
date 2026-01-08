@@ -60,7 +60,7 @@ const CheckboxSkeleton = () => {
 
   return (
     <Animated.View
-      className="mx-3 my-1.5 size-8 rounded-md bg-secondary border-2 border-border"
+      className="mx-3 my-1.5 size-8 rounded-md border-[2.5px] border-border"
       style={rStyle}
     />
   );
