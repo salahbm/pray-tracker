@@ -35,8 +35,8 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
         <SafeAreaView edges={['top']} className="px-6 pt-2">
           <View className="flex-row justify-between items-center">
             <View>
-              <View className="h-3 w-12 bg-muted rounded-md animate-pulse" /> {/* year */}
-              <View className="h-6 w-24 bg-muted rounded-md mt-1 animate-pulse" /> {/* title */}
+              <View className="h-3 w-12 bg-muted rounded-md animate-pulse" />
+              <View className="h-6 w-24 bg-muted rounded-md mt-1 animate-pulse" />
             </View>
             <Button size="sm" disabled>
               <Text className="text-primary-foreground font-medium">{t('common.today')}</Text>

@@ -60,7 +60,7 @@ const FriendsGroups = () => {
             tintColor={colors['--primary']}
           />
         }
-        contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
+        contentContainerStyle={{ paddingTop: insets.top, paddingBottom: insets.bottom + 50 }}
       >
         {/* Header */}
         <Animated.View

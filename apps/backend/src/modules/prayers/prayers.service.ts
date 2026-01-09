@@ -10,6 +10,7 @@ import {
   normalizeDayUtc,
   withSerializableRetry,
 } from './prayer.utils';
+import { CreatePrayerDto } from './dto/create-prayer.dto';
 
 @Injectable()
 export class PrayersService {
@@ -18,104 +19,104 @@ export class PrayersService {
   /**
    * Create or update a prayer (upsert)
    */
-  // async upsert(createPrayerDto: CreatePrayerDto): Promise<Prayer> {
-  //   const { userId, date, ...incomingData } = createPrayerDto;
-  //   const prayerDate = new Date(date);
+  async upsert(createPrayerDto: CreatePrayerDto): Promise<Prayer> {
+    const { userId, date, ...incomingData } = createPrayerDto;
+    const prayerDate = new Date(date);
 
-  //   // Use a transaction so user.totalPoints and prayer stay consistent
-  //   return this.prisma.$transaction(async (tx) => {
-  //     // 1. Get existing prayer for that day (if any)
-  //     const existing = await tx.prayer.findUnique({
-  //       where: {
-  //         userId_date: {
-  //           userId,
-  //           date: prayerDate,
-  //         },
-  //       },
-  //     });
+    // Use a transaction so user.totalPoints and prayer stay consistent
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Get existing prayer for that day (if any)
+      const existing = await tx.prayer.findUnique({
+        where: {
+          userId_date: {
+            userId,
+            date: prayerDate,
+          },
+        },
+      });
 
-  //     // 2. Calculate delta points
-  //     const fields: (keyof typeof incomingData)[] = [
-  //       'fajr',
-  //       'dhuhr',
-  //       'asr',
-  //       'maghrib',
-  //       'isha',
-  //       'nafl',
-  //     ];
+      // 2. Calculate delta points
+      const fields: (keyof typeof incomingData)[] = [
+        'fajr',
+        'dhuhr',
+        'asr',
+        'maghrib',
+        'isha',
+        'nafl',
+      ];
 
-  //     let delta = 0;
+      let delta = 0;
 
-  //     const updateData: any = {};
+      const updateData: any = {};
 
-  //     for (const field of fields) {
-  //       // Check if this field was actually provided in the request
-  //       const wasProvided = incomingData[field] !== undefined;
+      for (const field of fields) {
+        // Check if this field was actually provided in the request
+        const wasProvided = incomingData[field] !== undefined;
 
-  //       if (wasProvided) {
-  //         // previous value stored in DB (0 if no row yet)
-  //         const prev = (existing?.[field] as number | null) ?? 0;
+        if (wasProvided) {
+          // previous value stored in DB (0 if no row yet)
+          const prev = (existing?.[field] as number | null) ?? 0;
 
-  //         // incoming value from request
-  //         const next = incomingData[field] as number | null;
+          // incoming value from request
+          const next = incomingData[field] as number | null;
 
-  //         // Only add to updateData if field was provided
-  //         updateData[field] = next;
+          // Only add to updateData if field was provided
+          updateData[field] = next;
 
-  //         // Calculate delta for points
-  //         const nextValue = next ?? 0;
-  //         delta += nextValue - prev;
-  //       }
-  //     }
+          // Calculate delta for points
+          const nextValue = next ?? 0;
+          delta += nextValue - prev;
+        }
+      }
 
-  //     // 3. Update user totalPoints by delta (can be negative, zero, or positive)
-  //     if (delta !== 0) {
-  //       await tx.user.update({
-  //         where: { id: userId },
-  //         data: { totalPoints: { increment: delta } },
-  //       });
-  //     }
+      // 3. Update user totalPoints by delta (can be negative, zero, or positive)
+      if (delta !== 0) {
+        await tx.user.update({
+          where: { id: userId },
+          data: { totalPoints: { increment: delta } },
+        });
+      }
 
-  //     // 4. Upsert prayer row with resolved values
-  //     // For update: only update fields that were provided
-  //     // For create: need to provide all fields with defaults
-  //     if (existing) {
-  //       // Update existing record - only update provided fields
-  //       return tx.prayer.update({
-  //         where: {
-  //           userId_date: {
-  //             userId,
-  //             date: prayerDate,
-  //           },
-  //         },
-  //         data: updateData,
-  //       });
-  //     } else {
-  //       // Create new record - provide all fields with defaults
-  //       const createData: any = {
-  //         userId,
-  //         date: prayerDate,
-  //         fajr: null,
-  //         dhuhr: null,
-  //         asr: null,
-  //         maghrib: null,
-  //         isha: null,
-  //         nafl: null,
-  //       };
+      // 4. Upsert prayer row with resolved values
+      // For update: only update fields that were provided
+      // For create: need to provide all fields with defaults
+      if (existing) {
+        // Update existing record - only update provided fields
+        return tx.prayer.update({
+          where: {
+            userId_date: {
+              userId,
+              date: prayerDate,
+            },
+          },
+          data: updateData,
+        });
+      } else {
+        // Create new record - provide all fields with defaults
+        const createData: any = {
+          userId,
+          date: prayerDate,
+          fajr: null,
+          dhuhr: null,
+          asr: null,
+          maghrib: null,
+          isha: null,
+          nafl: null,
+        };
 
-  //       // Override with provided values
-  //       for (const field of fields) {
-  //         if (incomingData[field] !== undefined) {
-  //           createData[field] = incomingData[field];
-  //         }
-  //       }
+        // Override with provided values
+        for (const field of fields) {
+          if (incomingData[field] !== undefined) {
+            createData[field] = incomingData[field];
+          }
+        }
 
-  //       return tx.prayer.create({
-  //         data: createData,
-  //       });
-  //     }
-  //   });
-  // }
+        return tx.prayer.create({
+          data: createData,
+        });
+      }
+    });
+  }
 
   async patch(dto: PatchPrayerDto): Promise<Prayer> {
     const { userId, date, field, value } = dto;

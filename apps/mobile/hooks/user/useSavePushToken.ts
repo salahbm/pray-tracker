@@ -14,5 +14,8 @@ export const useSavePushToken = () => {
       });
       return response;
     },
+    onError: error => {
+      console.error('❌ Failed to register push token:', error);
+    },
   });
 };

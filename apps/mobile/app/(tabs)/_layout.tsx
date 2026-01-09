@@ -1,66 +1,38 @@
+import { TabList, Tabs, TabSlot, TabTrigger } from 'expo-router/ui';
+import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Calendar, Compass, Home, Users } from '@components/shared/icons';
-import { BlurView } from 'expo-blur';
-import { Tabs } from 'expo-router';
-import { useMemo } from 'react';
-import { Platform, StyleSheet } from 'react-native';
 
-import { useThemeStore } from '@/store/defaults/theme';
-import { TabTints } from '@/styles/theme.config';
+import { cn } from '@/lib/utils';
+import { TabButton } from '@/components/shared/tab-button';
 
-function TabLayout() {
-  const { colors, currentTheme } = useThemeStore();
-
-  const screens = useMemo(
-    () => [
-      { name: 'index', Icon: Home },
-      { name: '(track)', Icon: Calendar },
-      { name: 'qibla', Icon: Compass },
-      { name: 'friends', Icon: Users },
-    ],
-    [colors, currentTheme]
-  );
+export default function TabLayout() {
+  const insets = useSafeAreaInsets();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: colors['--primary'],
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: 'absolute',
-          borderTopWidth: 0, // Remove any border
-          bottom: 0, // Ensure correct positioning
+    <Tabs>
+      <TabSlot />
 
-          backgroundColor: 'transparent', // Prevent solid colors
-          elevation: 5, // Remove Android shadow
-          shadowOpacity: 0.1, // Remove iOS shadow
-        },
-        tabBarBackground: () => (
-          <BlurView
-            intensity={Platform.OS === 'ios' ? 30 : 100}
-            tint={TabTints[currentTheme]}
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: Platform.OS === 'android' ? 'rgba(255, 255, 255, 1)' : 'transparent',
-              overflow: 'hidden',
-            }}
-          />
-        ),
-      }}
-    >
-      {screens.map(({ name, Icon }) => (
-        <Tabs.Screen
-          key={name}
-          name={name}
-          options={{
-            tabBarIcon: ({ color }: { color: string }) => (
-              <Icon color={color} size={25} style={{ marginBottom: -5 }} />
-            ),
-          }}
-        />
-      ))}
+      <TabList
+        className={cn(
+          'absolute self-center flex-row justify-evenly bg-muted py-2 px-3 rounded-full transition-all duration-300 drop-shadow-2xl backdrop-blur-3xl'
+        )}
+        style={{ bottom: insets.bottom + 5 }}
+      >
+        <TabTrigger name="Home" href="/" asChild>
+          <TabButton icon={Home}></TabButton>
+        </TabTrigger>
+        <TabTrigger name="track" href="/(tabs)/(track)/months" asChild>
+          <TabButton icon={Calendar}></TabButton>
+        </TabTrigger>
+        <TabTrigger name="qibla" href="/(tabs)/qibla" asChild>
+          <TabButton icon={Compass}></TabButton>
+        </TabTrigger>
+
+        <TabTrigger name="friends" href="/(tabs)/friends" asChild>
+          <TabButton icon={Users}></TabButton>
+        </TabTrigger>
+      </TabList>
     </Tabs>
   );
 }
-
-export default TabLayout;

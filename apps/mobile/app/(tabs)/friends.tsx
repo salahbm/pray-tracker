@@ -2,7 +2,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import FriendsGroups from '@/components/views/friends/groups/groups';
 import { gifs } from '@/constants/images';
@@ -37,9 +36,7 @@ const FriendsScreen = () => {
   }
 
   return (
-    <SafeAreaView className="main-area">
-      {user && isPremium ? <FriendsGroups /> : <PaywallScreen />}
-    </SafeAreaView>
+    <View className="main-area">{user && isPremium ? <FriendsGroups /> : <PaywallScreen />}</View>
   );
 };
 
