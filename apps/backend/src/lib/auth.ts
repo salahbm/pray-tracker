@@ -35,14 +35,14 @@ export const auth = betterAuth({
       enabled: true,
     },
 
-    sendResetPassword: async ({ user, url, token }) => {
-      await sendPasswordResetEmail(user.email, url, token);
-    },
+    sendResetPassword: async ({ user, url, token }) =>
+      await sendPasswordResetEmail(user.email, url, token),
   },
 
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const response = ctx.context.returned as APIError;
+      console.log(`STRINGIFIED 👉:`, JSON.stringify(response, null, 2));
       if (!response) return;
       const code = response.body?.code;
 

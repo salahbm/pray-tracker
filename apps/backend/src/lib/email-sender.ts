@@ -4,6 +4,9 @@ import path from 'path';
 import { env } from '@/config/env.config';
 import { Locale } from '@/common/utils/response.utils';
 import { getLocalizedMessage } from '@/common/i18n/email-messages';
+import { getLocalizedMessage as getErrorLocalizedMessage } from '@/common/i18n/error-messages';
+import { APIError } from 'better-auth';
+import { mapBetterAuthErrorToKey } from './better-auth-codes';
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -23,9 +26,7 @@ export async function sendPasswordResetEmail(
     const mobileResetUrl = `noor://(auth)/reset-pwd?token=${resetToken}`;
 
     const templatePath = path.join(
-      __dirname,
-      '..',
-      '..',
+      process.cwd(),
       'src',
       'templates',
       'reset-password.pug',
@@ -42,8 +43,19 @@ export async function sendPasswordResetEmail(
       subject: getLocalizedMessage('EMAIL_PASSWORD_RESET_TITLE', locale),
       html,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Failed to send password reset email:', error);
-    throw new Error('Failed to send password reset email');
+
+    if (!error?.response) {
+      throw error; // rethrow non-Resend errors
+    }
+
+    const key = mapBetterAuthErrorToKey(error.response.body?.code);
+    const localized = getErrorLocalizedMessage(key, locale);
+
+    throw new APIError('BAD_REQUEST', {
+      ...error.response.body,
+      message: localized,
+    });
   }
 }

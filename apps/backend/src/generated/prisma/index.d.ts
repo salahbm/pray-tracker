@@ -8146,12 +8146,12 @@ export namespace Prisma {
     id: string;
     userId: string;
     date: Date;
-    fajr: number | null;
-    dhuhr: number | null;
-    asr: number | null;
-    maghrib: number | null;
-    isha: number | null;
-    nafl: number | null;
+    fajr: number;
+    dhuhr: number;
+    asr: number;
+    maghrib: number;
+    isha: number;
+    nafl: number;
     createdAt: Date;
     updatedAt: Date;
     _count: PrayerCountAggregateOutputType | null;
@@ -8292,12 +8292,12 @@ export namespace Prisma {
         id: string;
         userId: string;
         date: Date;
-        fajr: number | null;
-        dhuhr: number | null;
-        asr: number | null;
-        maghrib: number | null;
-        isha: number | null;
-        nafl: number | null;
+        fajr: number;
+        dhuhr: number;
+        asr: number;
+        maghrib: number;
+        isha: number;
+        nafl: number;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -18247,12 +18247,12 @@ export namespace Prisma {
     id?: StringFilter<'Prayer'> | string;
     userId?: StringFilter<'Prayer'> | string;
     date?: DateTimeFilter<'Prayer'> | Date | string;
-    fajr?: IntNullableFilter<'Prayer'> | number | null;
-    dhuhr?: IntNullableFilter<'Prayer'> | number | null;
-    asr?: IntNullableFilter<'Prayer'> | number | null;
-    maghrib?: IntNullableFilter<'Prayer'> | number | null;
-    isha?: IntNullableFilter<'Prayer'> | number | null;
-    nafl?: IntNullableFilter<'Prayer'> | number | null;
+    fajr?: IntFilter<'Prayer'> | number;
+    dhuhr?: IntFilter<'Prayer'> | number;
+    asr?: IntFilter<'Prayer'> | number;
+    maghrib?: IntFilter<'Prayer'> | number;
+    isha?: IntFilter<'Prayer'> | number;
+    nafl?: IntFilter<'Prayer'> | number;
     createdAt?: DateTimeFilter<'Prayer'> | Date | string;
     updatedAt?: DateTimeFilter<'Prayer'> | Date | string;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -18262,12 +18262,12 @@ export namespace Prisma {
     id?: SortOrder;
     userId?: SortOrder;
     date?: SortOrder;
-    fajr?: SortOrderInput | SortOrder;
-    dhuhr?: SortOrderInput | SortOrder;
-    asr?: SortOrderInput | SortOrder;
-    maghrib?: SortOrderInput | SortOrder;
-    isha?: SortOrderInput | SortOrder;
-    nafl?: SortOrderInput | SortOrder;
+    fajr?: SortOrder;
+    dhuhr?: SortOrder;
+    asr?: SortOrder;
+    maghrib?: SortOrder;
+    isha?: SortOrder;
+    nafl?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
@@ -18282,12 +18282,12 @@ export namespace Prisma {
       NOT?: PrayerWhereInput | PrayerWhereInput[];
       userId?: StringFilter<'Prayer'> | string;
       date?: DateTimeFilter<'Prayer'> | Date | string;
-      fajr?: IntNullableFilter<'Prayer'> | number | null;
-      dhuhr?: IntNullableFilter<'Prayer'> | number | null;
-      asr?: IntNullableFilter<'Prayer'> | number | null;
-      maghrib?: IntNullableFilter<'Prayer'> | number | null;
-      isha?: IntNullableFilter<'Prayer'> | number | null;
-      nafl?: IntNullableFilter<'Prayer'> | number | null;
+      fajr?: IntFilter<'Prayer'> | number;
+      dhuhr?: IntFilter<'Prayer'> | number;
+      asr?: IntFilter<'Prayer'> | number;
+      maghrib?: IntFilter<'Prayer'> | number;
+      isha?: IntFilter<'Prayer'> | number;
+      nafl?: IntFilter<'Prayer'> | number;
       createdAt?: DateTimeFilter<'Prayer'> | Date | string;
       updatedAt?: DateTimeFilter<'Prayer'> | Date | string;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -18299,12 +18299,12 @@ export namespace Prisma {
     id?: SortOrder;
     userId?: SortOrder;
     date?: SortOrder;
-    fajr?: SortOrderInput | SortOrder;
-    dhuhr?: SortOrderInput | SortOrder;
-    asr?: SortOrderInput | SortOrder;
-    maghrib?: SortOrderInput | SortOrder;
-    isha?: SortOrderInput | SortOrder;
-    nafl?: SortOrderInput | SortOrder;
+    fajr?: SortOrder;
+    dhuhr?: SortOrder;
+    asr?: SortOrder;
+    maghrib?: SortOrder;
+    isha?: SortOrder;
+    nafl?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: PrayerCountOrderByAggregateInput;
@@ -18325,12 +18325,12 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<'Prayer'> | string;
     userId?: StringWithAggregatesFilter<'Prayer'> | string;
     date?: DateTimeWithAggregatesFilter<'Prayer'> | Date | string;
-    fajr?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
-    dhuhr?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
-    asr?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
-    maghrib?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
-    isha?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
-    nafl?: IntNullableWithAggregatesFilter<'Prayer'> | number | null;
+    fajr?: IntWithAggregatesFilter<'Prayer'> | number;
+    dhuhr?: IntWithAggregatesFilter<'Prayer'> | number;
+    asr?: IntWithAggregatesFilter<'Prayer'> | number;
+    maghrib?: IntWithAggregatesFilter<'Prayer'> | number;
+    isha?: IntWithAggregatesFilter<'Prayer'> | number;
+    nafl?: IntWithAggregatesFilter<'Prayer'> | number;
     createdAt?: DateTimeWithAggregatesFilter<'Prayer'> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<'Prayer'> | Date | string;
   };
@@ -19212,12 +19212,12 @@ export namespace Prisma {
   export type PrayerCreateInput = {
     id?: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutPrayersInput;
@@ -19227,12 +19227,12 @@ export namespace Prisma {
     id?: string;
     userId: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -19240,12 +19240,12 @@ export namespace Prisma {
   export type PrayerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutPrayersNestedInput;
@@ -19255,12 +19255,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -19269,12 +19269,12 @@ export namespace Prisma {
     id?: string;
     userId: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -19282,12 +19282,12 @@ export namespace Prisma {
   export type PrayerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -19296,12 +19296,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -20143,6 +20143,17 @@ export namespace Prisma {
     updatedAt?: SortOrder;
   };
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
+
   export type PrayerUserIdDateCompoundUniqueInput = {
     userId: string;
     date: Date | string;
@@ -20206,6 +20217,22 @@ export namespace Prisma {
     maghrib?: SortOrder;
     isha?: SortOrder;
     nafl?: SortOrder;
+  };
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
   };
 
   export type FriendGroupCountOrderByAggregateInput = {
@@ -21484,6 +21511,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+  };
+
   export type UserUpdateOneRequiredWithoutPrayersNestedInput = {
     create?: XOR<
       UserCreateWithoutPrayersInput,
@@ -22149,6 +22184,33 @@ export namespace Prisma {
       _max?: NestedDateTimeNullableFilter<$PrismaModel>;
     };
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>;
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    lt?: number | FloatFieldRefInput<$PrismaModel>;
+    lte?: number | FloatFieldRefInput<$PrismaModel>;
+    gt?: number | FloatFieldRefInput<$PrismaModel>;
+    gte?: number | FloatFieldRefInput<$PrismaModel>;
+    not?: NestedFloatFilter<$PrismaModel> | number;
+  };
+
   export type NestedEnumFriendStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.FriendStatus | EnumFriendStatusFieldRefInput<$PrismaModel>;
     in?:
@@ -22320,12 +22382,12 @@ export namespace Prisma {
   export type PrayerCreateWithoutUserInput = {
     id?: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -22333,12 +22395,12 @@ export namespace Prisma {
   export type PrayerUncheckedCreateWithoutUserInput = {
     id?: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -22675,12 +22737,12 @@ export namespace Prisma {
     id?: StringFilter<'Prayer'> | string;
     userId?: StringFilter<'Prayer'> | string;
     date?: DateTimeFilter<'Prayer'> | Date | string;
-    fajr?: IntNullableFilter<'Prayer'> | number | null;
-    dhuhr?: IntNullableFilter<'Prayer'> | number | null;
-    asr?: IntNullableFilter<'Prayer'> | number | null;
-    maghrib?: IntNullableFilter<'Prayer'> | number | null;
-    isha?: IntNullableFilter<'Prayer'> | number | null;
-    nafl?: IntNullableFilter<'Prayer'> | number | null;
+    fajr?: IntFilter<'Prayer'> | number;
+    dhuhr?: IntFilter<'Prayer'> | number;
+    asr?: IntFilter<'Prayer'> | number;
+    maghrib?: IntFilter<'Prayer'> | number;
+    isha?: IntFilter<'Prayer'> | number;
+    nafl?: IntFilter<'Prayer'> | number;
     createdAt?: DateTimeFilter<'Prayer'> | Date | string;
     updatedAt?: DateTimeFilter<'Prayer'> | Date | string;
   };
@@ -24477,12 +24539,12 @@ export namespace Prisma {
   export type PrayerCreateManyUserInput = {
     id?: string;
     date: Date | string;
-    fajr?: number | null;
-    dhuhr?: number | null;
-    asr?: number | null;
-    maghrib?: number | null;
-    isha?: number | null;
-    nafl?: number | null;
+    fajr?: number;
+    dhuhr?: number;
+    asr?: number;
+    maghrib?: number;
+    isha?: number;
+    nafl?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -24561,12 +24623,12 @@ export namespace Prisma {
   export type PrayerUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -24574,12 +24636,12 @@ export namespace Prisma {
   export type PrayerUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -24587,12 +24649,12 @@ export namespace Prisma {
   export type PrayerUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     date?: DateTimeFieldUpdateOperationsInput | Date | string;
-    fajr?: NullableIntFieldUpdateOperationsInput | number | null;
-    dhuhr?: NullableIntFieldUpdateOperationsInput | number | null;
-    asr?: NullableIntFieldUpdateOperationsInput | number | null;
-    maghrib?: NullableIntFieldUpdateOperationsInput | number | null;
-    isha?: NullableIntFieldUpdateOperationsInput | number | null;
-    nafl?: NullableIntFieldUpdateOperationsInput | number | null;
+    fajr?: IntFieldUpdateOperationsInput | number;
+    dhuhr?: IntFieldUpdateOperationsInput | number;
+    asr?: IntFieldUpdateOperationsInput | number;
+    maghrib?: IntFieldUpdateOperationsInput | number;
+    isha?: IntFieldUpdateOperationsInput | number;
+    nafl?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

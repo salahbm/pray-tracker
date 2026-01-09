@@ -90,15 +90,16 @@ model Verification {
 }
 
 model Prayer {
-  id      String   @id @default(cuid())
-  userId  String
-  date    DateTime
-  fajr    Int?
-  dhuhr   Int?
-  asr     Int?
-  maghrib Int?
-  isha    Int?
-  nafl    Int?
+  id     String   @id @default(cuid())
+  userId String
+  date   DateTime
+
+  fajr    Int @default(0)
+  dhuhr   Int @default(0)
+  asr     Int @default(0)
+  maghrib Int @default(0)
+  isha    Int @default(0)
+  nafl    Int @default(0)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
