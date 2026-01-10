@@ -93,7 +93,7 @@ const PrayerNotifierSheet: React.FC = () => {
   }));
 
   return (
-    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['45%']}>
+    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['45%', '60%']}>
       <Animated.View style={fadeInStyle} className="gap-5 pb-8">
         <View className="items-center mb-3">
           <Animated.View

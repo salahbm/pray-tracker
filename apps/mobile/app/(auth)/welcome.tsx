@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Animated, Platform, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Animated, Platform, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 
@@ -24,7 +24,6 @@ const Welcome = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [activeIndex, setActiveIndex] = useState(0);
   const { setVisited } = useOnboarding();
-  const { height: windowHeight } = useWindowDimensions();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
 
@@ -37,7 +36,7 @@ const Welcome = () => {
   const onNextPress = () => {
     if (isLastSlide) {
       setVisited();
-      router.replace('/(tabs)');
+      router.push('/(tabs)');
     } else {
       swiperRef.current?.scrollBy(1, true);
     }
@@ -45,7 +44,7 @@ const Welcome = () => {
 
   const onSkipPress = () => {
     setVisited();
-    router.replace('/(tabs)');
+    router.push('/(tabs)');
   };
 
   return (
@@ -91,13 +90,13 @@ const Welcome = () => {
               <View className="bg-background rounded-t-3xl -mt-5 px-5 pt-10 border-[0.2px] border-border min-h-fit h-full">
                 {index === 0 && (
                   <View className="touchable px-6">
-                    <TouchableOpacity onPress={() => langRef.current?.snapToIndex(1)}>
+                    <Pressable onPress={() => langRef.current?.snapToIndex(1)}>
                       <Text className="text-base text-muted-foreground ml-2">
                         {FLAGS[currentLanguage as keyof typeof FLAGS]}{' '}
                         {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
                       </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => themeRef.current?.snapToIndex(1)}>
+                    </Pressable>
+                    <Pressable onPress={() => themeRef.current?.snapToIndex(1)}>
                       <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
                         <View
                           style={{
@@ -139,7 +138,7 @@ const Welcome = () => {
                           }}
                         />
                       </View>
-                    </TouchableOpacity>
+                    </Pressable>
                   </View>
                 )}
                 <View className="flex flex-row items-center justify-center w-full">
@@ -156,14 +155,14 @@ const Welcome = () => {
         ))}
       </Swiper>
 
-      <View className="flex items-center">
-        <TouchableOpacity
+      <View className="flex items-center flex-row gap-4 pb-10 px-4">
+        <Pressable
           onPress={onSkipPress}
-          className="w-full flex justify-center items-center p-5 "
+          className="flex-center p-3 rounded-full w-fit border border-muted"
         >
-          <Text className="text-foreground text-md">{t('auth.welcome.skip')}</Text>
-        </TouchableOpacity>
-        <Button onPress={onNextPress} className="w- mx-auto mb-2">
+          <Text className="text-muted-foreground text-sm">{t('auth.welcome.skip')}</Text>
+        </Pressable>
+        <Button onPress={onNextPress} className="rounded-full flex-1">
           <Text>{isLastSlide ? t('auth.welcome.getStarted') : t('auth.welcome.next')}</Text>
         </Button>
       </View>
