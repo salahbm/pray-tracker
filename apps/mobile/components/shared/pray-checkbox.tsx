@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo, memo, useCallback } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, {
   interpolateColor,
@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { cn } from '@/lib/utils'; // Your existing utility
+import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 
 // --- Types ---
@@ -36,23 +36,28 @@ type PrayCheckboxProps = {
 
 const SPRING_CONFIG = {
   stiffness: 500,
-  damping: 15, // Low damping = more bouncy
+  damping: 15,
   mass: 1,
 };
 
-// --- Sub-Component: Skeleton ---
+const TIMING_CONFIG = { duration: 200 };
+const PULSE_DURATION = 800;
 
-const CheckboxSkeleton = () => {
+// --- Sub-Component: Skeleton (Memoized) ---
+
+const CheckboxSkeleton = memo(() => {
   const opacity = useSharedValue(0.3);
 
   React.useEffect(() => {
-    // Infinite pulse animation
     opacity.value = withRepeat(
-      withSequence(withTiming(0.7, { duration: 800 }), withTiming(0.3, { duration: 800 })),
-      -1, // Infinite
-      true // Reverse
+      withSequence(
+        withTiming(0.7, { duration: PULSE_DURATION }),
+        withTiming(0.3, { duration: PULSE_DURATION })
+      ),
+      -1,
+      true
     );
-  }, []);
+  }, [opacity]);
 
   const rStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -64,36 +69,34 @@ const CheckboxSkeleton = () => {
       style={rStyle}
     />
   );
-};
+});
 
-// --- Sub-Component: The Animated Checkbox ---
+CheckboxSkeleton.displayName = 'CheckboxSkeleton';
 
-const BounceCheckbox: React.FC<{
+// --- Sub-Component: The Animated Checkbox (Memoized) ---
+
+const BounceCheckbox = memo<{
   checked: boolean;
   onPress: () => void;
   activeColor: string;
+  borderColor: string;
   disabled?: boolean;
-}> = ({ checked, onPress, activeColor, disabled }) => {
-  // Shared Values
+}>(({ checked, onPress, activeColor, borderColor, disabled }) => {
   const scale = useSharedValue(1);
-  const { colors } = useThemeStore();
   const checkProgress = useSharedValue(checked ? 1 : 0);
 
-  // Sync prop changes to shared value
   React.useEffect(() => {
-    checkProgress.value = withTiming(checked ? 1 : 0, { duration: 200 });
-  }, [checked]);
+    checkProgress.value = withTiming(checked ? 1 : 0, TIMING_CONFIG);
+  }, [checked, checkProgress]);
 
-  // Gesture Handlers
-  const handlePressIn = () => {
+  const handlePressIn = useCallback(() => {
     scale.value = withSpring(0.85, SPRING_CONFIG);
-  };
+  }, [scale]);
 
-  const handlePressOut = () => {
+  const handlePressOut = useCallback(() => {
     scale.value = withSpring(1, SPRING_CONFIG);
-  };
+  }, [scale]);
 
-  // 1. Container Animation (Scale + Border Color + BG Color)
   const rContainerStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       checkProgress.value,
@@ -101,26 +104,26 @@ const BounceCheckbox: React.FC<{
       ['transparent', activeColor]
     );
 
-    // Optional: Animate border color opacity based on checked state
-    const borderColor = interpolateColor(
+    const animatedBorderColor = interpolateColor(
       checkProgress.value,
       [0, 1],
-      [colors['--border'], activeColor]
+      [borderColor, activeColor]
     );
 
     return {
       transform: [{ scale: scale.value }],
       backgroundColor,
+      borderColor: animatedBorderColor,
     };
-  });
+  }, [activeColor, borderColor]);
 
-  // 2. Inner Dot/Icon Animation (Scale + Opacity)
   const rInnerStyle = useAnimatedStyle(() => {
+    const progressValue = checkProgress.value;
     return {
-      opacity: checkProgress.value,
-      transform: [{ scale: Math.max(0, checkProgress.value) }],
+      opacity: progressValue,
+      transform: [{ scale: Math.max(0, progressValue) }],
     };
-  });
+  }, []);
 
   return (
     <Pressable
@@ -128,22 +131,23 @@ const BounceCheckbox: React.FC<{
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       className="mx-3 my-1.5"
-      hitSlop={10}
+      hitSlop={8}
       disabled={disabled}
     >
       <Animated.View
         className={cn(
-          'flex items-center justify-center h-8 w-8 aspect-square rounded-md ',
+          'flex items-center justify-center h-8 w-8 aspect-square rounded-md',
           checked ? 'border-muted box-border border-[0.4px]' : 'border-border border-2'
         )}
         style={rContainerStyle}
       >
-        {/* Render the inner white indicator */}
         <Animated.View style={rInnerStyle} className="size-3 bg-white rounded" />
       </Animated.View>
     </Pressable>
   );
-};
+});
+
+BounceCheckbox.displayName = 'BounceCheckbox';
 
 // --- Main Component ---
 
@@ -157,37 +161,46 @@ const PrayCheckbox: React.FC<PrayCheckboxProps> = ({
 }) => {
   const { colors } = useThemeStore();
 
-  // Memoize the visible options to prevent re-calculations during renders
   const visibleOptions = useMemo(() => {
     const options = [PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME];
 
     return options.filter(optionVal => {
-      // Logic 1: Original Nafl logic
       if (prayer === 'nafl' && optionVal < 2) return false;
-
-      // Logic 2: New hideMissed prop
       if (hideMissed && optionVal === PRAYER_POINTS.MISSED) return false;
-
       return true;
     });
   }, [prayer, hideMissed]);
 
+  const getColorForValue = useCallback(
+    (val: number) => {
+      if (val === PRAYER_POINTS.ON_TIME) return colors['--primary'] || '#10b981';
+      if (val === PRAYER_POINTS.LATE) return colors['--secondary'] || '#f59e0b';
+      return colors['--destructive'] || '#ef4444';
+    },
+    [colors]
+  );
+
+  const borderColor = useMemo(() => colors['--border'] || '#e5e7eb', [colors]);
+
+  const handlePress = useCallback(
+    (optionVal: number) => {
+      // Animation happens first (instant feedback)
+      requestAnimationFrame(() => {
+        handlePrayerChange(prayer, optionVal);
+      });
+    },
+    [handlePrayerChange, prayer]
+  );
+
   if (isLoading) {
-    // Show 3 skeletons if loading
     return (
       <View className="flex-row">
-        {[1, 2, 3].map(i => (
-          <CheckboxSkeleton key={i} />
-        ))}
+        <CheckboxSkeleton />
+        <CheckboxSkeleton />
+        <CheckboxSkeleton />
       </View>
     );
   }
-
-  const getColorForValue = (val: number) => {
-    if (val === PRAYER_POINTS.ON_TIME) return colors['--primary'] || '#10b981'; // Green fallback
-    if (val === PRAYER_POINTS.LATE) return colors['--secondary'] || '#f59e0b'; // Orange fallback
-    return colors['--destructive'] || '#ef4444'; // Red fallback
-  };
 
   return (
     <Fragment>
@@ -196,8 +209,9 @@ const PrayCheckbox: React.FC<PrayCheckboxProps> = ({
           key={optionVal}
           disabled={disabled}
           checked={value === optionVal}
-          onPress={() => handlePrayerChange(prayer, optionVal)}
+          onPress={() => handlePress(optionVal)}
           activeColor={getColorForValue(optionVal)}
+          borderColor={borderColor}
         />
       ))}
     </Fragment>

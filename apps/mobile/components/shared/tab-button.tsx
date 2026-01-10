@@ -9,8 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { cn } from '@/lib/utils';
-import { useThemeColors } from '@/hooks/common/useThemeColors';
-import { LucideIcon, LucideProps } from 'lucide-react-native';
+import { LucideIcon } from 'lucide-react-native';
 import { triggerHaptic } from '@/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 

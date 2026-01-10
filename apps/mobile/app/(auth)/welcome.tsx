@@ -53,8 +53,8 @@ const Welcome = () => {
         ref={swiperRef}
         loop={false}
         className="bg-transparent"
-        dot={<View className="w-[32px] h-[4px] mx-1 bg-gray-300 rounded-full" />}
-        activeDot={<View className="w-[32px] h-[4px] mx-1 bg-primary rounded-full" />}
+        // dot={<View className="w-[32px] h-[4px] mx-1 bg-gray-300 rounded-full" />}
+        // activeDot={<View className="w-[32px] h-[4px] mx-1 bg-primary rounded-full" />}
         onIndexChanged={index => setActiveIndex(index)}
       >
         {onboarding.map((item, index) => (

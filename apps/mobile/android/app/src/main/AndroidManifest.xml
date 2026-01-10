@@ -33,6 +33,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="noor"/>
+        <data android:scheme="exp+noor-pray-tracker"/>
       </intent-filter>
     </activity>
   </application>
