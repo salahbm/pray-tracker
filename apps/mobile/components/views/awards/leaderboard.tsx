@@ -10,7 +10,7 @@ import NoData from '@/components/shared/no-data';
 import Image from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { FRIENDS } from '@/constants/images';
-import { cn, gibberishEmail } from '@/lib/utils';
+import { cn, formatNumber, gibberishEmail } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
 import { TUser } from '@/types/user';
@@ -21,6 +21,9 @@ interface LeaderboardProps {
   imageClassName?: string;
   refetch?: () => void;
   scrollEnabled?: boolean;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  isFetchingMore?: boolean;
 }
 
 export default function Leaderboard({
@@ -29,6 +32,9 @@ export default function Leaderboard({
   imageClassName,
   refetch,
   scrollEnabled = true,
+  onLoadMore,
+  hasMore = false,
+  isFetchingMore = false,
 }: LeaderboardProps) {
   const { t } = useTranslation();
   const { user } = useAuthStore();
@@ -38,17 +44,27 @@ export default function Leaderboard({
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
   const leaderboardData = data ?? [];
 
-  const refreshControl = refetch && (
-    <RefreshControl refreshing={isLoading} onRefresh={refetch} tintColor={colors['--primary']} />
-  );
+  const refreshControl = refetch ? (
+    <RefreshControl
+      refreshing={isLoading && leaderboardData.length > 0}
+      onRefresh={refetch}
+      tintColor={colors['--primary']}
+    />
+  ) : undefined;
 
-  if (isLoading) {
+  if (isLoading && leaderboardData.length === 0) {
     return <Loader visible={isLoading} className="bg-transparent" />;
   }
 
-  if (leaderboardData.length === 0 && !isLoading) {
+  if (leaderboardData.length === 0 && !isLoading && !isFetchingMore) {
     return <NoData imageClassName={imageClassName} className="mt-[55%]" />;
   }
+
+  const handleEndReached = () => {
+    if (hasMore && !isFetchingMore && onLoadMore) {
+      onLoadMore();
+    }
+  };
 
   return (
     <View className="flex-1 h-full">
@@ -63,7 +79,7 @@ export default function Leaderboard({
                 index === 0
                   ? 'bg-muted border-primary'
                   : item.id === user?.id
-                    ? 'bg-muted/50 border-primary/50'
+                    ? 'bg-card border-accent'
                     : 'bg-popover border-border opacity-90'
               )}
             >
@@ -77,7 +93,7 @@ export default function Leaderboard({
                 {item.username}
               </Text>
               <Text className="text-base font-bold">
-                {item.totalPoints} {t('leaderboard.points')}
+                {formatNumber(item.totalPoints)} {t('leaderboard.points')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -86,7 +102,16 @@ export default function Leaderboard({
         scrollEnabled={scrollEnabled}
         className="mt-4"
         contentContainerStyle={{ gap: 8, paddingBottom: insets.bottom + 50 }}
-        refreshControl={refreshControl ?? undefined}
+        refreshControl={refreshControl}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={
+          isFetchingMore ? (
+            <View className="py-4">
+              <Loader visible={true} className="bg-transparent" />
+            </View>
+          ) : null
+        }
       />
 
       {/* User Details Modal */}
@@ -121,7 +146,7 @@ export default function Leaderboard({
 
             <View className="flex-row items-center mt-1">
               <Text className="text-sm text-muted-foreground">
-                {selectedUser?.totalPoints} {t('leaderboard.points')}
+                {formatNumber(selectedUser?.totalPoints)} {t('leaderboard.points')}
               </Text>
             </View>
           </View>

@@ -192,7 +192,13 @@ const GroupDetails = () => {
                             </Animated.View>
                             <View>
                               <Text className="text-base font-bold">{member.username}</Text>
-                              <Text className="text-sm text-muted-foreground">{member.email}</Text>
+                              <Text
+                                className="text-sm text-muted-foreground truncate  line-clamp-1 max-w-[90%]"
+                                numberOfLines={1}
+                                ellipsizeMode="middle"
+                              >
+                                {member.email}
+                              </Text>
                             </View>
                           </View>
                         </AccordionTrigger>

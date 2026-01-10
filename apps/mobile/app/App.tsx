@@ -43,10 +43,6 @@ export default function App() {
     initializeRevenueCat();
   }, []);
 
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <Suspense fallback={<ActivityIndicator size="large" color="primary" />}>
       <Stack screenOptions={{ headerShown: false }}>

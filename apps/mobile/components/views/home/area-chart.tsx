@@ -64,7 +64,7 @@ const AreaChart = ({ lineData }: { lineData?: IPrays[] }) => {
         height={220}
         parentWidth={Dimensions.get('window').width * 0.85}
         width={Dimensions.get('window').width * 0.85}
-        maxValue={12}
+        maxValue={13}
         dataPointsRadius={1}
         dataPointsColor={colors['--primary']}
         pointerConfig={{

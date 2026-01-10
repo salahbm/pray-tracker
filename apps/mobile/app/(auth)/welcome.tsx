@@ -156,15 +156,17 @@ const Welcome = () => {
         ))}
       </Swiper>
 
-      <Button onPress={onNextPress} className="w-11/12 mx-auto mb-2">
-        <Text>{isLastSlide ? t('auth.welcome.getStarted') : t('auth.welcome.next')}</Text>
-      </Button>
-      <TouchableOpacity
-        onPress={onSkipPress}
-        className="w-full flex justify-center items-center p-5"
-      >
-        <Text className="text-foreground text-md">{t('auth.welcome.skip')}</Text>
-      </TouchableOpacity>
+      <View className="flex items-center">
+        <TouchableOpacity
+          onPress={onSkipPress}
+          className="w-full flex justify-center items-center p-5 "
+        >
+          <Text className="text-foreground text-md">{t('auth.welcome.skip')}</Text>
+        </TouchableOpacity>
+        <Button onPress={onNextPress} className="w- mx-auto mb-2">
+          <Text>{isLastSlide ? t('auth.welcome.getStarted') : t('auth.welcome.next')}</Text>
+        </Button>
+      </View>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
         <ThemeSwitcher onClose={() => themeRef.current?.close()} />

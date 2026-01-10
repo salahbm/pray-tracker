@@ -32,3 +32,33 @@ export const gibberishEmail = (email?: string): string => {
 
   return `${maskedLocal}@${domain}`;
 };
+
+/**
+ * @description
+ * Formats large numbers:
+ * 1_000        → 1k
+ * 1_000_000    → 1m
+ * 1_000_000_000 → 1b
+ *
+ * @param points number
+ * @returns string
+ */
+export const formatNumber = (points?: number): string => {
+  if (points == null) return '0';
+
+  const abs = Math.abs(points);
+
+  if (abs >= 1_000_000_000) {
+    return `${(points / 1_000_000_000).toFixed(1).replace(/\.0$/, '')}b`;
+  }
+
+  if (abs >= 1_000_000) {
+    return `${(points / 1_000_000).toFixed(1).replace(/\.0$/, '')}m`;
+  }
+
+  if (abs >= 1_000) {
+    return `${(points / 1_000).toFixed(1).replace(/\.0$/, '')}k`;
+  }
+
+  return points.toString();
+};

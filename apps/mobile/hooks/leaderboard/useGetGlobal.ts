@@ -30,7 +30,7 @@ export const useGetGlobalLeaderboard = (
   options: UseGlobalLeaderboardOptions = {}
 ) =>
   useQuery({
-    queryKey: [...QueryKeys.leaderboard.global, page, limit],
+    queryKey: [...QueryKeys.leaderboard.global, { page, limit }],
     queryFn: () => getGlobalLeaderboard(page, limit),
     placeholderData: keepPreviousData,
     enabled: options.enabled ?? true,

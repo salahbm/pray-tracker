@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -29,6 +29,22 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { mutateAsync: patchPray } = usePatchPray();
+
+  // Memoize the prayer change handler
+  const handlePrayerChange = useCallback(
+    async (prayerName: string, newValue: number) => {
+      if (!user?.id) return;
+      await triggerHaptic();
+      await patchPray({
+        userId: user.id,
+        date: new Date(selected),
+        field: prayerName as PrayerField,
+        value: newValue as 0 | 1 | 2,
+      });
+    },
+    [user?.id, selected, patchPray]
+  );
+
   return (
     <Modal visible={!!selected} onRequestClose={() => setSelected('')}>
       <View className={cn('p-4 bg-muted rounded-md')}>
@@ -58,15 +74,7 @@ const PrevPayUpdateModal: React.FC<IPrevPayUpdateModalProps> = ({
                   <PrayCheckbox
                     value={value as number}
                     prayer={prayer}
-                    handlePrayerChange={async (prayerName, newValue) => {
-                      await triggerHaptic();
-                      await patchPray({
-                        userId: user?.id!,
-                        date: new Date(selected),
-                        field: prayerName as PrayerField,
-                        value: newValue as 0 | 1 | 2,
-                      });
-                    }}
+                    handlePrayerChange={handlePrayerChange}
                     isLoading={false}
                   />
                 </View>

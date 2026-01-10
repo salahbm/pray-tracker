@@ -161,6 +161,7 @@ export default function HomeScreen() {
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
       // if date is after today, return toast
+      if (!user) return fireToast.error(t('common.unauthorized.description'));
       const isDateAfterToday = new Date(date) > today;
       const isMoreThanAWeek = new Date(date) < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isDateAfterToday) return fireToast.info(t('home.errors.futureDate'));

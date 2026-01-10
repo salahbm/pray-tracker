@@ -9,9 +9,9 @@ interface SavePushTokenResponse {
 export const useSavePushToken = () => {
   return useMutation({
     mutationFn: async (pushToken: string): Promise<SavePushTokenResponse> => {
-      // Add timeout to prevent blocking app startup
+      // Agent already has 60s timeout, but we want faster failure for push tokens
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
       try {
         const response = await agent.post<SavePushTokenResponse>(
@@ -23,14 +23,15 @@ export const useSavePushToken = () => {
         return response;
       } catch (error) {
         clearTimeout(timeoutId);
-        throw error;
+        // Don't throw - silently fail to prevent app blocking
+        console.log('⏭️ Push token registration failed (backend may be sleeping)');
+        return { success: false, message: 'Timeout' };
       }
     },
-    retry: 1, // Only retry once
-    retryDelay: 1000, // Wait 1 second before retry
+    retry: false, // Don't retry to avoid blocking
     onError: error => {
-      // Silently fail - don't block app startup
-      console.log('⏭️ Push token registration failed (backend may be sleeping):', error);
+      // Silently log - don't block app startup
+      console.log('⏭️ Push token error:', error);
     },
   });
 };
