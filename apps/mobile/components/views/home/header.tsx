@@ -57,7 +57,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
         >
           <Image
             src={user?.image}
-            className={cn('size-14 rounded-full border border-border max-w-14 max-h-14')}
+            className={cn('size-16 rounded-full border border-border max-w-14 max-h-14')}
           />
         </TouchableOpacity>
       </AuthWrapper>
@@ -79,7 +79,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
             <Image
               source={FRIENDS.guest}
               className={cn(
-                'size-14 rounded-full bg-foreground border border-border max-w-14 max-h-14'
+                'size-16 rounded-full bg-foreground border border-border max-w-14 max-h-14'
               )}
             />
           </TouchableOpacity>

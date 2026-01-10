@@ -56,7 +56,11 @@ export const usePatchPray = () => {
       const isToday = dateStr === format(new Date(), 'yyyy-MM-dd');
       const year = vars.date.getFullYear();
 
-      const todayKey = [...QueryKeys.prays.today, { id: vars.userId }];
+      // Include date in today key to match useGetTodayPrays signature
+      const todayKey = [
+        ...QueryKeys.prays.today,
+        { id: vars.userId, date: format(new Date(), 'yyyy-MM-dd') },
+      ];
       const praysKey = [...QueryKeys.prays.list, { id: vars.userId, year }];
 
       // sequence key

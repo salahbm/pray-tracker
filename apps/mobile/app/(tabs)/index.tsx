@@ -19,11 +19,11 @@ import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { useDateSync } from '@/hooks/common/useDateSync';
 import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
-import { useUpdateOldPray } from '@/hooks/prays/useUpdateOldPray';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -80,6 +80,16 @@ export default function HomeScreen() {
       setYear(now.getFullYear());
     }, [])
   );
+
+  // Automatically update date when midnight passes
+  useDateSync(
+    useCallback(() => {
+      const now = new Date();
+      setToday(now);
+      setYear(now.getFullYear());
+    }, [])
+  );
+
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
   // QUERIES
@@ -93,7 +103,7 @@ export default function HomeScreen() {
     refetch: refetchPrays,
   } = useGetPrays(user?.id!, year);
 
-  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!);
+  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!, today);
   const {
     data: leaderboard,
     isLoading: isLoadingLeaderboard,
@@ -101,8 +111,7 @@ export default function HomeScreen() {
   } = useGetGlobalLeaderboard(1, 10);
 
   // MUTATIONS
-  const { mutateAsync: createPray } = usePatchPray();
-  const { mutateAsync: updateOldPray } = useUpdateOldPray();
+  const { mutateAsync: patchPray } = usePatchPray();
 
   const { profileSheetRef } = useProfileBottomSheetStore();
 
@@ -136,7 +145,7 @@ export default function HomeScreen() {
 
       // Send ONLY the changed prayer field to backend
       // This prevents race conditions when multiple prayers are clicked rapidly
-      await createPray({
+      await patchPray({
         userId: user?.id!,
         date: today,
         field: prayer as PrayerField,
@@ -146,7 +155,7 @@ export default function HomeScreen() {
       // Track prayer toggle for app rating
       await incrementPrayerToggle();
     },
-    [prayers, createPray, user?.id, today, dispatch, incrementPrayerToggle]
+    [prayers, patchPray, user?.id, today, dispatch, incrementPrayerToggle]
   );
 
   const handleDayClick = useCallback(
@@ -189,7 +198,7 @@ export default function HomeScreen() {
       await triggerHaptic();
 
       // Send PATCH request with only the changed field
-      await createPray({
+      await patchPray({
         userId: user.id,
         date: new Date(date),
         field,
@@ -198,7 +207,7 @@ export default function HomeScreen() {
 
       // The usePatchPray hook handles optimistic updates automatically
     },
-    [createPray, user?.id]
+    [patchPray, user?.id]
   );
 
   useEffect(() => {
@@ -264,7 +273,7 @@ export default function HomeScreen() {
           handleUpdateClickedDay={handleUpdateClickedDay}
         />
         {/* CHARTS */}
-        <AreaChart lineData={prays} />
+        {year === new Date().getFullYear() && user && <AreaChart lineData={prays} />}
 
         <View>
           <View className="flex-row items-center justify-between mt-10">

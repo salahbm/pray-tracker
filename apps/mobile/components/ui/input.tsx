@@ -25,8 +25,8 @@ const Input = React.forwardRef<
         <TextInput
           ref={ref}
           className={cn(
-            'web:flex h-10 native:h-12 web:w-full rounded-md border border-input bg-background px-3 web:py-2 text-base lg:text-sm native:text-lg native:leading-[1.25] text-foreground  web:ring-offset-background file:border-0 file:bg-transparent file:font-medium web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
-            props.editable === false && 'opacity-50 web:cursor-not-allowed',
+            'h-10 native:h-14 bg-card rounded-md border border-input px-3 text-lg leading-[1.25] text-card-foreground',
+            props.editable === false && 'opacity-50 -not-allowed',
             props.error && 'border-destructive',
             className
           )}
@@ -37,21 +37,21 @@ const Input = React.forwardRef<
         <View
           style={{
             position: 'absolute',
-            right: 10,
+            right: 12,
             transform: [{ translateY: '50%' }],
           }}
         >
           {secureTextEntry &&
             (secure ? (
               <Eye
-                size={20}
+                size={24}
                 color={colors['--foreground']}
                 className=" cursor-pointer"
                 onPress={() => setSecure(false)}
               />
             ) : (
               <EyeClosed
-                size={20}
+                size={24}
                 color={colors['--foreground']}
                 className=" cursor-pointer"
                 onPress={() => setSecure(true)}
