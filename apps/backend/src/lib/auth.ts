@@ -42,7 +42,6 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const response = ctx.context.returned as APIError;
-      console.log(`STRINGIFIED 👉:`, JSON.stringify(response, null, 2));
       if (!response) return;
       const code = response.body?.code;
 
