@@ -255,9 +255,9 @@ export default function HomeScreen() {
         {/* HEADER */}
         <MotiView
           key="header-animation"
-          from={{ opacity: 0, translateY: -20 }}
+          from={{ opacity: 0, translateY: -50 }}
           animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 0 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8 }}
         >
           <HomeHeader today={today} />
         </MotiView>
@@ -265,9 +265,9 @@ export default function HomeScreen() {
         {/* Today's Prayers */}
         <MotiView
           key="todays-prayers-animation"
-          from={{ opacity: 0, translateY: 20 }}
+          from={{ opacity: 0, translateY: 50 }}
           animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 50 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 50 }}
         >
           <TodaysPray
             isLoading={isLoadingPrays}
@@ -279,9 +279,9 @@ export default function HomeScreen() {
         {/* PRAYER HISTORY */}
         <MotiView
           key="prayer-history-animation"
-          from={{ opacity: 0, translateX: 50 }}
+          from={{ opacity: 0, translateX: 100 }}
           animate={{ opacity: 1, translateX: 0 }}
-          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 100 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 100 }}
         >
           <PrayerHistory
             data={prays}
@@ -300,9 +300,9 @@ export default function HomeScreen() {
         {year === new Date().getFullYear() && user && (
           <MotiView
             key="area-chart-animation"
-            from={{ opacity: 0, scale: 0.95 }}
+            from={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 150 }}
+            transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
           >
             <AreaChart lineData={prays} />
           </MotiView>

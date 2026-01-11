@@ -23,7 +23,9 @@ export async function sendPasswordResetEmail(
       resetToken = urlObj.searchParams.get('token') || '';
     }
 
-    const mobileResetUrl = `noor://(auth)/reset-pwd?token=${resetToken}`;
+    // Use web app redirect page for better email client compatibility
+    // The page will automatically redirect to the mobile app deep link
+    const webRedirectUrl = `https://prayer-tracker.vercel.app/reset?token=${resetToken}`;
 
     const templatePath = path.join(
       process.cwd(),
@@ -34,7 +36,7 @@ export async function sendPasswordResetEmail(
 
     const html = pug.renderFile(templatePath, {
       email,
-      resetUrl: mobileResetUrl,
+      resetUrl: webRedirectUrl,
     });
 
     const res = await resend.emails.send({
