@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation';
 export function ResetPasswordView() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  console.log('🚀 ~ file: reset-view.tsx:9 ~ token:', token);
 
   useEffect(() => {
     if (!token) {

@@ -123,10 +123,6 @@ export class PrayersService {
     const prayerDate = normalizeDayUtc(date);
     const next = clamp012(value);
 
-    console.log(
-      `[PATCH] ${field}=${next} for user=${userId.slice(0, 8)} date=${date}`,
-    );
-
     return withSerializableRetry(async () => {
       return this.prisma.$transaction(
         async (tx) => {
