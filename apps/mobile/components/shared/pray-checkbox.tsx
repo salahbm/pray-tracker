@@ -1,15 +1,15 @@
 import React, { Fragment, useMemo, memo, useCallback } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withSequence,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
+import { PressableBounce } from '@/components/shared/pressable-bounce';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 
@@ -33,12 +33,6 @@ type PrayCheckboxProps = {
 };
 
 // --- Animation Config ---
-
-const SPRING_CONFIG = {
-  stiffness: 500,
-  damping: 15,
-  mass: 1,
-};
 
 const TIMING_CONFIG = { duration: 200 };
 const PULSE_DURATION = 800;
@@ -82,20 +76,11 @@ const BounceCheckbox = memo<{
   borderColor: string;
   disabled?: boolean;
 }>(({ checked, onPress, activeColor, borderColor, disabled }) => {
-  const scale = useSharedValue(1);
   const checkProgress = useSharedValue(checked ? 1 : 0);
 
   React.useEffect(() => {
     checkProgress.value = withTiming(checked ? 1 : 0, TIMING_CONFIG);
   }, [checked, checkProgress]);
-
-  const handlePressIn = useCallback(() => {
-    scale.value = withSpring(0.85, SPRING_CONFIG);
-  }, [scale]);
-
-  const handlePressOut = useCallback(() => {
-    scale.value = withSpring(1, SPRING_CONFIG);
-  }, [scale]);
 
   const rContainerStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
@@ -111,7 +96,6 @@ const BounceCheckbox = memo<{
     );
 
     return {
-      transform: [{ scale: scale.value }],
       backgroundColor,
       borderColor: animatedBorderColor,
     };
@@ -126,13 +110,12 @@ const BounceCheckbox = memo<{
   }, []);
 
   return (
-    <Pressable
+    <PressableBounce
       onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
       className="mx-3 my-1.5"
       hitSlop={8}
       disabled={disabled}
+      duration={150}
     >
       <Animated.View
         className={cn(
@@ -143,7 +126,7 @@ const BounceCheckbox = memo<{
       >
         <Animated.View style={rInnerStyle} className="size-3 bg-white rounded" />
       </Animated.View>
-    </Pressable>
+    </PressableBounce>
   );
 });
 

@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, View } from 'react-native';
@@ -8,12 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useResetPwd } from '@/hooks/auth/useForgotPwd';
-import { fireToast } from '@/providers/toaster';
 import { useAuthBottomSheetStore } from '@/store/bottom-sheets';
+import { alert } from '@/store/defaults/use-alert-store';
 
 export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () => void }) {
   const { t } = useTranslation();
-  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const { forgotPwdRef } = useAuthBottomSheetStore();
 
@@ -21,10 +20,17 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
 
   const onResetPassword = useCallback(async () => {
     await mutateAsync(email).then(() => {
-      fireToast.success(t('auth.forgotPassword.message', { email }));
-      setEmail('');
-      Keyboard.dismiss();
-      forgotPwdRef.current?.close();
+      alert({
+        title: t('auth.forgotPassword.title'),
+        subtitle: t('auth.forgotPassword.message', { email }),
+        confirmLabel: 'Ok',
+        cancelLabel: null,
+        onConfirm: async () => {
+          setEmail('');
+          Keyboard.dismiss();
+          forgotPwdRef.current?.close();
+        },
+      });
     });
   }, [email, mutateAsync]);
 

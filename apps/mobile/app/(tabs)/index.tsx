@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { router, useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { ChevronRight } from 'lucide-react-native';
+import { MotiView } from 'moti';
 import { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
@@ -33,6 +34,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
+import { gifs } from '@/constants/images';
 
 const initialState = {
   prayers: {
@@ -68,6 +70,9 @@ function reducer(state: typeof initialState, action: { type: string; payload?: a
 
 export default function HomeScreen() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const { colors } = useThemeStore();
+
   // DATE STATE
   const [today, setToday] = useState(new Date());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -90,12 +95,10 @@ export default function HomeScreen() {
     }, [])
   );
 
-  const insets = useSafeAreaInsets();
-  const { colors } = useThemeStore();
   // QUERIES
   const { user } = useAuthStore();
-  const { refetch: refetchCustomer, isPremium } = useRevenueCatCustomer();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
+  const { refetch: refetchCustomer, isPremium } = useRevenueCatCustomer();
 
   const {
     data: prays,
@@ -112,7 +115,7 @@ export default function HomeScreen() {
 
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
-
+  const { incrementPrayerToggle } = useAppRatingStore();
   const { profileSheetRef } = useProfileBottomSheetStore();
 
   // Confetti animation ref
@@ -122,9 +125,6 @@ export default function HomeScreen() {
   // Reducer for state management
   const [state, dispatch] = useReducer(reducer, initialState);
   const { prayers, clickedData, accordion } = state;
-
-  // FUNCTIONS
-  const { incrementPrayerToggle } = useAppRatingStore();
 
   const handlePrayerChange = useCallback(
     async (prayer: string, value: number) => {
@@ -242,6 +242,7 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
+            tintColor="red"
             refreshing={isLoadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
@@ -249,54 +250,89 @@ export default function HomeScreen() {
               refetchLeaderboard();
               refetchCustomer();
             }}
-            tintColor={colors['--primary']}
           />
         }
       >
         {/* HEADER */}
-        <HomeHeader today={today} />
-        {/* Today's Prayers */}
-        <TodaysPray
-          isLoading={isLoadingPrays}
-          prayers={prayers}
-          handlePrayerChange={handlePrayerChange}
-        />
-        {/* PRAYER HISTORY */}
-        <PrayerHistory
-          data={prays}
-          year={year}
-          setYear={setYear}
-          dispatch={dispatch}
-          accordion={accordion}
-          clickedData={clickedData}
-          isLoading={isLoadingPrays}
-          handleDayClick={handleDayClick}
-          handleUpdateClickedDay={handleUpdateClickedDay}
-        />
-        {/* CHARTS */}
-        {year === new Date().getFullYear() && user && <AreaChart lineData={prays} />}
+        <MotiView
+          from={{ opacity: 0, translateY: -20 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', duration: 500, delay: 0 }}
+        >
+          <HomeHeader today={today} />
+        </MotiView>
 
-        <View>
-          <View className="flex-row items-center justify-between mt-10">
-            <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
-            <Button
-              className="flex-row items-center gap-2"
-              size="sm"
-              variant="ghost"
-              onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
-            >
-              <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
-              <ChevronRight size={12} color={colors['--foreground']} />
-            </Button>
-          </View>
-          <Leaderboard
-            data={leaderboard?.data ?? []}
-            isLoading={isLoadingLeaderboard}
-            imageClassName="w-24 h-24"
-            refetch={refetchLeaderboard}
-            scrollEnabled={false}
+        {/* Today's Prayers */}
+        <MotiView
+          from={{ opacity: 0, translateY: 20 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', duration: 500, delay: 100 }}
+        >
+          <TodaysPray
+            isLoading={isLoadingPrays}
+            prayers={prayers}
+            handlePrayerChange={handlePrayerChange}
           />
-        </View>
+        </MotiView>
+
+        {/* PRAYER HISTORY */}
+        <MotiView
+          from={{ opacity: 0, translateY: 20 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', duration: 500, delay: 200 }}
+        >
+          <PrayerHistory
+            data={prays}
+            year={year}
+            setYear={setYear}
+            dispatch={dispatch}
+            accordion={accordion}
+            clickedData={clickedData}
+            isLoading={isLoadingPrays}
+            handleDayClick={handleDayClick}
+            handleUpdateClickedDay={handleUpdateClickedDay}
+          />
+        </MotiView>
+
+        {/* CHARTS */}
+        {year === new Date().getFullYear() && user && (
+          <MotiView
+            from={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'timing', duration: 500, delay: 300 }}
+          >
+            <AreaChart lineData={prays} />
+          </MotiView>
+        )}
+
+        {/* LEADERBOARD */}
+        <MotiView
+          from={{ opacity: 0, translateY: 20 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', duration: 500, delay: 400 }}
+        >
+          <View>
+            <View className="flex-row items-center justify-between mt-10">
+              <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
+              <Button
+                className="flex-row items-center gap-2"
+                size="sm"
+                variant="ghost"
+                onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
+              >
+                <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
+                <ChevronRight size={12} color={colors['--foreground']} />
+              </Button>
+            </View>
+            <Leaderboard
+              data={leaderboard?.data ?? []}
+              isLoading={isLoadingLeaderboard}
+              imageClassName="w-24 h-24"
+              refetch={refetchLeaderboard}
+              scrollEnabled={false}
+            />
+          </View>
+        </MotiView>
 
         {/* LOTTIE CONFETTI */}
         <LottieView

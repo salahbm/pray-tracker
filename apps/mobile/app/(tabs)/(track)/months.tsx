@@ -29,6 +29,7 @@ import { getMonthTheme } from '@/styles/calendar.theme';
 import { IPrays } from '@/types/prays';
 import { debounce } from '@/utils/debounce';
 import { setCalendarLocale } from '@/utils/month-names';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 type MarkedDateProps = {
   marked: boolean;
@@ -207,6 +208,7 @@ const MonthScreen = () => {
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}
         renderHeader={date => <RenderHeader date={date} locale={currentLanguage} />}
+        refreshControl={<RefreshControl refreshing={isLoadingPrays} onRefresh={refetch} />}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
         scrollEventThrottle={32}
@@ -240,13 +242,6 @@ const MonthScreen = () => {
       colors,
       handleScrollEnd,
     ]
-  );
-
-  // Refetch premium status when screen comes into focus
-  useFocusEffect(
-    useCallback(() => {
-      refetch();
-    }, [refetch])
   );
 
   return (

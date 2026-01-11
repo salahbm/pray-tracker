@@ -1,53 +1,103 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { Text } from '@/components/ui/text';
+import { useThemeStore } from '@/store/defaults/theme';
+import { useAlertStore } from '@/store/defaults/use-alert-store';
+import { BlurView } from 'expo-blur';
+import { AlertCircle } from 'lucide-react-native';
+import React from 'react';
+import { Modal, Platform, Pressable, View } from 'react-native';
+import Animated, { FadeIn, FadeOut, ZoomIn, ZoomOut } from 'react-native-reanimated';
 
-import ErrorModal from '@/components/shared/modals/error-modal';
+export function GlobalAlert() {
+  const { colors } = useThemeStore();
+  const { visible, options, hideAlert } = useAlertStore();
 
-interface AlertState {
-  isVisible: boolean;
-  title: string;
-  description?: string;
-}
+  if (!visible || !options) return null;
 
-interface AlertContextProps {
-  showAlert: (title: string, description?: string) => void;
-  hideAlert: () => void;
-  alert: AlertState;
-}
+  const handleConfirm = async () => {
+    if (!options.onConfirm) {
+      hideAlert();
+      return;
+    }
 
-const AlertContext = createContext<AlertContextProps | undefined>(undefined);
+    const result = options.onConfirm();
 
-export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [alert, setAlert] = useState<AlertState>({
-    isVisible: false,
-    title: '',
-    description: '',
-  });
+    if (result instanceof Promise) {
+      await result;
+    }
 
-  const showAlert = (title: string, description?: string) => {
-    setAlert({ isVisible: true, title, description });
+    hideAlert();
   };
 
-  const hideAlert = () => {
-    setAlert({ isVisible: false, title: '', description: '' });
+  const handleCancel = () => {
+    options.onCancel?.();
+    hideAlert();
   };
 
   return (
-    <AlertContext.Provider value={{ showAlert, hideAlert, alert }}>
-      {children}
-      <ErrorModal
-        isVisible={alert.isVisible}
-        title={alert.title}
-        description={alert.description}
-        onClose={hideAlert}
-      />
-    </AlertContext.Provider>
-  );
-};
+    <Modal transparent visible={visible} animationType="none" statusBarTranslucent>
+      <View className="flex-1 justify-center items-center px-10">
+        {/* Simple fade for the backdrop */}
+        <Animated.View
+          entering={FadeIn.duration(120)}
+          exiting={FadeOut.duration(150)}
+          className="absolute inset-0 bg-[rgba(0,0,0,0.4)]"
+        />
 
-export const useAlert = () => {
-  const context = useContext(AlertContext);
-  if (!context) {
-    throw new Error('useAlert must be used within an AlertProvider');
-  }
-  return context;
-};
+        {/* Modal content with linear-style Zoom for a "system" feel */}
+        <Animated.View
+          entering={ZoomIn.duration(250)}
+          exiting={ZoomOut.duration(200)}
+          className="w-full max-w-sm overflow-hidden rounded-[32px] border border-border shadow-2xl"
+        >
+          <BlurView
+            intensity={Platform.OS === 'ios' ? 45 : 80}
+            tint="light"
+            className="p-7 bg-white"
+          >
+            <View className="items-center py-4">
+              {/* Creative Icon Housing */}
+              <View className="w-14 h-14 bg-primary rounded-full items-center justify-center mb-5">
+                {options.icon || (
+                  <AlertCircle size={28} color={colors['--primary-foreground']} strokeWidth={2} />
+                )}
+              </View>
+
+              <Text className="text-xl font-semibold text-foreground text-center mb-2 tracking-tight">
+                {options.title}
+              </Text>
+
+              {options.subtitle && (
+                <Text className="text-[15px] text-muted-foreground text-center leading-5 px-1 mb-8">
+                  {options.subtitle}
+                </Text>
+              )}
+            </View>
+
+            {/* Actions: Clean hierarchy */}
+            <View className="flex-row gap-3">
+              {options.cancelLabel !== null && (
+                <Pressable
+                  onPress={handleCancel}
+                  className="flex-1 h-12 items-center justify-center rounded-2xl  active:bg-black/10"
+                >
+                  <Text className="font-caption text-primary">
+                    {options.cancelLabel || 'Cancel'}
+                  </Text>
+                </Pressable>
+              )}
+
+              <Pressable
+                onPress={handleConfirm}
+                className="flex-1 h-12 items-center justify-center rounded-xl bg-primary active:bg-primary shadow-sm"
+              >
+                <Text className="text-sm font-semibold text-primary-foreground">
+                  {options.confirmLabel || 'Confirm'}
+                </Text>
+              </Pressable>
+            </View>
+          </BlurView>
+        </Animated.View>
+      </View>
+    </Modal>
+  );
+}

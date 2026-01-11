@@ -1,9 +1,11 @@
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 import { Platform } from 'react-native';
+import { getProjectConfigDescriptionWithPaths } from 'expo/config';
 
 // RevenueCat API Keys (get these from RevenueCat dashboard)
 const REVENUECAT_API_KEY_IOS = process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY || '';
 const REVENUECAT_API_KEY_ANDROID = process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY || '';
+const EXPO_PUBLIC_REVENUECAT_TEST_KEY = process.env.EXPO_PUBLIC_REVENUECAT_TEST_KEY ?? '';
 
 // Product identifiers (must match App Store Connect / Google Play Console)
 export const PRODUCT_IDS = {
@@ -20,7 +22,11 @@ export const ENTITLEMENT_ID = 'entl3374d315b3';
  */
 export const initializeRevenueCat = async () => {
   try {
-    const apiKey = Platform.OS === 'ios' ? REVENUECAT_API_KEY_IOS : REVENUECAT_API_KEY_ANDROID;
+    const apiKey = __DEV__
+      ? EXPO_PUBLIC_REVENUECAT_TEST_KEY
+      : Platform.OS === 'ios'
+        ? REVENUECAT_API_KEY_IOS
+        : REVENUECAT_API_KEY_ANDROID;
 
     if (!apiKey) {
       console.warn('RevenueCat API key not found. Subscriptions will not work.');

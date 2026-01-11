@@ -70,7 +70,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
               autoCorrect={false}
               spellCheck={false}
               returnKeyType="next"
-              onSubmitEditing={form.setFocus('password')}
+              onSubmitEditing={() => form.setFocus('password')}
             />
           )}
         />
@@ -109,7 +109,7 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
         </Button>
       </View>
 
-      <View className="justify-center items-center">
+      <View className="justify-center items-center mt-2">
         <TouchableOpacity onPress={onForgotPassword}>
           <Text className="font-primary underline text-sm">{t('auth.signIn.forgotPassword')}</Text>
         </TouchableOpacity>
