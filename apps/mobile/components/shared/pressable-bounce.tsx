@@ -12,7 +12,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const easing = Easing.inOut(Easing.ease);
 
 interface PressableBounceProps extends PressableProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   bounceScale?: number;
   duration?: number;
 }
@@ -40,7 +40,10 @@ const PressableBounce: React.FC<PressableBounceProps> = ({
   };
 
   const handlePressOut = (event: GestureResponderEvent) => {
-    scale.value = withSpring(1);
+    scale.value = withSpring(1, {
+      damping: 15,
+      stiffness: 400,
+    });
     props.onPressOut && props.onPressOut(event);
   };
 

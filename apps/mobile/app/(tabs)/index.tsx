@@ -34,7 +34,6 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
-import { gifs } from '@/constants/images';
 
 const initialState = {
   prayers: {
@@ -242,7 +241,7 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            tintColor="red"
+            tintColor={colors['--primary']}
             refreshing={isLoadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
@@ -255,18 +254,20 @@ export default function HomeScreen() {
       >
         {/* HEADER */}
         <MotiView
+          key="header-animation"
           from={{ opacity: 0, translateY: -20 }}
           animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 500, delay: 0 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 0 }}
         >
           <HomeHeader today={today} />
         </MotiView>
 
         {/* Today's Prayers */}
         <MotiView
+          key="todays-prayers-animation"
           from={{ opacity: 0, translateY: 20 }}
           animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 500, delay: 100 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 50 }}
         >
           <TodaysPray
             isLoading={isLoadingPrays}
@@ -277,9 +278,10 @@ export default function HomeScreen() {
 
         {/* PRAYER HISTORY */}
         <MotiView
-          from={{ opacity: 0, translateY: 20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 500, delay: 200 }}
+          key="prayer-history-animation"
+          from={{ opacity: 0, translateX: 50 }}
+          animate={{ opacity: 1, translateX: 0 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 100 }}
         >
           <PrayerHistory
             data={prays}
@@ -297,42 +299,37 @@ export default function HomeScreen() {
         {/* CHARTS */}
         {year === new Date().getFullYear() && user && (
           <MotiView
+            key="area-chart-animation"
             from={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'timing', duration: 500, delay: 300 }}
+            transition={{ type: 'spring', damping: 15, stiffness: 150, delay: 150 }}
           >
             <AreaChart lineData={prays} />
           </MotiView>
         )}
 
         {/* LEADERBOARD */}
-        <MotiView
-          from={{ opacity: 0, translateY: 20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 500, delay: 400 }}
-        >
-          <View>
-            <View className="flex-row items-center justify-between mt-10">
-              <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
-              <Button
-                className="flex-row items-center gap-2"
-                size="sm"
-                variant="ghost"
-                onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
-              >
-                <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
-                <ChevronRight size={12} color={colors['--foreground']} />
-              </Button>
-            </View>
-            <Leaderboard
-              data={leaderboard?.data ?? []}
-              isLoading={isLoadingLeaderboard}
-              imageClassName="w-24 h-24"
-              refetch={refetchLeaderboard}
-              scrollEnabled={false}
-            />
+        <View>
+          <View className="flex-row items-center justify-between mt-10">
+            <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
+            <Button
+              className="flex-row items-center gap-2"
+              size="sm"
+              variant="ghost"
+              onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
+            >
+              <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
+              <ChevronRight size={12} color={colors['--foreground']} />
+            </Button>
           </View>
-        </MotiView>
+          <Leaderboard
+            data={leaderboard?.data ?? []}
+            isLoading={isLoadingLeaderboard}
+            imageClassName="w-24 h-24"
+            refetch={refetchLeaderboard}
+            scrollEnabled={false}
+          />
+        </View>
 
         {/* LOTTIE CONFETTI */}
         <LottieView

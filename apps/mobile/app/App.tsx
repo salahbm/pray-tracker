@@ -1,6 +1,6 @@
 import spaceMono from '@assets/fonts/SpaceMono-Regular.ttf';
 import { useFonts } from 'expo-font';
-import { Stack, useRootNavigationState } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';

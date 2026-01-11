@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import type { Request } from 'express';
+import { Public } from '@/common/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -33,8 +34,8 @@ export class AuthController {
   /**
    * Sign out current user
    */
+  @Public()
   @Post('signout')
-  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async signOut(@Req() request: Request) {
     return this.authService.signOut(request);

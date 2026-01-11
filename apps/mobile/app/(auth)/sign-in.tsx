@@ -46,10 +46,10 @@ export default function SignInScreen({ onSuccess, onNavigate, onForgotPassword }
   return (
     <React.Fragment>
       <View className="w-full mt-16">
-        <Text className="text-3xl font-bold text-primary mb-4 text-center">
+        <Text className="text-3xl font-bold text-primary mb-2 text-center">
           {t('auth.signIn.title')}
         </Text>
-        <Text className="text-xs text-muted-foreground mb-8 text-center self-center px-4">
+        <Text className="text-sm text-muted-foreground mb-8 text-center self-center px-4">
           {t('auth.signIn.accountRequired')}
         </Text>
         <FormField

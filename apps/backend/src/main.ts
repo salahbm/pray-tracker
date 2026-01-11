@@ -32,9 +32,6 @@ async function bootstrap() {
 
   // Bind to 0.0.0.0 for Render (required for external access)
   await app.listen(port, '0.0.0.0');
-
-  console.log(`🚀 Application is running on: http://0.0.0.0:${port}`);
-  console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
 }
 
 bootstrap().catch((err) => {

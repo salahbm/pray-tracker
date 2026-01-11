@@ -44,7 +44,7 @@ class Agent {
       baseUrl ||
       Constants.expoConfig?.extra?.apiUrl ||
       process.env.EXPO_PUBLIC_API_URL ||
-      'http://localhost:3000'; // fallback for dev
+      'http://localhost:4000'; // fallback for dev
 
     this.defaultHeaders = {
       'Content-Type': 'application/json',
@@ -129,6 +129,7 @@ class Agent {
         ...this.defaultHeaders,
         'Accept-Language': currentLanguage,
         Locale: currentLanguage,
+        'x-lang': currentLanguage,
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...headers,
       },

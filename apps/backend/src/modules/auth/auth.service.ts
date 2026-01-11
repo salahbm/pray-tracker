@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { auth } from '@/lib/auth';
 import { Request } from 'express';
+import { PrismaService } from '@/db/prisma.service';
 
 @Injectable()
 export class AuthService {
+  constructor(private prisma: PrismaService) {}
   /**
    * Get current user session from request
    */
@@ -18,12 +20,19 @@ export class AuthService {
   /**
    * Sign out user by invalidating session
    */
-  async signOut(request: Request) {
-    await auth.api.signOut({
-      headers: request.headers as any,
+  async signOut(req: Request) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.replace('Bearer', '').trim();
+
+    if (!token) {
+      return { success: true };
+    }
+
+    await this.prisma.session.deleteMany({
+      where: { token },
     });
 
-    return { message: 'Successfully signed out' };
+    return { success: true };
   }
 
   /**

@@ -73,7 +73,7 @@ const SheetWrapper = () => {
 
       {/* PAYWALL SHEET */}
       {visited && !isPremium && (
-        <CustomBottomSheet sheetRef={paywallSheetRef} index={0} snapPoints={['90%', '100%']}>
+        <CustomBottomSheet sheetRef={paywallSheetRef} index={-1} snapPoints={['90%', '100%']}>
           <PaywallScreen />
         </CustomBottomSheet>
       )}

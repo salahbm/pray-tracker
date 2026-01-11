@@ -5,16 +5,19 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { auth } from '@/lib/auth';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { getLocaleFromRequest } from '../utils/headers';
+import { PrismaService } from '@/db/prisma.service';
 
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(
+    private reflector: Reflector,
+    private prisma: PrismaService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -30,9 +33,21 @@ export class AuthGuard implements CanActivate {
     const locale = getLocaleFromRequest(request.headers as any);
 
     try {
-      // Better Auth uses cookies for session management
-      const session = await auth.api.getSession({
-        headers: request.headers as any,
+      const authHeader = request.headers.authorization;
+
+      const token = authHeader ? authHeader?.replace('Bearer', '')?.trim() : '';
+
+      if (!token) {
+        throw new UnauthorizedException({
+          error: 'NO_ACTIVE_SESSION',
+          message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+        });
+      }
+
+      // Web: use Better Auth's cookie-based session
+      const session = await this.prisma.session.findUnique({
+        where: { token },
+        include: { user: true },
       });
 
       if (!session) {
@@ -44,10 +59,11 @@ export class AuthGuard implements CanActivate {
 
       // Attach user and session to request for use in controllers
       request['user'] = session.user;
-      request['session'] = session.session;
+      request['session'] = session;
 
       return true;
-    } catch {
+    } catch (error) {
+      console.log(`Guard Error 👉:`, JSON.stringify(error, null, 2));
       throw new UnauthorizedException({
         error: 'INVALID_TOKEN',
         message: getLocalizedMessage('INVALID_TOKEN', locale),

@@ -9,7 +9,6 @@ export const useError = () => {
 
   const errorHandler = useCallback(
     (error: IErrorResponse) => {
-      console.log('🚀 ~ file: useError.ts:12 ~ error:', error);
       const { message, statusCode: _ } = error;
 
       fireToast.error(message);

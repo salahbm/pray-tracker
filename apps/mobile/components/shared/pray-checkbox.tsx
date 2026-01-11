@@ -167,10 +167,8 @@ const PrayCheckbox: React.FC<PrayCheckboxProps> = ({
 
   const handlePress = useCallback(
     (optionVal: number) => {
-      // Animation happens first (instant feedback)
-      requestAnimationFrame(() => {
-        handlePrayerChange(prayer, optionVal);
-      });
+      // Call immediately - PressableBounce handles animation independently
+      handlePrayerChange(prayer, optionVal);
     },
     [handlePrayerChange, prayer]
   );

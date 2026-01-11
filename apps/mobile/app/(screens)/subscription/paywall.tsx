@@ -38,9 +38,9 @@ export default function PaywallScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const { user } = useAuthStore();
-  const { signInSheetRef } = useAuthBottomSheetStore();
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
+  const { signInSheetRef } = useAuthBottomSheetStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
 
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');

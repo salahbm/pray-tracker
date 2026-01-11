@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { defaultColorMap, MAX_DISPLAY_POINTS } from './constant';
 import { DateMap, HeatMapProps, ProcessedData, YearData } from './heat';
 import { arrToMatrix, getDaysInMonth, getOpacityByNumber } from './helpers';
+import { PressableBounce } from '../pressable-bounce';
 
 const HeatMap: React.FC<HeatMapProps> = props => {
   const {
@@ -106,7 +107,7 @@ const HeatMap: React.FC<HeatMapProps> = props => {
                   const selectedDate = monthData.dates[rowIndex * 7 + dayIndex] || '';
 
                   return (
-                    <TouchableOpacity
+                    <PressableBounce
                       key={`${month}-cell-${rowIndex}-${dayIndex}`}
                       hitSlop={10}
                       className={cn('size-7 shrink-0 rounded m-1')}
