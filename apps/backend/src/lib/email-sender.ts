@@ -25,7 +25,7 @@ export async function sendPasswordResetEmail(
 
     // Use web app redirect page for better email client compatibility
     // The page will automatically redirect to the mobile app deep link
-    const webRedirectUrl = `https://prayer-tracker.vercel.app/reset?token=${resetToken}`;
+    const webRedirectUrl = `https://pray-tracker.vercel.app/reset?token=${resetToken}`;
 
     const templatePath = path.join(
       process.cwd(),

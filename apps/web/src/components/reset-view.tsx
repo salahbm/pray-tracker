@@ -10,7 +10,7 @@ export function ResetPasswordView() {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = 'https://prayer-tracker.vercel.app';
+      window.location.href = 'https://pray-tracker.vercel.app';
       return;
     }
 
