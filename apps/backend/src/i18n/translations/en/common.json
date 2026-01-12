@@ -1,0 +1,13 @@
+{
+  "welcome": "Welcome to Pray Tracker API",
+  "success": "Operation completed successfully",
+  "error": {
+    "internal": "Internal server error",
+    "notFound": "Resource not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Forbidden",
+    "badRequest": "Bad request",
+    "validation": "Validation failed",
+    "actionFailed": "Action failed"
+  }
+}

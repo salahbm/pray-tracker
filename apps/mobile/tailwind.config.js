@@ -43,6 +43,7 @@ module.exports = {
     },
     animation: {
       'fade-in': 'cubic-bezier(0.4, 0, 1, 1) 0.3s forwards',
+      pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
     },
   },
   plugins: [],

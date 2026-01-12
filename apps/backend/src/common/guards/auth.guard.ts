@@ -35,7 +35,10 @@ export class AuthGuard implements CanActivate {
     try {
       const authHeader = request.headers.authorization;
 
-      const token = authHeader ? authHeader?.replace('Bearer', '')?.trim() : '';
+      // Extract token from "Bearer <token>" or just "<token>"
+      const token = authHeader
+        ? authHeader.replace(/^Bearer\s+/i, '').trim()
+        : '';
 
       if (!token) {
         throw new UnauthorizedException({
@@ -44,7 +47,7 @@ export class AuthGuard implements CanActivate {
         });
       }
 
-      // Web: use Better Auth's cookie-based session
+      // Look up session in database
       const session = await this.prisma.session.findUnique({
         where: { token },
         include: { user: true },
@@ -57,13 +60,34 @@ export class AuthGuard implements CanActivate {
         });
       }
 
+      // Check if session is expired
+      const now = new Date();
+      if (session.expiresAt && session.expiresAt < now) {
+        // Delete expired session
+        await this.prisma.session.delete({ where: { token } });
+        throw new UnauthorizedException({
+          error: 'SESSION_EXPIRED',
+          message: getLocalizedMessage('SESSION_EXPIRED', locale),
+        });
+      }
+
       // Attach user and session to request for use in controllers
       request['user'] = session.user;
       request['session'] = session;
 
       return true;
     } catch (error) {
-      console.log(`Guard Error 👉:`, JSON.stringify(error, null, 2));
+      // Only log if it's not an UnauthorizedException we threw
+      if (!(error instanceof UnauthorizedException)) {
+        console.error('Auth Guard Error:', error);
+      }
+
+      // Re-throw if it's already an UnauthorizedException
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
+      // Otherwise throw a generic invalid token error
       throw new UnauthorizedException({
         error: 'INVALID_TOKEN',
         message: getLocalizedMessage('INVALID_TOKEN', locale),

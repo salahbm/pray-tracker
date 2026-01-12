@@ -1,8 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { IResponse, IResponseArray } from '@/types/api';
-import { IFriend } from '@/types/friends';
-
 import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 

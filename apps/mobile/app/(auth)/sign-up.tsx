@@ -65,6 +65,8 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               onBlur={field.onBlur}
               error={fieldState.error?.message}
               placeholder={t('auth.username.placeholder')}
+              onSubmitEditing={() => form.setFocus('email')}
+              returnKeyType="next"
             />
           )}
         />
@@ -87,6 +89,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               autoCorrect={false}
               spellCheck={false}
               returnKeyType="next"
+              onSubmitEditing={() => form.setFocus('password')}
             />
           )}
         />
@@ -105,6 +108,7 @@ export default function SignUpScreen({ onSuccess, onNavigate }: ISignUp) {
               error={fieldState.error?.message}
               placeholder={t('auth.password.placeholder')}
               secureTextEntry
+              returnKeyType="done"
               onSubmitEditing={form.handleSubmit(onSignUpPress)}
             />
           )}

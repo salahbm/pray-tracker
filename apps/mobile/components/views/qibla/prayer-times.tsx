@@ -28,6 +28,8 @@ import { triggerHaptic } from '@/utils';
 import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { PrayerTimes } from 'adhan';
 import { router } from 'expo-router';
+import Skeleton from '@/components/ui/skeleton';
+import PrayerTimerSkeleton from './prayer-time-skeleton';
 
 /**
  * Helper to handle opacity with Hex colors since Tailwind shorthand fails on Hex strings
@@ -66,12 +68,7 @@ const PrayerTimer = () => {
     ];
   }, [prayerTimes]);
 
-  if (loading)
-    return (
-      <View className="items-center justify-center flex-1 bg-background">
-        <Loader visible />
-      </View>
-    );
+  if (loading) return <PrayerTimerSkeleton />;
   if (error || !prayerTimes) return <NoData />;
 
   return (
@@ -140,7 +137,7 @@ const PrayerTimer = () => {
                     style={{ backgroundColor: hexToRGBA(colors['--background'], 0.1) }}
                   >
                     <Text
-                      className="text-[10px] font-bold uppercase tracking-widest"
+                      className="text-[10px] font-bold uppercase tracking-widest text-center"
                       style={{ color: colors['--accent-foreground'] }}
                     >
                       {t('qibla.prayerTimes.timeLeft')}

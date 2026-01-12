@@ -1,14 +1,15 @@
 import { Resend } from 'resend';
 import * as pug from 'pug';
 import path from 'path';
-import { env } from '@/config/env.config';
+import { ConfigService } from '@nestjs/config';
 import { Locale } from '@/common/utils/response.utils';
 import { getLocalizedMessage } from '@/common/i18n/email-messages';
 import { getLocalizedMessage as getErrorLocalizedMessage } from '@/common/i18n/error-messages';
 import { APIError } from 'better-auth';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
 
-const resend = new Resend(env.RESEND_API_KEY);
+const configService = new ConfigService();
+const resend = new Resend(configService.getOrThrow('RESEND_API_KEY'));
 
 export async function sendPasswordResetEmail(
   email: string,

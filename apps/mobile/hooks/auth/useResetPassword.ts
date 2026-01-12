@@ -7,7 +7,7 @@ interface ResetPasswordParams {
 }
 
 async function resetPassword({ token, newPassword }: ResetPasswordParams) {
-  await agent.post('/api/auth/reset-password', { token, newPassword });
+  await agent.post('/auth/reset-password', { token, newPassword });
 }
 
 export const useResetPassword = () =>

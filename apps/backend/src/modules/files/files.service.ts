@@ -10,22 +10,25 @@ import {
   GetObjectCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { env } from '@/config/env.config';
 import { PrismaService } from '@/db/prisma.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class FilesService {
   private readonly s3Client: S3Client;
   private readonly logger = new Logger(FilesService.name);
 
-  constructor(private readonly prisma: PrismaService) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly configService: ConfigService,
+  ) {
     this.s3Client = new S3Client({
       region: 'auto',
-      endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      endpoint: `https://${this.configService.getOrThrow('R2_ACCOUNT_ID')}.r2.cloudflarestorage.com`,
       forcePathStyle: true,
       credentials: {
-        accessKeyId: env.R2_ACCESS_KEY_ID,
-        secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+        accessKeyId: this.configService.getOrThrow('R2_ACCESS_KEY_ID'),
+        secretAccessKey: this.configService.getOrThrow('R2_SECRET_ACCESS_KEY'),
       },
     });
   }
@@ -37,7 +40,7 @@ export class FilesService {
   private async buildPublicUrl(key: string) {
     // Generate a presigned URL with 7 days expiration for viewing
     const command = new GetObjectCommand({
-      Bucket: env.R2_BUCKET,
+      Bucket: this.configService.getOrThrow('R2_BUCKET'),
       Key: key,
     });
 
@@ -82,7 +85,7 @@ export class FilesService {
   ) {
     const key = this.buildFileKey(userId, fileName);
     const command = new PutObjectCommand({
-      Bucket: env.R2_BUCKET,
+      Bucket: this.configService.getOrThrow('R2_BUCKET'),
       Key: key,
       ContentType: contentType,
     });
@@ -122,7 +125,7 @@ export class FilesService {
 
         if (normalizedOldKey) {
           const deleteCommand = new DeleteObjectCommand({
-            Bucket: env.R2_BUCKET,
+            Bucket: this.configService.getOrThrow('R2_BUCKET'),
             Key: normalizedOldKey,
           });
 

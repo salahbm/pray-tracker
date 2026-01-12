@@ -1,8 +1,6 @@
 import 'dotenv/config';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { env } from '@/config/env.config';
-import { ALLOWED_ORIGINS } from '@/config/cors.config';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
@@ -12,51 +10,69 @@ import { PrismaService } from '@/db/prisma.service';
 
 const prisma = new PrismaService();
 
-export const auth = betterAuth({
-  baseURL: env.BETTER_AUTH_URL, // Used to build callback URLs & cookies
-  secret: env.BETTER_AUTH_SECRET,
-  // Where requests will be routed (keep default for now → /api/auth/*)
-  basePath: '/api/auth',
-  appName: 'Pray Tracker',
+// Use environment variables directly since this file is loaded before NestJS context
+const appUrl =
+  process.env.BETTER_AUTH_URL || process.env.APP_URL || 'http://localhost:4000';
+const authSecret = process.env.BETTER_AUTH_SECRET;
+const allowedOrigins = process.env.APP_CORS_ORIGIN
+  ? process.env.APP_CORS_ORIGIN.split(',')
+  : ['http://localhost:4000'];
 
-  trustedOrigins: ALLOWED_ORIGINS,
+if (!authSecret) {
+  throw new Error('BETTER_AUTH_SECRET is required in environment variables');
+}
+
+export const auth = betterAuth({
+  baseURL: appUrl, // Used to build callback URLs & cookies
+  secret: authSecret,
+  // Where requests will be routed (keep default for now → /auth/*)
+  basePath: '/auth',
+  appName: 'Noor Pray Tracker',
+
+  trustedOrigins: allowedOrigins,
 
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
-  // Enable simple email+password to start. (We'll add OAuth/Passkeys later.)
+
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
     requireEmailVerification: false,
     minPasswordLength: 8,
     maxPasswordLength: 20,
-    resetPassword: {
-      enabled: true,
-    },
-
     sendResetPassword: async ({ user, url, token }) =>
       await sendPasswordResetEmail(user.email, url, token),
   },
 
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
-      const response = ctx.context.returned as APIError;
-      if (!response) return;
-      const code = response.body?.code;
+      const response = ctx.context.returned;
+      // Localize errors
+      if (
+        response &&
+        typeof response === 'object' &&
+        'body' in response &&
+        response.body
+      ) {
+        const apiError = response as APIError;
+        const code = apiError.body?.code;
 
-      if (!code) return;
+        if (code) {
+          const locale = getLocaleFromRequest(
+            ctx.headers as unknown as Record<string, unknown>,
+          );
+          const key = mapBetterAuthErrorToKey(code);
+          const localized = getLocalizedMessage(key, locale);
 
-      const locale = getLocaleFromRequest(
-        ctx.headers as unknown as Record<string, unknown>,
-      );
-      const key = mapBetterAuthErrorToKey(code);
-      const localized = getLocalizedMessage(key, locale);
+          throw new APIError('BAD_REQUEST', {
+            ...apiError.body,
+            message: localized,
+          });
+        }
+      }
 
-      throw new APIError('BAD_REQUEST', {
-        ...response.body,
-        message: localized,
-      });
+      return response;
     }),
   },
 });

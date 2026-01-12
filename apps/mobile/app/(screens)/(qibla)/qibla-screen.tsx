@@ -14,6 +14,7 @@ import { triggerHaptic } from '@/utils/haptics';
 import { router } from 'expo-router';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useQibla } from '@/hooks/prays/useQibla';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const { width } = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.75;
@@ -28,6 +29,7 @@ const toVisual = (deg: number) => norm360(360 - norm360(deg));
 
 const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
+  const { colors } = useThemeStore();
   const isFocused = useIsFocused();
 
   const [heading, setHeading] = useState<number>(0);
@@ -114,13 +116,11 @@ const QiblaScreen: React.FC = () => {
 
         {/* Bottom Info */}
         <View className="items-center pb-12">
-          <View className="flex-row items-center mb-2">
+          <View className="flex-row items-center mb-12">
             <Text className="text-white text-2xl font-bold">{qiblaAngle.toFixed(1)}° N</Text>
             <View className="w-1.5 h-1.5 bg-white/80 rounded-full mx-3" />
             <Text className="text-white text-2xl font-bold">{heading.toFixed(1)}°</Text>
           </View>
-
-          <Text className="text-white text-8xl font-bold tracking-wider mb-6">Qibla</Text>
 
           <View className="flex-row justify-between w-full items-center">
             <Tooltip delayDuration={150}>
@@ -130,7 +130,7 @@ const QiblaScreen: React.FC = () => {
                   size="icon"
                   className="rounded-full shadow-lg bg-white/20 w-12 h-12 p-2"
                 >
-                  <Info size={24} color="white" />
+                  <Info size={24} color={colors['--primary']} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent className="ml-6">
@@ -147,7 +147,7 @@ const QiblaScreen: React.FC = () => {
                 router.back();
               }}
             >
-              <X size={20} color="white" />
+              <X size={24} color={colors['--primary']} />
             </Button>
           </View>
         </View>

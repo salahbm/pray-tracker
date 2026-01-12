@@ -1,13 +1,20 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { auth } from '@/lib/auth';
 import { Request } from 'express';
 import { PrismaService } from '@/db/prisma.service';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { getLocaleFromRequest } from '@/common/utils/headers';
+import { I18nContext } from 'nestjs-i18n';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}
+
   /**
    * Get current user session from request
    */
@@ -71,5 +78,54 @@ export class AuthService {
     });
 
     return sessions;
+  }
+
+  /**
+   * Change password for authenticated user
+   */
+  async changePassword(
+    request: Request,
+    currentPassword: string,
+    newPassword: string,
+    i18n: I18nContext,
+  ) {
+    const session = await this.getCurrentSession(request);
+    const userId = session.userId;
+
+    // Get user's account with password
+    const account = await this.prisma.account.findFirst({
+      where: {
+        userId,
+        providerId: 'credential',
+      },
+    });
+
+    if (!account || !account.password) {
+      throw new BadRequestException(i18n.t('auth.error.userNotFound'));
+    }
+
+    // Verify current password
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      account.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new BadRequestException(i18n.t('auth.error.invalidCredentials'));
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password
+    await this.prisma.account.update({
+      where: { id: account.id },
+      data: { password: hashedPassword },
+    });
+
+    return {
+      success: true,
+      message: i18n.t('auth.password.changed'),
+    };
   }
 }

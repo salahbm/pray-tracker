@@ -1,0 +1,8 @@
+{
+  "FRIEND_REQUEST_TITLE": "New Friend Request 🤝",
+  "FRIEND_REQUEST_BODY": "{{senderName}} ({{senderEmail}}) sent you a friend request",
+  "FRIEND_REQUEST_ACCEPTED_TITLE": "Friend Request Accepted ✅",
+  "FRIEND_REQUEST_ACCEPTED_BODY": "{{accepterName}} accepted your friend request",
+  "ADDED_TO_GROUP_TITLE": "Added to Group 👥",
+  "ADDED_TO_GROUP_BODY": "{{adderName}} added you to \"{{groupName}}\""
+}
