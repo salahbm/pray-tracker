@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { auth } from '@/lib/auth';
 import { Request } from 'express';
 import { PrismaService } from '@/db/prisma.service';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
+import { getLocaleFromRequest } from '@/common/utils/headers';
 
 @Injectable()
 export class AuthService {
@@ -10,9 +12,29 @@ export class AuthService {
    * Get current user session from request
    */
   async getCurrentSession(request: Request) {
-    const session = await auth.api.getSession({
-      headers: request.headers as any,
+    const locale = getLocaleFromRequest(request.headers as any);
+    const authHeader = request.headers.authorization;
+    const token = authHeader ? authHeader?.replace('Bearer', '')?.trim() : '';
+
+    if (!token) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+      });
+    }
+
+    // Web: use Better Auth's cookie-based session
+    const session = await this.prisma.session.findUnique({
+      where: { token },
+      include: { user: true },
     });
+
+    if (!session) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+      });
+    }
 
     return session;
   }
