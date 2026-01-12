@@ -27,7 +27,7 @@ export class AuthController {
     const session = await this.authService.getCurrentSession(request);
     return {
       user: session?.user,
-      session: session?.session,
+      session,
     };
   }
 
