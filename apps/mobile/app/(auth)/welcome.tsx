@@ -33,18 +33,17 @@ const Welcome = () => {
   const themeRef = useRef<BottomSheet>(null);
   const langRef = useRef<BottomSheet>(null);
 
+  const onSkipPress = () => {
+    setVisited(true);
+    router.replace('/(tabs)');
+  };
+
   const onNextPress = () => {
     if (isLastSlide) {
-      setVisited();
-      router.push('/(tabs)');
+      onSkipPress();
     } else {
       swiperRef.current?.scrollBy(1, true);
     }
-  };
-
-  const onSkipPress = () => {
-    setVisited();
-    router.push('/(tabs)');
   };
 
   return (

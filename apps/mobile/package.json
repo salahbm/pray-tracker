@@ -4,9 +4,8 @@
   "version": "1.0.5",
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
-    "dev": "expo start --ios --clear",
+    "dev": "expo start --clear",
     "web": "expo start --web",
     "lint": "expo lint",
     "ios": "expo run:ios"
@@ -30,7 +29,6 @@
     "expo": "~54.0.31",
     "expo-blur": "15.0.8",
     "expo-constants": "~18.0.13",
-    "expo-dev-client": "~6.0.20",
     "expo-device": "~8.0.10",
     "expo-font": "~14.0.10",
     "expo-haptics": "~15.0.8",

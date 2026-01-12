@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { Check, Sparkles } from 'lucide-react-native';
+import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -31,6 +31,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { useThemeStore } from '@/store/defaults/theme';
+import { PressableBounce } from '@/components/shared/pressable-bounce';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -196,7 +197,18 @@ export default function PaywallScreen() {
         </GestureDetector>
 
         {/* Pagination Dots */}
-        <View className="flex-row justify-center mt-4 gap-3">
+        <View className="flex-row justify-center items-center mt-4 gap-3">
+          <PressableBounce
+            onPress={() =>
+              activeFeatureIndex > 0 &&
+              flatListRef.current?.scrollToIndex({ index: activeFeatureIndex - 1 })
+            }
+            className="mr-2  rounded-lg p-1"
+            hitSlop={20}
+            disabled={activeFeatureIndex === 0}
+          >
+            <ChevronLeft color={colors['--primary']} size={20} className="stroke-2" />
+          </PressableBounce>
           {PREMIUM_FEATURES.map((_, index) => (
             <TouchableOpacity
               key={index}
@@ -207,6 +219,17 @@ export default function PaywallScreen() {
               )}
             />
           ))}
+          <PressableBounce
+            onPress={() =>
+              activeFeatureIndex < PREMIUM_FEATURES.length - 1 &&
+              flatListRef.current?.scrollToIndex({ index: activeFeatureIndex + 1 })
+            }
+            className="ml-2 rounded-lg p-1 "
+            hitSlop={20}
+            disabled={activeFeatureIndex === PREMIUM_FEATURES.length - 1}
+          >
+            <ChevronRight color={colors['--primary']} size={20} className="stroke-2" />
+          </PressableBounce>
         </View>
       </Animated.View>
       {loadingOfferings ? (

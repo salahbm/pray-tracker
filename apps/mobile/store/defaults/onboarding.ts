@@ -5,14 +5,14 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface OnboardingState {
   visited: boolean;
-  setVisited: () => void;
+  setVisited: (v: boolean) => void;
 }
 
 export const useOnboarding = create<OnboardingState>()(
   persist<OnboardingState>(
     set => ({
       visited: false,
-      setVisited: () => set({ visited: true }),
+      setVisited: (v: boolean) => set({ visited: v }),
     }),
     {
       name: 'onboarding-store', // Key for persistence

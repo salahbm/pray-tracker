@@ -52,8 +52,8 @@ const Trigger = Platform.OS === 'web' ? View : Pressable;
 
 const AccordionTrigger = React.forwardRef<
   AccordionPrimitive.TriggerRef,
-  AccordionPrimitive.TriggerProps
->(({ className, children, ...props }, ref) => {
+  AccordionPrimitive.TriggerProps & { icon?: boolean }
+>(({ className, children, icon = true, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
 
   const progress = useDerivedValue(() =>
@@ -75,9 +75,11 @@ const AccordionTrigger = React.forwardRef<
             )}
           >
             <>{children}</>
-            <Animated.View style={chevronStyle}>
-              <ChevronDown size={18} className={'text-foreground shrink-0'} />
-            </Animated.View>
+            {icon && (
+              <Animated.View style={chevronStyle}>
+                <ChevronDown size={18} className={'text-foreground shrink-0'} />
+              </Animated.View>
+            )}
           </Trigger>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
