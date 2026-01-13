@@ -12,11 +12,11 @@ export type WhyHereOption =
   | 'just_checking';
 export type HomeTab = 'Learn' | 'Tracker' | 'Home' | 'Community';
 export type WhereDidYouHearAboutUs =
-  | 'friends'
-  | 'instagram'
-  | 'youtube'
-  | 'facebook'
-  | 'twitter'
+  | 'friend_family'
+  | 'social_media'
+  | 'app_store_search'
+  | 'masjid_community'
+  | 'online_article'
   | 'other';
 
 export interface OnboardingState {
@@ -45,6 +45,7 @@ export interface OnboardingState {
   setSupportNeeded: (value: SupportNeeded) => void;
   setLearnIslam: (value: LearnIslam) => void;
   toggleWhyHere: (value: WhyHereOption) => void;
+  setWhyHere: (value: WhyHereOption[]) => void;
   setLocationPermission: (granted: boolean, city?: string, timezone?: string) => void;
   setNotificationPermission: (granted: boolean) => void;
   completeStep: (stepId: string) => void;
@@ -132,6 +133,29 @@ export const useOnboardingStore = create<OnboardingState>()(
             });
           }
         }
+      },
+
+      setWhyHere: values => {
+        const modules = get().enabledModules;
+        const updatedModules = new Set(modules);
+        let defaultHomeTab = get().defaultHomeTab;
+
+        if (values.includes('track_progress')) {
+          ['streaks', 'prayer_log', 'weekly_reflection'].forEach(module =>
+            updatedModules.add(module)
+          );
+          defaultHomeTab = 'Tracker';
+        }
+
+        if (values.includes('learn_how_to_pray')) {
+          ['learn_prayer_basics', 'guided_salah'].forEach(module => updatedModules.add(module));
+        }
+
+        set({
+          whyHere: values,
+          enabledModules: [...updatedModules],
+          defaultHomeTab,
+        });
       },
 
       setLocationPermission: (granted, city, timezone) =>
