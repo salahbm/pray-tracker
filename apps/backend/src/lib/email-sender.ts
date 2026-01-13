@@ -40,14 +40,12 @@ export async function sendPasswordResetEmail(
       resetUrl: webRedirectUrl,
     });
 
-    const res = await resend.emails.send({
+    await resend.emails.send({
       from: 'Noor App <no-reply@noor.salahm.uz>',
       to: email,
       subject: getLocalizedMessage('EMAIL_PASSWORD_RESET_TITLE', locale),
       html,
     });
-
-    console.log(`Email is sent to 👉:`, JSON.stringify(res, null, 2));
   } catch (error: any) {
     console.error('Failed to send password reset email:', error);
 

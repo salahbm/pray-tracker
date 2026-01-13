@@ -109,26 +109,6 @@ describe('AppConfig', () => {
     });
   });
 
-  describe('debug', () => {
-    it('should return true when APP_DEBUG is "true"', async () => {
-      process.env.APP_DEBUG = 'true';
-      const config = await appConfig();
-      expect(config.debug).toBe(true);
-    });
-
-    it('should return false when APP_DEBUG is "false"', async () => {
-      process.env.APP_DEBUG = 'false';
-      const config = await appConfig();
-      expect(config.debug).toBe(false);
-    });
-
-    it('should return false when APP_DEBUG is empty', async () => {
-      process.env.APP_DEBUG = '';
-      const config = await appConfig();
-      expect(config.debug).toBe(false);
-    });
-  });
-
   describe('fallbackLanguage', () => {
     it('should return the value of APP_FALLBACK_LANGUAGE', async () => {
       process.env.APP_FALLBACK_LANGUAGE = 'en';
@@ -150,18 +130,6 @@ describe('AppConfig', () => {
   });
 
   describe('corsOrigin', () => {
-    it('should return true when APP_CORS_ORIGIN is "true"', async () => {
-      process.env.APP_CORS_ORIGIN = 'true';
-      const config = await appConfig();
-      expect(config.corsOrigin).toBe(true);
-    });
-
-    it('should return false when APP_CORS_ORIGIN is "false"', async () => {
-      process.env.APP_CORS_ORIGIN = 'false';
-      const config = await appConfig();
-      expect(config.corsOrigin).toBe(false);
-    });
-
     it('should return "*" when APP_CORS_ORIGIN is "*"', async () => {
       process.env.APP_CORS_ORIGIN = '*';
       const config = await appConfig();

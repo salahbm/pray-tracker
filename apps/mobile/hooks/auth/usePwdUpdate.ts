@@ -14,7 +14,7 @@ interface ChangePasswordResponse {
 export const useUpdatePassword = () => {
   return useMutation({
     mutationFn: async (data: UpdatePasswordPayload): Promise<ChangePasswordResponse> =>
-      await agent.post<ChangePasswordResponse>('/auth/change-password', {
+      await agent.post<ChangePasswordResponse>('/api/auth/change-password', {
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
       }),

@@ -18,7 +18,7 @@ async function bootstrap() {
 
   // Register Better Auth handler FIRST (needs raw body)
   const betterAuthHandler = toNodeHandler(auth);
-  app.use('/auth', betterAuthHandler);
+  app.use('/api/auth', betterAuthHandler);
 
   // Enable body parsing for all other routes
   app.use(json({ limit: '10mb' }));

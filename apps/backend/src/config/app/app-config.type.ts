@@ -5,10 +5,6 @@ export type AppConfig = {
   name: string;
   url: string;
   port: number;
-  debug: boolean;
   fallbackLanguage: string;
-  appLogging: boolean;
-  logLevel: string;
-  logService: string;
-  corsOrigin: boolean | string[] | '*';
+  corsOrigin: string[];
 };

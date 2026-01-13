@@ -115,7 +115,7 @@ export class AppModule {
         // Global response interceptor for consistent API responses
         // {
         //   provide: APP_INTERCEPTOR,
-        //   useClass: ResponseIntercepto,
+        //   useClass: ResponseInterceptor,
         // },
         // Global exception filters with i18n support
         {

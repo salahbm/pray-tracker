@@ -18,7 +18,7 @@ const EditProfile = () => {
   const { user, setUser } = useAuthStore();
   const { colors } = useThemeStore();
   const { t } = useTranslation();
-  const { mutateAsync: updateUser, isPending: isLoading } = usePutUser();
+  const { mutateAsync: updateUser, isPending } = usePutUser();
   const { mutateAsync: uploadImage, isPending: imageUploading } = useUploadImage();
 
   const [username, setUserName] = useState<string>(user?.name || '');
@@ -124,15 +124,12 @@ const EditProfile = () => {
             autoCapitalize="words"
             keyboardType="default"
             returnKeyType="done"
+            className={isPending ? 'animate-pulse opacity-80' : ''}
             onSubmitEditing={handleUpdate}
+            editable={!isPending}
           />
         </View>
       </View>
-      {/* <View className="bg-background px-5 py-4">
-        <Button onPress={handleUpdate} disabled={isLoading || imageUploading || !isFieldUpdated}>
-          <Text>{t('profile.editProfile.saveButton')}</Text>
-        </Button>
-      </View> */}
     </SafeAreaView>
   );
 };

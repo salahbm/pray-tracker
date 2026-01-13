@@ -15,7 +15,7 @@ interface SessionResponse {
 
 export const getSession = async (): Promise<SessionResponse> => {
   try {
-    const response = await agent.get<SessionResponse>('/auth/me');
+    const response = await agent.get<SessionResponse>('/api/auth/me');
     return response;
   } catch (error) {
     return {} as SessionResponse;

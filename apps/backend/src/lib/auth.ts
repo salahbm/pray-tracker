@@ -8,26 +8,30 @@ import { getLocaleFromRequest } from '@/common/utils/headers';
 import { sendPasswordResetEmail } from './email-sender';
 import { PrismaService } from '@/db/prisma.service';
 
-const prisma = new PrismaService();
-
-// Use environment variables directly since this file is loaded before NestJS context
-const appUrl =
-  process.env.BETTER_AUTH_URL || process.env.APP_URL || 'http://localhost:4000';
-const authSecret = process.env.BETTER_AUTH_SECRET;
-const allowedOrigins = process.env.APP_CORS_ORIGIN
-  ? process.env.APP_CORS_ORIGIN.split(',')
-  : ['http://localhost:4000'];
+// Read directly from env
+const appName = process.env.APP_NAME!;
+const appUrl = process.env.APP_URL!;
+const authSecret = process.env.BETTER_AUTH_SECRET!;
+const allowedOrigins = process.env.APP_CORS_ORIGIN?.split(',') ?? [];
 
 if (!authSecret) {
-  throw new Error('BETTER_AUTH_SECRET is required in environment variables');
+  throw new Error('BETTER_AUTH_SECRET is required');
 }
+if (!appName) {
+  throw new Error('APP_NAME is required');
+}
+if (!appUrl) {
+  throw new Error('APP_URL is required');
+}
+
+const prisma = new PrismaService();
 
 export const auth = betterAuth({
   baseURL: appUrl, // Used to build callback URLs & cookies
   secret: authSecret,
   // Where requests will be routed (keep default for now → /auth/*)
-  basePath: '/auth',
-  appName: 'Noor Pray Tracker',
+  basePath: '/api/auth',
+  appName,
 
   trustedOrigins: allowedOrigins,
 

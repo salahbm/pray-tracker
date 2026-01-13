@@ -103,7 +103,7 @@ export class AuthController {
   /**
    * Change password for authenticated user
    */
-  @Post('/change-password')
+  @Post('change-password')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async changePassword(
