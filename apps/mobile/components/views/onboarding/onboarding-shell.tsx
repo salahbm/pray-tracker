@@ -1,20 +1,17 @@
 import { ReactNode } from 'react';
-import { Pressable, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { Text } from '@/components/ui/text';
+import { View } from 'react-native';
 import { cn } from '@/lib/utils';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { OnboardingProgress } from './onboarding-progress';
+import { PressableBounce } from '@/components/shared/pressable-bounce';
+import { ArrowLeft } from '@/components/shared/icons';
 
 interface OnboardingShellProps {
   children: ReactNode;
   stepIndex: number;
   totalSteps: number;
   onBack?: () => void;
-  onSkip?: () => void;
-  backLabel?: string;
-  skipLabel?: string;
   hideHeader?: boolean;
   hideProgress?: boolean;
   contentClassName?: string;
@@ -25,43 +22,36 @@ export const OnboardingShell = ({
   stepIndex,
   totalSteps,
   onBack,
-  onSkip,
-  backLabel = 'Back',
-  skipLabel = 'Skip',
   hideHeader = false,
   hideProgress = false,
   contentClassName,
 }: OnboardingShellProps) => {
+  const insets = useSafeAreaInsets();
   const progress = totalSteps > 0 ? (stepIndex + 1) / totalSteps : 0;
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={['bottom']}>
+    <View
+      className="flex-1 bg-background"
+      style={stepIndex === 0 ? {} : { paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       {!hideHeader && (
         <View className="px-5 pt-4">
-          <View className="flex-row items-center justify-between">
-            <Pressable
-              onPress={onBack}
-              className={cn('py-2 pr-4', !onBack && 'opacity-0')}
-              disabled={!onBack}
-            >
-              <Text className="text-sm text-muted-foreground">{backLabel}</Text>
-            </Pressable>
-            <Pressable
-              onPress={onSkip}
-              className={cn('py-2 pl-4', !onSkip && 'opacity-0')}
-              disabled={!onSkip}
-            >
-              <Text className="text-sm text-muted-foreground">{skipLabel}</Text>
-            </Pressable>
-          </View>
-          {!hideProgress && (
-            <View className="mt-4">
-              <OnboardingProgress progress={progress} />
-            </View>
-          )}
+          {!hideProgress && <OnboardingProgress progress={progress} />}
+
+          <PressableBounce
+            onPress={onBack}
+            className={cn(
+              'rounded-full mt-2 border-2 border-primary h-12 w-12 flex items-center justify-center',
+              !onBack && 'opacity-0'
+            )}
+            disabled={!onBack}
+            hitSlop={10}
+          >
+            <ArrowLeft size={24} className="text-primary stroke-2" />
+          </PressableBounce>
         </View>
       )}
       <View className={cn('flex-1 px-5 pb-6', contentClassName)}>{children}</View>
-    </SafeAreaView>
+    </View>
   );
 };

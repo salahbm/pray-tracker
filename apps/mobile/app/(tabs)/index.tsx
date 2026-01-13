@@ -1,6 +1,6 @@
 import confetti from '@assets/gif/confetti.json';
 import { format } from 'date-fns';
-import { useFocusEffect } from 'expo-router';
+import { Link, useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { MotiView } from 'moti';
 import { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
@@ -30,6 +30,7 @@ import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
 import PrayerTimer from '@/components/views/qibla/prayer-times';
+import { Text } from '@/components/ui/text';
 
 const initialState = {
   prayers: {
@@ -251,7 +252,9 @@ export default function HomeScreen() {
         >
           <HomeHeader today={today} />
         </MotiView>
-
+        <Link href="/(onboarding)/onboarding">
+          <Text>Go to onboarding</Text>
+        </Link>
         {/* Today's Prayers */}
         <MotiView
           key="todays-prayers-animation"
