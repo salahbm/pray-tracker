@@ -12,6 +12,7 @@ import {
   Users,
   X,
   Clock4,
+  ArrowLeft,
 } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
 
@@ -39,6 +40,7 @@ iconWithClassName(Trophy);
 iconWithClassName(LogOut);
 iconWithClassName(X);
 iconWithClassName(Clock4);
+iconWithClassName(ArrowLeft);
 
 export {
   Calendar,
@@ -52,5 +54,6 @@ export {
   UserPlus,
   Users,
   X,
+  ArrowLeft,
   Clock4,
 };

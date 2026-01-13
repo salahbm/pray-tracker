@@ -8,7 +8,7 @@ interface OnboardingFinalStepProps {
   headline: string;
   body: string;
   socialProof?: string;
-  lottieSource: unknown;
+  lottieSource: string;
 }
 
 export const OnboardingFinalStep = ({
@@ -25,10 +25,8 @@ export const OnboardingFinalStep = ({
         transition={{ type: 'spring', damping: 18, stiffness: 160 }}
         className="items-center mt-6"
       >
-        <LottieView source={lottieSource} autoPlay loop={false} style={{ width: 220, height: 220 }} />
-        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">
-          {headline}
-        </Text>
+        <LottieView source={lottieSource} autoPlay loop style={{ width: '100%', height: 320 }} />
+        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">{headline}</Text>
         <Text className="mt-4 text-center text-base text-muted-foreground leading-relaxed">
           {body}
         </Text>

@@ -28,8 +28,12 @@ export const OnboardingSplashStep = ({
       <MotiView
         from={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: 'timing', duration: 500 }}
-        className="items-center px-6"
+        exit={{ opacity: 0, scale: 0 }}
+        transition={{
+          type: 'timing',
+          duration: 1500,
+        }}
+        className="items-center px-6 h-full flex flex-col justify-center"
       >
         {badge && (
           <View className="mb-4 rounded-full bg-white/20 px-4 py-2">

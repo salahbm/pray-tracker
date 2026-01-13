@@ -30,6 +30,7 @@ export const OnboardingFooter = ({
         disabled={primaryDisabled || isLoading}
         className="rounded-full"
         width="full"
+        size="lg"
       >
         <Text>{primaryLabel}</Text>
       </Button>

@@ -8,7 +8,7 @@ interface OnboardingWelcomeStepProps {
   headline: string;
   body: string;
   footnote?: string;
-  lottieSource: unknown;
+  lottieSource: string;
 }
 
 export const OnboardingWelcomeStep = ({
@@ -25,10 +25,8 @@ export const OnboardingWelcomeStep = ({
         transition={{ type: 'spring', damping: 18, stiffness: 140 }}
         className="items-center"
       >
-        <LottieView source={lottieSource} autoPlay loop style={{ width: 240, height: 240 }} />
-        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">
-          {headline}
-        </Text>
+        <LottieView source={lottieSource} autoPlay loop style={{ width: '100%', height: 320 }} />
+        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">{headline}</Text>
         <Text className="mt-4 text-center text-base text-muted-foreground leading-relaxed">
           {body}
         </Text>

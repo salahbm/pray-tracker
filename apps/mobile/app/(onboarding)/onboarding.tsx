@@ -5,7 +5,7 @@ import * as Location from 'expo-location';
 import * as Localization from 'expo-localization';
 import * as Notifications from 'expo-notifications';
 import { AnimatePresence, MotiView } from 'moti';
-import { useMemo, useRef, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useRef, useState, useEffect, useCallback } from 'react';
 import { View } from 'react-native';
 
 import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
@@ -19,30 +19,31 @@ import {
 } from '@/store/onboarding/onboarding-store';
 
 import onboardingAgent from './agent.json';
-import { onboardingIllustrations, onboardingLotties } from './onboarding-assets';
 import {
-  type OnboardingChoiceStep,
-  type OnboardingData,
-  type OnboardingOption,
-  type OnboardingPermissionStep,
-  type OnboardingStep,
-  type OnboardingWelcomeStep,
-} from './onboarding-types';
-import { OnboardingChoiceStep as ChoiceStep } from './components/onboarding-choice-step';
-import { OnboardingFinalStep } from './components/onboarding-final-step';
-import { OnboardingFooter } from './components/onboarding-footer';
-import { OnboardingModal } from './components/onboarding-modal';
-import { OnboardingPermissionStep as PermissionStep } from './components/onboarding-permission-step';
-import { OnboardingShell } from './components/onboarding-shell';
-import { OnboardingSplashStep } from './components/onboarding-splash-step';
-import { OnboardingWelcomeStep } from './components/onboarding-welcome-step';
+  type OnboardingChoiceStepType,
+  type OnboardingDataType,
+  type OnboardingOptionType,
+  type OnboardingPermissionStepType,
+  type OnboardingStepType,
+  type OnboardingWelcomeStepType,
+  OnboardingChoiceStep,
+  OnboardingFinalStep,
+  OnboardingFooter,
+  onboardingIllustrations,
+  onboardingLotties,
+  OnboardingModal,
+  OnboardingPermissionStep,
+  OnboardingShell,
+  OnboardingSplashStep,
+  OnboardingWelcomeStep,
+} from '@/components/views/onboarding';
 
-const onboardingData = onboardingAgent as OnboardingData;
+const onboardingData = onboardingAgent as OnboardingDataType;
 
 const replaceAppName = (value: string, appName: string) =>
   value.replace(/\{\{APP_NAME\}\}/g, appName);
 
-const resolveOptionFeedback = (option?: OnboardingOption) => {
+const resolveOptionFeedback = (option?: OnboardingOptionType) => {
   if (!option?.onSelect) {
     return { title: undefined, body: undefined };
   }
@@ -94,7 +95,7 @@ const Onboarding = () => {
   const onboardingMutation = useOnboarding();
   const friendsModalRef = useRef<BottomSheet>(null);
 
-  const activeStep = steps[activeIndex] as OnboardingStep | undefined;
+  const activeStep = steps[activeIndex] as OnboardingStepType | undefined;
 
   const closeFriendsModal = () => friendsModalRef.current?.close();
 
@@ -155,11 +156,6 @@ const Onboarding = () => {
     }
   }, [onboardingMutation, personalizationPayload]);
 
-  const handleSkip = async () => {
-    await persistPreferences();
-    router.replace('/(tabs)');
-  };
-
   const handleNext = () => {
     if (!activeStep) {
       return;
@@ -179,7 +175,7 @@ const Onboarding = () => {
     }
   };
 
-  const handleSingleChoice = (step: OnboardingChoiceStep, value: string) => {
+  const handleSingleChoice = (step: OnboardingChoiceStepType, value: string) => {
     const selectedOption = step.content.options.find(option => option.id === value);
     const nextFeedback = resolveOptionFeedback(selectedOption);
     setFeedback(nextFeedback);
@@ -204,7 +200,7 @@ const Onboarding = () => {
     }
   };
 
-  const handleMultiChoice = (step: OnboardingChoiceStep, value: string[] | string) => {
+  const handleMultiChoice = (step: OnboardingChoiceStepType, value: string[] | string) => {
     const nextValues = Array.isArray(value) ? value : [value];
     const lastSelected = Array.isArray(value) ? value[value.length - 1] : value;
     const selectedOption = step.content.options.find(option => option.id === lastSelected);
@@ -241,7 +237,7 @@ const Onboarding = () => {
     setNotificationPermission(permission.status === 'granted');
   };
 
-  const handlePermissionPrimary = async (step: OnboardingPermissionStep) => {
+  const handlePermissionPrimary = async (step: OnboardingPermissionStepType) => {
     if (step.permissionKey === 'location') {
       await requestLocationPermission();
     }
@@ -258,7 +254,7 @@ const Onboarding = () => {
     handleNext();
   };
 
-  const handlePermissionSecondary = (step: OnboardingPermissionStep) => {
+  const handlePermissionSecondary = (step: OnboardingPermissionStepType) => {
     if (step.permissionKey === 'location') {
       setLocationPermission(false);
     }
@@ -296,31 +292,32 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'welcome') {
-      const step = activeStep as OnboardingWelcomeStep;
-      const lottieSource = onboardingLotties[step.ui.lottie.asset as keyof typeof onboardingLotties];
+      const step = activeStep as OnboardingWelcomeStepType;
+      const lottieSource =
+        onboardingLotties[step.ui.lottie.asset as keyof typeof onboardingLotties];
       return (
         <OnboardingWelcomeStep
           headline={step.content.headline}
           body={step.content.body}
           footnote={step.content.footnote}
-          lottieSource={lottieSource}
+          lottieSource={lottieSource as unknown as string}
         />
       );
     }
 
     if (activeStep.type === 'single_choice' || activeStep.type === 'multi_choice') {
-      const step = activeStep as OnboardingChoiceStep;
+      const step = activeStep as OnboardingChoiceStepType;
       const selectedValues =
         step.id === 'prayer_knowledge'
-          ? prayerKnowledge ?? ''
+          ? (prayerKnowledge ?? '')
           : step.id === 'support_needed'
-            ? supportNeeded ?? ''
+            ? (supportNeeded ?? '')
             : step.id === 'learn_islam'
-              ? learnIslam ?? ''
+              ? (learnIslam ?? '')
               : step.id === 'why_here'
                 ? whyHere
                 : step.id === 'attribution'
-                  ? whereDidYouHearAboutUs ?? ''
+                  ? (whereDidYouHearAboutUs ?? '')
                   : '';
 
       const isMultiple = step.type === 'multi_choice';
@@ -348,7 +345,7 @@ const Onboarding = () => {
           : null;
 
       return (
-        <ChoiceStep
+        <OnboardingChoiceStep
           headline={step.content.headline}
           body={step.content.body}
           options={step.content.options.map(option => ({
@@ -380,11 +377,11 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'permission') {
-      const step = activeStep as OnboardingPermissionStep;
+      const step = activeStep as OnboardingPermissionStepType;
       const illustration =
         onboardingIllustrations[step.ui.illustration as keyof typeof onboardingIllustrations];
       return (
-        <PermissionStep
+        <OnboardingPermissionStep
           headline={step.content.headline}
           body={step.content.body}
           benefits={step.content.benefits}
@@ -401,7 +398,7 @@ const Onboarding = () => {
           headline={activeStep.content.headline}
           body={activeStep.content.body}
           socialProof={activeStep.content.socialProof?.text}
-          lottieSource={lottieSource}
+          lottieSource={lottieSource as unknown as string}
         />
       );
     }
@@ -475,7 +472,6 @@ const Onboarding = () => {
 
   const shouldShowFooter = activeStep && activeStep.type !== 'splash';
   const shouldShowHeader = activeStep && activeStep.type !== 'splash';
-  const shouldShowSkip = activeStep && activeStep.type !== 'final';
 
   const onPrimaryPress = async () => {
     if (!activeStep) {
@@ -483,12 +479,13 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'permission') {
-      await handlePermissionPrimary(activeStep as OnboardingPermissionStep);
+      await handlePermissionPrimary(activeStep as OnboardingPermissionStepType);
       return;
     }
 
     if (activeStep.type === 'final') {
-      await handleFinish();
+      // await handleFinish();
+      router.replace('/(tabs)');
       return;
     }
 
@@ -501,11 +498,11 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'permission') {
-      handlePermissionSecondary(activeStep as OnboardingPermissionStep);
+      handlePermissionSecondary(activeStep as OnboardingPermissionStepType);
       return;
     }
 
-    if (activeStep.type === 'final') {
+    if (activeStep.type === 'welcome') {
       router.replace('/(screens)/profile/settings');
     }
   };
@@ -517,9 +514,6 @@ const Onboarding = () => {
       stepIndex={activeIndex}
       totalSteps={steps.length}
       onBack={activeIndex > 0 ? handleBack : undefined}
-      onSkip={shouldShowSkip ? handleSkip : undefined}
-      backLabel={sharedText.backCta}
-      skipLabel={sharedText.skipCta}
       hideHeader={!shouldShowHeader}
       hideProgress={!shouldShowHeader}
       contentClassName={activeStep?.type === 'splash' ? 'px-0 pb-0' : undefined}

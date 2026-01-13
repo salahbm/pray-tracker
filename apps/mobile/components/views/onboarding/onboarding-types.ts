@@ -1,22 +1,22 @@
-export type OnboardingTone = {
+export type OnboardingToneType = {
   style: string;
   islamic: string;
   notes: string[];
 };
 
-export type OnboardingBranding = {
+export type OnboardingBrandingType = {
   useBismillahOption: boolean;
   bismillahText: string;
   closingDuaOptional: boolean;
 };
 
-export type OnboardingMeta = {
+export type OnboardingMetaType = {
   flowId: string;
   appNamePlaceholder: string;
-  branding: OnboardingBranding;
+  branding: OnboardingBrandingType;
 };
 
-export type OnboardingSharedText = {
+export type OnboardingSharedTextType = {
   primaryCta: string;
   secondaryCta: string;
   skipCta: string;
@@ -25,7 +25,7 @@ export type OnboardingSharedText = {
   privacyNote: string;
 };
 
-export type OnboardingOptionAction =
+export type OnboardingOptionActionType =
   | {
       type: 'open_modal';
       modalId: string;
@@ -40,20 +40,20 @@ export type OnboardingOptionAction =
       };
     };
 
-export type OnboardingOptionSelect = {
+export type OnboardingOptionSelectType = {
   feedbackTitle?: string;
   feedbackBody?: string;
   feedback?: string;
-  action?: OnboardingOptionAction;
+  action?: OnboardingOptionActionType;
 };
 
-export type OnboardingOption = {
+export type OnboardingOptionType = {
   id: string;
   label: string;
-  onSelect?: OnboardingOptionSelect;
+  onSelect?: OnboardingOptionSelectType;
 };
 
-export type OnboardingStepBase = {
+export type OnboardingStepBaseType = {
   id: string;
   type: string;
   content: {
@@ -62,7 +62,7 @@ export type OnboardingStepBase = {
   };
 };
 
-export type OnboardingSplashStep = OnboardingStepBase & {
+export type OnboardingSplashStepType = OnboardingStepBaseType & {
   type: 'splash';
   durationMs: number;
   ui: {
@@ -76,7 +76,7 @@ export type OnboardingSplashStep = OnboardingStepBase & {
   };
 };
 
-export type OnboardingWelcomeStep = OnboardingStepBase & {
+export type OnboardingWelcomeStepType = OnboardingStepBaseType & {
   type: 'welcome';
   ui: {
     lottie: {
@@ -92,19 +92,19 @@ export type OnboardingWelcomeStep = OnboardingStepBase & {
   };
 };
 
-export type OnboardingChoiceStep = OnboardingStepBase & {
+export type OnboardingChoiceStepType = OnboardingStepBaseType & {
   type: 'single_choice' | 'multi_choice';
   content: {
     headline: string;
     body: string;
-    options: OnboardingOption[];
+    options: OnboardingOptionType[];
     minSelections?: number;
     maxSelections?: number;
     footerNote?: string;
   };
 };
 
-export type OnboardingPermissionStep = OnboardingStepBase & {
+export type OnboardingPermissionStepType = OnboardingStepBaseType & {
   type: 'permission';
   permissionKey: 'location' | 'notifications';
   ui: {
@@ -127,7 +127,7 @@ export type OnboardingPermissionStep = OnboardingStepBase & {
   };
 };
 
-export type OnboardingFinalStep = OnboardingStepBase & {
+export type OnboardingFinalStepType = OnboardingStepBaseType & {
   type: 'final';
   ui: {
     lottie: {
@@ -147,14 +147,14 @@ export type OnboardingFinalStep = OnboardingStepBase & {
   };
 };
 
-export type OnboardingStep =
-  | OnboardingSplashStep
-  | OnboardingWelcomeStep
-  | OnboardingChoiceStep
-  | OnboardingPermissionStep
-  | OnboardingFinalStep;
+export type OnboardingStepType =
+  | OnboardingSplashStepType
+  | OnboardingWelcomeStepType
+  | OnboardingChoiceStepType
+  | OnboardingPermissionStepType
+  | OnboardingFinalStepType;
 
-export type OnboardingModal = {
+export type OnboardingModalType = {
   id: string;
   type: string;
   content: {
@@ -166,12 +166,12 @@ export type OnboardingModal = {
   };
 };
 
-export type OnboardingData = {
+export type OnboardingDataType = {
   schemaVersion: string;
   locale: string;
-  tone: OnboardingTone;
-  meta: OnboardingMeta;
-  sharedText: OnboardingSharedText;
-  steps: OnboardingStep[];
-  modals: OnboardingModal[];
+  tone: OnboardingToneType;
+  meta: OnboardingMetaType;
+  sharedText: OnboardingSharedTextType;
+  steps: OnboardingStepType[];
+  modals: OnboardingModalType[];
 };
