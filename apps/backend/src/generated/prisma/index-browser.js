@@ -203,18 +203,6 @@ exports.Prisma.FriendScalarFieldEnum = {
   updatedAt: 'updatedAt',
 };
 
-exports.Prisma.SubscriptionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  status: 'status',
-  plan: 'plan',
-  expiresAt: 'expiresAt',
-  cancelledAt: 'cancelledAt',
-  revenueCatId: 'revenueCatId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-};
-
 exports.Prisma.InquiryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -234,9 +222,34 @@ exports.Prisma.InquiryMessageScalarFieldEnum = {
   createdAt: 'createdAt',
 };
 
+exports.Prisma.OnboardingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  prayerKnowledge: 'prayerKnowledge',
+  supportNeeded: 'supportNeeded',
+  learnIslam: 'learnIslam',
+  whyHere: 'whyHere',
+  locationPermissionGranted: 'locationPermissionGranted',
+  locationCity: 'locationCity',
+  locationTimezone: 'locationTimezone',
+  notificationPermissionGranted: 'notificationPermissionGranted',
+  notificationPreset: 'notificationPreset',
+  enabledModules: 'enabledModules',
+  defaultHomeTab: 'defaultHomeTab',
+  completedAt: 'completedAt',
+  completedSteps: 'completedSteps',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc',
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
 };
 
 exports.Prisma.QueryMode = {
@@ -248,22 +261,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last',
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull,
+};
 exports.FriendStatus = exports.$Enums.FriendStatus = {
   PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED',
-};
-
-exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
-  ACTIVE: 'ACTIVE',
-  EXPIRED: 'EXPIRED',
-  CANCELLED: 'CANCELLED',
-  TRIAL: 'TRIAL',
-};
-
-exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
-  MONTHLY: 'MONTHLY',
-  YEARLY: 'YEARLY',
 };
 
 exports.InquiryStatus = exports.$Enums.InquiryStatus = {
@@ -285,9 +292,9 @@ exports.Prisma.ModelName = {
   FriendGroup: 'FriendGroup',
   FriendGroupMember: 'FriendGroupMember',
   Friend: 'Friend',
-  Subscription: 'Subscription',
   Inquiry: 'Inquiry',
   InquiryMessage: 'InquiryMessage',
+  Onboarding: 'Onboarding',
 };
 
 /**

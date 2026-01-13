@@ -32,7 +32,7 @@ model User {
 
   friendGroups     FriendGroup[]       @relation("group_owner")
   groupMemberships FriendGroupMember[] @relation("group_members_user")
-  subscription     Subscription?
+  onboarding       Onboarding?
 
   sessions Session[]
   accounts Account[]
@@ -154,40 +154,9 @@ model Friend {
   @@map("friend")
 }
 
-enum FriendStatus {
-  PENDING
-  ACCEPTED
-  REJECTED
-}
 
-model Subscription {
-  id           String             @id @default(cuid())
-  userId       String             @unique
-  status       SubscriptionStatus @default(ACTIVE)
-  plan         SubscriptionPlan
-  expiresAt    DateTime
-  cancelledAt  DateTime?
-  revenueCatId String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("subscription")
-}
-
-enum SubscriptionStatus {
-  ACTIVE
-  EXPIRED
-  CANCELLED
-  TRIAL
-}
-
-enum SubscriptionPlan {
-  MONTHLY
-  YEARLY
-}
 
 model Inquiry {
   id      String        @id @default(cuid())
@@ -223,6 +192,47 @@ model InquiryMessage {
   @@map("inquiry_message")
 }
 
+model Onboarding {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Step: prayer_knowledge
+  prayerKnowledge String? // "yes_i_know" | "im_learning" | "no_not_yet"
+
+  // Step: support_needed
+  supportNeeded String? // "yes_i_need_support" | "some_support" | "im_good"
+
+  // Step: learn_islam
+  learnIslam String? // "quran_surahs" | "basics" | "im_good"
+
+  // Step: why_here (multi-select stored as JSON array)
+  whyHere Json? // ["pray_5_times", "track_progress", "learn_how_to_pray", "just_checking"]
+
+  // Step: location_permission
+  locationPermissionGranted Boolean @default(false)
+  locationCity              String?
+  locationTimezone          String?
+
+  // Step: notification_permission
+  notificationPermissionGranted Boolean @default(false)
+  notificationPreset            String? // "gentle" | "standard" | "custom"
+
+  // Personalization flags (derived from responses)
+  enabledModules Json? // ["learn_prayer_basics", "guided_salah", "streaks", "friends", etc.]
+  defaultHomeTab String? // "Learn" | "Tracker" | "Home" | "Community"
+
+  // Onboarding completion
+  completedAt DateTime?
+  completedSteps Json? // ["splash", "intro_welcome", "prayer_knowledge", ...]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("onboarding")
+  @@index([userId])
+}
+
 enum InquiryStatus {
   OPEN
   CLOSED
@@ -231,4 +241,12 @@ enum InquiryStatus {
 enum InquirySenderRole {
   USER
   OWNER
+}
+
+
+
+enum FriendStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }

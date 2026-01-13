@@ -54,12 +54,6 @@ export type FriendGroupMember =
  */
 export type Friend = $Result.DefaultSelection<Prisma.$FriendPayload>;
 /**
- * Model Subscription
- *
- */
-export type Subscription =
-  $Result.DefaultSelection<Prisma.$SubscriptionPayload>;
-/**
  * Model Inquiry
  *
  */
@@ -70,37 +64,16 @@ export type Inquiry = $Result.DefaultSelection<Prisma.$InquiryPayload>;
  */
 export type InquiryMessage =
   $Result.DefaultSelection<Prisma.$InquiryMessagePayload>;
+/**
+ * Model Onboarding
+ *
+ */
+export type Onboarding = $Result.DefaultSelection<Prisma.$OnboardingPayload>;
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const FriendStatus: {
-    PENDING: 'PENDING';
-    ACCEPTED: 'ACCEPTED';
-    REJECTED: 'REJECTED';
-  };
-
-  export type FriendStatus = (typeof FriendStatus)[keyof typeof FriendStatus];
-
-  export const SubscriptionStatus: {
-    ACTIVE: 'ACTIVE';
-    EXPIRED: 'EXPIRED';
-    CANCELLED: 'CANCELLED';
-    TRIAL: 'TRIAL';
-  };
-
-  export type SubscriptionStatus =
-    (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
-
-  export const SubscriptionPlan: {
-    MONTHLY: 'MONTHLY';
-    YEARLY: 'YEARLY';
-  };
-
-  export type SubscriptionPlan =
-    (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan];
-
   export const InquiryStatus: {
     OPEN: 'OPEN';
     CLOSED: 'CLOSED';
@@ -116,19 +89,15 @@ export namespace $Enums {
 
   export type InquirySenderRole =
     (typeof InquirySenderRole)[keyof typeof InquirySenderRole];
+
+  export const FriendStatus: {
+    PENDING: 'PENDING';
+    ACCEPTED: 'ACCEPTED';
+    REJECTED: 'REJECTED';
+  };
+
+  export type FriendStatus = (typeof FriendStatus)[keyof typeof FriendStatus];
 }
-
-export type FriendStatus = $Enums.FriendStatus;
-
-export const FriendStatus: typeof $Enums.FriendStatus;
-
-export type SubscriptionStatus = $Enums.SubscriptionStatus;
-
-export const SubscriptionStatus: typeof $Enums.SubscriptionStatus;
-
-export type SubscriptionPlan = $Enums.SubscriptionPlan;
-
-export const SubscriptionPlan: typeof $Enums.SubscriptionPlan;
 
 export type InquiryStatus = $Enums.InquiryStatus;
 
@@ -137,6 +106,10 @@ export const InquiryStatus: typeof $Enums.InquiryStatus;
 export type InquirySenderRole = $Enums.InquirySenderRole;
 
 export const InquirySenderRole: typeof $Enums.InquirySenderRole;
+
+export type FriendStatus = $Enums.FriendStatus;
+
+export const FriendStatus: typeof $Enums.FriendStatus;
 
 /**
  * ##  Prisma Client ʲˢ
@@ -381,16 +354,6 @@ export class PrismaClient<
   get friend(): Prisma.FriendDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
-   * Example usage:
-   * ```ts
-   * // Fetch zero or more Subscriptions
-   * const subscriptions = await prisma.subscription.findMany()
-   * ```
-   */
-  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.inquiry`: Exposes CRUD operations for the **Inquiry** model.
    * Example usage:
    * ```ts
@@ -409,6 +372,16 @@ export class PrismaClient<
    * ```
    */
   get inquiryMessage(): Prisma.InquiryMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.onboarding`: Exposes CRUD operations for the **Onboarding** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Onboardings
+   * const onboardings = await prisma.onboarding.findMany()
+   * ```
+   */
+  get onboarding(): Prisma.OnboardingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -869,9 +842,9 @@ export namespace Prisma {
     FriendGroup: 'FriendGroup';
     FriendGroupMember: 'FriendGroupMember';
     Friend: 'Friend';
-    Subscription: 'Subscription';
     Inquiry: 'Inquiry';
     InquiryMessage: 'InquiryMessage';
+    Onboarding: 'Onboarding';
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -903,9 +876,9 @@ export namespace Prisma {
         | 'friendGroup'
         | 'friendGroupMember'
         | 'friend'
-        | 'subscription'
         | 'inquiry'
-        | 'inquiryMessage';
+        | 'inquiryMessage'
+        | 'onboarding';
       txIsolationLevel: Prisma.TransactionIsolationLevel;
     };
     model: {
@@ -1507,82 +1480,6 @@ export namespace Prisma {
           };
         };
       };
-      Subscription: {
-        payload: Prisma.$SubscriptionPayload<ExtArgs>;
-        fields: Prisma.SubscriptionFieldRefs;
-        operations: {
-          findUnique: {
-            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null;
-          };
-          findUniqueOrThrow: {
-            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          findFirst: {
-            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null;
-          };
-          findFirstOrThrow: {
-            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          findMany: {
-            args: Prisma.SubscriptionFindManyArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[];
-          };
-          create: {
-            args: Prisma.SubscriptionCreateArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          createMany: {
-            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>;
-            result: BatchPayload;
-          };
-          createManyAndReturn: {
-            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[];
-          };
-          delete: {
-            args: Prisma.SubscriptionDeleteArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          update: {
-            args: Prisma.SubscriptionUpdateArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          deleteMany: {
-            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>;
-            result: BatchPayload;
-          };
-          updateMany: {
-            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>;
-            result: BatchPayload;
-          };
-          updateManyAndReturn: {
-            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[];
-          };
-          upsert: {
-            args: Prisma.SubscriptionUpsertArgs<ExtArgs>;
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>;
-          };
-          aggregate: {
-            args: Prisma.SubscriptionAggregateArgs<ExtArgs>;
-            result: $Utils.Optional<AggregateSubscription>;
-          };
-          groupBy: {
-            args: Prisma.SubscriptionGroupByArgs<ExtArgs>;
-            result: $Utils.Optional<SubscriptionGroupByOutputType>[];
-          };
-          count: {
-            args: Prisma.SubscriptionCountArgs<ExtArgs>;
-            result:
-              | $Utils.Optional<SubscriptionCountAggregateOutputType>
-              | number;
-          };
-        };
-      };
       Inquiry: {
         payload: Prisma.$InquiryPayload<ExtArgs>;
         fields: Prisma.InquiryFieldRefs;
@@ -1733,6 +1630,82 @@ export namespace Prisma {
           };
         };
       };
+      Onboarding: {
+        payload: Prisma.$OnboardingPayload<ExtArgs>;
+        fields: Prisma.OnboardingFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.OnboardingFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.OnboardingFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          findFirst: {
+            args: Prisma.OnboardingFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.OnboardingFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          findMany: {
+            args: Prisma.OnboardingFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[];
+          };
+          create: {
+            args: Prisma.OnboardingCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          createMany: {
+            args: Prisma.OnboardingCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.OnboardingCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[];
+          };
+          delete: {
+            args: Prisma.OnboardingDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          update: {
+            args: Prisma.OnboardingUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          deleteMany: {
+            args: Prisma.OnboardingDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.OnboardingUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.OnboardingUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[];
+          };
+          upsert: {
+            args: Prisma.OnboardingUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>;
+          };
+          aggregate: {
+            args: Prisma.OnboardingAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateOnboarding>;
+          };
+          groupBy: {
+            args: Prisma.OnboardingGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<OnboardingGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.OnboardingCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<OnboardingCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
     };
   } & {
     other: {
@@ -1853,9 +1826,9 @@ export namespace Prisma {
     friendGroup?: FriendGroupOmit;
     friendGroupMember?: FriendGroupMemberOmit;
     friend?: FriendOmit;
-    subscription?: SubscriptionOmit;
     inquiry?: InquiryOmit;
     inquiryMessage?: InquiryMessageOmit;
+    onboarding?: OnboardingOmit;
   };
 
   /* Types for Logging */
@@ -2381,7 +2354,7 @@ export namespace Prisma {
       receivedRequests?: boolean | User$receivedRequestsArgs<ExtArgs>;
       friendGroups?: boolean | User$friendGroupsArgs<ExtArgs>;
       groupMemberships?: boolean | User$groupMembershipsArgs<ExtArgs>;
-      subscription?: boolean | User$subscriptionArgs<ExtArgs>;
+      onboarding?: boolean | User$onboardingArgs<ExtArgs>;
       sessions?: boolean | User$sessionsArgs<ExtArgs>;
       accounts?: boolean | User$accountsArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
@@ -2463,7 +2436,7 @@ export namespace Prisma {
     receivedRequests?: boolean | User$receivedRequestsArgs<ExtArgs>;
     friendGroups?: boolean | User$friendGroupsArgs<ExtArgs>;
     groupMemberships?: boolean | User$groupMembershipsArgs<ExtArgs>;
-    subscription?: boolean | User$subscriptionArgs<ExtArgs>;
+    onboarding?: boolean | User$onboardingArgs<ExtArgs>;
     sessions?: boolean | User$sessionsArgs<ExtArgs>;
     accounts?: boolean | User$accountsArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
@@ -2487,7 +2460,7 @@ export namespace Prisma {
       receivedRequests: Prisma.$FriendPayload<ExtArgs>[];
       friendGroups: Prisma.$FriendGroupPayload<ExtArgs>[];
       groupMemberships: Prisma.$FriendGroupMemberPayload<ExtArgs>[];
-      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null;
+      onboarding: Prisma.$OnboardingPayload<ExtArgs> | null;
       sessions: Prisma.$SessionPayload<ExtArgs>[];
       accounts: Prisma.$AccountPayload<ExtArgs>[];
     };
@@ -3125,11 +3098,11 @@ export namespace Prisma {
         >
       | Null
     >;
-    subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$subscriptionArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
+    onboarding<T extends User$onboardingArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$onboardingArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
       $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
+        Prisma.$OnboardingPayload<ExtArgs>,
         T,
         'findUniqueOrThrow',
         GlobalOmitOptions
@@ -3817,24 +3790,24 @@ export namespace Prisma {
   };
 
   /**
-   * User.subscription
+   * User.onboarding
    */
-  export type User$subscriptionArgs<
+  export type User$onboardingArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
-     * Select specific fields to fetch from the Subscription
+     * Select specific fields to fetch from the Onboarding
      */
-    select?: SubscriptionSelect<ExtArgs> | null;
+    select?: OnboardingSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the Subscription
+     * Omit specific fields from the Onboarding
      */
-    omit?: SubscriptionOmit<ExtArgs> | null;
+    omit?: OnboardingOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    where?: SubscriptionWhereInput;
+    include?: OnboardingInclude<ExtArgs> | null;
+    where?: OnboardingWhereInput;
   };
 
   /**
@@ -13383,1379 +13356,6 @@ export namespace Prisma {
   };
 
   /**
-   * Model Subscription
-   */
-
-  export type AggregateSubscription = {
-    _count: SubscriptionCountAggregateOutputType | null;
-    _min: SubscriptionMinAggregateOutputType | null;
-    _max: SubscriptionMaxAggregateOutputType | null;
-  };
-
-  export type SubscriptionMinAggregateOutputType = {
-    id: string | null;
-    userId: string | null;
-    status: $Enums.SubscriptionStatus | null;
-    plan: $Enums.SubscriptionPlan | null;
-    expiresAt: Date | null;
-    cancelledAt: Date | null;
-    revenueCatId: string | null;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-  };
-
-  export type SubscriptionMaxAggregateOutputType = {
-    id: string | null;
-    userId: string | null;
-    status: $Enums.SubscriptionStatus | null;
-    plan: $Enums.SubscriptionPlan | null;
-    expiresAt: Date | null;
-    cancelledAt: Date | null;
-    revenueCatId: string | null;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-  };
-
-  export type SubscriptionCountAggregateOutputType = {
-    id: number;
-    userId: number;
-    status: number;
-    plan: number;
-    expiresAt: number;
-    cancelledAt: number;
-    revenueCatId: number;
-    createdAt: number;
-    updatedAt: number;
-    _all: number;
-  };
-
-  export type SubscriptionMinAggregateInputType = {
-    id?: true;
-    userId?: true;
-    status?: true;
-    plan?: true;
-    expiresAt?: true;
-    cancelledAt?: true;
-    revenueCatId?: true;
-    createdAt?: true;
-    updatedAt?: true;
-  };
-
-  export type SubscriptionMaxAggregateInputType = {
-    id?: true;
-    userId?: true;
-    status?: true;
-    plan?: true;
-    expiresAt?: true;
-    cancelledAt?: true;
-    revenueCatId?: true;
-    createdAt?: true;
-    updatedAt?: true;
-  };
-
-  export type SubscriptionCountAggregateInputType = {
-    id?: true;
-    userId?: true;
-    status?: true;
-    plan?: true;
-    expiresAt?: true;
-    cancelledAt?: true;
-    revenueCatId?: true;
-    createdAt?: true;
-    updatedAt?: true;
-    _all?: true;
-  };
-
-  export type SubscriptionAggregateArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Filter which Subscription to aggregate.
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?:
-      | SubscriptionOrderByWithRelationInput
-      | SubscriptionOrderByWithRelationInput[];
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
-     * Sets the start position
-     */
-    cursor?: SubscriptionWhereUniqueInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Count returned Subscriptions
-     **/
-    _count?: true | SubscriptionCountAggregateInputType;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Select which fields to find the minimum value
-     **/
-    _min?: SubscriptionMinAggregateInputType;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Select which fields to find the maximum value
-     **/
-    _max?: SubscriptionMaxAggregateInputType;
-  };
-
-  export type GetSubscriptionAggregateType<
-    T extends SubscriptionAggregateArgs,
-  > = {
-    [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSubscription[P]>
-      : GetScalarType<T[P], AggregateSubscription[P]>;
-  };
-
-  export type SubscriptionGroupByArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: SubscriptionWhereInput;
-    orderBy?:
-      | SubscriptionOrderByWithAggregationInput
-      | SubscriptionOrderByWithAggregationInput[];
-    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum;
-    having?: SubscriptionScalarWhereWithAggregatesInput;
-    take?: number;
-    skip?: number;
-    _count?: SubscriptionCountAggregateInputType | true;
-    _min?: SubscriptionMinAggregateInputType;
-    _max?: SubscriptionMaxAggregateInputType;
-  };
-
-  export type SubscriptionGroupByOutputType = {
-    id: string;
-    userId: string;
-    status: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date;
-    cancelledAt: Date | null;
-    revenueCatId: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-    _count: SubscriptionCountAggregateOutputType | null;
-    _min: SubscriptionMinAggregateOutputType | null;
-    _max: SubscriptionMaxAggregateOutputType | null;
-  };
-
-  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> =
-    Prisma.PrismaPromise<
-      Array<
-        PickEnumerable<SubscriptionGroupByOutputType, T['by']> & {
-          [P in keyof T &
-            keyof SubscriptionGroupByOutputType]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
-            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>;
-        }
-      >
-    >;
-
-  export type SubscriptionSelect<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = $Extensions.GetSelect<
-    {
-      id?: boolean;
-      userId?: boolean;
-      status?: boolean;
-      plan?: boolean;
-      expiresAt?: boolean;
-      cancelledAt?: boolean;
-      revenueCatId?: boolean;
-      createdAt?: boolean;
-      updatedAt?: boolean;
-      user?: boolean | UserDefaultArgs<ExtArgs>;
-    },
-    ExtArgs['result']['subscription']
-  >;
-
-  export type SubscriptionSelectCreateManyAndReturn<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = $Extensions.GetSelect<
-    {
-      id?: boolean;
-      userId?: boolean;
-      status?: boolean;
-      plan?: boolean;
-      expiresAt?: boolean;
-      cancelledAt?: boolean;
-      revenueCatId?: boolean;
-      createdAt?: boolean;
-      updatedAt?: boolean;
-      user?: boolean | UserDefaultArgs<ExtArgs>;
-    },
-    ExtArgs['result']['subscription']
-  >;
-
-  export type SubscriptionSelectUpdateManyAndReturn<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = $Extensions.GetSelect<
-    {
-      id?: boolean;
-      userId?: boolean;
-      status?: boolean;
-      plan?: boolean;
-      expiresAt?: boolean;
-      cancelledAt?: boolean;
-      revenueCatId?: boolean;
-      createdAt?: boolean;
-      updatedAt?: boolean;
-      user?: boolean | UserDefaultArgs<ExtArgs>;
-    },
-    ExtArgs['result']['subscription']
-  >;
-
-  export type SubscriptionSelectScalar = {
-    id?: boolean;
-    userId?: boolean;
-    status?: boolean;
-    plan?: boolean;
-    expiresAt?: boolean;
-    cancelledAt?: boolean;
-    revenueCatId?: boolean;
-    createdAt?: boolean;
-    updatedAt?: boolean;
-  };
-
-  export type SubscriptionOmit<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = $Extensions.GetOmit<
-    | 'id'
-    | 'userId'
-    | 'status'
-    | 'plan'
-    | 'expiresAt'
-    | 'cancelledAt'
-    | 'revenueCatId'
-    | 'createdAt'
-    | 'updatedAt',
-    ExtArgs['result']['subscription']
-  >;
-  export type SubscriptionInclude<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    user?: boolean | UserDefaultArgs<ExtArgs>;
-  };
-  export type SubscriptionIncludeCreateManyAndReturn<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    user?: boolean | UserDefaultArgs<ExtArgs>;
-  };
-  export type SubscriptionIncludeUpdateManyAndReturn<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    user?: boolean | UserDefaultArgs<ExtArgs>;
-  };
-
-  export type $SubscriptionPayload<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    name: 'Subscription';
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>;
-    };
-    scalars: $Extensions.GetPayloadResult<
-      {
-        id: string;
-        userId: string;
-        status: $Enums.SubscriptionStatus;
-        plan: $Enums.SubscriptionPlan;
-        expiresAt: Date;
-        cancelledAt: Date | null;
-        revenueCatId: string | null;
-        createdAt: Date;
-        updatedAt: Date;
-      },
-      ExtArgs['result']['subscription']
-    >;
-    composites: {};
-  };
-
-  type SubscriptionGetPayload<
-    S extends boolean | null | undefined | SubscriptionDefaultArgs,
-  > = $Result.GetResult<Prisma.$SubscriptionPayload, S>;
-
-  type SubscriptionCountArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = Omit<
-    SubscriptionFindManyArgs,
-    'select' | 'include' | 'distinct' | 'omit'
-  > & {
-    select?: SubscriptionCountAggregateInputType | true;
-  };
-
-  export interface SubscriptionDelegate<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-    GlobalOmitOptions = {},
-  > {
-    [K: symbol]: {
-      types: Prisma.TypeMap<ExtArgs>['model']['Subscription'];
-      meta: { name: 'Subscription' };
-    };
-    /**
-     * Find zero or one Subscription that matches the filter.
-     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SubscriptionFindUniqueArgs>(
-      args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'findUnique',
-        GlobalOmitOptions
-      > | null,
-      null,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(
-      args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Find the first Subscription that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SubscriptionFindFirstArgs>(
-      args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'findFirst',
-        GlobalOmitOptions
-      > | null,
-      null,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Find the first Subscription that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'findFirstOrThrow',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Find zero or more Subscriptions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Subscriptions
-     * const subscriptions = await prisma.subscription.findMany()
-     *
-     * // Get first 10 Subscriptions
-     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
-     *
-     * // Only select the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
-     *
-     */
-    findMany<T extends SubscriptionFindManyArgs>(
-      args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    >;
-
-    /**
-     * Create a Subscription.
-     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
-     * @example
-     * // Create one Subscription
-     * const Subscription = await prisma.subscription.create({
-     *   data: {
-     *     // ... data to create a Subscription
-     *   }
-     * })
-     *
-     */
-    create<T extends SubscriptionCreateArgs>(
-      args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'create',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Create many Subscriptions.
-     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *
-     */
-    createMany<T extends SubscriptionCreateManyArgs>(
-      args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<BatchPayload>;
-
-    /**
-     * Create many Subscriptions and returns the data saved in the database.
-     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *
-     * // Create many Subscriptions and only return the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     *
-     */
-    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(
-      args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'createManyAndReturn',
-        GlobalOmitOptions
-      >
-    >;
-
-    /**
-     * Delete a Subscription.
-     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
-     * @example
-     * // Delete one Subscription
-     * const Subscription = await prisma.subscription.delete({
-     *   where: {
-     *     // ... filter to delete one Subscription
-     *   }
-     * })
-     *
-     */
-    delete<T extends SubscriptionDeleteArgs>(
-      args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'delete',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Update one Subscription.
-     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
-     * @example
-     * // Update one Subscription
-     * const subscription = await prisma.subscription.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     *
-     */
-    update<T extends SubscriptionUpdateArgs>(
-      args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'update',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Delete zero or more Subscriptions.
-     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
-     * @example
-     * // Delete a few Subscriptions
-     * const { count } = await prisma.subscription.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     *
-     */
-    deleteMany<T extends SubscriptionDeleteManyArgs>(
-      args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<BatchPayload>;
-
-    /**
-     * Update zero or more Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Subscriptions
-     * const subscription = await prisma.subscription.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     *
-     */
-    updateMany<T extends SubscriptionUpdateManyArgs>(
-      args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<BatchPayload>;
-
-    /**
-     * Update zero or more Subscriptions and returns the data updated in the database.
-     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
-     * @example
-     * // Update many Subscriptions
-     * const subscription = await prisma.subscription.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *
-     * // Update zero or more Subscriptions and only return the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     *
-     */
-    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(
-      args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'updateManyAndReturn',
-        GlobalOmitOptions
-      >
-    >;
-
-    /**
-     * Create or update one Subscription.
-     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
-     * @example
-     * // Update or create a Subscription
-     * const subscription = await prisma.subscription.upsert({
-     *   create: {
-     *     // ... data to create a Subscription
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Subscription we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SubscriptionUpsertArgs>(
-      args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>,
-    ): Prisma__SubscriptionClient<
-      $Result.GetResult<
-        Prisma.$SubscriptionPayload<ExtArgs>,
-        T,
-        'upsert',
-        GlobalOmitOptions
-      >,
-      never,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-
-    /**
-     * Count the number of Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
-     * @example
-     * // Count the number of Subscriptions
-     * const count = await prisma.subscription.count({
-     *   where: {
-     *     // ... the filter for the Subscriptions we want to count
-     *   }
-     * })
-     **/
-    count<T extends SubscriptionCountArgs>(
-      args?: Subset<T, SubscriptionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
-        : number
-    >;
-
-    /**
-     * Allows you to perform aggregations operations on a Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-     **/
-    aggregate<T extends SubscriptionAggregateArgs>(
-      args: Subset<T, SubscriptionAggregateArgs>,
-    ): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>;
-
-    /**
-     * Group by Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     *
-     **/
-    groupBy<
-      T extends SubscriptionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
-        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<
-        Keys<MaybeTupleToUnion<T['orderBy']>>
-      >,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-        ? `Error: "by" must not be empty.`
-        : HavingValid extends False
-          ? {
-              [P in HavingFields]: P extends ByFields
-                ? never
-                : P extends string
-                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                  : [
-                      Error,
-                      'Field ',
-                      P,
-                      ` in "having" needs to be provided in "by"`,
-                    ];
-            }[HavingFields]
-          : 'take' extends Keys<T>
-            ? 'orderBy' extends Keys<T>
-              ? ByValid extends True
-                ? {}
-                : {
-                    [P in OrderFields]: P extends ByFields
-                      ? never
-                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-              : 'Error: If you provide "take", you also need to provide "orderBy"'
-            : 'skip' extends Keys<T>
-              ? 'orderBy' extends Keys<T>
-                ? ByValid extends True
-                  ? {}
-                  : {
-                      [P in OrderFields]: P extends ByFields
-                        ? never
-                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                    }[OrderFields]
-                : 'Error: If you provide "skip", you also need to provide "orderBy"'
-              : ByValid extends True
-                ? {}
-                : {
-                    [P in OrderFields]: P extends ByFields
-                      ? never
-                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields],
-    >(
-      args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> &
-        InputErrors,
-    ): {} extends InputErrors
-      ? GetSubscriptionGroupByPayload<T>
-      : Prisma.PrismaPromise<InputErrors>;
-    /**
-     * Fields of the Subscription model
-     */
-    readonly fields: SubscriptionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Subscription.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SubscriptionClient<
-    T,
-    Null = never,
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-    GlobalOmitOptions = {},
-  > extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(
-      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
-    ): Prisma__UserClient<
-      | $Result.GetResult<
-          Prisma.$UserPayload<ExtArgs>,
-          T,
-          'findUniqueOrThrow',
-          GlobalOmitOptions
-        >
-      | Null,
-      Null,
-      ExtArgs,
-      GlobalOmitOptions
-    >;
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
-    ): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
-    ): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-  /**
-   * Fields of the Subscription model
-   */
-  interface SubscriptionFieldRefs {
-    readonly id: FieldRef<'Subscription', 'String'>;
-    readonly userId: FieldRef<'Subscription', 'String'>;
-    readonly status: FieldRef<'Subscription', 'SubscriptionStatus'>;
-    readonly plan: FieldRef<'Subscription', 'SubscriptionPlan'>;
-    readonly expiresAt: FieldRef<'Subscription', 'DateTime'>;
-    readonly cancelledAt: FieldRef<'Subscription', 'DateTime'>;
-    readonly revenueCatId: FieldRef<'Subscription', 'String'>;
-    readonly createdAt: FieldRef<'Subscription', 'DateTime'>;
-    readonly updatedAt: FieldRef<'Subscription', 'DateTime'>;
-  }
-
-  // Custom InputTypes
-  /**
-   * Subscription findUnique
-   */
-  export type SubscriptionFindUniqueArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput;
-  };
-
-  /**
-   * Subscription findUniqueOrThrow
-   */
-  export type SubscriptionFindUniqueOrThrowArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput;
-  };
-
-  /**
-   * Subscription findFirst
-   */
-  export type SubscriptionFindFirstArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?:
-      | SubscriptionOrderByWithRelationInput
-      | SubscriptionOrderByWithRelationInput[];
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[];
-  };
-
-  /**
-   * Subscription findFirstOrThrow
-   */
-  export type SubscriptionFindFirstOrThrowArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?:
-      | SubscriptionOrderByWithRelationInput
-      | SubscriptionOrderByWithRelationInput[];
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[];
-  };
-
-  /**
-   * Subscription findMany
-   */
-  export type SubscriptionFindManyArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter, which Subscriptions to fetch.
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?:
-      | SubscriptionOrderByWithRelationInput
-      | SubscriptionOrderByWithRelationInput[];
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
-     * Sets the position for listing Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number;
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[];
-  };
-
-  /**
-   * Subscription create
-   */
-  export type SubscriptionCreateArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * The data needed to create a Subscription.
-     */
-    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>;
-  };
-
-  /**
-   * Subscription createMany
-   */
-  export type SubscriptionCreateManyArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[];
-    skipDuplicates?: boolean;
-  };
-
-  /**
-   * Subscription createManyAndReturn
-   */
-  export type SubscriptionCreateManyAndReturnArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[];
-    skipDuplicates?: boolean;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null;
-  };
-
-  /**
-   * Subscription update
-   */
-  export type SubscriptionUpdateArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * The data needed to update a Subscription.
-     */
-    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>;
-    /**
-     * Choose, which Subscription to update.
-     */
-    where: SubscriptionWhereUniqueInput;
-  };
-
-  /**
-   * Subscription updateMany
-   */
-  export type SubscriptionUpdateManyArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * The data used to update Subscriptions.
-     */
-    data: XOR<
-      SubscriptionUpdateManyMutationInput,
-      SubscriptionUncheckedUpdateManyInput
-    >;
-    /**
-     * Filter which Subscriptions to update
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * Limit how many Subscriptions to update.
-     */
-    limit?: number;
-  };
-
-  /**
-   * Subscription updateManyAndReturn
-   */
-  export type SubscriptionUpdateManyAndReturnArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * The data used to update Subscriptions.
-     */
-    data: XOR<
-      SubscriptionUpdateManyMutationInput,
-      SubscriptionUncheckedUpdateManyInput
-    >;
-    /**
-     * Filter which Subscriptions to update
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * Limit how many Subscriptions to update.
-     */
-    limit?: number;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionIncludeUpdateManyAndReturn<ExtArgs> | null;
-  };
-
-  /**
-   * Subscription upsert
-   */
-  export type SubscriptionUpsertArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * The filter to search for the Subscription to update in case it exists.
-     */
-    where: SubscriptionWhereUniqueInput;
-    /**
-     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
-     */
-    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>;
-    /**
-     * In case the Subscription was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>;
-  };
-
-  /**
-   * Subscription delete
-   */
-  export type SubscriptionDeleteArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-    /**
-     * Filter which Subscription to delete.
-     */
-    where: SubscriptionWhereUniqueInput;
-  };
-
-  /**
-   * Subscription deleteMany
-   */
-  export type SubscriptionDeleteManyArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Filter which Subscriptions to delete
-     */
-    where?: SubscriptionWhereInput;
-    /**
-     * Limit how many Subscriptions to delete.
-     */
-    limit?: number;
-  };
-
-  /**
-   * Subscription without action
-   */
-  export type SubscriptionDefaultArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null;
-  };
-
-  /**
    * Model Inquiry
    */
 
@@ -17519,6 +16119,1476 @@ export namespace Prisma {
   };
 
   /**
+   * Model Onboarding
+   */
+
+  export type AggregateOnboarding = {
+    _count: OnboardingCountAggregateOutputType | null;
+    _min: OnboardingMinAggregateOutputType | null;
+    _max: OnboardingMaxAggregateOutputType | null;
+  };
+
+  export type OnboardingMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    prayerKnowledge: string | null;
+    supportNeeded: string | null;
+    learnIslam: string | null;
+    locationPermissionGranted: boolean | null;
+    locationCity: string | null;
+    locationTimezone: string | null;
+    notificationPermissionGranted: boolean | null;
+    notificationPreset: string | null;
+    defaultHomeTab: string | null;
+    completedAt: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type OnboardingMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    prayerKnowledge: string | null;
+    supportNeeded: string | null;
+    learnIslam: string | null;
+    locationPermissionGranted: boolean | null;
+    locationCity: string | null;
+    locationTimezone: string | null;
+    notificationPermissionGranted: boolean | null;
+    notificationPreset: string | null;
+    defaultHomeTab: string | null;
+    completedAt: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type OnboardingCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    prayerKnowledge: number;
+    supportNeeded: number;
+    learnIslam: number;
+    whyHere: number;
+    locationPermissionGranted: number;
+    locationCity: number;
+    locationTimezone: number;
+    notificationPermissionGranted: number;
+    notificationPreset: number;
+    enabledModules: number;
+    defaultHomeTab: number;
+    completedAt: number;
+    completedSteps: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type OnboardingMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    prayerKnowledge?: true;
+    supportNeeded?: true;
+    learnIslam?: true;
+    locationPermissionGranted?: true;
+    locationCity?: true;
+    locationTimezone?: true;
+    notificationPermissionGranted?: true;
+    notificationPreset?: true;
+    defaultHomeTab?: true;
+    completedAt?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type OnboardingMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    prayerKnowledge?: true;
+    supportNeeded?: true;
+    learnIslam?: true;
+    locationPermissionGranted?: true;
+    locationCity?: true;
+    locationTimezone?: true;
+    notificationPermissionGranted?: true;
+    notificationPreset?: true;
+    defaultHomeTab?: true;
+    completedAt?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type OnboardingCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    prayerKnowledge?: true;
+    supportNeeded?: true;
+    learnIslam?: true;
+    whyHere?: true;
+    locationPermissionGranted?: true;
+    locationCity?: true;
+    locationTimezone?: true;
+    notificationPermissionGranted?: true;
+    notificationPreset?: true;
+    enabledModules?: true;
+    defaultHomeTab?: true;
+    completedAt?: true;
+    completedSteps?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type OnboardingAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Onboarding to aggregate.
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?:
+      | OnboardingOrderByWithRelationInput
+      | OnboardingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: OnboardingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Onboardings
+     **/
+    _count?: true | OnboardingCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: OnboardingMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: OnboardingMaxAggregateInputType;
+  };
+
+  export type GetOnboardingAggregateType<T extends OnboardingAggregateArgs> = {
+    [P in keyof T & keyof AggregateOnboarding]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOnboarding[P]>
+      : GetScalarType<T[P], AggregateOnboarding[P]>;
+  };
+
+  export type OnboardingGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: OnboardingWhereInput;
+    orderBy?:
+      | OnboardingOrderByWithAggregationInput
+      | OnboardingOrderByWithAggregationInput[];
+    by: OnboardingScalarFieldEnum[] | OnboardingScalarFieldEnum;
+    having?: OnboardingScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: OnboardingCountAggregateInputType | true;
+    _min?: OnboardingMinAggregateInputType;
+    _max?: OnboardingMaxAggregateInputType;
+  };
+
+  export type OnboardingGroupByOutputType = {
+    id: string;
+    userId: string;
+    prayerKnowledge: string | null;
+    supportNeeded: string | null;
+    learnIslam: string | null;
+    whyHere: JsonValue | null;
+    locationPermissionGranted: boolean;
+    locationCity: string | null;
+    locationTimezone: string | null;
+    notificationPermissionGranted: boolean;
+    notificationPreset: string | null;
+    enabledModules: JsonValue | null;
+    defaultHomeTab: string | null;
+    completedAt: Date | null;
+    completedSteps: JsonValue | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: OnboardingCountAggregateOutputType | null;
+    _min: OnboardingMinAggregateOutputType | null;
+    _max: OnboardingMaxAggregateOutputType | null;
+  };
+
+  type GetOnboardingGroupByPayload<T extends OnboardingGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<OnboardingGroupByOutputType, T['by']> & {
+          [P in keyof T & keyof OnboardingGroupByOutputType]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OnboardingGroupByOutputType[P]>
+            : GetScalarType<T[P], OnboardingGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type OnboardingSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      prayerKnowledge?: boolean;
+      supportNeeded?: boolean;
+      learnIslam?: boolean;
+      whyHere?: boolean;
+      locationPermissionGranted?: boolean;
+      locationCity?: boolean;
+      locationTimezone?: boolean;
+      notificationPermissionGranted?: boolean;
+      notificationPreset?: boolean;
+      enabledModules?: boolean;
+      defaultHomeTab?: boolean;
+      completedAt?: boolean;
+      completedSteps?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['onboarding']
+  >;
+
+  export type OnboardingSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      prayerKnowledge?: boolean;
+      supportNeeded?: boolean;
+      learnIslam?: boolean;
+      whyHere?: boolean;
+      locationPermissionGranted?: boolean;
+      locationCity?: boolean;
+      locationTimezone?: boolean;
+      notificationPermissionGranted?: boolean;
+      notificationPreset?: boolean;
+      enabledModules?: boolean;
+      defaultHomeTab?: boolean;
+      completedAt?: boolean;
+      completedSteps?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['onboarding']
+  >;
+
+  export type OnboardingSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      prayerKnowledge?: boolean;
+      supportNeeded?: boolean;
+      learnIslam?: boolean;
+      whyHere?: boolean;
+      locationPermissionGranted?: boolean;
+      locationCity?: boolean;
+      locationTimezone?: boolean;
+      notificationPermissionGranted?: boolean;
+      notificationPreset?: boolean;
+      enabledModules?: boolean;
+      defaultHomeTab?: boolean;
+      completedAt?: boolean;
+      completedSteps?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['onboarding']
+  >;
+
+  export type OnboardingSelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    prayerKnowledge?: boolean;
+    supportNeeded?: boolean;
+    learnIslam?: boolean;
+    whyHere?: boolean;
+    locationPermissionGranted?: boolean;
+    locationCity?: boolean;
+    locationTimezone?: boolean;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: boolean;
+    enabledModules?: boolean;
+    defaultHomeTab?: boolean;
+    completedAt?: boolean;
+    completedSteps?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type OnboardingOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    | 'id'
+    | 'userId'
+    | 'prayerKnowledge'
+    | 'supportNeeded'
+    | 'learnIslam'
+    | 'whyHere'
+    | 'locationPermissionGranted'
+    | 'locationCity'
+    | 'locationTimezone'
+    | 'notificationPermissionGranted'
+    | 'notificationPreset'
+    | 'enabledModules'
+    | 'defaultHomeTab'
+    | 'completedAt'
+    | 'completedSteps'
+    | 'createdAt'
+    | 'updatedAt',
+    ExtArgs['result']['onboarding']
+  >;
+  export type OnboardingInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type OnboardingIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type OnboardingIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $OnboardingPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: 'Onboarding';
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        userId: string;
+        prayerKnowledge: string | null;
+        supportNeeded: string | null;
+        learnIslam: string | null;
+        whyHere: Prisma.JsonValue | null;
+        locationPermissionGranted: boolean;
+        locationCity: string | null;
+        locationTimezone: string | null;
+        notificationPermissionGranted: boolean;
+        notificationPreset: string | null;
+        enabledModules: Prisma.JsonValue | null;
+        defaultHomeTab: string | null;
+        completedAt: Date | null;
+        completedSteps: Prisma.JsonValue | null;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs['result']['onboarding']
+    >;
+    composites: {};
+  };
+
+  type OnboardingGetPayload<
+    S extends boolean | null | undefined | OnboardingDefaultArgs,
+  > = $Result.GetResult<Prisma.$OnboardingPayload, S>;
+
+  type OnboardingCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    OnboardingFindManyArgs,
+    'select' | 'include' | 'distinct' | 'omit'
+  > & {
+    select?: OnboardingCountAggregateInputType | true;
+  };
+
+  export interface OnboardingDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>['model']['Onboarding'];
+      meta: { name: 'Onboarding' };
+    };
+    /**
+     * Find zero or one Onboarding that matches the filter.
+     * @param {OnboardingFindUniqueArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OnboardingFindUniqueArgs>(
+      args: SelectSubset<T, OnboardingFindUniqueArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'findUnique',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one Onboarding that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OnboardingFindUniqueOrThrowArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OnboardingFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, OnboardingFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Onboarding that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindFirstArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OnboardingFindFirstArgs>(
+      args?: SelectSubset<T, OnboardingFindFirstArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'findFirst',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Onboarding that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindFirstOrThrowArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OnboardingFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, OnboardingFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'findFirstOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more Onboardings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Onboardings
+     * const onboardings = await prisma.onboarding.findMany()
+     *
+     * // Get first 10 Onboardings
+     * const onboardings = await prisma.onboarding.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends OnboardingFindManyArgs>(
+      args?: SelectSubset<T, OnboardingFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a Onboarding.
+     * @param {OnboardingCreateArgs} args - Arguments to create a Onboarding.
+     * @example
+     * // Create one Onboarding
+     * const Onboarding = await prisma.onboarding.create({
+     *   data: {
+     *     // ... data to create a Onboarding
+     *   }
+     * })
+     *
+     */
+    create<T extends OnboardingCreateArgs>(
+      args: SelectSubset<T, OnboardingCreateArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'create',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many Onboardings.
+     * @param {OnboardingCreateManyArgs} args - Arguments to create many Onboardings.
+     * @example
+     * // Create many Onboardings
+     * const onboarding = await prisma.onboarding.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends OnboardingCreateManyArgs>(
+      args?: SelectSubset<T, OnboardingCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Onboardings and returns the data saved in the database.
+     * @param {OnboardingCreateManyAndReturnArgs} args - Arguments to create many Onboardings.
+     * @example
+     * // Create many Onboardings
+     * const onboarding = await prisma.onboarding.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Onboardings and only return the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends OnboardingCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, OnboardingCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'createManyAndReturn',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a Onboarding.
+     * @param {OnboardingDeleteArgs} args - Arguments to delete one Onboarding.
+     * @example
+     * // Delete one Onboarding
+     * const Onboarding = await prisma.onboarding.delete({
+     *   where: {
+     *     // ... filter to delete one Onboarding
+     *   }
+     * })
+     *
+     */
+    delete<T extends OnboardingDeleteArgs>(
+      args: SelectSubset<T, OnboardingDeleteArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'delete',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one Onboarding.
+     * @param {OnboardingUpdateArgs} args - Arguments to update one Onboarding.
+     * @example
+     * // Update one Onboarding
+     * const onboarding = await prisma.onboarding.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends OnboardingUpdateArgs>(
+      args: SelectSubset<T, OnboardingUpdateArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'update',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more Onboardings.
+     * @param {OnboardingDeleteManyArgs} args - Arguments to filter Onboardings to delete.
+     * @example
+     * // Delete a few Onboardings
+     * const { count } = await prisma.onboarding.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends OnboardingDeleteManyArgs>(
+      args?: SelectSubset<T, OnboardingDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Onboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Onboardings
+     * const onboarding = await prisma.onboarding.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends OnboardingUpdateManyArgs>(
+      args: SelectSubset<T, OnboardingUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Onboardings and returns the data updated in the database.
+     * @param {OnboardingUpdateManyAndReturnArgs} args - Arguments to update many Onboardings.
+     * @example
+     * // Update many Onboardings
+     * const onboarding = await prisma.onboarding.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Onboardings and only return the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends OnboardingUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, OnboardingUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'updateManyAndReturn',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one Onboarding.
+     * @param {OnboardingUpsertArgs} args - Arguments to update or create a Onboarding.
+     * @example
+     * // Update or create a Onboarding
+     * const onboarding = await prisma.onboarding.upsert({
+     *   create: {
+     *     // ... data to create a Onboarding
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Onboarding we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OnboardingUpsertArgs>(
+      args: SelectSubset<T, OnboardingUpsertArgs<ExtArgs>>,
+    ): Prisma__OnboardingClient<
+      $Result.GetResult<
+        Prisma.$OnboardingPayload<ExtArgs>,
+        T,
+        'upsert',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of Onboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingCountArgs} args - Arguments to filter Onboardings to count.
+     * @example
+     * // Count the number of Onboardings
+     * const count = await prisma.onboarding.count({
+     *   where: {
+     *     // ... the filter for the Onboardings we want to count
+     *   }
+     * })
+     **/
+    count<T extends OnboardingCountArgs>(
+      args?: Subset<T, OnboardingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OnboardingCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Onboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends OnboardingAggregateArgs>(
+      args: Subset<T, OnboardingAggregateArgs>,
+    ): Prisma.PrismaPromise<GetOnboardingAggregateType<T>>;
+
+    /**
+     * Group by Onboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends OnboardingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OnboardingGroupByArgs['orderBy'] }
+        : { orderBy?: OnboardingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T['orderBy']>>
+      >,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      'Field ',
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : 'take' extends Keys<T>
+            ? 'orderBy' extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Keys<T>
+              ? 'orderBy' extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, OnboardingGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetOnboardingGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Onboarding model
+     */
+    readonly fields: OnboardingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Onboarding.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OnboardingClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          'findUniqueOrThrow',
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Onboarding model
+   */
+  interface OnboardingFieldRefs {
+    readonly id: FieldRef<'Onboarding', 'String'>;
+    readonly userId: FieldRef<'Onboarding', 'String'>;
+    readonly prayerKnowledge: FieldRef<'Onboarding', 'String'>;
+    readonly supportNeeded: FieldRef<'Onboarding', 'String'>;
+    readonly learnIslam: FieldRef<'Onboarding', 'String'>;
+    readonly whyHere: FieldRef<'Onboarding', 'Json'>;
+    readonly locationPermissionGranted: FieldRef<'Onboarding', 'Boolean'>;
+    readonly locationCity: FieldRef<'Onboarding', 'String'>;
+    readonly locationTimezone: FieldRef<'Onboarding', 'String'>;
+    readonly notificationPermissionGranted: FieldRef<'Onboarding', 'Boolean'>;
+    readonly notificationPreset: FieldRef<'Onboarding', 'String'>;
+    readonly enabledModules: FieldRef<'Onboarding', 'Json'>;
+    readonly defaultHomeTab: FieldRef<'Onboarding', 'String'>;
+    readonly completedAt: FieldRef<'Onboarding', 'DateTime'>;
+    readonly completedSteps: FieldRef<'Onboarding', 'Json'>;
+    readonly createdAt: FieldRef<'Onboarding', 'DateTime'>;
+    readonly updatedAt: FieldRef<'Onboarding', 'DateTime'>;
+  }
+
+  // Custom InputTypes
+  /**
+   * Onboarding findUnique
+   */
+  export type OnboardingFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where: OnboardingWhereUniqueInput;
+  };
+
+  /**
+   * Onboarding findUniqueOrThrow
+   */
+  export type OnboardingFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where: OnboardingWhereUniqueInput;
+  };
+
+  /**
+   * Onboarding findFirst
+   */
+  export type OnboardingFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?:
+      | OnboardingOrderByWithRelationInput
+      | OnboardingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Onboardings.
+     */
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[];
+  };
+
+  /**
+   * Onboarding findFirstOrThrow
+   */
+  export type OnboardingFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?:
+      | OnboardingOrderByWithRelationInput
+      | OnboardingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Onboardings.
+     */
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[];
+  };
+
+  /**
+   * Onboarding findMany
+   */
+  export type OnboardingFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Onboardings to fetch.
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?:
+      | OnboardingOrderByWithRelationInput
+      | OnboardingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number;
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[];
+  };
+
+  /**
+   * Onboarding create
+   */
+  export type OnboardingCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Onboarding.
+     */
+    data: XOR<OnboardingCreateInput, OnboardingUncheckedCreateInput>;
+  };
+
+  /**
+   * Onboarding createMany
+   */
+  export type OnboardingCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Onboardings.
+     */
+    data: OnboardingCreateManyInput | OnboardingCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Onboarding createManyAndReturn
+   */
+  export type OnboardingCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Onboardings.
+     */
+    data: OnboardingCreateManyInput | OnboardingCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Onboarding update
+   */
+  export type OnboardingUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Onboarding.
+     */
+    data: XOR<OnboardingUpdateInput, OnboardingUncheckedUpdateInput>;
+    /**
+     * Choose, which Onboarding to update.
+     */
+    where: OnboardingWhereUniqueInput;
+  };
+
+  /**
+   * Onboarding updateMany
+   */
+  export type OnboardingUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Onboardings.
+     */
+    data: XOR<
+      OnboardingUpdateManyMutationInput,
+      OnboardingUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Onboardings to update
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * Limit how many Onboardings to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Onboarding updateManyAndReturn
+   */
+  export type OnboardingUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * The data used to update Onboardings.
+     */
+    data: XOR<
+      OnboardingUpdateManyMutationInput,
+      OnboardingUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Onboardings to update
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * Limit how many Onboardings to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Onboarding upsert
+   */
+  export type OnboardingUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Onboarding to update in case it exists.
+     */
+    where: OnboardingWhereUniqueInput;
+    /**
+     * In case the Onboarding found by the `where` argument doesn't exist, create a new Onboarding with this data.
+     */
+    create: XOR<OnboardingCreateInput, OnboardingUncheckedCreateInput>;
+    /**
+     * In case the Onboarding was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OnboardingUpdateInput, OnboardingUncheckedUpdateInput>;
+  };
+
+  /**
+   * Onboarding delete
+   */
+  export type OnboardingDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+    /**
+     * Filter which Onboarding to delete.
+     */
+    where: OnboardingWhereUniqueInput;
+  };
+
+  /**
+   * Onboarding deleteMany
+   */
+  export type OnboardingDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Onboardings to delete
+     */
+    where?: OnboardingWhereInput;
+    /**
+     * Limit how many Onboardings to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Onboarding without action
+   */
+  export type OnboardingDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null;
+  };
+
+  /**
    * Enums
    */
 
@@ -17643,21 +17713,6 @@ export namespace Prisma {
   export type FriendScalarFieldEnum =
     (typeof FriendScalarFieldEnum)[keyof typeof FriendScalarFieldEnum];
 
-  export const SubscriptionScalarFieldEnum: {
-    id: 'id';
-    userId: 'userId';
-    status: 'status';
-    plan: 'plan';
-    expiresAt: 'expiresAt';
-    cancelledAt: 'cancelledAt';
-    revenueCatId: 'revenueCatId';
-    createdAt: 'createdAt';
-    updatedAt: 'updatedAt';
-  };
-
-  export type SubscriptionScalarFieldEnum =
-    (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum];
-
   export const InquiryScalarFieldEnum: {
     id: 'id';
     userId: 'userId';
@@ -17683,12 +17738,43 @@ export namespace Prisma {
   export type InquiryMessageScalarFieldEnum =
     (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum];
 
+  export const OnboardingScalarFieldEnum: {
+    id: 'id';
+    userId: 'userId';
+    prayerKnowledge: 'prayerKnowledge';
+    supportNeeded: 'supportNeeded';
+    learnIslam: 'learnIslam';
+    whyHere: 'whyHere';
+    locationPermissionGranted: 'locationPermissionGranted';
+    locationCity: 'locationCity';
+    locationTimezone: 'locationTimezone';
+    notificationPermissionGranted: 'notificationPermissionGranted';
+    notificationPreset: 'notificationPreset';
+    enabledModules: 'enabledModules';
+    defaultHomeTab: 'defaultHomeTab';
+    completedAt: 'completedAt';
+    completedSteps: 'completedSteps';
+    createdAt: 'createdAt';
+    updatedAt: 'updatedAt';
+  };
+
+  export type OnboardingScalarFieldEnum =
+    (typeof OnboardingScalarFieldEnum)[keyof typeof OnboardingScalarFieldEnum];
+
   export const SortOrder: {
     asc: 'asc';
     desc: 'desc';
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull;
+    JsonNull: typeof JsonNull;
+  };
+
+  export type NullableJsonNullValueInput =
+    (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput];
 
   export const QueryMode: {
     default: 'default';
@@ -17703,6 +17789,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull;
+    JsonNull: typeof JsonNull;
+    AnyNull: typeof AnyNull;
+  };
+
+  export type JsonNullValueFilter =
+    (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter];
 
   /**
    * Field references
@@ -17779,30 +17874,6 @@ export namespace Prisma {
     FieldRefInputType<$PrismaModel, 'FriendStatus[]'>;
 
   /**
-   * Reference to a field of type 'SubscriptionStatus'
-   */
-  export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> =
-    FieldRefInputType<$PrismaModel, 'SubscriptionStatus'>;
-
-  /**
-   * Reference to a field of type 'SubscriptionStatus[]'
-   */
-  export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> =
-    FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>;
-
-  /**
-   * Reference to a field of type 'SubscriptionPlan'
-   */
-  export type EnumSubscriptionPlanFieldRefInput<$PrismaModel> =
-    FieldRefInputType<$PrismaModel, 'SubscriptionPlan'>;
-
-  /**
-   * Reference to a field of type 'SubscriptionPlan[]'
-   */
-  export type ListEnumSubscriptionPlanFieldRefInput<$PrismaModel> =
-    FieldRefInputType<$PrismaModel, 'SubscriptionPlan[]'>;
-
-  /**
    * Reference to a field of type 'InquiryStatus'
    */
   export type EnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -17827,6 +17898,22 @@ export namespace Prisma {
    */
   export type ListEnumInquirySenderRoleFieldRefInput<$PrismaModel> =
     FieldRefInputType<$PrismaModel, 'InquirySenderRole[]'>;
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    'Json'
+  >;
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    'QueryMode'
+  >;
 
   /**
    * Reference to a field of type 'Float'
@@ -17869,9 +17956,9 @@ export namespace Prisma {
     receivedRequests?: FriendListRelationFilter;
     friendGroups?: FriendGroupListRelationFilter;
     groupMemberships?: FriendGroupMemberListRelationFilter;
-    subscription?: XOR<
-      SubscriptionNullableScalarRelationFilter,
-      SubscriptionWhereInput
+    onboarding?: XOR<
+      OnboardingNullableScalarRelationFilter,
+      OnboardingWhereInput
     > | null;
     sessions?: SessionListRelationFilter;
     accounts?: AccountListRelationFilter;
@@ -17895,7 +17982,7 @@ export namespace Prisma {
     receivedRequests?: FriendOrderByRelationAggregateInput;
     friendGroups?: FriendGroupOrderByRelationAggregateInput;
     groupMemberships?: FriendGroupMemberOrderByRelationAggregateInput;
-    subscription?: SubscriptionOrderByWithRelationInput;
+    onboarding?: OnboardingOrderByWithRelationInput;
     sessions?: SessionOrderByRelationAggregateInput;
     accounts?: AccountOrderByRelationAggregateInput;
   };
@@ -17922,9 +18009,9 @@ export namespace Prisma {
       receivedRequests?: FriendListRelationFilter;
       friendGroups?: FriendGroupListRelationFilter;
       groupMemberships?: FriendGroupMemberListRelationFilter;
-      subscription?: XOR<
-        SubscriptionNullableScalarRelationFilter,
-        SubscriptionWhereInput
+      onboarding?: XOR<
+        OnboardingNullableScalarRelationFilter,
+        OnboardingWhereInput
       > | null;
       sessions?: SessionListRelationFilter;
       accounts?: AccountListRelationFilter;
@@ -18537,109 +18624,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<'Friend'> | Date | string;
   };
 
-  export type SubscriptionWhereInput = {
-    AND?: SubscriptionWhereInput | SubscriptionWhereInput[];
-    OR?: SubscriptionWhereInput[];
-    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[];
-    id?: StringFilter<'Subscription'> | string;
-    userId?: StringFilter<'Subscription'> | string;
-    status?:
-      | EnumSubscriptionStatusFilter<'Subscription'>
-      | $Enums.SubscriptionStatus;
-    plan?: EnumSubscriptionPlanFilter<'Subscription'> | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFilter<'Subscription'> | Date | string;
-    cancelledAt?: DateTimeNullableFilter<'Subscription'> | Date | string | null;
-    revenueCatId?: StringNullableFilter<'Subscription'> | string | null;
-    createdAt?: DateTimeFilter<'Subscription'> | Date | string;
-    updatedAt?: DateTimeFilter<'Subscription'> | Date | string;
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
-  };
-
-  export type SubscriptionOrderByWithRelationInput = {
-    id?: SortOrder;
-    userId?: SortOrder;
-    status?: SortOrder;
-    plan?: SortOrder;
-    expiresAt?: SortOrder;
-    cancelledAt?: SortOrderInput | SortOrder;
-    revenueCatId?: SortOrderInput | SortOrder;
-    createdAt?: SortOrder;
-    updatedAt?: SortOrder;
-    user?: UserOrderByWithRelationInput;
-  };
-
-  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<
-    {
-      id?: string;
-      userId?: string;
-      AND?: SubscriptionWhereInput | SubscriptionWhereInput[];
-      OR?: SubscriptionWhereInput[];
-      NOT?: SubscriptionWhereInput | SubscriptionWhereInput[];
-      status?:
-        | EnumSubscriptionStatusFilter<'Subscription'>
-        | $Enums.SubscriptionStatus;
-      plan?:
-        | EnumSubscriptionPlanFilter<'Subscription'>
-        | $Enums.SubscriptionPlan;
-      expiresAt?: DateTimeFilter<'Subscription'> | Date | string;
-      cancelledAt?:
-        | DateTimeNullableFilter<'Subscription'>
-        | Date
-        | string
-        | null;
-      revenueCatId?: StringNullableFilter<'Subscription'> | string | null;
-      createdAt?: DateTimeFilter<'Subscription'> | Date | string;
-      updatedAt?: DateTimeFilter<'Subscription'> | Date | string;
-      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
-    },
-    'id' | 'userId'
-  >;
-
-  export type SubscriptionOrderByWithAggregationInput = {
-    id?: SortOrder;
-    userId?: SortOrder;
-    status?: SortOrder;
-    plan?: SortOrder;
-    expiresAt?: SortOrder;
-    cancelledAt?: SortOrderInput | SortOrder;
-    revenueCatId?: SortOrderInput | SortOrder;
-    createdAt?: SortOrder;
-    updatedAt?: SortOrder;
-    _count?: SubscriptionCountOrderByAggregateInput;
-    _max?: SubscriptionMaxOrderByAggregateInput;
-    _min?: SubscriptionMinOrderByAggregateInput;
-  };
-
-  export type SubscriptionScalarWhereWithAggregatesInput = {
-    AND?:
-      | SubscriptionScalarWhereWithAggregatesInput
-      | SubscriptionScalarWhereWithAggregatesInput[];
-    OR?: SubscriptionScalarWhereWithAggregatesInput[];
-    NOT?:
-      | SubscriptionScalarWhereWithAggregatesInput
-      | SubscriptionScalarWhereWithAggregatesInput[];
-    id?: StringWithAggregatesFilter<'Subscription'> | string;
-    userId?: StringWithAggregatesFilter<'Subscription'> | string;
-    status?:
-      | EnumSubscriptionStatusWithAggregatesFilter<'Subscription'>
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanWithAggregatesFilter<'Subscription'>
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeWithAggregatesFilter<'Subscription'> | Date | string;
-    cancelledAt?:
-      | DateTimeNullableWithAggregatesFilter<'Subscription'>
-      | Date
-      | string
-      | null;
-    revenueCatId?:
-      | StringNullableWithAggregatesFilter<'Subscription'>
-      | string
-      | null;
-    createdAt?: DateTimeWithAggregatesFilter<'Subscription'> | Date | string;
-    updatedAt?: DateTimeWithAggregatesFilter<'Subscription'> | Date | string;
-  };
-
   export type InquiryWhereInput = {
     AND?: InquiryWhereInput | InquiryWhereInput[];
     OR?: InquiryWhereInput[];
@@ -18796,6 +18780,157 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<'InquiryMessage'> | Date | string;
   };
 
+  export type OnboardingWhereInput = {
+    AND?: OnboardingWhereInput | OnboardingWhereInput[];
+    OR?: OnboardingWhereInput[];
+    NOT?: OnboardingWhereInput | OnboardingWhereInput[];
+    id?: StringFilter<'Onboarding'> | string;
+    userId?: StringFilter<'Onboarding'> | string;
+    prayerKnowledge?: StringNullableFilter<'Onboarding'> | string | null;
+    supportNeeded?: StringNullableFilter<'Onboarding'> | string | null;
+    learnIslam?: StringNullableFilter<'Onboarding'> | string | null;
+    whyHere?: JsonNullableFilter<'Onboarding'>;
+    locationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
+    locationCity?: StringNullableFilter<'Onboarding'> | string | null;
+    locationTimezone?: StringNullableFilter<'Onboarding'> | string | null;
+    notificationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
+    notificationPreset?: StringNullableFilter<'Onboarding'> | string | null;
+    enabledModules?: JsonNullableFilter<'Onboarding'>;
+    defaultHomeTab?: StringNullableFilter<'Onboarding'> | string | null;
+    completedAt?: DateTimeNullableFilter<'Onboarding'> | Date | string | null;
+    completedSteps?: JsonNullableFilter<'Onboarding'>;
+    createdAt?: DateTimeFilter<'Onboarding'> | Date | string;
+    updatedAt?: DateTimeFilter<'Onboarding'> | Date | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type OnboardingOrderByWithRelationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    prayerKnowledge?: SortOrderInput | SortOrder;
+    supportNeeded?: SortOrderInput | SortOrder;
+    learnIslam?: SortOrderInput | SortOrder;
+    whyHere?: SortOrderInput | SortOrder;
+    locationPermissionGranted?: SortOrder;
+    locationCity?: SortOrderInput | SortOrder;
+    locationTimezone?: SortOrderInput | SortOrder;
+    notificationPermissionGranted?: SortOrder;
+    notificationPreset?: SortOrderInput | SortOrder;
+    enabledModules?: SortOrderInput | SortOrder;
+    defaultHomeTab?: SortOrderInput | SortOrder;
+    completedAt?: SortOrderInput | SortOrder;
+    completedSteps?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type OnboardingWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      userId?: string;
+      AND?: OnboardingWhereInput | OnboardingWhereInput[];
+      OR?: OnboardingWhereInput[];
+      NOT?: OnboardingWhereInput | OnboardingWhereInput[];
+      prayerKnowledge?: StringNullableFilter<'Onboarding'> | string | null;
+      supportNeeded?: StringNullableFilter<'Onboarding'> | string | null;
+      learnIslam?: StringNullableFilter<'Onboarding'> | string | null;
+      whyHere?: JsonNullableFilter<'Onboarding'>;
+      locationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
+      locationCity?: StringNullableFilter<'Onboarding'> | string | null;
+      locationTimezone?: StringNullableFilter<'Onboarding'> | string | null;
+      notificationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
+      notificationPreset?: StringNullableFilter<'Onboarding'> | string | null;
+      enabledModules?: JsonNullableFilter<'Onboarding'>;
+      defaultHomeTab?: StringNullableFilter<'Onboarding'> | string | null;
+      completedAt?: DateTimeNullableFilter<'Onboarding'> | Date | string | null;
+      completedSteps?: JsonNullableFilter<'Onboarding'>;
+      createdAt?: DateTimeFilter<'Onboarding'> | Date | string;
+      updatedAt?: DateTimeFilter<'Onboarding'> | Date | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    'id' | 'userId'
+  >;
+
+  export type OnboardingOrderByWithAggregationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    prayerKnowledge?: SortOrderInput | SortOrder;
+    supportNeeded?: SortOrderInput | SortOrder;
+    learnIslam?: SortOrderInput | SortOrder;
+    whyHere?: SortOrderInput | SortOrder;
+    locationPermissionGranted?: SortOrder;
+    locationCity?: SortOrderInput | SortOrder;
+    locationTimezone?: SortOrderInput | SortOrder;
+    notificationPermissionGranted?: SortOrder;
+    notificationPreset?: SortOrderInput | SortOrder;
+    enabledModules?: SortOrderInput | SortOrder;
+    defaultHomeTab?: SortOrderInput | SortOrder;
+    completedAt?: SortOrderInput | SortOrder;
+    completedSteps?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: OnboardingCountOrderByAggregateInput;
+    _max?: OnboardingMaxOrderByAggregateInput;
+    _min?: OnboardingMinOrderByAggregateInput;
+  };
+
+  export type OnboardingScalarWhereWithAggregatesInput = {
+    AND?:
+      | OnboardingScalarWhereWithAggregatesInput
+      | OnboardingScalarWhereWithAggregatesInput[];
+    OR?: OnboardingScalarWhereWithAggregatesInput[];
+    NOT?:
+      | OnboardingScalarWhereWithAggregatesInput
+      | OnboardingScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<'Onboarding'> | string;
+    userId?: StringWithAggregatesFilter<'Onboarding'> | string;
+    prayerKnowledge?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    supportNeeded?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    learnIslam?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    whyHere?: JsonNullableWithAggregatesFilter<'Onboarding'>;
+    locationPermissionGranted?:
+      | BoolWithAggregatesFilter<'Onboarding'>
+      | boolean;
+    locationCity?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    locationTimezone?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    notificationPermissionGranted?:
+      | BoolWithAggregatesFilter<'Onboarding'>
+      | boolean;
+    notificationPreset?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    enabledModules?: JsonNullableWithAggregatesFilter<'Onboarding'>;
+    defaultHomeTab?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
+    completedAt?:
+      | DateTimeNullableWithAggregatesFilter<'Onboarding'>
+      | Date
+      | string
+      | null;
+    completedSteps?: JsonNullableWithAggregatesFilter<'Onboarding'>;
+    createdAt?: DateTimeWithAggregatesFilter<'Onboarding'> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<'Onboarding'> | Date | string;
+  };
+
   export type UserCreateInput = {
     id?: string;
     name: string;
@@ -18814,7 +18949,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -18837,7 +18972,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -18860,7 +18995,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -18883,7 +19018,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -19473,121 +19608,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type SubscriptionCreateInput = {
-    id?: string;
-    status?: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date | string;
-    cancelledAt?: Date | string | null;
-    revenueCatId?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    user: UserCreateNestedOneWithoutSubscriptionInput;
-  };
-
-  export type SubscriptionUncheckedCreateInput = {
-    id?: string;
-    userId: string;
-    status?: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date | string;
-    cancelledAt?: Date | string | null;
-    revenueCatId?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type SubscriptionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: UserUpdateOneRequiredWithoutSubscriptionNestedInput;
-  };
-
-  export type SubscriptionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    userId?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-  };
-
-  export type SubscriptionCreateManyInput = {
-    id?: string;
-    userId: string;
-    status?: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date | string;
-    cancelledAt?: Date | string | null;
-    revenueCatId?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type SubscriptionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-  };
-
-  export type SubscriptionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    userId?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-  };
-
   export type InquiryCreateInput = {
     id?: string;
     email: string;
@@ -19730,6 +19750,173 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type OnboardingCreateInput = {
+    id?: string;
+    prayerKnowledge?: string | null;
+    supportNeeded?: string | null;
+    learnIslam?: string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: boolean;
+    locationCity?: string | null;
+    locationTimezone?: string | null;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: string | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: string | null;
+    completedAt?: Date | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutOnboardingInput;
+  };
+
+  export type OnboardingUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    prayerKnowledge?: string | null;
+    supportNeeded?: string | null;
+    learnIslam?: string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: boolean;
+    locationCity?: string | null;
+    locationTimezone?: string | null;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: string | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: string | null;
+    completedAt?: Date | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type OnboardingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutOnboardingNestedInput;
+  };
+
+  export type OnboardingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type OnboardingCreateManyInput = {
+    id?: string;
+    userId: string;
+    prayerKnowledge?: string | null;
+    supportNeeded?: string | null;
+    learnIslam?: string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: boolean;
+    locationCity?: string | null;
+    locationTimezone?: string | null;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: string | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: string | null;
+    completedAt?: Date | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type OnboardingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type OnboardingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -19823,9 +20010,9 @@ export namespace Prisma {
     none?: FriendGroupMemberWhereInput;
   };
 
-  export type SubscriptionNullableScalarRelationFilter = {
-    is?: SubscriptionWhereInput | null;
-    isNot?: SubscriptionWhereInput | null;
+  export type OnboardingNullableScalarRelationFilter = {
+    is?: OnboardingWhereInput | null;
+    isNot?: OnboardingWhereInput | null;
   };
 
   export type SessionListRelationFilter = {
@@ -20349,109 +20536,6 @@ export namespace Prisma {
     _max?: NestedEnumFriendStatusFilter<$PrismaModel>;
   };
 
-  export type EnumSubscriptionStatusFilter<$PrismaModel = never> = {
-    equals?:
-      | $Enums.SubscriptionStatus
-      | EnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionStatusFilter<$PrismaModel>
-      | $Enums.SubscriptionStatus;
-  };
-
-  export type EnumSubscriptionPlanFilter<$PrismaModel = never> = {
-    equals?:
-      | $Enums.SubscriptionPlan
-      | EnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionPlanFilter<$PrismaModel>
-      | $Enums.SubscriptionPlan;
-  };
-
-  export type SubscriptionCountOrderByAggregateInput = {
-    id?: SortOrder;
-    userId?: SortOrder;
-    status?: SortOrder;
-    plan?: SortOrder;
-    expiresAt?: SortOrder;
-    cancelledAt?: SortOrder;
-    revenueCatId?: SortOrder;
-    createdAt?: SortOrder;
-    updatedAt?: SortOrder;
-  };
-
-  export type SubscriptionMaxOrderByAggregateInput = {
-    id?: SortOrder;
-    userId?: SortOrder;
-    status?: SortOrder;
-    plan?: SortOrder;
-    expiresAt?: SortOrder;
-    cancelledAt?: SortOrder;
-    revenueCatId?: SortOrder;
-    createdAt?: SortOrder;
-    updatedAt?: SortOrder;
-  };
-
-  export type SubscriptionMinOrderByAggregateInput = {
-    id?: SortOrder;
-    userId?: SortOrder;
-    status?: SortOrder;
-    plan?: SortOrder;
-    expiresAt?: SortOrder;
-    cancelledAt?: SortOrder;
-    revenueCatId?: SortOrder;
-    createdAt?: SortOrder;
-    updatedAt?: SortOrder;
-  };
-
-  export type EnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> =
-    {
-      equals?:
-        | $Enums.SubscriptionStatus
-        | EnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-      in?:
-        | $Enums.SubscriptionStatus[]
-        | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-      notIn?:
-        | $Enums.SubscriptionStatus[]
-        | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-      not?:
-        | NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel>
-        | $Enums.SubscriptionStatus;
-      _count?: NestedIntFilter<$PrismaModel>;
-      _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>;
-      _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>;
-    };
-
-  export type EnumSubscriptionPlanWithAggregatesFilter<$PrismaModel = never> = {
-    equals?:
-      | $Enums.SubscriptionPlan
-      | EnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel>
-      | $Enums.SubscriptionPlan;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedEnumSubscriptionPlanFilter<$PrismaModel>;
-    _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>;
-  };
-
   export type EnumInquiryStatusFilter<$PrismaModel = never> = {
     equals?:
       | $Enums.InquiryStatus
@@ -20583,6 +20667,137 @@ export namespace Prisma {
       _min?: NestedEnumInquirySenderRoleFilter<$PrismaModel>;
       _max?: NestedEnumInquirySenderRoleFilter<$PrismaModel>;
     };
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonNullableFilterBase<$PrismaModel>>,
+          Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>
+        >,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>
+      >;
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>;
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+  };
+
+  export type OnboardingCountOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    prayerKnowledge?: SortOrder;
+    supportNeeded?: SortOrder;
+    learnIslam?: SortOrder;
+    whyHere?: SortOrder;
+    locationPermissionGranted?: SortOrder;
+    locationCity?: SortOrder;
+    locationTimezone?: SortOrder;
+    notificationPermissionGranted?: SortOrder;
+    notificationPreset?: SortOrder;
+    enabledModules?: SortOrder;
+    defaultHomeTab?: SortOrder;
+    completedAt?: SortOrder;
+    completedSteps?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type OnboardingMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    prayerKnowledge?: SortOrder;
+    supportNeeded?: SortOrder;
+    learnIslam?: SortOrder;
+    locationPermissionGranted?: SortOrder;
+    locationCity?: SortOrder;
+    locationTimezone?: SortOrder;
+    notificationPermissionGranted?: SortOrder;
+    notificationPreset?: SortOrder;
+    defaultHomeTab?: SortOrder;
+    completedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type OnboardingMinOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    prayerKnowledge?: SortOrder;
+    supportNeeded?: SortOrder;
+    learnIslam?: SortOrder;
+    locationPermissionGranted?: SortOrder;
+    locationCity?: SortOrder;
+    locationTimezone?: SortOrder;
+    notificationPermissionGranted?: SortOrder;
+    notificationPreset?: SortOrder;
+    defaultHomeTab?: SortOrder;
+    completedAt?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>,
+            'path'
+          >
+        >,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<
+          Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>,
+          'path'
+        >
+      >;
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>;
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    _count?: NestedIntNullableFilter<$PrismaModel>;
+    _min?: NestedJsonNullableFilter<$PrismaModel>;
+    _max?: NestedJsonNullableFilter<$PrismaModel>;
+  };
 
   export type PrayerCreateNestedManyWithoutUserInput = {
     create?:
@@ -20685,13 +20900,13 @@ export namespace Prisma {
       | FriendGroupMemberWhereUniqueInput[];
   };
 
-  export type SubscriptionCreateNestedOneWithoutUserInput = {
+  export type OnboardingCreateNestedOneWithoutUserInput = {
     create?: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput;
-    connect?: SubscriptionWhereUniqueInput;
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput;
+    connect?: OnboardingWhereUniqueInput;
   };
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -20825,13 +21040,13 @@ export namespace Prisma {
       | FriendGroupMemberWhereUniqueInput[];
   };
 
-  export type SubscriptionUncheckedCreateNestedOneWithoutUserInput = {
+  export type OnboardingUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput;
-    connect?: SubscriptionWhereUniqueInput;
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput;
+    connect?: OnboardingWhereUniqueInput;
   };
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -21092,22 +21307,22 @@ export namespace Prisma {
       | FriendGroupMemberScalarWhereInput[];
   };
 
-  export type SubscriptionUpdateOneWithoutUserNestedInput = {
+  export type OnboardingUpdateOneWithoutUserNestedInput = {
     create?: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput;
-    upsert?: SubscriptionUpsertWithoutUserInput;
-    disconnect?: SubscriptionWhereInput | boolean;
-    delete?: SubscriptionWhereInput | boolean;
-    connect?: SubscriptionWhereUniqueInput;
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput;
+    upsert?: OnboardingUpsertWithoutUserInput;
+    disconnect?: OnboardingWhereInput | boolean;
+    delete?: OnboardingWhereInput | boolean;
+    connect?: OnboardingWhereUniqueInput;
     update?: XOR<
       XOR<
-        SubscriptionUpdateToOneWithWhereWithoutUserInput,
-        SubscriptionUpdateWithoutUserInput
+        OnboardingUpdateToOneWithWhereWithoutUserInput,
+        OnboardingUpdateWithoutUserInput
       >,
-      SubscriptionUncheckedUpdateWithoutUserInput
+      OnboardingUncheckedUpdateWithoutUserInput
     >;
   };
 
@@ -21371,22 +21586,22 @@ export namespace Prisma {
       | FriendGroupMemberScalarWhereInput[];
   };
 
-  export type SubscriptionUncheckedUpdateOneWithoutUserNestedInput = {
+  export type OnboardingUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput;
-    upsert?: SubscriptionUpsertWithoutUserInput;
-    disconnect?: SubscriptionWhereInput | boolean;
-    delete?: SubscriptionWhereInput | boolean;
-    connect?: SubscriptionWhereUniqueInput;
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput;
+    upsert?: OnboardingUpsertWithoutUserInput;
+    disconnect?: OnboardingWhereInput | boolean;
+    delete?: OnboardingWhereInput | boolean;
+    connect?: OnboardingWhereUniqueInput;
     update?: XOR<
       XOR<
-        SubscriptionUpdateToOneWithWhereWithoutUserInput,
-        SubscriptionUpdateWithoutUserInput
+        OnboardingUpdateToOneWithWhereWithoutUserInput,
+        OnboardingUpdateWithoutUserInput
       >,
-      SubscriptionUncheckedUpdateWithoutUserInput
+      OnboardingUncheckedUpdateWithoutUserInput
     >;
   };
 
@@ -21780,40 +21995,6 @@ export namespace Prisma {
     >;
   };
 
-  export type UserCreateNestedOneWithoutSubscriptionInput = {
-    create?: XOR<
-      UserCreateWithoutSubscriptionInput,
-      UserUncheckedCreateWithoutSubscriptionInput
-    >;
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput;
-    connect?: UserWhereUniqueInput;
-  };
-
-  export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
-    set?: $Enums.SubscriptionStatus;
-  };
-
-  export type EnumSubscriptionPlanFieldUpdateOperationsInput = {
-    set?: $Enums.SubscriptionPlan;
-  };
-
-  export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
-    create?: XOR<
-      UserCreateWithoutSubscriptionInput,
-      UserUncheckedCreateWithoutSubscriptionInput
-    >;
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput;
-    upsert?: UserUpsertWithoutSubscriptionInput;
-    connect?: UserWhereUniqueInput;
-    update?: XOR<
-      XOR<
-        UserUpdateToOneWithWhereWithoutSubscriptionInput,
-        UserUpdateWithoutSubscriptionInput
-      >,
-      UserUncheckedUpdateWithoutSubscriptionInput
-    >;
-  };
-
   export type UserCreateNestedOneWithoutInquiriesInput = {
     create?: XOR<
       UserCreateWithoutInquiriesInput,
@@ -21995,6 +22176,32 @@ export namespace Prisma {
         UserUpdateWithoutInquiryMessagesInput
       >,
       UserUncheckedUpdateWithoutInquiryMessagesInput
+    >;
+  };
+
+  export type UserCreateNestedOneWithoutOnboardingInput = {
+    create?: XOR<
+      UserCreateWithoutOnboardingInput,
+      UserUncheckedCreateWithoutOnboardingInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutOnboardingNestedInput = {
+    create?: XOR<
+      UserCreateWithoutOnboardingInput,
+      UserUncheckedCreateWithoutOnboardingInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput;
+    upsert?: UserUpsertWithoutOnboardingInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutOnboardingInput,
+        UserUpdateWithoutOnboardingInput
+      >,
+      UserUncheckedUpdateWithoutOnboardingInput
     >;
   };
 
@@ -22241,76 +22448,6 @@ export namespace Prisma {
       _max?: NestedEnumFriendStatusFilter<$PrismaModel>;
     };
 
-  export type NestedEnumSubscriptionStatusFilter<$PrismaModel = never> = {
-    equals?:
-      | $Enums.SubscriptionStatus
-      | EnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionStatusFilter<$PrismaModel>
-      | $Enums.SubscriptionStatus;
-  };
-
-  export type NestedEnumSubscriptionPlanFilter<$PrismaModel = never> = {
-    equals?:
-      | $Enums.SubscriptionPlan
-      | EnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionPlanFilter<$PrismaModel>
-      | $Enums.SubscriptionPlan;
-  };
-
-  export type NestedEnumSubscriptionStatusWithAggregatesFilter<
-    $PrismaModel = never,
-  > = {
-    equals?:
-      | $Enums.SubscriptionStatus
-      | EnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionStatus[]
-      | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel>
-      | $Enums.SubscriptionStatus;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>;
-    _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>;
-  };
-
-  export type NestedEnumSubscriptionPlanWithAggregatesFilter<
-    $PrismaModel = never,
-  > = {
-    equals?:
-      | $Enums.SubscriptionPlan
-      | EnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    in?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    notIn?:
-      | $Enums.SubscriptionPlan[]
-      | ListEnumSubscriptionPlanFieldRefInput<$PrismaModel>;
-    not?:
-      | NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel>
-      | $Enums.SubscriptionPlan;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedEnumSubscriptionPlanFilter<$PrismaModel>;
-    _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>;
-  };
-
   export type NestedEnumInquiryStatusFilter<$PrismaModel = never> = {
     equals?:
       | $Enums.InquiryStatus
@@ -22377,6 +22514,43 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumInquirySenderRoleFilter<$PrismaModel>;
     _max?: NestedEnumInquirySenderRoleFilter<$PrismaModel>;
+  };
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<NestedJsonNullableFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>,
+            'path'
+          >
+        >,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>
+      >;
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>;
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
   };
 
   export type PrayerCreateWithoutUserInput = {
@@ -22596,33 +22770,49 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
-  export type SubscriptionCreateWithoutUserInput = {
+  export type OnboardingCreateWithoutUserInput = {
     id?: string;
-    status?: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date | string;
-    cancelledAt?: Date | string | null;
-    revenueCatId?: string | null;
+    prayerKnowledge?: string | null;
+    supportNeeded?: string | null;
+    learnIslam?: string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: boolean;
+    locationCity?: string | null;
+    locationTimezone?: string | null;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: string | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: string | null;
+    completedAt?: Date | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type SubscriptionUncheckedCreateWithoutUserInput = {
+  export type OnboardingUncheckedCreateWithoutUserInput = {
     id?: string;
-    status?: $Enums.SubscriptionStatus;
-    plan: $Enums.SubscriptionPlan;
-    expiresAt: Date | string;
-    cancelledAt?: Date | string | null;
-    revenueCatId?: string | null;
+    prayerKnowledge?: string | null;
+    supportNeeded?: string | null;
+    learnIslam?: string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: boolean;
+    locationCity?: string | null;
+    locationTimezone?: string | null;
+    notificationPermissionGranted?: boolean;
+    notificationPreset?: string | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: string | null;
+    completedAt?: Date | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type SubscriptionCreateOrConnectWithoutUserInput = {
-    where: SubscriptionWhereUniqueInput;
+  export type OnboardingCreateOrConnectWithoutUserInput = {
+    where: OnboardingWhereUniqueInput;
     create: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
   };
 
@@ -22979,60 +23169,74 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<'FriendGroupMember'> | Date | string;
   };
 
-  export type SubscriptionUpsertWithoutUserInput = {
+  export type OnboardingUpsertWithoutUserInput = {
     update: XOR<
-      SubscriptionUpdateWithoutUserInput,
-      SubscriptionUncheckedUpdateWithoutUserInput
+      OnboardingUpdateWithoutUserInput,
+      OnboardingUncheckedUpdateWithoutUserInput
     >;
     create: XOR<
-      SubscriptionCreateWithoutUserInput,
-      SubscriptionUncheckedCreateWithoutUserInput
+      OnboardingCreateWithoutUserInput,
+      OnboardingUncheckedCreateWithoutUserInput
     >;
-    where?: SubscriptionWhereInput;
+    where?: OnboardingWhereInput;
   };
 
-  export type SubscriptionUpdateToOneWithWhereWithoutUserInput = {
-    where?: SubscriptionWhereInput;
+  export type OnboardingUpdateToOneWithWhereWithoutUserInput = {
+    where?: OnboardingWhereInput;
     data: XOR<
-      SubscriptionUpdateWithoutUserInput,
-      SubscriptionUncheckedUpdateWithoutUserInput
+      OnboardingUpdateWithoutUserInput,
+      OnboardingUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type SubscriptionUpdateWithoutUserInput = {
+  export type OnboardingUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
       | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type SubscriptionUncheckedUpdateWithoutUserInput = {
+  export type OnboardingUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    status?:
-      | EnumSubscriptionStatusFieldUpdateOperationsInput
-      | $Enums.SubscriptionStatus;
-    plan?:
-      | EnumSubscriptionPlanFieldUpdateOperationsInput
-      | $Enums.SubscriptionPlan;
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    cancelledAt?:
+    prayerKnowledge?: NullableStringFieldUpdateOperationsInput | string | null;
+    supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
+    learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
+    whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
+    locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
+    notificationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
+    notificationPreset?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    enabledModules?: NullableJsonNullValueInput | InputJsonValue;
+    defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedAt?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
       | null;
-    revenueCatId?: NullableStringFieldUpdateOperationsInput | string | null;
+    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -23152,7 +23356,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
 
@@ -23174,7 +23378,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
 
@@ -23224,7 +23428,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
 
@@ -23246,7 +23450,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
 
@@ -23268,7 +23472,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
   };
 
@@ -23290,7 +23494,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
   };
 
@@ -23340,7 +23544,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
   };
 
@@ -23362,7 +23566,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
@@ -23383,7 +23587,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -23405,7 +23609,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -23455,7 +23659,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -23477,7 +23681,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -23499,7 +23703,7 @@ export namespace Prisma {
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -23521,7 +23725,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -23598,7 +23802,7 @@ export namespace Prisma {
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -23620,7 +23824,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -23694,7 +23898,7 @@ export namespace Prisma {
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -23716,7 +23920,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -23802,7 +24006,7 @@ export namespace Prisma {
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -23824,7 +24028,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -23846,7 +24050,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -23868,7 +24072,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -23898,7 +24102,7 @@ export namespace Prisma {
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -23920,7 +24124,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -23970,7 +24174,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -23992,7 +24196,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -24034,7 +24238,7 @@ export namespace Prisma {
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -24056,123 +24260,7 @@ export namespace Prisma {
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-  };
-
-  export type UserCreateWithoutSubscriptionInput = {
-    id?: string;
-    name: string;
-    email: string;
-    emailVerified?: boolean;
-    image?: string | null;
-    locale?: string | null;
-    pushToken?: string | null;
-    totalPoints?: number | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    prayers?: PrayerCreateNestedManyWithoutUserInput;
-    inquiries?: InquiryCreateNestedManyWithoutUserInput;
-    inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
-    sentRequests?: FriendCreateNestedManyWithoutUserInput;
-    receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
-    friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
-    groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    sessions?: SessionCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-  };
-
-  export type UserUncheckedCreateWithoutSubscriptionInput = {
-    id?: string;
-    name: string;
-    email: string;
-    emailVerified?: boolean;
-    image?: string | null;
-    locale?: string | null;
-    pushToken?: string | null;
-    totalPoints?: number | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
-    inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
-    inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
-    sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
-    receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
-    friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
-    groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-  };
-
-  export type UserCreateOrConnectWithoutSubscriptionInput = {
-    where: UserWhereUniqueInput;
-    create: XOR<
-      UserCreateWithoutSubscriptionInput,
-      UserUncheckedCreateWithoutSubscriptionInput
-    >;
-  };
-
-  export type UserUpsertWithoutSubscriptionInput = {
-    update: XOR<
-      UserUpdateWithoutSubscriptionInput,
-      UserUncheckedUpdateWithoutSubscriptionInput
-    >;
-    create: XOR<
-      UserCreateWithoutSubscriptionInput,
-      UserUncheckedCreateWithoutSubscriptionInput
-    >;
-    where?: UserWhereInput;
-  };
-
-  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
-    where?: UserWhereInput;
-    data: XOR<
-      UserUpdateWithoutSubscriptionInput,
-      UserUncheckedUpdateWithoutSubscriptionInput
-    >;
-  };
-
-  export type UserUpdateWithoutSubscriptionInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    name?: StringFieldUpdateOperationsInput | string;
-    email?: StringFieldUpdateOperationsInput | string;
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
-    image?: NullableStringFieldUpdateOperationsInput | string | null;
-    locale?: NullableStringFieldUpdateOperationsInput | string | null;
-    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
-    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    prayers?: PrayerUpdateManyWithoutUserNestedInput;
-    inquiries?: InquiryUpdateManyWithoutUserNestedInput;
-    inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
-    sentRequests?: FriendUpdateManyWithoutUserNestedInput;
-    receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
-    friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
-    groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    sessions?: SessionUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-  };
-
-  export type UserUncheckedUpdateWithoutSubscriptionInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    name?: StringFieldUpdateOperationsInput | string;
-    email?: StringFieldUpdateOperationsInput | string;
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
-    image?: NullableStringFieldUpdateOperationsInput | string | null;
-    locale?: NullableStringFieldUpdateOperationsInput | string | null;
-    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
-    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
-    inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
-    inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
-    sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
-    receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
-    friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
-    groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -24194,7 +24282,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -24216,7 +24304,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -24297,7 +24385,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -24319,7 +24407,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };
@@ -24397,7 +24485,7 @@ export namespace Prisma {
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
   };
@@ -24419,7 +24507,7 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
   };
@@ -24509,7 +24597,7 @@ export namespace Prisma {
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
   };
@@ -24531,7 +24619,123 @@ export namespace Prisma {
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserCreateWithoutOnboardingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    emailVerified?: boolean;
+    image?: string | null;
+    locale?: string | null;
+    pushToken?: string | null;
+    totalPoints?: number | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    prayers?: PrayerCreateNestedManyWithoutUserInput;
+    inquiries?: InquiryCreateNestedManyWithoutUserInput;
+    inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    sentRequests?: FriendCreateNestedManyWithoutUserInput;
+    receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
+    friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
+    groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutOnboardingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    emailVerified?: boolean;
+    image?: string | null;
+    locale?: string | null;
+    pushToken?: string | null;
+    totalPoints?: number | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
+    inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
+    inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
+    receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
+    friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
+    groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutOnboardingInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutOnboardingInput,
+      UserUncheckedCreateWithoutOnboardingInput
+    >;
+  };
+
+  export type UserUpsertWithoutOnboardingInput = {
+    update: XOR<
+      UserUpdateWithoutOnboardingInput,
+      UserUncheckedUpdateWithoutOnboardingInput
+    >;
+    create: XOR<
+      UserCreateWithoutOnboardingInput,
+      UserUncheckedCreateWithoutOnboardingInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutOnboardingInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutOnboardingInput,
+      UserUncheckedUpdateWithoutOnboardingInput
+    >;
+  };
+
+  export type UserUpdateWithoutOnboardingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    locale?: NullableStringFieldUpdateOperationsInput | string | null;
+    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    prayers?: PrayerUpdateManyWithoutUserNestedInput;
+    inquiries?: InquiryUpdateManyWithoutUserNestedInput;
+    inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    sentRequests?: FriendUpdateManyWithoutUserNestedInput;
+    receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
+    friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
+    groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutOnboardingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    locale?: NullableStringFieldUpdateOperationsInput | string | null;
+    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
+    inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
+    inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
+    receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
+    friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
+    groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
   };

@@ -23,6 +23,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { HttpExceptionFilter } from './common/filters';
 import { AuthModule } from './modules/auth/auth.module';
 import useI18nFactory from './i18n/i18n.factory';
+import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
 
 @Module({})
 export class AppModule {
@@ -77,6 +78,9 @@ export class AppModule {
 
         // Notifications module for notifications management
         NotificationsModule,
+
+        // Leaderboard module for leaderboard management
+        LeaderboardModule,
       ],
     };
   }
