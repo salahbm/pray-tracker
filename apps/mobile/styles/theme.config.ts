@@ -65,7 +65,7 @@ export const THEME_COLORS: AllThemes = {
     '--primary-foreground': '#FFFFFF',
     '--secondary': '#6B7280', // Neutral gray
     '--secondary-foreground': '#FFFFFF',
-    '--accent': '#FF5C5C', // More vibrant red
+    '--accent': '#6396F1', // More vibrant red
     '--accent-foreground': '#FFFFFF',
     '--destructive': '#E63946', // More modern danger color
     '--destructive-foreground': '#FFFFFF',

@@ -127,13 +127,6 @@ export const usePatchPray = () => {
         if (idx === -1) return [...list, serverPrayer];
         return list.map((p, i) => (i === idx ? serverPrayer : p));
       });
-
-      // If points/leaderboard depends on this update, keep it
-      queryClient.invalidateQueries({
-        queryKey: QueryKeys.leaderboard.global,
-        type: 'all',
-        exact: false,
-      });
     },
 
     onError: (_err, _vars, ctx) => {

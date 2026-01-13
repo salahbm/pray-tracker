@@ -4,26 +4,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "headerClassName",
-    "style"
-  ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "cSpell.words": [
-    "DHUHR",
-    "FAJR",
-    "gifs",
-    "ISHA",
-    "MAGHRIB",
-    "NAFL",
-    "Noor"
-  ],
-  "prisma.pinToPrisma6": false
+  "tailwindCSS.classAttributes": ["class", "className", "headerClassName", "style"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "cSpell.words": ["DHUHR", "FAJR", "gifs", "ISHA", "MAGHRIB", "NAFL", "Noor"],
+  "prisma.pinToPrisma6": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

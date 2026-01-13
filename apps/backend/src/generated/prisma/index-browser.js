@@ -229,6 +229,7 @@ exports.Prisma.OnboardingScalarFieldEnum = {
   supportNeeded: 'supportNeeded',
   learnIslam: 'learnIslam',
   whyHere: 'whyHere',
+  whereDidYouHearAboutUs: 'whereDidYouHearAboutUs',
   locationPermissionGranted: 'locationPermissionGranted',
   locationCity: 'locationCity',
   locationTimezone: 'locationTimezone',
@@ -236,8 +237,6 @@ exports.Prisma.OnboardingScalarFieldEnum = {
   notificationPreset: 'notificationPreset',
   enabledModules: 'enabledModules',
   defaultHomeTab: 'defaultHomeTab',
-  completedAt: 'completedAt',
-  completedSteps: 'completedSteps',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 };

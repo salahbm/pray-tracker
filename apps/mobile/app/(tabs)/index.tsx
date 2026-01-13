@@ -30,6 +30,7 @@ import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
 import PrayerTimer from '@/components/views/qibla/prayer-times';
+import RamadanCard from '@/components/ramadan/ramadan-card';
 
 const initialState = {
   prayers: {
@@ -265,6 +266,9 @@ export default function HomeScreen() {
             handlePrayerChange={handlePrayerChange}
           />
         </MotiView>
+
+        {/* Ramadan Card */}
+        <RamadanCard />
 
         {/* PRAYER HISTORY */}
         <MotiView
