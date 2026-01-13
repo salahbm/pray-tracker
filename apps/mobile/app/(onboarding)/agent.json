@@ -1,0 +1,389 @@
+{
+  "schemaVersion": "1.0.0",
+  "locale": "en",
+  "tone": {
+    "style": "modern",
+    "islamic": "respectful",
+    "notes": [
+      "Avoid slang that feels irreverent.",
+      "Keep encouragement gentle, non-judgmental, and motivating."
+    ]
+  },
+  "meta": {
+    "flowId": "onboarding_v1",
+    "appNamePlaceholder": "{{APP_NAME}}",
+    "branding": {
+      "useBismillahOption": true,
+      "bismillahText": "Bismillah",
+      "closingDuaOptional": true
+    }
+  },
+  "sharedText": {
+    "primaryCta": "Continue",
+    "secondaryCta": "Not now",
+    "skipCta": "Skip",
+    "backCta": "Back",
+    "getStartedCta": "Get started",
+    "privacyNote": "You can change these anytime in Settings."
+  },
+  "steps": [
+    {
+      "id": "splash",
+      "type": "splash",
+      "durationMs": 1400,
+      "ui": { "background": "brandGradient", "logo": "appLogo" },
+      "content": {
+        "headline": "{{APP_NAME}}",
+        "subheadline": "A calm space to support your salah, step by step.",
+        "optionalBadge": "Bismillah"
+      }
+    },
+    {
+      "id": "intro_welcome",
+      "type": "welcome",
+      "ui": { "lottie": { "asset": "welcome_lottie", "loop": true } },
+      "content": {
+        "headline": "Welcome",
+        "body": "Build a steady prayer routine with gentle reminders, qibla guidance, and simple learning—at your pace.",
+        "footnote": "No pressure. Just progress.",
+        "primaryCta": "Get started"
+      }
+    },
+    {
+      "id": "prayer_knowledge",
+      "type": "single_choice",
+      "content": {
+        "headline": "Do you know how to pray?",
+        "body": "Choose what fits you today. We’ll tailor the experience.",
+        "options": [
+          {
+            "id": "yes_i_know",
+            "label": "Yes, I know",
+            "onSelect": {
+              "feedbackTitle": "Alhamdulillah",
+              "feedbackBody": "We’ll focus on consistency, reminders, and tracking—so your routine stays strong."
+            }
+          },
+          {
+            "id": "im_learning",
+            "label": "I’m learning",
+            "onSelect": {
+              "feedbackTitle": "That’s a beautiful start",
+              "feedbackBody": "Small steps add up. We’ll guide you with clear, bite-sized lessons and practice support."
+            }
+          },
+          {
+            "id": "no_not_yet",
+            "label": "Not yet",
+            "onSelect": {
+              "feedbackTitle": "You’re welcome here",
+              "feedbackBody": "No worries. We’ll help you learn from the basics with patience and clarity."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "support_needed",
+      "type": "single_choice",
+      "content": {
+        "headline": "Do you need support to stay consistent with prayer?",
+        "body": "Choose your comfort level—there’s no judgment.",
+        "options": [
+          {
+            "id": "yes_i_need_support",
+            "label": "Yes, I want support",
+            "onSelect": {
+              "feedbackTitle": "You don’t have to do this alone",
+              "feedbackBody": "Support makes consistency easier. We can set up motivation that feels right for you.",
+              "action": { "type": "open_modal", "modalId": "friends_motivation_modal" }
+            }
+          },
+          {
+            "id": "some_support",
+            "label": "Maybe a little",
+            "onSelect": {
+              "feedbackTitle": "Perfect",
+              "feedbackBody": "We’ll keep it light—gentle reminders and simple goals that won’t overwhelm you."
+            }
+          },
+          {
+            "id": "im_good",
+            "label": "I’m good",
+            "onSelect": {
+              "feedbackTitle": "MashaAllah",
+              "feedbackBody": "We’ll stay out of your way and keep things clean and focused—only what you need."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "learn_islam",
+      "type": "single_choice",
+      "content": {
+        "headline": "Would you like to learn more about Islam?",
+        "body": "Pick a direction—your feed can be personalized.",
+        "options": [
+          {
+            "id": "quran_surahs",
+            "label": "Qur’an & Surahs",
+            "onSelect": {
+              "feedbackTitle": "A wonderful choice",
+              "feedbackBody": "We’ll suggest short surahs, meaning highlights, and a gentle reading routine."
+            }
+          },
+          {
+            "id": "basics",
+            "label": "Islam basics",
+            "onSelect": {
+              "feedbackTitle": "Great foundation",
+              "feedbackBody": "We’ll cover essentials in clear steps—belief, worship, and daily practice."
+            }
+          },
+          {
+            "id": "im_good",
+            "label": "I’m good for now",
+            "onSelect": {
+              "feedbackTitle": "Anytime",
+              "feedbackBody": "You can explore learning later. We’ll keep the focus on your prayer journey."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "why_here",
+      "type": "multi_choice",
+      "content": {
+        "headline": "Why are you here today?",
+        "body": "Select all that apply. We’ll personalize your setup.",
+        "minSelections": 1,
+        "maxSelections": 4,
+        "options": [
+          {
+            "id": "pray_5_times",
+            "label": "Pray 5 times daily",
+            "onSelect": {
+              "feedback": "We’ll prioritize prayer times, streak-friendly goals, and practical reminders."
+            }
+          },
+          {
+            "id": "track_progress",
+            "label": "Track my progress",
+            "onSelect": {
+              "feedback": "We’ll set up simple tracking and reflections—focused on improvement, not perfection."
+            }
+          },
+          {
+            "id": "learn_how_to_pray",
+            "label": "Learn how to pray",
+            "onSelect": {
+              "feedback": "We’ll add step-by-step prayer guidance with short lessons and practice prompts."
+            }
+          },
+          {
+            "id": "just_checking",
+            "label": "Just checking it out",
+            "onSelect": {
+              "feedback": "Take your time. We’ll keep the experience light until you’re ready."
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "attribution",
+      "type": "single_choice",
+      "analytics": {
+        "eventName": "onboarding_attribution_selected",
+        "properties": {
+          "selectedOptionId": "{{selectedOptionId}}",
+          "selectedOptionLabel": "{{selectedOptionLabel}}"
+        }
+      },
+      "content": {
+        "headline": "Where did you hear about us?",
+        "body": "This helps us improve and support more people.",
+        "options": [
+          {
+            "id": "friend_family",
+            "label": "Friend or family",
+            "onSelect": {
+              "feedbackTitle": "Alhamdulillah",
+              "feedbackBody": "Word of mouth means a lot. May it be a benefit for everyone."
+            }
+          },
+          {
+            "id": "social_media",
+            "label": "Social media",
+            "onSelect": {
+              "feedbackTitle": "Nice",
+              "feedbackBody": "We’ll keep sharing helpful content—in a calm, respectful way."
+            }
+          },
+          {
+            "id": "app_store_search",
+            "label": "App Store / Search",
+            "onSelect": {
+              "feedbackTitle": "Welcome",
+              "feedbackBody": "We’ll do our best to make your experience clear, simple, and useful."
+            }
+          },
+          {
+            "id": "masjid_community",
+            "label": "Masjid / community",
+            "onSelect": {
+              "feedbackTitle": "A blessed connection",
+              "feedbackBody": "Community support is powerful. May Allah strengthen our bonds."
+            }
+          },
+          {
+            "id": "online_article",
+            "label": "Article / blog / website",
+            "onSelect": {
+              "feedbackTitle": "Glad you found us",
+              "feedbackBody": "We’ll keep the experience thoughtful and practical."
+            }
+          },
+          {
+            "id": "other",
+            "label": "Other",
+            "onSelect": {
+              "feedbackTitle": "Got it",
+              "feedbackBody": "Thanks for sharing. You can tell us more anytime in Settings."
+            },
+            "action": {
+              "type": "optional_text_input",
+              "field": {
+                "id": "attribution_other_text",
+                "label": "Tell us more (optional)",
+                "placeholder": "E.g., YouTube, WhatsApp group, event…",
+                "maxLength": 80
+              }
+            }
+          }
+        ],
+        "footerNote": "{{sharedText.privacyNote}}"
+      }
+    },
+
+    {
+      "id": "location_permission",
+      "type": "permission",
+      "permissionKey": "location",
+      "ui": { "illustration": "location_qibla_times" },
+      "content": {
+        "headline": "Where are you praying from?",
+        "body": "Allow location to show accurate prayer times and qibla direction for your area.",
+        "benefits": ["Accurate prayer times", "Qibla direction", "Automatic timezone updates"],
+        "primaryCta": "Allow location",
+        "secondaryCta": "Not now",
+        "onAllow": {
+          "feedbackTitle": "All set",
+          "feedbackBody": "We’ll use this only to help with qibla and prayer times."
+        },
+        "onDeny": {
+          "feedbackTitle": "No problem",
+          "feedbackBody": "You can set your city manually anytime."
+        }
+      }
+    },
+    {
+      "id": "notification_permission",
+      "type": "permission",
+      "permissionKey": "notifications",
+      "ui": { "illustration": "adhan_reminders" },
+      "content": {
+        "headline": "Never miss prayer times",
+        "body": "Turn on notifications for prayer reminders, gentle nudges, and important updates you choose.",
+        "benefits": [
+          "Prayer time reminders",
+          "Custom quiet hours",
+          "Optional streak encouragement"
+        ],
+        "primaryCta": "Enable notifications",
+        "secondaryCta": "Not now",
+        "onAllow": {
+          "feedbackTitle": "Alhamdulillah",
+          "feedbackBody": "Reminders are on. You can customize the tone and schedule anytime."
+        },
+        "onDeny": {
+          "feedbackTitle": "That’s okay",
+          "feedbackBody": "You can enable reminders later in Settings whenever you’re ready."
+        }
+      }
+    },
+    {
+      "id": "all_set",
+      "type": "final",
+      "ui": { "lottie": { "asset": "success_confetti_soft", "loop": false } },
+      "content": {
+        "headline": "You’re all set",
+        "body": "We’re with you—one prayer at a time. May your journey be steady and full of barakah.",
+        "socialProof": {
+          "text": "★★★★★ trusted by the community",
+          "note": "Social proof text should be used only if you can verify this rating in your product."
+        },
+        "primaryCta": "Start now",
+        "secondaryCta": "Customize settings"
+      }
+    }
+  ],
+  "modals": [
+    {
+      "id": "friends_motivation_modal",
+      "type": "info",
+      "content": {
+        "headline": "Motivation with friends",
+        "body": "Invite friends to encourage each other, share gentle check-ins, and celebrate progress—without pressure.",
+        "bullets": ["Add trusted friends", "Private encouragement", "Optional shared goals"],
+        "primaryCta": "Add friends",
+        "secondaryCta": "Maybe later"
+      }
+    }
+  ],
+  "copyAlternatives": {
+    "optionalIslamicPhrases": [
+      { "key": "praise_variant_1", "text": "Alhamdulillah" },
+      { "key": "praise_variant_2", "text": "MashaAllah" },
+      { "key": "invocation_variant", "text": "May Allah make it easy for you" }
+    ],
+    "gentleEncouragements": [
+      "Consistency comes with time.",
+      "Start small, stay steady.",
+      "Progress matters—perfection isn’t required."
+    ]
+  },
+  "implementationIdeas": {
+    "personalizationRules": [
+      {
+        "if": { "stepId": "prayer_knowledge", "selectedOptionId": "no_not_yet" },
+        "then": {
+          "enableModules": ["learn_prayer_basics", "guided_salah"],
+          "defaultHomeTab": "Learn"
+        }
+      },
+      {
+        "if": { "stepId": "why_here", "selectedOptionIdsIncludes": "track_progress" },
+        "then": {
+          "enableModules": ["streaks", "prayer_log", "weekly_reflection"],
+          "defaultHomeTab": "Tracker"
+        }
+      },
+      {
+        "if": { "stepId": "support_needed", "selectedOptionId": "yes_i_need_support" },
+        "then": {
+          "enableModules": ["friends", "encouragement"],
+          "defaultNotificationsPreset": "gentle"
+        }
+      }
+    ],
+    "uiHints": {
+      "feedbackDisplay": "toast_or_inline_card",
+      "modalStyle": "bottom_sheet",
+      "optionLayout": "stacked_cards"
+    }
+  }
+}
