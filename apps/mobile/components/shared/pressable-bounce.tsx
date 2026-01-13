@@ -42,7 +42,7 @@ const PressableBounce: React.FC<PressableBounceProps> = ({
   const handlePressOut = (event: GestureResponderEvent) => {
     scale.value = withSpring(1, {
       damping: 15,
-      stiffness: 400,
+      stiffness: 200,
     });
     props.onPressOut && props.onPressOut(event);
   };

@@ -11,20 +11,24 @@ interface ISignUpParams {
 
 interface ISignUpResponse {
   user: User;
+  token: string;
 }
 
 /**
  * Handles new user registration using Better Auth
  */
 export const useSignUp = () => {
-  const { setUser } = useAuthStore();
+  const { setUser, setSession } = useAuthStore();
 
   return useMutation({
     mutationFn: async (params: ISignUpParams) =>
       agent.post<ISignUpResponse>('/api/auth/sign-up/email', params),
     onSuccess: data => {
       // Better Auth auto-signs in after successful registration
-      if (data?.user) setUser(data.user);
+      if (data?.user) {
+        setUser(data.user);
+        setSession({ token: data.token });
+      }
     },
   });
 };

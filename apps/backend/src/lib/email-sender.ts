@@ -1,14 +1,15 @@
 import { Resend } from 'resend';
 import * as pug from 'pug';
 import path from 'path';
-import { env } from '@/config/env.config';
+import { ConfigService } from '@nestjs/config';
 import { Locale } from '@/common/utils/response.utils';
 import { getLocalizedMessage } from '@/common/i18n/email-messages';
 import { getLocalizedMessage as getErrorLocalizedMessage } from '@/common/i18n/error-messages';
 import { APIError } from 'better-auth';
 import { mapBetterAuthErrorToKey } from './better-auth-codes';
 
-const resend = new Resend(env.RESEND_API_KEY);
+const configService = new ConfigService();
+const resend = new Resend(configService.getOrThrow('RESEND_API_KEY'));
 
 export async function sendPasswordResetEmail(
   email: string,
@@ -39,14 +40,12 @@ export async function sendPasswordResetEmail(
       resetUrl: webRedirectUrl,
     });
 
-    const res = await resend.emails.send({
+    await resend.emails.send({
       from: 'Noor App <no-reply@noor.salahm.uz>',
       to: email,
       subject: getLocalizedMessage('EMAIL_PASSWORD_RESET_TITLE', locale),
       html,
     });
-
-    console.log(`Email is sent to 👉:`, JSON.stringify(res, null, 2));
   } catch (error: any) {
     console.error('Failed to send password reset email:', error);
 

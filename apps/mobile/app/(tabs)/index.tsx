@@ -1,27 +1,22 @@
 import confetti from '@assets/gif/confetti.json';
 import { format } from 'date-fns';
-import { router, useFocusEffect } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { ChevronRight } from 'lucide-react-native';
 import { MotiView } from 'moti';
 import { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import Leaderboard from '@/components/views/awards/leaderboard';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { useDateSync } from '@/hooks/common/useDateSync';
-import { useGetGlobalLeaderboard } from '@/hooks/leaderboard';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useGetTodayPrays } from '@/hooks/prays/useGetTdyPrays';
 import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
@@ -34,6 +29,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
+import PrayerTimer from '@/components/views/qibla/prayer-times';
 
 const initialState = {
   prayers: {
@@ -106,11 +102,6 @@ export default function HomeScreen() {
   } = useGetPrays(user?.id!, year);
 
   const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!, today);
-  const {
-    data: leaderboard,
-    isLoading: isLoadingLeaderboard,
-    refetch: refetchLeaderboard,
-  } = useGetGlobalLeaderboard(1, 10);
 
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
@@ -237,7 +228,7 @@ export default function HomeScreen() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         ref={homeRef}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 50, paddingTop: insets.top + 2 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 70, paddingTop: insets.top + 2 }}
         className="main-area"
         refreshControl={
           <RefreshControl
@@ -246,7 +237,6 @@ export default function HomeScreen() {
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
-              refetchLeaderboard();
               refetchCustomer();
             }}
           />
@@ -296,6 +286,16 @@ export default function HomeScreen() {
           />
         </MotiView>
 
+        {/* PRAYER NOTIFIER */}
+        <MotiView
+          key="prayer-notifier-animation"
+          from={{ opacity: 0, translateY: 50 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
+        >
+          <PrayerTimer />
+        </MotiView>
+
         {/* CHARTS */}
         {year === new Date().getFullYear() && user && (
           <MotiView
@@ -307,29 +307,6 @@ export default function HomeScreen() {
             <AreaChart lineData={prays} />
           </MotiView>
         )}
-
-        {/* LEADERBOARD */}
-        <View>
-          <View className="flex-row items-center justify-between mt-10">
-            <Text className="text-xl font-semibold">{t('leaderboard.title')}</Text>
-            <Button
-              className="flex-row items-center gap-2"
-              size="sm"
-              variant="ghost"
-              onPress={() => router.push('/(screens)/leaderboard/leaders-list')}
-            >
-              <Text className="text-xs font-extralight">{t('common.viewAll')}</Text>
-              <ChevronRight size={12} color={colors['--foreground']} />
-            </Button>
-          </View>
-          <Leaderboard
-            data={leaderboard?.data ?? []}
-            isLoading={isLoadingLeaderboard}
-            imageClassName="w-24 h-24"
-            refetch={refetchLeaderboard}
-            scrollEnabled={false}
-          />
-        </View>
 
         {/* LOTTIE CONFETTI */}
         <LottieView

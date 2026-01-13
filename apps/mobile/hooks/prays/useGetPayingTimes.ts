@@ -1,47 +1,70 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import * as Location from 'expo-location';
+import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
+import { useTranslation } from 'react-i18next';
+import { Alert } from 'react-native';
 
-import agent from '@/lib/agent';
+export const usePrayerData = () => {
+  const { t } = useTranslation();
+  const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
+  const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-export type Coordinates = {
-  latitude: number;
-  longitude: number;
-};
+  useEffect(() => {
+    let mounted = true;
 
-export type PrayersTimeResponse = {
-  data: {
-    timings: Record<string, string>;
-    date: { readable: string; timestamp: string };
-    // Add additional response structure here if needed
-  };
-  code: number;
-  status: string;
-};
+    const fetchLocationAndPrayers = async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert(t('qibla.prayerTimes.errors.title'), t('qibla.prayerTimes.errors.message'));
+          if (mounted) {
+            setError(true);
+            setLoading(false);
+          }
+          return;
+        }
 
-// Fetch prayer times based on coordinates
-const fetchPrayerTimes = async (
-  coords: Coordinates | null
-): Promise<PrayersTimeResponse['data'] | null> => {
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const userLocation = await Location.getCurrentPositionAsync({});
+        const coordinates = new Coordinates(
+          userLocation.coords.latitude,
+          userLocation.coords.longitude
+        );
 
-  if (!coords) return null;
+        // Calculate Times
+        const params = CalculationMethod.MoonsightingCommittee();
+        const date = new Date();
+        const times = new PrayerTimes(coordinates, date, params);
 
-  const url = `https://api.aladhan.com/v1/timings?latitude=${coords.latitude}&longitude=${coords.longitude}&method=2&timezonestring=${timezone}`;
+        // Get City Name
+        const reverseGeocode = await Location.reverseGeocodeAsync({
+          latitude: userLocation.coords.latitude,
+          longitude: userLocation.coords.longitude,
+        });
 
-  const response = await agent.get(url);
+        if (mounted) {
+          setPrayerTimes(times);
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch prayer times');
-  }
+          if (reverseGeocode.length > 0) {
+            const { city, region, country } = reverseGeocode[0];
+            const unknown = t('qibla.prayerTimes.location.unknown');
+            setLocationName(`${city || unknown}, ${region || unknown}, ${country || unknown}`);
+          }
+        }
+      } catch (err) {
+        if (mounted) setError(true);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
 
-  return response.data;
-};
+    fetchLocationAndPrayers();
 
-export const usePrayerTimes = (coords: Coordinates | null) => {
-  return useQuery({
-    queryKey: ['prayerTimes', coords],
-    queryFn: () => fetchPrayerTimes(coords),
-    staleTime: 1000 * 60 * 15, // Cache data for 15 minutes
-    retry: 2,
-    enabled: !!coords,
-  });
+    return () => {
+      mounted = false;
+    };
+  }, []); // Removed [t] to prevent refetching on language change only
+
+  return { prayerTimes, locationName, loading, error };
 };

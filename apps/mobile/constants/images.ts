@@ -18,6 +18,7 @@ import share from '@assets/gif/share.json';
 import woman_reading_koran from '@assets/gif/woman_reading_koran.json';
 import learning from '@assets/gif/learning.json';
 import empty from '@assets/gif/empty.json';
+import uzbek_masjid from '@assets/images/uzbek-masjid.jpg';
 
 export const gifs = {
   man_looking_through,
@@ -41,6 +42,7 @@ export const IMAGES = {
   compass,
   icon_light,
   icon_dark,
+  uzbek_masjid,
 };
 
 export const FRIENDS = {

@@ -28,7 +28,6 @@ const Account = () => {
 
   const premiumInfo = Object.values(customerInfo?.entitlements.active || {})[0];
 
-  const productId = premiumInfo?.productIdentifier; // monthly / annual
   const purchaseDate = premiumInfo?.latestPurchaseDate;
   const expirationDate = premiumInfo?.expirationDate;
 
@@ -63,34 +62,29 @@ const Account = () => {
           <View className="flex-row justify-between items-center w-full mb-4">
             <Text className="text-base font-semibold">{t('profile.account.created')}:</Text>
             <Text className="text-base font-semibold">
-              {user?.createdAt ? format(user.createdAt, 'PPpp') : '-'}
+              {user?.createdAt ? format(user.createdAt, 'yyyy/MM/dd') : '-'}
             </Text>
           </View>
           <View className="flex-row justify-between items-center w-full">
             <Text className="text-base font-semibold">{t('profile.account.lastUpdated')}:</Text>
             <Text className="text-base font-semibold">
-              {user?.updatedAt ? format(user.updatedAt, 'PPpp') : '-'}
+              {user?.updatedAt ? format(user.updatedAt, 'yyyy/MM/dd') : '-'}
             </Text>
           </View>
         </View>
         {isPremium ? (
           <View className="mt-10">
-            {/* <View className="flex-row justify-between items-center w-full mb-4">
-              <Text className="text-base font-semibold">{t('profile.account.premiumProduct')}</Text>
-              <Text className="text-base font-semibold">{productId}</Text>
-            </View> */}
-
             <View className="flex-row justify-between items-center w-full mb-4">
               <Text className="text-base font-semibold">{t('profile.account.purchased')}</Text>
               <Text className="text-base font-semibold">
-                {purchaseDate ? format(new Date(purchaseDate), 'PPpp') : '-'}
+                {purchaseDate ? format(new Date(purchaseDate), 'yyyy/MM/dd') : '-'}
               </Text>
             </View>
 
             <View className="flex-row justify-between items-center w-full">
               <Text className="text-base font-semibold">{t('profile.account.expires')}</Text>
               <Text className="text-base font-semibold">
-                {expirationDate ? format(new Date(expirationDate), 'PPpp') : 'Lifetime'}
+                {expirationDate ? format(new Date(expirationDate), 'yyyy/MM/dd') : 'Lifetime'}
               </Text>
             </View>
           </View>

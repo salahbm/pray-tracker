@@ -1,40 +1,43 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { ALLOWED_ORIGINS } from '@/config/cors.config';
-import { HttpExceptionFilter } from '@/common/filters/http-exception.filter';
+import { auth } from './lib/auth';
+import { toNodeHandler } from 'better-auth/node';
+import { json, urlencoded } from 'express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    bodyParser: false,
-    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
+  const app = await NestFactory.create(AppModule.main(), {
+    bodyParser: false, // We'll configure it manually
   });
 
-  // Render uses PORT environment variable
-  const port: number = Number(process.env.PORT) || 4000;
+  // Enable CORS
+  app.enableCors({
+    origin: process.env.APP_CORS_ORIGIN?.split(',') || '*',
+    credentials: true,
+  });
 
-  // Enable global exception filter for localized error handling
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // Register Better Auth handler FIRST (needs raw body)
+  const betterAuthHandler = toNodeHandler(auth);
+  app.use('/api/auth', betterAuthHandler);
 
-  // Enable global validation pipe for DTO validation
+  // Enable body parsing for all other routes
+  app.use(json({ limit: '10mb' }));
+  app.use(urlencoded({ extended: true, limit: '10mb' }));
+
+  // Enable validation pipe globally
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
-  app.enableCors({
-    origin: ALLOWED_ORIGINS,
-    credentials: true,
-  });
-
-  // Bind to 0.0.0.0 for Render (required for external access)
-  await app.listen(port, '0.0.0.0');
+  await app.listen(process.env.PORT ?? 4000, process.env.HOST ?? '0.0.0.0');
 }
-
-bootstrap().catch((err) => {
-  console.error(err);
-  process.exit(1);
+bootstrap().catch((error) => {
+  console.error('Failed to start the application:', error);
 });
