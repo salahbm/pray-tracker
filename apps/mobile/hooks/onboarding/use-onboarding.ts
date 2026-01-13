@@ -1,6 +1,4 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useOnboardingStore } from '@/store/onboarding/onboarding-store';
-import { onboarding } from './../../constants/onboarding';
 import agent from '@/lib/agent';
 import useMutation from '../common/useMutation';
 import QueryKeys from '@/constants/query-keys';
@@ -63,7 +61,6 @@ const onboardingApi = {
 };
 
 export const useOnboarding = () => {
-  const {} = useOnboardingStore();
   const queryClient = useQueryClient();
 
   return useMutation({
