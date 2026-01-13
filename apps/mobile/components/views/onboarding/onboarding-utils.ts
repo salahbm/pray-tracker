@@ -1,15 +1,15 @@
 import type {
-  OnboardingChoiceStep,
-  OnboardingOption,
-  OnboardingPermissionStep,
-  OnboardingStep,
-  OnboardingSharedText,
+  OnboardingChoiceStepType,
+  OnboardingOptionType,
+  OnboardingPermissionStepType,
+  OnboardingStepType,
+  OnboardingSharedTextType,
 } from './onboarding-types';
 
 export const replaceAppName = (value: string, appName: string) =>
   value.replace(/\{\{APP_NAME\}\}/g, appName);
 
-export const resolveOptionFeedback = (option?: OnboardingOption) => {
+export const resolveOptionFeedback = (option?: OnboardingOptionType) => {
   if (!option?.onSelect) {
     return { title: undefined, body: undefined };
   }
@@ -20,20 +20,20 @@ export const resolveOptionFeedback = (option?: OnboardingOption) => {
   };
 };
 
-export const getSplashStep = (steps: OnboardingStep[]) =>
+export const getSplashStep = (steps: OnboardingStepType[]) =>
   steps.find(step => step.type === 'splash');
 
-export const getMainSteps = (steps: OnboardingStep[]) =>
+export const getMainSteps = (steps: OnboardingStepType[]) =>
   steps.filter(step => step.type !== 'splash');
 
-export const getInitialStepIndex = (steps: OnboardingStep[], currentStepId: string) => {
+export const getInitialStepIndex = (steps: OnboardingStepType[], currentStepId: string) => {
   const index = steps.findIndex(step => step.id === currentStepId);
   return index >= 0 ? index : 0;
 };
 
 export const getPrimaryCtaLabel = (
-  step: OnboardingStep | undefined,
-  sharedText: OnboardingSharedText
+  step: OnboardingStepType | undefined,
+  sharedText: OnboardingSharedTextType
 ) => {
   if (!step) {
     return sharedText.primaryCta;
@@ -54,24 +54,8 @@ export const getPrimaryCtaLabel = (
   return sharedText.primaryCta;
 };
 
-export const getSecondaryCtaLabel = (step: OnboardingStep | undefined) => {
-  if (!step) {
-    return undefined;
-  }
-
-  if (step.type === 'permission') {
-    return step.content.secondaryCta;
-  }
-
-  if (step.type === 'final') {
-    return step.content.secondaryCta;
-  }
-
-  return undefined;
-};
-
 export const getPermissionFeedback = (
-  step: OnboardingPermissionStep,
+  step: OnboardingPermissionStepType,
   variant: 'allow' | 'deny'
 ) => {
   if (variant === 'allow') {
@@ -88,7 +72,7 @@ export const getPermissionFeedback = (
 };
 
 export const getChoiceSelectedValues = (
-  step: OnboardingChoiceStep,
+  step: OnboardingChoiceStepType,
   selections: {
     prayerKnowledge?: string | null;
     supportNeeded?: string | null;

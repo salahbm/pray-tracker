@@ -2,13 +2,13 @@ import { MotiView } from 'moti';
 import { ScrollView, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import Image from '@/components/ui/image';
+import LottieView, { LottieViewProps } from 'lottie-react-native';
 
 interface OnboardingPermissionStepProps {
   headline: string;
   body: string;
   benefits: string[];
-  illustration?: number | string;
+  illustration?: LottieViewProps['source'];
 }
 
 export const OnboardingPermissionStep = ({
@@ -25,7 +25,7 @@ export const OnboardingPermissionStep = ({
         transition={{ type: 'spring', damping: 18, stiffness: 160 }}
         className="items-center mt-4"
       >
-        <Image source={illustration} size="lg" radius="lg" border="no" className="w-24 h-24" />
+        <LottieView source={illustration} style={{ width: '100%', height: 220 }} autoPlay loop />
       </MotiView>
       <View className="mt-6">
         <Text className="text-3xl font-semibold text-foreground mb-3">{headline}</Text>

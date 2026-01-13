@@ -32,10 +32,10 @@ export const OnboardingShell = ({
   return (
     <View
       className="flex-1 bg-background"
-      style={stepIndex === 0 ? {} : { paddingTop: insets.top, paddingBottom: insets.bottom }}
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
       {!hideHeader && (
-        <View className="px-5 pt-4">
+        <View className="px-4 pt-4">
           {!hideProgress && <OnboardingProgress progress={progress} />}
 
           <PressableBounce
@@ -51,7 +51,7 @@ export const OnboardingShell = ({
           </PressableBounce>
         </View>
       )}
-      <View className={cn('flex-1 px-5 pb-6', contentClassName)}>{children}</View>
+      <View className={cn('flex-1 px-4 pb-6 overflow-visible', contentClassName)}>{children}</View>
     </View>
   );
 };

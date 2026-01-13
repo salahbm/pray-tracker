@@ -18,6 +18,9 @@ import share from '@assets/gif/share.json';
 import woman_reading_koran from '@assets/gif/woman_reading_koran.json';
 import learning from '@assets/gif/learning.json';
 import empty from '@assets/gif/empty.json';
+import cat_playing from '@assets/gif/cat_playing.json';
+import location from '@assets/gif/location.json';
+import confetti from '@assets/gif/confetti.json';
 import uzbek_masjid from '@assets/images/uzbek-masjid.jpg';
 
 export const gifs = {
@@ -26,6 +29,7 @@ export const gifs = {
   moon_candles,
   share_with_friends,
   clock_sand,
+  confetti,
   man_premium,
   chart,
   friends_group,
@@ -34,6 +38,8 @@ export const gifs = {
   woman_reading_koran,
   learning,
   empty,
+  cat_playing,
+  location,
 };
 
 export const IMAGES = {

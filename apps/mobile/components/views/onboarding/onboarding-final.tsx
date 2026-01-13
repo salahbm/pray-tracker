@@ -1,4 +1,4 @@
-import LottieView from 'lottie-react-native';
+import LottieView, { LottieViewProps } from 'lottie-react-native';
 import { MotiView } from 'moti';
 import { ScrollView, View } from 'react-native';
 
@@ -8,7 +8,7 @@ interface OnboardingFinalStepProps {
   headline: string;
   body: string;
   socialProof?: string;
-  lottieSource: unknown;
+  lottieSource: LottieViewProps['source'];
 }
 
 export const OnboardingFinalStep = ({
@@ -25,16 +25,14 @@ export const OnboardingFinalStep = ({
         transition={{ type: 'spring', damping: 18, stiffness: 160 }}
         className="items-center mt-6"
       >
-        <LottieView source={lottieSource} autoPlay loop={false} style={{ width: 220, height: 220 }} />
-        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">
-          {headline}
-        </Text>
+        <LottieView source={lottieSource} autoPlay loop style={{ width: '100%', height: 320 }} />
+        <Text className="mt-6 text-3xl font-semibold text-foreground text-center">{headline}</Text>
         <Text className="mt-4 text-center text-base text-muted-foreground leading-relaxed">
           {body}
         </Text>
         {socialProof && (
           <View className="mt-6 rounded-full border border-border px-4 py-2">
-            <Text className="text-sm text-muted-foreground">{socialProof}</Text>
+            <Text className="text-sm text-primary">{socialProof}</Text>
           </View>
         )}
       </MotiView>

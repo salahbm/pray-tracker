@@ -6,53 +6,46 @@ import * as Localization from 'expo-localization';
 import * as Notifications from 'expo-notifications';
 import { AnimatePresence, MotiView } from 'moti';
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
-import { View } from 'react-native';
 
 import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
-import {
-  useOnboardingStore,
-  type LearnIslam,
-  type PrayerKnowledge,
-  type SupportNeeded,
-  type WhyHereOption,
-  type WhereDidYouHearAboutUs,
-} from '@/store/onboarding/onboarding-store';
 
-import { onboardingIllustrations, onboardingLotties } from './onboarding-assets';
 import onboardingSteps from './steps.json';
+
 import {
-  type OnboardingChoiceStep,
-  type OnboardingData,
-  type OnboardingPermissionStep,
-  type OnboardingStep,
-  type OnboardingWelcomeStep,
-} from './onboarding-types';
-import {
+  OnboardingChoiceStep,
+  OnboardingChoiceStepType,
+  OnboardingDataType,
+  OnboardingFinalStep,
+  OnboardingFooter,
+  OnboardingPermissionStep,
+  OnboardingPermissionStepType,
+  OnboardingShell,
+  OnboardingSplashStep,
+  OnboardingStepType,
+  OnboardingWelcomeStep,
+  OnboardingWelcomeStepType,
+  useOnboarding as useOnboardingReducer,
   getChoiceSelectedValues,
   getInitialStepIndex,
   getMainSteps,
   getPermissionFeedback,
   getPrimaryCtaLabel,
-  getSecondaryCtaLabel,
   getSplashStep,
   replaceAppName,
   resolveOptionFeedback,
-} from './onboarding-utils';
-import { OnboardingChoiceStep as ChoiceStep } from '@/components/views/onboarding/onboarding-choice-step';
-import { OnboardingFinalStep } from '@/components/views/onboarding/onboarding-final-step';
-import { OnboardingFooter } from '@/components/views/onboarding/onboarding-footer';
-import { OnboardingModal } from '@/components/views/onboarding/onboarding-modal';
-import { OnboardingPermissionStep as PermissionStep } from '@/components/views/onboarding/onboarding-permission-step';
-import { OnboardingShell } from '@/components/views/onboarding/onboarding-shell';
-import { OnboardingSplashStep } from '@/components/views/onboarding/onboarding-splash-step';
-import { OnboardingWelcomeStep } from '@/components/views/onboarding/onboarding-welcome-step';
+  PrayerKnowledge,
+  SupportNeeded,
+  LearnIslam,
+  WhereDidYouHearAboutUs,
+  WhyHereOption,
+} from '@/components/views/onboarding';
+import { gifs } from '@/constants/images';
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
-import ThemeSwitcher from '@/components/shared/theme-switcher';
-import { useLanguage } from '@/hooks/common/useTranslation';
-import { useThemeStore } from '@/store/defaults/theme';
+import { View } from 'react-native';
+import { Text } from '@/components/ui/text';
+import { Button } from '@/components/ui/button';
 
-const onboardingData = onboardingSteps as OnboardingData;
+const onboardingData = onboardingSteps as OnboardingDataType;
 
 const Onboarding = () => {
   const appName = Constants.expoConfig?.name ?? 'Noor';
@@ -60,30 +53,10 @@ const Onboarding = () => {
   const mainSteps = getMainSteps(steps);
   const splashStep = getSplashStep(steps);
   const sharedText = onboardingData.sharedText;
-  const initialIndex = getInitialStepIndex(
-    mainSteps,
-    useOnboardingStore.getState().currentStep
-  );
 
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
-  const [feedback, setFeedback] = useState<{ title?: string; body?: string }>({});
-  const [attributionOtherText, setAttributionOtherText] = useState('');
-  const [isSaving, setIsSaving] = useState(false);
-  const [showClosingSplash, setShowClosingSplash] = useState(false);
-
+  // Use reducer hook
   const {
-    prayerKnowledge,
-    supportNeeded,
-    learnIslam,
-    whyHere,
-    locationPermissionGranted,
-    notificationPermissionGranted,
-    locationCity,
-    locationTimezone,
-    whereDidYouHearAboutUs,
-    enabledModules,
-    defaultHomeTab,
-    completedSteps,
+    state,
     setCurrentStep,
     setPrayerKnowledge,
     setSupportNeeded,
@@ -91,52 +64,24 @@ const Onboarding = () => {
     setWhyHere,
     setLocationPermission,
     setNotificationPermission,
-    setWhereDidYouHearAboutUs,
     completeStep,
-  } = useOnboardingStore();
+    setWhereDidYouHearAboutUs,
+  } = useOnboardingReducer();
+
+  // Get initial index from reducer state instead of Zustand
+  const initialIndex = getInitialStepIndex(mainSteps, state.currentStep);
+
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  const [feedback, setFeedback] = useState<{ title?: string; body?: string }>({});
+  const [isSaving, setIsSaving] = useState(false);
+  const [showClosingSplash, setShowClosingSplash] = useState(false);
 
   const onboardingMutation = useOnboarding();
   const friendsModalRef = useRef<BottomSheet>(null);
-  const themeRef = useRef<BottomSheet>(null);
-  const langRef = useRef<BottomSheet>(null);
-  const settingsRef = useRef<BottomSheet>(null);
-  const { colors } = useThemeStore();
-  const { currentLanguage } = useLanguage();
 
-  const activeStep = mainSteps[activeIndex] as OnboardingStep | undefined;
+  const activeStep = mainSteps[activeIndex] as OnboardingStepType | undefined;
 
   const closeFriendsModal = () => friendsModalRef.current?.close();
-
-  const personalizationPayload = useMemo(
-    () => ({
-      prayerKnowledge,
-      supportNeeded,
-      learnIslam,
-      whyHere,
-      locationPermissionGranted,
-      notificationPermissionGranted,
-      whereDidYouHearAboutUs,
-      locationCity,
-      locationTimezone,
-      enabledModules,
-      defaultHomeTab,
-      completedSteps,
-    }),
-    [
-      prayerKnowledge,
-      supportNeeded,
-      learnIslam,
-      whyHere,
-      locationPermissionGranted,
-      notificationPermissionGranted,
-      whereDidYouHearAboutUs,
-      locationCity,
-      locationTimezone,
-      enabledModules,
-      defaultHomeTab,
-      completedSteps,
-    ]
-  );
 
   useEffect(() => {
     if (activeStep?.id) {
@@ -148,16 +93,11 @@ const Onboarding = () => {
   const persistPreferences = useCallback(async () => {
     setIsSaving(true);
     try {
-      await onboardingMutation.mutateAsync(personalizationPayload);
+      await onboardingMutation.mutateAsync(state);
     } finally {
       setIsSaving(false);
     }
-  }, [onboardingMutation, personalizationPayload]);
-
-  const handleSkip = async () => {
-    await persistPreferences();
-    router.replace('/(tabs)');
-  };
+  }, [onboardingMutation, state]);
 
   const handleNext = () => {
     if (!activeStep) {
@@ -178,7 +118,7 @@ const Onboarding = () => {
     }
   };
 
-  const handleSingleChoice = (step: OnboardingChoiceStep, value: string) => {
+  const handleSingleChoice = (step: OnboardingChoiceStepType, value: string) => {
     const selectedOption = step.content.options.find(option => option.id === value);
     const nextFeedback = resolveOptionFeedback(selectedOption);
     setFeedback(nextFeedback);
@@ -203,7 +143,7 @@ const Onboarding = () => {
     }
   };
 
-  const handleMultiChoice = (step: OnboardingChoiceStep, value: string[] | string) => {
+  const handleMultiChoice = (step: OnboardingChoiceStepType, value: string[] | string) => {
     const nextValues = Array.isArray(value) ? value : [value];
     const lastSelected = Array.isArray(value) ? value[value.length - 1] : value;
     const selectedOption = step.content.options.find(option => option.id === lastSelected);
@@ -240,7 +180,7 @@ const Onboarding = () => {
     setNotificationPermission(permission.status === 'granted');
   };
 
-  const handlePermissionPrimary = async (step: OnboardingPermissionStep) => {
+  const handlePermissionPrimary = async (step: OnboardingPermissionStepType) => {
     if (step.permissionKey === 'location') {
       await requestLocationPermission();
     }
@@ -254,64 +194,36 @@ const Onboarding = () => {
     handleNext();
   };
 
-  const handlePermissionSecondary = (step: OnboardingPermissionStep) => {
-    if (step.permissionKey === 'location') {
-      setLocationPermission(false);
-    }
-
-    if (step.permissionKey === 'notifications') {
-      setNotificationPermission(false);
-    }
-
-    const nextFeedback = getPermissionFeedback(step, 'deny');
-    setFeedback(nextFeedback);
-    handleNext();
-  };
-
   const handleFinish = async () => {
     setShowClosingSplash(true);
     await persistPreferences();
     router.replace('/(tabs)');
   };
 
-  const renderStep = () => {
+  const renderStep = useMemo(() => {
     if (!activeStep) {
       return null;
     }
 
     if (activeStep.type === 'welcome') {
-      const step = activeStep as OnboardingWelcomeStep;
-      const lottieSource = onboardingLotties[step.ui.lottie.asset as keyof typeof onboardingLotties];
+      const step = activeStep as OnboardingWelcomeStepType;
       return (
         <OnboardingWelcomeStep
           headline={step.content.headline}
           body={step.content.body}
           footnote={step.content.footnote}
-          lottieSource={lottieSource}
-          settings={{
-            languageLabel: `${FLAGS[currentLanguage as keyof typeof FLAGS]} ${LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}`,
-            onLanguagePress: () => langRef.current?.snapToIndex(0),
-            onThemePress: () => themeRef.current?.snapToIndex(0),
-            themeColors: [
-              colors['--primary'],
-              colors['--background'],
-              colors['--accent'],
-              colors['--destructive'],
-              colors['--foreground'],
-            ],
-          }}
         />
       );
     }
 
     if (activeStep.type === 'single_choice' || activeStep.type === 'multi_choice') {
-      const step = activeStep as OnboardingChoiceStep;
+      const step = activeStep as OnboardingChoiceStepType;
       const selectedValues = getChoiceSelectedValues(step, {
-        prayerKnowledge,
-        supportNeeded,
-        learnIslam,
-        whyHere,
-        whereDidYouHearAboutUs,
+        prayerKnowledge: state.prayerKnowledge,
+        supportNeeded: state.supportNeeded,
+        learnIslam: state.learnIslam,
+        whyHere: state.whyHere,
+        whereDidYouHearAboutUs: state.whereDidYouHearAboutUs,
       });
 
       const isMultiple = step.type === 'multi_choice';
@@ -330,16 +242,8 @@ const Onboarding = () => {
         }
       };
 
-      const optionalInputAction = step.content.options.find(
-        option => option.id === 'other' && option.onSelect?.action?.type === 'optional_text_input'
-      );
-      const optionalField =
-        optionalInputAction?.onSelect?.action?.type === 'optional_text_input'
-          ? optionalInputAction.onSelect.action.field
-          : null;
-
       return (
-        <ChoiceStep
+        <OnboardingChoiceStep
           headline={step.content.headline}
           body={step.content.body}
           options={step.content.options.map(option => ({
@@ -352,32 +256,21 @@ const Onboarding = () => {
           selected={selectedValues}
           onChange={onChange}
           multiple={isMultiple}
-          footerNote={
-            step.content.footerNote?.replace('{{sharedText.privacyNote}}', sharedText.privacyNote)
-          }
+          footerNote={step.content.footerNote?.replace(
+            '{{sharedText.privacyNote}}',
+            sharedText.privacyNote
+          )}
           feedbackTitle={feedback.title}
           feedbackBody={feedback.body}
-          optionalInput={
-            optionalField && whereDidYouHearAboutUs === 'other'
-              ? {
-                  label: optionalField.label,
-                  placeholder: optionalField.placeholder,
-                  maxLength: optionalField.maxLength,
-                  value: attributionOtherText,
-                  onChange: setAttributionOtherText,
-                }
-              : undefined
-          }
         />
       );
     }
 
     if (activeStep.type === 'permission') {
-      const step = activeStep as OnboardingPermissionStep;
-      const illustration =
-        onboardingIllustrations[step.ui.illustration as keyof typeof onboardingIllustrations];
+      const step = activeStep as OnboardingPermissionStepType;
+      const illustration = gifs[step.ui.illustration as keyof typeof gifs];
       return (
-        <PermissionStep
+        <OnboardingPermissionStep
           headline={step.content.headline}
           body={step.content.body}
           benefits={step.content.benefits}
@@ -387,8 +280,7 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'final') {
-      const lottieSource =
-        onboardingLotties[activeStep.ui.lottie.asset as keyof typeof onboardingLotties];
+      const lottieSource = gifs[activeStep.ui.lottie.asset as keyof typeof gifs];
       return (
         <OnboardingFinalStep
           headline={activeStep.content.headline}
@@ -400,10 +292,9 @@ const Onboarding = () => {
     }
 
     return null;
-  };
+  }, [activeStep, state, feedback]);
 
   const primaryCtaLabel = getPrimaryCtaLabel(activeStep, sharedText);
-  const secondaryCtaLabel = getSecondaryCtaLabel(activeStep);
 
   const isPrimaryDisabled = () => {
     if (!activeStep) {
@@ -412,22 +303,22 @@ const Onboarding = () => {
 
     if (activeStep.type === 'single_choice') {
       if (activeStep.id === 'prayer_knowledge') {
-        return !prayerKnowledge;
+        return !state.prayerKnowledge;
       }
       if (activeStep.id === 'support_needed') {
-        return !supportNeeded;
+        return !state.supportNeeded;
       }
       if (activeStep.id === 'learn_islam') {
-        return !learnIslam;
+        return !state.learnIslam;
       }
       if (activeStep.id === 'attribution') {
-        return !whereDidYouHearAboutUs;
+        return !state.whereDidYouHearAboutUs;
       }
     }
 
     if (activeStep.type === 'multi_choice') {
       const minSelections = activeStep.content.minSelections ?? 0;
-      return whyHere.length < minSelections;
+      return state.whyHere.length < minSelections;
     }
 
     return false;
@@ -435,7 +326,6 @@ const Onboarding = () => {
 
   const shouldShowFooter = !!activeStep;
   const shouldShowHeader = !!activeStep;
-  const shouldShowSkip = activeStep && activeStep.type !== 'final';
 
   const onPrimaryPress = async () => {
     if (!activeStep) {
@@ -443,7 +333,7 @@ const Onboarding = () => {
     }
 
     if (activeStep.type === 'permission') {
-      await handlePermissionPrimary(activeStep as OnboardingPermissionStep);
+      await handlePermissionPrimary(activeStep as OnboardingPermissionStepType);
       return;
     }
 
@@ -455,38 +345,15 @@ const Onboarding = () => {
     handleNext();
   };
 
-  const onSecondaryPress = async () => {
-    if (!activeStep) {
-      return;
-    }
-
-    if (activeStep.type === 'permission') {
-      handlePermissionSecondary(activeStep as OnboardingPermissionStep);
-      return;
-    }
-
-    if (activeStep.type === 'final') {
-      settingsRef.current?.snapToIndex(0);
-    }
-  };
-
   const friendsModal = onboardingData.modals.find(modal => modal.id === 'friends_motivation_modal');
 
   if (showClosingSplash && splashStep?.type === 'splash') {
     return (
-      <OnboardingShell
-        stepIndex={mainSteps.length}
-        totalSteps={mainSteps.length}
-        hideHeader
-        hideProgress
-        contentClassName="px-0 pb-0"
-      >
-        <OnboardingSplashStep
-          headline={replaceAppName(splashStep.content.headline, appName)}
-          subheadline={splashStep.content.subheadline}
-          badge={splashStep.content.optionalBadge}
-        />
-      </OnboardingShell>
+      <OnboardingSplashStep
+        headline={replaceAppName(splashStep.content.headline, appName)}
+        subheadline={splashStep.content.subheadline}
+        badge={splashStep.content.optionalBadge}
+      />
     );
   }
 
@@ -495,9 +362,6 @@ const Onboarding = () => {
       stepIndex={activeIndex}
       totalSteps={mainSteps.length}
       onBack={activeIndex > 0 ? handleBack : undefined}
-      onSkip={shouldShowSkip ? handleSkip : undefined}
-      backLabel={sharedText.backCta}
-      skipLabel={sharedText.skipCta}
       hideHeader={!shouldShowHeader}
       hideProgress={!shouldShowHeader}
     >
@@ -510,42 +374,51 @@ const Onboarding = () => {
           transition={{ type: 'timing', duration: 220 }}
           className="flex-1"
         >
-          {renderStep()}
+          {renderStep}
         </MotiView>
       </AnimatePresence>
       {shouldShowFooter && (
         <OnboardingFooter
           primaryLabel={primaryCtaLabel}
           onPrimary={onPrimaryPress}
-          secondaryLabel={secondaryCtaLabel}
-          onSecondary={onSecondaryPress}
           primaryDisabled={isPrimaryDisabled()}
           isLoading={isSaving || onboardingMutation.isPending}
         />
       )}
-      {friendsModal && (
-        <OnboardingModal
-          sheetRef={friendsModalRef}
-          headline={friendsModal.content.headline}
-          body={friendsModal.content.body}
-          bullets={friendsModal.content.bullets}
-          primaryCta={friendsModal.content.primaryCta}
-          secondaryCta={friendsModal.content.secondaryCta}
-          onPrimary={closeFriendsModal}
-          onSecondary={closeFriendsModal}
-        />
-      )}
-      <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
-        <ThemeSwitcher onClose={() => themeRef.current?.close()} />
-      </CustomBottomSheet>
-      <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
-        <Language onClose={() => langRef.current?.close()} />
-      </CustomBottomSheet>
-      <CustomBottomSheet sheetRef={settingsRef} snapPoints={['85%']}>
-        <View className="gap-6 px-5 pb-8">
-          <ThemeSwitcher onClose={() => settingsRef.current?.close()} />
-          <Language onClose={() => settingsRef.current?.close()} />
-        </View>
+      <CustomBottomSheet
+        sheetRef={friendsModalRef}
+        snapPoints={['50%']}
+        detached
+        grabbable={false}
+        opacity={0}
+        bottomSheetStyle={{ marginHorizontal: 16 }}
+        scrollClassName="bg-background border-2 border-border rounded-3xl"
+      >
+        {friendsModal && (
+          <View className="py-8">
+            <Text className="text-2xl font-semibold text-foreground mb-3">
+              {friendsModal.content.headline}
+            </Text>
+            <Text className="text-base text-muted-foreground leading-relaxed">
+              {friendsModal.content.body}
+            </Text>
+            {friendsModal.content.bullets && friendsModal.content.bullets.length > 0 && (
+              <View className="mt-5">
+                {friendsModal.content.bullets.map(bullet => (
+                  <View key={bullet} className="flex-row items-start mb-3">
+                    <View className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                    <Text className="ml-3 text-base text-foreground flex-1">{bullet}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+            <View className="mt-6 gap-3">
+              <Button onPress={closeFriendsModal} className="rounded-full" width="full">
+                <Text>{friendsModal.content.primaryCta}</Text>
+              </Button>
+            </View>
+          </View>
+        )}
       </CustomBottomSheet>
     </OnboardingShell>
   );

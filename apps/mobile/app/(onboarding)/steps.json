@@ -260,13 +260,12 @@
       "id": "location_permission",
       "type": "permission",
       "permissionKey": "location",
-      "ui": { "illustration": "location_qibla_times" },
+      "ui": { "illustration": "location" },
       "content": {
         "headline": "Where are you praying from?",
         "body": "Allow location to show accurate prayer times and qibla direction for your area.",
         "benefits": ["Accurate prayer times", "Qibla direction", "Automatic timezone updates"],
         "primaryCta": "Allow location",
-        "secondaryCta": "Not now",
         "onAllow": {
           "feedbackTitle": "All set",
           "feedbackBody": "We’ll use this only to help with qibla and prayer times."
@@ -281,7 +280,7 @@
       "id": "notification_permission",
       "type": "permission",
       "permissionKey": "notifications",
-      "ui": { "illustration": "adhan_reminders" },
+      "ui": { "illustration": "cat_playing" },
       "content": {
         "headline": "Never miss prayer times",
         "body": "Turn on notifications for prayer reminders, gentle nudges, and important updates you choose.",
@@ -291,7 +290,6 @@
           "Optional streak encouragement"
         ],
         "primaryCta": "Enable notifications",
-        "secondaryCta": "Not now",
         "onAllow": {
           "feedbackTitle": "Alhamdulillah",
           "feedbackBody": "Reminders are on. You can customize the tone and schedule anytime."
@@ -305,7 +303,7 @@
     {
       "id": "all_set",
       "type": "final",
-      "ui": { "lottie": { "asset": "success_confetti_soft", "loop": false } },
+      "ui": { "lottie": { "asset": "confetti", "loop": false } },
       "content": {
         "headline": "You’re all set",
         "body": "We’re with you—one prayer at a time. May your journey be steady and full of barakah.",
@@ -313,8 +311,7 @@
           "text": "★★★★★ trusted by the community",
           "note": "Social proof text should be used only if you can verify this rating in your product."
         },
-        "primaryCta": "Start now",
-        "secondaryCta": "Customize settings"
+        "primaryCta": "Start now"
       }
     },
     {
@@ -337,8 +334,7 @@
         "headline": "Motivation with friends",
         "body": "Invite friends to encourage each other, share gentle check-ins, and celebrate progress—without pressure.",
         "bullets": ["Add trusted friends", "Private encouragement", "Optional shared goals"],
-        "primaryCta": "Add friends",
-        "secondaryCta": "Maybe later"
+        "primaryCta": "Thanks for sharing"
       }
     }
   ]

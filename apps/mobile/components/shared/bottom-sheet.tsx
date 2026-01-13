@@ -28,6 +28,9 @@ interface IBottomSheet {
   opacity?: number;
   scrollClassName?: string;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  containerStyle?: StyleProp<ViewStyle> | undefined;
+  detached?: boolean;
+  grabbable?: boolean;
 }
 
 const CustomBottomSheet = ({
@@ -41,6 +44,9 @@ const CustomBottomSheet = ({
   opacity = 0.4,
   scrollClassName,
   onScroll,
+  detached = false,
+  containerStyle,
+  grabbable = true,
 }: IBottomSheet) => {
   return (
     <BottomSheet
@@ -50,6 +56,8 @@ const CustomBottomSheet = ({
       enablePanDownToClose={true} // Enable swipe down to close
       onChange={handleSheetChange}
       style={bottomSheetStyle}
+      detached={detached}
+      containerStyle={containerStyle}
       enableContentPanningGesture={true} // Enable content panning gesture for Android
       backdropComponent={backdropProps => (
         <BottomSheetBackdrop
@@ -60,11 +68,15 @@ const CustomBottomSheet = ({
           opacity={opacity}
         />
       )}
-      handleComponent={() => (
-        <View className="bg-muted flex justify-center rounded-t-md py-4 outline-none border border-muted">
-          <View className="h-2 w-[60px] rounded bg-muted-foreground self-center" />
-        </View>
-      )}
+      handleComponent={
+        grabbable
+          ? () => (
+              <View className="bg-muted flex justify-center rounded-t-md py-4 outline-none border border-muted">
+                <View className="h-2 w-[60px] rounded bg-muted-foreground self-center" />
+              </View>
+            )
+          : null
+      }
     >
       <BottomSheetScrollView
         invertStickyHeaders

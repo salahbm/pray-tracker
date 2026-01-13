@@ -7,8 +7,6 @@ import { cn } from '@/lib/utils';
 interface OnboardingFooterProps {
   primaryLabel: string;
   onPrimary: () => void;
-  secondaryLabel?: string;
-  onSecondary?: () => void;
   primaryDisabled?: boolean;
   isLoading?: boolean;
   containerClassName?: string;
@@ -17,27 +15,21 @@ interface OnboardingFooterProps {
 export const OnboardingFooter = ({
   primaryLabel,
   onPrimary,
-  secondaryLabel,
-  onSecondary,
   primaryDisabled = false,
   isLoading = false,
   containerClassName,
 }: OnboardingFooterProps) => {
   return (
-    <View className={cn('pt-6 gap-3', containerClassName)}>
+    <View className={cn('pt-6', containerClassName)}>
       <Button
         onPress={onPrimary}
         disabled={primaryDisabled || isLoading}
         className="rounded-full"
         width="full"
+        size="lg"
       >
         <Text>{primaryLabel}</Text>
       </Button>
-      {secondaryLabel && onSecondary && (
-        <Button onPress={onSecondary} variant="ghost" width="full">
-          <Text className="text-muted-foreground">{secondaryLabel}</Text>
-        </Button>
-      )}
     </View>
   );
 };
