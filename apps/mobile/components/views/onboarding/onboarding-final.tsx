@@ -18,7 +18,11 @@ export const OnboardingFinalStep = ({
   lottieSource,
 }: OnboardingFinalStepProps) => {
   return (
-    <ScrollView className="flex-1" contentContainerClassName="pb-6">
+    <ScrollView
+      className="flex-1"
+      contentContainerClassName="pb-6"
+      showsVerticalScrollIndicator={false}
+    >
       <MotiView
         from={{ opacity: 0, translateY: 12 }}
         animate={{ opacity: 1, translateY: 0 }}

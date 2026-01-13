@@ -20,7 +20,6 @@
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
     "@rn-primitives/accordion": "1.2.0",
-    "@rn-primitives/tabs": "1.2.0",
     "@rn-primitives/tooltip": "1.2.0",
     "@rn-primitives/types": "1.2.0",
     "adhan": "4.4.3",

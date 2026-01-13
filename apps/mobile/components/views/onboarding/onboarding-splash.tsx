@@ -7,6 +7,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { router } from 'expo-router';
+import { useOnboarding } from '@/store/defaults/onboarding';
 
 interface OnboardingSplashStepProps {
   headline: string;
@@ -21,12 +22,14 @@ export const OnboardingSplashStep = ({
 }: OnboardingSplashStepProps) => {
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
+  const { setVisited } = useOnboarding();
 
   useEffect(() => {
     setTimeout(() => {
+      setVisited(true);
       router.replace('/(tabs)');
     }, 1600);
-  }, []);
+  }, [setVisited]);
 
   return (
     <LinearGradient

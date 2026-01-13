@@ -203,7 +203,8 @@ model Onboarding {
   learnIslam String? // "quran_surahs" | "basics" | "im_good"
 
   // Step: why_here (multi-select stored as JSON array)
-  whyHere Json? // ["pray_5_times", "track_progress", "learn_how_to_pray", "just_checking"]
+  whyHere                Json? // ["pray_5_times", "track_progress", "learn_how_to_pray", "just_checking"]
+  whereDidYouHearAboutUs String? // "friends" | "instagram" | "youtube" | "facebook" | "twitter" | "other"
 
   // Step: location_permission
   locationPermissionGranted Boolean @default(false)
@@ -217,10 +218,6 @@ model Onboarding {
   // Personalization flags (derived from responses)
   enabledModules Json? // ["learn_prayer_basics", "guided_salah", "streaks", "friends", etc.]
   defaultHomeTab String? // "Learn" | "Tracker" | "Home" | "Community"
-
-  // Onboarding completion
-  completedAt    DateTime?
-  completedSteps Json? // ["splash", "intro_welcome", "prayer_knowledge", ...]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

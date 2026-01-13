@@ -49,7 +49,11 @@ export const OnboardingChoiceStep = ({
   );
 
   return (
-    <ScrollView className="flex-1 overflow-visible" contentContainerClassName="pb-6">
+    <ScrollView
+      className="flex-1 overflow-visible"
+      showsVerticalScrollIndicator={false}
+      contentContainerClassName="pb-6"
+    >
       <View className="my-6">
         <Text className="text-3xl font-semibold text-foreground mb-3">{headline}</Text>
         <Text className="text-base text-muted-foreground leading-relaxed">{body}</Text>

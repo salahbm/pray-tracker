@@ -51,7 +51,7 @@ export const OnboardingShell = ({
           </PressableBounce>
         </View>
       )}
-      <View className={cn('flex-1 px-4 pb-6 overflow-visible', contentClassName)}>{children}</View>
+      <View className={cn('flex-1 px-4 pb-6', contentClassName)}>{children}</View>
     </View>
   );
 };

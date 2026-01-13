@@ -14,6 +14,8 @@ import { useLanguage } from '@/hooks/common/useTranslation';
 import { cancelAllPrayerNotifications } from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
+import { useOnboarding } from '@/store/defaults/onboarding';
+import { router } from 'expo-router';
 
 const Settings = () => {
   const themeRef = useRef<BottomSheet>(null);
@@ -21,6 +23,7 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
+  const { visited, setVisited } = useOnboarding();
   const { prayerNotifications, toggleEnabled } = useNotificationStore();
 
   const handleToggleNotifications = async (enabled: boolean) => {
@@ -116,6 +119,24 @@ const Settings = () => {
             }
             value={prayerNotifications.isEnabled}
             onValueChange={handleToggleNotifications}
+          />
+        </View>
+        <View className="touchable">
+          <Text className="text-base text-muted-foreground ml-2">Go onboarding</Text>
+
+          <Switch
+            trackColor={{
+              false: colors['--muted'],
+              true: colors['--primary'],
+            }}
+            thumbColor={
+              prayerNotifications.isEnabled ? colors['--background'] : colors['--muted-foreground']
+            }
+            value={visited}
+            onValueChange={() => {
+              setVisited(false);
+              router.replace('/(onboarding)/onboarding');
+            }}
           />
         </View>
       </View>

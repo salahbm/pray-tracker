@@ -16134,13 +16134,13 @@ export namespace Prisma {
     prayerKnowledge: string | null;
     supportNeeded: string | null;
     learnIslam: string | null;
+    whereDidYouHearAboutUs: string | null;
     locationPermissionGranted: boolean | null;
     locationCity: string | null;
     locationTimezone: string | null;
     notificationPermissionGranted: boolean | null;
     notificationPreset: string | null;
     defaultHomeTab: string | null;
-    completedAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
   };
@@ -16151,13 +16151,13 @@ export namespace Prisma {
     prayerKnowledge: string | null;
     supportNeeded: string | null;
     learnIslam: string | null;
+    whereDidYouHearAboutUs: string | null;
     locationPermissionGranted: boolean | null;
     locationCity: string | null;
     locationTimezone: string | null;
     notificationPermissionGranted: boolean | null;
     notificationPreset: string | null;
     defaultHomeTab: string | null;
-    completedAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
   };
@@ -16169,6 +16169,7 @@ export namespace Prisma {
     supportNeeded: number;
     learnIslam: number;
     whyHere: number;
+    whereDidYouHearAboutUs: number;
     locationPermissionGranted: number;
     locationCity: number;
     locationTimezone: number;
@@ -16176,8 +16177,6 @@ export namespace Prisma {
     notificationPreset: number;
     enabledModules: number;
     defaultHomeTab: number;
-    completedAt: number;
-    completedSteps: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -16189,13 +16188,13 @@ export namespace Prisma {
     prayerKnowledge?: true;
     supportNeeded?: true;
     learnIslam?: true;
+    whereDidYouHearAboutUs?: true;
     locationPermissionGranted?: true;
     locationCity?: true;
     locationTimezone?: true;
     notificationPermissionGranted?: true;
     notificationPreset?: true;
     defaultHomeTab?: true;
-    completedAt?: true;
     createdAt?: true;
     updatedAt?: true;
   };
@@ -16206,13 +16205,13 @@ export namespace Prisma {
     prayerKnowledge?: true;
     supportNeeded?: true;
     learnIslam?: true;
+    whereDidYouHearAboutUs?: true;
     locationPermissionGranted?: true;
     locationCity?: true;
     locationTimezone?: true;
     notificationPermissionGranted?: true;
     notificationPreset?: true;
     defaultHomeTab?: true;
-    completedAt?: true;
     createdAt?: true;
     updatedAt?: true;
   };
@@ -16224,6 +16223,7 @@ export namespace Prisma {
     supportNeeded?: true;
     learnIslam?: true;
     whyHere?: true;
+    whereDidYouHearAboutUs?: true;
     locationPermissionGranted?: true;
     locationCity?: true;
     locationTimezone?: true;
@@ -16231,8 +16231,6 @@ export namespace Prisma {
     notificationPreset?: true;
     enabledModules?: true;
     defaultHomeTab?: true;
-    completedAt?: true;
-    completedSteps?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -16322,6 +16320,7 @@ export namespace Prisma {
     supportNeeded: string | null;
     learnIslam: string | null;
     whyHere: JsonValue | null;
+    whereDidYouHearAboutUs: string | null;
     locationPermissionGranted: boolean;
     locationCity: string | null;
     locationTimezone: string | null;
@@ -16329,8 +16328,6 @@ export namespace Prisma {
     notificationPreset: string | null;
     enabledModules: JsonValue | null;
     defaultHomeTab: string | null;
-    completedAt: Date | null;
-    completedSteps: JsonValue | null;
     createdAt: Date;
     updatedAt: Date;
     _count: OnboardingCountAggregateOutputType | null;
@@ -16361,6 +16358,7 @@ export namespace Prisma {
       supportNeeded?: boolean;
       learnIslam?: boolean;
       whyHere?: boolean;
+      whereDidYouHearAboutUs?: boolean;
       locationPermissionGranted?: boolean;
       locationCity?: boolean;
       locationTimezone?: boolean;
@@ -16368,8 +16366,6 @@ export namespace Prisma {
       notificationPreset?: boolean;
       enabledModules?: boolean;
       defaultHomeTab?: boolean;
-      completedAt?: boolean;
-      completedSteps?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -16387,6 +16383,7 @@ export namespace Prisma {
       supportNeeded?: boolean;
       learnIslam?: boolean;
       whyHere?: boolean;
+      whereDidYouHearAboutUs?: boolean;
       locationPermissionGranted?: boolean;
       locationCity?: boolean;
       locationTimezone?: boolean;
@@ -16394,8 +16391,6 @@ export namespace Prisma {
       notificationPreset?: boolean;
       enabledModules?: boolean;
       defaultHomeTab?: boolean;
-      completedAt?: boolean;
-      completedSteps?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -16413,6 +16408,7 @@ export namespace Prisma {
       supportNeeded?: boolean;
       learnIslam?: boolean;
       whyHere?: boolean;
+      whereDidYouHearAboutUs?: boolean;
       locationPermissionGranted?: boolean;
       locationCity?: boolean;
       locationTimezone?: boolean;
@@ -16420,8 +16416,6 @@ export namespace Prisma {
       notificationPreset?: boolean;
       enabledModules?: boolean;
       defaultHomeTab?: boolean;
-      completedAt?: boolean;
-      completedSteps?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
@@ -16436,6 +16430,7 @@ export namespace Prisma {
     supportNeeded?: boolean;
     learnIslam?: boolean;
     whyHere?: boolean;
+    whereDidYouHearAboutUs?: boolean;
     locationPermissionGranted?: boolean;
     locationCity?: boolean;
     locationTimezone?: boolean;
@@ -16443,8 +16438,6 @@ export namespace Prisma {
     notificationPreset?: boolean;
     enabledModules?: boolean;
     defaultHomeTab?: boolean;
-    completedAt?: boolean;
-    completedSteps?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   };
@@ -16458,6 +16451,7 @@ export namespace Prisma {
     | 'supportNeeded'
     | 'learnIslam'
     | 'whyHere'
+    | 'whereDidYouHearAboutUs'
     | 'locationPermissionGranted'
     | 'locationCity'
     | 'locationTimezone'
@@ -16465,8 +16459,6 @@ export namespace Prisma {
     | 'notificationPreset'
     | 'enabledModules'
     | 'defaultHomeTab'
-    | 'completedAt'
-    | 'completedSteps'
     | 'createdAt'
     | 'updatedAt',
     ExtArgs['result']['onboarding']
@@ -16502,6 +16494,7 @@ export namespace Prisma {
         supportNeeded: string | null;
         learnIslam: string | null;
         whyHere: Prisma.JsonValue | null;
+        whereDidYouHearAboutUs: string | null;
         locationPermissionGranted: boolean;
         locationCity: string | null;
         locationTimezone: string | null;
@@ -16509,8 +16502,6 @@ export namespace Prisma {
         notificationPreset: string | null;
         enabledModules: Prisma.JsonValue | null;
         defaultHomeTab: string | null;
-        completedAt: Date | null;
-        completedSteps: Prisma.JsonValue | null;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -17123,6 +17114,7 @@ export namespace Prisma {
     readonly supportNeeded: FieldRef<'Onboarding', 'String'>;
     readonly learnIslam: FieldRef<'Onboarding', 'String'>;
     readonly whyHere: FieldRef<'Onboarding', 'Json'>;
+    readonly whereDidYouHearAboutUs: FieldRef<'Onboarding', 'String'>;
     readonly locationPermissionGranted: FieldRef<'Onboarding', 'Boolean'>;
     readonly locationCity: FieldRef<'Onboarding', 'String'>;
     readonly locationTimezone: FieldRef<'Onboarding', 'String'>;
@@ -17130,8 +17122,6 @@ export namespace Prisma {
     readonly notificationPreset: FieldRef<'Onboarding', 'String'>;
     readonly enabledModules: FieldRef<'Onboarding', 'Json'>;
     readonly defaultHomeTab: FieldRef<'Onboarding', 'String'>;
-    readonly completedAt: FieldRef<'Onboarding', 'DateTime'>;
-    readonly completedSteps: FieldRef<'Onboarding', 'Json'>;
     readonly createdAt: FieldRef<'Onboarding', 'DateTime'>;
     readonly updatedAt: FieldRef<'Onboarding', 'DateTime'>;
   }
@@ -17745,6 +17735,7 @@ export namespace Prisma {
     supportNeeded: 'supportNeeded';
     learnIslam: 'learnIslam';
     whyHere: 'whyHere';
+    whereDidYouHearAboutUs: 'whereDidYouHearAboutUs';
     locationPermissionGranted: 'locationPermissionGranted';
     locationCity: 'locationCity';
     locationTimezone: 'locationTimezone';
@@ -17752,8 +17743,6 @@ export namespace Prisma {
     notificationPreset: 'notificationPreset';
     enabledModules: 'enabledModules';
     defaultHomeTab: 'defaultHomeTab';
-    completedAt: 'completedAt';
-    completedSteps: 'completedSteps';
     createdAt: 'createdAt';
     updatedAt: 'updatedAt';
   };
@@ -18790,6 +18779,7 @@ export namespace Prisma {
     supportNeeded?: StringNullableFilter<'Onboarding'> | string | null;
     learnIslam?: StringNullableFilter<'Onboarding'> | string | null;
     whyHere?: JsonNullableFilter<'Onboarding'>;
+    whereDidYouHearAboutUs?: StringNullableFilter<'Onboarding'> | string | null;
     locationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
     locationCity?: StringNullableFilter<'Onboarding'> | string | null;
     locationTimezone?: StringNullableFilter<'Onboarding'> | string | null;
@@ -18797,8 +18787,6 @@ export namespace Prisma {
     notificationPreset?: StringNullableFilter<'Onboarding'> | string | null;
     enabledModules?: JsonNullableFilter<'Onboarding'>;
     defaultHomeTab?: StringNullableFilter<'Onboarding'> | string | null;
-    completedAt?: DateTimeNullableFilter<'Onboarding'> | Date | string | null;
-    completedSteps?: JsonNullableFilter<'Onboarding'>;
     createdAt?: DateTimeFilter<'Onboarding'> | Date | string;
     updatedAt?: DateTimeFilter<'Onboarding'> | Date | string;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -18811,6 +18799,7 @@ export namespace Prisma {
     supportNeeded?: SortOrderInput | SortOrder;
     learnIslam?: SortOrderInput | SortOrder;
     whyHere?: SortOrderInput | SortOrder;
+    whereDidYouHearAboutUs?: SortOrderInput | SortOrder;
     locationPermissionGranted?: SortOrder;
     locationCity?: SortOrderInput | SortOrder;
     locationTimezone?: SortOrderInput | SortOrder;
@@ -18818,8 +18807,6 @@ export namespace Prisma {
     notificationPreset?: SortOrderInput | SortOrder;
     enabledModules?: SortOrderInput | SortOrder;
     defaultHomeTab?: SortOrderInput | SortOrder;
-    completedAt?: SortOrderInput | SortOrder;
-    completedSteps?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
@@ -18836,6 +18823,10 @@ export namespace Prisma {
       supportNeeded?: StringNullableFilter<'Onboarding'> | string | null;
       learnIslam?: StringNullableFilter<'Onboarding'> | string | null;
       whyHere?: JsonNullableFilter<'Onboarding'>;
+      whereDidYouHearAboutUs?:
+        | StringNullableFilter<'Onboarding'>
+        | string
+        | null;
       locationPermissionGranted?: BoolFilter<'Onboarding'> | boolean;
       locationCity?: StringNullableFilter<'Onboarding'> | string | null;
       locationTimezone?: StringNullableFilter<'Onboarding'> | string | null;
@@ -18843,8 +18834,6 @@ export namespace Prisma {
       notificationPreset?: StringNullableFilter<'Onboarding'> | string | null;
       enabledModules?: JsonNullableFilter<'Onboarding'>;
       defaultHomeTab?: StringNullableFilter<'Onboarding'> | string | null;
-      completedAt?: DateTimeNullableFilter<'Onboarding'> | Date | string | null;
-      completedSteps?: JsonNullableFilter<'Onboarding'>;
       createdAt?: DateTimeFilter<'Onboarding'> | Date | string;
       updatedAt?: DateTimeFilter<'Onboarding'> | Date | string;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
@@ -18859,6 +18848,7 @@ export namespace Prisma {
     supportNeeded?: SortOrderInput | SortOrder;
     learnIslam?: SortOrderInput | SortOrder;
     whyHere?: SortOrderInput | SortOrder;
+    whereDidYouHearAboutUs?: SortOrderInput | SortOrder;
     locationPermissionGranted?: SortOrder;
     locationCity?: SortOrderInput | SortOrder;
     locationTimezone?: SortOrderInput | SortOrder;
@@ -18866,8 +18856,6 @@ export namespace Prisma {
     notificationPreset?: SortOrderInput | SortOrder;
     enabledModules?: SortOrderInput | SortOrder;
     defaultHomeTab?: SortOrderInput | SortOrder;
-    completedAt?: SortOrderInput | SortOrder;
-    completedSteps?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: OnboardingCountOrderByAggregateInput;
@@ -18898,6 +18886,10 @@ export namespace Prisma {
       | string
       | null;
     whyHere?: JsonNullableWithAggregatesFilter<'Onboarding'>;
+    whereDidYouHearAboutUs?:
+      | StringNullableWithAggregatesFilter<'Onboarding'>
+      | string
+      | null;
     locationPermissionGranted?:
       | BoolWithAggregatesFilter<'Onboarding'>
       | boolean;
@@ -18921,12 +18913,6 @@ export namespace Prisma {
       | StringNullableWithAggregatesFilter<'Onboarding'>
       | string
       | null;
-    completedAt?:
-      | DateTimeNullableWithAggregatesFilter<'Onboarding'>
-      | Date
-      | string
-      | null;
-    completedSteps?: JsonNullableWithAggregatesFilter<'Onboarding'>;
     createdAt?: DateTimeWithAggregatesFilter<'Onboarding'> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<'Onboarding'> | Date | string;
   };
@@ -19756,6 +19742,7 @@ export namespace Prisma {
     supportNeeded?: string | null;
     learnIslam?: string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?: string | null;
     locationPermissionGranted?: boolean;
     locationCity?: string | null;
     locationTimezone?: string | null;
@@ -19763,8 +19750,6 @@ export namespace Prisma {
     notificationPreset?: string | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: string | null;
-    completedAt?: Date | string | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: UserCreateNestedOneWithoutOnboardingInput;
@@ -19777,6 +19762,7 @@ export namespace Prisma {
     supportNeeded?: string | null;
     learnIslam?: string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?: string | null;
     locationPermissionGranted?: boolean;
     locationCity?: string | null;
     locationTimezone?: string | null;
@@ -19784,8 +19770,6 @@ export namespace Prisma {
     notificationPreset?: string | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: string | null;
-    completedAt?: Date | string | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -19796,6 +19780,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -19806,12 +19794,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutOnboardingNestedInput;
@@ -19824,6 +19806,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -19834,12 +19820,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -19851,6 +19831,7 @@ export namespace Prisma {
     supportNeeded?: string | null;
     learnIslam?: string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?: string | null;
     locationPermissionGranted?: boolean;
     locationCity?: string | null;
     locationTimezone?: string | null;
@@ -19858,8 +19839,6 @@ export namespace Prisma {
     notificationPreset?: string | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: string | null;
-    completedAt?: Date | string | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -19870,6 +19849,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -19880,12 +19863,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -19897,6 +19874,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -19907,12 +19888,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -20709,6 +20684,7 @@ export namespace Prisma {
     supportNeeded?: SortOrder;
     learnIslam?: SortOrder;
     whyHere?: SortOrder;
+    whereDidYouHearAboutUs?: SortOrder;
     locationPermissionGranted?: SortOrder;
     locationCity?: SortOrder;
     locationTimezone?: SortOrder;
@@ -20716,8 +20692,6 @@ export namespace Prisma {
     notificationPreset?: SortOrder;
     enabledModules?: SortOrder;
     defaultHomeTab?: SortOrder;
-    completedAt?: SortOrder;
-    completedSteps?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -20728,13 +20702,13 @@ export namespace Prisma {
     prayerKnowledge?: SortOrder;
     supportNeeded?: SortOrder;
     learnIslam?: SortOrder;
+    whereDidYouHearAboutUs?: SortOrder;
     locationPermissionGranted?: SortOrder;
     locationCity?: SortOrder;
     locationTimezone?: SortOrder;
     notificationPermissionGranted?: SortOrder;
     notificationPreset?: SortOrder;
     defaultHomeTab?: SortOrder;
-    completedAt?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -20745,13 +20719,13 @@ export namespace Prisma {
     prayerKnowledge?: SortOrder;
     supportNeeded?: SortOrder;
     learnIslam?: SortOrder;
+    whereDidYouHearAboutUs?: SortOrder;
     locationPermissionGranted?: SortOrder;
     locationCity?: SortOrder;
     locationTimezone?: SortOrder;
     notificationPermissionGranted?: SortOrder;
     notificationPreset?: SortOrder;
     defaultHomeTab?: SortOrder;
-    completedAt?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -22776,6 +22750,7 @@ export namespace Prisma {
     supportNeeded?: string | null;
     learnIslam?: string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?: string | null;
     locationPermissionGranted?: boolean;
     locationCity?: string | null;
     locationTimezone?: string | null;
@@ -22783,8 +22758,6 @@ export namespace Prisma {
     notificationPreset?: string | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: string | null;
-    completedAt?: Date | string | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -22795,6 +22768,7 @@ export namespace Prisma {
     supportNeeded?: string | null;
     learnIslam?: string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?: string | null;
     locationPermissionGranted?: boolean;
     locationCity?: string | null;
     locationTimezone?: string | null;
@@ -22802,8 +22776,6 @@ export namespace Prisma {
     notificationPreset?: string | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: string | null;
-    completedAt?: Date | string | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -23195,6 +23167,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -23205,12 +23181,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -23221,6 +23191,10 @@ export namespace Prisma {
     supportNeeded?: NullableStringFieldUpdateOperationsInput | string | null;
     learnIslam?: NullableStringFieldUpdateOperationsInput | string | null;
     whyHere?: NullableJsonNullValueInput | InputJsonValue;
+    whereDidYouHearAboutUs?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     locationPermissionGranted?: BoolFieldUpdateOperationsInput | boolean;
     locationCity?: NullableStringFieldUpdateOperationsInput | string | null;
     locationTimezone?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -23231,12 +23205,6 @@ export namespace Prisma {
       | null;
     enabledModules?: NullableJsonNullValueInput | InputJsonValue;
     defaultHomeTab?: NullableStringFieldUpdateOperationsInput | string | null;
-    completedAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    completedSteps?: NullableJsonNullValueInput | InputJsonValue;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

@@ -223,10 +223,6 @@ model Onboarding {
   enabledModules Json? // ["learn_prayer_basics", "guided_salah", "streaks", "friends", etc.]
   defaultHomeTab String? // "Learn" | "Tracker" | "Home" | "Community"
 
-  // Onboarding completion
-  completedAt DateTime?
-  completedSteps Json? // ["splash", "intro_welcome", "prayer_knowledge", ...]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
