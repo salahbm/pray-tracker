@@ -30,7 +30,9 @@ interface AlAdhanCalendarEntry {
   };
 }
 
-const fetchRamadanCalendar = async (params: RamadanCalendarParams): Promise<RamadanCalendarDay[]> => {
+const fetchRamadanCalendar = async (
+  params: RamadanCalendarParams
+): Promise<RamadanCalendarDay[]> => {
   const { city, country, month, year } = params;
   if (!city || !country || !month || !year) return [];
 
@@ -63,7 +65,7 @@ const fetchRamadanCalendar = async (params: RamadanCalendarParams): Promise<Rama
 
 export const useRamadanCalendar = (params: RamadanCalendarParams) => {
   return useQuery({
-    queryKey: ['ramadan', 'calendarByCity', params],
+    queryKey: ['ramadan', 'calendarByCity', { params }],
     queryFn: () => fetchRamadanCalendar(params),
     enabled: !!params.city && !!params.country && !!params.month && !!params.year,
   });

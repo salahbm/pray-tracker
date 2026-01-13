@@ -15,7 +15,7 @@ import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';
 import PrayerHistory from '@/components/views/home/prayer-history';
 import TodaysPray from '@/components/views/home/todays-pray';
-import RamadanCard from '@/components/ramadan/RamadanCard';
+import RamadanCard from '@/components/ramadan/ramadan-card';
 import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
 import { useDateSync } from '@/hooks/common/useDateSync';
 import { useGetPrays } from '@/hooks/prays/useGetPrays';

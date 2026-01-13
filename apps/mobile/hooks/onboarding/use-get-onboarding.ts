@@ -15,6 +15,6 @@ const getOnboardingPreferences = async (): Promise<OnboardingPreferences | null>
 
 export const useGetOnboardingPreferences = () =>
   useQuery({
-    queryKey: [...QueryKeys.onboarding.preferences],
+    queryKey: QueryKeys.onboarding.preferences,
     queryFn: getOnboardingPreferences,
   });
