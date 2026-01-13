@@ -21,7 +21,9 @@ export const OnboardingFeedbackCard = ({ title, body }: OnboardingFeedbackCardPr
       className="mt-5 rounded-2xl border border-border bg-card p-4"
     >
       {title && <Text className="text-base font-semibold text-foreground">{title}</Text>}
-      {body && <Text className="mt-2 text-sm text-muted-foreground leading-relaxed">{body}</Text>}
+      {body && (
+        <Text className="mt-2 text-sm text-muted-foreground leading-relaxed">{body}</Text>
+      )}
     </MotiView>
   );
 };

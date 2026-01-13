@@ -27,7 +27,7 @@ export const OnboardingProgress = ({ progress }: OnboardingProgressProps) => {
   };
 
   return (
-    <View className="h-2.5 w-full rounded-full bg-muted overflow-hidden my-4" onLayout={onLayout}>
+    <View className="h-1.5 w-full rounded-full bg-muted overflow-hidden" onLayout={onLayout}>
       <Animated.View className="h-full rounded-full bg-primary" style={animatedStyle} />
     </View>
   );
