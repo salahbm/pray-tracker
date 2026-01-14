@@ -19,12 +19,12 @@
     }
   },
   "sharedText": {
-    "primaryCta": "Continue",
-    "secondaryCta": "Not now",
-    "skipCta": "Skip",
-    "backCta": "Back",
-    "getStartedCta": "Get started",
-    "privacyNote": "You can change these anytime in Settings."
+    "primaryCta": "onboardingFlow.sharedText.primaryCta",
+    "secondaryCta": "onboardingFlow.sharedText.secondaryCta",
+    "skipCta": "onboardingFlow.sharedText.skipCta",
+    "backCta": "onboardingFlow.sharedText.backCta",
+    "getStartedCta": "onboardingFlow.sharedText.getStartedCta",
+    "privacyNote": "onboardingFlow.sharedText.privacyNote"
   },
   "steps": [
     {
@@ -32,41 +32,41 @@
       "type": "welcome",
       "ui": { "lottie": { "asset": "welcome_lottie", "loop": true } },
       "content": {
-        "headline": "Welcome",
-        "body": "Build a steady prayer routine with gentle reminders, qibla guidance, and simple learning—at your pace.",
-        "footnote": "No pressure. Just progress.",
-        "primaryCta": "Get started"
+        "headline": "onboardingFlow.steps.intro_welcome.headline",
+        "body": "onboardingFlow.steps.intro_welcome.body",
+        "footnote": "onboardingFlow.steps.intro_welcome.footnote",
+        "primaryCta": "onboardingFlow.steps.intro_welcome.primaryCta"
       }
     },
     {
       "id": "prayer_knowledge",
       "type": "single_choice",
       "content": {
-        "headline": "Do you know how to pray?",
-        "body": "Choose what fits you today. We’ll tailor the experience.",
+        "headline": "onboardingFlow.steps.prayer_knowledge.headline",
+        "body": "onboardingFlow.steps.prayer_knowledge.body",
         "options": [
           {
             "id": "yes_i_know",
-            "label": "Yes, I know",
+            "label": "onboardingFlow.steps.prayer_knowledge.options.yes_i_know.label",
             "onSelect": {
-              "feedbackTitle": "Alhamdulillah",
-              "feedbackBody": "We’ll focus on consistency, reminders, and tracking—so your routine stays strong."
+              "feedbackTitle": "onboardingFlow.steps.prayer_knowledge.options.yes_i_know.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.prayer_knowledge.options.yes_i_know.feedbackBody"
             }
           },
           {
             "id": "im_learning",
-            "label": "I’m learning",
+            "label": "onboardingFlow.steps.prayer_knowledge.options.im_learning.label",
             "onSelect": {
-              "feedbackTitle": "That’s a beautiful start",
-              "feedbackBody": "Small steps add up. We’ll guide you with clear, bite-sized lessons and practice support."
+              "feedbackTitle": "onboardingFlow.steps.prayer_knowledge.options.im_learning.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.prayer_knowledge.options.im_learning.feedbackBody"
             }
           },
           {
             "id": "no_not_yet",
-            "label": "Not yet",
+            "label": "onboardingFlow.steps.prayer_knowledge.options.no_not_yet.label",
             "onSelect": {
-              "feedbackTitle": "You’re welcome here",
-              "feedbackBody": "No worries. We’ll help you learn from the basics with patience and clarity."
+              "feedbackTitle": "onboardingFlow.steps.prayer_knowledge.options.no_not_yet.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.prayer_knowledge.options.no_not_yet.feedbackBody"
             }
           }
         ]
@@ -76,32 +76,32 @@
       "id": "support_needed",
       "type": "single_choice",
       "content": {
-        "headline": "Do you need support to stay consistent with prayer?",
-        "body": "Choose your comfort level—there’s no judgment.",
+        "headline": "onboardingFlow.steps.support_needed.headline",
+        "body": "onboardingFlow.steps.support_needed.body",
         "options": [
           {
             "id": "yes_i_need_support",
-            "label": "Yes, I want support",
+            "label": "onboardingFlow.steps.support_needed.options.yes_i_need_support.label",
             "onSelect": {
-              "feedbackTitle": "You don’t have to do this alone",
-              "feedbackBody": "Support makes consistency easier. We can set up motivation that feels right for you.",
+              "feedbackTitle": "onboardingFlow.steps.support_needed.options.yes_i_need_support.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.support_needed.options.yes_i_need_support.feedbackBody",
               "action": { "type": "open_modal", "modalId": "friends_motivation_modal" }
             }
           },
           {
             "id": "some_support",
-            "label": "Maybe a little",
+            "label": "onboardingFlow.steps.support_needed.options.some_support.label",
             "onSelect": {
-              "feedbackTitle": "Perfect",
-              "feedbackBody": "We’ll keep it light—gentle reminders and simple goals that won’t overwhelm you."
+              "feedbackTitle": "onboardingFlow.steps.support_needed.options.some_support.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.support_needed.options.some_support.feedbackBody"
             }
           },
           {
             "id": "im_good",
-            "label": "I’m good",
+            "label": "onboardingFlow.steps.support_needed.options.im_good.label",
             "onSelect": {
-              "feedbackTitle": "MashaAllah",
-              "feedbackBody": "We’ll stay out of your way and keep things clean and focused—only what you need."
+              "feedbackTitle": "onboardingFlow.steps.support_needed.options.im_good.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.support_needed.options.im_good.feedbackBody"
             }
           }
         ]
@@ -111,31 +111,31 @@
       "id": "learn_islam",
       "type": "single_choice",
       "content": {
-        "headline": "Would you like to learn more about Islam?",
-        "body": "Pick a direction—your feed can be personalized.",
+        "headline": "onboardingFlow.steps.learn_islam.headline",
+        "body": "onboardingFlow.steps.learn_islam.body",
         "options": [
           {
             "id": "quran_surahs",
-            "label": "Qur’an & Surahs",
+            "label": "onboardingFlow.steps.learn_islam.options.quran_surahs.label",
             "onSelect": {
-              "feedbackTitle": "A wonderful choice",
-              "feedbackBody": "We’ll suggest short surahs, meaning highlights, and a gentle reading routine."
+              "feedbackTitle": "onboardingFlow.steps.learn_islam.options.quran_surahs.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.learn_islam.options.quran_surahs.feedbackBody"
             }
           },
           {
             "id": "basics",
-            "label": "Islam basics",
+            "label": "onboardingFlow.steps.learn_islam.options.basics.label",
             "onSelect": {
-              "feedbackTitle": "Great foundation",
-              "feedbackBody": "We’ll cover essentials in clear steps—belief, worship, and daily practice."
+              "feedbackTitle": "onboardingFlow.steps.learn_islam.options.basics.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.learn_islam.options.basics.feedbackBody"
             }
           },
           {
             "id": "im_good",
-            "label": "I’m good for now",
+            "label": "onboardingFlow.steps.learn_islam.options.im_good.label",
             "onSelect": {
-              "feedbackTitle": "Anytime",
-              "feedbackBody": "You can explore learning later. We’ll keep the focus on your prayer journey."
+              "feedbackTitle": "onboardingFlow.steps.learn_islam.options.im_good.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.learn_islam.options.im_good.feedbackBody"
             }
           }
         ]
@@ -145,37 +145,37 @@
       "id": "why_here",
       "type": "multi_choice",
       "content": {
-        "headline": "Why are you here today?",
-        "body": "Select all that apply. We’ll personalize your setup.",
+        "headline": "onboardingFlow.steps.why_here.headline",
+        "body": "onboardingFlow.steps.why_here.body",
         "minSelections": 1,
         "maxSelections": 4,
         "options": [
           {
             "id": "pray_5_times",
-            "label": "Pray 5 times daily",
+            "label": "onboardingFlow.steps.why_here.options.pray_5_times.label",
             "onSelect": {
-              "feedback": "We’ll prioritize prayer times, streak-friendly goals, and practical reminders."
+              "feedback": "onboardingFlow.steps.why_here.options.pray_5_times.feedback"
             }
           },
           {
             "id": "track_progress",
-            "label": "Track my progress",
+            "label": "onboardingFlow.steps.why_here.options.track_progress.label",
             "onSelect": {
-              "feedback": "We’ll set up simple tracking and reflections—focused on improvement, not perfection."
+              "feedback": "onboardingFlow.steps.why_here.options.track_progress.feedback"
             }
           },
           {
             "id": "learn_how_to_pray",
-            "label": "Learn how to pray",
+            "label": "onboardingFlow.steps.why_here.options.learn_how_to_pray.label",
             "onSelect": {
-              "feedback": "We’ll add step-by-step prayer guidance with short lessons and practice prompts."
+              "feedback": "onboardingFlow.steps.why_here.options.learn_how_to_pray.feedback"
             }
           },
           {
             "id": "just_checking",
-            "label": "Just checking it out",
+            "label": "onboardingFlow.steps.why_here.options.just_checking.label",
             "onSelect": {
-              "feedback": "Take your time. We’ll keep the experience light until you’re ready."
+              "feedback": "onboardingFlow.steps.why_here.options.just_checking.feedback"
             }
           }
         ]
@@ -192,68 +192,68 @@
         }
       },
       "content": {
-        "headline": "Where did you hear about us?",
-        "body": "This helps us improve and support more people.",
+        "headline": "onboardingFlow.steps.attribution.headline",
+        "body": "onboardingFlow.steps.attribution.body",
         "options": [
           {
             "id": "friend_family",
-            "label": "Friend or family",
+            "label": "onboardingFlow.steps.attribution.options.friend_family.label",
             "onSelect": {
-              "feedbackTitle": "Alhamdulillah",
-              "feedbackBody": "Word of mouth means a lot. May it be a benefit for everyone."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.friend_family.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.friend_family.feedbackBody"
             }
           },
           {
             "id": "social_media",
-            "label": "Social media",
+            "label": "onboardingFlow.steps.attribution.options.social_media.label",
             "onSelect": {
-              "feedbackTitle": "Nice",
-              "feedbackBody": "We’ll keep sharing helpful content—in a calm, respectful way."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.social_media.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.social_media.feedbackBody"
             }
           },
           {
             "id": "app_store_search",
-            "label": "App Store / Search",
+            "label": "onboardingFlow.steps.attribution.options.app_store_search.label",
             "onSelect": {
-              "feedbackTitle": "Welcome",
-              "feedbackBody": "We’ll do our best to make your experience clear, simple, and useful."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.app_store_search.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.app_store_search.feedbackBody"
             }
           },
           {
             "id": "masjid_community",
-            "label": "Masjid / community",
+            "label": "onboardingFlow.steps.attribution.options.masjid_community.label",
             "onSelect": {
-              "feedbackTitle": "A blessed connection",
-              "feedbackBody": "Community support is powerful. May Allah strengthen our bonds."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.masjid_community.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.masjid_community.feedbackBody"
             }
           },
           {
             "id": "online_article",
-            "label": "Article / blog / website",
+            "label": "onboardingFlow.steps.attribution.options.online_article.label",
             "onSelect": {
-              "feedbackTitle": "Glad you found us",
-              "feedbackBody": "We’ll keep the experience thoughtful and practical."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.online_article.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.online_article.feedbackBody"
             }
           },
           {
             "id": "other",
-            "label": "Other",
+            "label": "onboardingFlow.steps.attribution.options.other.label",
             "onSelect": {
-              "feedbackTitle": "Got it",
-              "feedbackBody": "Thanks for sharing. You can tell us more anytime in Settings."
+              "feedbackTitle": "onboardingFlow.steps.attribution.options.other.feedbackTitle",
+              "feedbackBody": "onboardingFlow.steps.attribution.options.other.feedbackBody"
             },
             "action": {
               "type": "optional_text_input",
               "field": {
                 "id": "attribution_other_text",
-                "label": "Tell us more (optional)",
-                "placeholder": "E.g., YouTube, WhatsApp group, event…",
+                "label": "onboardingFlow.steps.attribution.options.other.field.label",
+                "placeholder": "onboardingFlow.steps.attribution.options.other.field.placeholder",
                 "maxLength": 80
               }
             }
           }
         ],
-        "footerNote": "{{sharedText.privacyNote}}"
+        "footerNote": "onboardingFlow.sharedText.privacyNote"
       }
     },
     {
@@ -262,17 +262,21 @@
       "permissionKey": "location",
       "ui": { "illustration": "location" },
       "content": {
-        "headline": "Where are you praying from?",
-        "body": "Allow location to show accurate prayer times and qibla direction for your area.",
-        "benefits": ["Accurate prayer times", "Qibla direction", "Automatic timezone updates"],
-        "primaryCta": "Allow location",
+        "headline": "onboardingFlow.steps.location_permission.headline",
+        "body": "onboardingFlow.steps.location_permission.body",
+        "benefits": [
+          "onboardingFlow.steps.location_permission.benefits.accurate_prayer_times",
+          "onboardingFlow.steps.location_permission.benefits.qibla_direction",
+          "onboardingFlow.steps.location_permission.benefits.automatic_timezone"
+        ],
+        "primaryCta": "onboardingFlow.steps.location_permission.primaryCta",
         "onAllow": {
-          "feedbackTitle": "All set",
-          "feedbackBody": "We’ll use this only to help with qibla and prayer times."
+          "feedbackTitle": "onboardingFlow.steps.location_permission.onAllow.feedbackTitle",
+          "feedbackBody": "onboardingFlow.steps.location_permission.onAllow.feedbackBody"
         },
         "onDeny": {
-          "feedbackTitle": "No problem",
-          "feedbackBody": "You can set your city manually anytime."
+          "feedbackTitle": "onboardingFlow.steps.location_permission.onDeny.feedbackTitle",
+          "feedbackBody": "onboardingFlow.steps.location_permission.onDeny.feedbackBody"
         }
       }
     },
@@ -282,21 +286,21 @@
       "permissionKey": "notifications",
       "ui": { "illustration": "cat_playing" },
       "content": {
-        "headline": "Never miss prayer times",
-        "body": "Turn on notifications for prayer reminders, gentle nudges, and important updates you choose.",
+        "headline": "onboardingFlow.steps.notification_permission.headline",
+        "body": "onboardingFlow.steps.notification_permission.body",
         "benefits": [
-          "Prayer time reminders",
-          "Custom quiet hours",
-          "Optional streak encouragement"
+          "onboardingFlow.steps.notification_permission.benefits.prayer_reminders",
+          "onboardingFlow.steps.notification_permission.benefits.quiet_hours",
+          "onboardingFlow.steps.notification_permission.benefits.streaks"
         ],
-        "primaryCta": "Enable notifications",
+        "primaryCta": "onboardingFlow.steps.notification_permission.primaryCta",
         "onAllow": {
-          "feedbackTitle": "Alhamdulillah",
-          "feedbackBody": "Reminders are on. You can customize the tone and schedule anytime."
+          "feedbackTitle": "onboardingFlow.steps.notification_permission.onAllow.feedbackTitle",
+          "feedbackBody": "onboardingFlow.steps.notification_permission.onAllow.feedbackBody"
         },
         "onDeny": {
-          "feedbackTitle": "That’s okay",
-          "feedbackBody": "You can enable reminders later in Settings whenever you’re ready."
+          "feedbackTitle": "onboardingFlow.steps.notification_permission.onDeny.feedbackTitle",
+          "feedbackBody": "onboardingFlow.steps.notification_permission.onDeny.feedbackBody"
         }
       }
     },
@@ -305,13 +309,13 @@
       "type": "final",
       "ui": { "lottie": { "asset": "confetti", "loop": false } },
       "content": {
-        "headline": "You’re all set",
-        "body": "We’re with you—one prayer at a time. May your journey be steady and full of barakah.",
+        "headline": "onboardingFlow.steps.all_set.headline",
+        "body": "onboardingFlow.steps.all_set.body",
         "socialProof": {
-          "text": "★★★★★ trusted by the community",
-          "note": "Social proof text should be used only if you can verify this rating in your product."
+          "text": "onboardingFlow.steps.all_set.socialProof.text",
+          "note": "onboardingFlow.steps.all_set.socialProof.note"
         },
-        "primaryCta": "Start now"
+        "primaryCta": "onboardingFlow.steps.all_set.primaryCta"
       }
     },
     {
@@ -320,9 +324,9 @@
       "durationMs": 1400,
       "ui": { "background": "brandGradient", "logo": "appLogo" },
       "content": {
-        "headline": "{{APP_NAME}}",
-        "subheadline": "A calm space to support your salah, step by step.",
-        "optionalBadge": "Bismillah"
+        "headline": "onboardingFlow.steps.splash.headline",
+        "subheadline": "onboardingFlow.steps.splash.subheadline",
+        "optionalBadge": "onboardingFlow.steps.splash.optionalBadge"
       }
     }
   ],
@@ -331,10 +335,14 @@
       "id": "friends_motivation_modal",
       "type": "info",
       "content": {
-        "headline": "Motivation with friends",
-        "body": "Invite friends to encourage each other, share gentle check-ins, and celebrate progress—without pressure.",
-        "bullets": ["Add trusted friends", "Private encouragement", "Optional shared goals"],
-        "primaryCta": "Thanks for sharing"
+        "headline": "onboardingFlow.modals.friends_motivation_modal.headline",
+        "body": "onboardingFlow.modals.friends_motivation_modal.body",
+        "bullets": [
+          "onboardingFlow.modals.friends_motivation_modal.bullets.add_trusted_friends",
+          "onboardingFlow.modals.friends_motivation_modal.bullets.private_encouragement",
+          "onboardingFlow.modals.friends_motivation_modal.bullets.shared_goals"
+        ],
+        "primaryCta": "onboardingFlow.modals.friends_motivation_modal.primaryCta"
       }
     }
   ]

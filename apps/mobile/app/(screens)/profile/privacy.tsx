@@ -10,11 +10,9 @@ export default function PrivacyScreen() {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-row items-center p-4 border-b border-border">
-        <GoBack title={t('profile.privacy.title')} />
-      </View>
-      <ScrollView className="flex-1 p-4">
+    <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.privacy.title')} />
+      <ScrollView className="main-area">
         <View className="flex flex-col gap-6">
           <View>
             <Text className="text-lg font-semibold mb-2">

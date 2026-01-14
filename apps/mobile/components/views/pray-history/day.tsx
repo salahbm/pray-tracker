@@ -7,58 +7,54 @@ import { defaultColorMap } from '@/components/shared/heat-map/constant';
 import { getOpacityByNumber } from '@/components/shared/heat-map/helpers';
 import { Text } from '@/components/ui/text';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
+import { PressableBounce } from '@/components/shared/pressable-bounce';
+import { useThemeStore } from '@/store/defaults/theme';
+import { cn } from '@/lib/utils';
+import { triggerHaptic } from '@/utils';
 
 interface IDayComponentProps {
   date?: DateData;
   prayerCountByDate: Record<string, number>;
   onDayPress: (date: DateData) => void;
-  colors: Record<string, string>;
 }
 
-const DayComponent: React.FC<IDayComponentProps> = ({
-  date,
-  prayerCountByDate,
-  onDayPress,
-  colors,
-}) => {
+const opacitySteps = [
+  'bg-primary/0',
+  'bg-primary/10',
+  'bg-primary/20',
+  'bg-primary/30',
+  'bg-primary/40',
+  'bg-primary/50',
+  'bg-primary/60',
+  'bg-primary/70',
+  'bg-primary/80',
+  'bg-primary/90',
+  'bg-primary',
+];
+
+const getBgClassByCount = (count: number) => {
+  if (count <= 0) return 'bg-muted';
+  const idx = Math.min(opacitySteps.length - 1, Math.ceil((count / 12) * opacitySteps.length));
+  return opacitySteps[idx];
+};
+
+const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, onDayPress }) => {
   if (!date) return null;
 
   const { isPremium } = useRevenueCatCustomer();
-
-  // fallback to 0 if user not logged in or no data
   const count = prayerCountByDate[date.dateString] ?? 0;
-
-  // background opacity, but keep text fully visible
-  const backgroundOpacity = getOpacityByNumber(defaultColorMap.opacity, count);
-  const bgColor =
-    isPremium && count > 0
-      ? `${colors['--primary']}${Math.round(backgroundOpacity * 255)
-          .toString(16)
-          .padStart(2, '0')}`
-      : colors['--background'];
+  const bgClass = getBgClassByCount(count);
 
   return (
     <Pressable
-      style={{
-        width: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 99,
-        backgroundColor: bgColor,
+      onPress={() => {
+        triggerHaptic();
+        onDayPress(date);
       }}
-      hitSlop={20}
-      onPress={() => onDayPress(date)}
       disabled={date.dateString === format(new Date(), 'yyyy-MM-dd')}
+      className={cn('flex-center h-12 w-12 rounded-full transition-colors', bgClass)}
     >
-      <Text
-        style={{
-          color: colors['--foreground'],
-          opacity: count > 0 ? 1 : 0.85,
-        }}
-      >
-        {date.day}
-      </Text>
+      <Text className={cn('text-foreground', count === 0 && 'opacity-80')}>{date.day}</Text>
     </Pressable>
   );
 };

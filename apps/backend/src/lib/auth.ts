@@ -53,6 +53,7 @@ export const auth = betterAuth({
     after: createAuthMiddleware(async (ctx) => {
       const response = ctx.context.returned;
 
+      console.log(`STRINGIFIED AFTER 👉:`, JSON.stringify(response, null, 2));
       // Localize errors
       if (
         response &&
@@ -74,27 +75,6 @@ export const auth = betterAuth({
             ...apiError.body,
             message: localized,
           });
-        }
-      }
-
-      // Enhance sign-up/sign-in responses with full user data
-      if (
-        (ctx.path.startsWith('/sign-up') || ctx.path.startsWith('/sign-in')) &&
-        ctx.context.newSession
-      ) {
-        const newSession = ctx.context.newSession;
-        // Fetch full user data from database
-        const fullUser = await prisma.user.findUnique({
-          where: { id: newSession.user.id },
-        });
-
-        if (fullUser && response && typeof response === 'object') {
-          // Return enhanced response with full user data
-          return {
-            ...response,
-            user: fullUser,
-            token: newSession.session.token,
-          };
         }
       }
 

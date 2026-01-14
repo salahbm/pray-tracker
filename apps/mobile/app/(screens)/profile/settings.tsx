@@ -1,154 +1,193 @@
-import BottomSheet from '@gorhom/bottom-sheet';
-import { useRef } from 'react';
+import { RelativePathString, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Switch, TouchableOpacity, View } from 'react-native';
-import { DeviceEventEmitter } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import {
+  User,
+  Edit,
+  Lock,
+  Settings,
+  Shield,
+  FileText,
+  MessageSquare,
+  Info,
+  ChevronRight,
+} from '@/components/shared/icons';
+
+import { AuthWrapper } from '@/providers/session';
+import GoBack from '@/components/shared/go-back';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
-import GoBack from '@/components/shared/go-back';
-import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
-import ThemeSwitcher from '@/components/shared/theme-switcher';
-import { Text } from '@/components/ui/text';
-import { useLanguage } from '@/hooks/common/useTranslation';
-import { cancelAllPrayerNotifications } from '@/lib/notification.permission';
-import { useNotificationStore } from '@/store/defaults/notification';
-import { useThemeStore } from '@/store/defaults/theme';
-import { useOnboarding } from '@/store/defaults/onboarding';
-import { router } from 'expo-router';
-
-const Settings = () => {
-  const themeRef = useRef<BottomSheet>(null);
-  const langRef = useRef<BottomSheet>(null);
+const SettingsScreen = () => {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
-  const { currentLanguage } = useLanguage();
-  const { visited, setVisited } = useOnboarding();
-  const { prayerNotifications, toggleEnabled } = useNotificationStore();
 
-  const handleToggleNotifications = async (enabled: boolean) => {
-    toggleEnabled();
-
-    if (enabled) {
-      // Trigger rescheduling when enabled
-      DeviceEventEmitter.emit('prayer-notifications-updated', {
-        minutesBefore: prayerNotifications.minutesBefore,
-      });
-    } else {
-      // Cancel all notifications when disabled
-      await cancelAllPrayerNotifications();
-    }
+  const handleNavigate = (screen: string) => {
+    router.push(screen as RelativePathString);
   };
 
   return (
     <SafeAreaView className="safe-area">
-      <View className="main-area">
-        <GoBack title={t('profile.settings.title')} />
-        <TouchableOpacity
-          className="touchable mt-4"
-          onPress={() => themeRef.current?.snapToIndex(1)}
-        >
-          <Text className="text-base text-muted-foreground ml-2">
-            {t('profile.settings.theme')}
-          </Text>
-          <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderStartStartRadius: 4,
-                borderBottomLeftRadius: 4,
-                backgroundColor: colors['--primary'],
-              }}
-            />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: colors['--background'],
-              }}
-            />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: colors['--accent'],
-              }}
-            />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: colors['--destructive'],
-              }}
-            />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderEndEndRadius: 4,
-                borderTopRightRadius: 4,
-                backgroundColor: colors['--foreground'],
-              }}
-            />
+      <ScrollView showsVerticalScrollIndicator={false} className="main-area pb-20">
+        <GoBack title={t('profile.title')} titleStyle="text-xl font-bold" />
+
+        <AuthWrapper mode="signedIn">
+          <View className="mb-6">
+            <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+              Account
+            </Text>
+
+            <View className="bg-card rounded-xl border border-border overflow-hidden">
+              <TouchableOpacity
+                className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+                onPress={() => handleNavigate('/(screens)/profile/account')}
+              >
+                <View className="flex-row items-center gap-3">
+                  <View className="w-9 h-9 rounded-full bg-primary/10 items-center justify-center">
+                    <User className="text-primary" size={18} />
+                  </View>
+                  <Text className="text-base font-medium text-foreground">
+                    {t('profile.navigation.account')}
+                  </Text>
+                </View>
+                <ChevronRight className="text-muted-foreground" size={20} />
+              </TouchableOpacity>
+
+              <View className="h-px bg-border mx-4" />
+
+              <TouchableOpacity
+                className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+                onPress={() => handleNavigate('/(screens)/profile/edit-profile')}
+              >
+                <View className="flex-row items-center gap-3">
+                  <View className="w-9 h-9 rounded-full bg-info/10 items-center justify-center">
+                    <Edit className="text-info" size={18} />
+                  </View>
+                  <Text className="text-base font-medium text-foreground">
+                    {t('profile.navigation.editProfile')}
+                  </Text>
+                </View>
+                <ChevronRight className="text-muted-foreground" size={20} />
+              </TouchableOpacity>
+
+              <View className="h-px bg-border mx-4" />
+
+              <TouchableOpacity
+                className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+                onPress={() => handleNavigate('/(screens)/profile/edit-pwd')}
+              >
+                <View className="flex-row items-center gap-3">
+                  <View className="w-9 h-9 rounded-full bg-warning/10 items-center justify-center">
+                    <Lock className="text-warning" size={18} />
+                  </View>
+                  <Text className="text-base font-medium text-foreground">
+                    {t('profile.navigation.editPassword')}
+                  </Text>
+                </View>
+                <ChevronRight className="text-muted-foreground" size={20} />
+              </TouchableOpacity>
+            </View>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity className="touchable" onPress={() => langRef.current?.snapToIndex(1)}>
-          <Text className="text-base text-muted-foreground ml-2">
-            {t('profile.settings.language')}
+        </AuthWrapper>
+
+        <View className="mb-6">
+          <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+            Preferences
           </Text>
 
-          <Text className="text-base text-muted-foreground ml-2">
-            {FLAGS[currentLanguage as keyof typeof FLAGS]}{' '}
-            {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
-          </Text>
-        </TouchableOpacity>
-
-        <View className="touchable">
-          <Text className="text-base text-muted-foreground ml-2">
-            {t('profile.settings.notifications')}
-          </Text>
-
-          <Switch
-            trackColor={{
-              false: colors['--muted'],
-              true: colors['--primary'],
-            }}
-            thumbColor={
-              prayerNotifications.isEnabled ? colors['--background'] : colors['--muted-foreground']
-            }
-            value={prayerNotifications.isEnabled}
-            onValueChange={handleToggleNotifications}
-          />
+          <View className="bg-card rounded-xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+              onPress={() => handleNavigate('/(screens)/profile/preferences')}
+            >
+              <View className="flex-row items-center gap-3">
+                <View className="w-9 h-9 rounded-full bg-primary/10 items-center justify-center">
+                  <Settings className="text-primary" size={18} />
+                </View>
+                <Text className="text-base font-medium text-foreground">
+                  {t('profile.navigation.settings')}
+                </Text>
+              </View>
+              <ChevronRight className="text-muted-foreground" size={20} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View className="touchable">
-          <Text className="text-base text-muted-foreground ml-2">Go onboarding</Text>
 
-          <Switch
-            trackColor={{
-              false: colors['--muted'],
-              true: colors['--primary'],
-            }}
-            thumbColor={
-              prayerNotifications.isEnabled ? colors['--background'] : colors['--muted-foreground']
-            }
-            value={visited}
-            onValueChange={() => {
-              setVisited(false);
-              router.replace('/(onboarding)/onboarding');
-            }}
-          />
+        <View className="mb-6">
+          <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+            Support & Legal
+          </Text>
+
+          <View className="bg-card rounded-xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+              onPress={() => handleNavigate('/(screens)/profile/privacy')}
+            >
+              <View className="flex-row items-center gap-3">
+                <View className="w-9 h-9 rounded-full bg-success/10 items-center justify-center">
+                  <Shield className="text-success" size={18} />
+                </View>
+                <Text className="text-base font-medium text-foreground">
+                  {t('profile.navigation.privacySecurity')}
+                </Text>
+              </View>
+              <ChevronRight className="text-muted-foreground" size={20} />
+            </TouchableOpacity>
+
+            <View className="h-px bg-border mx-4" />
+
+            <TouchableOpacity
+              className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+              onPress={() => handleNavigate('/(screens)/profile/terms')}
+            >
+              <View className="flex-row items-center gap-3">
+                <View className="w-9 h-9 rounded-full bg-info/10 items-center justify-center">
+                  <FileText className="text-info" size={18} />
+                </View>
+                <Text className="text-base font-medium text-foreground">
+                  {t('profile.navigation.termsConditions')}
+                </Text>
+              </View>
+              <ChevronRight className="text-muted-foreground" size={20} />
+            </TouchableOpacity>
+
+            <View className="h-px bg-border mx-4" />
+
+            <TouchableOpacity
+              className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+              onPress={() => handleNavigate('/(screens)/profile/inquiries')}
+            >
+              <View className="flex-row items-center gap-3">
+                <View className="w-9 h-9 rounded-full bg-primary/10 items-center justify-center">
+                  <MessageSquare className="text-primary" size={18} />
+                </View>
+                <Text className="text-base font-medium text-foreground">
+                  {t('profile.navigation.feedback')}
+                </Text>
+              </View>
+              <ChevronRight className="text-muted-foreground" size={20} />
+            </TouchableOpacity>
+
+            <View className="h-px bg-border mx-4" />
+
+            <TouchableOpacity
+              className="flex-row items-center justify-between px-4 py-4 active:bg-muted/50"
+              onPress={() => handleNavigate('/(screens)/profile/about')}
+            >
+              <View className="flex-row items-center gap-3">
+                <View className="w-9 h-9 rounded-full bg-info/10 items-center justify-center">
+                  <Info className="text-info" size={18} />
+                </View>
+                <Text className="text-base font-medium text-foreground">
+                  {t('profile.navigation.about')}
+                </Text>
+              </View>
+              <ChevronRight className="text-muted-foreground" size={20} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-
-      <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>
-        <ThemeSwitcher onClose={() => themeRef.current?.close()} />
-      </CustomBottomSheet>
-      <CustomBottomSheet sheetRef={langRef} snapPoints={['80%']}>
-        <Language onClose={() => langRef.current?.close()} />
-      </CustomBottomSheet>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Settings;
+export default SettingsScreen;

@@ -8,6 +8,8 @@ import { ActivityIndicator } from 'react-native';
 import { useSession } from '@/hooks/auth/useSessions';
 import { initializeRevenueCat } from '@/lib/revenuecat';
 import { cleanupExpiredTokens } from '@/utils/deep-link-token';
+import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
+import { useLocationStore } from '@/store/use-location';
 import { useQibla } from '@/hooks/prays/useQibla';
 
 export const unstable_settings = {
@@ -27,6 +29,8 @@ SplashScreen.setOptions({
 export default function App() {
   useSession();
   useQibla();
+  usePrayerData();
+  useLocationStore();
 
   const [loaded] = useFonts({
     SpaceMono: spaceMono,
@@ -48,11 +52,10 @@ export default function App() {
   return (
     <Suspense fallback={<ActivityIndicator size="large" color="primary" />}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-        <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(screens)" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </Suspense>

@@ -7,7 +7,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { router } from 'expo-router';
-import { useOnboarding } from '@/store/defaults/onboarding';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
 
 interface OnboardingSplashStepProps {
   headline: string;
@@ -22,7 +22,7 @@ export const OnboardingSplashStep = ({
 }: OnboardingSplashStepProps) => {
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
-  const { setVisited } = useOnboarding();
+  const { setVisited } = useOnboardingStore();
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,7 +33,7 @@ export const OnboardingSplashStep = ({
 
   return (
     <LinearGradient
-      colors={[colors['--primary'], colors['--accent']]}
+      colors={[colors['--primary-300'], colors['--primary-700']]}
       className="flex-1 items-center justify-center rounded-3xl"
       style={{ paddingTop: insets.top + 30, paddingBottom: insets.bottom + 40 }}
       start={{ x: 0.1, y: 0.1 }}

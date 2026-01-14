@@ -6,6 +6,7 @@ import * as Localization from 'expo-localization';
 import * as Notifications from 'expo-notifications';
 import { AnimatePresence, MotiView } from 'moti';
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
 
@@ -44,11 +45,39 @@ import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
+import { OnboardingPreferencePayload } from '@/types/onboarding';
 
-const onboardingData = onboardingSteps as OnboardingDataType;
+const translateOnboardingData = (data: OnboardingDataType, translate: (key: string) => string) => {
+  const translateValue = (value: any): any => {
+    if (Array.isArray(value)) {
+      return value.map(translateValue);
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, nestedValue]) => [key, translateValue(nestedValue)])
+      );
+    }
+
+    if (typeof value === 'string' && value.startsWith('onboardingFlow.')) {
+      return translate(value);
+    }
+
+    return value;
+  };
+
+  return translateValue(data) as OnboardingDataType;
+};
 
 const Onboarding = () => {
   const appName = Constants.expoConfig?.name ?? 'Noor';
+  const { t } = useTranslation();
+  const onboardingData = useMemo(
+    () => translateOnboardingData(onboardingSteps as OnboardingDataType, t),
+    [t]
+  );
   const steps = onboardingData.steps;
   const mainSteps = getMainSteps(steps);
   const splashStep = getSplashStep(steps);
@@ -76,6 +105,9 @@ const Onboarding = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [showClosingSplash, setShowClosingSplash] = useState(false);
 
+  const user = useAuthStore(state => state.user);
+  const { setPreferences, clearPreferences } = useOnboardingStore();
+
   const onboardingMutation = useOnboarding();
   const friendsModalRef = useRef<BottomSheet>(null);
 
@@ -93,11 +125,30 @@ const Onboarding = () => {
   const persistPreferences = useCallback(async () => {
     setIsSaving(true);
     try {
-      await onboardingMutation.mutateAsync(state);
+      const payload: OnboardingPreferencePayload = {
+        prayerKnowledge: state.prayerKnowledge,
+        supportNeeded: state.supportNeeded,
+        learnIslam: state.learnIslam,
+        whyHere: state.whyHere,
+        locationPermissionGranted: state.locationPermissionGranted,
+        notificationPermissionGranted: state.notificationPermissionGranted,
+        whereDidYouHearAboutUs: state.whereDidYouHearAboutUs,
+        locationCity: state.locationCity,
+        locationTimezone: state.locationTimezone,
+        enabledModules: state.enabledModules,
+        defaultHomeTab: state.defaultHomeTab,
+      };
+
+      setPreferences(payload);
+
+      if (user?.id) {
+        await onboardingMutation.mutateAsync(payload);
+        clearPreferences();
+      }
     } finally {
       setIsSaving(false);
     }
-  }, [onboardingMutation, state]);
+  }, [onboardingMutation, state, user?.id, setPreferences, clearPreferences]);
 
   const handleNext = () => {
     if (!activeStep) {

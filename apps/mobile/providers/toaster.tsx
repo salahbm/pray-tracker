@@ -16,7 +16,7 @@ export const updateFireToastColors = (newColors: Record<string, string>) => {
   colorsRef = {
     primary: newColors['--primary'],
     destructive: newColors['--destructive'],
-    border: newColors['--secondary'],
+    border: newColors['--border'],
   };
 };
 

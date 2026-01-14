@@ -38,6 +38,11 @@ export type Verification =
  */
 export type Prayer = $Result.DefaultSelection<Prisma.$PrayerPayload>;
 /**
+ * Model Fasting
+ *
+ */
+export type Fasting = $Result.DefaultSelection<Prisma.$FastingPayload>;
+/**
  * Model FriendGroup
  *
  */
@@ -321,6 +326,16 @@ export class PrismaClient<
   get prayer(): Prisma.PrayerDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.fasting`: Exposes CRUD operations for the **Fasting** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Fastings
+   * const fastings = await prisma.fasting.findMany()
+   * ```
+   */
+  get fasting(): Prisma.FastingDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.friendGroup`: Exposes CRUD operations for the **FriendGroup** model.
    * Example usage:
    * ```ts
@@ -430,8 +445,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact;
 
   /**
-   * Prisma Client JS version: 7.1.0
-   * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+   * Prisma Client JS version: 7.2.0
+   * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
    */
   export type PrismaVersion = {
     client: string;
@@ -839,6 +854,7 @@ export namespace Prisma {
     Account: 'Account';
     Verification: 'Verification';
     Prayer: 'Prayer';
+    Fasting: 'Fasting';
     FriendGroup: 'FriendGroup';
     FriendGroupMember: 'FriendGroupMember';
     Friend: 'Friend';
@@ -873,6 +889,7 @@ export namespace Prisma {
         | 'account'
         | 'verification'
         | 'prayer'
+        | 'fasting'
         | 'friendGroup'
         | 'friendGroupMember'
         | 'friend'
@@ -1251,6 +1268,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PrayerCountArgs<ExtArgs>;
             result: $Utils.Optional<PrayerCountAggregateOutputType> | number;
+          };
+        };
+      };
+      Fasting: {
+        payload: Prisma.$FastingPayload<ExtArgs>;
+        fields: Prisma.FastingFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.FastingFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.FastingFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          findFirst: {
+            args: Prisma.FastingFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.FastingFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          findMany: {
+            args: Prisma.FastingFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>[];
+          };
+          create: {
+            args: Prisma.FastingCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          createMany: {
+            args: Prisma.FastingCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.FastingCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>[];
+          };
+          delete: {
+            args: Prisma.FastingDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          update: {
+            args: Prisma.FastingUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          deleteMany: {
+            args: Prisma.FastingDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.FastingUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.FastingUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>[];
+          };
+          upsert: {
+            args: Prisma.FastingUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$FastingPayload>;
+          };
+          aggregate: {
+            args: Prisma.FastingAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateFasting>;
+          };
+          groupBy: {
+            args: Prisma.FastingGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<FastingGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.FastingCountArgs<ExtArgs>;
+            result: $Utils.Optional<FastingCountAggregateOutputType> | number;
           };
         };
       };
@@ -1823,6 +1914,7 @@ export namespace Prisma {
     account?: AccountOmit;
     verification?: VerificationOmit;
     prayer?: PrayerOmit;
+    fasting?: FastingOmit;
     friendGroup?: FriendGroupOmit;
     friendGroupMember?: FriendGroupMemberOmit;
     friend?: FriendOmit;
@@ -1914,6 +2006,7 @@ export namespace Prisma {
     prayers: number;
     inquiries: number;
     inquiryMessages: number;
+    fasting: number;
     sentRequests: number;
     receivedRequests: number;
     friendGroups: number;
@@ -1928,6 +2021,7 @@ export namespace Prisma {
     prayers?: boolean | UserCountOutputTypeCountPrayersArgs;
     inquiries?: boolean | UserCountOutputTypeCountInquiriesArgs;
     inquiryMessages?: boolean | UserCountOutputTypeCountInquiryMessagesArgs;
+    fasting?: boolean | UserCountOutputTypeCountFastingArgs;
     sentRequests?: boolean | UserCountOutputTypeCountSentRequestsArgs;
     receivedRequests?: boolean | UserCountOutputTypeCountReceivedRequestsArgs;
     friendGroups?: boolean | UserCountOutputTypeCountFriendGroupsArgs;
@@ -1974,6 +2068,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: InquiryMessageWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFastingArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: FastingWhereInput;
   };
 
   /**
@@ -2350,6 +2453,7 @@ export namespace Prisma {
       prayers?: boolean | User$prayersArgs<ExtArgs>;
       inquiries?: boolean | User$inquiriesArgs<ExtArgs>;
       inquiryMessages?: boolean | User$inquiryMessagesArgs<ExtArgs>;
+      fasting?: boolean | User$fastingArgs<ExtArgs>;
       sentRequests?: boolean | User$sentRequestsArgs<ExtArgs>;
       receivedRequests?: boolean | User$receivedRequestsArgs<ExtArgs>;
       friendGroups?: boolean | User$friendGroupsArgs<ExtArgs>;
@@ -2432,6 +2536,7 @@ export namespace Prisma {
     prayers?: boolean | User$prayersArgs<ExtArgs>;
     inquiries?: boolean | User$inquiriesArgs<ExtArgs>;
     inquiryMessages?: boolean | User$inquiryMessagesArgs<ExtArgs>;
+    fasting?: boolean | User$fastingArgs<ExtArgs>;
     sentRequests?: boolean | User$sentRequestsArgs<ExtArgs>;
     receivedRequests?: boolean | User$receivedRequestsArgs<ExtArgs>;
     friendGroups?: boolean | User$friendGroupsArgs<ExtArgs>;
@@ -2456,6 +2561,7 @@ export namespace Prisma {
       prayers: Prisma.$PrayerPayload<ExtArgs>[];
       inquiries: Prisma.$InquiryPayload<ExtArgs>[];
       inquiryMessages: Prisma.$InquiryMessagePayload<ExtArgs>[];
+      fasting: Prisma.$FastingPayload<ExtArgs>[];
       sentRequests: Prisma.$FriendPayload<ExtArgs>[];
       receivedRequests: Prisma.$FriendPayload<ExtArgs>[];
       friendGroups: Prisma.$FriendGroupPayload<ExtArgs>[];
@@ -3048,6 +3154,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$InquiryMessagePayload<ExtArgs>,
+          T,
+          'findMany',
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    fasting<T extends User$fastingArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$fastingArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$FastingPayload<ExtArgs>,
           T,
           'findMany',
           GlobalOmitOptions
@@ -3677,6 +3794,34 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: InquiryMessageScalarFieldEnum | InquiryMessageScalarFieldEnum[];
+  };
+
+  /**
+   * User.fasting
+   */
+  export type User$fastingArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    where?: FastingWhereInput;
+    orderBy?:
+      | FastingOrderByWithRelationInput
+      | FastingOrderByWithRelationInput[];
+    cursor?: FastingWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: FastingScalarFieldEnum | FastingScalarFieldEnum[];
   };
 
   /**
@@ -9324,6 +9469,1319 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PrayerInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Fasting
+   */
+
+  export type AggregateFasting = {
+    _count: FastingCountAggregateOutputType | null;
+    _min: FastingMinAggregateOutputType | null;
+    _max: FastingMaxAggregateOutputType | null;
+  };
+
+  export type FastingMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    date: Date | null;
+    fasted: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type FastingMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    date: Date | null;
+    fasted: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type FastingCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    date: number;
+    fasted: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type FastingMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    date?: true;
+    fasted?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type FastingMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    date?: true;
+    fasted?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type FastingCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    date?: true;
+    fasted?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type FastingAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Fasting to aggregate.
+     */
+    where?: FastingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Fastings to fetch.
+     */
+    orderBy?:
+      | FastingOrderByWithRelationInput
+      | FastingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: FastingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Fastings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Fastings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Fastings
+     **/
+    _count?: true | FastingCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: FastingMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: FastingMaxAggregateInputType;
+  };
+
+  export type GetFastingAggregateType<T extends FastingAggregateArgs> = {
+    [P in keyof T & keyof AggregateFasting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFasting[P]>
+      : GetScalarType<T[P], AggregateFasting[P]>;
+  };
+
+  export type FastingGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: FastingWhereInput;
+    orderBy?:
+      | FastingOrderByWithAggregationInput
+      | FastingOrderByWithAggregationInput[];
+    by: FastingScalarFieldEnum[] | FastingScalarFieldEnum;
+    having?: FastingScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: FastingCountAggregateInputType | true;
+    _min?: FastingMinAggregateInputType;
+    _max?: FastingMaxAggregateInputType;
+  };
+
+  export type FastingGroupByOutputType = {
+    id: string;
+    userId: string;
+    date: Date;
+    fasted: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: FastingCountAggregateOutputType | null;
+    _min: FastingMinAggregateOutputType | null;
+    _max: FastingMaxAggregateOutputType | null;
+  };
+
+  type GetFastingGroupByPayload<T extends FastingGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<FastingGroupByOutputType, T['by']> & {
+          [P in keyof T & keyof FastingGroupByOutputType]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FastingGroupByOutputType[P]>
+            : GetScalarType<T[P], FastingGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type FastingSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      date?: boolean;
+      fasted?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['fasting']
+  >;
+
+  export type FastingSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      date?: boolean;
+      fasted?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['fasting']
+  >;
+
+  export type FastingSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      date?: boolean;
+      fasted?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['fasting']
+  >;
+
+  export type FastingSelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    date?: boolean;
+    fasted?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type FastingOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    'id' | 'userId' | 'date' | 'fasted' | 'createdAt' | 'updatedAt',
+    ExtArgs['result']['fasting']
+  >;
+  export type FastingInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type FastingIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type FastingIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $FastingPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: 'Fasting';
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        userId: string;
+        date: Date;
+        fasted: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs['result']['fasting']
+    >;
+    composites: {};
+  };
+
+  type FastingGetPayload<
+    S extends boolean | null | undefined | FastingDefaultArgs,
+  > = $Result.GetResult<Prisma.$FastingPayload, S>;
+
+  type FastingCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<FastingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: FastingCountAggregateInputType | true;
+  };
+
+  export interface FastingDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>['model']['Fasting'];
+      meta: { name: 'Fasting' };
+    };
+    /**
+     * Find zero or one Fasting that matches the filter.
+     * @param {FastingFindUniqueArgs} args - Arguments to find a Fasting
+     * @example
+     * // Get one Fasting
+     * const fasting = await prisma.fasting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FastingFindUniqueArgs>(
+      args: SelectSubset<T, FastingFindUniqueArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'findUnique',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one Fasting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FastingFindUniqueOrThrowArgs} args - Arguments to find a Fasting
+     * @example
+     * // Get one Fasting
+     * const fasting = await prisma.fasting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FastingFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, FastingFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Fasting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingFindFirstArgs} args - Arguments to find a Fasting
+     * @example
+     * // Get one Fasting
+     * const fasting = await prisma.fasting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FastingFindFirstArgs>(
+      args?: SelectSubset<T, FastingFindFirstArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'findFirst',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Fasting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingFindFirstOrThrowArgs} args - Arguments to find a Fasting
+     * @example
+     * // Get one Fasting
+     * const fasting = await prisma.fasting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FastingFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, FastingFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'findFirstOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more Fastings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Fastings
+     * const fastings = await prisma.fasting.findMany()
+     *
+     * // Get first 10 Fastings
+     * const fastings = await prisma.fasting.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const fastingWithIdOnly = await prisma.fasting.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends FastingFindManyArgs>(
+      args?: SelectSubset<T, FastingFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a Fasting.
+     * @param {FastingCreateArgs} args - Arguments to create a Fasting.
+     * @example
+     * // Create one Fasting
+     * const Fasting = await prisma.fasting.create({
+     *   data: {
+     *     // ... data to create a Fasting
+     *   }
+     * })
+     *
+     */
+    create<T extends FastingCreateArgs>(
+      args: SelectSubset<T, FastingCreateArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'create',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many Fastings.
+     * @param {FastingCreateManyArgs} args - Arguments to create many Fastings.
+     * @example
+     * // Create many Fastings
+     * const fasting = await prisma.fasting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends FastingCreateManyArgs>(
+      args?: SelectSubset<T, FastingCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Fastings and returns the data saved in the database.
+     * @param {FastingCreateManyAndReturnArgs} args - Arguments to create many Fastings.
+     * @example
+     * // Create many Fastings
+     * const fasting = await prisma.fasting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Fastings and only return the `id`
+     * const fastingWithIdOnly = await prisma.fasting.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends FastingCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, FastingCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'createManyAndReturn',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a Fasting.
+     * @param {FastingDeleteArgs} args - Arguments to delete one Fasting.
+     * @example
+     * // Delete one Fasting
+     * const Fasting = await prisma.fasting.delete({
+     *   where: {
+     *     // ... filter to delete one Fasting
+     *   }
+     * })
+     *
+     */
+    delete<T extends FastingDeleteArgs>(
+      args: SelectSubset<T, FastingDeleteArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'delete',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one Fasting.
+     * @param {FastingUpdateArgs} args - Arguments to update one Fasting.
+     * @example
+     * // Update one Fasting
+     * const fasting = await prisma.fasting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends FastingUpdateArgs>(
+      args: SelectSubset<T, FastingUpdateArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'update',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more Fastings.
+     * @param {FastingDeleteManyArgs} args - Arguments to filter Fastings to delete.
+     * @example
+     * // Delete a few Fastings
+     * const { count } = await prisma.fasting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends FastingDeleteManyArgs>(
+      args?: SelectSubset<T, FastingDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Fastings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Fastings
+     * const fasting = await prisma.fasting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends FastingUpdateManyArgs>(
+      args: SelectSubset<T, FastingUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Fastings and returns the data updated in the database.
+     * @param {FastingUpdateManyAndReturnArgs} args - Arguments to update many Fastings.
+     * @example
+     * // Update many Fastings
+     * const fasting = await prisma.fasting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Fastings and only return the `id`
+     * const fastingWithIdOnly = await prisma.fasting.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends FastingUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, FastingUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'updateManyAndReturn',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one Fasting.
+     * @param {FastingUpsertArgs} args - Arguments to update or create a Fasting.
+     * @example
+     * // Update or create a Fasting
+     * const fasting = await prisma.fasting.upsert({
+     *   create: {
+     *     // ... data to create a Fasting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Fasting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FastingUpsertArgs>(
+      args: SelectSubset<T, FastingUpsertArgs<ExtArgs>>,
+    ): Prisma__FastingClient<
+      $Result.GetResult<
+        Prisma.$FastingPayload<ExtArgs>,
+        T,
+        'upsert',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of Fastings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingCountArgs} args - Arguments to filter Fastings to count.
+     * @example
+     * // Count the number of Fastings
+     * const count = await prisma.fasting.count({
+     *   where: {
+     *     // ... the filter for the Fastings we want to count
+     *   }
+     * })
+     **/
+    count<T extends FastingCountArgs>(
+      args?: Subset<T, FastingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FastingCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Fasting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends FastingAggregateArgs>(
+      args: Subset<T, FastingAggregateArgs>,
+    ): Prisma.PrismaPromise<GetFastingAggregateType<T>>;
+
+    /**
+     * Group by Fasting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FastingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends FastingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FastingGroupByArgs['orderBy'] }
+        : { orderBy?: FastingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T['orderBy']>>
+      >,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      'Field ',
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : 'take' extends Keys<T>
+            ? 'orderBy' extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Keys<T>
+              ? 'orderBy' extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, FastingGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetFastingGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Fasting model
+     */
+    readonly fields: FastingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Fasting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FastingClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          'findUniqueOrThrow',
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Fasting model
+   */
+  interface FastingFieldRefs {
+    readonly id: FieldRef<'Fasting', 'String'>;
+    readonly userId: FieldRef<'Fasting', 'String'>;
+    readonly date: FieldRef<'Fasting', 'DateTime'>;
+    readonly fasted: FieldRef<'Fasting', 'Boolean'>;
+    readonly createdAt: FieldRef<'Fasting', 'DateTime'>;
+    readonly updatedAt: FieldRef<'Fasting', 'DateTime'>;
+  }
+
+  // Custom InputTypes
+  /**
+   * Fasting findUnique
+   */
+  export type FastingFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Fasting to fetch.
+     */
+    where: FastingWhereUniqueInput;
+  };
+
+  /**
+   * Fasting findUniqueOrThrow
+   */
+  export type FastingFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Fasting to fetch.
+     */
+    where: FastingWhereUniqueInput;
+  };
+
+  /**
+   * Fasting findFirst
+   */
+  export type FastingFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Fasting to fetch.
+     */
+    where?: FastingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Fastings to fetch.
+     */
+    orderBy?:
+      | FastingOrderByWithRelationInput
+      | FastingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Fastings.
+     */
+    cursor?: FastingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Fastings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Fastings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Fastings.
+     */
+    distinct?: FastingScalarFieldEnum | FastingScalarFieldEnum[];
+  };
+
+  /**
+   * Fasting findFirstOrThrow
+   */
+  export type FastingFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Fasting to fetch.
+     */
+    where?: FastingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Fastings to fetch.
+     */
+    orderBy?:
+      | FastingOrderByWithRelationInput
+      | FastingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Fastings.
+     */
+    cursor?: FastingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Fastings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Fastings.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Fastings.
+     */
+    distinct?: FastingScalarFieldEnum | FastingScalarFieldEnum[];
+  };
+
+  /**
+   * Fasting findMany
+   */
+  export type FastingFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter, which Fastings to fetch.
+     */
+    where?: FastingWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Fastings to fetch.
+     */
+    orderBy?:
+      | FastingOrderByWithRelationInput
+      | FastingOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Fastings.
+     */
+    cursor?: FastingWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Fastings from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Fastings.
+     */
+    skip?: number;
+    distinct?: FastingScalarFieldEnum | FastingScalarFieldEnum[];
+  };
+
+  /**
+   * Fasting create
+   */
+  export type FastingCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Fasting.
+     */
+    data: XOR<FastingCreateInput, FastingUncheckedCreateInput>;
+  };
+
+  /**
+   * Fasting createMany
+   */
+  export type FastingCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Fastings.
+     */
+    data: FastingCreateManyInput | FastingCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Fasting createManyAndReturn
+   */
+  export type FastingCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Fastings.
+     */
+    data: FastingCreateManyInput | FastingCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Fasting update
+   */
+  export type FastingUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Fasting.
+     */
+    data: XOR<FastingUpdateInput, FastingUncheckedUpdateInput>;
+    /**
+     * Choose, which Fasting to update.
+     */
+    where: FastingWhereUniqueInput;
+  };
+
+  /**
+   * Fasting updateMany
+   */
+  export type FastingUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Fastings.
+     */
+    data: XOR<FastingUpdateManyMutationInput, FastingUncheckedUpdateManyInput>;
+    /**
+     * Filter which Fastings to update
+     */
+    where?: FastingWhereInput;
+    /**
+     * Limit how many Fastings to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Fasting updateManyAndReturn
+   */
+  export type FastingUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * The data used to update Fastings.
+     */
+    data: XOR<FastingUpdateManyMutationInput, FastingUncheckedUpdateManyInput>;
+    /**
+     * Filter which Fastings to update
+     */
+    where?: FastingWhereInput;
+    /**
+     * Limit how many Fastings to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Fasting upsert
+   */
+  export type FastingUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Fasting to update in case it exists.
+     */
+    where: FastingWhereUniqueInput;
+    /**
+     * In case the Fasting found by the `where` argument doesn't exist, create a new Fasting with this data.
+     */
+    create: XOR<FastingCreateInput, FastingUncheckedCreateInput>;
+    /**
+     * In case the Fasting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FastingUpdateInput, FastingUncheckedUpdateInput>;
+  };
+
+  /**
+   * Fasting delete
+   */
+  export type FastingDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
+    /**
+     * Filter which Fasting to delete.
+     */
+    where: FastingWhereUniqueInput;
+  };
+
+  /**
+   * Fasting deleteMany
+   */
+  export type FastingDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Fastings to delete
+     */
+    where?: FastingWhereInput;
+    /**
+     * Limit how many Fastings to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Fasting without action
+   */
+  export type FastingDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Fasting
+     */
+    select?: FastingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fasting
+     */
+    omit?: FastingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FastingInclude<ExtArgs> | null;
   };
 
   /**
@@ -17670,6 +19128,18 @@ export namespace Prisma {
   export type PrayerScalarFieldEnum =
     (typeof PrayerScalarFieldEnum)[keyof typeof PrayerScalarFieldEnum];
 
+  export const FastingScalarFieldEnum: {
+    id: 'id';
+    userId: 'userId';
+    date: 'date';
+    fasted: 'fasted';
+    createdAt: 'createdAt';
+    updatedAt: 'updatedAt';
+  };
+
+  export type FastingScalarFieldEnum =
+    (typeof FastingScalarFieldEnum)[keyof typeof FastingScalarFieldEnum];
+
   export const FriendGroupScalarFieldEnum: {
     id: 'id';
     name: 'name';
@@ -17941,6 +19411,7 @@ export namespace Prisma {
     prayers?: PrayerListRelationFilter;
     inquiries?: InquiryListRelationFilter;
     inquiryMessages?: InquiryMessageListRelationFilter;
+    fasting?: FastingListRelationFilter;
     sentRequests?: FriendListRelationFilter;
     receivedRequests?: FriendListRelationFilter;
     friendGroups?: FriendGroupListRelationFilter;
@@ -17967,6 +19438,7 @@ export namespace Prisma {
     prayers?: PrayerOrderByRelationAggregateInput;
     inquiries?: InquiryOrderByRelationAggregateInput;
     inquiryMessages?: InquiryMessageOrderByRelationAggregateInput;
+    fasting?: FastingOrderByRelationAggregateInput;
     sentRequests?: FriendOrderByRelationAggregateInput;
     receivedRequests?: FriendOrderByRelationAggregateInput;
     friendGroups?: FriendGroupOrderByRelationAggregateInput;
@@ -17994,6 +19466,7 @@ export namespace Prisma {
       prayers?: PrayerListRelationFilter;
       inquiries?: InquiryListRelationFilter;
       inquiryMessages?: InquiryMessageListRelationFilter;
+      fasting?: FastingListRelationFilter;
       sentRequests?: FriendListRelationFilter;
       receivedRequests?: FriendListRelationFilter;
       friendGroups?: FriendGroupListRelationFilter;
@@ -18409,6 +19882,74 @@ export namespace Prisma {
     nafl?: IntWithAggregatesFilter<'Prayer'> | number;
     createdAt?: DateTimeWithAggregatesFilter<'Prayer'> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<'Prayer'> | Date | string;
+  };
+
+  export type FastingWhereInput = {
+    AND?: FastingWhereInput | FastingWhereInput[];
+    OR?: FastingWhereInput[];
+    NOT?: FastingWhereInput | FastingWhereInput[];
+    id?: StringFilter<'Fasting'> | string;
+    userId?: StringFilter<'Fasting'> | string;
+    date?: DateTimeFilter<'Fasting'> | Date | string;
+    fasted?: BoolFilter<'Fasting'> | boolean;
+    createdAt?: DateTimeFilter<'Fasting'> | Date | string;
+    updatedAt?: DateTimeFilter<'Fasting'> | Date | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type FastingOrderByWithRelationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    date?: SortOrder;
+    fasted?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type FastingWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      userId_date?: FastingUserIdDateCompoundUniqueInput;
+      AND?: FastingWhereInput | FastingWhereInput[];
+      OR?: FastingWhereInput[];
+      NOT?: FastingWhereInput | FastingWhereInput[];
+      userId?: StringFilter<'Fasting'> | string;
+      date?: DateTimeFilter<'Fasting'> | Date | string;
+      fasted?: BoolFilter<'Fasting'> | boolean;
+      createdAt?: DateTimeFilter<'Fasting'> | Date | string;
+      updatedAt?: DateTimeFilter<'Fasting'> | Date | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    'id' | 'userId_date'
+  >;
+
+  export type FastingOrderByWithAggregationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    date?: SortOrder;
+    fasted?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: FastingCountOrderByAggregateInput;
+    _max?: FastingMaxOrderByAggregateInput;
+    _min?: FastingMinOrderByAggregateInput;
+  };
+
+  export type FastingScalarWhereWithAggregatesInput = {
+    AND?:
+      | FastingScalarWhereWithAggregatesInput
+      | FastingScalarWhereWithAggregatesInput[];
+    OR?: FastingScalarWhereWithAggregatesInput[];
+    NOT?:
+      | FastingScalarWhereWithAggregatesInput
+      | FastingScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<'Fasting'> | string;
+    userId?: StringWithAggregatesFilter<'Fasting'> | string;
+    date?: DateTimeWithAggregatesFilter<'Fasting'> | Date | string;
+    fasted?: BoolWithAggregatesFilter<'Fasting'> | boolean;
+    createdAt?: DateTimeWithAggregatesFilter<'Fasting'> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<'Fasting'> | Date | string;
   };
 
   export type FriendGroupWhereInput = {
@@ -18931,6 +20472,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -18954,6 +20496,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -18977,6 +20520,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -19000,6 +20544,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -19423,6 +20968,68 @@ export namespace Prisma {
     maghrib?: IntFieldUpdateOperationsInput | number;
     isha?: IntFieldUpdateOperationsInput | number;
     nafl?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingCreateInput = {
+    id?: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutFastingInput;
+  };
+
+  export type FastingUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FastingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutFastingNestedInput;
+  };
+
+  export type FastingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingCreateManyInput = {
+    id?: string;
+    userId: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FastingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -19967,6 +21574,12 @@ export namespace Prisma {
     none?: InquiryMessageWhereInput;
   };
 
+  export type FastingListRelationFilter = {
+    every?: FastingWhereInput;
+    some?: FastingWhereInput;
+    none?: FastingWhereInput;
+  };
+
   export type FriendListRelationFilter = {
     every?: FriendWhereInput;
     some?: FriendWhereInput;
@@ -20016,6 +21629,10 @@ export namespace Prisma {
   };
 
   export type InquiryMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type FastingOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -20395,6 +22012,38 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>;
     _min?: NestedIntFilter<$PrismaModel>;
     _max?: NestedIntFilter<$PrismaModel>;
+  };
+
+  export type FastingUserIdDateCompoundUniqueInput = {
+    userId: string;
+    date: Date | string;
+  };
+
+  export type FastingCountOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    date?: SortOrder;
+    fasted?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type FastingMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    date?: SortOrder;
+    fasted?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type FastingMinOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    date?: SortOrder;
+    fasted?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
   };
 
   export type FriendGroupCountOrderByAggregateInput = {
@@ -20815,6 +22464,21 @@ export namespace Prisma {
     connect?: InquiryMessageWhereUniqueInput | InquiryMessageWhereUniqueInput[];
   };
 
+  export type FastingCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          FastingCreateWithoutUserInput,
+          FastingUncheckedCreateWithoutUserInput
+        >
+      | FastingCreateWithoutUserInput[]
+      | FastingUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | FastingCreateOrConnectWithoutUserInput
+      | FastingCreateOrConnectWithoutUserInput[];
+    createMany?: FastingCreateManyUserInputEnvelope;
+    connect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+  };
+
   export type FriendCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput>
@@ -20953,6 +22617,21 @@ export namespace Prisma {
       | InquiryMessageCreateOrConnectWithoutUserInput[];
     createMany?: InquiryMessageCreateManyUserInputEnvelope;
     connect?: InquiryMessageWhereUniqueInput | InquiryMessageWhereUniqueInput[];
+  };
+
+  export type FastingUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          FastingCreateWithoutUserInput,
+          FastingUncheckedCreateWithoutUserInput
+        >
+      | FastingCreateWithoutUserInput[]
+      | FastingUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | FastingCreateOrConnectWithoutUserInput
+      | FastingCreateOrConnectWithoutUserInput[];
+    createMany?: FastingCreateManyUserInputEnvelope;
+    connect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
   };
 
   export type FriendUncheckedCreateNestedManyWithoutUserInput = {
@@ -21160,6 +22839,34 @@ export namespace Prisma {
     deleteMany?:
       | InquiryMessageScalarWhereInput
       | InquiryMessageScalarWhereInput[];
+  };
+
+  export type FastingUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          FastingCreateWithoutUserInput,
+          FastingUncheckedCreateWithoutUserInput
+        >
+      | FastingCreateWithoutUserInput[]
+      | FastingUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | FastingCreateOrConnectWithoutUserInput
+      | FastingCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | FastingUpsertWithWhereUniqueWithoutUserInput
+      | FastingUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: FastingCreateManyUserInputEnvelope;
+    set?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    disconnect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    delete?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    connect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    update?:
+      | FastingUpdateWithWhereUniqueWithoutUserInput
+      | FastingUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | FastingUpdateManyWithWhereWithoutUserInput
+      | FastingUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: FastingScalarWhereInput | FastingScalarWhereInput[];
   };
 
   export type FriendUpdateManyWithoutUserNestedInput = {
@@ -21439,6 +23146,34 @@ export namespace Prisma {
     deleteMany?:
       | InquiryMessageScalarWhereInput
       | InquiryMessageScalarWhereInput[];
+  };
+
+  export type FastingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          FastingCreateWithoutUserInput,
+          FastingUncheckedCreateWithoutUserInput
+        >
+      | FastingCreateWithoutUserInput[]
+      | FastingUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | FastingCreateOrConnectWithoutUserInput
+      | FastingCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | FastingUpsertWithWhereUniqueWithoutUserInput
+      | FastingUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: FastingCreateManyUserInputEnvelope;
+    set?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    disconnect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    delete?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    connect?: FastingWhereUniqueInput | FastingWhereUniqueInput[];
+    update?:
+      | FastingUpdateWithWhereUniqueWithoutUserInput
+      | FastingUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | FastingUpdateManyWithWhereWithoutUserInput
+      | FastingUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: FastingScalarWhereInput | FastingScalarWhereInput[];
   };
 
   export type FriendUncheckedUpdateManyWithoutUserNestedInput = {
@@ -21722,6 +23457,32 @@ export namespace Prisma {
         UserUpdateWithoutPrayersInput
       >,
       UserUncheckedUpdateWithoutPrayersInput
+    >;
+  };
+
+  export type UserCreateNestedOneWithoutFastingInput = {
+    create?: XOR<
+      UserCreateWithoutFastingInput,
+      UserUncheckedCreateWithoutFastingInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutFastingInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutFastingNestedInput = {
+    create?: XOR<
+      UserCreateWithoutFastingInput,
+      UserUncheckedCreateWithoutFastingInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutFastingInput;
+    upsert?: UserUpsertWithoutFastingInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutFastingInput,
+        UserUpdateWithoutFastingInput
+      >,
+      UserUncheckedUpdateWithoutFastingInput
     >;
   };
 
@@ -22630,6 +24391,35 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type FastingCreateWithoutUserInput = {
+    id?: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FastingUncheckedCreateWithoutUserInput = {
+    id?: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FastingCreateOrConnectWithoutUserInput = {
+    where: FastingWhereUniqueInput;
+    create: XOR<
+      FastingCreateWithoutUserInput,
+      FastingUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type FastingCreateManyUserInputEnvelope = {
+    data: FastingCreateManyUserInput | FastingCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type FriendCreateWithoutUserInput = {
     id?: string;
     status?: $Enums.FriendStatus;
@@ -22992,6 +24782,46 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<'InquiryMessage'> | Date | string;
   };
 
+  export type FastingUpsertWithWhereUniqueWithoutUserInput = {
+    where: FastingWhereUniqueInput;
+    update: XOR<
+      FastingUpdateWithoutUserInput,
+      FastingUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      FastingCreateWithoutUserInput,
+      FastingUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type FastingUpdateWithWhereUniqueWithoutUserInput = {
+    where: FastingWhereUniqueInput;
+    data: XOR<
+      FastingUpdateWithoutUserInput,
+      FastingUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type FastingUpdateManyWithWhereWithoutUserInput = {
+    where: FastingScalarWhereInput;
+    data: XOR<
+      FastingUpdateManyMutationInput,
+      FastingUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type FastingScalarWhereInput = {
+    AND?: FastingScalarWhereInput | FastingScalarWhereInput[];
+    OR?: FastingScalarWhereInput[];
+    NOT?: FastingScalarWhereInput | FastingScalarWhereInput[];
+    id?: StringFilter<'Fasting'> | string;
+    userId?: StringFilter<'Fasting'> | string;
+    date?: DateTimeFilter<'Fasting'> | Date | string;
+    fasted?: BoolFilter<'Fasting'> | boolean;
+    createdAt?: DateTimeFilter<'Fasting'> | Date | string;
+    updatedAt?: DateTimeFilter<'Fasting'> | Date | string;
+  };
+
   export type FriendUpsertWithWhereUniqueWithoutUserInput = {
     where: FriendWhereUniqueInput;
     update: XOR<
@@ -23320,6 +25150,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -23342,6 +25173,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -23392,6 +25224,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -23414,6 +25247,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -23436,6 +25270,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -23458,6 +25293,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -23508,6 +25344,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -23530,6 +25367,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -23551,6 +25389,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -23573,6 +25412,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -23623,6 +25463,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -23643,6 +25484,127 @@ export namespace Prisma {
     totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
+    inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
+    sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
+    receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
+    friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
+    groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserCreateWithoutFastingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    emailVerified?: boolean;
+    image?: string | null;
+    locale?: string | null;
+    pushToken?: string | null;
+    totalPoints?: number | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    prayers?: PrayerCreateNestedManyWithoutUserInput;
+    inquiries?: InquiryCreateNestedManyWithoutUserInput;
+    inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    sentRequests?: FriendCreateNestedManyWithoutUserInput;
+    receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
+    friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
+    groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutFastingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    emailVerified?: boolean;
+    image?: string | null;
+    locale?: string | null;
+    pushToken?: string | null;
+    totalPoints?: number | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
+    inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
+    inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
+    receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
+    friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
+    groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutFastingInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutFastingInput,
+      UserUncheckedCreateWithoutFastingInput
+    >;
+  };
+
+  export type UserUpsertWithoutFastingInput = {
+    update: XOR<
+      UserUpdateWithoutFastingInput,
+      UserUncheckedUpdateWithoutFastingInput
+    >;
+    create: XOR<
+      UserCreateWithoutFastingInput,
+      UserUncheckedCreateWithoutFastingInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutFastingInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutFastingInput,
+      UserUncheckedUpdateWithoutFastingInput
+    >;
+  };
+
+  export type UserUpdateWithoutFastingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    locale?: NullableStringFieldUpdateOperationsInput | string | null;
+    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    prayers?: PrayerUpdateManyWithoutUserNestedInput;
+    inquiries?: InquiryUpdateManyWithoutUserNestedInput;
+    inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    sentRequests?: FriendUpdateManyWithoutUserNestedInput;
+    receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
+    friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
+    groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutFastingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    locale?: NullableStringFieldUpdateOperationsInput | string | null;
+    pushToken?: NullableStringFieldUpdateOperationsInput | string | null;
+    totalPoints?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
@@ -23668,6 +25630,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
@@ -23690,6 +25653,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
@@ -23767,6 +25731,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
@@ -23789,6 +25754,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
@@ -23863,6 +25829,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -23885,6 +25852,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -23971,6 +25939,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -23993,6 +25962,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -24015,6 +25985,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
@@ -24037,6 +26008,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
@@ -24067,6 +26039,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberCreateNestedManyWithoutUserInput;
@@ -24089,6 +26062,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
     groupMemberships?: FriendGroupMemberUncheckedCreateNestedManyWithoutUserInput;
@@ -24139,6 +26113,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
@@ -24161,6 +26136,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
@@ -24203,6 +26179,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUpdateManyWithoutUserNestedInput;
@@ -24225,6 +26202,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
     groupMemberships?: FriendGroupMemberUncheckedUpdateManyWithoutUserNestedInput;
@@ -24246,6 +26224,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -24268,6 +26247,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -24349,6 +26329,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -24371,6 +26352,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -24449,6 +26431,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -24471,6 +26454,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -24561,6 +26545,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -24583,6 +26568,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -24606,6 +26592,7 @@ export namespace Prisma {
     prayers?: PrayerCreateNestedManyWithoutUserInput;
     inquiries?: InquiryCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageCreateNestedManyWithoutUserInput;
+    fasting?: FastingCreateNestedManyWithoutUserInput;
     sentRequests?: FriendCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupCreateNestedManyWithoutOwnerInput;
@@ -24628,6 +26615,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedCreateNestedManyWithoutUserInput;
     inquiries?: InquiryUncheckedCreateNestedManyWithoutUserInput;
     inquiryMessages?: InquiryMessageUncheckedCreateNestedManyWithoutUserInput;
+    fasting?: FastingUncheckedCreateNestedManyWithoutUserInput;
     sentRequests?: FriendUncheckedCreateNestedManyWithoutUserInput;
     receivedRequests?: FriendUncheckedCreateNestedManyWithoutFriendInput;
     friendGroups?: FriendGroupUncheckedCreateNestedManyWithoutOwnerInput;
@@ -24678,6 +26666,7 @@ export namespace Prisma {
     prayers?: PrayerUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUpdateManyWithoutOwnerNestedInput;
@@ -24700,6 +26689,7 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutUserNestedInput;
     inquiries?: InquiryUncheckedUpdateManyWithoutUserNestedInput;
     inquiryMessages?: InquiryMessageUncheckedUpdateManyWithoutUserNestedInput;
+    fasting?: FastingUncheckedUpdateManyWithoutUserNestedInput;
     sentRequests?: FriendUncheckedUpdateManyWithoutUserNestedInput;
     receivedRequests?: FriendUncheckedUpdateManyWithoutFriendNestedInput;
     friendGroups?: FriendGroupUncheckedUpdateManyWithoutOwnerNestedInput;
@@ -24736,6 +26726,14 @@ export namespace Prisma {
     senderRole: $Enums.InquirySenderRole;
     body: string;
     createdAt?: Date | string;
+  };
+
+  export type FastingCreateManyUserInput = {
+    id?: string;
+    date: Date | string;
+    fasted?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
   };
 
   export type FriendCreateManyUserInput = {
@@ -24888,6 +26886,30 @@ export namespace Prisma {
       | $Enums.InquirySenderRole;
     body?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FastingUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    date?: DateTimeFieldUpdateOperationsInput | Date | string;
+    fasted?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type FriendUpdateWithoutUserInput = {

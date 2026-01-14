@@ -24,6 +24,7 @@ import { HttpExceptionFilter } from './common/filters';
 import { AuthModule } from './modules/auth/auth.module';
 import useI18nFactory from './i18n/i18n.factory';
 import { LeaderboardModule } from './modules/leaderboard/leaderboard.module';
+import { OnboardingModule } from './modules/onboarding/onboarding.module';
 import { FastingModule } from './modules/fasting/fasting.module';
 
 @Module({})
@@ -82,6 +83,9 @@ export class AppModule {
 
         // Leaderboard module for leaderboard management
         LeaderboardModule,
+
+        // Onboarding module for onboarding preferences
+        OnboardingModule,
 
         // Fasting module for fasting history management
         FastingModule,

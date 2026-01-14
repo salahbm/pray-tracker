@@ -8,7 +8,6 @@ import { Modal, Platform, Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, ZoomIn, ZoomOut } from 'react-native-reanimated';
 
 export function GlobalAlert() {
-  const { colors } = useThemeStore();
   const { visible, options, hideAlert } = useAlertStore();
 
   if (!visible || !options) return null;
@@ -57,9 +56,7 @@ export function GlobalAlert() {
             <View className="items-center py-4">
               {/* Creative Icon Housing */}
               <View className="w-14 h-14 bg-primary rounded-full items-center justify-center mb-5 aspect-square">
-                {options.icon || (
-                  <AlertCircle size={28} color={colors['--primary-foreground']} strokeWidth={2} />
-                )}
+                {options.icon || <AlertCircle size={28} strokeWidth={2} />}
               </View>
 
               <Text className="text-xl font-semibold text-foreground text-center mb-2 tracking-tight">

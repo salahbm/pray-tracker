@@ -71,7 +71,7 @@ const CustomBottomSheet = ({
       handleComponent={
         grabbable
           ? () => (
-              <View className="bg-muted flex justify-center rounded-t-md py-4 outline-none border border-muted">
+              <View className="bg-muted flex-center rounded-t-md py-4">
                 <View className="h-2 w-[60px] rounded bg-muted-foreground self-center" />
               </View>
             )

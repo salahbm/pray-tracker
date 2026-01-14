@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,5 +18,22 @@
   /* PROFILE */
   .profile-section {
     @apply bg-muted border border-border rounded-lg py-4 px-5 flex-row justify-between items-center mb-4;
+  }
+
+  /* Flex */
+  .flex-center {
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex flex-row items-center justify-between;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .flex-col-between {
+    @apply flex flex-col items-center justify-between;
   }
 }

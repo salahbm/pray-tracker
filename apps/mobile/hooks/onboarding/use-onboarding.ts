@@ -2,21 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import agent from '@/lib/agent';
 import useMutation from '../common/useMutation';
 import QueryKeys from '@/constants/query-keys';
-
-export interface OnboardingPreferencePayload {
-  prayerKnowledge?: string | null;
-  supportNeeded?: string | null;
-  learnIslam?: string | null;
-  whyHere?: string[];
-  locationPermissionGranted?: boolean;
-  notificationPermissionGranted?: boolean;
-  whereDidYouHearAboutUs?: string | null;
-  locationCity?: string | null;
-  locationTimezone?: string | null;
-  enabledModules?: string[];
-  defaultHomeTab?: string | null;
-  completedSteps?: string[];
-}
+import { OnboardingPreferencePayload } from '@/types/onboarding';
 
 export interface OnboardingPreferenceResponse {
   id: string;
@@ -30,10 +16,9 @@ export interface OnboardingPreferenceResponse {
   whereDidYouHearAboutUs: string | null;
   locationCity: string | null;
   locationTimezone: string | null;
+  notificationPreset?: string | null;
   enabledModules: string[];
   defaultHomeTab: string | null;
-  completedSteps: string[];
-  completedAt: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -59,6 +44,9 @@ const onboardingApi = {
     return response.data;
   },
 };
+
+export const submitOnboardingPreferences = async (data: OnboardingPreferencePayload) =>
+  onboardingApi.upsertPreferences(data);
 
 export const useOnboarding = () => {
   const queryClient = useQueryClient();

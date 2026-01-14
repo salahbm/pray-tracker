@@ -25,7 +25,7 @@ const Input = React.forwardRef<
         <TextInput
           ref={ref}
           className={cn(
-            'h-10 native:h-14 bg-card rounded-md border border-input px-3 text-lg leading-[1.25] text-card-foreground',
+            'h-10 native:h-14 bg-background/50 rounded-md border border-border focus:border-focus hover:border-hover focus:bg-background/70 hover:bg-background/70 px-3 text-lg leading-[1.25] text-foreground',
             props.editable === false && 'opacity-50 -not-allowed',
             props.error && 'border-destructive',
             className

@@ -18,7 +18,7 @@ import { InquiryListItem } from '@/types/inquiries';
 
 const InquiryListScreen = () => {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
+  // const { colors } = useThemeStore();
   const { user } = useAuthStore();
   const isLoggedIn = !!user;
 
@@ -75,7 +75,7 @@ const InquiryListScreen = () => {
             {/* Centered content */}
             <View className="flex-1 items-center justify-center px-6">
               <View className="bg-muted rounded-full p-4 mb-4">
-                <Feather name="lock" size={32} color={colors['--muted-foreground']} />
+                <Feather name="lock" size={32} />
               </View>
 
               <Text className="text-base font-semibold mb-2">
@@ -100,7 +100,7 @@ const InquiryListScreen = () => {
           </View>
         ) : isLoading ? (
           <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="large" color={colors['--primary']} />
+            <ActivityIndicator size="large" />
           </View>
         ) : (
           <View className="flex-1">
@@ -114,7 +114,7 @@ const InquiryListScreen = () => {
               ListEmptyComponent={
                 <View className="items-center mt-12 px-6">
                   <View className="bg-muted rounded-full p-4 mb-4">
-                    <Feather name="message-square" size={32} color={colors['--primary']} />
+                    <Feather name="message-square" size={32} />
                   </View>
                   <Text className="text-base font-semibold mb-2">
                     {t('profile.inquiries.list.emptyTitle')}

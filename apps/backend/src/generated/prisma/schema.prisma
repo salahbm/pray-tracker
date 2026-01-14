@@ -26,6 +26,7 @@ model User {
   totalPoints     Int?             @default(0)
   inquiries       Inquiry[]
   inquiryMessages InquiryMessage[]
+  fasting         Fasting[]
 
   sentRequests     Friend[] @relation("user_friends")
   receivedRequests Friend[] @relation("friend_friends")
@@ -108,6 +109,21 @@ model Prayer {
 
   @@unique([userId, date])
   @@map("prayer")
+}
+
+model Fasting {
+  id     String   @id @default(cuid())
+  userId String
+  date   DateTime
+  fasted Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("fasting")
 }
 
 model FriendGroup {

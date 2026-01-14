@@ -516,6 +516,15 @@
         "message": "Требуется разрешение на локацию для расчёта времени молитв",
         "title": "Доступ запрещён"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Получение локации...",
         "unknown": "Неизвестно"
@@ -535,6 +544,243 @@
     "tabs": {
       "qibla": "Кибла",
       "times": "Время молитв"
+    }
+  },
+  "ramadan": {
+    "status": {
+      "fasting": "Fasting",
+      "iftarTime": "Iftar Time",
+      "suhoorTime": "Suhoor Time"
+    },
+    "card": {
+      "dayLabel": "Ramadan {{day}}",
+      "suhoorEnds": "Suhoor ends",
+      "iftar": "Iftar",
+      "countdownUntilIftar": "Time remaining until Iftar",
+      "countdownUntilSuhoorEnds": "Time remaining until Suhoor ends",
+      "countdownIftarTime": "It is time to break the fast",
+      "title": "Ramadan",
+      "beginsIn": "Begins in {{days}} days",
+      "trackingSoon": "Tracking will begin soon."
+    },
+    "screen": {
+      "title": "Ramadan",
+      "headerLabel": "Ramadan {{year}}",
+      "headerLabelFallback": "Ramadan",
+      "monthLabel": "{{month}} {{year}}",
+      "changeLocation": "Change",
+      "locationLabel": "{{city}}, {{country}}",
+      "dayLabel": "Day {{day}}",
+      "suhoor": "Suhoor",
+      "iftar": "Iftar",
+      "searchLocation": "Search Location",
+      "searchPlaceholder": "Type city name...",
+      "noCities": "No cities found"
+    }
+  },
+  "onboardingFlow": {
+    "sharedText": {
+      "primaryCta": "Continue",
+      "secondaryCta": "Not now",
+      "skipCta": "Skip",
+      "backCta": "Back",
+      "getStartedCta": "Get started",
+      "privacyNote": "You can change these anytime in Settings."
+    },
+    "steps": {
+      "intro_welcome": {
+        "headline": "Welcome",
+        "body": "Build a steady prayer routine with gentle reminders, qibla guidance, and simple learning—at your pace.",
+        "footnote": "No pressure. Just progress.",
+        "primaryCta": "Get started"
+      },
+      "prayer_knowledge": {
+        "headline": "Do you know how to pray?",
+        "body": "Choose what fits you today. We’ll tailor the experience.",
+        "options": {
+          "yes_i_know": {
+            "label": "Yes, I know",
+            "feedbackTitle": "Alhamdulillah",
+            "feedbackBody": "We’ll focus on consistency, reminders, and tracking—so your routine stays strong."
+          },
+          "im_learning": {
+            "label": "I’m learning",
+            "feedbackTitle": "That’s a beautiful start",
+            "feedbackBody": "Small steps add up. We’ll guide you with clear, bite-sized lessons and practice support."
+          },
+          "no_not_yet": {
+            "label": "Not yet",
+            "feedbackTitle": "You’re welcome here",
+            "feedbackBody": "No worries. We’ll help you learn from the basics with patience and clarity."
+          }
+        }
+      },
+      "support_needed": {
+        "headline": "Do you need support to stay consistent with prayer?",
+        "body": "Choose your comfort level—there’s no judgment.",
+        "options": {
+          "yes_i_need_support": {
+            "label": "Yes, I want support",
+            "feedbackTitle": "You don’t have to do this alone",
+            "feedbackBody": "Support makes consistency easier. We can set up motivation that feels right for you."
+          },
+          "some_support": {
+            "label": "Maybe a little",
+            "feedbackTitle": "Perfect",
+            "feedbackBody": "We’ll keep it light—gentle reminders and simple goals that won’t overwhelm you."
+          },
+          "im_good": {
+            "label": "I’m good",
+            "feedbackTitle": "MashaAllah",
+            "feedbackBody": "We’ll stay out of your way and keep things clean and focused—only what you need."
+          }
+        }
+      },
+      "learn_islam": {
+        "headline": "Would you like to learn more about Islam?",
+        "body": "Pick a direction—your feed can be personalized.",
+        "options": {
+          "quran_surahs": {
+            "label": "Qur’an & Surahs",
+            "feedbackTitle": "A wonderful choice",
+            "feedbackBody": "We’ll suggest short surahs, meaning highlights, and a gentle reading routine."
+          },
+          "basics": {
+            "label": "Islam basics",
+            "feedbackTitle": "Great foundation",
+            "feedbackBody": "We’ll cover essentials in clear steps—belief, worship, and daily practice."
+          },
+          "im_good": {
+            "label": "I’m good for now",
+            "feedbackTitle": "Anytime",
+            "feedbackBody": "You can explore learning later. We’ll keep the focus on your prayer journey."
+          }
+        }
+      },
+      "why_here": {
+        "headline": "Why are you here today?",
+        "body": "Select all that apply. We’ll personalize your setup.",
+        "options": {
+          "pray_5_times": {
+            "label": "Pray 5 times daily",
+            "feedback": "We’ll prioritize prayer times, streak-friendly goals, and practical reminders."
+          },
+          "track_progress": {
+            "label": "Track my progress",
+            "feedback": "We’ll set up simple tracking and reflections—focused on improvement, not perfection."
+          },
+          "learn_how_to_pray": {
+            "label": "Learn how to pray",
+            "feedback": "We’ll add step-by-step prayer guidance with short lessons and practice prompts."
+          },
+          "just_checking": {
+            "label": "Just checking it out",
+            "feedback": "Take your time. We’ll keep the experience light until you’re ready."
+          }
+        }
+      },
+      "attribution": {
+        "headline": "Where did you hear about us?",
+        "body": "This helps us improve and support more people.",
+        "options": {
+          "friend_family": {
+            "label": "Friend or family",
+            "feedbackTitle": "Alhamdulillah",
+            "feedbackBody": "Word of mouth means a lot. May it be a benefit for everyone."
+          },
+          "social_media": {
+            "label": "Social media",
+            "feedbackTitle": "Nice",
+            "feedbackBody": "We’ll keep sharing helpful content—in a calm, respectful way."
+          },
+          "app_store_search": {
+            "label": "App Store / Search",
+            "feedbackTitle": "Welcome",
+            "feedbackBody": "We’ll do our best to make your experience clear, simple, and useful."
+          },
+          "masjid_community": {
+            "label": "Masjid / community",
+            "feedbackTitle": "A blessed connection",
+            "feedbackBody": "Community support is powerful. May Allah strengthen our bonds."
+          },
+          "online_article": {
+            "label": "Article / blog / website",
+            "feedbackTitle": "Glad you found us",
+            "feedbackBody": "We’ll keep the experience thoughtful and practical."
+          },
+          "other": {
+            "label": "Other",
+            "feedbackTitle": "Got it",
+            "feedbackBody": "Thanks for sharing. You can tell us more anytime in Settings.",
+            "field": {
+              "label": "Tell us more (optional)",
+              "placeholder": "E.g., YouTube, WhatsApp group, event…"
+            }
+          }
+        }
+      },
+      "location_permission": {
+        "headline": "Where are you praying from?",
+        "body": "Allow location to show accurate prayer times and qibla direction for your area.",
+        "benefits": {
+          "accurate_prayer_times": "Accurate prayer times",
+          "qibla_direction": "Qibla direction",
+          "automatic_timezone": "Automatic timezone updates"
+        },
+        "primaryCta": "Allow location",
+        "onAllow": {
+          "feedbackTitle": "All set",
+          "feedbackBody": "We’ll use this only to help with qibla and prayer times."
+        },
+        "onDeny": {
+          "feedbackTitle": "No problem",
+          "feedbackBody": "You can set your city manually anytime."
+        }
+      },
+      "notification_permission": {
+        "headline": "Never miss prayer times",
+        "body": "Turn on notifications for prayer reminders, gentle nudges, and important updates you choose.",
+        "benefits": {
+          "prayer_reminders": "Prayer time reminders",
+          "quiet_hours": "Custom quiet hours",
+          "streaks": "Optional streak encouragement"
+        },
+        "primaryCta": "Enable notifications",
+        "onAllow": {
+          "feedbackTitle": "Alhamdulillah",
+          "feedbackBody": "Reminders are on. You can customize the tone and schedule anytime."
+        },
+        "onDeny": {
+          "feedbackTitle": "That’s okay",
+          "feedbackBody": "You can enable reminders later in Settings whenever you’re ready."
+        }
+      },
+      "all_set": {
+        "headline": "You’re all set",
+        "body": "We’re with you—one prayer at a time. May your journey be steady and full of barakah.",
+        "socialProof": {
+          "text": "★★★★★ trusted by the community",
+          "note": "Social proof text should be used only if you can verify this rating in your product."
+        },
+        "primaryCta": "Start now"
+      },
+      "splash": {
+        "headline": "{{APP_NAME}}",
+        "subheadline": "A calm space to support your salah, step by step.",
+        "optionalBadge": "Bismillah"
+      }
+    },
+    "modals": {
+      "friends_motivation_modal": {
+        "headline": "Motivation with friends",
+        "body": "Invite friends to encourage each other, share gentle check-ins, and celebrate progress—without pressure.",
+        "bullets": {
+          "add_trusted_friends": "Add trusted friends",
+          "private_encouragement": "Private encouragement",
+          "shared_goals": "Optional shared goals"
+        },
+        "primaryCta": "Thanks for sharing"
+      }
     }
   }
 }

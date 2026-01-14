@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import agent from '@/lib/agent';
 import { User } from '@/types/user';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { syncOnboardingPreferences } from '@/hooks/onboarding/sync-onboarding';
 
 interface ISignUpParams {
   email: string;
@@ -28,6 +29,7 @@ export const useSignUp = () => {
       if (data?.user) {
         setUser(data.user);
         setSession({ token: data.token });
+        void syncOnboardingPreferences();
       }
     },
   });

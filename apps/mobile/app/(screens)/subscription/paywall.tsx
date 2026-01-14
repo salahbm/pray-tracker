@@ -40,7 +40,7 @@ export default function PaywallScreen() {
   const router = useRouter();
   const { user } = useAuthStore();
   const insets = useSafeAreaInsets();
-  const { colors } = useThemeStore();
+  // const { colors } = useThemeStore();
   const { signInSheetRef } = useAuthBottomSheetStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
 
@@ -139,7 +139,7 @@ export default function PaywallScreen() {
     <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">
       <View className="rounded-3xl overflow-hidden">
         {/* Lottie Animation */}
-        <View className="bg-primary/5 items-center justify-center" style={{ height: 280 }}>
+        <View className="flex-center" style={{ height: 280 }}>
           <LottieView
             source={item.gif}
             autoPlay
@@ -207,7 +207,7 @@ export default function PaywallScreen() {
             hitSlop={20}
             disabled={activeFeatureIndex === 0}
           >
-            <ChevronLeft color={colors['--primary']} size={20} className="stroke-2" />
+            <ChevronLeft size={20} className="stroke-2" />
           </PressableBounce>
           {PREMIUM_FEATURES.map((_, index) => (
             <TouchableOpacity
@@ -228,7 +228,7 @@ export default function PaywallScreen() {
             hitSlop={20}
             disabled={activeFeatureIndex === PREMIUM_FEATURES.length - 1}
           >
-            <ChevronRight color={colors['--primary']} size={20} className="stroke-2" />
+            <ChevronRight size={20} className="stroke-2" />
           </PressableBounce>
         </View>
       </Animated.View>
@@ -251,15 +251,14 @@ export default function PaywallScreen() {
             onPress={() => setSelectedPlan('yearly')}
             className={cn(
               'mb-4 rounded-2xl border-2 p-5 relative',
-              selectedPlan === 'yearly' ? 'border-primary bg-card' : 'border-border bg-popover'
+              selectedPlan === 'yearly'
+                ? 'border-primary bg-background/50'
+                : 'border-border bg-background/50'
             )}
             activeOpacity={0.7}
           >
             {/* Best Value Badge */}
-            <View
-              className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl"
-              style={{ backgroundColor: colors['--primary'] }}
-            >
+            <View className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl">
               <Text className="text-xs font-bold text-primary-foreground">
                 {t('subscription.bestValue')}
               </Text>
@@ -282,13 +281,8 @@ export default function PaywallScreen() {
                   'size-7 rounded-full border-2 items-center justify-center',
                   selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
                 )}
-                style={{
-                  backgroundColor: selectedPlan === 'yearly' ? colors['--primary'] : 'transparent',
-                }}
               >
-                {selectedPlan === 'yearly' && (
-                  <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
-                )}
+                {selectedPlan === 'yearly' && <Check size={18} strokeWidth={3} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -298,7 +292,9 @@ export default function PaywallScreen() {
             onPress={() => setSelectedPlan('monthly')}
             className={cn(
               'rounded-2xl border-2 p-5',
-              selectedPlan === 'monthly' ? 'border-primary bg-card' : 'border-border bg-popover'
+              selectedPlan === 'monthly'
+                ? 'border-primary bg-background/50'
+                : 'border-border bg-background/50'
             )}
             activeOpacity={0.7}
           >
@@ -318,13 +314,8 @@ export default function PaywallScreen() {
                   'size-7 rounded-full border-2 items-center justify-center',
                   selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
                 )}
-                style={{
-                  backgroundColor: selectedPlan === 'monthly' ? colors['--primary'] : 'transparent',
-                }}
               >
-                {selectedPlan === 'monthly' && (
-                  <Check size={18} color={colors['--primary-foreground']} strokeWidth={3} />
-                )}
+                {selectedPlan === 'monthly' && <Check size={18} strokeWidth={3} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -337,20 +328,14 @@ export default function PaywallScreen() {
           onPress={handlePurchase}
           disabled={purchasing}
           className="rounded-full py-4 items-center justify-center"
-          style={{ backgroundColor: colors['--primary'] }}
           activeOpacity={0.8}
         >
           {purchasing ? (
-            <ActivityIndicator color={colors['--primary-foreground']} size="small" />
+            <ActivityIndicator size="small" />
           ) : (
             <View className="flex-row items-center">
-              <Sparkles size={20} color={colors['--primary-foreground']} strokeWidth={2.5} />
-              <Text
-                className="font-bold text-lg ml-2"
-                style={{ color: colors['--primary-foreground'] }}
-              >
-                {t('subscription.subscribe')}
-              </Text>
+              <Sparkles size={20} strokeWidth={2.5} />
+              <Text className="font-bold text-lg ml-2">{t('subscription.subscribe')}</Text>
             </View>
           )}
         </TouchableOpacity>

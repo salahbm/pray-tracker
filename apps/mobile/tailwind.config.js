@@ -6,39 +6,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        card: {
-          DEFAULT: 'var(--card)',
-          foreground: 'var(--card-foreground)',
-        },
-        popover: {
-          DEFAULT: 'var(--popover)',
-          foreground: 'var(--popover-foreground)',
-        },
+        background: 'rgb(var(--background) / <alpha-value>)',
+        foreground: 'rgb(var(--foreground) / <alpha-value>)',
         primary: {
-          DEFAULT: 'var(--primary)',
-          foreground: 'var(--primary-foreground)',
-        },
-        secondary: {
-          DEFAULT: 'var(--secondary)',
-          foreground: 'var(--secondary-foreground)',
+          300: 'rgb(var(--primary-300) / <alpha-value>)', // lighter
+          400: 'rgb(var(--primary-400) / <alpha-value>)', // light
+          DEFAULT: 'rgb(var(--primary) / <alpha-value>)', // dark
+          600: 'rgb(var(--primary-600) / <alpha-value>)', // darker
+          700: 'rgb(var(--primary-700) / <alpha-value>)', // darkest
+          foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
         },
         muted: {
-          DEFAULT: 'var(--muted)',
-          foreground: 'var(--muted-foreground)',
+          DEFAULT: 'rgb(var(--muted) / <alpha-value>)',
+          foreground: 'rgb(var(--muted-foreground) / <alpha-value>)',
         },
-        accent: {
-          DEFAULT: 'var(--accent)',
-          foreground: 'var(--accent-foreground)',
+        border: {
+          DEFAULT: 'rgb(var(--border) / <alpha-value>)',
+          focus: 'rgb(var(--border-focus) / <alpha-value>)',
+          hover: 'rgb(var(--border-hover) / <alpha-value>)',
         },
-        destructive: {
-          DEFAULT: 'var(--destructive)',
-          foreground: 'var(--destructive-foreground)',
-        },
-        border: 'var(--border)',
-        input: 'var(--input)',
-        ring: 'var(--ring)',
+        // accent colors
+        warning: 'rgb(var(--warning) / <alpha-value>)',
+        destructive: 'rgb(var(--destructive) / <alpha-value>)',
+        success: 'rgb(var(--success) / <alpha-value>)',
+        info: 'rgb(var(--info) / <alpha-value>)',
       },
     },
     animation: {

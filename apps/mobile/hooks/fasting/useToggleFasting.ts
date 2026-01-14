@@ -13,7 +13,7 @@ export type ToggleFastingVars = {
 
 const updateFasting = async (data: ToggleFastingVars): Promise<FastingEntry> => {
   return agent.post<FastingEntry>('/fasting', {
-    date: data.date.toISOString(),
+    date: format(data.date, 'yyyy-MM-dd'),
     fasted: data.fasted,
   });
 };
@@ -43,7 +43,7 @@ export const useToggleFasting = () => {
             {
               id: `temp-${dateKey}`,
               userId: userId ?? '',
-              date: vars.date.toISOString(),
+              date: format(vars.date, 'yyyy-MM-dd'),
               fasted: vars.fasted,
               createdAt: now,
               updatedAt: now,

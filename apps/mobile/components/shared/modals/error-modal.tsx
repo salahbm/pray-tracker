@@ -39,15 +39,15 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
   iconSize = 50,
   iconColor,
 }) => {
-  const { colors } = useThemeStore();
   return (
     <Modal visible={isVisible} onRequestClose={onClose}>
-      <View className={cn('w-4/5  rounded-lg p-5 items-center shadow-lg bg-popover ', modalStyle)}>
+      <View
+        className={cn('w-4/5  rounded-lg p-5 items-center shadow-lg bg-background/80 ', modalStyle)}
+      >
         {showIcon && (
           <Ionicons
             name={iconName}
             size={iconSize}
-            color={iconColor ?? colors['--primary']}
             className="mb-4"
             accessibilityIgnoresInvertColors
           />
@@ -58,9 +58,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
           {title}
         </Text>
         {description && (
-          <Text
-            className={cn('text-base text-popover-foreground text-center mb-4', descriptionStyle)}
-          >
+          <Text className={cn('text-base text-foreground text-center mb-4', descriptionStyle)}>
             {description}
           </Text>
         )}

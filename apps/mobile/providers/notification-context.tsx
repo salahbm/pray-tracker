@@ -25,7 +25,7 @@ export default function NotificationProvider() {
     switch (data.type) {
       case 'prayer_reminder':
         router.push({
-          pathname: '/(tabs)/qibla',
+          pathname: '/(tabs)/prayer-times',
           params: { tab: 'salahs' },
         });
         break;

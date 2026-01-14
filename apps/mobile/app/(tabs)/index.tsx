@@ -23,13 +23,10 @@ import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
-import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
-import ProfilePage from '../(screens)/profile';
-import PrayerTimer from '@/components/views/qibla/prayer-times';
 import RamadanCard from '@/components/ramadan/ramadan-card';
 
 const initialState = {
@@ -67,7 +64,6 @@ function reducer(state: typeof initialState, action: { type: string; payload?: a
 export default function HomeScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { colors } = useThemeStore();
 
   // DATE STATE
   const [today, setToday] = useState(new Date());
@@ -107,7 +103,6 @@ export default function HomeScreen() {
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
   const { incrementPrayerToggle } = useAppRatingStore();
-  const { profileSheetRef } = useProfileBottomSheetStore();
 
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
@@ -233,7 +228,6 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            tintColor={colors['--primary']}
             refreshing={isLoadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
@@ -290,16 +284,6 @@ export default function HomeScreen() {
           />
         </MotiView>
 
-        {/* PRAYER NOTIFIER */}
-        <MotiView
-          key="prayer-notifier-animation"
-          from={{ opacity: 0, translateY: 50 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
-        >
-          <PrayerTimer />
-        </MotiView>
-
         {/* CHARTS */}
         {year === new Date().getFullYear() && user && (
           <MotiView
@@ -330,10 +314,6 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
-      {/* PROFILE */}
-      <CustomBottomSheet sheetRef={profileSheetRef}>
-        <ProfilePage />
-      </CustomBottomSheet>
     </Fragment>
   );
 }

@@ -111,11 +111,11 @@ const Account = () => {
 
       {/* Withdraw Account Modal */}
       <Modal visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
-        <View className="bg-popover rounded-lg p-6">
+        <View className="bg-background/80 rounded-lg p-6">
           <Text className="text-lg font-bold mb-4 text-center">
             {t('profile.account.deleteConfirm')}
           </Text>
-          <Text className="text-sm text-center text-popover-foreground mb-6">
+          <Text className="text-sm text-center text-foreground mb-6">
             {t('profile.account.deleteMessage')}
           </Text>
           <View className="flex-row justify-center gap-4">

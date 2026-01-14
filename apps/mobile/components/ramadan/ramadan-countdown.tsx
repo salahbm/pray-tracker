@@ -28,7 +28,7 @@ const RamadanCountdown = ({ countdown }: RamadanCountdownProps) => {
     : { type: 'timing', duration: 200 };
 
   return (
-    <View className="mt-1.5 rounded-xl border border-border bg-popover px-3 py-2">
+    <View className="mt-1.5 rounded-xl border border-border bg-background/80 px-3 py-2">
       <AnimatePresence exitBeforeEnter>
         <MotiView
           key={countdown.nextEvent}
@@ -39,7 +39,7 @@ const RamadanCountdown = ({ countdown }: RamadanCountdownProps) => {
         >
           <Text className="text-sm text-muted-foreground">{label}</Text>
           <MotiView animate={{ scale: countdown.isSoon ? 1.04 : 1 }} transition={pulseTransition}>
-            <Text className="text-2xl font-semibold text-foreground">
+            <Text className="text-foreground text-5xl font-black mt-2">
               {formatRemaining(countdown.remainingMs)}
             </Text>
           </MotiView>
