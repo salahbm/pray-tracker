@@ -21,6 +21,9 @@ const QueryKeys = {
     preferences: ['onboarding', 'preferences'],
     complete: ['onboarding', 'complete'],
   },
+  fasting: {
+    history: ['fasting', 'history'],
+  },
 };
 
 export default QueryKeys;
