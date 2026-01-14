@@ -7,7 +7,6 @@ import { AuthWrapper } from '@/providers/session';
 import { useThemeStore } from '@/store/defaults/theme';
 
 const ProfilePage = () => {
-  const { colors } = useThemeStore();
   const { t } = useTranslation();
 
   const handleNavigate = (screen: string) => {
@@ -27,12 +26,12 @@ const ProfilePage = () => {
           onPress={() => handleNavigate('/(screens)/profile/account')}
         >
           <View className="flex-row items-center">
-            <Feather name="user" size={20} color={colors['--muted-foreground']} />
+            <Feather name="user" size={20} />
             <Text className="text-base text-muted-foreground ml-2">
               {t('profile.navigation.account')}
             </Text>
           </View>
-          <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+          <Feather name="chevron-right" size={20} />
         </TouchableOpacity>
         {/* Edit Profile Section */}
         <TouchableOpacity
@@ -40,12 +39,12 @@ const ProfilePage = () => {
           onPress={() => handleNavigate('/(screens)/profile/edit-profile')}
         >
           <View className="flex-row items-center">
-            <Feather name="edit" size={20} color={colors['--muted-foreground']} />
+            <Feather name="edit" size={20} />
             <Text className="text-base text-muted-foreground ml-2">
               {t('profile.navigation.editProfile')}
             </Text>
           </View>
-          <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+          <Feather name="chevron-right" size={20} />
         </TouchableOpacity>
         {/* Edit Password Section */}
         <TouchableOpacity
@@ -53,12 +52,12 @@ const ProfilePage = () => {
           onPress={() => handleNavigate('/(screens)/profile/edit-pwd')}
         >
           <View className="flex-row items-center">
-            <Feather name="lock" size={20} color={colors['--muted-foreground']} />
+            <Feather name="lock" size={20} />
             <Text className="text-base text-muted-foreground ml-2">
               {t('profile.navigation.editPassword')}
             </Text>
           </View>
-          <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+          <Feather name="chevron-right" size={20} />
         </TouchableOpacity>
       </AuthWrapper>
 
@@ -68,12 +67,12 @@ const ProfilePage = () => {
         onPress={() => handleNavigate('/(screens)/profile/settings')}
       >
         <View className="flex-row items-center">
-          <Feather name="settings" size={20} color={colors['--muted-foreground']} />
+          <Feather name="settings" size={20} />
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.navigation.settings')}
           </Text>
         </View>
-        <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+        <Feather name="chevron-right" size={20} />
       </TouchableOpacity>
 
       {/* Divider */}
@@ -85,12 +84,12 @@ const ProfilePage = () => {
         onPress={() => handleNavigate('/(screens)/profile/privacy')}
       >
         <View className="flex-row items-center">
-          <Feather name="lock" size={20} color={colors['--muted-foreground']} />
+          <Feather name="lock" size={20} />
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.navigation.privacySecurity')}
           </Text>
         </View>
-        <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+        <Feather name="chevron-right" size={20} />
       </TouchableOpacity>
 
       {/* Terms & Conditions Section */}
@@ -99,12 +98,12 @@ const ProfilePage = () => {
         onPress={() => handleNavigate('/(screens)/profile/terms')}
       >
         <View className="flex-row items-center">
-          <Feather name="file-text" size={20} color={colors['--muted-foreground']} />
+          <Feather name="file-text" size={20} />
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.navigation.termsConditions')}
           </Text>
         </View>
-        <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+        <Feather name="chevron-right" size={20} />
       </TouchableOpacity>
       {/* Feedback Section */}
       <TouchableOpacity
@@ -112,12 +111,12 @@ const ProfilePage = () => {
         onPress={() => handleNavigate('/(screens)/profile/inquiries')}
       >
         <View className="flex-row items-center">
-          <Feather name="message-square" size={20} color={colors['--muted-foreground']} />
+          <Feather name="message-square" size={20} />
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.navigation.feedback')}
           </Text>
         </View>
-        <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+        <Feather name="chevron-right" size={20} />
       </TouchableOpacity>
       {/* About Section */}
       <TouchableOpacity
@@ -125,12 +124,12 @@ const ProfilePage = () => {
         onPress={() => handleNavigate('/(screens)/profile/about')}
       >
         <View className="flex-row items-center">
-          <Feather name="info" size={20} color={colors['--muted-foreground']} />
+          <Feather name="info" size={20} />
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.navigation.about')}
           </Text>
         </View>
-        <Feather name="chevron-right" size={20} color={colors['--muted-foreground']} />
+        <Feather name="chevron-right" size={20} />
       </TouchableOpacity>
     </View>
   );

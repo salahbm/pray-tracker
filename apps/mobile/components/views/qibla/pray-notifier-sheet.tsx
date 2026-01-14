@@ -22,7 +22,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 
 const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
+
   const { prayerNotifications, setMinutesBefore } = useNotificationStore();
 
   const [minutes, setMinutes] = useState(prayerNotifications.minutesBefore);
@@ -100,7 +100,7 @@ const PrayerNotifierSheet: React.FC = () => {
             entering={FadeInRight.delay(100).springify()}
             className="bg-primary/10 p-4 rounded-full mb-3"
           >
-            <Bell size={36} color={colors['--primary']} />
+            <Bell size={36} />
           </Animated.View>
 
           <Text className="text-2xl font-bold text-center">
@@ -118,7 +118,7 @@ const PrayerNotifierSheet: React.FC = () => {
               className="size-12 rounded-full border-border bg-background/80 backdrop-blur-md"
               onPress={handleMinus}
             >
-              <Minus size={20} color={colors['--foreground']} />
+              <Minus size={20} />
             </Button>
           </Animated.View>
 
@@ -134,7 +134,7 @@ const PrayerNotifierSheet: React.FC = () => {
               className="size-12 rounded-full border-border backdrop-blur-md"
               onPress={handlePlus}
             >
-              <Plus size={20} color={colors['--foreground']} />
+              <Plus size={20} />
             </Button>
           </Animated.View>
         </View>

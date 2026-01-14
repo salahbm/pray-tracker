@@ -110,10 +110,10 @@ const MonthScreen = () => {
 
   const onDayPress = useCallback(
     (day: DateData) => {
-      if (!isPremium) {
-        paywallSheetRef.current?.snapToIndex(0);
-        return;
-      }
+      // if (!isPremium) {
+      //   paywallSheetRef.current?.snapToIndex(0);
+      //   return;
+      // }
       // Prevent selecting future dates
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date();
@@ -142,9 +142,9 @@ const MonthScreen = () => {
     const entries: Record<string, MarkedDateProps> = {
       [today]: {
         marked: true,
-        dotColor: colors['--secondary'],
+        dotColor: colors['--primary'],
         selected: selected === today,
-        selectedTextColor: colors['--secondary-foreground'],
+        selectedTextColor: colors['--primary-foreground'],
       },
     };
 
@@ -203,7 +203,7 @@ const MonthScreen = () => {
         style={{ backgroundColor: colors['--background'] }}
         current={initialMonthRef.current}
         pastScrollRange={visibleMonths}
-        futureScrollRange={1}
+        futureScrollRange={2}
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}
@@ -221,12 +221,7 @@ const MonthScreen = () => {
         extraData={selected}
         removeClippedSubviews
         dayComponent={({ date }) => (
-          <DayComponent
-            date={date}
-            prayerCountByDate={prayerCountByDate}
-            onDayPress={onDayPress}
-            colors={colors}
-          />
+          <DayComponent date={date} prayerCountByDate={prayerCountByDate} onDayPress={onDayPress} />
         )}
       />
     ),

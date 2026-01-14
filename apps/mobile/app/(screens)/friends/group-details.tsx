@@ -48,7 +48,6 @@ import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 const GroupDetails = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ groupId: string; groupName: string }>();
 
@@ -123,7 +122,7 @@ const GroupDetails = () => {
               accessibilityLabel="Go back"
               accessibilityRole="button"
             >
-              <Ionicons name="arrow-back" size={24} color={colors['--primary']} />
+              <Ionicons name="arrow-back" size={24} c />
             </TouchableOpacity>
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
@@ -136,19 +135,13 @@ const GroupDetails = () => {
             onPress={() => addMemberSheetRef.current?.snapToIndex(0)}
             className="bg-primary rounded-full p-3"
           >
-            <UserPlus size={22} color={colors['--primary-foreground']} />
+            <UserPlus size={22} />
           </Pressable>
         </Animated.View>
 
         {/* Members List */}
         <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={isLoading}
-              onRefresh={refetch}
-              tintColor={colors['--primary']}
-            />
-          }
+          refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
           contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
         >
           {isLoading ? (
@@ -160,9 +153,8 @@ const GroupDetails = () => {
                   key={member.id}
                   entering={FadeInRight.delay(index * 100).springify()}
                   layout={LinearTransition.springify()}
-                  className="bg-card border border-border rounded-2xl overflow-hidden"
+                  className="bg- border border-border rounded-2xl overflow-hidden"
                   style={{
-                    shadowColor: colors['--primary'],
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.05,
                     shadowRadius: 8,
@@ -250,7 +242,7 @@ const GroupDetails = () => {
         <View className="gap-4 pb-8 sticky top-0">
           <View className="items-center mb-2">
             <View className="bg-primary/10 p-4 rounded-full mb-3">
-              <UserPlus size={32} color={colors['--primary']} />
+              <UserPlus size={32} />
             </View>
             <Text className="text-2xl font-bold text-center">{t('friends.groups.addMember')}</Text>
             <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
@@ -266,7 +258,7 @@ const GroupDetails = () => {
                     onPress={() => handleAddMember(friend.friendUserId)}
                     disabled={isAdding}
                     className={cn(
-                      'flex-row items-center gap-3 p-4 bg-card border border-border rounded-xl active:opacity-80'
+                      'flex-row items-center gap-3 p-4 bg-background/50 border border-border rounded-xl active:opacity-80'
                     )}
                   >
                     <Image
@@ -278,7 +270,7 @@ const GroupDetails = () => {
                       <Text className="text-sm text-muted-foreground">{friend.email}</Text>
                     </View>
                     <View className="bg-primary/10 p-2 rounded-full">
-                      <UserPlus size={18} color={colors['--primary']} />
+                      <UserPlus size={18} />
                     </View>
                   </Pressable>
                 </Animated.View>
@@ -286,7 +278,7 @@ const GroupDetails = () => {
             </View>
           ) : (
             <View className="items-center py-8">
-              <Users size={48} color={colors['--muted-foreground']} />
+              <Users size={48} />
               <Text className="text-muted-foreground mt-4 text-center">
                 {t('friends.groups.noAvailableFriends')}
               </Text>

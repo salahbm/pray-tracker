@@ -13,7 +13,6 @@ import { Text } from '../../ui/text';
 
 export function LocationPermissionModal() {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export function LocationPermissionModal() {
 
             <View className="items-center">
               <View className="bg-primary-100 rounded-full p-6 mb-6 shadow-inner">
-                <MapPin size={36} color={colors['--primary']} strokeWidth={1.5} />
+                <MapPin size={36} strokeWidth={1.5} />
               </View>
 
               <View className="items-center mb-6">

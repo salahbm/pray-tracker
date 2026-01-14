@@ -82,7 +82,7 @@ const FriendsGroups = () => {
             </Pressable>
             <Pressable
               onPress={() => router.push('/(screens)/friends/all-friends')}
-              className="bg-card border border-border rounded-full p-3 active:opacity-80"
+              className="bg-background/80 border border-border rounded-full p-3 active:opacity-80"
             >
               <Users size={22} color={colors['--foreground']} />
             </Pressable>
@@ -108,7 +108,7 @@ const FriendsGroups = () => {
                       params: { groupId: group.id, groupName: group.name },
                     })
                   }
-                  className="bg-card border border-border rounded-2xl p-5 active:opacity-90"
+                  className="bg-background/80 border border-border rounded-2xl p-5 active:opacity-90"
                   style={{
                     shadowColor: colors['--primary'],
                     shadowOffset: { width: 0, height: 2 },
@@ -170,7 +170,7 @@ const FriendsGroups = () => {
                           >
                             <Image
                               source={member.photo ? { uri: member.photo } : FRIENDS.guest}
-                              className="size-10 rounded-full bg-muted border-2 border-card"
+                              className="size-10 rounded-full bg-muted border-2 border-background/50"
                               defaultSource={FRIENDS.guest}
                             />
                           </Animated.View>
@@ -178,7 +178,7 @@ const FriendsGroups = () => {
                         {group.memberCount > 4 && (
                           <Animated.View
                             entering={ZoomIn.delay(200)}
-                            className="size-10 rounded-full bg-primary/20 border-2 border-card -ml-3 items-center justify-center"
+                            className="size-10 rounded-full bg-primary/20 border-2 border-background/50 -ml-3 items-center justify-center"
                           >
                             <Text className="text-xs text-primary font-bold">
                               +{group.memberCount - 4}

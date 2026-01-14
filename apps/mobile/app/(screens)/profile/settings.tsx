@@ -72,7 +72,7 @@ const Settings = () => {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: colors['--accent'],
+                backgroundColor: colors['--primary-600'],
               }}
             />
             <View

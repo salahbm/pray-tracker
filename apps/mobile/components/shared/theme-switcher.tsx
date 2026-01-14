@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Animated, Platform, Pressable, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { rgb, cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { THEME_COLORS, THEMES, ThemesVariant } from '@/styles/theme.config';
 
@@ -78,28 +78,28 @@ const ThemeSwitcher = ({ onClose }: { onClose: () => void }) => {
                   height: 20,
                   borderStartStartRadius: 4,
                   borderBottomLeftRadius: 4,
-                  backgroundColor: themeStyles['--primary'],
+                  backgroundColor: rgb(themeStyles['--primary']),
                 }}
               />
               <View
                 style={{
                   width: 20,
                   height: 20,
-                  backgroundColor: themeStyles['--background'],
+                  backgroundColor: rgb(themeStyles['--muted']),
                 }}
               />
               <View
                 style={{
                   width: 20,
                   height: 20,
-                  backgroundColor: themeStyles['--accent'],
+                  backgroundColor: rgb(themeStyles['--primary-600']),
                 }}
               />
               <View
                 style={{
                   width: 20,
                   height: 20,
-                  backgroundColor: themeStyles['--destructive'],
+                  backgroundColor: rgb(themeStyles['--destructive']),
                 }}
               />
               <View
@@ -108,7 +108,7 @@ const ThemeSwitcher = ({ onClose }: { onClose: () => void }) => {
                   height: 20,
                   borderEndEndRadius: 4,
                   borderTopRightRadius: 4,
-                  backgroundColor: themeStyles['--foreground'],
+                  backgroundColor: rgb(themeStyles['--foreground']),
                 }}
               />
             </Animated.View>

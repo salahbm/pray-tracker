@@ -61,7 +61,7 @@ export const OnboardingWelcomeStep = ({ headline, body, footnote }: OnboardingWe
                 style={{
                   width: 20,
                   height: 20,
-                  backgroundColor: colors['--accent'],
+                  backgroundColor: colors['--primary-300'],
                 }}
               />
               <View

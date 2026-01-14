@@ -63,34 +63,6 @@
     "username": {
       "label": "Username",
       "placeholder": "Enter your username"
-    },
-    "welcome": {
-      "getStarted": "Get Started",
-      "guest": "Guest",
-      "next": "Next",
-      "skip": "Skip",
-      "onboarding": {
-        "aware": {
-          "description": "Keep track of your last prayer and plan your day around your Salah schedule.",
-          "title": "Stay Aware of Your Last Prayer"
-        },
-        "journey": {
-          "description": "Reflect on your progress and see how far you've come in maintaining regular prayers.",
-          "title": "Check Your Prayer Journey"
-        },
-        "remind": {
-          "description": "Get timely notifications and reminders to ensure you never miss your Salah.",
-          "title": "Never Miss a Prayer Again"
-        },
-        "share": {
-          "description": "Motivate others and yourself by sharing your prayer journey with your loved ones.",
-          "title": "Share Your Progress with Friends"
-        },
-        "track": {
-          "description": "Keep a record of your daily prayers effortlessly and stay consistent in your ibadah.",
-          "title": "Track Your Prayers with Ease"
-        }
-      }
     }
   },
   "leaderboard": {
@@ -173,7 +145,8 @@
       "requestSent": "Request Sent",
       "requestReceived": "Request Received",
       "accept": "Accept",
-      "reject": "Reject"
+      "reject": "Reject",
+      "retry": "Retry"
     },
     "permissions": {
       "notifications": {
@@ -193,7 +166,9 @@
       "title": "Resting Offline",
       "message": "The connection is taking a break. We'll refresh once you're back online.",
       "waiting": "Searching for Network"
-    }
+    },
+    "noData": "No Data",
+    "days": "days"
   },
   "friends": {
     "title": "Friends",
@@ -547,12 +522,12 @@
       "dayLabel": "Ramadan {{day}}",
       "suhoorEnds": "Suhoor ends",
       "iftar": "Iftar",
-      "countdownUntilIftar": "Time remaining until Iftar",
-      "countdownUntilSuhoorEnds": "Time remaining until Suhoor ends",
-      "countdownIftarTime": "It is time to break the fast",
+      "suhoor": "Suhoor",
+      "untilSuhoor": "until Suhoor",
+      "untilIftar": "until Iftar",
       "title": "Ramadan",
-      "beginsIn": "Begins in {{days}} days",
-      "trackingSoon": "Tracking will begin soon."
+      "prepareText": "Prepare for Ramadan with Noor",
+      "comingSoon": "Ramadan will begin soon."
     },
     "screen": {
       "title": "Ramadan",

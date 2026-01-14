@@ -25,7 +25,6 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
-import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
@@ -66,7 +65,6 @@ function reducer(state: typeof initialState, action: { type: string; payload?: a
 export default function HomeScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { colors } = useThemeStore();
 
   // DATE STATE
   const [today, setToday] = useState(new Date());
@@ -232,7 +230,6 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            tintColor={colors['--primary']}
             refreshing={isLoadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();

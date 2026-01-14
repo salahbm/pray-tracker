@@ -11,15 +11,12 @@ import Animated, {
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react-native';
 import { triggerHaptic } from '@/utils';
-import { useThemeStore } from '@/store/defaults/theme';
 
 type Props = TabTriggerSlotProps & {
   icon: LucideIcon;
 };
 
 export function TabButton({ isFocused, icon: Icon, children, ...props }: Props) {
-  const { colors } = useThemeStore();
-
   const containerAnim = useAnimatedStyle(() => {
     'worklet';
     return {
@@ -55,7 +52,10 @@ export function TabButton({ isFocused, icon: Icon, children, ...props }: Props) 
 
   return (
     <Animated.View
-      style={[containerAnim, { backgroundColor: isFocused ? colors['--primary'] : 'transparent' }]}
+      className={cn('flex-center', {
+        'bg-primary': isFocused,
+      })}
+      style={[containerAnim]}
     >
       <Pressable {...props} className="flex-center px-4" onPressIn={handlePressIn} hitSlop={12}>
         <Animated.View style={iconAnim}>

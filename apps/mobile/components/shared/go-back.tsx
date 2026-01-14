@@ -18,15 +18,7 @@ interface GoBackHeaderProps {
 }
 
 const GoBack: React.FC<GoBackHeaderProps> = props => {
-  const { colors } = useThemeStore();
-  const {
-    title,
-    textColor = colors['--foreground'],
-    iconColor = colors['--primary'],
-    iconSize = 24,
-    onRightPress,
-    rightIconName,
-  } = props;
+  const { title, textColor, iconColor, iconSize = 24, onRightPress, rightIconName } = props;
   const navigation = useNavigation();
 
   const canGoBack = navigation.canGoBack();

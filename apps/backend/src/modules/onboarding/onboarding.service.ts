@@ -14,15 +14,28 @@ export class OnboardingService {
   }
 
   async upsertPreferences(userId: string, dto: UpsertOnboardingDto) {
-    const data = this.buildUpdatePayload(dto);
+    const updateData = this.buildUpdatePayload(dto);
+
+    const createData: Prisma.OnboardingCreateInput = {
+      user: { connect: { id: userId } },
+      prayerKnowledge: dto.prayerKnowledge,
+      supportNeeded: dto.supportNeeded,
+      learnIslam: dto.learnIslam,
+      whyHere: dto.whyHere,
+      whereDidYouHearAboutUs: dto.whereDidYouHearAboutUs,
+      locationPermissionGranted: dto.locationPermissionGranted ?? false,
+      locationCity: dto.locationCity,
+      locationTimezone: dto.locationTimezone,
+      notificationPermissionGranted: dto.notificationPermissionGranted ?? false,
+      notificationPreset: dto.notificationPreset,
+      enabledModules: dto.enabledModules,
+      defaultHomeTab: dto.defaultHomeTab,
+    };
 
     return this.prisma.onboarding.upsert({
       where: { userId },
-      update: data,
-      create: {
-        userId,
-        ...data,
-      },
+      update: updateData,
+      create: createData,
     });
   }
 

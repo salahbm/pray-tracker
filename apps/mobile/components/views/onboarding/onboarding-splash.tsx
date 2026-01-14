@@ -33,7 +33,7 @@ export const OnboardingSplashStep = ({
 
   return (
     <LinearGradient
-      colors={[colors['--primary'], colors['--accent']]}
+      colors={[colors['--primary-300'], colors['--primary-700']]}
       className="flex-1 items-center justify-center rounded-3xl"
       style={{ paddingTop: insets.top + 30, paddingBottom: insets.bottom + 40 }}
       start={{ x: 0.1, y: 0.1 }}

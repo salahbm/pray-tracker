@@ -20,7 +20,7 @@ import { InquiryMessage } from '@/types/inquiries';
 const InquiryDetailScreen = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { colors } = useThemeStore();
+  // const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
   const { id, email: emailParam } = useLocalSearchParams<{ id: string; email?: string }>();
   const inquiryId = Array.isArray(id) ? id[0] : id;
@@ -69,7 +69,7 @@ const InquiryDetailScreen = () => {
 
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color={colors['--primary']} />
+          <ActivityIndicator size="large" />
         </View>
       ) : !inquiry ? (
         <View className="flex-1 items-center justify-center px-6">

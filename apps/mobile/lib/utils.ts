@@ -1,4 +1,6 @@
+import { ThemeColors } from '@/styles/theme.config';
 import { type ClassValue, clsx } from 'clsx';
+import { processColor } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -61,4 +63,62 @@ export const formatNumber = (points?: number): string => {
   }
 
   return points.toString();
+};
+
+export const rgb = (value: string) => {
+  const [r, g, b] = value.split(' ').map(Number);
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
+export const rgba = (value: string, alpha: number) => {
+  if (!value) return `rgba(0,0,0,${alpha})`;
+
+  // If already rgb/rgba → just override alpha
+  if (value.startsWith('rgb')) {
+    const nums = value.match(/\d+(\.\d+)?/g)?.map(Number) ?? [];
+    const [r = 0, g = 0, b = 0] = nums;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  // If "R G B"
+  const parts = value.split(' ').map(Number);
+  if (parts.length === 3 && parts.every(n => !Number.isNaN(n))) {
+    const [r, g, b] = parts;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  // Fallback
+  return value;
+};
+
+export const animatedColor = (value: string, alpha = 1) => {
+  const [r, g, b] = value.split(' ').map(Number);
+  return processColor(`rgba(${r}, ${g}, ${b}, ${alpha})`);
+};
+
+// styles/theme.mapper.ts
+
+export const mapThemeToRNColors = (theme: Record<string, string>): ThemeColors => {
+  const out: Record<string, string> = {};
+
+  for (const key in theme) {
+    const value = theme[key];
+
+    // If already rgb/rgba, leave it
+    if (value.startsWith('rgb')) {
+      out[key] = value;
+      continue;
+    }
+
+    // Convert "R G B" → "rgba(R,G,B,1)"
+    const parts = value.split(' ').map(Number);
+    if (parts.length === 3 && parts.every(n => !Number.isNaN(n))) {
+      const [r, g, b] = parts;
+      out[key] = `rgba(${r}, ${g}, ${b}, 1)`;
+    } else {
+      out[key] = value; // fallback safe
+    }
+  }
+
+  return out as ThemeColors;
 };

@@ -6,7 +6,7 @@ import { TextClassContext } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'group flex items-center relative justify-center rounded-md gap-2 flex-row web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
+  'group flex items-center relative justify-center rounded-md gap-2 flex-row web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-border-focus web:focus-visible:ring-offset-2',
   {
     variants: {
       variant: {
@@ -14,10 +14,9 @@ const buttonVariants = cva(
         destructive:
           'bg-transparent border border-destructive web:hover:opacity-90 active:opacity-90 disabled:bg-muted disabled:text-muted-foreground',
         outline:
-          'border border-input bg-transparent web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent active:opacity-40 active:text-accent-foreground',
-        secondary: 'bg-secondary web:hover:opacity-80 active:opacity-80',
+          'border border-border bg-transparent web:hover:bg-primary/10 web:hover:text-primary active:bg-primary/10 active:text-primary',
         ghost:
-          'web:hover:bg-secondary/10 web:hover:text-secondary-foreground active:bg-secondary/10 active:text-secondary-foreground',
+          'web:hover:bg-primary/10 web:hover:text-primary active:bg-primary/10 active:text-primary',
         link: 'web:underline-offset-4 web:hover:underline web:focus:underline',
         icon: 'bg-transparent active:bg-transparent active:opacity-100',
       },
@@ -50,9 +49,8 @@ const buttonTextVariants = cva(
       variant: {
         default: 'text-primary-foreground group-active:text-foreground',
         destructive: 'text-destructive disabled:text-muted-foreground',
-        outline: 'group-active:text-accent-foreground',
-        secondary: 'text-secondary-foreground group-active:text-secondary-foreground',
-        ghost: 'group-active:text-accent-foreground',
+        outline: 'group-active:text-primary',
+        ghost: 'group-active:text-primary',
         link: 'text-primary group-active:underline',
         icon: '',
       },
@@ -96,6 +94,7 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
     );
   }
 );
+
 Button.displayName = 'Button';
 
 export { Button, buttonTextVariants, buttonVariants };

@@ -29,7 +29,6 @@ const toVisual = (deg: number) => norm360(360 - norm360(deg));
 
 const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
   const isFocused = useIsFocused();
 
   const [heading, setHeading] = useState<number>(0);
@@ -130,7 +129,7 @@ const QiblaScreen: React.FC = () => {
                   size="icon"
                   className="rounded-full shadow-lg bg-white/20 w-12 h-12 p-2"
                 >
-                  <Info size={24} color={colors['--primary']} />
+                  <Info size={24} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent className="ml-6">
@@ -147,7 +146,7 @@ const QiblaScreen: React.FC = () => {
                 router.back();
               }}
             >
-              <X size={24} color={colors['--primary']} />
+              <X size={24} />
             </Button>
           </View>
         </View>

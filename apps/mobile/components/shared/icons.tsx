@@ -1,4 +1,6 @@
 import type { LucideIcon } from 'lucide-react-native';
+import { cssInterop } from 'nativewind';
+
 import {
   Calendar,
   ChevronDown,
@@ -13,8 +15,19 @@ import {
   X,
   Clock4,
   ArrowLeft,
+  Settings2,
+  MapPin,
+  Sunrise,
+  SunMoon,
+  Sunset,
+  SunDim,
+  RefreshCcw,
+  Sparkles,
+  ChevronRight,
+  Search,
+  ChevronLeft,
+  Moon,
 } from 'lucide-react-native';
-import { cssInterop } from 'nativewind';
 
 export function iconWithClassName(icon: LucideIcon) {
   cssInterop(icon, {
@@ -41,6 +54,18 @@ iconWithClassName(LogOut);
 iconWithClassName(X);
 iconWithClassName(Clock4);
 iconWithClassName(ArrowLeft);
+iconWithClassName(Settings2);
+iconWithClassName(MapPin);
+iconWithClassName(Sunrise);
+iconWithClassName(SunMoon);
+iconWithClassName(Sunset);
+iconWithClassName(SunDim);
+iconWithClassName(RefreshCcw);
+iconWithClassName(Sparkles);
+iconWithClassName(ChevronRight);
+iconWithClassName(Search);
+iconWithClassName(ChevronLeft);
+iconWithClassName(Moon);
 
 export {
   Calendar,
@@ -56,4 +81,16 @@ export {
   X,
   ArrowLeft,
   Clock4,
+  Settings2,
+  MapPin,
+  Sunrise,
+  SunMoon,
+  Sunset,
+  SunDim,
+  RefreshCcw,
+  Sparkles,
+  ChevronRight,
+  Search,
+  ChevronLeft,
+  Moon,
 };

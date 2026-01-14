@@ -1,13 +1,5 @@
-import React, { useMemo, useRef, useState, useCallback, useEffect } from 'react';
-import {
-  View,
-  useWindowDimensions,
-  Pressable,
-  ActivityIndicator,
-  Keyboard,
-  FlatList,
-  RefreshControl,
-} from 'react-native';
+import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
+import { View, ActivityIndicator, Keyboard, FlatList, RefreshControl } from 'react-native';
 import BottomSheet, {
   BottomSheetTextInput,
   BottomSheetFlatList,
@@ -20,12 +12,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useRamadanCalendar } from '@/hooks/ramadan/useRamadanCalendar';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/store/use-location';
-import GoBack from '@/components/shared/go-back';
+import { MapPin, ChevronLeft, Search, Moon, Sun } from '@/components/shared/icons';
+import { PressableBounce } from '@/components/shared/pressable-bounce';
+import { router } from 'expo-router';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
@@ -43,7 +36,6 @@ const RamadanScreen = () => {
   const insets = useSafeAreaInsets();
   const sheetRef = useRef<BottomSheet>(null);
   const listRef = useRef<FlatList>(null);
-  const { width } = useWindowDimensions();
   const { city, country, setLocation } = useLocationStore();
   const { t } = useTranslation();
 
@@ -63,8 +55,6 @@ const RamadanScreen = () => {
     year: today.getFullYear(),
   });
 
-  const numColumns = width > 520 ? 3 : 2;
-
   const todayIndex = useMemo(() => {
     return monthDays.findIndex(
       d => format(parseGregorianDate(d.gregorianDate), 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
@@ -77,7 +67,7 @@ const RamadanScreen = () => {
         listRef.current?.scrollToIndex({
           index: todayIndex,
           animated: true,
-          viewPosition: 0.2,
+          viewPosition: 0.5,
         });
       }, 500);
       return () => clearTimeout(timer);
@@ -86,12 +76,12 @@ const RamadanScreen = () => {
 
   const getItemLayout = (_: any, index: number) => ({
     length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * Math.floor(index / numColumns),
+    offset: ITEM_HEIGHT * Math.floor(index / 2),
     index,
   });
 
   const { data: locationResults = [], isFetching: isSearching } = useQuery({
-    queryKey: ['locationSearch', debouncedSearch],
+    queryKey: ['locationSearch', { debouncedSearch }],
     queryFn: async () => {
       if (debouncedSearch.length < 3) return [];
 
@@ -142,102 +132,131 @@ const RamadanScreen = () => {
   );
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top + 20 }}>
-      <View className="px-5 pb-1">
-        <GoBack title={t('ramadan.screen.title')} />
-        <View className="rounded-3xl border border-border bg-card p-5 shadow-sm">
-          <View className="flex-row justify-between items-start">
-            <View>
-              <Text className="text-[10px] font-bold uppercase tracking-widest text-primary">
-                {monthDays.length > 0
-                  ? t('ramadan.screen.headerLabel', { year: monthDays[0].hijriYear })
-                  : t('ramadan.screen.headerLabelFallback')}
-              </Text>
-              <Text className="text-2xl font-bold tracking-tight mt-1">
-                {monthDays.length > 0
-                  ? t('ramadan.screen.monthLabel', {
-                      month: monthDays[0].hijriMonthName,
-                      year: monthDays[0].hijriYear,
-                    })
-                  : format(today, 'MMMM yyyy')}
-              </Text>
-            </View>
-            <Button
-              size="sm"
-              variant="secondary"
-              className="rounded-xl"
-              onPress={() => sheetRef.current?.snapToIndex(1)}
-            >
-              <Text className="text-xs font-bold">{t('ramadan.screen.changeLocation')}</Text>
-            </Button>
-          </View>
-          <View className="mt-4 flex-row items-center">
-            <View className="h-2 w-2 rounded-full bg-green-500 mr-2" />
-            <Text className="text-sm font-medium text-muted-foreground">
-              {t('ramadan.screen.locationLabel', { city, country })}
+    <View className="flex-1 bg-background">
+      {/* 1. STICKY HEADER AREA */}
+      <View
+        className="bg-primary-700/5 z-10 pb-2 border-b border-border/40"
+        style={{ paddingTop: insets.top }}
+      >
+        <View className="px-4 py-2 flex-row items-center justify-between">
+          {/* Custom GoBack Wrapper */}
+          <PressableBounce
+            onPress={() => router.back()}
+            className="p-2 -ml-2 rounded-full active:bg-muted"
+          >
+            <ChevronLeft size={24} className="text-foreground" />
+          </PressableBounce>
+          <Text className="text-lg font-bold">{t('ramadan.screen.title')}</Text>
+          <View className="w-8" /> {/* Spacer for balance */}
+        </View>
+
+        {/* Month & Location Bar */}
+        <View className="px-6 mt-2 flex-row justify-between items-end pb-4">
+          <View>
+            <Text className="text-xs font-bold text-primary uppercase tracking-widest mb-1">
+              {monthDays.length > 0 ? monthDays[0].hijriYear + ' AH' : '--'}
+            </Text>
+            <Text className="text-3xl font-black text-foreground tracking-tight">
+              {monthDays.length > 0 ? monthDays[0].hijriMonthName : format(today, 'MMMM')}
             </Text>
           </View>
+
+          <PressableBounce
+            onPress={() => sheetRef.current?.snapToIndex(1)}
+            className="flex-row items-center bg-muted/50 border border-border px-3 py-1.5 rounded-full"
+          >
+            <MapPin size={12} className="text-primary mr-1.5" />
+            <Text
+              className="text-xs font-semibold text-foreground/80 max-w-[100px]"
+              numberOfLines={1}
+            >
+              {city}
+            </Text>
+          </PressableBounce>
         </View>
       </View>
 
+      {/* 2. CALENDAR GRID */}
       <FlatList
         ref={listRef}
         data={monthDays}
-        key={`${numColumns}`}
-        numColumns={numColumns}
+        key={2} // Force re-render on orientation change
+        numColumns={2}
         keyExtractor={item => item.gregorianDate}
         getItemLayout={getItemLayout}
-        columnWrapperStyle={{ paddingHorizontal: 16 }}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{
+          paddingHorizontal: 12,
+          paddingBottom: insets.bottom + 20,
+          paddingTop: 16,
+        }}
         showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} tintColor="gray" />
+        }
         renderItem={({ item, index }) => {
           const gDate = parseGregorianDate(item.gregorianDate);
           const isToday = index === todayIndex;
 
           return (
-            <View style={{ width: `${100 / numColumns}%`, height: ITEM_HEIGHT }} className="p-1.5">
+            <View style={{ width: `${100 / 2}%` }} className="p-1.5">
               <View
                 className={cn(
-                  'flex-1 rounded-2xl border p-4 justify-between',
-                  isToday ? 'border-primary bg-primary/5' : 'border-border bg-card'
+                  'flex-1 rounded-2xl p-3 justify-between min-h-[110px]',
+                  isToday
+                    ? 'bg-background border-2 border-primary shadow-lg shadow-primary/10'
+                    : 'bg-card border border-border/40'
                 )}
               >
+                {/* Date Header */}
                 <View className="flex-row justify-between items-start">
-                  <View>
+                  <View className="items-center">
                     <Text
                       className={cn(
-                        'text-base font-bold',
+                        'text-lg font-bold leading-5',
                         isToday ? 'text-primary' : 'text-foreground'
                       )}
                     >
-                      {format(gDate, 'd MMM')}
+                      {format(gDate, 'd')}
                     </Text>
-                    <Text className="text-[10px] text-muted-foreground">
-                      {t('ramadan.screen.dayLabel', { day: item.hijriDay })}
+                    <Text className="text-[9px] text-muted-foreground uppercase font-bold">
+                      {format(gDate, 'MMM')}
                     </Text>
                   </View>
-                  {isToday && (
-                    <View className="bg-primary px-2 py-0.5 rounded-full">
-                      <Text className="text-[8px] font-bold text-primary-foreground uppercase">
-                        {t('common.today')}
-                      </Text>
-                    </View>
-                  )}
+
+                  <View
+                    className={cn('px-1.5 py-0.5 rounded-md', isToday ? 'bg-primary' : 'bg-muted')}
+                  >
+                    <Text
+                      className={cn(
+                        'text-[10px] font-bold',
+                        isToday ? 'text-primary-foreground' : 'text-muted-foreground'
+                      )}
+                    >
+                      {item.hijriDay}
+                    </Text>
+                  </View>
                 </View>
 
-                <View className="space-y-1">
+                {/* Timings */}
+                <View className="mt-3 gap-1.5">
                   <View className="flex-row justify-between items-center">
-                    <Text className="text-[9px] font-bold text-muted-foreground uppercase">
-                      {t('ramadan.screen.suhoor')}
+                    <View className="flex-row items-center gap-1 opacity-60">
+                      <Moon size={10} className="text-indigo-400" />
+                      <Text className="text-[9px] text-muted-foreground">Suhoor</Text>
+                    </View>
+                    <Text className="text-[11px] font-bold tabular-nums">
+                      {item.fajr.split(' ')[0]}
                     </Text>
-                    <Text className="text-xs font-bold">{item.fajr.split(' ')[0]}</Text>
                   </View>
+
                   <View className="flex-row justify-between items-center">
-                    <Text className="text-[9px] font-bold text-orange-500 uppercase">
-                      {t('ramadan.screen.iftar')}
+                    <View className="flex-row items-center gap-1 opacity-60">
+                      <Sun size={10} className="text-amber-500" />
+                      <Text className="text-[9px] text-muted-foreground">Iftar</Text>
+                    </View>
+                    <Text className="text-[11px] font-bold tabular-nums">
+                      {item.maghrib.split(' ')[0]}
                     </Text>
-                    <Text className="text-xs font-bold">{item.maghrib.split(' ')[0]}</Text>
                   </View>
                 </View>
               </View>
@@ -246,48 +265,66 @@ const RamadanScreen = () => {
         }}
       />
 
+      {/* 3. LOCATION SHEET */}
       <BottomSheet
         ref={sheetRef}
         index={-1}
-        snapPoints={['60%', '80%']}
+        snapPoints={['50%', '85%']}
         enablePanDownToClose
+        detached
+        handleComponent={() => null}
+        handleIndicatorStyle={{ backgroundColor: 'transparent' }}
         backdropComponent={renderBackdrop}
-        handleIndicatorStyle={{ backgroundColor: '#e2e2e2' }}
       >
-        <BottomSheetView className="flex-1 px-6 py-10">
-          <Text className="text-xl font-bold mb-4">{t('ramadan.screen.searchLocation')}</Text>
-          <View className="relative">
+        <BottomSheetView className="flex-1 px-5 pt-4 bg-background h-full">
+          <Text className="text-xl font-bold mb-4 text-center">
+            {t('ramadan.screen.searchLocation')}
+          </Text>
+
+          <View className="relative mb-2">
+            <View className="absolute left-4 top-4 z-10">
+              <Search size={18} className="text-muted-foreground" />
+            </View>
             <BottomSheetTextInput
               placeholder={t('ramadan.screen.searchPlaceholder')}
+              placeholderTextColor="#9ca3af"
               value={searchQuery}
               onChangeText={setSearchQuery}
-              className="h-16 rounded-2xl border border-border pr-2 pl-4 placeholder:text-muted-foreground"
+              style={{ paddingLeft: 44 }}
+              className="h-12 rounded-xl bg-muted/30 border border-border text-foreground pr-4"
             />
-            {isSearching && <ActivityIndicator className="absolute right-4 top-3" />}
+            {isSearching && <ActivityIndicator className="absolute right-4 top-3.5" />}
           </View>
 
           <BottomSheetFlatList
             data={locationResults}
-            keyExtractor={(item, i) => i.toString()}
-            contentContainerStyle={{ paddingTop: 20, paddingBottom: 40 }}
-            renderItem={({ item }) => (
-              <Pressable
+            keyExtractor={(item: any, i: number) => i.toString()}
+            contentContainerStyle={{ paddingTop: 12, paddingBottom: 40 }}
+            renderItem={({ item }: any) => (
+              <PressableBounce
                 onPress={() => handleSelectLocation(item)}
-                className="mb-2 p-4 rounded-2xl border border-border bg-card active:bg-muted"
+                className="mb-2 p-4 rounded-xl flex-row items-center gap-3 bg-card border border-border/50 active:bg-muted"
               >
-                <Text className="font-bold text-base">
-                  {item.address?.city || item.address?.town || item.name}
-                </Text>
-                <Text className="text-xs text-muted-foreground">{item.address?.country}</Text>
-              </Pressable>
+                <View className="w-8 h-8 rounded-full bg-muted items-center justify-center">
+                  <MapPin size={16} className="text-foreground/70" />
+                </View>
+                <View>
+                  <Text className="font-bold text-base text-foreground">
+                    {item.address?.city || item.address?.town || item.name}
+                  </Text>
+                  <Text className="text-xs text-muted-foreground">
+                    {[item.address?.state, item.address?.country].filter(Boolean).join(', ')}
+                  </Text>
+                </View>
+              </PressableBounce>
             )}
-            ListEmptyComponent={() =>
-              debouncedSearch.length > 2 && !isSearching ? (
-                <Text className="text-center text-muted-foreground mt-10">
+            ListEmptyComponent={() => (
+              <View className="items-center mt-10 opacity-50">
+                <Text className="text-sm text-muted-foreground">
                   {t('ramadan.screen.noCities')}
                 </Text>
-              ) : null
-            }
+              </View>
+            )}
           />
         </BottomSheetView>
       </BottomSheet>

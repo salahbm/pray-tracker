@@ -16,7 +16,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
-  const { colors } = useThemeStore();
+
   const { t } = useTranslation();
   const { mutateAsync: updateUser, isPending } = usePutUser();
   const { mutateAsync: uploadImage, isPending: imageUploading } = useUploadImage();
@@ -108,9 +108,9 @@ const EditProfile = () => {
               className="absolute p-1 rounded-full right-2 bottom-3"
             >
               {imageUploading ? (
-                <ActivityIndicator size="small" color={colors['--primary']} />
+                <ActivityIndicator size="small" />
               ) : (
-                <Feather name="edit-3" size={24} color={colors['--primary']} />
+                <Feather name="edit-3" size={24} />
               )}
             </TouchableOpacity>
           </View>
