@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -26,10 +27,15 @@ interface RamadanStatusBadgeProps {
 
 const RamadanStatusBadge = ({ status }: RamadanStatusBadgeProps) => {
   const styles = statusStyles[status];
+  const { t } = useTranslation();
+  const statusKey =
+    status === 'Iftar Time' ? 'iftarTime' : status === 'Suhoor Time' ? 'suhoorTime' : 'fasting';
 
   return (
     <View className={cn('self-start rounded-full px-3 py-1', styles.container)}>
-      <Text className={cn('text-xs font-semibold', styles.text)}>{status}</Text>
+      <Text className={cn('text-xs font-semibold', styles.text)}>
+        {t(`ramadan.status.${statusKey}`)}
+      </Text>
     </View>
   );
 };

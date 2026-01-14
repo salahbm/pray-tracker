@@ -29,7 +29,6 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { triggerHaptic } from '@/utils/haptics';
 
 import ProfilePage from '../(screens)/profile';
-import PrayerTimer from '@/components/views/qibla/prayer-times';
 import RamadanCard from '@/components/ramadan/ramadan-card';
 
 const initialState = {
@@ -288,16 +287,6 @@ export default function HomeScreen() {
             handleDayClick={handleDayClick}
             handleUpdateClickedDay={handleUpdateClickedDay}
           />
-        </MotiView>
-
-        {/* PRAYER NOTIFIER */}
-        <MotiView
-          key="prayer-notifier-animation"
-          from={{ opacity: 0, translateY: 50 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
-        >
-          <PrayerTimer />
         </MotiView>
 
         {/* CHARTS */}

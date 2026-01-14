@@ -6,8 +6,9 @@ import * as Localization from 'expo-localization';
 import * as Notifications from 'expo-notifications';
 import { AnimatePresence, MotiView } from 'moti';
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
+import { OnboardingPreferencePayload, useOnboarding } from '@/hooks/onboarding/use-onboarding';
 
 import onboardingSteps from './steps.json';
 
@@ -45,10 +46,35 @@ import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 
-const onboardingData = onboardingSteps as OnboardingDataType;
+const translateOnboardingData = (data: OnboardingDataType, translate: (key: string) => string) => {
+  const translateValue = (value: any): any => {
+    if (Array.isArray(value)) {
+      return value.map(translateValue);
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, nestedValue]) => [key, translateValue(nestedValue)])
+      );
+    }
+
+    if (typeof value === 'string' && value.startsWith('onboardingFlow.')) {
+      return translate(value);
+    }
+
+    return value;
+  };
+
+  return translateValue(data) as OnboardingDataType;
+};
 
 const Onboarding = () => {
   const appName = Constants.expoConfig?.name ?? 'Noor';
+  const { t } = useTranslation();
+  const onboardingData = useMemo(
+    () => translateOnboardingData(onboardingSteps as OnboardingDataType, t),
+    [t]
+  );
   const steps = onboardingData.steps;
   const mainSteps = getMainSteps(steps);
   const splashStep = getSplashStep(steps);
@@ -93,7 +119,21 @@ const Onboarding = () => {
   const persistPreferences = useCallback(async () => {
     setIsSaving(true);
     try {
-      await onboardingMutation.mutateAsync(state);
+      const payload: OnboardingPreferencePayload = {
+        prayerKnowledge: state.prayerKnowledge,
+        supportNeeded: state.supportNeeded,
+        learnIslam: state.learnIslam,
+        whyHere: state.whyHere,
+        locationPermissionGranted: state.locationPermissionGranted,
+        notificationPermissionGranted: state.notificationPermissionGranted,
+        whereDidYouHearAboutUs: state.whereDidYouHearAboutUs,
+        locationCity: state.locationCity,
+        locationTimezone: state.locationTimezone,
+        enabledModules: state.enabledModules,
+        defaultHomeTab: state.defaultHomeTab,
+      };
+
+      await onboardingMutation.mutateAsync(payload);
     } finally {
       setIsSaving(false);
     }
