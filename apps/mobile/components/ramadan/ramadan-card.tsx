@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { MotiView } from 'moti';
 import { addDays, addMonths, differenceInCalendarDays, format, parse, startOfDay } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import RamadanCountdown from '@/components/ramadan/ramadan-countdown';
 import RamadanStatusBadge from '@/components/ramadan/ramadan-badge';
@@ -29,6 +30,7 @@ const RamadanCard = () => {
     }
     return new Date();
   });
+  const { t } = useTranslation();
 
   const city = 'Seoul';
   const country = 'Saudi Arabia';
@@ -129,7 +131,7 @@ const RamadanCard = () => {
             <View className="flex-row items-center justify-between">
               <View>
                 <Text className="text-xs uppercase tracking-widest text-muted-foreground">
-                  Ramadan {todayEntry.hijriDay}
+                  {t('ramadan.card.dayLabel', { day: todayEntry.hijriDay })}
                 </Text>
                 <Text className="text-lg font-semibold">
                   {todayEntry.hijriDay} {todayEntry.hijriMonthName} {todayEntry.hijriYear} AH
@@ -141,31 +143,33 @@ const RamadanCard = () => {
             {/* Time range */}
             <View className="mt-4 flex-row gap-3">
               <View className="flex-1 rounded-xl bg-muted px-3 py-2">
-                <Text className="text-xs text-muted-foreground">Suhoor ends</Text>
+                <Text className="text-xs text-muted-foreground">
+                  {t('ramadan.card.suhoorEnds')}
+                </Text>
                 <Text className="text-lg font-semibold">{formatTiming(todayEntry.fajr)}</Text>
               </View>
               <View className="flex-1 rounded-xl bg-muted px-3 py-2">
-                <Text className="text-xs text-muted-foreground">Iftar</Text>
+                <Text className="text-xs text-muted-foreground">{t('ramadan.card.iftar')}</Text>
                 <Text className="text-lg font-semibold">{formatTiming(todayEntry.maghrib)}</Text>
               </View>
             </View>
 
             {/* Countdown context */}
             <Text className="mt-4 text-xs text-muted-foreground">
-              {countdown.status === 'Suhoor Time' && 'Time remaining until Iftar'}
-              {countdown.status === 'Fasting' && 'Time remaining until Suhoor ends'}
-              {countdown.status === 'Iftar Time' && 'It is time to break the fast'}
+              {countdown.status === 'Suhoor Time' && t('ramadan.card.countdownUntilIftar')}
+              {countdown.status === 'Fasting' && t('ramadan.card.countdownUntilSuhoorEnds')}
+              {countdown.status === 'Iftar Time' && t('ramadan.card.countdownIftarTime')}
             </Text>
 
             <RamadanCountdown countdown={countdown} />
           </View>
         ) : (
           <View className="items-center py-4">
-            <Text className="text-base font-semibold">Ramadan</Text>
+            <Text className="text-base font-semibold">{t('ramadan.card.title')}</Text>
             <Text className="mt-1 text-sm text-muted-foreground">
               {ramadanStartInfo
-                ? `Begins in ${ramadanStartInfo.daysUntil} days`
-                : 'Tracking will begin soon.'}
+                ? t('ramadan.card.beginsIn', { days: ramadanStartInfo.daysUntil })
+                : t('ramadan.card.trackingSoon')}
             </Text>
           </View>
         )}

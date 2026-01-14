@@ -15,7 +15,6 @@ export interface OnboardingPreferencePayload {
   locationTimezone?: string | null;
   enabledModules?: string[];
   defaultHomeTab?: string | null;
-  completedSteps?: string[];
 }
 
 export interface OnboardingPreferenceResponse {
@@ -30,10 +29,9 @@ export interface OnboardingPreferenceResponse {
   whereDidYouHearAboutUs: string | null;
   locationCity: string | null;
   locationTimezone: string | null;
+  notificationPreset?: string | null;
   enabledModules: string[];
   defaultHomeTab: string | null;
-  completedSteps: string[];
-  completedAt: string | null;
   createdAt: string;
   updatedAt: string;
 }
