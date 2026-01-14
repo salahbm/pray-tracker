@@ -11,27 +11,30 @@ import SheetWrapper from './sheet-wrapper';
 import NotificationProvider from './notification-context';
 import { OfflineModal } from '@/components/shared/modals/offline-modal';
 import { GlobalAlert } from './alert';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <I18nProvider>
       <QueryProvider>
         <ThemeProvider>
-          <BottomSheet>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-              style={{ flex: 1 }}
-              keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
-            >
-              {children}
-            </KeyboardAvoidingView>
-            <ToastProvider />
-            <PortalHost />
-            <SheetWrapper />
-            <GlobalAlert />
-            <OfflineModal />
-            <NotificationProvider />
-          </BottomSheet>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheet>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
+              >
+                {children}
+              </KeyboardAvoidingView>
+              <ToastProvider />
+              <PortalHost />
+              <SheetWrapper />
+              <GlobalAlert />
+              <OfflineModal />
+              <NotificationProvider />
+            </BottomSheet>
+          </GestureHandlerRootView>
         </ThemeProvider>
       </QueryProvider>
     </I18nProvider>

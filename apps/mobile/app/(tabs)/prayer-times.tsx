@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
+import BottomSheet from '@gorhom/bottom-sheet';
 import {
   Settings2,
   Compass,
@@ -19,6 +20,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import NoData from '@/components/shared/no-data';
 import { NotificationPermissionModal } from '@/components/shared/modals/notification-permission-modal';
 import PrayerTimerSkeleton from '@/components/views/qibla/prayer-time-skeleton';
+import { LocationSelector } from '@/components/shared/location-selector';
 
 // Logic & Store
 import useTimeLeft from '@/hooks/common/useTimeLeft';
@@ -28,21 +30,17 @@ import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { router } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
-import Modal from '@/components/shared/modals/modal';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useQibla } from '@/hooks/prays/useQibla';
 
 const PrayerTimer = () => {
+  useQibla();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
+  const locationSheetRef = useRef<BottomSheet>(null);
 
-  const { prayerTimes, locationName, loading, error, city, country, setCity, setCountry } =
-    usePrayerData();
+  const { prayerTimes, locationName, loading, error } = usePrayerData();
   const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes);
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [draftCity, setDraftCity] = useState(city ?? '');
-  const [draftCountry, setDraftCountry] = useState(country ?? '');
 
   const prayers = useMemo(() => {
     if (!prayerTimes) return [];
@@ -64,19 +62,18 @@ const PrayerTimer = () => {
         UX Improvement: Buttons are subtle (secondary) so they don't distract from the time.
       */}
       <View
-        className="flex-row justify-between items-center px-6 pb-4 z-10 bg-background"
+        className="flex-row justify-between items-center px-6 pb-4"
         style={{ paddingTop: insets.top + 10 }}
       >
         <TouchableOpacity
           className="flex-row items-center gap-2 opacity-80"
           onPress={() => {
-            setDraftCity(city ?? '');
-            setDraftCountry(country ?? '');
-            setIsLocationModalOpen(true);
+            triggerHaptic();
+            locationSheetRef.current?.expand();
           }}
         >
-          <MapPin size={16} className="text-primary" />
-          <Text className="text-sm font-medium text-foreground/80 truncate max-w-[200px]">
+          <MapPin size={20} className="text-primary" />
+          <Text className="text-md font-medium text-foreground/80 truncate max-w-[200px]">
             {locationName || t('common.locating')}
           </Text>
         </TouchableOpacity>
@@ -95,7 +92,7 @@ const PrayerTimer = () => {
               }}
               className="p-2.5 rounded-full bg-muted/30 border border-border"
             >
-              <btn.icon className="text-foreground size-5" />
+              <btn.icon className="text-primary-600 size-5" />
             </TouchableOpacity>
           ))}
         </View>
@@ -203,45 +200,7 @@ const PrayerTimer = () => {
       </ScrollView>
 
       <NotificationPermissionModal />
-      <Modal visible={isLocationModalOpen} onRequestClose={() => setIsLocationModalOpen(false)}>
-        <View className="p-5">
-          <Text className="text-lg font-semibold text-foreground mb-3">
-            {t('qibla.prayerTimes.citySelector.title')}
-          </Text>
-          <View className="gap-3">
-            <Input
-              label={t('qibla.prayerTimes.citySelector.cityLabel')}
-              placeholder={t('qibla.prayerTimes.citySelector.cityPlaceholder')}
-              value={draftCity}
-              onChangeText={setDraftCity}
-            />
-            <Input
-              label={t('qibla.prayerTimes.citySelector.countryLabel')}
-              placeholder={t('qibla.prayerTimes.citySelector.countryPlaceholder')}
-              value={draftCountry}
-              onChangeText={setDraftCountry}
-            />
-          </View>
-          <View className="flex-row justify-end gap-3 mt-6">
-            <Button variant="ghost" onPress={() => setIsLocationModalOpen(false)} className="px-4">
-              <Text>{t('qibla.prayerTimes.citySelector.cancel')}</Text>
-            </Button>
-            <Button
-              onPress={() => {
-                if (!draftCity.trim() || !draftCountry.trim()) {
-                  return;
-                }
-                setCity(draftCity.trim());
-                setCountry(draftCountry.trim());
-                setIsLocationModalOpen(false);
-              }}
-              className="px-4"
-            >
-              <Text>{t('qibla.prayerTimes.citySelector.save')}</Text>
-            </Button>
-          </View>
-        </View>
-      </Modal>
+      <LocationSelector sheetRef={locationSheetRef} />
     </View>
   );
 };

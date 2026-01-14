@@ -3,7 +3,6 @@ import * as Location from 'expo-location';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImageBackground, View, Dimensions } from 'react-native';
-import { X, Info } from 'lucide-react-native';
 
 import Kaaba from '@/assets/icons/kaaba.svg';
 import Loader from '@/components/shared/loader';
@@ -14,10 +13,20 @@ import { triggerHaptic } from '@/utils/haptics';
 import { router } from 'expo-router';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useQibla } from '@/hooks/prays/useQibla';
-import { useThemeStore } from '@/store/defaults/theme';
+import { X, Info, Palette } from '@/components/shared/icons';
+import { useMosqueBgStore } from '@/store/use-mosque-bg-store';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.75;
+
+const MOSQUE_LIST = [
+  require('@/assets/mosque/mosque-1.jpg'),
+  require('@/assets/mosque/mosque-2.jpg'),
+  require('@/assets/mosque/mosque-3.jpg'),
+  require('@/assets/mosque/mosque-4.jpg'),
+  require('@/assets/mosque/mosque-5.jpg'),
+];
 
 const norm360 = (deg: number) => ((deg % 360) + 360) % 360;
 const signedDelta = (a: number, b: number) => {
@@ -30,10 +39,12 @@ const toVisual = (deg: number) => norm360(360 - norm360(deg));
 const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
   const isFocused = useIsFocused();
+  const insets = useSafeAreaInsets();
+  const { setUrl, url } = useMosqueBgStore();
 
-  const [heading, setHeading] = useState<number>(0);
   const headingRef = useRef<number>(0);
   const lastHapticAtRef = useRef<number>(0);
+  const [heading, setHeading] = useState<number>(0);
   const headingSubRef = useRef<Location.LocationSubscription | null>(null);
 
   const { data: qiblaAngle = 0, isLoading } = useQibla();
@@ -69,8 +80,20 @@ const QiblaScreen: React.FC = () => {
   if (isLoading) return <Loader visible className="bg-background" />;
 
   return (
-    <ImageBackground source={IMAGES.uzbek_masjid} className="flex-1" resizeMode="cover">
-      <View className="flex-1 bg-black/30 px-6">
+    <ImageBackground source={url} className="flex-1" resizeMode="cover">
+      <View className="flex-1 bg-black/10 px-6">
+        <Button
+          style={{ marginTop: insets.top }}
+          variant="ghost"
+          size="icon"
+          className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2 self-end mt-2"
+          onPress={() => {
+            triggerHaptic();
+            setUrl(MOSQUE_LIST[Math.floor(Math.random() * MOSQUE_LIST.length)]);
+          }}
+        >
+          <Palette size={24} className="text-primary" />
+        </Button>
         {/* Compass Area */}
         <View className="flex-1 items-center justify-center">
           <View
@@ -127,9 +150,9 @@ const QiblaScreen: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="rounded-full shadow-lg bg-white/20 w-12 h-12 p-2"
+                  className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2"
                 >
-                  <Info size={24} />
+                  <Info size={24} className="text-primary" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent className="ml-6">
@@ -140,13 +163,13 @@ const QiblaScreen: React.FC = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full shadow-lg bg-white/20 w-12 h-12 p-2"
+              className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2"
               onPress={() => {
                 triggerHaptic();
                 router.back();
               }}
             >
-              <X size={24} />
+              <X size={24} className="text-primary" />
             </Button>
           </View>
         </View>

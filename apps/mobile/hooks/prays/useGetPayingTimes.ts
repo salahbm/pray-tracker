@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import * as Location from 'expo-location';
 import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-native';
 import { PrayerTimesData } from '@/types/prayer-times';
+import { useLocationStore } from '@/store/use-location';
 
 const PRAYER_METHOD = 15;
 
@@ -19,43 +18,17 @@ const buildDateTime = (date: Date, time: string) => {
 
 export const usePrayerData = () => {
   const { t } = useTranslation();
+  const { city, country } = useLocationStore();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [city, setCity] = useState<string | null>(null);
-  const [country, setCountry] = useState<string | null>(null);
-
-  const resolveLocation = useCallback(async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert(t('qibla.prayerTimes.errors.title'), t('qibla.prayerTimes.errors.message'));
-      setLocationName(t('qibla.prayerTimes.location.unknown'));
-      setLoading(false);
-      return;
-    }
-
-    const userLocation = await Location.getCurrentPositionAsync({});
-    const reverseGeocode = await Location.reverseGeocodeAsync({
-      latitude: userLocation.coords.latitude,
-      longitude: userLocation.coords.longitude,
-    });
-
-    if (reverseGeocode.length > 0) {
-      const fallbackUnknown = t('qibla.prayerTimes.location.unknown');
-      const locationCity = reverseGeocode[0].city || reverseGeocode[0].region || fallbackUnknown;
-      const locationCountry = reverseGeocode[0].country || fallbackUnknown;
-      setCity(locationCity);
-      setCountry(locationCountry);
-      setLocationName(`${locationCity}, ${locationCountry}`);
-    } else {
-      setLocationName(t('qibla.prayerTimes.location.unknown'));
-    }
-  }, [t]);
 
   const fetchPrayerTimes = useCallback(async (selectedCity: string, selectedCountry: string) => {
     try {
       setLoading(true);
+      setLocationName(`${selectedCity}, ${selectedCountry}`);
+
       const date = new Date();
       const response = await fetch(
         `https://api.aladhan.com/v1/timingsByCity/${formatDate(
@@ -81,9 +54,9 @@ export const usePrayerData = () => {
       };
 
       setPrayerTimes(times);
-      setLocationName(`${selectedCity}, ${selectedCountry}`);
       setError(false);
     } catch (err) {
+      console.error('Prayer times fetch error:', err);
       setError(true);
       setPrayerTimes(null);
     } finally {
@@ -92,21 +65,8 @@ export const usePrayerData = () => {
   }, []);
 
   useEffect(() => {
-    let mounted = true;
-
-    resolveLocation().catch(() => {
-      if (mounted) {
-        setLoading(false);
-      }
-    });
-
-    return () => {
-      mounted = false;
-    };
-  }, [resolveLocation]);
-
-  useEffect(() => {
     if (!city || !country) {
+      setLoading(false);
       return;
     }
 
@@ -118,9 +78,5 @@ export const usePrayerData = () => {
     locationName,
     loading,
     error,
-    city,
-    country,
-    setCity,
-    setCountry,
   };
 };

@@ -17,6 +17,7 @@ import {
   ArrowLeft,
   Settings2,
   MapPin,
+  MapPinned,
   Sunrise,
   SunMoon,
   Sunset,
@@ -27,6 +28,8 @@ import {
   Search,
   ChevronLeft,
   Moon,
+  Info,
+  Palette,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -56,6 +59,7 @@ iconWithClassName(Clock4);
 iconWithClassName(ArrowLeft);
 iconWithClassName(Settings2);
 iconWithClassName(MapPin);
+iconWithClassName(MapPinned);
 iconWithClassName(Sunrise);
 iconWithClassName(SunMoon);
 iconWithClassName(Sunset);
@@ -66,6 +70,8 @@ iconWithClassName(ChevronRight);
 iconWithClassName(Search);
 iconWithClassName(ChevronLeft);
 iconWithClassName(Moon);
+iconWithClassName(Info);
+iconWithClassName(Palette);
 
 export {
   Calendar,
@@ -83,6 +89,7 @@ export {
   Clock4,
   Settings2,
   MapPin,
+  MapPinned,
   Sunrise,
   SunMoon,
   Sunset,
@@ -93,4 +100,6 @@ export {
   Search,
   ChevronLeft,
   Moon,
+  Info,
+  Palette,
 };

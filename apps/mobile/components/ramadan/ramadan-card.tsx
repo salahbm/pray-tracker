@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 // Logic
 import { useRamadanCalendar } from '@/hooks/ramadan/use-ramadan';
 import { getRamadanCountdown } from '@/utils/ramadanCountdown';
+import { useLocationStore } from '@/store/use-location';
 
 // Debug: Set to null for production
 const DEBUG_SIMULATED_DATE = '15-03-2026';
@@ -25,12 +26,10 @@ const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy',
 
 const RamadanCard = () => {
   const { t } = useTranslation();
+  const { city, country } = useLocationStore();
 
-  // -- Date & Logic Setup (Same as before) --
+  // -- Date & Logic Setup --
   const [now, setNow] = useState(() => new Date());
-
-  const city = 'Seoul';
-  const country = 'Saudi Arabia'; // Note: Adjust dynamic logic as needed
   const today = now;
 
   // Fetch logic...
@@ -101,7 +100,7 @@ const RamadanCard = () => {
       <PressableBounce
         onPress={() => router.push('/(screens)/ramadan/ramadan-screen')}
         className={cn(
-          'relative rounded-3xl p-6 overflow-hidden',
+          'relative rounded-xl p-6 overflow-hidden',
           isRamadan
             ? 'bg-background border border-border/60'
             : 'bg-background/95 border border-border'

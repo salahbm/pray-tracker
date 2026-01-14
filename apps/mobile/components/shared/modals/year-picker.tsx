@@ -313,16 +313,7 @@ const YearPicker: React.FC<Props> = ({ visible, value, minYear = 2000, onConfirm
         </Text>
 
         <View style={styles.pickerBox}>
-          <View
-            pointerEvents="none"
-            style={[
-              styles.indicator,
-              {
-                // borderColor: colors['--primary'],
-                backgroundColor: `${colors['--primary']}10`,
-              },
-            ]}
-          />
+          <View pointerEvents="none" className="bg-primary/10" style={styles.indicator} />
 
           <AnimatedFlatList
             ref={listRef}

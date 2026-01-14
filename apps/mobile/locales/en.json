@@ -170,6 +170,17 @@
     "noData": "No Data",
     "days": "days"
   },
+  "location": {
+    "selector": {
+      "title": "Select Location",
+      "useCurrentLocation": "Use Current Location",
+      "detecting": "Detecting location...",
+      "searchPlaceholder": "Search for a city or country",
+      "searchHint": "Type at least 3 characters to search",
+      "noResults": "No locations found. Try a different search.",
+      "emptyState": "Search for a city to see results"
+    }
+  },
   "friends": {
     "title": "Friends",
     "groups": {

@@ -8,7 +8,7 @@ import { ActivityIndicator } from 'react-native';
 import { useSession } from '@/hooks/auth/useSessions';
 import { initializeRevenueCat } from '@/lib/revenuecat';
 import { cleanupExpiredTokens } from '@/utils/deep-link-token';
-import { useQibla } from '@/hooks/prays/useQibla';
+import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -26,7 +26,7 @@ SplashScreen.setOptions({
 
 export default function App() {
   useSession();
-  useQibla();
+  usePrayerData();
 
   const [loaded] = useFonts({
     SpaceMono: spaceMono,

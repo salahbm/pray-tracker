@@ -14,9 +14,9 @@ export default function TabLayout() {
       <TabSlot />
       <TabList
         className={cn(
-          'absolute self-center flex-row justify-evenly bg-muted py-2 px-3 rounded-full transition-all duration-300 drop-shadow-2xl backdrop-blur-3xl'
+          'absolute self-center flex-row justify-evenly bg-muted/80 py-1.5 px-2 rounded-full transition-all duration-300 drop-shadow-2xl backdrop-blur-3xl'
         )}
-        style={{ bottom: insets.bottom + 5 }}
+        style={{ bottom: insets.bottom + 2 }}
       >
         <TabTrigger name="Home" href="/" asChild>
           <TabButton icon={Home}></TabButton>

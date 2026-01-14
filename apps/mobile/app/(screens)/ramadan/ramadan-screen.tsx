@@ -1,46 +1,30 @@
-import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
-import { View, ActivityIndicator, Keyboard, FlatList, RefreshControl } from 'react-native';
-import BottomSheet, {
-  BottomSheetTextInput,
-  BottomSheetFlatList,
-  BottomSheetView,
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-} from '@gorhom/bottom-sheet';
+import { useMemo, useRef, useEffect, Fragment } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { format, parse } from 'date-fns';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import { Text } from '@/components/ui/text';
 import { useRamadanCalendar } from '@/hooks/ramadan/useRamadanCalendar';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/store/use-location';
-import { MapPin, ChevronLeft, Search, Moon, Sun } from '@/components/shared/icons';
+import { MapPin, ChevronLeft, Moon, Sun } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
+import { LocationSelector } from '@/components/shared/location-selector';
 import { router } from 'expo-router';
+import NoData from '@/components/shared/no-data';
+import Skeleton from '@/components/ui/skeleton';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
 
-const useDebounce = (value: string, delay = 400) => {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const t = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(t);
-  }, [value, delay]);
-  return debounced;
-};
-
 const RamadanScreen = () => {
   const insets = useSafeAreaInsets();
-  const sheetRef = useRef<BottomSheet>(null);
+  const locationSheetRef = useRef<BottomSheet>(null);
   const listRef = useRef<FlatList>(null);
-  const { city, country, setLocation } = useLocationStore();
+  const { city, country } = useLocationStore();
   const { t } = useTranslation();
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const debouncedSearch = useDebounce(searchQuery);
 
   const today = useMemo(() => new Date(), []);
 
@@ -80,57 +64,6 @@ const RamadanScreen = () => {
     index,
   });
 
-  const { data: locationResults = [], isFetching: isSearching } = useQuery({
-    queryKey: ['locationSearch', { debouncedSearch }],
-    queryFn: async () => {
-      if (debouncedSearch.length < 3) return [];
-
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(
-          debouncedSearch
-        )}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            'User-Agent': 'RamadanApp/1.0 (contact@example.com)', // REQUIRED by Nominatim
-          },
-        }
-      );
-
-      if (!res.ok) {
-        console.warn('Location search failed:', res.status);
-        return [];
-      }
-
-      const contentType = res.headers.get('content-type') || '';
-      if (!contentType.includes('application/json')) {
-        console.warn('Non-JSON response from location API');
-        return [];
-      }
-
-      return res.json();
-    },
-    enabled: debouncedSearch.length >= 3,
-    staleTime: 1000 * 60,
-    placeholderData: keepPreviousData,
-  });
-
-  const handleSelectLocation = (item: any) => {
-    const cityName = item.address?.city || item.address?.town || item.name;
-    const countryName = item.address?.country || '';
-    setLocation(cityName, countryName);
-    setSearchQuery('');
-    sheetRef.current?.close();
-    Keyboard.dismiss();
-  };
-
-  const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
-    ),
-    []
-  );
-
   return (
     <View className="flex-1 bg-background">
       {/* 1. STICKY HEADER AREA */}
@@ -147,7 +80,7 @@ const RamadanScreen = () => {
             <ChevronLeft size={24} className="text-foreground" />
           </PressableBounce>
           <Text className="text-lg font-bold">{t('ramadan.screen.title')}</Text>
-          <View className="w-8" /> {/* Spacer for balance */}
+          <View className="w-8" />
         </View>
 
         {/* Month & Location Bar */}
@@ -162,7 +95,7 @@ const RamadanScreen = () => {
           </View>
 
           <PressableBounce
-            onPress={() => sheetRef.current?.snapToIndex(1)}
+            onPress={() => locationSheetRef.current?.snapToIndex(0)}
             className="flex-row items-center bg-muted/50 border border-border px-3 py-1.5 rounded-full"
           >
             <MapPin size={12} className="text-primary mr-1.5" />
@@ -193,6 +126,21 @@ const RamadanScreen = () => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetch} tintColor="gray" />
         }
+        ListEmptyComponent={() => {
+          return (
+            <View className="flex-1 items-center justify-center flex-row">
+              {Array.from({ length: 13 }).map((_, index) => (
+                <View style={{ width: `${100 / 2}%` }} className="p-1.5">
+                  <View className="flex-1 rounded-2xl p-3 aspect-video justify-between bg-background/50 border border-border/40 min-h-[110px]">
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-4 w-20" />
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+        }}
         renderItem={({ item, index }) => {
           const gDate = parseGregorianDate(item.gregorianDate);
           const isToday = index === todayIndex;
@@ -266,68 +214,7 @@ const RamadanScreen = () => {
       />
 
       {/* 3. LOCATION SHEET */}
-      <BottomSheet
-        ref={sheetRef}
-        index={-1}
-        snapPoints={['50%', '85%']}
-        enablePanDownToClose
-        detached
-        handleComponent={() => null}
-        handleIndicatorStyle={{ backgroundColor: 'transparent' }}
-        backdropComponent={renderBackdrop}
-      >
-        <BottomSheetView className="flex-1 px-5 pt-4 bg-background h-full">
-          <Text className="text-xl font-bold mb-4 text-center">
-            {t('ramadan.screen.searchLocation')}
-          </Text>
-
-          <View className="relative mb-2">
-            <View className="absolute left-4 top-4 z-10">
-              <Search size={18} className="text-muted-foreground" />
-            </View>
-            <BottomSheetTextInput
-              placeholder={t('ramadan.screen.searchPlaceholder')}
-              placeholderTextColor="#9ca3af"
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              style={{ paddingLeft: 44 }}
-              className="h-12 rounded-xl bg-muted/30 border border-border text-foreground pr-4"
-            />
-            {isSearching && <ActivityIndicator className="absolute right-4 top-3.5" />}
-          </View>
-
-          <BottomSheetFlatList
-            data={locationResults}
-            keyExtractor={(item: any, i: number) => i.toString()}
-            contentContainerStyle={{ paddingTop: 12, paddingBottom: 40 }}
-            renderItem={({ item }: any) => (
-              <PressableBounce
-                onPress={() => handleSelectLocation(item)}
-                className="mb-2 p-4 rounded-xl flex-row items-center gap-3 bg-card border border-border/50 active:bg-muted"
-              >
-                <View className="w-8 h-8 rounded-full bg-muted items-center justify-center">
-                  <MapPin size={16} className="text-foreground/70" />
-                </View>
-                <View>
-                  <Text className="font-bold text-base text-foreground">
-                    {item.address?.city || item.address?.town || item.name}
-                  </Text>
-                  <Text className="text-xs text-muted-foreground">
-                    {[item.address?.state, item.address?.country].filter(Boolean).join(', ')}
-                  </Text>
-                </View>
-              </PressableBounce>
-            )}
-            ListEmptyComponent={() => (
-              <View className="items-center mt-10 opacity-50">
-                <Text className="text-sm text-muted-foreground">
-                  {t('ramadan.screen.noCities')}
-                </Text>
-              </View>
-            )}
-          />
-        </BottomSheetView>
-      </BottomSheet>
+      <LocationSelector sheetRef={locationSheetRef} />
     </View>
   );
 };
