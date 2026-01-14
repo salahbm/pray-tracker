@@ -23,11 +23,10 @@ import { PrayerField, usePatchPray } from '@/hooks/prays/usePatchPray';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { usePaywallBottomSheetStore, useProfileBottomSheetStore } from '@/store/bottom-sheets';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { triggerHaptic } from '@/utils/haptics';
 
-import ProfilePage from '../(screens)/profile';
 import RamadanCard from '@/components/ramadan/ramadan-card';
 
 const initialState = {
@@ -104,7 +103,6 @@ export default function HomeScreen() {
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
   const { incrementPrayerToggle } = useAppRatingStore();
-  const { profileSheetRef } = useProfileBottomSheetStore();
 
   // Confetti animation ref
   const confettiRef = useRef<LottieView>(null);
@@ -316,10 +314,6 @@ export default function HomeScreen() {
           }}
         />
       </ScrollView>
-      {/* PROFILE */}
-      <CustomBottomSheet sheetRef={profileSheetRef}>
-        <ProfilePage />
-      </CustomBottomSheet>
     </Fragment>
   );
 }

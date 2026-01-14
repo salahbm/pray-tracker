@@ -30,6 +30,14 @@ import {
   Moon,
   Info,
   Palette,
+  Menu,
+  User,
+  Edit,
+  Lock,
+  Settings,
+  Shield,
+  FileText,
+  MessageSquare,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -72,6 +80,14 @@ iconWithClassName(ChevronLeft);
 iconWithClassName(Moon);
 iconWithClassName(Info);
 iconWithClassName(Palette);
+iconWithClassName(Menu);
+iconWithClassName(User);
+iconWithClassName(Edit);
+iconWithClassName(Lock);
+iconWithClassName(Settings);
+iconWithClassName(Shield);
+iconWithClassName(FileText);
+iconWithClassName(MessageSquare);
 
 export {
   Calendar,
@@ -96,10 +112,18 @@ export {
   SunDim,
   RefreshCcw,
   Sparkles,
+  Menu,
   ChevronRight,
   Search,
   ChevronLeft,
   Moon,
   Info,
   Palette,
+  User,
+  Edit,
+  Lock,
+  Settings,
+  Shield,
+  FileText,
+  MessageSquare,
 };

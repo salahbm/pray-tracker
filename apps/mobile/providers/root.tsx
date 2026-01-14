@@ -2,7 +2,6 @@ import { PortalHost } from '@rn-primitives/portal';
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import BottomSheet from './bottom-sheet';
 import { I18nProvider } from './i18n-provider';
 import QueryProvider from './query';
 import { ThemeProvider } from './theme';
@@ -12,14 +11,14 @@ import NotificationProvider from './notification-context';
 import { OfflineModal } from '@/components/shared/modals/offline-modal';
 import { GlobalAlert } from './alert';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <I18nProvider>
       <QueryProvider>
         <ThemeProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheet>
+            <BottomSheetModalProvider>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={{ flex: 1 }}
@@ -33,7 +32,7 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
               <GlobalAlert />
               <OfflineModal />
               <NotificationProvider />
-            </BottomSheet>
+            </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </ThemeProvider>
       </QueryProvider>
