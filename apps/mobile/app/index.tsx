@@ -1,8 +1,8 @@
-import { useOnboarding } from '@store/defaults/onboarding';
+import { useOnboardingStore } from '@store/defaults/onboarding';
 import { Redirect } from 'expo-router';
 
 const Index = () => {
-  const { visited } = useOnboarding();
+  const { visited } = useOnboardingStore();
 
   if (visited) return <Redirect href="/(tabs)" />;
 

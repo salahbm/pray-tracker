@@ -5,6 +5,7 @@ import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { User } from '@/types/user';
 import QueryKeys from '@/constants/query-keys';
+import { syncOnboardingPreferences } from '@/hooks/onboarding/sync-onboarding';
 
 interface SessionResponse {
   access_token: string;
@@ -42,6 +43,7 @@ export const useSession = () => {
           refreshToken: data.refresh_token,
         });
       }
+      void syncOnboardingPreferences();
     }
   }, [data, setUser, setSession, isFetched]);
 };

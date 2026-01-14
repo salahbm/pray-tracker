@@ -8,7 +8,7 @@ import { AnimatePresence, MotiView } from 'moti';
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { OnboardingPreferencePayload, useOnboarding } from '@/hooks/onboarding/use-onboarding';
+import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
 
 import onboardingSteps from './steps.json';
 
@@ -45,6 +45,9 @@ import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/auth/auth-session';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
+import { OnboardingPreferencePayload } from '@/types/onboarding';
 
 const translateOnboardingData = (data: OnboardingDataType, translate: (key: string) => string) => {
   const translateValue = (value: any): any => {
@@ -102,6 +105,9 @@ const Onboarding = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [showClosingSplash, setShowClosingSplash] = useState(false);
 
+  const user = useAuthStore(state => state.user);
+  const { setPreferences, clearPreferences } = useOnboardingStore();
+
   const onboardingMutation = useOnboarding();
   const friendsModalRef = useRef<BottomSheet>(null);
 
@@ -133,11 +139,16 @@ const Onboarding = () => {
         defaultHomeTab: state.defaultHomeTab,
       };
 
-      await onboardingMutation.mutateAsync(payload);
+      setPreferences(payload);
+
+      if (user?.id) {
+        await onboardingMutation.mutateAsync(payload);
+        clearPreferences();
+      }
     } finally {
       setIsSaving(false);
     }
-  }, [onboardingMutation, state]);
+  }, [onboardingMutation, state, user?.id, setPreferences, clearPreferences]);
 
   const handleNext = () => {
     if (!activeStep) {

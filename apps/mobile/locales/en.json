@@ -491,6 +491,15 @@
         "message": "Location permission is required to calculate prayer times",
         "title": "Permission Denied"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Fetching location...",
         "unknown": "Unknown"

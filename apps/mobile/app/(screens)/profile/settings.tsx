@@ -14,7 +14,7 @@ import { useLanguage } from '@/hooks/common/useTranslation';
 import { cancelAllPrayerNotifications } from '@/lib/notification.permission';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
-import { useOnboarding } from '@/store/defaults/onboarding';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { router } from 'expo-router';
 
 const Settings = () => {
@@ -23,7 +23,7 @@ const Settings = () => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
-  const { visited, setVisited } = useOnboarding();
+  const { visited, setVisited } = useOnboardingStore();
   const { prayerNotifications, toggleEnabled } = useNotificationStore();
 
   const handleToggleNotifications = async (enabled: boolean) => {

@@ -516,6 +516,15 @@
         "message": "Izin lokasi diperlukan untuk menghitung waktu shalat",
         "title": "Izin Ditolak"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Mengambil lokasi...",
         "unknown": "Tidak diketahui"

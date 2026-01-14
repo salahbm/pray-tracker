@@ -63,7 +63,7 @@ const QiblaScreen: React.FC = () => {
     return () => headingSubRef.current?.remove();
   }, [isFocused, qiblaAngle]);
 
-  const delta = useMemo(() => norm360(heading - qiblaAngle), [heading, qiblaAngle]);
+  const delta = useMemo(() => norm360(qiblaAngle - heading), [heading, qiblaAngle]);
   const ringRotationVisual = useMemo(() => toVisual(delta), [delta]);
 
   if (isLoading) return <Loader visible className="bg-background" />;

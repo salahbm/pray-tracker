@@ -4,6 +4,7 @@ import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { User } from '@/types/user';
+import { syncOnboardingPreferences } from '@/hooks/onboarding/sync-onboarding';
 
 interface IUserLogin {
   email: string;
@@ -33,6 +34,7 @@ export const useLoginUser = () => {
         token: data.token,
       });
       queryClient.invalidateQueries({ queryKey: QueryKeys.users.all });
+      await syncOnboardingPreferences();
     },
   });
 };

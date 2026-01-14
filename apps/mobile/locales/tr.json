@@ -516,6 +516,15 @@
         "message": "Namaz vakitlerini hesaplamak için konum izni gerekli",
         "title": "İzin Reddedildi"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Konum alınıyor...",
         "unknown": "Bilinmiyor"

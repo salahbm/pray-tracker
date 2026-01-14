@@ -7,7 +7,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { router } from 'expo-router';
-import { useOnboarding } from '@/store/defaults/onboarding';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
 
 interface OnboardingSplashStepProps {
   headline: string;
@@ -22,7 +22,7 @@ export const OnboardingSplashStep = ({
 }: OnboardingSplashStepProps) => {
   const insets = useSafeAreaInsets();
   const { colors } = useThemeStore();
-  const { setVisited } = useOnboarding();
+  const { setVisited } = useOnboardingStore();
 
   useEffect(() => {
     setTimeout(() => {
