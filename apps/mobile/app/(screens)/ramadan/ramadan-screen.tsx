@@ -1,5 +1,5 @@
-import { useMemo, useRef, useEffect, Fragment } from 'react';
-import { View, FlatList, RefreshControl } from 'react-native';
+import React, { useMemo, useRef, useEffect } from 'react';
+import { View, FlatList, RefreshControl, Switch } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format, parse } from 'date-fns';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,26 +7,31 @@ import { useTranslation } from 'react-i18next';
 
 import { Text } from '@/components/ui/text';
 import { useRamadanCalendar } from '@/hooks/ramadan/useRamadanCalendar';
+import { useFastingHistory } from '@/hooks/fasting/useFastingHistory';
+import { useToggleFasting } from '@/hooks/fasting/useToggleFasting';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/store/use-location';
 import { MapPin, ChevronLeft, Moon, Sun } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
 import { LocationSelector } from '@/components/shared/location-selector';
 import { router } from 'expo-router';
-import NoData from '@/components/shared/no-data';
 import Skeleton from '@/components/ui/skeleton';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
 
 const RamadanScreen = () => {
-  const insets = useSafeAreaInsets();
-  const locationSheetRef = useRef<BottomSheet>(null);
-  const listRef = useRef<FlatList>(null);
-  const { city, country } = useLocationStore();
+  const { user } = useAuthStore();
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const { city, country } = useLocationStore();
 
   const today = useMemo(() => new Date(), []);
+  const isAuthenticated = !!user;
+
+  const listRef = useRef<FlatList>(null);
+  const locationSheetRef = useRef<BottomSheet>(null);
 
   const {
     data: monthDays = [],
@@ -38,12 +43,26 @@ const RamadanScreen = () => {
     month: today.getMonth() + 1,
     year: today.getFullYear(),
   });
+  const { data: fastingHistory = [] } = useFastingHistory({
+    enabled: isAuthenticated,
+    userId: user?.id,
+  });
+
+  const { mutate: toggleFasting, isPending: isTogglingFasting } = useToggleFasting();
 
   const todayIndex = useMemo(() => {
     return monthDays.findIndex(
       d => format(parseGregorianDate(d.gregorianDate), 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
     );
   }, [monthDays, today]);
+
+  const fastingByDate = useMemo(() => {
+    const entries = new Map<string, boolean>();
+    fastingHistory.forEach(entry => {
+      entries.set(format(new Date(entry.date), 'yyyy-MM-dd'), entry.fasted);
+    });
+    return entries;
+  }, [fastingHistory]);
 
   useEffect(() => {
     if (todayIndex >= 0 && monthDays.length > 0) {
@@ -144,6 +163,8 @@ const RamadanScreen = () => {
         renderItem={({ item, index }) => {
           const gDate = parseGregorianDate(item.gregorianDate);
           const isToday = index === todayIndex;
+          const dateKey = format(gDate, 'yyyy-MM-dd');
+          const isFasted = fastingByDate.get(dateKey) ?? false;
 
           return (
             <View style={{ width: `${100 / 2}%` }} className="p-1.5">
@@ -206,6 +227,23 @@ const RamadanScreen = () => {
                       {item.maghrib.split(' ')[0]}
                     </Text>
                   </View>
+                  {isAuthenticated && (
+                    <View className="flex-row justify-between items-center">
+                      <Text className="text-[9px] font-bold text-muted-foreground uppercase">
+                        {t('ramadan.fasting.label')}
+                      </Text>
+                      <Switch
+                        value={isFasted}
+                        disabled={isTogglingFasting}
+                        onValueChange={value =>
+                          toggleFasting({
+                            date: gDate,
+                            fasted: value,
+                          })
+                        }
+                      />
+                    </View>
+                  )}
                 </View>
               </View>
             </View>

@@ -766,6 +766,9 @@
           "shared_goals": "Optional shared goals"
         },
         "primaryCta": "Thanks for sharing"
+      },
+      "fasting": {
+        "label": "Fasted"
       }
     }
   }
