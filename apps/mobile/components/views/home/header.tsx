@@ -35,7 +35,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
 
   const handleProfileOpen = useCallback(async () => {
     await triggerHaptic();
-    router.push('/(screens)/profile');
+    router.push('/(screens)/profile/settings');
   }, []);
 
   const formattedDate = today.toLocaleDateString(currentLanguage, {

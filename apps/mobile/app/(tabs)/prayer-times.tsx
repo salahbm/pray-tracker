@@ -30,15 +30,12 @@ import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { router } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
-import { useQibla } from '@/hooks/prays/useQibla';
 
 const PrayerTimer = () => {
-  useQibla();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
   const locationSheetRef = useRef<BottomSheet>(null);
-
   const { prayerTimes, locationName, loading, error } = usePrayerData();
   const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes);
 

@@ -51,13 +51,11 @@ const Preferences = () => {
           <Text className="text-base text-muted-foreground ml-2">
             {t('profile.settings.theme')}
           </Text>
-          <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
+          <View className="flex-row items-center justify-center w-[100px] h-7 overflow-hidden rounded-lg">
             <View
               style={{
                 width: 20,
                 height: 20,
-                borderStartStartRadius: 4,
-                borderBottomLeftRadius: 4,
                 backgroundColor: colors['--primary'],
               }}
             />
@@ -65,14 +63,14 @@ const Preferences = () => {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: colors['--background'],
+                backgroundColor: colors['--muted'],
               }}
             />
             <View
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: colors['--primary-600'],
+                backgroundColor: colors['--primary-300'],
               }}
             />
             <View
@@ -86,8 +84,6 @@ const Preferences = () => {
               style={{
                 width: 20,
                 height: 20,
-                borderEndEndRadius: 4,
-                borderTopRightRadius: 4,
                 backgroundColor: colors['--foreground'],
               }}
             />

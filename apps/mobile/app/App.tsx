@@ -10,6 +10,7 @@ import { initializeRevenueCat } from '@/lib/revenuecat';
 import { cleanupExpiredTokens } from '@/utils/deep-link-token';
 import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { useLocationStore } from '@/store/use-location';
+import { useQibla } from '@/hooks/prays/useQibla';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -27,6 +28,7 @@ SplashScreen.setOptions({
 
 export default function App() {
   useSession();
+  useQibla();
   usePrayerData();
   useLocationStore();
 

@@ -179,6 +179,15 @@ exports.Prisma.PrayerScalarFieldEnum = {
   updatedAt: 'updatedAt',
 };
 
+exports.Prisma.FastingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  fasted: 'fasted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+};
+
 exports.Prisma.FriendGroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -288,6 +297,7 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Prayer: 'Prayer',
+  Fasting: 'Fasting',
   FriendGroup: 'FriendGroup',
   FriendGroupMember: 'FriendGroupMember',
   Friend: 'Friend',

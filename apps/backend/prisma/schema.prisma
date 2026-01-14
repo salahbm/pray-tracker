@@ -171,9 +171,6 @@ model Friend {
 }
 
 
-
-
-
 model Inquiry {
   id      String        @id @default(cuid())
   userId  String?
@@ -255,8 +252,6 @@ enum InquirySenderRole {
   USER
   OWNER
 }
-
-
 
 enum FriendStatus {
   PENDING

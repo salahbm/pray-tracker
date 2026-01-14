@@ -562,6 +562,9 @@
       "searchLocation": "Search Location",
       "searchPlaceholder": "Type city name...",
       "noCities": "No cities found"
+    },
+    "fasting": {
+      "label": "Fasted"
     }
   },
   "onboardingFlow": {
@@ -766,9 +769,6 @@
           "shared_goals": "Optional shared goals"
         },
         "primaryCta": "Thanks for sharing"
-      },
-      "fasting": {
-        "label": "Fasted"
       }
     }
   }

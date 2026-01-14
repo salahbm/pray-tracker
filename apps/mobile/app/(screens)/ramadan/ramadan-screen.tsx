@@ -17,6 +17,7 @@ import { LocationSelector } from '@/components/shared/location-selector';
 import { router } from 'expo-router';
 import Skeleton from '@/components/ui/skeleton';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { useThemeStore } from '@/store/defaults/theme';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
@@ -24,6 +25,7 @@ const ITEM_HEIGHT = 150;
 const RamadanScreen = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
+  const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
   const { city, country } = useLocationStore();
 
@@ -48,7 +50,7 @@ const RamadanScreen = () => {
     userId: user?.id,
   });
 
-  const { mutate: toggleFasting, isPending: isTogglingFasting } = useToggleFasting();
+  const { mutate: toggleFasting } = useToggleFasting();
 
   const todayIndex = useMemo(() => {
     return monthDays.findIndex(
@@ -173,7 +175,7 @@ const RamadanScreen = () => {
                   'flex-1 rounded-2xl p-3 justify-between min-h-[110px]',
                   isToday
                     ? 'bg-background border-2 border-primary shadow-lg shadow-primary/10'
-                    : 'bg-card border border-border/40'
+                    : 'bg-card border border-border'
                 )}
               >
                 {/* Date Header */}
@@ -218,7 +220,7 @@ const RamadanScreen = () => {
                     </Text>
                   </View>
 
-                  <View className="flex-row justify-between items-center">
+                  <View className="flex-row justify-between items-center mb-2">
                     <View className="flex-row items-center gap-1 opacity-60">
                       <Sun size={10} className="text-amber-500" />
                       <Text className="text-[9px] text-muted-foreground">Iftar</Text>
@@ -234,7 +236,12 @@ const RamadanScreen = () => {
                       </Text>
                       <Switch
                         value={isFasted}
-                        disabled={isTogglingFasting}
+                        className="border border-border rounded-full"
+                        trackColor={{
+                          false: colors['--muted'],
+                          true: colors['--primary'],
+                        }}
+                        thumbColor={isFasted ? colors['--background'] : colors['--border']}
                         onValueChange={value =>
                           toggleFasting({
                             date: gDate,

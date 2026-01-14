@@ -7,17 +7,6 @@ export default function ScreensLayout() {
         headerShown: false,
         keyboardHandlingEnabled: true,
       }}
-    >
-      <Stack.Screen
-        name="(settings)/index"
-        options={{
-          headerShown: false,
-          presentation: 'modal',
-          animation: 'slide_from_bottom',
-          statusBarAnimation: 'slide',
-          keyboardHandlingEnabled: true,
-        }}
-      />
-    </Stack>
+    />
   );
 }
