@@ -50,7 +50,6 @@ const EditPwd = () => {
       await updatePassword({
         currentPassword,
         newPassword,
-        revokeOtherSessions: true,
       });
 
       fireToast.success(t('profile.editPassword.success'));

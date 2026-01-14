@@ -17,7 +17,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { router } from 'expo-router';
 
-const Settings = () => {
+const Preferences = () => {
   const themeRef = useRef<BottomSheet>(null);
   const langRef = useRef<BottomSheet>(null);
   const { t } = useTranslation();
@@ -151,4 +151,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Preferences;

@@ -35,7 +35,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
 
   const handleProfileOpen = useCallback(async () => {
     await triggerHaptic();
-    router.push('/(screens)/(settings)/settings');
+    router.push('/(screens)/profile');
   }, []);
 
   const formattedDate = today.toLocaleDateString(currentLanguage, {
@@ -91,10 +91,10 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
           <PressableBounce
             onPress={handleProfileOpen}
             className={cn(
-              'p-2.5 rounded-full bg-muted/15 items-center justify-center active:opacity-70 border border-border'
+              'p-2 rounded-full bg-muted/15 items-center justify-center active:opacity-70 border border-border'
             )}
           >
-            <Menu size={24} className="text-muted-foreground" />
+            <Menu size={22} className="text-muted-foreground" />
           </PressableBounce>
         </AuthWrapper>
       </View>

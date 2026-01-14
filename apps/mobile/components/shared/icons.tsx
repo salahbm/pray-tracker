@@ -38,6 +38,11 @@ import {
   Shield,
   FileText,
   MessageSquare,
+  Bell,
+  Minus,
+  Plus,
+  Edit2,
+  FolderPlus,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -88,6 +93,11 @@ iconWithClassName(Settings);
 iconWithClassName(Shield);
 iconWithClassName(FileText);
 iconWithClassName(MessageSquare);
+iconWithClassName(Bell);
+iconWithClassName(Minus);
+iconWithClassName(Plus);
+iconWithClassName(Edit2);
+iconWithClassName(FolderPlus);
 
 export {
   Calendar,
@@ -126,4 +136,9 @@ export {
   Shield,
   FileText,
   MessageSquare,
+  Bell,
+  Minus,
+  Plus,
+  Edit2,
+  FolderPlus,
 };

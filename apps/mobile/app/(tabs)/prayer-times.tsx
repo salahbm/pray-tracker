@@ -132,7 +132,7 @@ const PrayerTimer = () => {
            UI Improvement: "Current" prayer has a distinct left border and background tint.
         */}
         {error || !prayerTimes ? (
-          <NoData />
+          <NoData className="mt-[30%]" />
         ) : (
           <View className="gap-3">
             {prayers.map(item => {

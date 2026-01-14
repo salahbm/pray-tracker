@@ -27,7 +27,7 @@ const GoBack: React.FC<GoBackHeaderProps> = props => {
       from={{ opacity: 0, translateY: -20 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ type: 'timing', duration: 300 }}
-      className={cn('flex-row items-center justify-between bg-background my-10', className)}
+      className={cn('flex-row items-center justify-between bg-background mb-10', className)}
     >
       {canGoBack ? (
         <MotiView

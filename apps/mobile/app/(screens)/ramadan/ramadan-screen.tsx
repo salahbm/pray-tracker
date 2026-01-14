@@ -33,8 +33,8 @@ const RamadanScreen = () => {
     isLoading,
     refetch,
   } = useRamadanCalendar({
-    city,
-    country,
+    city: city || '',
+    country: country || '',
     month: today.getMonth() + 1,
     year: today.getFullYear(),
   });
@@ -128,9 +128,9 @@ const RamadanScreen = () => {
         }
         ListEmptyComponent={() => {
           return (
-            <View className="flex-1 items-center justify-center flex-row">
+            <View className="flex-1 items-center justify-center flex-row" key={2}>
               {Array.from({ length: 13 }).map((_, index) => (
-                <View style={{ width: `${100 / 2}%` }} className="p-1.5">
+                <View style={{ width: `${100 / 2.5}%` }} className="p-1.5" key={index}>
                   <View className="flex-1 rounded-2xl p-3 aspect-video justify-between bg-background/50 border border-border/40 min-h-[110px]">
                     <Skeleton className="h-4 w-20" />
                     <Skeleton className="h-4 w-20" />

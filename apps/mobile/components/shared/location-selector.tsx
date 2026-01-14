@@ -64,7 +64,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { setLocation, getCurrentLocation, isLoadingLocation } = useLocationStore();
+  const { setLocation, initLocation, isLoadingLocation } = useLocationStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery);
@@ -117,7 +117,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   };
 
   const handleUseCurrentLocation = async () => {
-    await getCurrentLocation();
+    await initLocation();
     sheetRef.current?.close();
     Keyboard.dismiss();
   };
@@ -145,7 +145,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
       }}
       style={{ paddingHorizontal: 16, backgroundColor: 'transparent' }}
     >
-      <BottomSheetView className="px-5 py-8 bg-background  rounded-3xl border-2 border-muted">
+      <BottomSheetView className="px-5 py-8 bg-background rounded-3xl border-2 border-muted">
         <Text className="text-xl font-bold mb-4 text-center text-foreground">
           {t('location.selector.title')}
         </Text>

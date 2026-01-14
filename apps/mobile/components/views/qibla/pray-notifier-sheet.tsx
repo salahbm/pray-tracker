@@ -1,4 +1,3 @@
-import { Bell, Minus, Plus } from 'lucide-react-native';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, View } from 'react-native';
@@ -18,7 +17,7 @@ import { Text } from '@/components/ui/text';
 import { fireToast } from '@/providers/toaster';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useNotificationStore } from '@/store/defaults/notification';
-import { useThemeStore } from '@/store/defaults/theme';
+import { Bell, Minus, Plus } from '@/components/shared/icons';
 
 const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();
@@ -93,14 +92,14 @@ const PrayerNotifierSheet: React.FC = () => {
   }));
 
   return (
-    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['45%', '60%']}>
+    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['50%', '60%']}>
       <Animated.View style={fadeInStyle} className="gap-5 pb-8">
         <View className="items-center mb-3">
           <Animated.View
             entering={FadeInRight.delay(100).springify()}
             className="bg-primary/10 p-4 rounded-full mb-3"
           >
-            <Bell size={36} />
+            <Bell size={36} className="text-primary" />
           </Animated.View>
 
           <Text className="text-2xl font-bold text-center">
@@ -118,7 +117,7 @@ const PrayerNotifierSheet: React.FC = () => {
               className="size-12 rounded-full border-border bg-background/80 backdrop-blur-md"
               onPress={handleMinus}
             >
-              <Minus size={20} />
+              <Minus size={20} className="text-primary" />
             </Button>
           </Animated.View>
 
@@ -131,10 +130,10 @@ const PrayerNotifierSheet: React.FC = () => {
           <Animated.View entering={FadeInRight.delay(100)}>
             <Button
               variant="outline"
-              className="size-12 rounded-full border-border backdrop-blur-md"
+              className="size-12 rounded-full border-border bg-background/80 backdrop-blur-md"
               onPress={handlePlus}
             >
-              <Plus size={20} />
+              <Plus size={20} className="text-primary" />
             </Button>
           </Animated.View>
         </View>

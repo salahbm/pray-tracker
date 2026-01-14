@@ -4,59 +4,47 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
 interface LocationState {
-  city: string;
-  country: string;
+  city: string | null;
+  country: string | null;
   isLoadingLocation: boolean;
   locationError: string | null;
+  initialized: boolean;
   setLocation: (city: string, country: string) => void;
-  getCurrentLocation: () => Promise<void>;
+  initLocation: () => Promise<void>;
+  refreshLocation: () => Promise<void>;
 }
+
+const FALLBACK_CITY = 'Mecca';
+const FALLBACK_COUNTRY = 'Saudi Arabia';
 
 export const useLocationStore = create<LocationState>()(
   persist(
     (set, get) => ({
-      city: 'Mecca',
-      country: 'Saudi Arabia',
+      city: null,
+      country: null,
       isLoadingLocation: false,
       locationError: null,
+      initialized: false,
 
       setLocation: (city, country) => {
-        set({
-          city: city,
-          country: country,
-          locationError: null,
-        });
+        set({ city, country, locationError: null });
       },
 
-      getCurrentLocation: async () => {
-        set({ isLoadingLocation: true, locationError: null });
+      initLocation: async () => {
+        if (get().initialized) return;
+
+        set({ isLoadingLocation: true });
 
         try {
-          // Request permissions
           const { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') throw new Error('Location permission denied');
 
-          if (status !== 'granted') {
-            set({
-              isLoadingLocation: false,
-              locationError: 'Location permission denied',
-            });
-            return;
-          }
-
-          // Get current position
-          const position = await Location.getCurrentPositionAsync({
+          const pos = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.Balanced,
           });
 
-          // Use OpenStreetMap Nominatim API for reverse geocoding with English language
-          // This ensures we always get English names regardless of device locale
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?` +
-              `format=json&` +
-              `lat=${position.coords.latitude}&` +
-              `lon=${position.coords.longitude}&` +
-              `accept-language=en&` + // Force English results
-              `addressdetails=1`,
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&accept-language=en&addressdetails=1`,
             {
               headers: {
                 Accept: 'application/json',
@@ -65,55 +53,51 @@ export const useLocationStore = create<LocationState>()(
             }
           );
 
-          if (!response.ok) {
-            throw new Error('Failed to reverse geocode location');
-          }
+          if (!res.ok) throw new Error('Reverse geocoding failed');
 
-          const data = await response.json();
+          const data = await res.json();
+          if (!data?.address) throw new Error('Invalid geocoding response');
 
-          if (data && data.address) {
-            // Extract city and country from the response
-            const detectedCity =
-              data.address.city ||
-              data.address.town ||
-              data.address.village ||
-              data.address.county ||
-              data.address.state ||
-              'Unknown';
-            const detectedCountry = data.address.country || 'Unknown';
+          const city =
+            data.address.city ||
+            data.address.town ||
+            data.address.village ||
+            data.address.county ||
+            data.address.state;
 
-            // Names are already in English from API, but transliterate just in case
-            const englishCity = detectedCity;
-            const englishCountry = detectedCountry;
+          const country = data.address.country;
 
-            set({
-              city: englishCity,
-              country: englishCountry,
-              isLoadingLocation: false,
-              locationError: null,
-            });
-          } else {
-            set({
-              isLoadingLocation: false,
-              locationError: 'Could not determine location',
-            });
-          }
-        } catch (error) {
-          console.error('Location error:', error);
+          if (!city || !country) throw new Error('Incomplete location data');
+
           set({
+            city,
+            country,
+            initialized: true,
             isLoadingLocation: false,
-            locationError: error instanceof Error ? error.message : 'Failed to get location',
+          });
+        } catch (err) {
+          set({
+            city: FALLBACK_CITY,
+            country: FALLBACK_COUNTRY,
+            locationError: err instanceof Error ? err.message : 'Location failed',
+            initialized: true,
+            isLoadingLocation: false,
           });
         }
+      },
+
+      refreshLocation: async () => {
+        set({ initialized: false });
+        await get().initLocation();
       },
     }),
     {
       name: 'location-storage',
       storage: createJSONStorage(() => AsyncStorage),
-      // Don't persist loading/error states
       partialize: state => ({
         city: state.city,
         country: state.country,
+        initialized: state.initialized,
       }),
     }
   )

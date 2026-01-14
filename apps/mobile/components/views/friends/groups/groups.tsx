@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { ChevronRight, Edit2, FolderPlus, Sparkles, Users } from 'lucide-react-native';
+import { ChevronRight, Edit2, FolderPlus, Sparkles, Users } from '@/components/shared/icons';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Pressable, RefreshControl, ScrollView, View } from 'react-native';
@@ -28,7 +28,6 @@ import { useThemeStore } from '@/store/defaults/theme';
 const FriendsGroups = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { colors } = useThemeStore();
   const insets = useSafeAreaInsets();
 
   const { refetch: refetchCustomer } = useRevenueCatCustomer();
@@ -57,7 +56,6 @@ const FriendsGroups = () => {
               refetch();
               refetchCustomer();
             }}
-            tintColor={colors['--primary']}
           />
         }
         contentContainerStyle={{ paddingTop: insets.top, paddingBottom: insets.bottom + 50 }}
@@ -78,13 +76,13 @@ const FriendsGroups = () => {
               onPress={() => createSheetRef.current?.snapToIndex(0)}
               className="bg-primary rounded-full p-3 active:opacity-80"
             >
-              <FolderPlus size={22} color={colors['--primary-foreground']} />
+              <FolderPlus size={22} className="text-primary-foreground" />
             </Pressable>
             <Pressable
               onPress={() => router.push('/(screens)/friends/all-friends')}
               className="bg-background/80 border border-border rounded-full p-3 active:opacity-80"
             >
-              <Users size={22} color={colors['--foreground']} />
+              <Users size={22} className="text-foreground" />
             </Pressable>
           </View>
         </Animated.View>
@@ -108,14 +106,7 @@ const FriendsGroups = () => {
                       params: { groupId: group.id, groupName: group.name },
                     })
                   }
-                  className="bg-background/80 border border-border rounded-2xl p-5 active:opacity-90"
-                  style={{
-                    shadowColor: colors['--primary'],
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.05,
-                    shadowRadius: 8,
-                    elevation: 2,
-                  }}
+                  className="bg- border border-border rounded-2xl p-5 active:opacity-90 shadow-primary"
                 >
                   <SwiperButton
                     key={group.id}
@@ -129,7 +120,7 @@ const FriendsGroups = () => {
                       <View className="flex-1">
                         {/* Group Header */}
                         <View className="flex-row items-center gap-3">
-                          <Sparkles size={20} color={colors['--primary']} />
+                          <Sparkles size={20} className="text-primary" />
                           <View className="flex-1">
                             <Text className="text-lg font-bold">{group.name}</Text>
                             <View className="flex-row items-center gap-2">
@@ -151,11 +142,11 @@ const FriendsGroups = () => {
                             }}
                             className="p-2.5 bg-muted/50 rounded-xl active:opacity-70"
                           >
-                            <Edit2 size={18} color={colors['--muted-foreground']} />
+                            <Edit2 size={18} className="text-muted-foreground" />
                           </Pressable>
                         </Activity>
 
-                        <ChevronRight size={20} color={colors['--muted-foreground']} />
+                        <ChevronRight size={20} className="text-muted-foreground" />
                       </View>
                     </View>
 

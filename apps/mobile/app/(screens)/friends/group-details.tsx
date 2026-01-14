@@ -1,8 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { router, useLocalSearchParams } from 'expo-router';
-import { UserPlus, Users } from 'lucide-react-native';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Image,
@@ -34,7 +33,7 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { PRAYER_POINTS, SALAHS } from '@/constants/enums';
+import { SALAHS } from '@/constants/enums';
 import { FRIENDS } from '@/constants/images';
 import { useAddMember } from '@/hooks/friends/member/useAddMember';
 import { useGetAllFriends } from '@/hooks/friends/member/useGetAllFriends';
@@ -42,8 +41,8 @@ import { useGetGroupMembers } from '@/hooks/friends/member/useGetGroupMembers';
 import { useRemoveMember } from '@/hooks/friends/member/useRemoveMember';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
 import { PrayCheckbox } from '@/components/shared/pray-checkbox';
+import { UserPlus, Users } from '@/components/shared/icons';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -67,13 +66,16 @@ const GroupDetails = () => {
   const addMemberSheetRef = useRef<BottomSheet>(null);
 
   // Get friends that are not in this group
-  const availableFriends =
-    allFriends?.pages
-      ?.flatMap(page => page.data || [])
-      ?.filter(friend => friend.type === 'friend')
-      ?.filter(
-        friend => !groupData?.members.some(member => member.userId === friend.friendUserId)
-      ) || [];
+  const availableFriends = useMemo(
+    () =>
+      allFriends?.pages
+        ?.flatMap(page => page.data || [])
+        ?.filter(friend => friend.type === 'friend')
+        ?.filter(
+          friend => !groupData?.members.some(member => member.userId === friend.friendUserId)
+        ) || [],
+    [allFriends, groupData]
+  );
 
   const handleAddMember = async (friendId: string) => {
     if (!user?.id) return;
@@ -135,7 +137,7 @@ const GroupDetails = () => {
             onPress={() => addMemberSheetRef.current?.snapToIndex(0)}
             className="bg-primary rounded-full p-3"
           >
-            <UserPlus size={22} />
+            <UserPlus size={22} className="text-primary-foreground" />
           </Pressable>
         </Animated.View>
 
@@ -153,7 +155,7 @@ const GroupDetails = () => {
                   key={member.id}
                   entering={FadeInRight.delay(index * 100).springify()}
                   layout={LinearTransition.springify()}
-                  className="bg- border border-border rounded-2xl overflow-hidden"
+                  className="bg-background border border-border rounded-2xl overflow-hidden"
                   style={{
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.05,
@@ -278,7 +280,7 @@ const GroupDetails = () => {
             </View>
           ) : (
             <View className="items-center py-8">
-              <Users size={48} />
+              <Users size={48} className="text-muted-foreground" />
               <Text className="text-muted-foreground mt-4 text-center">
                 {t('friends.groups.noAvailableFriends')}
               </Text>
