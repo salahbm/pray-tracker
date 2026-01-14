@@ -11,11 +11,11 @@ import EditGroupSheet from '@/components/views/friends/groups/edit-group-sheet';
 import DeleteGroupSheet from '@/components/views/friends/groups/delete-group-sheet';
 import PrayerNotifierSheet from '@/components/views/qibla/pray-notifier-sheet';
 import PaywallScreen from '@/app/(screens)/subscription/paywall';
-import { useOnboarding } from '@/store/defaults/onboarding';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const SheetWrapper = () => {
-  const { visited } = useOnboarding();
+  const { visited } = useOnboardingStore();
   const { signInSheetRef, signUpSheetRef, forgotPwdRef } = useAuthBottomSheetStore();
   const { createSheetRef, editSheetRef, deleteSheetRef } = useFriendsBottomSheetStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();

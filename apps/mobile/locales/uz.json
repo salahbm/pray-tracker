@@ -516,6 +516,15 @@
         "message": "Namoz vaqtlari uchun joylashuvga ruxsat kerak",
         "title": "Ruxsat berilmadi"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Joylashuv aniqlanmoqda...",
         "unknown": "Nomaʼlum"

@@ -516,6 +516,15 @@
         "message": "Kebenaran lokasi diperlukan untuk kira waktu solat",
         "title": "Kebenaran Ditolak"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Mendapatkan lokasi...",
         "unknown": "Tidak diketahui"

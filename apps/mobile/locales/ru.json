@@ -516,6 +516,15 @@
         "message": "Требуется разрешение на локацию для расчёта времени молитв",
         "title": "Доступ запрещён"
       },
+      "citySelector": {
+        "title": "Select your city",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Enter country",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "location": {
         "fetching": "Получение локации...",
         "unknown": "Неизвестно"

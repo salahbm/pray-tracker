@@ -1,4 +1,3 @@
-import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DeviceEventEmitter } from 'react-native';
 
@@ -9,8 +8,9 @@ import {
 } from '@/lib/notification.permission';
 import { schedulePrayerNotificationWithOffset } from '@/lib/reminder';
 import { useNotificationStore } from '@/store/defaults/notification';
+import { PrayerTimesData } from '@/types/prayer-times';
 
-const useTimeLeft = (prayerTimes: PrayerTimes | null) => {
+const useTimeLeft = (prayerTimes: PrayerTimesData | null) => {
   const [timeLeft, setTimeLeft] = useState('00:00:00');
   const [currentPrayer, setCurrentPrayer] = useState<string>('');
   const [nextPrayer, setNextPrayer] = useState<string>('');
@@ -55,17 +55,10 @@ const useTimeLeft = (prayerTimes: PrayerTimes | null) => {
     setCurrentPrayer(currentName);
 
     // If no prayers left today, calculate tomorrow's Fajr
-    if (!foundNext) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-
-      const nextDayTimes = new PrayerTimes(
-        prayerTimes.coordinates,
-        tomorrow,
-        prayerTimes.calculationParameters
-      );
-
-      targetTimeRef.current = nextDayTimes.fajr;
+    if (!foundNext && prayerTimes) {
+      const tomorrowFajr = new Date(prayerTimes.fajr);
+      tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
+      targetTimeRef.current = tomorrowFajr;
       setNextPrayer(SALAHS.FAJR);
       setCurrentPrayer(SALAHS.ISHA); // It is currently Isha until Fajr
     }

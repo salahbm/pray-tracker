@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
@@ -25,18 +25,24 @@ import useTimeLeft from '@/hooks/common/useTimeLeft';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { SALAHS } from '@/constants/enums';
 import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
-import { PrayerTimes } from 'adhan';
 import { router } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
+import Modal from '@/components/shared/modals/modal';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const PrayerTimer = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
 
-  const { prayerTimes, locationName, loading, error } = usePrayerData();
-  const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes as PrayerTimes);
+  const { prayerTimes, locationName, loading, error, city, country, setCity, setCountry } =
+    usePrayerData();
+  const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [draftCity, setDraftCity] = useState(city ?? '');
+  const [draftCountry, setDraftCountry] = useState(country ?? '');
 
   const prayers = useMemo(() => {
     if (!prayerTimes) return [];
@@ -51,7 +57,6 @@ const PrayerTimer = () => {
   }, [prayerTimes]);
 
   if (loading) return <PrayerTimerSkeleton />;
-  if (error || !prayerTimes) return <NoData />;
 
   return (
     <View className="flex-1 bg-background">
@@ -62,12 +67,19 @@ const PrayerTimer = () => {
         className="flex-row justify-between items-center px-6 pb-4 z-10 bg-background"
         style={{ paddingTop: insets.top + 10 }}
       >
-        <View className="flex-row items-center gap-2 opacity-80">
+        <TouchableOpacity
+          className="flex-row items-center gap-2 opacity-80"
+          onPress={() => {
+            setDraftCity(city ?? '');
+            setDraftCountry(country ?? '');
+            setIsLocationModalOpen(true);
+          }}
+        >
           <MapPin size={16} className="text-primary" />
           <Text className="text-sm font-medium text-foreground/80 truncate max-w-[200px]">
             {locationName || t('common.locating')}
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <View className="flex-row gap-3">
           {[
@@ -122,68 +134,114 @@ const PrayerTimer = () => {
            UX Improvement: List is visible immediately (no accordion).
            UI Improvement: "Current" prayer has a distinct left border and background tint.
         */}
-        <View className="gap-3">
-          {prayers.map(item => {
-            const isCurrent = item.name === currentPrayer;
-            const isNext = item.name === nextPrayer;
-            const Icon = item.icon;
+        {error || !prayerTimes ? (
+          <NoData />
+        ) : (
+          <View className="gap-3">
+            {prayers.map(item => {
+              const isCurrent = item.name === currentPrayer;
+              const isNext = item.name === nextPrayer;
+              const Icon = item.icon;
 
-            return (
-              <View
-                key={item.name}
-                className={cn('flex-row justify-between items-center p-4 rounded-xl border mb-1', {
-                  'bg-primary/5 border-primary/30 border-l-4 border-l-primary': isCurrent, // Active styling
-                  'bg-background/90 border-border/50': !isCurrent, // Inactive styling
-                  'opacity-50': !isCurrent && !isNext && item.time < new Date(), // Past prayers dimmed slightly (optional logic)
-                })}
-              >
-                <View className="flex-row items-center gap-4">
-                  <View
-                    className={cn('w-10 h-10 items-center justify-center rounded-full', {
-                      'bg-primary text-primary-foreground': isCurrent,
-                      'bg-muted/50': !isCurrent,
-                    })}
-                  >
-                    <Icon
-                      className={cn('size-5', {
-                        'text-primary-foreground': isCurrent,
-                        'text-muted-foreground': !isCurrent,
-                      })}
-                    />
-                  </View>
-
-                  <View>
-                    <Text
-                      className={cn('text-base font-bold capitalize', {
-                        'text-foreground': isCurrent,
-                        'text-muted-foreground': !isCurrent,
+              return (
+                <View
+                  key={item.name}
+                  className={cn(
+                    'flex-row justify-between items-center p-4 rounded-xl border mb-1',
+                    {
+                      'bg-primary/5 border-primary/30 border-l-4 border-l-primary': isCurrent, // Active styling
+                      'bg-background/90 border-border/50': !isCurrent, // Inactive styling
+                      'opacity-50': !isCurrent && !isNext && item.time < new Date(), // Past prayers dimmed slightly (optional logic)
+                    }
+                  )}
+                >
+                  <View className="flex-row items-center gap-4">
+                    <View
+                      className={cn('w-10 h-10 items-center justify-center rounded-full', {
+                        'bg-primary text-primary-foreground': isCurrent,
+                        'bg-muted/50': !isCurrent,
                       })}
                     >
-                      {t(`common.salahs.${item.name}`)}
-                    </Text>
-                    {isCurrent && (
-                      <Text className="text-[10px] uppercase font-bold text-primary tracking-wider">
-                        Now
-                      </Text>
-                    )}
-                  </View>
-                </View>
+                      <Icon
+                        className={cn('size-5', {
+                          'text-primary-foreground': isCurrent,
+                          'text-muted-foreground': !isCurrent,
+                        })}
+                      />
+                    </View>
 
-                <Text
-                  className={cn('text-lg font-bold tabular-nums', {
-                    'text-primary': isCurrent,
-                    'text-foreground': !isCurrent,
-                  })}
-                >
-                  {item.time ? format(item.time, 'HH:mm') : '--:--'}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
+                    <View>
+                      <Text
+                        className={cn('text-base font-bold capitalize', {
+                          'text-foreground': isCurrent,
+                          'text-muted-foreground': !isCurrent,
+                        })}
+                      >
+                        {t(`common.salahs.${item.name}`)}
+                      </Text>
+                      {isCurrent && (
+                        <Text className="text-[10px] uppercase font-bold text-primary tracking-wider">
+                          Now
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+
+                  <Text
+                    className={cn('text-lg font-bold tabular-nums', {
+                      'text-primary': isCurrent,
+                      'text-foreground': !isCurrent,
+                    })}
+                  >
+                    {item.time ? format(item.time, 'HH:mm') : '--:--'}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
       </ScrollView>
 
       <NotificationPermissionModal />
+      <Modal visible={isLocationModalOpen} onRequestClose={() => setIsLocationModalOpen(false)}>
+        <View className="p-5">
+          <Text className="text-lg font-semibold text-foreground mb-3">
+            {t('qibla.prayerTimes.citySelector.title')}
+          </Text>
+          <View className="gap-3">
+            <Input
+              label={t('qibla.prayerTimes.citySelector.cityLabel')}
+              placeholder={t('qibla.prayerTimes.citySelector.cityPlaceholder')}
+              value={draftCity}
+              onChangeText={setDraftCity}
+            />
+            <Input
+              label={t('qibla.prayerTimes.citySelector.countryLabel')}
+              placeholder={t('qibla.prayerTimes.citySelector.countryPlaceholder')}
+              value={draftCountry}
+              onChangeText={setDraftCountry}
+            />
+          </View>
+          <View className="flex-row justify-end gap-3 mt-6">
+            <Button variant="ghost" onPress={() => setIsLocationModalOpen(false)} className="px-4">
+              <Text>{t('qibla.prayerTimes.citySelector.cancel')}</Text>
+            </Button>
+            <Button
+              onPress={() => {
+                if (!draftCity.trim() || !draftCountry.trim()) {
+                  return;
+                }
+                setCity(draftCity.trim());
+                setCountry(draftCountry.trim());
+                setIsLocationModalOpen(false);
+              }}
+              className="px-4"
+            >
+              <Text>{t('qibla.prayerTimes.citySelector.save')}</Text>
+            </Button>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
