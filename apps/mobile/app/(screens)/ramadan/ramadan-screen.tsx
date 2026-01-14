@@ -7,6 +7,7 @@ import {
   Keyboard,
   FlatList,
   RefreshControl,
+  Switch,
 } from 'react-native';
 import BottomSheet, {
   BottomSheetTextInput,
@@ -18,13 +19,17 @@ import BottomSheet, {
 import { format, parse } from 'date-fns';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useRamadanCalendar } from '@/hooks/ramadan/useRamadanCalendar';
+import { useFastingHistory } from '@/hooks/fasting/useFastingHistory';
+import { useToggleFasting } from '@/hooks/fasting/useToggleFasting';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/store/use-location';
 import GoBack from '@/components/shared/go-back';
+import { useAuthStore } from '@/store/auth/auth-session';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
@@ -39,16 +44,19 @@ const useDebounce = (value: string, delay = 400) => {
 };
 
 const RamadanScreen = () => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const sheetRef = useRef<BottomSheet>(null);
   const listRef = useRef<FlatList>(null);
   const { width } = useWindowDimensions();
   const { city, country, setLocation } = useLocationStore();
+  const user = useAuthStore(state => state.user);
 
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery);
 
   const today = useMemo(() => new Date(), []);
+  const isAuthenticated = !!user;
 
   const {
     data: monthDays = [],
@@ -60,6 +68,11 @@ const RamadanScreen = () => {
     month: today.getMonth() + 1,
     year: today.getFullYear(),
   });
+  const { data: fastingHistory = [] } = useFastingHistory({
+    enabled: isAuthenticated,
+    userId: user?.id,
+  });
+  const toggleFasting = useToggleFasting();
 
   const numColumns = width > 520 ? 3 : 2;
 
@@ -68,6 +81,14 @@ const RamadanScreen = () => {
       d => format(parseGregorianDate(d.gregorianDate), 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
     );
   }, [monthDays, today]);
+
+  const fastingByDate = useMemo(() => {
+    const entries = new Map<string, boolean>();
+    fastingHistory.forEach(entry => {
+      entries.set(format(new Date(entry.date), 'yyyy-MM-dd'), entry.fasted);
+    });
+    return entries;
+  }, [fastingHistory]);
 
   useEffect(() => {
     if (todayIndex >= 0 && monthDays.length > 0) {
@@ -187,6 +208,8 @@ const RamadanScreen = () => {
         renderItem={({ item, index }) => {
           const gDate = parseGregorianDate(item.gregorianDate);
           const isToday = index === todayIndex;
+          const dateKey = format(gDate, 'yyyy-MM-dd');
+          const isFasted = fastingByDate.get(dateKey) ?? false;
 
           return (
             <View style={{ width: `${100 / numColumns}%`, height: ITEM_HEIGHT }} className="p-1.5">
@@ -228,6 +251,22 @@ const RamadanScreen = () => {
                     <Text className="text-[9px] font-bold text-orange-500 uppercase">Iftar</Text>
                     <Text className="text-xs font-bold">{item.maghrib.split(' ')[0]}</Text>
                   </View>
+                  {isAuthenticated && (
+                    <View className="flex-row justify-between items-center">
+                      <Text className="text-[9px] font-bold text-muted-foreground uppercase">
+                        {t('ramadan.fasting.label')}
+                      </Text>
+                      <Switch
+                        value={isFasted}
+                        onValueChange={value =>
+                          toggleFasting.mutate({
+                            date: gDate,
+                            fasted: value,
+                          })
+                        }
+                      />
+                    </View>
+                  )}
                 </View>
               </View>
             </View>

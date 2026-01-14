@@ -536,5 +536,10 @@
       "qibla": "Qibla Direction",
       "times": "Prayer Times"
     }
+  },
+  "ramadan": {
+    "fasting": {
+      "label": "Fasted"
+    }
   }
 }
