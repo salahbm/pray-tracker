@@ -20,8 +20,7 @@ export class OnboardingController {
 
   @Get('preferences')
   async getPreferences(@Req() request: Request) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -34,8 +33,7 @@ export class OnboardingController {
     @Req() request: Request,
     @Body() dto: UpsertOnboardingDto,
   ) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -45,8 +43,7 @@ export class OnboardingController {
 
   @Post('complete')
   async completeOnboarding(@Req() request: Request) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }

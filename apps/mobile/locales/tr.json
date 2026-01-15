@@ -63,34 +63,6 @@
     "username": {
       "label": "Kullanıcı Adı",
       "placeholder": "Kullanıcı adınızı girin"
-    },
-    "welcome": {
-      "getStarted": "Başla",
-      "guest": "Misafir",
-      "next": "İleri",
-      "skip": "Geç",
-      "onboarding": {
-        "aware": {
-          "description": "Son kıldığınız namazı takip edin ve gününüzü namaz vakitlerine göre planlayın.",
-          "title": "Son Namazınızı Hatırlayın"
-        },
-        "journey": {
-          "description": "İlerlemenizi görün ve düzenli namaz konusunda ne kadar yol aldığınızı fark edin.",
-          "title": "Namaz Yolculuğunuzu Görün"
-        },
-        "remind": {
-          "description": "Zamanında bildirimler alın ve namazı kaçırmayın.",
-          "title": "Bir Daha Namaz Kaçırmayın"
-        },
-        "share": {
-          "description": "Namaz yolculuğunuzu sevdiklerinizle paylaşarak birbirinizi teşvik edin.",
-          "title": "İlerlemenizi Paylaşın"
-        },
-        "track": {
-          "description": "Günlük namazlarınızı kolayca kaydedin ve ibadette düzenli kalın.",
-          "title": "Namazlarınızı Kolayca Takip Edin"
-        }
-      }
     }
   },
   "leaderboard": {

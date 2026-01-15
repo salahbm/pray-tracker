@@ -86,11 +86,11 @@ export function OfflineModal() {
 
               <View className="items-center mb-6">
                 <Text className="text-2xl font-semibold text-foreground text-center mb-2">
-                  {t('common.offline.title', 'Resting Offline')}
+                  {t('common.permissions.offline.title', 'Resting Offline')}
                 </Text>
                 <Text className="text-[15px] leading-5 text-muted-foreground text-center px-2">
                   {t(
-                    'common.offline.message',
+                    'common.permissions.offline.message',
                     "The connection is taking a break. We'll refresh once you're back online."
                   )}
                 </Text>
@@ -100,7 +100,7 @@ export function OfflineModal() {
               <View className="flex-row items-center bg-white/40 border border-border/50 px-4 py-2 rounded-2xl">
                 <View className="w-2 h-2 rounded-full bg-primary mr-3 animate-pulse" />
                 <Text className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
-                  {t('common.offline.waiting', 'Searching for Network')}
+                  {t('common.permissions.offline.waiting', 'Searching for Network')}
                 </Text>
               </View>
             </View>

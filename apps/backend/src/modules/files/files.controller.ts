@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Req,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request } from 'express';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import { FilesService } from './files.service';
@@ -15,7 +22,10 @@ export class FilesController {
     @Body() createAvatarPresignDto: CreateAvatarPresignDto,
     @Req() request: Request,
   ) {
-    const userId = request['user']?.id;
+    const userId = request.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
     return this.filesService.createAvatarPresignedUrl(
       userId,
       createAvatarPresignDto.fileName,
@@ -28,7 +38,10 @@ export class FilesController {
     @Body() confirmAvatarUploadDto: ConfirmAvatarUploadDto,
     @Req() request: Request,
   ) {
-    const userId = request['user']?.id;
+    const userId = request.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
     return this.filesService.confirmAvatarUpload(
       userId,
       confirmAvatarUploadDto.fileKey,

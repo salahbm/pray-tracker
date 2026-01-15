@@ -43,6 +43,7 @@ import {
   Plus,
   Edit2,
   FolderPlus,
+  AlertCircle,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -98,6 +99,7 @@ iconWithClassName(Minus);
 iconWithClassName(Plus);
 iconWithClassName(Edit2);
 iconWithClassName(FolderPlus);
+iconWithClassName(AlertCircle);
 
 export {
   Calendar,
@@ -141,4 +143,5 @@ export {
   Plus,
   Edit2,
   FolderPlus,
+  AlertCircle,
 };

@@ -12,6 +12,8 @@ export type ErrorKey =
   | 'INVALID_CREDENTIALS'
   | 'SESSION_EXPIRED'
   | 'NO_ACTIVE_SESSION'
+  | 'SIGN_OUT_SUCCESS'
+  | 'SIGN_OUT_FAILED'
   | 'INVALID_TOKEN'
   | 'EMAIL_ALREADY_EXISTS'
   | 'WEAK_PASSWORD'
@@ -119,6 +121,22 @@ export const ERROR_MESSAGES: ErrorMessages = {
     id: 'Sesi telah berakhir. Silakan login kembali',
     ms: 'Sesi tamat. Sila log masuk semula',
     tr: 'Oturum sona erdi. Lütfen tekrar giriş yapın',
+  },
+  SIGN_OUT_SUCCESS: {
+    en: 'Sign out successful',
+    uz: 'Tizimdan chiqish muvaffaqiyatli',
+    ru: 'Вы успешно вышли',
+    id: 'Keluar berhasil',
+    ms: 'Keluar berjaya',
+    tr: 'Oturum sona erdi',
+  },
+  SIGN_OUT_FAILED: {
+    en: 'Sign out failed',
+    uz: 'Tizimdan chiqish muvaffaqiyatli',
+    ru: 'Вы успешно вышли',
+    id: 'Keluar berhasil',
+    ms: 'Keluar berjaya',
+    tr: 'Oturum sona erdi',
   },
   NO_ACTIVE_SESSION: {
     en: 'No active session found',
