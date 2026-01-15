@@ -7,4 +7,6 @@
   <string name="profile">"[object Object]"</string>
   <string name="subscription">"[object Object]"</string>
   <string name="qibla">"[object Object]"</string>
+  <string name="ramadan">"[object Object]"</string>
+  <string name="onboardingFlow">"[object Object]"</string>
 </resources>

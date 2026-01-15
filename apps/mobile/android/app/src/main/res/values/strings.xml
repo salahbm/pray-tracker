@@ -1,16 +1,5 @@
 <resources>
   <string name="app_name">Noor</string>
-
-  <string name="home">Home</string>
-  <string name="auth">Auth</string>
-  <string name="profile">Profile</string>
-  <string name="friends">Friends</string>
-  <string name="leaderboard">Leaderboard</string>
-  <string name="qibla">Qibla</string>
-  <string name="common">Common</string>
-  <string name="subscription">Subscription</string>
-
-  <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">cover</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
 </resources>
