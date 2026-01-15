@@ -10,6 +10,8 @@ async function bootstrap() {
     bodyParser: false, // We'll configure it manually
   });
 
+  app.set('trust proxy', 1);
+
   // Enable CORS
   app.enableCors({
     origin: process.env.APP_CORS_ORIGIN?.split(',') || '*',
