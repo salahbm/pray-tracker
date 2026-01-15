@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrayerTimesData } from '@/types/prayer-times';
 import { useLocationStore } from '@/store/use-location';
@@ -18,15 +18,15 @@ const buildDateTime = (date: Date, time: string) => {
 
 export const usePrayerData = () => {
   const { t } = useTranslation();
-  const { city, country } = useLocationStore();
+  const { city, country, initLocation, initialized, isLoadingLocation } = useLocationStore();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
-  const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState(false);
 
   const fetchPrayerTimes = useCallback(async (selectedCity: string, selectedCountry: string) => {
     try {
-      setLoading(true);
+      setIsFetching(true);
       setLocationName(`${selectedCity}, ${selectedCountry}`);
 
       const date = new Date();
@@ -60,18 +60,28 @@ export const usePrayerData = () => {
       setError(true);
       setPrayerTimes(null);
     } finally {
-      setLoading(false);
+      setIsFetching(false);
     }
   }, []);
 
   useEffect(() => {
+    if (!initialized) {
+      void initLocation();
+      return;
+    }
+
     if (!city || !country) {
-      setLoading(false);
+      setError(true);
       return;
     }
 
     void fetchPrayerTimes(city, country);
-  }, [city, country, fetchPrayerTimes]);
+  }, [city, country, fetchPrayerTimes, initLocation, initialized]);
+
+  const loading = useMemo(() => {
+    if (!initialized || isLoadingLocation) return true;
+    return isFetching;
+  }, [initialized, isFetching, isLoadingLocation]);
 
   return {
     prayerTimes,

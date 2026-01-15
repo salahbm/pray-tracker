@@ -32,6 +32,7 @@ interface RequestOptions {
   params?: Record<string, string | number | boolean | undefined>;
   signal?: AbortSignal;
   cache?: 'no-store' | 'reload' | 'force-cache'; // simplified
+  suppressUnauthorizedLogout?: boolean;
 }
 
 // Expo agent implementation
@@ -90,12 +91,15 @@ class Agent {
   }
 
   /** Handle and parse response */
-  private async processResponse<T>(response: Response): Promise<T> {
+  private async processResponse<T>(
+    response: Response,
+    suppressUnauthorizedLogout = false
+  ): Promise<T> {
     const isJson = response.headers.get('content-type')?.includes('application/json');
     const data = isJson ? await response.json() : await response.text();
 
     if (!response.ok) {
-      if (response.status === 401) {
+      if (response.status === 401 && !suppressUnauthorizedLogout) {
         useAuthStore.getState().clearUserAndSession();
       }
       const message =
@@ -115,7 +119,7 @@ class Agent {
     body?: unknown,
     options: RequestOptions = {}
   ): Promise<T> {
-    const { headers = {}, params, signal, cache } = options;
+    const { headers = {}, params, signal, cache, suppressUnauthorizedLogout } = options;
     const url = this.createUrl(endpoint, params);
 
     // Get current language and add to headers
@@ -157,7 +161,7 @@ class Agent {
       const res = await fetch(url, { ...config, signal: finalSignal });
       clearTimeout(timeoutId);
 
-      return await this.processResponse<T>(res);
+      return await this.processResponse<T>(res, suppressUnauthorizedLogout);
     } catch (err) {
       if (err instanceof ApiError) throw err;
 

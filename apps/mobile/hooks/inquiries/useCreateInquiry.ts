@@ -11,7 +11,9 @@ export type CreateInquiryPayload = {
 };
 
 const createInquiry = async (payload: CreateInquiryPayload): Promise<Inquiry> => {
-  const data = await agent.post<Inquiry>('/inquiries', payload);
+  const data = await agent.post<Inquiry>('/inquiries', payload, {
+    suppressUnauthorizedLogout: true,
+  });
   return data;
 };
 
@@ -24,7 +26,7 @@ export const useCreateInquiry = () => {
       queryClient.invalidateQueries({ queryKey: QueryKeys.inquiries.all });
       queryClient.setQueryData(
         [...QueryKeys.inquiries.detail, { id: inquiry.id, email: inquiry.email }],
-        inquiry,
+        inquiry
       );
     },
   });

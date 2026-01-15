@@ -10,12 +10,11 @@ export type SendInquiryMessagePayload = {
   message: string;
 };
 
-const sendInquiryMessage = async (
-  payload: SendInquiryMessagePayload,
-): Promise<InquiryMessage> => {
+const sendInquiryMessage = async (payload: SendInquiryMessagePayload): Promise<InquiryMessage> => {
   const data = await agent.post<InquiryMessage>(
     `/inquiries/${payload.inquiryId}/messages`,
     { message: payload.message, email: payload.email },
+    { suppressUnauthorizedLogout: true }
   );
   return data;
 };
