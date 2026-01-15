@@ -55,7 +55,6 @@ export default function PaywallScreen() {
   const flatListRef = useRef<FlatList>(null);
 
   const { packages, loading: loadingOfferings } = useRevenueCatOfferings();
-  console.log(`STRINGIFIED 👉:`, JSON.stringify(packages, null, 2));
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
   const { refetch: refetchCustomerInfo } = useRevenueCatCustomer();
   const { markAsPurchased } = useAppRatingStore();

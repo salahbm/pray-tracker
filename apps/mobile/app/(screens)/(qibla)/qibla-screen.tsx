@@ -8,7 +8,6 @@ import Kaaba from '@/assets/icons/kaaba.svg';
 import Loader from '@/components/shared/loader';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { IMAGES } from '@/constants/images';
 import { triggerHaptic } from '@/utils/haptics';
 import { router } from 'expo-router';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -26,6 +25,7 @@ const MOSQUE_LIST = [
   require('@/assets/mosque/mosque-3.jpg'),
   require('@/assets/mosque/mosque-4.jpg'),
   require('@/assets/mosque/mosque-5.jpg'),
+  require('@/assets/mosque/mosque-6.jpg'),
 ];
 
 const norm360 = (deg: number) => ((deg % 360) + 360) % 360;
@@ -40,7 +40,8 @@ const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
   const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
-  const { setUrl, url } = useMosqueBgStore();
+  const { bgIndex, setBgIndex } = useMosqueBgStore();
+  const bg = MOSQUE_LIST[bgIndex];
 
   const headingRef = useRef<number>(0);
   const lastHapticAtRef = useRef<number>(0);
@@ -80,7 +81,7 @@ const QiblaScreen: React.FC = () => {
   if (isLoading) return <Loader visible className="bg-background" />;
 
   return (
-    <ImageBackground source={url} className="flex-1" resizeMode="cover">
+    <ImageBackground source={bg} className="flex-1" resizeMode="cover">
       <View className="flex-1 bg-black/10 px-6">
         <Button
           style={{ marginTop: insets.top }}
@@ -89,7 +90,14 @@ const QiblaScreen: React.FC = () => {
           className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2 self-end mt-2"
           onPress={() => {
             triggerHaptic();
-            setUrl(MOSQUE_LIST[Math.floor(Math.random() * MOSQUE_LIST.length)]);
+            setBgIndex(prev => {
+              if (MOSQUE_LIST.length <= 1) return prev;
+              let next = prev;
+              while (next === prev) {
+                next = Math.floor(Math.random() * MOSQUE_LIST.length);
+              }
+              return next;
+            });
           }}
         >
           <Palette size={24} className="text-primary" />
@@ -150,7 +158,7 @@ const QiblaScreen: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2"
+                  className="rounded-full shadow-lg bg-muted/30 w-12 h-12 p-2"
                 >
                   <Info size={24} className="text-primary" />
                 </Button>
@@ -163,7 +171,7 @@ const QiblaScreen: React.FC = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2"
+              className="rounded-full shadow-lg bg-muted/30 w-12 h-12 p-2"
               onPress={() => {
                 triggerHaptic();
                 router.back();

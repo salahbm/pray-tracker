@@ -5,19 +5,22 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface MosqueBgState {
-  url: ImageSourcePropType;
-  setUrl: (url: ImageSourcePropType) => void;
+  bgIndex: number;
+  setBgIndex: (i: number | ((p: number) => number)) => void;
 }
 
 export const useMosqueBgStore = create<MosqueBgState>()(
-  persist<MosqueBgState>(
+  persist(
     set => ({
-      url: require('@/assets/mosque/mosque-1.jpg'),
-      setUrl: (url: ImageSourcePropType) => set({ url }),
+      bgIndex: 0,
+      setBgIndex: i =>
+        set(state => ({
+          bgIndex: typeof i === 'function' ? i(state.bgIndex) : i,
+        })),
     }),
     {
-      name: 'mosque-bg-store', // Key for persistence
-      storage: createJSONStorage(() => AsyncStorage), // (optional) by default, 'localStorage'
+      name: 'mosque-bg-store',
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );
