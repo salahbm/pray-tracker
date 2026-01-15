@@ -35,8 +35,7 @@ export class PrayersController {
     @Query('year') year?: string,
     @Query('month') month?: string,
   ) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -52,8 +51,7 @@ export class PrayersController {
    */
   @Get('me/today')
   async findMyTodayPrayer(@Req() request: Request) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -66,8 +64,7 @@ export class PrayersController {
    */
   @Get('me/stats')
   async getMyStats(@Req() request: Request, @Query('year') year?: string) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }

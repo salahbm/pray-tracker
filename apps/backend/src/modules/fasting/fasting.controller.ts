@@ -19,8 +19,7 @@ export class FastingController {
 
   @Get()
   async getHistory(@Req() request: Request) {
-    const userId = request['user']?.id as string | undefined;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -30,8 +29,7 @@ export class FastingController {
 
   @Post()
   async upsertFasting(@Req() request: Request, @Body() dto: UpsertFastingDto) {
-    const userId = request['user']?.id as string | undefined;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }

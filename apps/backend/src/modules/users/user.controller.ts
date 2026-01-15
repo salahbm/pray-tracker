@@ -30,8 +30,7 @@ export class UsersController {
    */
   @Get('me')
   async getCurrentUser(@Req() request: Request) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -44,7 +43,10 @@ export class UsersController {
    */
   @Get('me/stats')
   async getCurrentUserStats(@Req() request: Request) {
-    const userId: string = request['user']?.id;
+    const userId = request.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
     return this.usersService.getUserStats(userId);
   }
 
@@ -57,8 +59,7 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @Headers('locale') locale?: Locale,
   ) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }
@@ -74,8 +75,7 @@ export class UsersController {
     @Req() request: Request,
     @Body('pushToken') pushToken: string,
   ) {
-    const userId: string = request['user']?.id;
-
+    const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }

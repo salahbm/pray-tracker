@@ -5,16 +5,16 @@
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
-  "setupFiles": ["<rootDir>/test/setup-env.ts"],
+  "setupFiles": ["<rootDir>/setup-env.ts"],
   "moduleNameMapper": {
-    "^@/(.*)$": "<rootDir>/src/$1",
-    "^@lib/(.*)$": "<rootDir>/src/lib/$1",
-    "^@constants/(.*)$": "<rootDir>/src/constants/$1",
-    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
-    "^@config/(.*)$": "<rootDir>/src/config/$1",
-    "^@modules/(.*)$": "<rootDir>/src/modules/$1",
-    "^@common/(.*)$": "<rootDir>/src/common/$1",
-    "^@db/(.*)$": "<rootDir>/src/db/$1"
+    "^@/(.*)$": "<rootDir>/../src/$1",
+    "^@lib/(.*)$": "<rootDir>/../src/lib/$1",
+    "^@constants/(.*)$": "<rootDir>/../src/constants/$1",
+    "^@utils/(.*)$": "<rootDir>/../src/utils/$1",
+    "^@config/(.*)$": "<rootDir>/../src/config/$1",
+    "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
+    "^@common/(.*)$": "<rootDir>/../src/common/$1",
+    "^@db/(.*)$": "<rootDir>/../src/db/$1"
   },
   "testEnvironment": "node"
 }

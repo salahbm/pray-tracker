@@ -27,7 +27,7 @@ const GoBack: React.FC<GoBackHeaderProps> = props => {
       from={{ opacity: 0, translateY: -20 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ type: 'timing', duration: 300 }}
-      className={cn('flex-row items-center justify-between bg-background mb-10', className)}
+      className={cn('flex-row items-center justify-between bg-background', className)}
     >
       {canGoBack ? (
         <MotiView
@@ -37,7 +37,7 @@ const GoBack: React.FC<GoBackHeaderProps> = props => {
         >
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            className="w-10 h-10 justify-center items-center active:opacity-70"
+            className="w-10 h-10 justify-center items-center active:opacity-70 active:bg-black/10 rounded-full"
             accessibilityLabel="Go back"
             accessibilityRole="button"
           >

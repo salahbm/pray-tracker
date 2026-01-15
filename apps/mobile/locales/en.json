@@ -4,6 +4,14 @@
       "label": "Email",
       "placeholder": "Enter your email"
     },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username"
+    },
     "forgotPassword": {
       "title": "Forgot Password",
       "button": "Send Verification",
@@ -36,10 +44,6 @@
         "failed": "Failed to reset password. Please try again."
       }
     },
-    "password": {
-      "label": "Password",
-      "placeholder": "Enter your password"
-    },
     "signIn": {
       "button": "Sign In",
       "forgotPassword": "Forgot your password?",
@@ -59,16 +63,7 @@
         "message": "You have successfully signed up.",
         "title": "As-salaam-alaikum!"
       }
-    },
-    "username": {
-      "label": "Username",
-      "placeholder": "Enter your username"
     }
-  },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "point": "pts",
-    "points": "Points"
   },
   "common": {
     "notifications": {
@@ -90,14 +85,6 @@
       "permissions": {
         "denied": "Notification permissions not granted. Please enable notifications in your device settings."
       }
-    },
-    "notFound": {
-      "404": "Page not found",
-      "noData": "No data found"
-    },
-    "unauthorized": {
-      "title": "Unauthorized",
-      "description": "Please login to access this feature"
     },
     "errors": {
       "invalidEmail": "Invalid email"
@@ -128,10 +115,6 @@
       "confirm": "Confirm",
       "title": "Select a Year"
     },
-    "viewAll": "View All",
-    "today": "Today",
-    "loadMoreMonths": "+ Load 6 More Months",
-    "chooseLanguage": "Choose a language",
     "actions": {
       "delete": "Delete",
       "deleting": "Deleting...",
@@ -146,7 +129,9 @@
       "requestReceived": "Request Received",
       "accept": "Accept",
       "reject": "Reject",
-      "retry": "Retry"
+      "retry": "Retry",
+      "goBack": "Go Back",
+      "ok": "Ok"
     },
     "permissions": {
       "notifications": {
@@ -160,15 +145,20 @@
         "message": "We need your location to calculate accurate prayer times and Qibla direction for your area.",
         "allow": "Allow Location",
         "settings": "Open Settings"
+      },
+      "offline": {
+        "title": "Resting Offline",
+        "message": "The connection is taking a break. We'll refresh once you're back online.",
+        "waiting": "Searching for Network"
       }
     },
-    "offline": {
-      "title": "Resting Offline",
-      "message": "The connection is taking a break. We'll refresh once you're back online.",
-      "waiting": "Searching for Network"
-    },
-    "noData": "No Data",
-    "days": "days"
+    "noData": "Oh, no data found :(",
+    "days": "days",
+    "signIn": "Please sign in",
+    "viewAll": "View All",
+    "today": "Today",
+    "loadMoreMonths": "+ Load 6 More Months",
+    "chooseLanguage": "Choose a language"
   },
   "location": {
     "selector": {
@@ -300,24 +290,10 @@
         "updateFailed": "Failed to update password"
       },
       "saveButton": "Update Password",
-      "success": "Password updated successfully. You will be logged out.",
+      "success": "Password updated successfully.",
       "title": "Edit Password"
     },
     "editProfile": {
-      "fields": {
-        "firstName": {
-          "label": "First Name",
-          "placeholder": "Enter your first name"
-        },
-        "lastName": {
-          "label": "Last Name",
-          "placeholder": "Enter your last name"
-        },
-        "username": {
-          "label": "Username",
-          "placeholder": "Enter your username"
-        }
-      },
       "saveButton": "Save Changes",
       "title": "Edit Profile",
       "success": "Profile updated successfully"
@@ -526,10 +502,6 @@
           "message": "Failed to save prayer reminder settings. Please try again."
         }
       }
-    },
-    "tabs": {
-      "qibla": "Qibla Direction",
-      "times": "Prayer Times"
     }
   },
   "ramadan": {

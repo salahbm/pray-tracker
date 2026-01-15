@@ -23,7 +23,7 @@ export default function ForgotPasswordScreen({ onNavigate }: { onNavigate: () =>
       alert({
         title: t('auth.forgotPassword.title'),
         subtitle: t('auth.forgotPassword.message', { email }),
-        confirmLabel: 'Ok',
+        confirmLabel: t('common.actions.ok'),
         cancelLabel: null,
         onConfirm: async () => {
           setEmail('');

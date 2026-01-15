@@ -61,18 +61,11 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
               source={!user ? FRIENDS.guest : undefined}
               className={cn('w-12 h-12 rounded-full')}
             />
-            {user && (
-              <View
-                className={cn(
-                  'absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-primary-700 border-2 border-background rounded-full'
-                )}
-              />
-            )}
           </PressableBounce>
 
           <View className={cn('flex-1 mr-4')}>
             <Text numberOfLines={1} className={cn('text-xl font-bold tracking-tight')}>
-              {user ? user.name : t('auth.welcome.guest')}
+              Hi, {user ? user.name : t('common.signIn')} 👋
             </Text>
             <Text className={cn('text-xs text-muted-foreground font-medium capitalize')}>
               {formattedDate}

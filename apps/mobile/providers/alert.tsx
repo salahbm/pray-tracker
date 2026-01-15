@@ -1,8 +1,7 @@
 import { Text } from '@/components/ui/text';
-import { useThemeStore } from '@/store/defaults/theme';
 import { useAlertStore } from '@/store/defaults/use-alert-store';
 import { BlurView } from 'expo-blur';
-import { AlertCircle } from 'lucide-react-native';
+import { AlertCircle } from '@/components/shared/icons';
 import React from 'react';
 import { Modal, Platform, Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, ZoomIn, ZoomOut } from 'react-native-reanimated';
@@ -46,20 +45,22 @@ export function GlobalAlert() {
         <Animated.View
           entering={ZoomIn.duration(250)}
           exiting={ZoomOut.duration(200)}
-          className="w-full max-w-sm overflow-hidden rounded-[32px] border border-border shadow-2xl"
+          className="w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-2xl"
         >
           <BlurView
             intensity={Platform.OS === 'ios' ? 45 : 80}
             tint="light"
             className="p-7 bg-white"
           >
-            <View className="items-center py-4">
+            <View className="items-center py-4 px-2">
               {/* Creative Icon Housing */}
-              <View className="w-14 h-14 bg-primary rounded-full items-center justify-center mb-5 aspect-square">
-                {options.icon || <AlertCircle size={28} strokeWidth={2} />}
+              <View className="w-14 h-14 bg-primary/70 rounded-full items-center justify-center mb-5 aspect-square">
+                {options.icon || (
+                  <AlertCircle className="size-12 text-primary-foreground stroke-2" />
+                )}
               </View>
 
-              <Text className="text-xl font-semibold text-foreground text-center mb-2 tracking-tight">
+              <Text className="text-xl font-semibold text-foreground text-center mb-2 mt-5 tracking-tight">
                 {options.title}
               </Text>
 
@@ -71,7 +72,7 @@ export function GlobalAlert() {
             </View>
 
             {/* Actions: Clean hierarchy */}
-            <View className="flex-row gap-3">
+            <View className="flex-row gap-3 pb-5">
               {options.cancelLabel !== null && (
                 <Pressable
                   onPress={handleCancel}
@@ -85,7 +86,7 @@ export function GlobalAlert() {
 
               <Pressable
                 onPress={handleConfirm}
-                className="flex-1 h-12 items-center justify-center rounded-xl bg-primary active:bg-primary shadow-sm"
+                className="flex-1 h-12 items-center justify-center rounded-lg bg-primary active:bg-primary shadow-sm"
               >
                 <Text className="text-sm font-semibold text-primary-foreground">
                   {options.confirmLabel || 'Confirm'}

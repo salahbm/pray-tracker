@@ -2,68 +2,119 @@ import {
   Controller,
   Get,
   Post,
-  UseGuards,
   Req,
   HttpCode,
   HttpStatus,
   Body,
+  UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@/common/guards/auth.guard';
 import type { Request } from 'express';
-import { Public } from '@/common/decorators/public.decorator';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import type { Auth } from 'better-auth';
+import { AUTH_INSTANCE } from '@/common/constants/auth.constants';
+import { getLocalizedMessage } from '@/common/i18n/error-messages';
+import { getLocaleFromRequest } from '@/common/utils/headers';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    @Inject(AUTH_INSTANCE) private readonly auth: Auth,
+    private readonly authService: AuthService,
+  ) {}
 
   /**
    * Get current authenticated user
-   * Better Auth handles /api/auth/* routes automatically (sign-up, sign-in, etc.)
-   * This is a custom endpoint for getting current user info
    */
   @Get('me')
-  @UseGuards(AuthGuard)
   async getCurrentUser(@Req() request: Request) {
-    const session = await this.authService.getCurrentSession(request);
+    const locale = getLocaleFromRequest(request.headers);
+
+    if (!request.user?.id) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+      });
+    }
+
     return {
-      user: session?.user,
-      session,
+      user: request.user,
+      session: request.session,
     };
   }
 
   /**
    * Sign out current user
    */
-  @Public()
   @Post('signout')
   @HttpCode(HttpStatus.OK)
   async signOut(@Req() request: Request) {
-    return this.authService.signOut(request);
+    const locale = getLocaleFromRequest(request.headers);
+    const authHeader = request.headers.authorization;
+
+    if (!authHeader) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+      });
+    }
+
+    try {
+      await this.auth.api.signOut({
+        headers: {
+          authorization: authHeader,
+        },
+      });
+
+      return {
+        success: true,
+        message: getLocalizedMessage('SIGN_OUT_SUCCESS', locale),
+      };
+    } catch (error) {
+      console.error('Sign out error:', error);
+      throw new UnauthorizedException({
+        error: 'SIGN_OUT_FAILED',
+        message: getLocalizedMessage('SIGN_OUT_FAILED', locale),
+      });
+    }
   }
 
   /**
    * List all active sessions
    */
   @Get('sessions')
-  @UseGuards(AuthGuard)
   async listSessions(@Req() request: Request) {
-    return this.authService.listSessions(request);
+    const locale = getLocaleFromRequest(request.headers);
+
+    if (!request.user?.id) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: getLocalizedMessage('NO_ACTIVE_SESSION', locale),
+      });
+    }
+
+    return this.authService.listUserSessions(request.user.id);
   }
 
   /**
    * Change password for authenticated user
    */
   @Post('change-password')
-  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   async changePassword(
     @Body() body: ChangePasswordDto,
     @Req() request: Request,
     @I18n() i18n: I18nContext,
   ) {
+    if (!request.user?.id) {
+      throw new UnauthorizedException({
+        error: 'NO_ACTIVE_SESSION',
+        message: i18n.t('errors.NO_ACTIVE_SESSION'),
+      });
+    }
+
     return this.authService.changePassword(
       request,
       body.currentPassword,

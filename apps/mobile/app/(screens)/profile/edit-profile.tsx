@@ -117,8 +117,8 @@ const EditProfile = () => {
         </View>
         <View className="flex gap-6 pb-12 border-t border-border pt-10">
           <Input
-            label={t('profile.editProfile.fields.username.label')}
-            placeholder={t('profile.editProfile.fields.username.placeholder')}
+            label={t('auth.username.label')}
+            placeholder={t('auth.username.placeholder')}
             value={username}
             onChangeText={setUserName}
             autoCapitalize="words"

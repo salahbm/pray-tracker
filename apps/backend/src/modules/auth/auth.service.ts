@@ -3,7 +3,6 @@ import {
   UnauthorizedException,
   BadRequestException,
 } from '@nestjs/common';
-import { auth } from '@/lib/auth';
 import { Request } from 'express';
 import { PrismaService } from '@/db/prisma.service';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
@@ -14,6 +13,20 @@ import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}
+
+  async listUserSessions(userId: string) {
+    return this.prisma.session.findMany({
+      where: {
+        userId,
+        expiresAt: {
+          gt: new Date(),
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 
   /**
    * Get current user session from request
@@ -65,22 +78,6 @@ export class AuthService {
   }
 
   /**
-   * List all active sessions for a user
-   */
-  async listSessions(request: Request) {
-    const session = await this.getCurrentSession(request);
-    if (!session) {
-      throw new Error('No active session');
-    }
-
-    const sessions = await auth.api.listSessions({
-      headers: request.headers as any,
-    });
-
-    return sessions;
-  }
-
-  /**
    * Change password for authenticated user
    */
   async changePassword(
@@ -89,8 +86,10 @@ export class AuthService {
     newPassword: string,
     i18n: I18nContext,
   ) {
-    const session = await this.getCurrentSession(request);
-    const userId = session.userId;
+    const userId = request.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
 
     // Get user's account with password
     const account = await this.prisma.account.findFirst({

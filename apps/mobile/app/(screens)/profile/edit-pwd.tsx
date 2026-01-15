@@ -13,12 +13,13 @@ import { useLogout } from '@/hooks/auth/useLogOut';
 import { useUpdatePassword } from '@/hooks/auth/usePwdUpdate';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
+import { alert } from '@/store/defaults/use-alert-store';
+import { router } from 'expo-router';
 
 const EditPwd = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const { mutateAsync: updatePassword, isPending } = useUpdatePassword();
-  const { logOut, isLoggingOut } = useLogout();
 
   //   States
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -46,26 +47,36 @@ const EditPwd = () => {
   const handleUpdate = async () => {
     if (!validatePasswords()) return;
 
-    try {
-      await updatePassword({
-        currentPassword,
-        newPassword,
+    await updatePassword({
+      currentPassword,
+      newPassword,
+    })
+      .then(() => {
+        alert({
+          title: t('profile.editPassword.success'),
+          cancelLabel: t('common.actions.goBack'),
+          onCancel: () => {
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+            router.back();
+          },
+          confirmLabel: t('common.actions.ok'),
+          onConfirm: () => {
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+          },
+        });
+      })
+      .catch(error => {
+        fireToast.error((error as Error)?.message || t('profile.editPassword.errors.updateFailed'));
       });
-
-      fireToast.success(t('profile.editPassword.success'));
-
-      // Log out user after password change
-      setTimeout(() => {
-        logOut(undefined);
-      }, 1000);
-    } catch (error) {
-      fireToast.error((error as Error)?.message || t('profile.editPassword.errors.updateFailed'));
-    }
   };
 
   return (
     <SafeAreaView className="main-area">
-      <Loader visible={isLoggingOut} />
+      <Loader visible={isPending} />
       <GoBack title={t('profile.editPassword.title')} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <Image
