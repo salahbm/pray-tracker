@@ -1,6 +1,6 @@
 auth = "[object Object]";
-leaderboard = "[object Object]";
 common = "[object Object]";
+location = "[object Object]";
 friends = "[object Object]";
 home = "[object Object]";
 profile = "[object Object]";

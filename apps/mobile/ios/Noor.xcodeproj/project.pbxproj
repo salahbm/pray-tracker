@@ -64,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				FE982E4F05BEE51A6039F803 /* ExpoModulesProvider.swift */,
+				4E591F474F724362BB6848B3 /* Supporting */,
 			);
 			name = Noor;
 			sourceTree = "<group>";
@@ -209,6 +210,14 @@
 			name = uz.lproj;
 			path = "";
 			sourceTree = "<group>";
+		};
+		4E591F474F724362BB6848B3 /* Supporting */ = {
+			isa = "PBXGroup";
+			children = (
+			);
+			name = Supporting;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -465,7 +474,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.noor.praytracker;
-				PRODUCT_NAME = Noor;
+				PRODUCT_NAME = "Noor";
 				SWIFT_OBJC_BRIDGING_HEADER = "Noor/Noor-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -497,7 +506,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.noor.praytracker;
-				PRODUCT_NAME = Noor;
+				PRODUCT_NAME = "Noor";
 				SWIFT_OBJC_BRIDGING_HEADER = "Noor/Noor-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
