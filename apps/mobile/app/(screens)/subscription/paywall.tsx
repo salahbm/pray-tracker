@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,8 +29,14 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
-import { useThemeStore } from '@/store/defaults/theme';
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles as SparklesIcon,
+} from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
+import { Sparkles } from '@/components/shared/sparks';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -207,7 +212,7 @@ export default function PaywallScreen() {
             hitSlop={20}
             disabled={activeFeatureIndex === 0}
           >
-            <ChevronLeft size={20} className="stroke-2" />
+            <ChevronLeft className="text-4 text-primary" />
           </PressableBounce>
           {PREMIUM_FEATURES.map((_, index) => (
             <TouchableOpacity
@@ -228,7 +233,7 @@ export default function PaywallScreen() {
             hitSlop={20}
             disabled={activeFeatureIndex === PREMIUM_FEATURES.length - 1}
           >
-            <ChevronRight size={20} className="stroke-2" />
+            <ChevronRight className="text-4 text-primary" />
           </PressableBounce>
         </View>
       </Animated.View>
@@ -282,7 +287,7 @@ export default function PaywallScreen() {
                   selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
                 )}
               >
-                {selectedPlan === 'yearly' && <Check size={18} strokeWidth={3} />}
+                {selectedPlan === 'yearly' && <Check className="size-3 stroke-2 text-primary" />}
               </View>
             </View>
           </TouchableOpacity>
@@ -315,7 +320,7 @@ export default function PaywallScreen() {
                   selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
                 )}
               >
-                {selectedPlan === 'monthly' && <Check size={18} strokeWidth={3} />}
+                {selectedPlan === 'monthly' && <Check className="size-3 stroke-2 text-primary" />}
               </View>
             </View>
           </TouchableOpacity>
@@ -333,9 +338,12 @@ export default function PaywallScreen() {
           {purchasing ? (
             <ActivityIndicator size="small" />
           ) : (
-            <View className="flex-row items-center">
-              <Sparkles size={20} strokeWidth={2.5} />
-              <Text className="font-bold text-lg ml-2">{t('subscription.subscribe')}</Text>
+            <View className="flex-center bg-primary rounded-full px-6 py-4 w-full relative">
+              <Sparkles count={25} />
+              <SparklesIcon className="size-5 stroke-2 text-primary-foreground" />
+              <Text className="font-bold text-primary-foreground text-lg ml-2">
+                {t('subscription.subscribe')}
+              </Text>
             </View>
           )}
         </TouchableOpacity>

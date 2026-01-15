@@ -45,6 +45,7 @@ import {
   Pencil,
   MessageSquare,
   Lock,
+  Check,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -102,6 +103,7 @@ iconWithClassName(Edit2);
 iconWithClassName(FolderPlus);
 iconWithClassName(AlertCircle);
 iconWithClassName(Pencil);
+iconWithClassName(Check);
 
 export {
   Calendar,
@@ -147,4 +149,5 @@ export {
   FolderPlus,
   AlertCircle,
   Pencil,
+  Check,
 };

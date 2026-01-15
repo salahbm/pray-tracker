@@ -6,7 +6,10 @@ interface ISkeletonProps extends ViewProps {}
 
 const Skeleton: React.FC<ViewProps> = ({ className, ...props }) => {
   return (
-    <View {...props} className={cn('animate-pulse w-full h-5 rounded-lg bg-muted', className)} />
+    <View
+      {...props}
+      className={cn('animate-pulse w-full h-5 rounded-lg bg-foreground/20', className)}
+    />
   );
 };
 
