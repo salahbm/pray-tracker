@@ -25,6 +25,7 @@ if (!appUrl) {
 }
 
 const prisma = new PrismaService();
+const isSecureOrigin = appUrl.startsWith('https://');
 
 export const auth = betterAuth({
   baseURL: appUrl, // Used to build callback URLs & cookies
@@ -47,6 +48,13 @@ export const auth = betterAuth({
     maxPasswordLength: 20,
     sendResetPassword: async ({ user, url, token }) =>
       await sendPasswordResetEmail(user.email, url, token),
+  },
+  advanced: {
+    useSecureCookies: isSecureOrigin,
+    defaultCookieAttributes: {
+      sameSite: isSecureOrigin ? 'none' : 'lax',
+      secure: isSecureOrigin,
+    },
   },
 
   hooks: {
