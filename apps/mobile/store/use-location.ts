@@ -32,8 +32,6 @@ export const useLocationStore = create<LocationState>()(
       },
 
       initLocation: async () => {
-        if (get().initialized) return;
-
         set({ isLoadingLocation: true });
 
         try {

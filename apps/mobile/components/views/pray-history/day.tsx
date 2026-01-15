@@ -43,7 +43,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, o
 
   const { isPremium } = useRevenueCatCustomer();
   const count = prayerCountByDate[date.dateString] ?? 0;
-  const bgClass = getBgClassByCount(count);
+  const bgClass = isPremium ? getBgClassByCount(count) : 'bg-muted';
 
   return (
     <Pressable
@@ -54,7 +54,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, o
       disabled={date.dateString === format(new Date(), 'yyyy-MM-dd')}
       className={cn('flex-center h-12 w-12 rounded-full transition-colors', bgClass)}
     >
-      <Text className={cn('text-foreground', count === 0 && 'opacity-80')}>{date.day}</Text>
+      <Text className={cn('text-foreground')}>{date.day}</Text>
     </Pressable>
   );
 };

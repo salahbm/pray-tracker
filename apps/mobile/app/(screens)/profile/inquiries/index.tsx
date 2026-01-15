@@ -1,20 +1,17 @@
-import { Feather } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { router } from 'expo-router';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
-import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
+import { RefreshControl } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useGetInquiries } from '@/hooks/inquiries/useGetInquiries';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryListItem } from '@/types/inquiries';
+import { Lock, MessageSquare } from '@/components/shared/icons';
 
 const InquiryListScreen = () => {
   const { t } = useTranslation();
@@ -75,7 +72,7 @@ const InquiryListScreen = () => {
             {/* Centered content */}
             <View className="flex-1 items-center justify-center px-6">
               <View className="bg-muted rounded-full p-4 mb-4">
-                <Feather name="lock" size={32} />
+                <Lock className="size-12 text-muted-foreground" />
               </View>
 
               <Text className="text-base font-semibold mb-2">
@@ -114,7 +111,7 @@ const InquiryListScreen = () => {
               ListEmptyComponent={
                 <View className="items-center mt-12 px-6">
                   <View className="bg-muted rounded-full p-4 mb-4">
-                    <Feather name="message-square" size={32} />
+                    <MessageSquare className="size-8 text-muted-foreground" />
                   </View>
                   <Text className="text-base font-semibold mb-2">
                     {t('profile.inquiries.list.emptyTitle')}

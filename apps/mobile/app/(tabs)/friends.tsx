@@ -1,4 +1,3 @@
-import { useFocusEffect } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { View } from 'react-native';
@@ -12,14 +11,10 @@ import PaywallScreen from '../(screens)/subscription/paywall';
 
 const FriendsScreen = () => {
   const { user } = useAuthStore();
-  const { isPremium, loading, refetch } = useRevenueCatCustomer();
+  const { isPremium, loading } = useRevenueCatCustomer();
 
-  // Refetch premium status when screen comes into focus
-  useFocusEffect(
-    React.useCallback(() => {
-      refetch();
-    }, [refetch])
-  );
+  // Premium status is now cached in store and only refetches if stale (5 minutes)
+  // No need for manual refetch on focus
 
   if (loading) {
     return (
@@ -36,7 +31,7 @@ const FriendsScreen = () => {
   }
 
   return (
-    <View className="main-area">{user && !isPremium ? <FriendsGroups /> : <PaywallScreen />}</View>
+    <View className="main-area">{user && isPremium ? <FriendsGroups /> : <PaywallScreen />}</View>
   );
 };
 

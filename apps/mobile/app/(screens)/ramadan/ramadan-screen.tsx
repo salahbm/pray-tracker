@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo, useRef, useEffect, useCallback } from 'react';
 import { View, FlatList, RefreshControl, Switch } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { format, parse } from 'date-fns';
@@ -18,6 +18,9 @@ import { router } from 'expo-router';
 import Skeleton from '@/components/ui/skeleton';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useThemeStore } from '@/store/defaults/theme';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
+import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
+import { fireToast } from '@/providers/toaster';
 
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 const ITEM_HEIGHT = 150;
@@ -30,6 +33,9 @@ const RamadanScreen = () => {
   const { city, country } = useLocationStore();
 
   const today = useMemo(() => new Date(), []);
+  const { isPremium } = useRevenueCatCustomer();
+  const { paywallSheetRef } = usePaywallBottomSheetStore();
+
   const isAuthenticated = !!user;
 
   const listRef = useRef<FlatList>(null);
@@ -84,6 +90,25 @@ const RamadanScreen = () => {
     offset: ITEM_HEIGHT * Math.floor(index / 2),
     index,
   });
+
+  const handleFasting = useCallback(
+    (date: Date, value: boolean) => {
+      const dayAfterToday = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+      if (date > dayAfterToday) return fireToast.error(t('common.errors.futureDate'));
+
+      const weekBeforeToday = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      if (date < weekBeforeToday && !isPremium) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
+
+      toggleFasting({
+        date: date,
+        fasted: value,
+      });
+    },
+    [isPremium, paywallSheetRef, toggleFasting, t, today]
+  );
 
   return (
     <View className="flex-1 bg-background">
@@ -149,13 +174,19 @@ const RamadanScreen = () => {
         }
         ListEmptyComponent={() => {
           return (
-            <View className="flex-1 items-center justify-center flex-row" key={2}>
-              {Array.from({ length: 13 }).map((_, index) => (
-                <View style={{ width: `${100 / 2.5}%` }} className="p-1.5" key={index}>
-                  <View className="flex-1 rounded-2xl p-3 aspect-video justify-between bg-background/50 border border-border/40 min-h-[110px]">
-                    <Skeleton className="h-4 w-20" />
-                    <Skeleton className="h-4 w-20" />
-                    <Skeleton className="h-4 w-20" />
+            <View className="flex-row flex-wrap" key={2}>
+              {Array.from({ length: 10 }).map((_, index) => (
+                <View style={{ width: `${100 / 2}%` }} className="p-1.5" key={index}>
+                  <View className="flex-1 rounded-2xl p-3 justify-between bg-background/50 border border-border/40 min-h-[110px]">
+                    <View className="flex-row justify-between items-start">
+                      <Skeleton className="h-6 w-12" />
+                      <Skeleton className="h-5 w-10" />
+                    </View>
+                    <View className="gap-1.5">
+                      <Skeleton className="h-3 w-full" />
+                      <Skeleton className="h-3 w-full" />
+                      <Skeleton className="h-6 w-12 self-end" />
+                    </View>
                   </View>
                 </View>
               ))}
@@ -242,12 +273,7 @@ const RamadanScreen = () => {
                           true: colors['--primary'],
                         }}
                         thumbColor={isFasted ? colors['--background'] : colors['--border']}
-                        onValueChange={value =>
-                          toggleFasting({
-                            date: gDate,
-                            fasted: value,
-                          })
-                        }
+                        onValueChange={value => handleFasting(gDate, value)}
                       />
                     </View>
                   )}

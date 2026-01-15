@@ -24,6 +24,10 @@ const QueryKeys = {
   fasting: {
     history: ['fasting', 'history'],
   },
+  subscriptions: {
+    status: ['subscriptions', 'status'],
+    isPremium: ['subscriptions', 'isPremium'],
+  },
 };
 
 export default QueryKeys;

@@ -4,6 +4,7 @@ import { PurchasePackage } from '@/types/subscription';
 import { ENTITLEMENT_ID } from '@/lib/revenuecat';
 import { useQueryClient } from '@tanstack/react-query';
 import QueryKeys from '@/constants/query-keys';
+import { usePremiumStore } from '@/store/use-premium';
 
 /**
  * Hook to fetch available subscription packages from RevenueCat
@@ -48,13 +49,15 @@ export const useRevenueCatOfferings = () => {
 
 /**
  * Hook to get customer info and check premium status
+ * Uses Zustand store for caching to prevent unnecessary refetches
  */
 export const useRevenueCatCustomer = () => {
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
-  const [isPremium, setIsPremium] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState<number>(0);
   const queryClient = useQueryClient();
+
+  const { isPremium, setIsPremium: setPremiumInStore, shouldRefetch } = usePremiumStore();
 
   const fetchCustomerInfo = useCallback(async () => {
     try {
@@ -66,7 +69,9 @@ export const useRevenueCatCustomer = () => {
       const hasPremium =
         info.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         info.activeSubscriptions.length > 0;
-      setIsPremium(hasPremium);
+
+      // Update store with timestamp
+      setPremiumInStore(hasPremium);
 
       // Invalidate backend subscription queries to sync
       queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
@@ -79,12 +84,15 @@ export const useRevenueCatCustomer = () => {
     } finally {
       setLoading(false);
     }
-  }, [queryClient]);
+  }, [queryClient, setPremiumInStore]);
 
   useEffect(() => {
+    // Only fetch if cache is stale or failed attempts are low
     if (failed > 2) return;
-    fetchCustomerInfo();
-  }, [fetchCustomerInfo, failed]);
+    if (shouldRefetch()) {
+      fetchCustomerInfo();
+    }
+  }, [fetchCustomerInfo, failed, shouldRefetch]);
 
   return {
     customerInfo,
@@ -115,8 +123,10 @@ export const usePurchasePackage = () => {
         customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
 
-      // Invalidate all subscription-related queries to trigger refetch
+      // Update premium store immediately
       if (hasPremium) {
+        const { setIsPremium } = usePremiumStore.getState();
+        setIsPremium(hasPremium);
         await queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
       }
 
@@ -150,7 +160,9 @@ export const usePurchasePackage = () => {
         customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined ||
         customerInfo.activeSubscriptions.length > 0;
 
-      // Invalidate all subscription-related queries to trigger refetch
+      // Update premium store immediately
+      const { setIsPremium } = usePremiumStore.getState();
+      setIsPremium(hasPremium);
       await queryClient.invalidateQueries({ queryKey: QueryKeys.subscriptions.status });
 
       return {

@@ -1,4 +1,3 @@
-import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +11,7 @@ import { useUploadImage } from '@/hooks/user/useAvatar';
 import { usePutUser } from '@/hooks/user/usePutUser';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
+import { Pencil } from '@/components/shared/icons';
 
 const EditProfile = () => {
   const { user, setUser } = useAuthStore();
@@ -105,12 +104,14 @@ const EditProfile = () => {
             <TouchableOpacity
               onPress={onPickImage}
               disabled={imageUploading}
-              className="absolute p-1 rounded-full right-2 bottom-3"
+              className="absolute p-1 rounded-full right-0 bottom-1"
             >
               {imageUploading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <Feather name="edit-3" size={24} />
+                <View className="rounded-full bg-primary/10 p-2 border border-primary/20">
+                  <Pencil className="size-5 text-primary" />
+                </View>
               )}
             </TouchableOpacity>
           </View>

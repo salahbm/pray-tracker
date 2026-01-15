@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const PrayerTimerSkeleton = () => {
   return (
     <SafeAreaView className="main-area">
-      <View className="rounded-[32px] mt-8 p-6 min-h-[250px] bg-primary-foreground/5 justify-between border-2 border-border">
+      <View className="rounded-xl mt-8 p-6 min-h-[200px] bg-primary-foreground/5 justify-between border-2 border-border">
         {/* Top action buttons */}
         <View className="flex-row justify-end gap-2">
           <Skeleton className="w-10 h-10 rounded-full" />
@@ -26,6 +26,12 @@ const PrayerTimerSkeleton = () => {
           <Skeleton className="h-8 w-8 rounded-full" />
         </View>
       </View>
+
+      <Skeleton className="mt-8 h-16 w-full rounded-xl" />
+      <Skeleton className="mt-3 h-16 w-full rounded-xl" />
+      <Skeleton className="mt-3 h-16 w-full rounded-xl" />
+      <Skeleton className="mt-3 h-16 w-full rounded-xl" />
+      <Skeleton className="mt-3 h-16 w-full rounded-xl" />
     </SafeAreaView>
   );
 };

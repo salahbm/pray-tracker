@@ -110,10 +110,10 @@ const MonthScreen = () => {
 
   const onDayPress = useCallback(
     (day: DateData) => {
-      // if (!isPremium) {
-      //   paywallSheetRef.current?.snapToIndex(0);
-      //   return;
-      // }
+      if (!isPremium) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
       // Prevent selecting future dates
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date();
@@ -124,11 +124,11 @@ const MonthScreen = () => {
         return;
       }
       if (selectedDate > todayDate) {
-        fireToast.info(t('home.errors.futureDate'));
+        fireToast.info(t('common.errors.futureDate'));
         return;
       }
       if (!user) {
-        fireToast.info(t('common.unauthorized.description'));
+        fireToast.info(t('common.errors.unauthorized'));
         return;
       }
 

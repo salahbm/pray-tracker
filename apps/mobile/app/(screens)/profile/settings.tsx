@@ -27,11 +27,10 @@ const SettingsScreen = () => {
 
   return (
     <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.title')} titleStyle="text-xl font-bold" />
       <ScrollView showsVerticalScrollIndicator={false} className="main-area pb-20">
-        <GoBack title={t('profile.title')} titleStyle="text-xl font-bold" />
-
         <AuthWrapper mode="signedIn">
-          <View className="mb-6">
+          <View className="mt-6">
             <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Account
             </Text>
@@ -89,7 +88,7 @@ const SettingsScreen = () => {
           </View>
         </AuthWrapper>
 
-        <View className="mb-6">
+        <View className="my-6">
           <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
             Preferences
           </Text>

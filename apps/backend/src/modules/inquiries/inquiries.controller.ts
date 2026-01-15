@@ -7,7 +7,6 @@ import {
   Param,
   Post,
   Query,
-  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import type { Request } from 'express';
@@ -26,12 +25,8 @@ export class InquiriesController {
    */
   @Post()
   @Public()
-  async create(@Req() request: Request, @Body() dto: CreateInquiryDto) {
-    const userId = request.user?.id;
-    if (!userId) {
-      throw new UnauthorizedException('No active session found');
-    }
-    return this.inquiriesService.create(dto, userId);
+  async create(@Body() dto: CreateInquiryDto) {
+    return this.inquiriesService.create(dto);
   }
 
   /**
@@ -68,14 +63,13 @@ export class InquiriesController {
    * Add a message from the current user.
    */
   @Post(':id/messages')
-  @Public()
   async addMessage(
-    @Req() request: Request,
+    @Headers('x-user-id') userId: string,
     @Param('id') id: string,
     @Body() dto: CreateInquiryMessageDto,
     @Headers('locale') locale: Locale = 'en',
   ) {
-    const userId = request.user?.id;
+    console.log(userId);
     if (!userId) {
       throw new UnauthorizedException('No active session found');
     }

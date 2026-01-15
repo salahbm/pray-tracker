@@ -49,7 +49,7 @@ const Preferences = () => {
       <View className="main-area">
         <GoBack title={t('profile.settings.title')} />
         <TouchableOpacity
-          className="touchable mt-4"
+          className="touchable mt-10"
           onPress={() => themeRef.current?.snapToIndex(1)}
         >
           <Text className="text-base text-muted-foreground ml-2">

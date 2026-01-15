@@ -80,10 +80,10 @@ const InquiryDetailScreen = () => {
       ) : (
         <View className="flex-1">
           {/* Header */}
-          <View className="mb-6">
+          <View className="mt-6 mb-2">
             <Text className="text-xl font-bold">{inquiry.subject}</Text>
             <View className="flex-row items-center mt-2">
-              <View className="px-3 py-1 rounded-full bg-muted">
+              <View className="px-3 py-1 rounded-md bg-muted">
                 <Text className="text-xs font-medium text-muted-foreground">{statusLabel}</Text>
               </View>
             </View>

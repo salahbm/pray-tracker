@@ -103,7 +103,7 @@ const PrayerTimer = () => {
         {/* Hero Section: The Main Countdown.
            UI Improvement: Clean typography, removed the "Accordion" chevron.
         */}
-        <View className="mb-6 rounded-3xl bg-primary p-6 shadow-lg shadow-primary/20 relative overflow-hidden">
+        <View className="mb-6 rounded-3xl bg-primary p-6 shadow-lg shadow-primary/20 min-h-[200px] relative overflow-hidden">
           {/* Background Decoration Circle */}
           <View className="absolute -right-10 -top-10 w-40 h-40 bg-primary-foreground/5 rounded-full blur-2xl" />
 

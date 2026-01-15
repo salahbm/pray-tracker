@@ -87,7 +87,9 @@
       }
     },
     "errors": {
-      "invalidEmail": "Invalid email"
+      "invalidEmail": "Invalid email",
+      "unauthorized": "Please sign in to continue",
+      "futureDate": "You cannot select a future date"
     },
     "salahs": {
       "asr": "Asr",
@@ -212,9 +214,6 @@
   "home": {
     "charts": {
       "title": "Ibadah Progress(Monthly)"
-    },
-    "errors": {
-      "futureDate": "You cannot select a future date"
     },
     "prayerHistory": {
       "close": "Close",

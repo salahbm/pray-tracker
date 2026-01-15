@@ -43,8 +43,6 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
             if (error instanceof ApiError) {
               return errorHandler(error as unknown as IErrorResponse);
             }
-
-            return errorHandler(error as unknown as IErrorResponse);
           },
 
           // ✅ Handle success with toast feedback
