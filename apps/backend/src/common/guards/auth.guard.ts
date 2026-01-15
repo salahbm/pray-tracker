@@ -57,7 +57,6 @@ export class AuthGuard implements CanActivate {
 
     try {
       const authHeader = request.headers.authorization;
-      console.log(`AUTH 👉:`, JSON.stringify(authHeader, null, 2));
       if (!authHeader) {
         throw new UnauthorizedException({
           error: 'NO_ACTIVE_SESSION',
@@ -77,13 +76,6 @@ export class AuthGuard implements CanActivate {
       const sessionRecord = await this.prisma.session.findFirst({
         where: { token: token },
         include: { user: true },
-      });
-
-      console.log('Session query result:', {
-        token,
-        found: !!sessionRecord,
-        hasUser: !!sessionRecord?.user,
-        sessionId: sessionRecord?.id,
       });
 
       if (!sessionRecord || !sessionRecord.user) {

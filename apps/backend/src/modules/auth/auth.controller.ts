@@ -39,10 +39,7 @@ export class AuthController {
       });
     }
 
-    return {
-      user: request.user,
-      session: request.session,
-    };
+    return this.authService.listUserSessions(request.user.id);
   }
 
   /**
