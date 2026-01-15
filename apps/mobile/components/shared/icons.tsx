@@ -46,6 +46,8 @@ import {
   MessageSquare,
   Lock,
   Check,
+  WifiOff,
+  Trash2,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -104,6 +106,8 @@ iconWithClassName(FolderPlus);
 iconWithClassName(AlertCircle);
 iconWithClassName(Pencil);
 iconWithClassName(Check);
+iconWithClassName(WifiOff);
+iconWithClassName(Trash2);
 
 export {
   Calendar,
@@ -150,4 +154,6 @@ export {
   AlertCircle,
   Pencil,
   Check,
+  WifiOff,
+  Trash2,
 };

@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import * as Notifications from 'expo-notifications';
-import { Bell, X } from 'lucide-react-native';
+import { Bell, X } from '../icons';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, Modal, Platform, Pressable, View } from 'react-native';
@@ -61,12 +61,12 @@ export function NotificationPermissionModal() {
               className="absolute right-4 top-4 z-10 p-2 rounded-full bg-primary-500/10"
               hitSlop={20}
             >
-              <X size={18} color="white" />
+              <X className="w-6 h-6 text-foreground" />
             </Pressable>
 
             <View className="items-center">
               <View className="bg-primary-100 rounded-full p-6 mb-6 shadow-inner">
-                <Bell size={36} strokeWidth={1.5} />
+                <Bell className="w-6 h-6 text-foreground" />
               </View>
 
               <View className="items-center mb-6">

@@ -42,7 +42,7 @@ import { useRemoveMember } from '@/hooks/friends/member/useRemoveMember';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { PrayCheckbox } from '@/components/shared/pray-checkbox';
-import { UserPlus, Users } from '@/components/shared/icons';
+import { ArrowLeft, UserPlus, Users } from '@/components/shared/icons';
 
 const GroupDetails = () => {
   const { t } = useTranslation();
@@ -124,7 +124,7 @@ const GroupDetails = () => {
               accessibilityLabel="Go back"
               accessibilityRole="button"
             >
-              <Ionicons name="arrow-back" size={24} c />
+              <ArrowLeft size={24} className="text-foreground" />
             </TouchableOpacity>
             <View className="flex-1">
               <Text className="text-2xl font-bold">{params.groupName}</Text>
@@ -244,7 +244,7 @@ const GroupDetails = () => {
         <View className="gap-4 pb-8 sticky top-0">
           <View className="items-center mb-2">
             <View className="bg-primary/10 p-4 rounded-full mb-3">
-              <UserPlus size={32} />
+              <UserPlus size={32} className="text-primary" />
             </View>
             <Text className="text-2xl font-bold text-center">{t('friends.groups.addMember')}</Text>
             <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
@@ -271,8 +271,8 @@ const GroupDetails = () => {
                       <Text className="font-bold">{friend.username}</Text>
                       <Text className="text-sm text-muted-foreground">{friend.email}</Text>
                     </View>
-                    <View className="bg-primary/10 p-2 rounded-full">
-                      <UserPlus size={18} />
+                    <View className="bg-primary/10 p-2.5 rounded-full">
+                      <UserPlus size={18} className="text-primary" />
                     </View>
                   </Pressable>
                 </Animated.View>
@@ -288,7 +288,7 @@ const GroupDetails = () => {
           )}
 
           <Button
-            variant="outline"
+            variant="ghost"
             onPress={() => addMemberSheetRef.current?.close()}
             className="mt-2"
           >

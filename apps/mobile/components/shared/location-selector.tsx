@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Keyboard } from 'react-native';
-import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
@@ -11,6 +11,7 @@ import { MapPin, Search, MapPinned } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
 import { useLocationStore } from '@/store/use-location';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Input } from '../ui/input';
 
 interface LocationSelectorProps {
   /**
@@ -117,26 +118,8 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   };
 
   return (
-    <CustomBottomSheet
-      sheetRef={sheetRef}
-      snapPoints={['75%']}
-      detached
-      grabbable={false}
-      opacity={0.3}
-      bottomSheetStyle={{ marginHorizontal: 16 }}
-      scrollClassName="bg-transparent px-0"
-      scrollStyle={{ paddingBottom: insets.bottom + 24 }}
-    >
-      <View
-        className="px-5 py-8 bg-background rounded-3xl border-2 border-muted"
-        style={{
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 8 },
-          shadowOpacity: 0.12,
-          shadowRadius: 20,
-          elevation: 8,
-        }}
-      >
+    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['75%', '85%']} opacity={0.3}>
+      <View className="py-8">
         <Text className="text-xl font-bold mb-4 text-center text-foreground">
           {t('location.selector.title')}
         </Text>
@@ -164,7 +147,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
           <View className="absolute left-4 top-4 z-10">
             <Search size={18} className="text-muted-foreground" />
           </View>
-          <BottomSheetTextInput
+          <Input
             placeholder={t('location.selector.searchPlaceholder')}
             placeholderTextColor="#9ca3af"
             value={searchQuery}
@@ -188,7 +171,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
             <PressableBounce
               key={`${item.place_id ?? item.osm_id ?? index}`}
               onPress={() => handleSelectLocation(item)}
-              className="mb-2 p-4 rounded-xl flex-row items-center gap-3 bg-card border border-border/50 active:bg-muted"
+              className="mb-2 p-4 rounded-xl flex-row items-center gap-3 bg-muted/30 border border-border/50 active:bg-muted"
             >
               <View className="w-8 h-8 rounded-full bg-muted items-center justify-center">
                 <MapPin size={16} className="text-foreground/70" />

@@ -84,7 +84,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
           <PressableBounce
             onPress={handleProfileOpen}
             className={cn(
-              'p-2 rounded-full bg-muted/15 items-center justify-center active:opacity-70 border border-border'
+              'p-2 rounded-full bg-muted/15 items-center justify-center active:opacity-70 '
             )}
           >
             <Menu size={22} className="text-muted-foreground" />

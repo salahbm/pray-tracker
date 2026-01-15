@@ -1,4 +1,3 @@
-import { Search } from 'lucide-react-native';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, RefreshControl, View } from 'react-native';
@@ -20,6 +19,7 @@ import { FriendActivity } from '@/types/friends';
 
 import FriendItem from './friend-item';
 import Tabs from './tabs';
+import { Search } from '@/components/shared/icons';
 
 type TabKey = 'all' | 'requests' | 'friends';
 
@@ -109,6 +109,7 @@ const AllFriends: React.FC = () => {
               autoCorrect={false}
               textContentType="emailAddress"
               autoComplete="email"
+              editable={!isSending}
               onSubmitEditing={handleSendRequest}
             />
           </View>
@@ -117,9 +118,9 @@ const AllFriends: React.FC = () => {
             size="icon"
             onPress={handleSendRequest}
             disabled={isSending}
-            className="px-3 border-l rounded-none border-input"
+            className="px-3 border-l rounded-none border-border"
           >
-            <Search size={22} color={colors['--foreground']} />
+            <Search className="w-6 h-6 text-foreground" />
           </Button>
         </View>
 

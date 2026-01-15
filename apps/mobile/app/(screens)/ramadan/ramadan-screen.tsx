@@ -114,7 +114,7 @@ const RamadanScreen = () => {
     <View className="flex-1 bg-background">
       {/* 1. STICKY HEADER AREA */}
       <View
-        className="bg-primary-700/5 z-10 pb-2 border-b border-border/40"
+        className="bg-primary-700/5  pb-2 border-b border-border/40"
         style={{ paddingTop: insets.top }}
       >
         <View className="px-4 py-2 flex-row items-center justify-between">

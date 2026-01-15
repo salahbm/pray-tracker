@@ -1,5 +1,4 @@
 import BottomSheet from '@gorhom/bottom-sheet';
-import { Trash2 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -9,7 +8,7 @@ import { Text } from '@/components/ui/text';
 import { useDeleteGroup } from '@/hooks/friends/group/useDeleteGroup';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
-import { useThemeStore } from '@/store/defaults/theme';
+import { Trash2 } from '@/components/shared/icons';
 
 interface DeleteGroupSheetProps {
   sheetRef: React.RefObject<BottomSheet | null>;
@@ -17,7 +16,6 @@ interface DeleteGroupSheetProps {
 
 const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
   const { t } = useTranslation();
-  const { colors } = useThemeStore();
   const { user } = useAuthStore();
   const { selectedGroup, setSelectedGroup } = useFriendsBottomSheetStore();
 
@@ -40,7 +38,7 @@ const DeleteGroupSheet: React.FC<DeleteGroupSheetProps> = ({ sheetRef }) => {
       <View className="gap-4 pb-8">
         <View className="items-center mb-2">
           <View className="bg-destructive/10 p-4 rounded-full mb-3">
-            <Trash2 size={32} color={colors['--destructive']} />
+            <Trash2 className="w-8 h-8 text-foreground" />
           </View>
           <Text className="text-2xl font-bold text-center">{t('friends.groups.deleteTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">

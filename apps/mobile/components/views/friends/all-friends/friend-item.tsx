@@ -98,7 +98,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
             {item.type === 'sent' && (
               <Button
                 size="sm"
-                variant="secondary"
+                variant="destructive"
                 disabled={isRejecting}
                 onPress={() => handleReject(item)}
                 className="rounded-lg px-4 h-8"
@@ -111,7 +111,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
               <View className="flex-row gap-x-2">
                 <Button
                   size="sm"
-                  variant="secondary"
+                  variant="destructive"
                   disabled={isRejecting}
                   onPress={() => handleReject(item)}
                   className="rounded-lg px-3 h-8"

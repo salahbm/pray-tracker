@@ -1,18 +1,15 @@
 import { BlurView } from 'expo-blur';
 import * as Network from 'expo-network';
-import { WifiOff, X } from 'lucide-react-native';
+import { WifiOff, X } from '../icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Platform, Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from 'react-native-reanimated';
 
-import { useThemeStore } from '@/store/defaults/theme';
-
 import { Text } from '../../ui/text';
 
 export function OfflineModal() {
   const { t } = useTranslation();
-  // const { colors } = useThemeStore();
 
   const [isOffline, setIsOffline] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -81,7 +78,7 @@ export function OfflineModal() {
             <View className="items-center">
               {/* Soft Purple Icon Glow */}
               <View className="bg-primary-100 rounded-full p-6 mb-6 shadow-inner">
-                <WifiOff size={36} strokeWidth={1.5} />
+                <WifiOff className="w-9 h-9 text-foreground" />
               </View>
 
               <View className="items-center mb-6">

@@ -1,5 +1,4 @@
 import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { Edit2 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -10,6 +9,7 @@ import { useUpdateGroup } from '@/hooks/friends/group/useUpdateGroup';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import { useThemeStore } from '@/store/defaults/theme';
+import { Edit } from '@/components/shared/icons';
 
 interface EditGroupSheetProps {
   sheetRef: React.RefObject<BottomSheet | null>;
@@ -38,11 +38,11 @@ const EditGroupSheet: React.FC<EditGroupSheetProps> = ({ sheetRef }) => {
   };
 
   return (
-    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['50%']}>
+    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['50%', '99%']}>
       <View className="gap-4 pb-8">
         <View className="items-center mb-2">
           <View className="bg-primary/10 p-4 rounded-full mb-3">
-            <Edit2 size={32} color={colors['--primary']} />
+            <Edit className="w-12 h-12 text-primary" />
           </View>
           <Text className="text-2xl font-bold text-center">{t('friends.groups.editTitle')}</Text>
           <Text className="text-sm text-muted-foreground text-center mt-2 px-4">
