@@ -306,7 +306,10 @@
       },
       "saveButton": "Değişiklikleri Kaydet",
       "title": "Profili Düzenle",
-      "success": "Profil başarıyla güncellendi"
+      "success": "Profil başarıyla güncellendi",
+      "errors": {
+        "usernameRequired": "Kullanıcı adı gerekli."
+      }
     },
     "navigation": {
       "about": "Hakkında",
@@ -439,6 +442,7 @@
     "loadingPlans": "Planlar yükleniyor...",
     "choosePlan": "Plan Seçin",
     "bestValue": "EN İYİ FİYAT - %17 Tasarruf",
+    "trialBadge": "Ücretsiz deneme",
     "yearlyPlan": "Yıllık Plan",
     "monthlyPlan": "Aylık Plan",
     "year": "yıl",

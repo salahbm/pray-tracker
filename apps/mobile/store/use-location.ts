@@ -12,6 +12,7 @@ interface LocationState {
   setLocation: (city: string, country: string) => void;
   initLocation: () => Promise<void>;
   refreshLocation: () => Promise<void>;
+  setInitialized: (value: boolean) => void;
   resetLocation: () => void;
 }
 
@@ -28,7 +29,7 @@ export const useLocationStore = create<LocationState>()(
       initialized: false,
 
       setLocation: (city, country) => {
-        set({ city, country, locationError: null });
+        set({ city, country, locationError: null, initialized: true, isLoadingLocation: false });
       },
 
       initLocation: async () => {
@@ -36,7 +37,10 @@ export const useLocationStore = create<LocationState>()(
 
         try {
           const { status } = await Location.requestForegroundPermissionsAsync();
-          if (status !== 'granted') throw new Error('Location permission denied');
+          if (status !== 'granted') {
+            set({ initialized: true, isLoadingLocation: false, locationError: null });
+            return;
+          }
 
           const pos = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.Balanced,
@@ -88,6 +92,10 @@ export const useLocationStore = create<LocationState>()(
       refreshLocation: async () => {
         set({ initialized: false });
         await get().initLocation();
+      },
+
+      setInitialized: value => {
+        set({ initialized: value });
       },
 
       resetLocation: () => {

@@ -295,7 +295,10 @@
     "editProfile": {
       "saveButton": "Save Changes",
       "title": "Edit Profile",
-      "success": "Profile updated successfully"
+      "success": "Profile updated successfully",
+      "errors": {
+        "usernameRequired": "Username is required."
+      }
     },
     "navigation": {
       "about": "About",
@@ -428,6 +431,7 @@
     "loadingPlans": "Loading plans...",
     "choosePlan": "Choose Your Plan",
     "bestValue": "BEST VALUE - Save 17%",
+    "trialBadge": "Free trial",
     "yearlyPlan": "Annual Plan",
     "monthlyPlan": "Monthly Plan",
     "year": "year",

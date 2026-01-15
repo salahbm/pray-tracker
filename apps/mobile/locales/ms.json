@@ -334,7 +334,10 @@
       },
       "saveButton": "Simpan Perubahan",
       "title": "Ubah Profil",
-      "success": "Profil berjaya dikemaskini"
+      "success": "Profil berjaya dikemaskini",
+      "errors": {
+        "usernameRequired": "Nama pengguna diperlukan."
+      }
     },
     "navigation": {
       "about": "Tentang",
@@ -467,6 +470,7 @@
     "loadingPlans": "Memuat pelan...",
     "choosePlan": "Pilih Pelan",
     "bestValue": "PALING JIMAT - Jimat 17%",
+    "trialBadge": "Percubaan percuma",
     "yearlyPlan": "Tahunan",
     "monthlyPlan": "Bulanan",
     "year": "tahun",

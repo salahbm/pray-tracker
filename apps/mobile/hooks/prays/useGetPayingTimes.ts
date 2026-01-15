@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrayerTimesData } from '@/types/prayer-times';
 import { useLocationStore } from '@/store/use-location';
+import * as Location from 'expo-location';
 
 const PRAYER_METHOD = 15;
 
@@ -18,7 +19,8 @@ const buildDateTime = (date: Date, time: string) => {
 
 export const usePrayerData = () => {
   const { t } = useTranslation();
-  const { city, country, initLocation, initialized, isLoadingLocation } = useLocationStore();
+  const { city, country, initLocation, initialized, isLoadingLocation, setInitialized } =
+    useLocationStore();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
   const [isFetching, setIsFetching] = useState(false);
@@ -66,12 +68,22 @@ export const usePrayerData = () => {
 
   useEffect(() => {
     if (!initialized) {
-      void initLocation();
+      const bootstrapLocation = async () => {
+        const permission = await Location.getForegroundPermissionsAsync();
+        if (permission.status === 'granted') {
+          await initLocation();
+        } else {
+          setLocationName(t('qibla.prayerTimes.location.unknown'));
+          setInitialized(true);
+        }
+      };
+
+      void bootstrapLocation();
       return;
     }
 
     if (!city || !country) {
-      setError(true);
+      setError(false);
       return;
     }
 

@@ -13,7 +13,7 @@ export const usePrayNotifierBottomSheetStore = create<PrayNotifierBottomSheetSta
 
   return {
     sheetRef: ref,
-    open: () => ref.current?.snapToIndex(1),
+    open: () => ref.current?.snapToIndex(0),
     close: () => ref.current?.close(),
   };
 });
