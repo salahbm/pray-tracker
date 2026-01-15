@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useRef, useState } from 'react';
@@ -20,7 +19,6 @@ import Animated, {
   ZoomIn,
 } from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-
 import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
@@ -43,7 +41,6 @@ import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 import { ArrowLeft, UserPlus, Users } from '@/components/shared/icons';
-
 const GroupDetails = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();

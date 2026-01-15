@@ -94,26 +94,11 @@ const PrayerNotifierSheet: React.FC = () => {
   return (
     <CustomBottomSheet
       sheetRef={sheetRef}
-      snapPoints={['60%']}
-      detached
+      snapPoints={['60%', '80%']}
       grabbable={false}
       opacity={0.3}
-      bottomSheetStyle={{ marginHorizontal: 16 }}
-      scrollClassName="bg-transparent px-0"
     >
-      <Animated.View
-        style={[
-          fadeInStyle,
-          {
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 8 },
-            shadowOpacity: 0.12,
-            shadowRadius: 20,
-            elevation: 8,
-          },
-        ]}
-        className="gap-5 pb-8 bg-background rounded-3xl border-2 border-muted px-6 pt-8"
-      >
+      <Animated.View style={fadeInStyle} className="gap-5 pb-8 pt-8">
         <View className="items-center mb-3">
           <Animated.View
             entering={FadeInRight.delay(100).springify()}

@@ -88,8 +88,6 @@ export default function PaywallScreen() {
       return;
     }
 
-    console.log('✅ Purchasing package:', pkg.product.identifier);
-
     const result = await purchase(pkg);
 
     if (result.success) {
@@ -156,9 +154,6 @@ export default function PaywallScreen() {
       yearlyPackage?.product.currencyCode || monthlyPackage?.product.currencyCode
     ),
   });
-
-  const monthlyIntro = (monthlyPackage?.product as any)?.introductoryPrice;
-  const monthlyTrialLabel = monthlyIntro ? t('subscription.trialBadge') : null;
 
   const renderFeatureCard = ({ item }: { item: (typeof PREMIUM_FEATURES)[0] }) => (
     <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">
@@ -326,11 +321,11 @@ export default function PaywallScreen() {
             <View className="flex-row items-center justify-between">
               <View className="flex-1">
                 <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
-                {monthlyTrialLabel && (
-                  <View className="self-start rounded-full bg-primary/10 px-3 py-1 mb-2">
-                    <Text className="text-xs font-semibold text-primary">{monthlyTrialLabel}</Text>
-                  </View>
-                )}
+                <View className="self-start rounded-full bg-primary/10 px-3 py-1 mb-2">
+                  <Text className="text-xs font-semibold text-primary">
+                    {t('subscription.trialBadge')}
+                  </Text>
+                </View>
                 <View className="flex-row items-baseline mt-2">
                   <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
                   <Text className="text-sm text-muted-foreground ml-1">

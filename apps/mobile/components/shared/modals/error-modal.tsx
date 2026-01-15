@@ -1,12 +1,11 @@
 // components/ErrorModal.tsx
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { cn } from '@/lib/utils';
-import { useThemeStore } from '@/store/defaults/theme';
 
 import Modal from './modal';
+import { Info } from '../icons';
 
 interface ErrorModalProps {
   isVisible: boolean;
@@ -19,9 +18,6 @@ interface ErrorModalProps {
   buttonStyle?: string;
   buttonTextStyle?: string;
   showIcon?: boolean;
-  iconName?: React.ComponentProps<typeof Ionicons>['name'];
-  iconSize?: number;
-  iconColor?: string;
 }
 
 const ErrorModal: React.FC<ErrorModalProps> = ({
@@ -35,23 +31,13 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
   buttonStyle,
   buttonTextStyle,
   showIcon = true,
-  iconName = 'alert-circle',
-  iconSize = 50,
-  iconColor,
 }) => {
   return (
     <Modal visible={isVisible} onRequestClose={onClose}>
       <View
         className={cn('w-4/5  rounded-lg p-5 items-center shadow-lg bg-background/80 ', modalStyle)}
       >
-        {showIcon && (
-          <Ionicons
-            name={iconName}
-            size={iconSize}
-            className="mb-4"
-            accessibilityIgnoresInvertColors
-          />
-        )}
+        {showIcon && <Info size={32} color="text-destructive" />}
         <Text
           className={cn('text-2xl font-semibold text-center mb-2 text-destructive', titleStyle)}
         >

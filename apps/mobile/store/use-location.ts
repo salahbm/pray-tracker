@@ -56,10 +56,28 @@ export const useLocationStore = create<LocationState>()(
             }
           );
 
-          if (!res.ok) throw new Error('Reverse geocoding failed');
+          if (!res.ok) {
+            set({
+              city: FALLBACK_CITY,
+              country: FALLBACK_COUNTRY,
+              locationError: 'Reverse geocoding failed',
+              initialized: true,
+              isLoadingLocation: false,
+            });
+            return;
+          }
 
           const data = await res.json();
-          if (!data?.address) throw new Error('Invalid geocoding response');
+          if (!data?.address) {
+            set({
+              city: FALLBACK_CITY,
+              country: FALLBACK_COUNTRY,
+              locationError: 'Invalid geocoding response',
+              initialized: true,
+              isLoadingLocation: false,
+            });
+            return;
+          }
 
           const city =
             data.address.city ||
@@ -70,7 +88,16 @@ export const useLocationStore = create<LocationState>()(
 
           const country = data.address.country;
 
-          if (!city || !country) throw new Error('Incomplete location data');
+          if (!city || !country) {
+            set({
+              city: FALLBACK_CITY,
+              country: FALLBACK_COUNTRY,
+              locationError: 'Incomplete location data',
+              initialized: true,
+              isLoadingLocation: false,
+            });
+            return;
+          }
 
           set({
             city,
