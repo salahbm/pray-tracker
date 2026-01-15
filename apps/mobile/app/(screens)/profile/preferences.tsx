@@ -1,5 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet';
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, TouchableOpacity, View } from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
@@ -16,6 +16,8 @@ import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { router } from 'expo-router';
+import { useLocationStore } from '@/store/use-location';
+import { Button } from '@/components/ui/button';
 
 const Preferences = () => {
   const themeRef = useRef<BottomSheet>(null);
@@ -24,6 +26,8 @@ const Preferences = () => {
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
   const { visited, setVisited } = useOnboardingStore();
+  const { resetLocation } = useLocationStore();
+  const { resetTheme } = useThemeStore();
   const { prayerNotifications, toggleEnabled } = useNotificationStore();
 
   const handleToggleNotifications = async (enabled: boolean) => {
@@ -117,24 +121,52 @@ const Preferences = () => {
             onValueChange={handleToggleNotifications}
           />
         </View>
-        <View className="touchable">
-          <Text className="text-base text-muted-foreground ml-2">Go onboarding</Text>
+        {__DEV__ && (
+          <Fragment>
+            <View className="touchable">
+              <Text className="text-base text-muted-foreground ml-2">Go onboarding</Text>
 
-          <Switch
-            trackColor={{
-              false: colors['--muted'],
-              true: colors['--primary'],
-            }}
-            thumbColor={
-              prayerNotifications.isEnabled ? colors['--background'] : colors['--muted-foreground']
-            }
-            value={visited}
-            onValueChange={() => {
-              setVisited(false);
-              router.replace('/(onboarding)/onboarding');
-            }}
-          />
-        </View>
+              <Switch
+                trackColor={{
+                  false: colors['--muted'],
+                  true: colors['--primary'],
+                }}
+                thumbColor={
+                  prayerNotifications.isEnabled
+                    ? colors['--background']
+                    : colors['--muted-foreground']
+                }
+                value={visited}
+                onValueChange={() => {
+                  setVisited(false);
+                  router.replace('/(onboarding)/onboarding');
+                }}
+              />
+            </View>
+            <View className="touchable">
+              <Text className="text-base text-muted-foreground ml-2">Clear Local Storage </Text>
+
+              <Button
+                onPress={() => {
+                  resetLocation();
+                }}
+              >
+                <Text className="text-base text-muted-foreground ml-2">Reset Location</Text>
+              </Button>
+            </View>
+            <View className="touchable">
+              <Text className="text-base text-muted-foreground ml-2">Theme Storage </Text>
+
+              <Button
+                onPress={() => {
+                  resetTheme();
+                }}
+              >
+                <Text className="text-base text-muted-foreground ml-2">Reset Theme</Text>
+              </Button>
+            </View>
+          </Fragment>
+        )}
       </View>
 
       <CustomBottomSheet sheetRef={themeRef} snapPoints={['80%']}>

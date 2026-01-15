@@ -10,6 +10,7 @@ interface ThemeState {
   currentTheme: ThemesVariant;
   changeTheme: (theme: ThemesVariant) => void;
   colors: ThemeColors;
+  resetTheme: () => void;
 }
 
 export const useThemeStore = create<ThemeState>()(
@@ -21,6 +22,11 @@ export const useThemeStore = create<ThemeState>()(
         set({
           currentTheme: theme,
           colors: mapThemeToRNColors(THEME_COLORS[theme]),
+        }),
+      resetTheme: () =>
+        set({
+          currentTheme: THEMES.light,
+          colors: mapThemeToRNColors(THEME_COLORS[THEMES.light]),
         }),
     }),
     {

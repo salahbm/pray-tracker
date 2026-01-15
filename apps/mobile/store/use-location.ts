@@ -12,6 +12,7 @@ interface LocationState {
   setLocation: (city: string, country: string) => void;
   initLocation: () => Promise<void>;
   refreshLocation: () => Promise<void>;
+  resetLocation: () => void;
 }
 
 const FALLBACK_CITY = 'Mecca';
@@ -89,6 +90,16 @@ export const useLocationStore = create<LocationState>()(
       refreshLocation: async () => {
         set({ initialized: false });
         await get().initLocation();
+      },
+
+      resetLocation: () => {
+        set({
+          city: null,
+          country: null,
+          initialized: false,
+          isLoadingLocation: false,
+          locationError: null,
+        });
       },
     }),
     {
