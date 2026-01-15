@@ -18,22 +18,33 @@ const TABS: TabKey[] = ['all', 'requests', 'friends'];
 
 export const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab, counts, renderLabel }) => {
   return (
-    <View className="mt-8 mb-4">
-      <View className="flex-row bg-muted/60 p-1 pb-0 border-b border-border">
+    <View className="mt-6 mb-4">
+      <View className="flex-row bg-muted/60 p-1 rounded-full border border-border">
         {TABS.map(tab => {
           const isActive = tab === activeTab;
           return (
             <Pressable
               key={tab}
               onPress={() => setActiveTab(tab)}
-              className="flex-1 rounded-lg overflow-hidden"
+              className="flex-1 rounded-full overflow-hidden"
             >
               <Animated.View
                 layout={LinearTransition.springify()}
                 className={cn(
-                  `py-2 items-center justify-center rounded-lg rounded-b-none`,
-                  isActive ? 'bg-background border border-b-0 border-border' : ''
+                  `py-2.5 items-center justify-center rounded-full`,
+                  isActive ? 'bg-background' : ''
                 )}
+                style={
+                  isActive
+                    ? {
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.08,
+                        shadowRadius: 6,
+                        elevation: 2,
+                      }
+                    : undefined
+                }
               >
                 <Text
                   className={cn(

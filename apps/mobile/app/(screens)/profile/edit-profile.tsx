@@ -21,6 +21,7 @@ const EditProfile = () => {
   const { mutateAsync: uploadImage, isPending: imageUploading } = useUploadImage();
 
   const [username, setUserName] = useState<string>(user?.name || '');
+  const [usernameError, setUsernameError] = useState<string | undefined>();
   const [image, setImage] = useState<string>(user?.image ?? '');
 
   const onPickImage = async () => {
@@ -67,14 +68,22 @@ const EditProfile = () => {
     if (!user) return;
 
     try {
+      const trimmedName = username.trim();
+      if (!trimmedName) {
+        const errorMessage = t('profile.editProfile.errors.usernameRequired');
+        setUsernameError(errorMessage);
+        fireToast.error(errorMessage);
+        return;
+      }
+
       // Only include fields that have changed
       const updateData: { id: string; name?: string; image?: string } = {
         id: user.id,
       };
 
       // Only update name if it changed
-      if (username !== user.name) {
-        updateData.name = username;
+      if (trimmedName !== user.name) {
+        updateData.name = trimmedName;
       }
 
       // Only update image if it changed
@@ -87,6 +96,7 @@ const EditProfile = () => {
       if (updatedUser) {
         setUser(updatedUser);
         setUserName(updatedUser.name);
+        setUsernameError(undefined);
         fireToast.success(t('profile.editProfile.success'));
       }
     } catch (e) {
@@ -121,13 +131,19 @@ const EditProfile = () => {
             label={t('auth.username.label')}
             placeholder={t('auth.username.placeholder')}
             value={username}
-            onChangeText={setUserName}
+            onChangeText={value => {
+              setUserName(value);
+              if (usernameError) {
+                setUsernameError(undefined);
+              }
+            }}
             autoCapitalize="words"
             keyboardType="default"
             returnKeyType="done"
             className={isPending ? 'animate-pulse opacity-80' : ''}
             onSubmitEditing={handleUpdate}
             editable={!isPending}
+            error={usernameError}
           />
         </View>
       </View>

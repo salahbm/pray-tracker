@@ -295,7 +295,10 @@
     "editProfile": {
       "saveButton": "O'zgarishlarni saqlash",
       "title": "Profilni tahrirlash",
-      "success": "Profil muvaffaqiyatli yangilandi"
+      "success": "Profil muvaffaqiyatli yangilandi",
+      "errors": {
+        "usernameRequired": "Foydalanuvchi nomi talab qilinadi."
+      }
     },
     "navigation": {
       "about": "Haqida",
@@ -428,6 +431,7 @@
     "loadingPlans": "Rejalarni yuklash...",
     "choosePlan": "Rejangizni tanlang",
     "bestValue": "ENG YAXSHI QIYMAT - 17% tejang",
+    "trialBadge": "Bepul sinov",
     "yearlyPlan": "Yillik reja",
     "monthlyPlan": "Oylik reja",
     "year": "yil",

@@ -334,7 +334,10 @@
       },
       "saveButton": "Simpan Perubahan",
       "title": "Ubah Profil",
-      "success": "Profil berhasil diperbarui"
+      "success": "Profil berhasil diperbarui",
+      "errors": {
+        "usernameRequired": "Nama pengguna wajib diisi."
+      }
     },
     "navigation": {
       "about": "Tentang",
@@ -467,6 +470,7 @@
     "loadingPlans": "Memuat paket...",
     "choosePlan": "Pilih Paket",
     "bestValue": "PALING HEMAT - Hemat 17%",
+    "trialBadge": "Uji coba gratis",
     "yearlyPlan": "Tahunan",
     "monthlyPlan": "Bulanan",
     "year": "tahun",

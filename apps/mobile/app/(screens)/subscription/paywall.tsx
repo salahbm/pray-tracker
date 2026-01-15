@@ -14,6 +14,7 @@ import {
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as Localization from 'expo-localization';
 
 import { Text } from '@/components/ui/text';
 import { gifs } from '@/constants/images';
@@ -58,6 +59,8 @@ export default function PaywallScreen() {
   const { purchase, restorePurchases, purchasing } = usePurchasePackage();
   const { refetch: refetchCustomerInfo } = useRevenueCatCustomer();
   const { markAsPurchased } = useAppRatingStore();
+
+  const locale = Localization.getLocales()[0]?.languageTag ?? 'en-US';
 
   const handlePurchase = async () => {
     if (!user) {
@@ -127,18 +130,36 @@ export default function PaywallScreen() {
   const monthlyPackage = packages.find(p => p.identifier.includes('monthly'));
   const yearlyPackage = packages.find(p => p.identifier.includes('annual'));
 
-  const monthlyPrice = monthlyPackage?.product.priceString || '$3.99';
-  const yearlyPrice = yearlyPackage?.product.priceString || '$38.99';
+  const formatCurrency = (amount: number, currencyCode?: string) => {
+    if (!currencyCode) return amount.toFixed(2);
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currencyCode,
+    }).format(amount);
+  };
 
-  const monthlyPriceNum = monthlyPackage?.product.price || 0;
-  const yearlyPriceNum = yearlyPackage?.product.price || 0;
+  const monthlyPrice =
+    monthlyPackage?.product.priceString ||
+    formatCurrency(monthlyPackage?.product.price || 0, monthlyPackage?.product.currencyCode);
+  const yearlyPrice =
+    yearlyPackage?.product.priceString ||
+    formatCurrency(yearlyPackage?.product.price || 0, yearlyPackage?.product.currencyCode);
+
+  const monthlyPriceNum = monthlyPackage?.product.price ?? 0;
+  const yearlyPriceNum = yearlyPackage?.product.price ?? 0;
 
   // yearly vs 12 months
-  const savingAmount = monthlyPriceNum * 12 - yearlyPriceNum;
+  const savingAmount = Math.max(0, monthlyPriceNum * 12 - yearlyPriceNum);
 
   const yearlySavings = t('subscription.saveOneMonth', {
-    savingAmount: savingAmount.toFixed(2),
+    savingAmount: formatCurrency(
+      savingAmount,
+      yearlyPackage?.product.currencyCode || monthlyPackage?.product.currencyCode
+    ),
   });
+
+  const monthlyIntro = (monthlyPackage?.product as any)?.introductoryPrice;
+  const monthlyTrialLabel = monthlyIntro ? t('subscription.trialBadge') : null;
 
   const renderFeatureCard = ({ item }: { item: (typeof PREMIUM_FEATURES)[0] }) => (
     <View style={{ width: SCREEN_WIDTH - 40 }} className="mr-4">
@@ -306,6 +327,11 @@ export default function PaywallScreen() {
             <View className="flex-row items-center justify-between">
               <View className="flex-1">
                 <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
+                {monthlyTrialLabel && (
+                  <View className="self-start rounded-full bg-primary/10 px-3 py-1 mb-2">
+                    <Text className="text-xs font-semibold text-primary">{monthlyTrialLabel}</Text>
+                  </View>
+                )}
                 <View className="flex-row items-baseline mt-2">
                   <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
                   <Text className="text-sm text-muted-foreground ml-1">

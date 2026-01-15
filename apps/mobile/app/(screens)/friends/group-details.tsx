@@ -80,12 +80,12 @@ const GroupDetails = () => {
   const handleAddMember = async (friendId: string) => {
     if (!user?.id) return;
 
+    addMemberSheetRef.current?.close();
+
     await addMember({
       groupId: params.groupId,
       friendId,
       userId: user.id,
-    }).then(() => {
-      addMemberSheetRef.current?.close();
     });
   };
 
