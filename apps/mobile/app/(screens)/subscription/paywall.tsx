@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Localization from 'expo-localization';
 
@@ -30,14 +30,11 @@ import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useAppRatingStore } from '@/store/defaults/app-rating';
-import {
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Sparkles as SparklesIcon,
-} from '@/components/shared/icons';
+import { ChevronLeft, ChevronRight, Sparkles as SparklesIcon } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
 import { Sparkles } from '@/components/shared/sparks';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { BorderBeam } from '@/components/shared/vfx';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -181,7 +178,7 @@ export default function PaywallScreen() {
 
   return (
     <ScrollView
-      className="flex-1 relative"
+      className="flex-1 relative overflow-visible"
       contentContainerStyle={{ paddingTop: insets.top, paddingBottom: insets.bottom + 50 }}
       showsVerticalScrollIndicator={false}
     >
@@ -263,19 +260,64 @@ export default function PaywallScreen() {
           />
         </View>
       ) : (
-        <Animated.View entering={FadeInDown.delay(400)} className=" my-6">
+        <Animated.View entering={FadeInDown.delay(400)} className="my-6">
           <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
 
+          {/* Monthly Plan */}
+          <PressableBounce
+            onPress={() => setSelectedPlan('monthly')}
+            className={cn(
+              'rounded-2xl border-2 p-5 relative overflow-hidden',
+              selectedPlan === 'monthly'
+                ? 'border-primary bg-background/50'
+                : 'border-border bg-background/50'
+            )}
+          >
+            <View className="flex-row items-center justify-between">
+              <View className="flex-1">
+                <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
+                <View className="self-start rounded-full flex-center bg-primary/10 px-3 py-1 mb-2 relative overflow-hidden">
+                  <Text className="text-xs font-bold animate-pulse text-primary">
+                    7 {t('subscription.trialBadge')}
+                  </Text>
+                  <BorderBeam
+                    duration={4000}
+                    size={75}
+                    borderWidth={1}
+                    colorFrom="#ffaa40"
+                    colorTo="#9c40ff"
+                    rx={12}
+                    ry={24}
+                  />
+                </View>
+                <View className="flex-row items-baseline mt-2">
+                  <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
+                  <Text className="text-sm text-muted-foreground ml-1">
+                    /{t('subscription.month')}
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                className={cn(
+                  'size-7 rounded-full border-2 items-center justify-center',
+                  selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
+                )}
+              >
+                {selectedPlan === 'monthly' && <View className="size-2 rounded-full bg-primary" />}
+              </View>
+            </View>
+          </PressableBounce>
+
           {/* Yearly Plan */}
-          <TouchableOpacity
+          <PressableBounce
             onPress={() => setSelectedPlan('yearly')}
             className={cn(
-              'mb-4 rounded-2xl border-2 p-5 relative',
+              'mt-4 rounded-2xl border-2 p-5 relative',
               selectedPlan === 'yearly'
                 ? 'border-primary bg-background/50'
                 : 'border-border bg-background/50'
             )}
-            activeOpacity={0.7}
           >
             {/* Best Value Badge */}
             <View className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl">
@@ -302,48 +344,10 @@ export default function PaywallScreen() {
                   selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
                 )}
               >
-                {selectedPlan === 'yearly' && <Check className="size-3 stroke-2 text-primary" />}
+                {selectedPlan === 'yearly' && <View className="size-2 rounded-full bg-primary" />}
               </View>
             </View>
-          </TouchableOpacity>
-
-          {/* Monthly Plan */}
-          <TouchableOpacity
-            onPress={() => setSelectedPlan('monthly')}
-            className={cn(
-              'rounded-2xl border-2 p-5',
-              selectedPlan === 'monthly'
-                ? 'border-primary bg-background/50'
-                : 'border-border bg-background/50'
-            )}
-            activeOpacity={0.7}
-          >
-            <View className="flex-row items-center justify-between">
-              <View className="flex-1">
-                <Text className="text-xl font-bold mb-1">{t('subscription.monthlyPlan')}</Text>
-                <View className="self-start rounded-full bg-primary/10 px-3 py-1 mb-2">
-                  <Text className="text-xs font-semibold text-primary">
-                    {t('subscription.trialBadge')}
-                  </Text>
-                </View>
-                <View className="flex-row items-baseline mt-2">
-                  <Text className="text-3xl font-bold text-primary">{monthlyPrice}</Text>
-                  <Text className="text-sm text-muted-foreground ml-1">
-                    /{t('subscription.month')}
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                className={cn(
-                  'size-7 rounded-full border-2 items-center justify-center',
-                  selectedPlan === 'monthly' ? 'border-primary' : 'border-muted-foreground'
-                )}
-              >
-                {selectedPlan === 'monthly' && <Check className="size-3 stroke-2 text-primary" />}
-              </View>
-            </View>
-          </TouchableOpacity>
+          </PressableBounce>
         </Animated.View>
       )}
 
