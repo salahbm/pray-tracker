@@ -18,7 +18,6 @@ interface ISignInResponse {
 }
 
 async function signInWithEmail(params: IUserLogin): Promise<ISignInResponse> {
-  console.log(`🚀 ~ params:`, params);
   const response = await agent.post<ISignInResponse>('/api/auth/sign-in/email', params);
   return response;
 }

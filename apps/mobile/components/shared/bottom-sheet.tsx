@@ -68,15 +68,7 @@ const CustomBottomSheet = ({
           opacity={opacity}
         />
       )}
-      handleComponent={
-        grabbable
-          ? () => (
-              <View className="bg-muted flex-center rounded-t-md py-4">
-                <View className="h-2 w-[60px] rounded bg-muted-foreground self-center" />
-              </View>
-            )
-          : null
-      }
+      handleComponent={null}
     >
       <BottomSheetScrollView
         invertStickyHeaders
@@ -88,8 +80,13 @@ const CustomBottomSheet = ({
         keyboardDismissMode="on-drag"
         onScroll={onScroll}
         contentContainerStyle={scrollStyle}
-        className={cn('bg-muted px-6 flex-1', scrollClassName)}
+        className={cn('bg-muted px-6 flex-1 rounded-t-md', scrollClassName)}
       >
+        {grabbable ? (
+          <View className="flex-center py-4">
+            <View className="h-2 w-16 rounded bg-muted-foreground" />
+          </View>
+        ) : null}
         {children}
       </BottomSheetScrollView>
     </BottomSheet>

@@ -100,6 +100,21 @@
       "description": "Bu özelliğe erişmek için giriş yapın"
     },
     "errors": {
+      "500": {
+        "title": "Bir Şeyler Ters Gitti",
+        "message": "Şu anda sistemimizde küçük bir sorun yaşanıyor. Lütfen biraz sonra tekrar deneyin veya yardıma ihtiyacınız varsa bizimle iletişime geçin."
+      },
+
+      "404": {
+        "title": "Sayfa Bulunamadı",
+        "message": "Aradığınız sayfayı bulamadık. Sayfa taşınmış olabilir veya bağlantı güncel olmayabilir."
+      },
+
+      "400": {
+        "title": "İstek Geçersiz",
+        "message": "İsteğinizi işleyemedik. Girdiğiniz bilgileri kontrol edip tekrar deneyin."
+      },
+
       "invalidEmail": "Geçersiz e-posta"
     },
     "salahs": {
@@ -145,7 +160,9 @@
       "requestSent": "İstek gönderildi",
       "requestReceived": "İstek alındı",
       "accept": "Kabul Et",
-      "reject": "Reddet"
+      "reject": "Reddet",
+      "ok": "Tamam",
+      "sendInquiry": "Talep Gönder"
     },
     "permissions": {
       "notifications": {

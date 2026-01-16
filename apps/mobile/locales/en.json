@@ -87,6 +87,20 @@
       }
     },
     "errors": {
+      "500": {
+        "title": "Oops! Something Went Wrong",
+        "message": "Looks like something isn’t working on our side. Please try again in a moment, or reach out to us if you need help."
+      },
+
+      "404": {
+        "title": "Hmm… Page Not Found",
+        "message": "We couldn’t find what you were looking for. The page might have moved, or the link may be out of date."
+      },
+
+      "400": {
+        "title": "Something Doesn’t Look Right",
+        "message": "We couldn’t process that request. Double-check your information and try again."
+      },
       "invalidEmail": "Invalid email",
       "unauthorized": "Please sign in to continue",
       "futureDate": "You cannot select a future date"
@@ -133,7 +147,8 @@
       "reject": "Reject",
       "retry": "Retry",
       "goBack": "Go Back",
-      "ok": "Ok"
+      "ok": "Ok",
+      "sendInquiry": "Send Inquiry"
     },
     "permissions": {
       "notifications": {

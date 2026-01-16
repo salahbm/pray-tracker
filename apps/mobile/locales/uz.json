@@ -87,6 +87,20 @@
       }
     },
     "errors": {
+      "500": {
+        "title": "Xatolik yuz berdi",
+        "message": "Hozir tizimimizda kichik muammo kuzatilmoqda. Iltimos, birozdan so‘ng qayta urinib ko‘ring yoki yordam uchun biz bilan bog‘laning."
+      },
+
+      "404": {
+        "title": "Sahifa topilmadi",
+        "message": "Siz izlayotgan sahifani topa olmadik. U ko‘chirilgan yoki havola eskirgan bo‘lishi mumkin."
+      },
+
+      "400": {
+        "title": "So‘rovda xatolik bor",
+        "message": "So‘rovingizni qayta ishlay olmadik. Kiritilgan ma’lumotlarni tekshirib, yana urinib ko‘ring."
+      },
       "invalidEmail": "Noto'g'ri elektron pochta",
       "unauthorized": "Davom etish uchun iltimos tizimga kiring",
       "futureDate": "Siz kelajakdagi sanani tanlay olmaysiz"
@@ -133,7 +147,8 @@
       "reject": "Rad etish",
       "retry": "Qayta urinish",
       "goBack": "Orqaga qaytish",
-      "ok": "OK"
+      "ok": "OK",
+      "sendInquiry": "So'rov yuborish"
     },
     "permissions": {
       "notifications": {
