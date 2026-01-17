@@ -10,14 +10,13 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { fireToast } from '@/providers/toaster';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { useNotificationStore } from '@/store/defaults/notification';
 import { Bell, Minus, Plus } from '@/components/shared/icons';
+import DetachedSheet from '@/components/shared/bottom-sheet/detached-sheet';
 
 const PrayerNotifierSheet: React.FC = () => {
   const { t } = useTranslation();
@@ -28,7 +27,7 @@ const PrayerNotifierSheet: React.FC = () => {
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0);
 
-  const { sheetRef, close } = usePrayNotifierBottomSheetStore();
+  const { ref, close } = usePrayNotifierBottomSheetStore();
 
   // Sync local state with store when sheet opens
   useEffect(() => {
@@ -92,13 +91,8 @@ const PrayerNotifierSheet: React.FC = () => {
   }));
 
   return (
-    <CustomBottomSheet
-      sheetRef={sheetRef}
-      snapPoints={['60%', '80%']}
-      grabbable={false}
-      opacity={0.3}
-    >
-      <Animated.View style={fadeInStyle} className="gap-5 pb-8 pt-8">
+    <DetachedSheet ref={ref} snapPoints={['55%']}>
+      <Animated.View style={fadeInStyle} className="gap-5 pb-8 pt-8 relative">
         <View className="items-center mb-3">
           <Animated.View
             entering={FadeInRight.delay(100).springify()}
@@ -165,7 +159,7 @@ const PrayerNotifierSheet: React.FC = () => {
           </Animated.View>
         </View>
       </Animated.View>
-    </CustomBottomSheet>
+    </DetachedSheet>
   );
 };
 

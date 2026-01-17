@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { usePutUser } from '@/hooks/user/usePutUser';
@@ -44,20 +44,24 @@ export function Language({ onClose }: { onClose: () => void }) {
   const locales = Object.keys(languages);
 
   return (
-    <ScrollView contentContainerClassName="flex-1 flex  justify-between items-start gap-4 w-full pt-4">
-      <Text className="text-xl font-bold ">{t('common.chooseLanguage')}</Text>
-      {locales.map(lang => (
-        <TouchableOpacity
-          key={lang}
-          onPress={() => handleUpdateLocale(lang)}
-          className={cn('flex-row items-center gap-2 w-full justify-between')}
-        >
-          <Text className={cn('text-md text-foreground', currentLanguage === lang && 'font-bold')}>
-            {LANGUAGES[lang as keyof typeof LANGUAGES]}
-          </Text>
-          <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <View className="flex flex-col gap-4">
+      <View className="flex-1 flex justify-between items-start gap-4 w-full pt-4">
+        <Text className="text-xl font-bold ">{t('common.chooseLanguage')}</Text>
+        {locales.map(lang => (
+          <TouchableOpacity
+            key={lang}
+            onPress={() => handleUpdateLocale(lang)}
+            className={cn('flex-row items-center gap-2 w-full justify-between')}
+          >
+            <Text
+              className={cn('text-md text-foreground', currentLanguage === lang && 'font-bold')}
+            >
+              {LANGUAGES[lang as keyof typeof LANGUAGES]}
+            </Text>
+            <Text>{FLAGS[lang as keyof typeof FLAGS]}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
   );
 }

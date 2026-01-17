@@ -9,7 +9,7 @@ import { ScrollView } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { DayData } from '@/components/shared/heat-map/heat';
 import AreaChart from '@/components/views/home/area-chart';
 import HomeHeader from '@/components/views/home/header';

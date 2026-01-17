@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import * as Location from 'expo-location';
@@ -41,13 +41,14 @@ import {
   WhyHereOption,
 } from '@/components/views/onboarding';
 import { gifs } from '@/constants/images';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { OnboardingPreferencePayload } from '@/types/onboarding';
+import DetachedSheet from '@/components/shared/bottom-sheet/detached-sheet';
 
 const translateOnboardingData = (data: OnboardingDataType, translate: (key: string) => string) => {
   const translateValue = (value: any): any => {
@@ -109,7 +110,7 @@ const Onboarding = () => {
   const { setPreferences, clearPreferences } = useOnboardingStore();
 
   const onboardingMutation = useOnboarding();
-  const friendsModalRef = useRef<BottomSheet>(null);
+  const friendsModalRef = useRef<BottomSheetModal>(null);
 
   const activeStep = mainSteps[activeIndex] as OnboardingStepType | undefined;
 
@@ -181,7 +182,7 @@ const Onboarding = () => {
     if (step.id === 'support_needed') {
       setSupportNeeded(value as SupportNeeded);
       if (selectedOption?.onSelect?.action?.type === 'open_modal') {
-        friendsModalRef.current?.snapToIndex(0);
+        friendsModalRef.current?.present();
       }
     }
 
@@ -209,21 +210,29 @@ const Onboarding = () => {
   };
 
   const requestLocationPermission = async () => {
-    const permission = await Location.requestForegroundPermissionsAsync();
-    if (permission.status !== 'granted') {
+    try {
+      const permission = await Location.requestForegroundPermissionsAsync();
+      if (permission.status !== 'granted') {
+        setLocationPermission(false);
+        return;
+      }
+
+      // Only call getCurrentPositionAsync if permission is granted
+      const position = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      const geocoded = await Location.reverseGeocodeAsync({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      const city = geocoded[0]?.city ?? geocoded[0]?.region ?? null;
+      const timezone = Localization.getCalendars()[0]?.timeZone ?? null;
+
+      setLocationPermission(true, city ?? undefined, timezone ?? undefined);
+    } catch (error) {
+      console.error('Location permission error:', error);
       setLocationPermission(false);
-      return;
     }
-
-    const position = await Location.getCurrentPositionAsync({});
-    const geocoded = await Location.reverseGeocodeAsync({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
-    const city = geocoded[0]?.city ?? geocoded[0]?.region ?? null;
-    const timezone = Localization.getCalendars()[0]?.timeZone ?? null;
-
-    setLocationPermission(true, city ?? undefined, timezone ?? undefined);
   };
 
   const requestNotificationPermission = async () => {
@@ -436,17 +445,9 @@ const Onboarding = () => {
           isLoading={isSaving || onboardingMutation.isPending}
         />
       )}
-      <CustomBottomSheet
-        sheetRef={friendsModalRef}
-        snapPoints={['50%']}
-        detached
-        grabbable={false}
-        opacity={0}
-        bottomSheetStyle={{ marginHorizontal: 16 }}
-        scrollClassName="bg-background border-2 border-border rounded-3xl"
-      >
+      <DetachedSheet ref={friendsModalRef} snapPoints={['50%']}>
         {friendsModal && (
-          <View className="py-8">
+          <View className="py-8 h-full">
             <Text className="text-2xl font-semibold text-foreground mb-3">
               {friendsModal.content.headline}
             </Text>
@@ -463,14 +464,17 @@ const Onboarding = () => {
                 ))}
               </View>
             )}
-            <View className="mt-6 gap-3">
-              <Button onPress={closeFriendsModal} className="rounded-full" width="full">
-                <Text>{friendsModal.content.primaryCta}</Text>
-              </Button>
-            </View>
+
+            <Button
+              onPress={closeFriendsModal}
+              className="rounded-full absolute bottom-4 w-full"
+              width="full"
+            >
+              <Text>{friendsModal.content.primaryCta}</Text>
+            </Button>
           </View>
         )}
-      </CustomBottomSheet>
+      </DetachedSheet>
     </OnboardingShell>
   );
 };

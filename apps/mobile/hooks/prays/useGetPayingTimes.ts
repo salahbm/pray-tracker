@@ -73,8 +73,11 @@ export const usePrayerData = () => {
         if (permission.status === 'granted') {
           await initLocation();
         } else {
-          setLocationName(t('qibla.prayerTimes.location.unknown'));
+          // Fallback to Mecca if no permission
+          setLocationName('Mecca, Saudi Arabia');
           setInitialized(true);
+          // Fetch prayer times for Mecca
+          await fetchPrayerTimes('Mecca', 'Saudi Arabia');
         }
       };
 
@@ -83,12 +86,13 @@ export const usePrayerData = () => {
     }
 
     if (!city || !country) {
-      setError(false);
+      // If initialized but no location, use Mecca as fallback
+      void fetchPrayerTimes('Mecca', 'Saudi Arabia');
       return;
     }
 
     void fetchPrayerTimes(city, country);
-  }, [city, country, fetchPrayerTimes, initLocation, initialized]);
+  }, [city, country, fetchPrayerTimes, initLocation, initialized, t]);
 
   const loading = useMemo(() => {
     if (!initialized || isLoadingLocation) return true;

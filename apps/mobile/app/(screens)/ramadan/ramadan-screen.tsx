@@ -73,13 +73,22 @@ const RamadanScreen = () => {
   }, [fastingHistory]);
 
   useEffect(() => {
-    if (todayIndex >= 0 && monthDays.length > 0) {
+    // Validate index is within range before scrolling
+    if (todayIndex >= 0 && todayIndex < monthDays.length && monthDays.length > 0) {
       const timer = setTimeout(() => {
-        listRef.current?.scrollToIndex({
-          index: todayIndex,
-          animated: true,
-          viewPosition: 0.5,
-        });
+        try {
+          listRef.current?.scrollToIndex({
+            index: todayIndex,
+            animated: true,
+            viewPosition: 0.5,
+          });
+        } catch (error) {
+          // Fallback: scroll to offset instead
+          listRef.current?.scrollToOffset({
+            offset: Math.floor(todayIndex / 2) * ITEM_HEIGHT,
+            animated: true,
+          });
+        }
       }, 500);
       return () => clearTimeout(timer);
     }
@@ -163,6 +172,16 @@ const RamadanScreen = () => {
         numColumns={2}
         keyExtractor={item => item.gregorianDate}
         getItemLayout={getItemLayout}
+        onScrollToIndexFailed={info => {
+          console.warn('ScrollToIndex failed:', info);
+          // Wait for list to render, then try scrolling to offset
+          setTimeout(() => {
+            listRef.current?.scrollToOffset({
+              offset: Math.floor(info.index / 2) * ITEM_HEIGHT,
+              animated: true,
+            });
+          }, 100);
+        }}
         contentContainerStyle={{
           paddingHorizontal: 12,
           paddingBottom: insets.bottom + 20,

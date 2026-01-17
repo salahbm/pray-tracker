@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useFriendsBottomSheetStore } from '@/store/bottom-sheets/friends.store';
 import SignInScreen from '@/app/(auth)/sign-in';

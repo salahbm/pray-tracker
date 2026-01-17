@@ -5,7 +5,7 @@ import { Switch, TouchableOpacity, View } from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import GoBack from '@/components/shared/go-back';
 import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
 import ThemeSwitcher from '@/components/shared/theme-switcher';

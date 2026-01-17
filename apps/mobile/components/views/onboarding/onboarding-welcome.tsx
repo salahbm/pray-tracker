@@ -3,15 +3,17 @@ import { MotiView } from 'moti';
 import { Pressable, View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
 import { gifs } from '@/constants/images';
 import { useThemeStore } from '@/store/defaults/theme';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useRef } from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { FLAGS, Language, LANGUAGES } from '@/components/shared/language';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import ThemeSwitcher from '@/components/shared/theme-switcher';
+import { Button } from '@/components/ui/button';
+import { X } from '@/components/shared/icons';
+import DetachedSheet from '@/components/shared/bottom-sheet/detached-sheet';
 
 interface OnboardingWelcomeStepProps {
   headline: string;
@@ -22,8 +24,8 @@ interface OnboardingWelcomeStepProps {
 export const OnboardingWelcomeStep = ({ headline, body, footnote }: OnboardingWelcomeStepProps) => {
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
-  const themeRef = useRef<BottomSheet>(null);
-  const langRef = useRef<BottomSheet>(null);
+  const themeRef = useRef<BottomSheetModal>(null);
+  const langRef = useRef<BottomSheetModal>(null);
   return (
     <View className="flex-1">
       <MotiView
@@ -33,13 +35,13 @@ export const OnboardingWelcomeStep = ({ headline, body, footnote }: OnboardingWe
         className="items-center"
       >
         <View className="flex-row w-full justify-between">
-          <Pressable onPress={() => langRef.current?.snapToIndex(1)}>
+          <Pressable onPress={() => langRef.current?.present()}>
             <Text className="text-base text-muted-foreground ml-2">
               {FLAGS[currentLanguage as keyof typeof FLAGS]}{' '}
               {LANGUAGES[currentLanguage as keyof typeof LANGUAGES]}
             </Text>
           </Pressable>
-          <Pressable onPress={() => themeRef.current?.snapToIndex(1)}>
+          <Pressable onPress={() => themeRef.current?.present()}>
             <View className="flex-row items-center justify-center w-[100px] h-5 border border-border">
               <View
                 style={{
@@ -98,26 +100,12 @@ export const OnboardingWelcomeStep = ({ headline, body, footnote }: OnboardingWe
           <Text className="mt-3 text-center text-sm text-muted-foreground">{footnote}</Text>
         )}
       </MotiView>
-      <CustomBottomSheet
-        sheetRef={themeRef}
-        snapPoints={['70%']}
-        detached
-        grabbable={false}
-        opacity={0}
-        scrollClassName="bg-background border-2 border-border rounded-3xl"
-      >
-        <ThemeSwitcher onClose={() => themeRef.current?.snapToIndex(-1)} />
-      </CustomBottomSheet>
-      <CustomBottomSheet
-        sheetRef={langRef}
-        snapPoints={['70%']}
-        detached
-        grabbable={false}
-        opacity={0}
-        scrollClassName="bg-background border-2 border-border rounded-3xl"
-      >
-        <Language onClose={() => langRef.current?.snapToIndex(-1)} />
-      </CustomBottomSheet>
+      <DetachedSheet ref={themeRef} snapPoints={['50%']}>
+        <ThemeSwitcher onClose={() => themeRef.current?.close()} />
+      </DetachedSheet>
+      <DetachedSheet ref={langRef} snapPoints={['50%']}>
+        <Language onClose={() => langRef.current?.close()} />
+      </DetachedSheet>
     </View>
   );
 };

@@ -4,7 +4,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { MapPin, Search, MapPinned } from '@/components/shared/icons';

@@ -25,12 +25,12 @@ const RootProvider = ({ children }: { children: React.ReactNode }) => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : 0}
               >
                 {children}
+                <ToastProvider />
+                <PortalHost />
+                <SheetWrapper />
+                <GlobalAlert />
+                <OfflineModal />
               </KeyboardAvoidingView>
-              <ToastProvider />
-              <PortalHost />
-              <SheetWrapper />
-              <GlobalAlert />
-              <OfflineModal />
               <NotificationProvider />
             </BottomSheetModalProvider>
           </GestureHandlerRootView>

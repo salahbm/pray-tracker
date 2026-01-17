@@ -1,12 +1,12 @@
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MotiView } from 'moti';
-import { View } from 'react-native';
+import { router } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '@/components/ui/text';
 import { useThemeStore } from '@/store/defaults/theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useEffect } from 'react';
-import { router } from 'expo-router';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 
 interface OnboardingSplashStepProps {
@@ -24,44 +24,74 @@ export const OnboardingSplashStep = ({
   const { colors } = useThemeStore();
   const { setVisited } = useOnboardingStore();
 
+  // Ensure we have fallback colors in case the store is undefined
+  const primaryColor = colors?.['--primary'] || '#000000';
+  const secondaryColor = colors?.['--primary-700'] || '#1a1a1a';
+
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setVisited(true);
       router.replace('/(tabs)');
-    }, 1600);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [setVisited]);
 
   return (
-    <LinearGradient
-      colors={[colors['--primary-300'], colors['--primary-700']]}
-      className="flex-1 items-center justify-center rounded-3xl"
-      style={{ paddingTop: insets.top + 30, paddingBottom: insets.bottom + 40 }}
-      start={{ x: 0.1, y: 0.1 }}
-      end={{ x: 0.9, y: 1 }}
-    >
-      <MotiView
-        from={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0 }}
-        transition={{
-          type: 'timing',
-          duration: 1500,
+    <View style={styles.container}>
+      <LinearGradient
+        colors={[primaryColor, secondaryColor]}
+        style={StyleSheet.absoluteFill}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      />
+
+      <View
+        style={{
+          flex: 1,
+          paddingTop: insets.top + 40,
+          paddingBottom: insets.bottom + 50,
+          paddingHorizontal: 24,
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
-        className="items-center px-6 h-full flex flex-col justify-between"
       >
+        {/* Top Spacer */}
         <View />
-        <View>
-          <Text className="text-6xl font-extrabold text-white text-center">{headline}</Text>
+
+        {/* Center Content */}
+        <MotiView
+          from={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'timing', duration: 1000 }}
+          style={{ alignItems: 'center', width: '100%' }}
+        >
+          <Text className="text-5xl font-black text-white text-center">{headline}</Text>
+
           {badge && (
-            <View className="mt-4 rounded-full bg-white/20 px-4 py-2">
-              <Text className=" text-3xl font-semibold text-white">pray tracker</Text>
+            <View className="mt-6 rounded-2xl bg-white/20 px-6 py-3 border border-white/10">
+              <Text className="text-xl font-bold text-white uppercase tracking-widest">
+                {badge}
+              </Text>
             </View>
           )}
-        </View>
-        <Text className="mt-3 text-center text-xl text-white/90 leading-relaxed">
-          {subheadline}
-        </Text>
-      </MotiView>
-    </LinearGradient>
+        </MotiView>
+
+        {/* Bottom Content */}
+        <MotiView
+          from={{ opacity: 0, translateY: 20 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', delay: 500 }}
+        >
+          <Text className="text-center text-lg text-white/80 font-medium">{subheadline}</Text>
+        </MotiView>
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000', // Fallback
+  },
+});

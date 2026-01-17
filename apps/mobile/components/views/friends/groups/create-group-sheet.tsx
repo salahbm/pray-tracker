@@ -3,7 +3,7 @@ import { FolderPlus } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, View } from 'react-native';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useCreateGroup } from '@/hooks/friends/group/useCreateGroup';

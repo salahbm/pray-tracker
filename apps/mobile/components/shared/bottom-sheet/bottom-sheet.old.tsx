@@ -93,4 +93,4 @@ const CustomBottomSheet = ({
   );
 };
 
-export default CustomBottomSheet;
+export { CustomBottomSheet };

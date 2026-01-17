@@ -1,19 +1,19 @@
 import { create } from 'zustand';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import React from 'react';
 
 type PrayNotifierBottomSheetState = {
-  sheetRef: React.RefObject<BottomSheet | null>;
+  ref: React.RefObject<BottomSheetModal | null>;
   open: () => void;
   close: () => void;
 };
 
 export const usePrayNotifierBottomSheetStore = create<PrayNotifierBottomSheetState>(() => {
-  const ref = React.createRef<BottomSheet | null>();
+  const ref = React.createRef<BottomSheetModal | null>();
 
   return {
-    sheetRef: ref,
-    open: () => ref.current?.snapToIndex(0),
-    close: () => ref.current?.close(),
+    ref,
+    open: () => ref.current?.present(),
+    close: () => ref.current?.dismiss(),
   };
 });

@@ -2,7 +2,7 @@ import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useUpdateGroup } from '@/hooks/friends/group/useUpdateGroup';

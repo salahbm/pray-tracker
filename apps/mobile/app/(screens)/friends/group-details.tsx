@@ -19,7 +19,7 @@ import Animated, {
   ZoomIn,
 } from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import CustomBottomSheet from '@/components/shared/bottom-sheet';
+import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import Loader from '@/components/shared/loader';
 import NoData from '@/components/shared/no-data';
 import SwiperButton from '@/components/shared/swiper';
