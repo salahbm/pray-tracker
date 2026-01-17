@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrayerTimesData } from '@/types/prayer-times';
 import { useLocationStore } from '@/store/use-location';
+import { useOnboardingStore } from '@/store/defaults/onboarding';
 import * as Location from 'expo-location';
 
 const PRAYER_METHOD = 15;
@@ -19,8 +20,8 @@ const buildDateTime = (date: Date, time: string) => {
 
 export const usePrayerData = () => {
   const { t } = useTranslation();
-  const { city, country, initLocation, initialized, isLoadingLocation, setInitialized } =
-    useLocationStore();
+  const { visited } = useOnboardingStore();
+  const { city, country, initLocation, initialized, isLoadingLocation } = useLocationStore();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
   const [isFetching, setIsFetching] = useState(false);
@@ -67,6 +68,8 @@ export const usePrayerData = () => {
   }, []);
 
   useEffect(() => {
+    // Don't initialize location until onboarding is completed
+    if (!visited) return;
     if (!initialized) {
       const bootstrapLocation = async () => {
         const permission = await Location.getForegroundPermissionsAsync();
@@ -91,7 +94,7 @@ export const usePrayerData = () => {
     // Fetch prayer times for the actual location (could be user's location or Mecca fallback)
     setLocationName(`${city}, ${country}`);
     void fetchPrayerTimes(city, country);
-  }, [city, country, fetchPrayerTimes, initLocation, initialized]);
+  }, [city, country, fetchPrayerTimes, initLocation, initialized, visited]);
 
   const loading = useMemo(() => {
     if (!initialized || isLoadingLocation) return true;

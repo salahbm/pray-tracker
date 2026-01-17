@@ -66,6 +66,9 @@
     }
   },
   "common": {
+    "splash": {
+      "elevate_your_salah": "Elevate your Salah"
+    },
     "notifications": {
       "description": "Time for {{salah}} at :",
       "prayer": {

@@ -8,7 +8,7 @@ import {
 import { BottomSheetScrollViewProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/types';
 import { BottomSheetViewProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetView/types';
 import React, { forwardRef } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { cn } from '@/lib/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -78,7 +78,7 @@ const DetachedSheet = forwardRef<BottomSheetModal, DetachedSheetProps>(
         }}
         style={{
           marginHorizontal: 16,
-          marginBottom: insets.bottom,
+          marginBottom: Platform.OS === 'ios' ? insets.bottom + 10 : insets.bottom + 20,
         }}
       >
         <BottomSheetView

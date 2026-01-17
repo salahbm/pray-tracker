@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
-import { router, useFocusEffect } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
+  Easing,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Text,
@@ -15,7 +15,6 @@ import { CalendarList, DateData, LocaleConfig } from 'react-native-calendars';
 
 import DayComponent from '@/components/views/pray-history/day';
 import { RenderHeader } from '@/components/views/pray-history/month-header';
-import PrevPayUpdateModal from '@/components/views/pray-history/prev-pray-modal';
 import { useHeaderMonthControls } from '@/hooks/common/useCalendarHeader';
 import { useLanguage } from '@/hooks/common/useTranslation';
 import { useGetPrays } from '@/hooks/prays';
@@ -30,6 +29,9 @@ import { IPrays } from '@/types/prays';
 import { debounce } from '@/utils/debounce';
 import { setCalendarLocale } from '@/utils/month-names';
 import { RefreshControl } from 'react-native-gesture-handler';
+import { BottomSheetModal, useBottomSheetTimingConfigs } from '@gorhom/bottom-sheet';
+import DetachedSheet from '@/components/shared/bottom-sheet/detached-sheet';
+import PrevDay from '@/components/views/pray-history/prev-days';
 
 type MarkedDateProps = {
   marked: boolean;
@@ -46,7 +48,9 @@ const MonthScreen = () => {
   const { colors } = useThemeStore();
   const { colorScheme } = useColorScheme();
   const { currentLanguage } = useLanguage();
+
   const calendarRef = useRef<any>(null);
+  const dayRef = useRef<BottomSheetModal>(null);
 
   const [year, setYear] = useState(2025);
   const [atTop, setAtTop] = useState(false);
@@ -64,6 +68,10 @@ const MonthScreen = () => {
 
   const theme = useMemo(() => getMonthTheme(colors), [colors]);
   const monthControlsCallback = useHeaderMonthControls(calendarRef);
+
+  const animtion = useBottomSheetTimingConfigs({
+    duration: 100,
+  });
 
   const handleVisibleMonthsChange = useMemo(
     () =>
@@ -110,29 +118,28 @@ const MonthScreen = () => {
 
   const onDayPress = useCallback(
     (day: DateData) => {
-      if (!isPremium) {
-        paywallSheetRef.current?.snapToIndex(0);
-        return;
-      }
+      // if (!isPremium) {
+      //   paywallSheetRef.current?.snapToIndex(0);
+      //   return;
+      // }
       // Prevent selecting future dates
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
       selectedDate.setHours(0, 0, 0, 0);
-      if (selectedDate === todayDate) {
-        router.replace('/(tabs)');
-        return;
-      }
-      if (selectedDate > todayDate) {
-        fireToast.info(t('common.errors.futureDate'));
-        return;
-      }
+
       if (!user) {
         fireToast.info(t('common.errors.unauthorized'));
         return;
       }
 
+      if (selectedDate > todayDate) {
+        fireToast.info(t('common.errors.futureDate'));
+        return;
+      }
+
       setSelected(day.dateString);
+      dayRef.current?.present();
     },
     [t, user]
   );
@@ -279,12 +286,9 @@ const MonthScreen = () => {
         </TouchableOpacity>
       )}
 
-      <PrevPayUpdateModal
-        selected={selected}
-        setSelected={setSelected}
-        prays={prays!}
-        colors={colors}
-      />
+      <DetachedSheet ref={dayRef} snapPoints={['50%', '55%']} animationConfigs={animtion}>
+        <PrevDay ref={dayRef} prays={prays!} selected={selected} setSelected={setSelected} />
+      </DetachedSheet>
     </View>
   );
 };

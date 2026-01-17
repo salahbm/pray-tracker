@@ -48,12 +48,12 @@
         {
           "image": "./assets/images/icon-light.png",
           "resizeMode": "contain",
-          "imageWidth": 280,
+          "imageWidth": 210,
           "backgroundColor": "#F9FAFB",
           "dark": {
             "image": "./assets/images/icon-dark.png",
-            "imageWidth": 280,
-            "backgroundColor": "#121212"
+            "imageWidth": 210,
+            "backgroundColor": "#000"
           }
         }
       ],

@@ -66,6 +66,9 @@
     }
   },
   "common": {
+    "splash": {
+      "elevate_your_salah": "Namozlarda barqaror bo'ling."
+    },
     "notifications": {
       "description": "{{salah}} vaqti keldi:",
       "prayer": {

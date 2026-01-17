@@ -68,7 +68,7 @@ export const OnboardingSplashStep = ({
           <Text className="text-7xl font-black text-white text-center">{headline}</Text>
 
           {badge && (
-            <View className="mt-6 px-6 py-3 border ">
+            <View className="mt-6 px-6 py-3">
               <Text className="text-lg font-bold text-white uppercase tracking-widest">
                 {badge}
               </Text>
