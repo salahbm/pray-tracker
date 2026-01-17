@@ -1,4 +1,4 @@
-export type Locale = 'en' | 'uz' | 'ru' | 'id' | 'ms' | 'tr';
+export type Locale = 'en' | 'uz' | 'ru' | 'tr';
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { RamadanCalendarDay } from '@/types/ramadan';
 
 interface RamadanCalendarParams {
-  city: string;
-  country: string;
+  city?: string | null;
+  country?: string | null;
   month: number;
   year: number;
 }

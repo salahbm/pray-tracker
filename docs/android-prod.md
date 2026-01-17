@@ -64,6 +64,9 @@ android/app/src/main/AndroidManifest.xml
   <string name="qibla">Qibla</string>
   <string name="common">Common</string>
   <string name="subscription">Subscription</string>
+  <string name="location">Location</string>
+  <string name="ramadan">Ramadan</string>
+  <string name="onboardingFlow">OnboardingFlow</string>
 
   <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">cover</string>

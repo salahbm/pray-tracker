@@ -22,7 +22,7 @@ import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { Sparkles as SparklesIcon } from '@/components/shared/icons';
 import { Sparkles } from '@/components/shared/sparks';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { SubProductCard } from '@/components/views/subscription/product-card';
+import { SubProductCard } from '@/components/views/subscription/subs-product';
 import { SubFooter } from '@/components/views/subscription/subs-footer';
 import { SubsHeader } from '@/components/views/subscription/subs-header';
 

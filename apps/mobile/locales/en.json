@@ -706,7 +706,7 @@
           "qibla_direction": "Qibla direction",
           "automatic_timezone": "Automatic timezone updates"
         },
-        "primaryCta": "Allow location",
+        "primaryCta": "Continue",
         "onAllow": {
           "feedbackTitle": "All set",
           "feedbackBody": "We’ll use this only to help with qibla and prayer times."
@@ -724,7 +724,7 @@
           "quiet_hours": "Custom quiet hours",
           "streaks": "Optional streak encouragement"
         },
-        "primaryCta": "Enable notifications",
+        "primaryCta": "Continue",
         "onAllow": {
           "feedbackTitle": "Alhamdulillah",
           "feedbackBody": "Reminders are on. You can customize the tone and schedule anytime."

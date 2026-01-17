@@ -706,7 +706,7 @@
           "qibla_direction": "Qibla yo'nalishi",
           "automatic_timezone": "Avtomatik vaqt zonasi yangilanishlari"
         },
-        "primaryCta": "Joylashuvga ruxsat berish",
+        "primaryCta": "Davom etish",
         "onAllow": {
           "feedbackTitle": "Hammasi tayyor",
           "feedbackBody": "Buni faqat Qibla va namoz vaqtlariga yordam berish uchun ishlatamiz."
@@ -724,7 +724,7 @@
           "quiet_hours": "Shaxsiy soatlar",
           "streaks": "Ixtiyoriy seriya rag'batlantirish"
         },
-        "primaryCta": "Bildirishnomalarni yoqing",
+        "primaryCta": "Davom etish",
         "onAllow": {
           "feedbackTitle": "Alhamdulillah",
           "feedbackBody": "Eslatmalar yoqilgan. Siz ohang va jadvalni istalgan vaqtda moslashtirishingiz mumkin."

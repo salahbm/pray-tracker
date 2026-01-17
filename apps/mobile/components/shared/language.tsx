@@ -12,8 +12,6 @@ export const FLAGS = {
   en: '🇺🇸',
   ru: '🇷🇺',
   uz: '🇺🇿',
-  id: '🇮🇩',
-  ms: '🇲🇾',
   tr: '🇹🇷',
 } as const;
 
@@ -21,8 +19,6 @@ export const LANGUAGES = {
   en: 'English',
   ru: 'Русский',
   uz: 'O`zbekcha',
-  id: 'Bahasa Indonesia',
-  ms: 'Bahasa Melayu',
   tr: 'Türkçe',
 } as const;
 

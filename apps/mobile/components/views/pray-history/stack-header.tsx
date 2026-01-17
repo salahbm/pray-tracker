@@ -61,8 +61,6 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
     en: allLocales.enUS,
     uz: allLocales.uz,
     ru: allLocales.ru,
-    id: allLocales.id,
-    ms: allLocales.ms,
     tr: allLocales.tr,
     // Add more mappings here based on your app's supported languages, e.g., 'pt': allLocales.ptBR
   };

@@ -698,7 +698,7 @@
           "qibla_direction": "Направление киблы",
           "automatic_timezone": "Автоматическое определение часового пояса"
         },
-        "primaryCta": "Разрешить доступ",
+        "primaryCta": "Продолжить",
         "onAllow": {
           "feedbackTitle": "Готово",
           "feedbackBody": "Мы используем это только для помощи с молитвами."
@@ -716,7 +716,7 @@
           "quiet_hours": "Тихие часы",
           "streaks": "Мотивация сериями"
         },
-        "primaryCta": "Включить уведомления",
+        "primaryCta": "Продолжить",
         "onAllow": {
           "feedbackTitle": "Альхамдулиллях",
           "feedbackBody": "Уведомления включены."

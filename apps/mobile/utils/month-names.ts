@@ -99,71 +99,6 @@ LocaleConfig.locales['uz'] = {
   dayNames: ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
   dayNamesShort: ['Yak', 'Du', 'Se', 'Cho', 'Pay', 'Ju', 'Sha'],
 };
-LocaleConfig.locales['id'] = {
-  monthNames: [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ],
-  monthNamesShort: [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'Mei',
-    'Jun',
-    'Jul',
-    'Agu',
-    'Sep',
-    'Okt',
-    'Nov',
-    'Des',
-  ],
-  dayNames: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
-  dayNamesShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-};
-
-LocaleConfig.locales['ms'] = {
-  monthNames: [
-    'Januari',
-    'Februari',
-    'Mac',
-    'April',
-    'May',
-    'Jun',
-    'Julai',
-    'Ogos',
-    'September',
-    'Oktober',
-    'November',
-    'Disember',
-  ],
-  monthNamesShort: [
-    'Jan',
-    'Feb',
-    'Mac',
-    'Apr',
-    'Mei',
-    'Jun',
-    'Jul',
-    'Ogo',
-    'Sep',
-    'Okt',
-    'Nov',
-    'Dis',
-  ],
-  dayNames: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
-  dayNamesShort: ['Aha', 'Isn', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-};
 
 LocaleConfig.locales['tr'] = {
   monthNames: [
@@ -198,6 +133,6 @@ LocaleConfig.locales['tr'] = {
   dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
 };
 
-export const setCalendarLocale = (lang: 'en' | 'ru' | 'uz' | 'id' | 'ms' | 'tr') => {
+export const setCalendarLocale = (lang: 'en' | 'ru' | 'uz' | 'tr') => {
   LocaleConfig.defaultLocale = lang;
 };

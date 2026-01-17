@@ -33,7 +33,7 @@ export function getLocaleFromRequest(
     .slice(0, 2)
     .toLowerCase();
 
-  const supportedLocales: Locale[] = ['en', 'uz', 'ru', 'id', 'ms', 'tr'];
+  const supportedLocales: Locale[] = ['en', 'uz', 'ru', 'tr'];
   return (
     supportedLocales.includes(locale as Locale) ? locale : 'en'
   ) as Locale;
