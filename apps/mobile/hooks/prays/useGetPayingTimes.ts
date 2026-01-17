@@ -71,13 +71,11 @@ export const usePrayerData = () => {
       const bootstrapLocation = async () => {
         const permission = await Location.getForegroundPermissionsAsync();
         if (permission.status === 'granted') {
+          // Initialize location - this will set city/country in store
           await initLocation();
         } else {
-          // Fallback to Mecca if no permission
-          setLocationName('Mecca, Saudi Arabia');
-          setInitialized(true);
-          // Fetch prayer times for Mecca
-          await fetchPrayerTimes('Mecca', 'Saudi Arabia');
+          // No permission - initLocation will set Mecca as fallback
+          await initLocation();
         }
       };
 
@@ -85,14 +83,15 @@ export const usePrayerData = () => {
       return;
     }
 
+    // Wait for location store to be initialized
     if (!city || !country) {
-      // If initialized but no location, use Mecca as fallback
-      void fetchPrayerTimes('Mecca', 'Saudi Arabia');
       return;
     }
 
+    // Fetch prayer times for the actual location (could be user's location or Mecca fallback)
+    setLocationName(`${city}, ${country}`);
     void fetchPrayerTimes(city, country);
-  }, [city, country, fetchPrayerTimes, initLocation, initialized, t]);
+  }, [city, country, fetchPrayerTimes, initLocation, initialized]);
 
   const loading = useMemo(() => {
     if (!initialized || isLoadingLocation) return true;

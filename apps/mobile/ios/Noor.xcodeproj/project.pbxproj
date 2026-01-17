@@ -437,7 +437,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Noor/Noor.entitlements;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = A2Y67UR23Z;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -452,7 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.52;
+				MARKETING_VERSION = 1.0.53;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -476,7 +476,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Noor/Noor.entitlements;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = A2Y67UR23Z;
 				INFOPLIST_FILE = Noor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Noor - Pray Tracler";
@@ -486,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.52;
+				MARKETING_VERSION = 1.0.53;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

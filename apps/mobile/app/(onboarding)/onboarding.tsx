@@ -41,7 +41,6 @@ import {
   WhyHereOption,
 } from '@/components/views/onboarding';
 import { gifs } from '@/constants/images';
-import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
@@ -211,15 +210,32 @@ const Onboarding = () => {
 
   const requestLocationPermission = async () => {
     try {
-      const permission = await Location.requestForegroundPermissionsAsync();
+      // First check existing permission
+      const existingPermission = await Location.getForegroundPermissionsAsync();
+
+      // Request permission if not already granted
+      const permission =
+        existingPermission.status === 'granted'
+          ? existingPermission
+          : await Location.requestForegroundPermissionsAsync();
+
       if (permission.status !== 'granted') {
+        console.log('Location permission denied');
         setLocationPermission(false);
         return;
       }
 
-      // Only call getCurrentPositionAsync if permission is granted
+      // Double-check permission is actually granted before calling getCurrentPositionAsync
+      if (permission.granted !== true && permission.status !== 'granted') {
+        console.log('Location permission not fully granted');
+        setLocationPermission(false);
+        return;
+      }
+
+      // Only call getCurrentPositionAsync if permission is confirmed granted
       const position = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
+        timeInterval: 5000,
       });
       const geocoded = await Location.reverseGeocodeAsync({
         latitude: position.coords.latitude,
@@ -255,9 +271,8 @@ const Onboarding = () => {
   };
 
   const handleFinish = async () => {
-    setShowClosingSplash(true);
     await persistPreferences();
-    router.replace('/(tabs)');
+    setShowClosingSplash(true);
   };
 
   const renderStep = useMemo(() => {

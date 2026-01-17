@@ -36,14 +36,28 @@ export const useLocationStore = create<LocationState>()(
         set({ isLoadingLocation: true });
 
         try {
-          const { status } = await Location.requestForegroundPermissionsAsync();
+          // Check existing permission first
+          const existingPermission = await Location.getForegroundPermissionsAsync();
+          const { status } =
+            existingPermission.status === 'granted'
+              ? existingPermission
+              : await Location.requestForegroundPermissionsAsync();
+
           if (status !== 'granted') {
-            set({ initialized: true, isLoadingLocation: false, locationError: null });
+            // Set fallback location when permission is denied
+            set({
+              city: FALLBACK_CITY,
+              country: FALLBACK_COUNTRY,
+              initialized: true,
+              isLoadingLocation: false,
+              locationError: null,
+            });
             return;
           }
 
           const pos = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.Balanced,
+            timeInterval: 5000,
           });
 
           const res = await fetch(

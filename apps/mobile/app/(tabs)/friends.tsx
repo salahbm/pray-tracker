@@ -6,7 +6,6 @@ import FriendsGroups from '@/components/views/friends/groups/groups';
 import { gifs } from '@/constants/images';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { useAuthStore } from '@/store/auth/auth-session';
-
 import PaywallScreen from '../(screens)/subscription/paywall';
 
 const FriendsScreen = () => {

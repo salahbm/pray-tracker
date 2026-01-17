@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MotiView } from 'moti';
 import { router } from 'expo-router';
@@ -65,11 +65,11 @@ export const OnboardingSplashStep = ({
           transition={{ type: 'timing', duration: 1000 }}
           style={{ alignItems: 'center', width: '100%' }}
         >
-          <Text className="text-5xl font-black text-white text-center">{headline}</Text>
+          <Text className="text-7xl font-black text-white text-center">{headline}</Text>
 
           {badge && (
-            <View className="mt-6 rounded-2xl bg-white/20 px-6 py-3 border border-white/10">
-              <Text className="text-xl font-bold text-white uppercase tracking-widest">
+            <View className="mt-6 px-6 py-3 border ">
+              <Text className="text-lg font-bold text-white uppercase tracking-widest">
                 {badge}
               </Text>
             </View>
