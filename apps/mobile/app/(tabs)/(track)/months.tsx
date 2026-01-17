@@ -118,10 +118,10 @@ const MonthScreen = () => {
 
   const onDayPress = useCallback(
     (day: DateData) => {
-      // if (!isPremium) {
-      //   paywallSheetRef.current?.snapToIndex(0);
-      //   return;
-      // }
+      if (!isPremium) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
       // Prevent selecting future dates
       const selectedDate = new Date(day.dateString);
       const todayDate = new Date();

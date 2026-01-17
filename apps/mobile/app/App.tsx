@@ -9,6 +9,8 @@ import { useSession } from '@/hooks/auth/useSessions';
 import { initializeRevenueCat } from '@/lib/revenuecat';
 import { cleanupExpiredTokens } from '@/utils/deep-link-token';
 import { useLocationStore } from '@/store/use-location';
+import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
+import { useQibla } from '@/hooks/prays/useQibla';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -26,6 +28,8 @@ SplashScreen.setOptions({
 
 export default function App() {
   useSession();
+  useQibla();
+  usePrayerData();
   useLocationStore();
 
   const [loaded] = useFonts({
