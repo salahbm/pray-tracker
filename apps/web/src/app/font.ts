@@ -1,32 +1,32 @@
-import localFont from "next/font/local"
+import { Poppins } from "next/font/google"
 
-const outfitMedium = localFont({
-  src: "../../public/fonts/Outfit-Medium.ttf",
-  variable: "--outfit-medium",
-  display: "swap",
-  weight: "500",
-})
-
-const pretendardRegular = localFont({
-  src: "../../public/fonts/Pretendard-Regular.woff2",
-  variable: "--pretendard-regular",
+const popinsRegular = Poppins({
+  subsets: ["latin"],
+  variable: "--popins-regular",
   display: "swap",
   weight: "400",
   style: "normal",
 })
 
-const pretendardMedium = localFont({
-  src: "../../public/fonts/Pretendard-Medium.woff2",
-  variable: "--pretendard-medium",
+const popinsMedium = Poppins({
+  subsets: ["latin"],
+  variable: "--popins-medium",
   display: "swap",
   weight: "500",
 })
 
-const pretendardSemibold = localFont({
-  src: "../../public/fonts/Pretendard-Semibold.woff2",
-  variable: "--pretendard-semibold",
+const popinsSemibold = Poppins({
+  subsets: ["latin"],
+  variable: "--popins-semibold",
   display: "swap",
   weight: "600",
 })
 
-export { outfitMedium, pretendardRegular, pretendardMedium, pretendardSemibold }
+const popinsBold = Poppins({
+  subsets: ["latin"],
+  variable: "--popins-bold",
+  display: "swap",
+  weight: "700",
+})
+
+export { popinsBold, popinsMedium, popinsRegular, popinsSemibold }

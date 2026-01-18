@@ -3,7 +3,7 @@ import { Metadata, Viewport } from "next"
 import { cookies } from "next/headers"
 import { COOKIE_KEYS } from "@/constants/cookies"
 import { cn } from "@/lib/utils"
-import { outfitMedium, pretendardMedium, pretendardRegular, pretendardSemibold } from "./font"
+import { popinsBold, popinsMedium, popinsRegular, popinsSemibold } from "./font"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -24,14 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const language = cookieStore.get(COOKIE_KEYS.LANGUAGE)?.value || "ko"
   return (
     <html lang={language} suppressHydrationWarning>
-      <body
-        className={cn(
-          outfitMedium.variable,
-          pretendardRegular.variable,
-          pretendardMedium.variable,
-          pretendardSemibold.variable
-        )}
-      >
+      <body className={cn(popinsBold.variable, popinsMedium.variable, popinsRegular.variable, popinsSemibold.variable)}>
         {children}
       </body>
     </html>
