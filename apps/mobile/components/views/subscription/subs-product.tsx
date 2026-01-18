@@ -1,39 +1,10 @@
-import { useRouter } from 'expo-router';
-import LottieView from 'lottie-react-native';
-import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  Linking,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as Localization from 'expo-localization';
+import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { gifs } from '@/constants/images';
-import PREMIUM_FEATURES from '@/constants/premium-features';
-import {
-  usePurchasePackage,
-  useRevenueCatCustomer,
-  useRevenueCatOfferings,
-} from '@/hooks/subscriptions/useRevenueCat';
-import { PRODUCT_IDS } from '@/lib/revenuecat';
 import { cn } from '@/lib/utils';
-import { fireToast } from '@/providers/toaster';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
-import { useAppRatingStore } from '@/store/defaults/app-rating';
-import { ChevronLeft, ChevronRight, Sparkles as SparklesIcon } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
-import { Sparkles } from '@/components/shared/sparks';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { BorderBeam } from '@/components/shared/vfx';
 
 type SubProductCardProps = {
@@ -113,14 +84,12 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
       >
         {/* Best Value Badge */}
         <View className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl">
-          <Text className="text-xs font-bold text-primary-foreground">
-            {t('subscription.bestValue')}
-          </Text>
+          <Text className="text-xs font-bold text-foreground">{t('subscription.bestValue')}</Text>
         </View>
 
         <View className="flex-row items-center justify-between mt-6">
           <View className="flex-1">
-            <Text className="text-xl font-bold mb-1">{t('subscription.yearlyPlan')}</Text>
+            <Text className="text-xl font-bold my-1">{t('subscription.yearlyPlan')}</Text>
             <Text className="text-sm text-muted-foreground mb-3">{yearlySavings}</Text>
             <View className="flex-row items-baseline">
               <Text className="text-3xl font-bold text-primary">{yearlyPrice}</Text>
@@ -131,7 +100,7 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
           <View
             className={cn(
               'size-7 rounded-full border-2 items-center justify-center',
-              selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
+              selectedPlan === 'yearly' ? 'border-primary' : 'border-muted'
             )}
           >
             {selectedPlan === 'yearly' && <View className="size-2 rounded-full bg-primary" />}
