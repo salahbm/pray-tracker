@@ -9,19 +9,6 @@ const config: NextConfig = {
     },
   },
 
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "d2hrn0ujm7w1zq.cloudfront.net",
-      },
-      {
-        protocol: "https",
-        hostname: "momenti-renew.s3.ap-northeast-2.amazonaws.com",
-      },
-    ],
-  },
-
   rewrites: async () => [
     { source: "/healthz", destination: "/api/health" },
     { source: "/api/healthz", destination: "/api/health" },

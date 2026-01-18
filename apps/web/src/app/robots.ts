@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*", // Applies to all crawlers
       allow: "/", // Allow indexing of the whole site
     },
-    sitemap: "momenti.biz",
+    sitemap: "https://noor.app/sitemap.xml",
   }
 }

@@ -1,5 +1,5 @@
 const defaultLocale = "en"
-const locales = ["en", "ru", "uz"]
+const locales = ["en"]
 
 type Locale = (typeof locales)[number]
 
