@@ -1,5 +1,5 @@
-const defaultLocale = "ko"
-const locales = ["ko", "en"]
+const defaultLocale = "en"
+const locales = ["en", "ru", "uz"]
 
 type Locale = (typeof locales)[number]
 

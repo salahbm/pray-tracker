@@ -65,7 +65,7 @@ const Header: React.FC<{ initialMenuData?: MenuData }> = ({ initialMenuData }) =
               variants={menuVariants}
               key="menu-overlay"
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="z-header fixed inset-0 flex h-screen w-screen flex-col bg-gray-200 px-5 pt-4 pb-8 md:px-8 md:pt-6 lg:px-10 lg:pt-8"
+              className="z-header fixed inset-0 flex h-screen w-screen flex-col bg-gray-200 px-5 pb-8 pt-4 md:px-8 md:pt-6 lg:px-10 lg:pt-8"
             >
               <header className="flex items-center justify-between">
                 <Logo onClick={toggleMenu} dynamic />
@@ -84,7 +84,7 @@ const Header: React.FC<{ initialMenuData?: MenuData }> = ({ initialMenuData }) =
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="flex h-full flex-col justify-center gap-20 md:flex-row md:items-center md:gap-0 xl:px-95"
+                className="xl:px-95 flex h-full flex-col justify-center gap-20 md:flex-row md:items-center md:gap-0"
               >
                 <ul className="flex flex-col items-start gap-8 px-12 md:px-0">
                   {menu.map((item: { id: string; name: string; key?: string }, idx: number) => {
@@ -119,27 +119,6 @@ const Header: React.FC<{ initialMenuData?: MenuData }> = ({ initialMenuData }) =
                     </Link>
                   </RevealUp>
                 </ul>
-
-                <div className="hidden md:block md:flex-1" />
-                {/* Request Button */}
-                <RevealUp key="request" index={0} className="hidden md:block">
-                  <button
-                    type="button"
-                    className="group flex-center relative aspect-square min-w-fit cursor-pointer gap-6 overflow-hidden rounded-full p-10 md:w-[360px]"
-                  >
-                    {/* radial background */}
-                    <span className="bg-primary-100 ease-circle pointer-events-none absolute inset-0 scale-0 rounded-full transition-transform duration-500 group-hover:scale-100" />
-
-                    {/* content */}
-                    <span className="flex-center bg-primary-100 group-hover:text-primary-100 relative aspect-square w-12 rounded-full text-white transition-colors duration-500 group-hover:bg-white">
-                      <ArrowRightIcon className="size-6 text-inherit" />
-                    </span>
-
-                    <p className="text-title-1 text-primary-100 relative whitespace-nowrap transition-colors duration-500 group-hover:text-white">
-                      {t("common.request")}
-                    </p>
-                  </button>
-                </RevealUp>
               </MotionDiv>
 
               {/* Menu Footer */}

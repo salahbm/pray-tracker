@@ -4,7 +4,7 @@ import { COOKIE_KEYS } from "@/constants/cookies"
 
 export default getRequestConfig(async () => {
   const store = await cookies()
-  const locale = store.get(COOKIE_KEYS.LANGUAGE)?.value || "ko"
+  const locale = store.get(COOKIE_KEYS.LANGUAGE)?.value || "en"
 
   return {
     locale,
