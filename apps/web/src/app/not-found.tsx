@@ -1,8 +1,6 @@
 import Link from "next/link"
-import { getTranslations } from "next-intl/server"
 
 export default async function NotFoundPage() {
-  const t = await getTranslations()
   return (
     <div className="relative flex h-screen items-center justify-center overflow-hidden bg-gray-600">
       <div className="z-10 h-full w-full translate-y-[15%] pt-30 text-center text-white">
@@ -10,12 +8,11 @@ export default async function NotFoundPage() {
         <p className="text-title-2">page not found</p>
 
         <div className="text-body-1 my-40 text-center">
-          <p>{t("notfound.message_1")}</p>
-          <p>{t("notfound.message_2")}</p>
-          <p>{t("notfound.message_3")}</p>
+          <p>Sorry, we could not find that page.</p>
+          <p>It may have been moved or deleted.</p>
         </div>
         <Link href="/" className="cursor-pointer rounded-full border border-white px-8 py-2.5 hover:bg-white/10">
-          <span className="text-body-1 text-center whitespace-nowrap text-white">{t("common.buttons.goToHome")}</span>
+          <span className="text-body-1 text-center whitespace-nowrap text-white">Back to home</span>
         </Link>
       </div>
 

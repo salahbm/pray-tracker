@@ -12,18 +12,18 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     start_url: "/",
     display: "standalone", // Makes it look like a native app (no address bar)
     background_color: "#ffffff", // Splash screen background
-    theme_color: "#101E33", // Color of the browser toolbar/task switcher
+    theme_color: "#3aa7a1", // Color of the browser toolbar/task switcher
     icons: [
       {
-        src: "/logo/logo_header_momenti_black_mobile.png", // !TODO need to change into correct resolution
+        src: "/logo/noor-mark.svg",
         sizes: "192x192",
-        type: "image/png",
-        purpose: "maskable", // Critical for Android to avoid white borders
+        type: "image/svg+xml",
+        purpose: "maskable",
       },
       {
-        src: "/logo/logo_header_momenti_black_mobile.png",
+        src: "/logo/noor-mark.svg",
         sizes: "512x512",
-        type: "image/png",
+        type: "image/svg+xml",
       },
     ],
   }

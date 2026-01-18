@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "circle.css";
 
 /*
   ---break---
@@ -51,11 +50,13 @@
   --color-muted-forground: var(--muted-forground);
 
   /* Accent */
---color-warning: var(--warning);
---color-destructive: var(--destructive);
---color-success: var(--success);
---color-neutral: var(--neutral);
---color-info: var(--info);
+  --color-accent: var(--accent);
+  --color-accent-forground: var(--accent-forground);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-neutral: var(--neutral);
+  --color-info: var(--info);
 
 
   /* Fonts */
@@ -119,27 +120,29 @@
   --radius: 8px;
 
   /* Colors */
-  --background: oklch(98.1% 0.002 254.5);
-  --foreground: oklch(20.2% 0.002 259.2);
+  --background: oklch(98.6% 0.01 220);
+  --foreground: oklch(18% 0.02 250);
 
   /* Primary */
-  --primary: oklch(76.7% 0.189 152.8);
-  --primary-forground: oklch(1 0 0);
+  --primary: oklch(62% 0.16 196);
+  --primary-forground: oklch(98% 0.01 220);
 
   /* Secondary */
-  --secondary: oklch(70.2% 0.177 240.9);
-  --secondary-forground: oklch(1 0 0);
+  --secondary: oklch(70% 0.13 285);
+  --secondary-forground: oklch(17% 0.02 250);
 
   /* Muted */
-  --muted: oklch(57.8% 0.023 257.3);
-  --muted-forground: oklch(1 0 0);
+  --muted: oklch(92% 0.01 240);
+  --muted-forground: oklch(40% 0.02 250);
 
   /* Accent */
---warning: oklch(0.8848 0.1816 94.9);
---destructive: oklch(0.6291 0.2252 24.17);
---success: oklch(72% 0.18 145);
---neutral: oklch(70% 0.02 250);
---info: oklch(73% 0.14 215);
+  --accent: oklch(86% 0.12 120);
+  --accent-forground: oklch(16% 0.02 250);
+  --warning: oklch(0.88 0.15 85);
+  --destructive: oklch(0.62 0.22 25);
+  --success: oklch(74% 0.18 145);
+  --neutral: oklch(80% 0.02 240);
+  --info: oklch(73% 0.14 215);
 }
 
 /*

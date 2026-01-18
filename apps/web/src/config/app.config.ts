@@ -17,7 +17,7 @@ const getApiBaseUrl = (): string => {
     url = process.env.NEXT_PUBLIC_API_ENDPOINT
   } else {
     // Production default
-    url = "https://www.momenti.biz/api"
+    url = "https://api.noor.app"
   }
 
   console.warn(`🌐 [API Config] Using base URL: ${url}`)
@@ -34,17 +34,17 @@ export const appConfig = {
 
   // App Information
   app: {
-    name: "Momenti",
+    name: "Noor",
     version: "1.0.0",
-    email: "hi@momenti.co.kr",
-    phone: ["02-565-1847", "070-8882-5579"],
-    address_ko: "서울시 강남구 논현로 105길 11-3",
-    address_en: "11-3, Nonhyeon-ro 105-gil, Gangnam-gu, Seoul, Republic of Korea",
-    company_profile: "/pdf/Momenti-Profile.pdf",
+    email: "support@noor.app",
+    phone: ["+1 (555) 418-0912"],
+    address_ko: "",
+    address_en: "Remote-first team serving communities worldwide",
+    company_profile: "/pdf/Noor-Profile.pdf",
     social: {
-      facebook: "https://www.facebook.com/momenti",
-      instagram: "https://www.instagram.com/momenti",
-      blog: "https://blog.naver.com/momenti",
+      facebook: "https://www.facebook.com/noorapp",
+      instagram: "https://www.instagram.com/noorapp",
+      blog: "https://noor.app/blog",
     },
   },
 

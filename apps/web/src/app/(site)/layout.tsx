@@ -1,37 +1,27 @@
 import { Metadata, Viewport } from "next"
-import { cookies } from "next/headers"
 import { Footer } from "@/components/shared/footer"
-import { Header } from "@/components/shared/header"
-import { RequestBanner } from "@/components/shared/request-banner"
-import { COOKIE_KEYS } from "@/constants/cookies"
+import { SiteHeader } from "@/components/shared/site-header"
 import RootProvider from "@/providers/root"
-import { menuService } from "@/services/menu.service"
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#fff",
+  themeColor: "#f9fbfb",
   colorScheme: "light",
 }
 
 export const metadata: Metadata = {
-  title: "Momenti",
-  description: "Momenti",
+  title: "Noor · Shared Prayer Companion",
+  description: "Noor brings prayer circles together with shared requests, reminders, and answered stories.",
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies()
-  const language = cookieStore.get(COOKIE_KEYS.LANGUAGE)?.value || "ko"
-
-  // Fetch menu for initial data
-  const menuData = await menuService.getMenu()
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <RootProvider locale={language}>
-      <Header initialMenuData={menuData} />
+    <RootProvider>
+      <SiteHeader />
       {children}
-      <RequestBanner />
       <Footer />
     </RootProvider>
   )
