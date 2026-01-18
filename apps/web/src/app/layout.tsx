@@ -1,53 +1,39 @@
-import './globals.css';
+import "@styles/tailwind.css"
+import { Metadata, Viewport } from "next"
+import { cookies } from "next/headers"
+import { COOKIE_KEYS } from "@/constants/cookies"
+import { cn } from "@/lib/utils"
+import { outfitMedium, pretendardMedium, pretendardRegular, pretendardSemibold } from "./font"
 
-import { GoogleAnalytics } from '@next/third-parties/google';
-import type { Metadata } from 'next';
-import { Manrope, Source_Sans_3 } from 'next/font/google';
-
-import { siteDetails } from '@/data/siteDetails';
-import QueryProvider from '@/provider/query';
-
-const manrope = Manrope({ subsets: ['latin'] });
-const sourceSans = Source_Sans_3({ subsets: ['latin'] });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#fff",
+  colorScheme: "light",
+}
 
 export const metadata: Metadata = {
-  title: siteDetails.metadata.title,
-  description: siteDetails.metadata.description,
-  openGraph: {
-    title: siteDetails.metadata.title,
-    description: siteDetails.metadata.description,
-    url: siteDetails.siteUrl,
-    type: 'website',
-    images: [
-      {
-        url: '/images/icon-light.png',
-        width: 1200,
-        height: 675,
-        alt: 'Pray Tracker - Your Smart Prayer Companion',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteDetails.metadata.title,
-    description: siteDetails.metadata.description,
-    images: ['/images/icon-light-rounded.png'],
-  },
-};
+  title: "Momenti",
+  description: "Momenti",
+}
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const language = cookieStore.get(COOKIE_KEYS.LANGUAGE)?.value || "ko"
   return (
-    <html lang="en">
-      <body className={`${manrope.className} ${sourceSans.className} antialiased`}>
-        {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        <QueryProvider>
-          <main>{children}</main>
-        </QueryProvider>
+    <html lang={language} suppressHydrationWarning>
+      <body
+        className={cn(
+          outfitMedium.variable,
+          pretendardRegular.variable,
+          pretendardMedium.variable,
+          pretendardSemibold.variable
+        )}
+      >
+        {children}
       </body>
     </html>
-  );
+  )
 }

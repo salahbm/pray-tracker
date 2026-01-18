@@ -1,1 +1,17 @@
-pnpm lint-staged
+# BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# REGEX="^(feature|bugfix|hotfix|release|merge)\.([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*)$"
+
+# RED='\033[0;31m'
+# GREEN='\033[0;32m'
+# NC='\033[0m'
+
+# echo "Branch name: $BRANCH"
+
+# if ! echo "$BRANCH" | grep -qE "$REGEX"; then
+#     echo "Branch name does not match the regex: $REGEX"
+#     echo "Branch name must be in the format: '(feature|bugfix|hotfix|release|merge).{name}*'"     
+#     exit 1
+# fi
+
+# pnpm lint-staged
