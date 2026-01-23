@@ -1,52 +1,104 @@
-# [Noor Web](https://noorapp.uz)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnexi-launch%2Ffinwise-landing-page)
 
-A production-ready template for building enterprise applications with Next.js. This boilerplate provides a solid foundation with carefully selected technologies and ready-to-go infrastructure to help you develop high-quality applications efficiently.
+# Noor - Next.js + Tailwind Landing Page Template
 
-## Documentation
+Noor is a lightweight, easily configurable, and customizable **Next.js** and **Tailwind CSS** landing page template. It’s built to be adaptable, performant, and perfect for any product launch, portfolio, or promotional site.
 
-There is a separate documentation that explains its functionality, highlights core business values and technical decisions, provides guidelines for future development, and includes architectural diagrams.
+Try out the demo here: [https://noorapp.uz](https://noorapp.uz).
 
-We encourage you to [visit our docs (docs.noorapp.uz)](https://docs.noorapp.uz) to learn more
+Please check out the documentation below to get started.
 
-## Integrated features
+---
 
-### Boilerplate
+## Features
 
-With this template you will get all the boilerplate features included:
+- **Next.js** app router with **TypeScript**
+- **Tailwind CSS** v3 for flexible styling customization
+- Smooth transitions powered by **Framer Motion**
+- Built-in **font optimization** with [next/font](https://nextjs.org/docs/app/api-reference/components/font)
+- Automatic **image optimization** via [next/image](https://nextjs.org/docs/app/building-your-application/optimizing/images)
+- Access to **31+ icon packs** via [React Icons](https://react-icons.github.io/react-icons/)
+- Near-perfect **Lighthouse score**
+- Modular, responsive, and **scalable components**
+- **Free lifetime updates**
 
-- [Next.js 15](https://nextjs.org/) - Performance-optimized configuration using App Directory
-- [Tailwind CSS v4](https://tailwindcss.com/) - Utility-first CSS framework for efficient UI development
-- [ESlint 9](https://eslint.org/) and [Prettier](https://prettier.io/) - Code consistency and error prevention
-- [Corepack](https://github.com/nodejs/corepack) & [pnpm](https://pnpm.io/) as the package manager - For project management without compromises
-- [Strict TypeScript](https://www.typescriptlang.org/) - Enhanced type safety with carefully crafted config and [ts-reset](https://github.com/total-typescript/ts-reset) library
-- [GitHub Actions](https://github.com/features/actions) - Pre-configured workflows including bundle size and performance tracking
-- Perfect Lighthouse score - Optimized performance metrics
-- [Bundle analyzer](https://www.npmjs.com/package/@next/bundle-analyzer) - Monitor and manage bundle size during development
-- Testing suite - [Vitest](https://vitest.dev), [React Testing Library](https://testing-library.com/react), and [Playwright](https://playwright.dev/) for comprehensive testing
-- [Storybook](https://storybook.js.org/) - Component development and documentation
-- Advanced testing - Smoke and acceptance testing capabilities
-- [Conventional commits](https://www.conventionalcommits.org/) - Standardized commit history management
-- [Observability](https://opentelemetry.io/) - Open Telemetry integration
-- [Absolute imports](https://nextjs.org/docs/advanced-features/module-path-aliases) - Simplified import structure
-- [Health checks](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) - Kubernetes-compatible monitoring
-- [Radix UI](https://www.radix-ui.com/) - Headless components for customization
-- [CVA](http://cva.style/) (Class Variance Authority) - Consistent design system creation
-- [Renovate BOT](https://www.whitesourcesoftware.com/free-developer-tools/renovate) - Automated dependency and security updates
-- [Patch-package](https://www.npmjs.com/package/patch-package) - External dependency fixes without compromises
-- Component relationship tools - Graph for managing coupling and cohesion
-- [Semantic Release](https://github.com/semantic-release/semantic-release) - Automated changelog generation
-- [T3 Env](https://env.t3.gg/) - Streamlined environment variable management
+---
 
-#### Custom cloud infrastructure
+## Sections
 
-**next-enterprise** offers dedicated infrastructure as code (IaC) solutions built with Terraform, designed specifically for deploying Next.js applications based on our extensive experience working with enterprise clients.
+- Hero
+- Partners or Clients Logos
+- Features
+- Pricing
+- Testimonials
+- FAQ
+- Statistics
+- CTA
+- Footer
 
-Learn more in our [documentation (docs.noorapp.uz)][docs] how to quickstart with the deployments using simple CLI.
+---
 
-### Team & maintenance
+## Getting Started
 
-**Noor Web** is backed and maintained by [Noor](https://noorapp.uz), providing up to date security features and integrated feature updates.
+### Prerequisites
 
-#### Creator
+Before starting, make sure you have the following installed:
 
-- Muhammad - Salah ([salahbm](https://github.com/salahbm))
+- **Node.js**: Version 18 or later
+- **npm**: Version 8 or later (bundled with Node.js)
+- **Code editor**: [VS Code](https://code.visualstudio.com/) is recommended.
+
+### Steps
+
+1. **Install dependencies**: Run `npm install`
+2. **Run the development server**: `npm run dev`
+3. **View your project**: Open [localhost:3000](http://localhost:3000)
+
+---
+
+## Customization
+
+1. **Edit colors**: Update `globals.css` for primary, secondary, background, and accent colors.
+2. **Update site details**: Customize `siteDetails.ts` in `/src/data` to reflect your brand and site info.
+3. **Modify content**: Files in `/src/data` handle data for navigation, features, pricing, testimonials, and more.
+4. **Replace favicon**: Add your icon to `/src/app/favicon.ico`.
+5. **Add images**: Update `public/images` for Open Graph metadata (e.g., `og-image.jpg`, `twitter-image.jpg`).
+
+---
+
+## Deploying on Vercel
+
+The fastest way to deploy Noor is on [Vercel](https://vercel.com/). Simply click the "Deploy with Vercel" button at the top of this README, or check the [Next.js deployment docs](https://vercel.com/docs/deployments/deployment-methods) for other deployment options.
+
+---
+
+## Contributing
+
+Noor is an open-source project, and we welcome contributions from the community! If you have ideas for new components, designs, layouts, or optimizations, please join us in making Noor even better.
+
+### How to Contribute
+
+1. **Fork the Repository**: Clone it locally.
+2. **Create a New Branch**: For example, `feature/new-section` or `fix/style-issue`.
+3. **Develop and Test**: Make sure your changes work and don't break existing functionality.
+4. **Submit a Pull Request**: Open a pull request with a clear description of your changes, and we'll review it.
+
+### Ideas for Contributions
+
+- New component sections (team introductions, comparison table, case studies, etc.)
+- Additional page variants (e.g., agency, eCommerce, portfolio layouts)
+- Additional themes
+- Documentation updates, tutorials, or guides
+
+---
+
+## Community and Support
+
+Join our community discussions on GitHub to share ideas, ask questions, or suggest improvements. Let’s build something amazing together!
+
+
+--- 
+
+## License
+
+This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it for personal or commercial projects.
