@@ -28,11 +28,14 @@ export const useRevenueCatOfferings = () => {
       setOfferings(offerings);
 
       if (offerings.current && offerings.current.availablePackages.length > 0) {
-        setPackages(offerings.current.availablePackages as any);
+        const packages = offerings.current.availablePackages;
+
+        setPackages(packages as any);
+      } else {
+        console.warn('⚠️ No packages available in current offering');
       }
     } catch (err: any) {
       setError(err.message || 'Failed to fetch offerings');
-      console.error('Error fetching offerings:', err);
     } finally {
       setLoading(false);
     }

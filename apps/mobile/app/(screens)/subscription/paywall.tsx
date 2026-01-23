@@ -31,7 +31,6 @@ export default function PaywallScreen() {
   const router = useRouter();
   const { user } = useAuthStore();
   const insets = useSafeAreaInsets();
-  // const { colors } = useThemeStore();
   const { signInSheetRef } = useAuthBottomSheetStore();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
 
@@ -59,22 +58,32 @@ export default function PaywallScreen() {
       return;
     }
 
-    // Find package by product identifier
-    const pkg = packages.find(p => {
-      const productId = p.product.identifier;
-      const isMatch =
-        selectedPlan === 'monthly'
-          ? productId === PRODUCT_IDS.MONTHLY
-          : productId === PRODUCT_IDS.YEARLY;
+    // Find package by product identifier or package identifier
+    const targetProductId = selectedPlan === 'monthly' ? PRODUCT_IDS.MONTHLY : PRODUCT_IDS.YEARLY;
 
-      return isMatch;
-    });
+    // Try to find by product identifier first, then by package identifier
+    let pkg = packages.find(p => p.product.identifier === targetProductId);
+
+    // Fallback: Try to find by package identifier containing the product ID
+    if (!pkg) {
+      pkg = packages.find(
+        p =>
+          p.identifier.toLowerCase().includes(selectedPlan) ||
+          p.product.identifier.toLowerCase().includes(selectedPlan)
+      );
+    }
+
+    // Last resort: Use monthly/annual keywords
+    if (!pkg) {
+      pkg = packages.find(p => {
+        const id = p.identifier.toLowerCase();
+        return selectedPlan === 'monthly'
+          ? id.includes('month')
+          : id.includes('annual') || id.includes('year');
+      });
+    }
 
     if (!pkg) {
-      console.error(
-        '❌ Package not found. Available packages:',
-        packages.map(p => p.product.identifier)
-      );
       fireToast.error(t('subscription.errors.packageNotFound'));
       return;
     }
@@ -115,8 +124,20 @@ export default function PaywallScreen() {
     }
   };
 
-  const monthlyPackage = packages.find(p => p.identifier.includes('monthly'));
-  const yearlyPackage = packages.find(p => p.identifier.includes('annual'));
+  // Find packages with better fallback logic
+  const monthlyPackage = packages.find(
+    p =>
+      p.product.identifier === PRODUCT_IDS.MONTHLY ||
+      p.identifier.toLowerCase().includes('monthly') ||
+      p.identifier.toLowerCase().includes('month')
+  );
+
+  const yearlyPackage = packages.find(
+    p =>
+      p.product.identifier === PRODUCT_IDS.YEARLY ||
+      p.identifier.toLowerCase().includes('annual') ||
+      p.identifier.toLowerCase().includes('year')
+  );
 
   const monthlyPrice =
     monthlyPackage?.product.priceString ||

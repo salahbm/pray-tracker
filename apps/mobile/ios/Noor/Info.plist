@@ -4,24 +4,34 @@
   <dict>
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
+
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
+
     <key>CFBundleDisplayName</key>
     <string>Noor</string>
+
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
+
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
+
     <key>CFBundleName</key>
     <string>$(PRODUCT_NAME)</string>
+
     <key>CFBundlePackageType</key>
     <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+
     <key>CFBundleShortVersionString</key>
-    <string>1.0.53</string>
+    <string>1.0.54</string>
+
     <key>CFBundleSignature</key>
     <string>????</string>
+
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
@@ -32,14 +42,19 @@
         </array>
       </dict>
     </array>
+
     <key>CFBundleVersion</key>
     <string>1</string>
+
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
+
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
+
     <key>LSRequiresIPhoneOS</key>
     <true/>
+
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
@@ -47,46 +62,59 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
+
     <key>NSCameraUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your camera</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location to calculate daily prayer times and qibla direction based on your city, for example updating prayer times automatically when you travel or when the app is not open.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
-    <key>NSMotionUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your device motion so it can accurately track your prayer times and remind you when it's time to pray.</string>
+    <string>Your camera is used to take or select a profile photo that appears on your account.</string>
+
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your photos</string>
+    <string>Your photo library is used to select a profile picture that is shown on your account.</string>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location is used while the app is open to calculate accurate prayer times and display the Qibla direction for your current city, for example showing today’s prayer schedule based on where you are.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Your location is used to automatically update prayer times and Qibla direction when you change cities, for example adjusting the schedule when you travel.</string>
+
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Your location is used to keep prayer times accurate even when the app is not open, for example updating schedules if you travel to a different city.</string>
+
+    <key>NSMotionUsageDescription</key>
+    <string>Your device motion sensors are used to help determine direction and improve compass accuracy when displaying the Qibla.</string>
+
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
+
     <key>RCTNewArchEnabled</key>
     <true/>
+
     <key>UIBackgroundModes</key>
     <array>
       <string>remote-notification</string>
       <string>fetch</string>
     </array>
+
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
+
     <key>UIRequiredDeviceCapabilities</key>
     <array>
       <string>arm64</string>
     </array>
+
     <key>UIRequiresFullScreen</key>
     <false/>
+
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleDefault</string>
+
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
       <string>UIInterfaceOrientationPortraitUpsideDown</string>
     </array>
+
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
@@ -94,8 +122,10 @@
       <string>UIInterfaceOrientationLandscapeLeft</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+
     <key>UIUserInterfaceStyle</key>
     <string>Automatic</string>
+
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
   </dict>

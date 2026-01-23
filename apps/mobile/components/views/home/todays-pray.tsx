@@ -5,7 +5,6 @@ import { View } from 'react-native';
 import { PrayCheckbox } from '@/components/shared/pray-checkbox';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
-import { useThemeStore } from '@/store/defaults/theme';
 
 interface IPrayers {
   isLoading: boolean;

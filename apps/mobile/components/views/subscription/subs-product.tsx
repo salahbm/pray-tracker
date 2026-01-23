@@ -84,14 +84,12 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
       >
         {/* Best Value Badge */}
         <View className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl rounded-tr-xl">
-          <Text className="text-xs font-bold text-primary-foreground">
-            {t('subscription.bestValue')}
-          </Text>
+          <Text className="text-xs font-bold text-foreground">{t('subscription.bestValue')}</Text>
         </View>
 
         <View className="flex-row items-center justify-between mt-6">
           <View className="flex-1">
-            <Text className="text-xl font-bold mb-1">{t('subscription.yearlyPlan')}</Text>
+            <Text className="text-xl font-bold my-1">{t('subscription.yearlyPlan')}</Text>
             <Text className="text-sm text-muted-foreground mb-3">{yearlySavings}</Text>
             <View className="flex-row items-baseline">
               <Text className="text-3xl font-bold text-primary">{yearlyPrice}</Text>
@@ -102,7 +100,7 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
           <View
             className={cn(
               'size-7 rounded-full border-2 items-center justify-center',
-              selectedPlan === 'yearly' ? 'border-primary' : 'border-muted-foreground'
+              selectedPlan === 'yearly' ? 'border-primary' : 'border-muted'
             )}
           >
             {selectedPlan === 'yearly' && <View className="size-2 rounded-full bg-primary" />}
