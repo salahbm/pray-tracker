@@ -47,17 +47,10 @@ export const createAuthConfig = (prisma: PrismaClient): BetterAuthOptions => {
 
     hooks: {
       before: createAuthMiddleware(async (ctx) => {
-        console.log(`BEFORE AUTH REQUEST 👉:`, {
-          path: ctx.path,
-          method: ctx.method,
-          body: ctx.body,
-          headers: ctx.headers,
-        });
         return ctx;
       }),
       after: createAuthMiddleware(async (ctx) => {
         const response = ctx.context.returned;
-        console.log(`STRINGIFIED AFTER 👉:`, JSON.stringify(response, null, 2));
         if (
           response &&
           typeof response === 'object' &&
