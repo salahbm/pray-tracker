@@ -41,7 +41,7 @@ export async function sendPasswordResetEmail(
     });
 
     await resend.emails.send({
-      from: 'Noor App <no-reply@noorapp.uz>',
+      from: 'Noor <no-reply@support.noorapp.uz>',
       to: email,
       subject: getLocalizedMessage('EMAIL_PASSWORD_RESET_TITLE', locale),
       html,

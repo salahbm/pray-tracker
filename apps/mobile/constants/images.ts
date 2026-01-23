@@ -1,6 +1,5 @@
 import check from '@assets/images/check.png';
 import compass from '@assets/images/compass.png';
-import google from '@assets/images/google.png';
 import guest from '@assets/images/guest.png';
 import icon_dark from '@assets/images/icon-dark.png';
 import icon_light from '@assets/images/icon-light.png';
@@ -51,7 +50,6 @@ export const gifs = {
 
 export const IMAGES = {
   check,
-  google,
   compass,
   icon_light,
   icon_dark,
