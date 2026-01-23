@@ -109,11 +109,11 @@
       "futureDate": "Siz kelajakdagi sanani tanlay olmaysiz"
     },
     "salahs": {
-      "asr": "Asr",
-      "dhuhr": "Peshin",
       "fajr": "Bomdod",
-      "isha": "Shom",
-      "maghrib": "Xufton",
+      "dhuhr": "Peshin",
+      "asr": "Asr",
+      "maghrib": "Shom",
+      "isha": "Xufton",
       "nafl": "Nafl",
       "sunrise": "Quyosh chiqishi"
     },

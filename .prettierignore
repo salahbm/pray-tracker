@@ -1,0 +1,33 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Android / React Native build artifacts
+apps/mobile/android/** 
+apps/mobile/ios/**
+
+# CMake / NDK generated files
+**/.cxx/
+**/.cmake/
+**/compile_commands.json
+**/android_gradle_build*.json
+**/prefab_config.json
+
+# Generated code
+apps/backend/src/generated/
+
+# Assets (Lottie / GIF JSON)
+apps/mobile/assets/gif/*.json
+apps/mobile/assets/lottie/*.json
+
+# Expo / Metro
+.expo/
+.expo-shared/
+
+# Misc
+*.log
