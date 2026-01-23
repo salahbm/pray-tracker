@@ -30,10 +30,10 @@ const containerVariants: Variants = {
     }
 };
 
-export const childVariants = {
+const createSlideVariants = (distance: number): Variants => ({
     offscreen: {
         opacity: 0,
-        x: -50,
+        x: distance,
     },
     onscreen: {
         opacity: 1,
@@ -44,10 +44,12 @@ export const childVariants = {
             duration: 1,
         }
     },
-};
+});
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, bullets } = benefit;
+    const textVariants = createSlideVariants(imageAtRight ? 50 : -50);
+    const imageVariants = createSlideVariants(imageAtRight ? -50 : 50);
 
     return (
         <section className="benefit-section">
@@ -65,7 +67,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     <div className="w-full  text-center lg:text-left ">
                         <motion.div
                             className="flex flex-col w-full"
-                            variants={childVariants}
+                            variants={textVariants}
                         >
                             <SectionTitle>
                                 <h3 className="lg:max-w-2xl">
@@ -80,16 +82,25 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
 
                         <div className="mx-auto lg:ml-0 w-full">
                             {bullets.map((item, index) => (
-                                <BenefitBullet key={index} title={item.title} icon={item.icon} description={item.description} />
+                                <BenefitBullet
+                                    key={index}
+                                    title={item.title}
+                                    icon={item.icon}
+                                    description={item.description}
+                                    variants={textVariants}
+                                />
                             ))}
                         </div>
                     </div>
                 </div>
 
                 <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
+                    <motion.div
+                        className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}
+                        variants={imageVariants}
+                    >
                         <Image src={imageSrc} alt="title" width="384" height="762" quality={100} className="lg:ml-0" />
-                    </div>
+                    </motion.div>
                 </div>
             </motion.div>
         </section>

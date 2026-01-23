@@ -1,84 +1,84 @@
 import {
-  FiBarChart2,
-  FiBriefcase,
-  FiDollarSign,
-  FiLock,
-  FiPieChart,
-  FiShield,
-  FiTarget,
+  FiAward,
+  FiBell,
+  FiCalendar,
+  FiCheckCircle,
+  FiClock,
+  FiCompass,
+  FiMap,
+  FiMapPin,
   FiTrendingUp,
-  FiUser,
 } from 'react-icons/fi';
 
 import { IBenefit } from '@/types';
 
 export const benefits: IBenefit[] = [
   {
-    title: 'Smart Budgeting',
+    title: 'Accurate Prayer Times',
     description:
-      'Take the guesswork out of managing your money. Our AI-powered budgeting tool adapts to your lifestyle and helps you stay on track.',
+      'Get daily prayer schedules tailored to your location, madhab, and calculation preferences.',
     bullets: [
       {
-        title: 'Intelligent Categorization',
-        description: 'Automatically sorts your transactions for crystal-clear insights.',
-        icon: <FiBarChart2 size={26} />,
+        title: 'Location-Based Updates',
+        description: 'Instantly refreshes when you travel or change time zones.',
+        icon: <FiMapPin size={26} />,
       },
       {
-        title: 'Customizable Goals',
-        description: 'Set and track financial objectives that matter to you.',
-        icon: <FiTarget size={26} />,
+        title: 'Smart Adhan Reminders',
+        description: 'Receive gentle notifications for every salah without distractions.',
+        icon: <FiBell size={26} />,
       },
       {
-        title: 'Predictive Analysis',
-        description: 'Get ahead of your finances with spending forecasts and alerts.',
-        icon: <FiTrendingUp size={26} />,
+        title: 'Prayer Window Alerts',
+        description: 'Know the best time to pray with sunrise and sunset markers.',
+        icon: <FiClock size={26} />,
       },
     ],
     imageSrc: '/images/mockup-1.webp',
   },
   {
-    title: 'Seamless Investing',
+    title: 'Track Your Worship',
     description:
-      'Start building wealth today, no financial degree required. Noor makes investing accessible and straightforward.',
+      'Log every prayer, build consistency, and celebrate your progress over time.',
     bullets: [
       {
-        title: 'Micro-Investing',
-        description: 'Begin with as little as $1 and watch your money grow.',
-        icon: <FiDollarSign size={26} />,
+        title: 'Prayer Logs',
+        description: 'Mark each salah as on time, late, or missed with one tap.',
+        icon: <FiCheckCircle size={26} />,
       },
       {
-        title: 'Expert Portfolios',
-        description: 'Choose from investment strategies tailored to your risk tolerance.',
-        icon: <FiBriefcase size={26} />,
+        title: 'Streaks & Badges',
+        description: 'Stay motivated with streaks, milestones, and gentle nudges.',
+        icon: <FiAward size={26} />,
       },
       {
-        title: 'Real-Time Performance',
-        description: 'Track your investments with easy-to-understand metrics and visuals.',
-        icon: <FiPieChart size={26} />,
+        title: 'Weekly Insights',
+        description: 'Review your consistency and discover patterns that help you improve.',
+        icon: <FiTrendingUp size={26} />,
       },
     ],
     imageSrc: '/images/mockup-2.webp',
   },
   {
-    title: 'Bank-Grade Security',
+    title: 'Qibla & Community Tools',
     description:
-      'Your financial data deserves the best protection. Rest easy knowing Noor employs cutting-edge security measures.',
+      'Find the Qibla quickly and connect with nearby masajid and Ramadan tools.',
     bullets: [
       {
-        title: 'Military-Grade Encryption',
-        description: 'Your information is safeguarded with the highest level of encryption.',
-        icon: <FiLock size={26} />,
+        title: 'Qibla Compass',
+        description: 'A reliable compass that points you toward Makkah anywhere.',
+        icon: <FiCompass size={26} />,
       },
       {
-        title: 'Biometric Authentication',
-        description: 'Access your account securely with fingerprint or facial recognition.',
-        icon: <FiUser size={26} />,
+        title: 'Nearby Mosques',
+        description: 'Discover local prayer spaces with distance and directions.',
+        icon: <FiMap size={26} />,
       },
       {
-        title: 'Real-Time Fraud Detection',
+        title: 'Ramadan Mode',
         description:
-          'Our system constantly monitors for suspicious activity to keep your money safe.',
-        icon: <FiShield size={26} />,
+          'Track fasting times, suhoor reminders, and nightly prayers with ease.',
+        icon: <FiCalendar size={26} />,
       },
     ],
     imageSrc: '/images/mockup-1.webp',

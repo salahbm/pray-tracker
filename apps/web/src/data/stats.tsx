@@ -5,18 +5,18 @@ import { IStats } from "@/types";
 
 export const stats: IStats[] = [
     {
-        title: "20M+",
+        title: "3M+",
         icon: <BsBarChartFill size={34} className="text-blue-500" />,
-        description: "Transactions processed securely every day, providing real-time insights."
+        description: "Prayers logged by the Noor community each month."
     },
     {
-        title: "5.0",
+        title: "4.9",
         icon: <BsFillStarFill size={34} className="text-yellow-500" />,
-        description: "Star rating, consistently maintained across app stores."
+        description: "Star rating across app stores for Noor Pray Tracker."
     },
     {
-        title: "200+ ",
+        title: "190+ ",
         icon: <PiGlobeFill size={34} className="text-green-600" />,
-        description: "Financial Institutions, seamlessly integrated, so you can manage all accounts."
+        description: "Countries supported with localized prayer times."
     }
 ];
