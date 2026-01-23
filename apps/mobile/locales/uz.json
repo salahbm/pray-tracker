@@ -443,6 +443,27 @@
       }
     }
   },
+  "stats": {
+    "title": "Statistika",
+    "premiumSectionTitle": "Premium tahlillar",
+    "monthlyBreakdown": "Oylik namoz taqsimoti",
+    "monthlyConsistency": "Oylik barqarorlik",
+    "yearlyOverview": "Yillik ko'rinish",
+    "monthlyComparison": "Oylar bo'yicha taqqoslash",
+    "yearlyPrayerPerformance": "Yillik namoz samaradorligi",
+    "completionQuality": "Bajarish sifati",
+    "completionQualityUnavailable": "Bajarish sifati bo'yicha taqsimot joriy ma'lumotlaringiz uchun mavjud emas.",
+    "days": "Kunlar",
+    "consistency": {
+      "full": "To'liq kunlar",
+      "partial": "Qisman kunlar",
+      "missed": "O'tkazib yuborilgan kunlar"
+    },
+    "premiumLocked": {
+      "title": "Premium grafiklar yopiq",
+      "description": "Kengaytirilgan yillik tahlillar va bajarish sifati trendlari uchun yangilang."
+    }
+  },
   "subscription": {
     "title": "Noor Premium",
     "subtitle": "Namoz doimiyligi, jamoaviy mas'uliyat va ruhiy o'sish uchun qudratli vositalar bilan e'tiqod safaringizni mustahkamlang.",
