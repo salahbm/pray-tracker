@@ -3,21 +3,21 @@ import { siteDetails } from './siteDetails';
 
 export const testimonials: ITestimonial[] = [
   {
-    name: 'John Smith',
-    role: 'CEO at Company',
-    message: `${siteDetails.siteName}'s AI-driven insights have transformed how we approach financial planning for our clients. It's an invaluable resource in the modern financial landscape.`,
+    name: 'Amina Hassan',
+    role: 'Community Organizer',
+    message: `${siteDetails.siteName} keeps our team aligned with prayer times during events. The reminders are gentle and reliable.`,
     avatar: '/images/testimonial-1.webp',
   },
   {
-    name: 'Jane Doe',
-    role: 'CTO at Startup',
-    message: `As a CTO, I'm impressed by ${siteDetails.siteName}'s robust security measures and seamless integrations. It's rare to find an app that balances user-friendliness with such advanced technology.`,
+    name: 'Yusuf Rahman',
+    role: 'University Student',
+    message: `Noor makes it easy to stay consistent. The streaks and weekly insights keep me motivated even during busy semesters.`,
     avatar: '/images/testimonial-2.webp',
   },
   {
-    name: 'Emily Johnson',
-    role: 'Product Manager',
-    message: `${siteDetails.siteName} is revolutionizing personal finance management. Its intuitive design and powerful features make it an indispensable tool for anyone serious about financial growth.`,
+    name: 'Fatima Noor',
+    role: 'Working Professional',
+    message: `I love the Qibla compass and travel updates. Noor always has the right time, wherever I am.`,
     avatar: '/images/testimonial-3.webp',
   },
 ];

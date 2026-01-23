@@ -3,27 +3,28 @@ import { siteDetails } from './siteDetails';
 
 export const faqs: IFAQ[] = [
   {
-    question: `Is ${siteDetails.siteName} secure?`,
+    question: `How accurate are ${siteDetails.siteName} prayer times?`,
     answer:
-      'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+      'Noor uses trusted calculation methods and updates automatically based on your location, madhab, and preferred settings.',
   },
   {
     question: `Can I use ${siteDetails.siteName} on multiple devices?`,
     answer:
-      'Absolutely! Your Noor account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+      'Yes. Your prayer logs and preferences sync across your phone, tablet, and web dashboard.',
   },
   {
-    question: 'Can I connect all my bank accounts?',
-    answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`,
-  },
-  {
-    question: 'Do I need any financial expertise to use the investing features?',
+    question: 'Does Noor work when I travel?',
     answer:
-      'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+      'Absolutely. Noor updates prayer times automatically and keeps your reminders aligned with your new location.',
+  },
+  {
+    question: 'Can I customize adhan and reminders?',
+    answer:
+      'Yes. Choose reminder styles, sounds, and timing so Noor fits your routine.',
   },
   {
     question: 'What if I need help using the app?',
     answer:
-      'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of Noor.',
+      'Our support team is ready via chat or email, and the in-app guide walks you through every feature.',
   },
 ];

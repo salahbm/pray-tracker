@@ -7,7 +7,7 @@ export const footerDetails: {
     telephone: string;
     socials: ISocials;
 } = {
-    subheading: "Empowering businesses with cutting-edge financial technology solutions.",
+    subheading: "Helping Muslims stay consistent with prayer through thoughtful reminders and tracking.",
     quickLinks: [
         {
             text: "Features",
@@ -22,8 +22,8 @@ export const footerDetails: {
             url: "#testimonials"
         }
     ],
-    email: 'address@yoursite.com',
-    telephone: '+1 (123) 456-7890',
+    email: 'support@noorpray.app',
+    telephone: '+1 (800) 555-0123',
     socials: {
         // github: 'https://github.com',
         // x: 'https://twitter.com/x',

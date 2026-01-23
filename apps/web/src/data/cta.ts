@@ -1,7 +1,7 @@
 export const ctaDetails = {
-  heading: 'Join Over 1 Million Users To Transform Your Finances',
+  heading: 'Join the Noor Pray Tracker Community',
   subheading:
-    'Your journey to financial freedom starts here. Download Noor today and take the first step towards a brighter financial future!',
+    'Build a consistent prayer routine with reminders, tracking, and daily insights. Download Noor and stay spiritually centered.',
   appStoreUrl: '#',
   googlePlayUrl: '#',
 };

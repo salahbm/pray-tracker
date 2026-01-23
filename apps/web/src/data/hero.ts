@@ -1,6 +1,6 @@
 export const heroDetails = {
-  heading: 'Smart, Secure, Simple Financial Management',
+  heading: 'Noor Pray Tracker for Every Salah',
   subheading:
-    'From effortless budgeting to real-time investment insights, Noor puts you in control of your money like never before',
+    'Stay mindful with accurate prayer times, meaningful reminders, and a simple way to log every prayer on your journey.',
   centerImageSrc: '/images/hero-mockup.webp',
 };
