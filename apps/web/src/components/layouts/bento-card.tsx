@@ -1,10 +1,9 @@
 "use client"
 
 import { cva, type VariantProps } from "class-variance-authority"
-import { HTMLMotionProps, motion } from "framer-motion"
+import { HTMLMotionProps } from "framer-motion"
+import { MotionDiv } from "@/lib/motion"
 import { cn } from "@/lib/utils"
-
-const MotionDiv = motion.create("div")
 
 const bentoCardVariants = cva(
   "relative overflow-hidden rounded-md lg:rounded-xl cursor-pointer transition-all duration-300 ease-in-out",

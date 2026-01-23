@@ -17,10 +17,8 @@ const getApiBaseUrl = (): string => {
     url = process.env.NEXT_PUBLIC_API_ENDPOINT
   } else {
     // Production default
-    url = "https://api.noor.app"
+    url = "https://www.noorapp.uz/api"
   }
-
-  console.warn(`🌐 [API Config] Using base URL: ${url}`)
 
   return url
 }
@@ -30,21 +28,28 @@ export const appConfig = {
   api: {
     baseURL: getApiBaseUrl(),
     timeout: Number(process.env.EXPO_PUBLIC_API_TIMEOUT) || 30000, // 30 seconds
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY: process.env.NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY,
   },
 
   // App Information
   app: {
     name: "Noor",
     version: "1.0.0",
-    email: "support@noor.app",
-    phone: ["+1 (555) 418-0912"],
-    address_ko: "",
-    address_en: "Remote-first team serving communities worldwide",
+    email: "hi@noor.co.kr",
+    phone: ["02-565-1847", "070-8882-5579"],
+    address_ko: "서울시 강남구 논현로 105길 11-3",
+    address_en: "11-3, Nonhyeon-ro 105-gil, Gangnam-gu, Seoul, Republic of Korea",
     company_profile: "/pdf/Noor-Profile.pdf",
     social: {
-      facebook: "https://www.facebook.com/noorapp",
-      instagram: "https://www.instagram.com/noorapp",
-      blog: "https://noor.app/blog",
+      facebook: "https://www.facebook.com/noor",
+      instagram: "https://www.instagram.com/noor",
+      blog: "https://blog.naver.com/noor",
     },
   },
 

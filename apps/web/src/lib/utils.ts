@@ -5,7 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const safeImage = (src: string) => {
+export const safeImage = (src: string | undefined | null) => {
+  if (!src) return ""
   return src.startsWith("http") ? src : `https://${src}`
 }
 

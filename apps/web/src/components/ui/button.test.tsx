@@ -19,7 +19,7 @@ describe("Button", () => {
   it("applies default variant classes", () => {
     render(<Button>Default</Button>)
     const btn = screen.getByRole("button")
-    expect(btn).toHaveClass("bg-primary")
+    expect(btn).toHaveClass("bg-primary-200")
     expect(btn).toHaveClass("rounded-full")
   })
 

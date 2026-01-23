@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 
-const MotionDiv = motion.create("div")
-
-export { MotionDiv }
+export const MotionDiv = motion.div
+export const MotionButton = motion.button
+export const MotionLink = motion.a
+export const MotionArticle = motion.article

@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import clsx from "clsx"
 import { AnimatePresence, motion } from "framer-motion"
 import React, { createContext, memo, useCallback, useContext, useState } from "react"
+import { MotionDiv } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 import { ChevronTopIcon } from "../icons"
 
@@ -129,7 +130,7 @@ export const AccordionContent = memo(function AccordionContent({ value, children
   return (
     <AnimatePresence initial={false}>
       {open && (
-        <motion.div
+        <MotionDiv
           layout
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
@@ -138,7 +139,7 @@ export const AccordionContent = memo(function AccordionContent({ value, children
           className={clsx("overflow-hidden", className)}
         >
           {children}
-        </motion.div>
+        </MotionDiv>
       )}
     </AnimatePresence>
   )

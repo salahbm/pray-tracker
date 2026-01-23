@@ -3,9 +3,10 @@ import type { MetadataRoute } from "next"
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: "*", // Applies to all crawlers
-      allow: "/", // Allow indexing of the whole site
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/admin/"],
     },
-    sitemap: "https://noor.app/sitemap.xml",
+    sitemap: "https://noorapp.uz/sitemap.xml",
   }
 }

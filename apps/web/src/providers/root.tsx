@@ -1,12 +1,20 @@
+import { NextIntlClientProvider } from "next-intl"
+import { FC, PropsWithChildren } from "react"
+import CursorFollow from "@/components/shared/cursor"
+import { Toaster } from "@/components/ui/sonner"
 import { TailwindIndicator } from "./breakpoint-indicator"
 import { QueryProvider } from "./query"
+import { ZodLocaleProvider } from "./zod-provider"
 
-const RootProvider = ({ children }: { children: React.ReactNode }) => {
+const RootProvider: FC<PropsWithChildren & { locale: string }> = ({ children, locale }) => {
   return (
-    <QueryProvider>
-      {children}
+    <NextIntlClientProvider locale={locale}>
+      <QueryProvider>{children}</QueryProvider>
+      <Toaster />
+      <CursorFollow />
       <TailwindIndicator />
-    </QueryProvider>
+      <ZodLocaleProvider locale={locale} />
+    </NextIntlClientProvider>
   )
 }
 

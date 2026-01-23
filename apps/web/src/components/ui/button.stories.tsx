@@ -65,18 +65,6 @@ export const Send: Story = {
   ),
 }
 
-/* Chip */
-export const Chip: Story = {
-  args: { variant: "chip", selected: false },
-  render: ({ selected, ...args }) => (
-    <div className="flex items-center gap-4">
-      <Button {...args} data-selected={selected ? "true" : undefined}>
-        Dynamic Chip
-      </Button>
-    </div>
-  ),
-}
-
 /* File */
 export const File: Story = {
   args: { variant: "file", children: "파일 첨부" },

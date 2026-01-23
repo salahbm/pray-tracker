@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadows.css";
+@import "fonts.css";
+@import "circle.css";
+@import "work.css";
 
 /*
   ---break---
@@ -34,36 +38,33 @@
   --radius-xl: calc(var(--radius) + 16px); /* 24px */
 
   /* Colors */
-  --color-background:var(--background);
-  --color-foreground:var(--foreground);
+  --color-white: var(--white);
+  --color-black: var(--black);
+
+  /* Grays */
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
 
   /* Primary */
-  --color-primary: var(--primary);
-  --color-primary-forground: var(--primary-forground);
-
-  /* Secondary */
-  --color-secondary: var(--secondary);
-  --color-secondary-forground: var(--secondary-forground);
-
-  /* Muted */
-  --color-muted: var(--muted);
-  --color-muted-forground: var(--muted-forground);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
 
   /* Accent */
-  --color-accent: var(--accent);
-  --color-accent-forground: var(--accent-forground);
-  --color-warning: var(--warning);
-  --color-destructive: var(--destructive);
-  --color-success: var(--success);
-  --color-neutral: var(--neutral);
-  --color-info: var(--info);
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
 
+  /* Red */
+  --color-red-500: var(--red-500);
 
   /* Fonts */
-  --font-popins-bold: var(--popins-bold);
-  --font-popins-medium: var(--popins-medium);
-  --font-popins-regular: var(--popins-regular);
-  --font-popins-semibold: var(--popins-semibold);
+  --font-outfit: var(--outfit);
+  --font-pretendard: var(--pretendard);
 
   /* Breakpoint */
   --breakpoint-xs: 360px;
@@ -75,6 +76,7 @@
 
   /* Z-index */
   --z-index-header: 30;
+  --z-index-channel-talk: 99998;
   --z-index-cursor: 99999;
   --z-index-transition: 99999999999;
 
@@ -84,6 +86,7 @@
   /* Spacing */
   --spacing-13: 52px;
   --spacing-15: 60px;
+  --spacing-17: 68px;
   --spacing-18: 72px;
   --spacing-25: 100px;
   --spacing-95: 380px;
@@ -120,29 +123,27 @@
   --radius: 8px;
 
   /* Colors */
-  --background: oklch(98.6% 0.01 220);
-  --foreground: oklch(18% 0.02 250);
+  --white: oklch(1 0 0);
+  --black: oklch(0 0 0);
+
+  /* Grays */
+  --gray-100: oklch(0.9854 0.0013 286.38);
+  --gray-200: oklch(0.9637 0.0017 247.84);
+  --gray-300: oklch(0.9153 0.0088 264.52);
+  --gray-400: oklch(0.881 0.0135 262.38);
+  --gray-500: oklch(0.8314 0.0167 262.74);
+  --gray-600: oklch(0.7025 0.0229 268.34);
 
   /* Primary */
-  --primary: oklch(62% 0.16 196);
-  --primary-forground: oklch(98% 0.01 220);
-
-  /* Secondary */
-  --secondary: oklch(70% 0.13 285);
-  --secondary-forground: oklch(17% 0.02 250);
-
-  /* Muted */
-  --muted: oklch(92% 0.01 240);
-  --muted-forground: oklch(40% 0.02 250);
+  --primary-100: oklch(0.5579 0.244215 261.2038);
+  --primary-200: oklch(0.5579 0.244215 261.2038 / 0.8);
+  --primary-300: oklch(0.6771 0.1736 254.72);
+  --primary-400: oklch(0.8335 0.0799 259.62);
 
   /* Accent */
-  --accent: oklch(86% 0.12 120);
-  --accent-forground: oklch(16% 0.02 250);
-  --warning: oklch(0.88 0.15 85);
-  --destructive: oklch(0.62 0.22 25);
-  --success: oklch(74% 0.18 145);
-  --neutral: oklch(80% 0.02 240);
-  --info: oklch(73% 0.14 215);
+  --yellow-100: oklch(0.8848 0.1816 94.9);
+  --yellow-200: oklch(0.8848 0.1816 94.9 / 0.8);
+  --red-500: oklch(0.6291 0.2252 24.17);
 }
 
 /*
@@ -153,22 +154,21 @@
     @apply border-border outline-ring/50;
   } */
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-white text-black antialiased;
   }
 
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-    background-color: var(--neutral);
+    background-color: var(--gray-200);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--warning);
+    background: var(--yellow-100);
     width: 10px;
     height: 10px;
   }
-
   /*
    * Flex utils
    */

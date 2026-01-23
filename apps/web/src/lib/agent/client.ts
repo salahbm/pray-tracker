@@ -2,11 +2,31 @@
 import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from "axios"
 
 import { appConfig } from "@/config/app.config"
+import { COOKIE_KEYS } from "@/constants/cookies"
+import { defaultLocale } from "@/i18n/config"
 import { ApiError, ApiPaginatedApiResponse } from "./types"
 
 export interface AgentConfig {
   token?: string
-  language?: string
+}
+
+/**
+ * Get current locale from cookies
+ */
+function getCurrentLocale(): string {
+  if (typeof window === "undefined") {
+    return defaultLocale
+  }
+
+  const cookies = document.cookie.split("; ")
+  const localeCookie = cookies.find((cookie) => cookie.startsWith(`${COOKIE_KEYS.LANGUAGE}=`))
+
+  if (localeCookie) {
+    const locale = localeCookie.split("=")[1]
+    return locale || defaultLocale
+  }
+
+  return defaultLocale
 }
 
 /**
@@ -14,33 +34,9 @@ export interface AgentConfig {
  */
 export class Agent {
   private client: AxiosInstance
-  private language: string
 
   constructor(config?: AgentConfig) {
-    this.language = config?.language ?? "kr"
     this.client = this.createClient(config)
-  }
-
-  /**
-   * Set the language for all subsequent requests
-   */
-  setLanguage(language: string): void {
-    this.language = language
-  }
-
-  /**
-   * Get current language
-   */
-  getLanguage(): string {
-    return this.language
-  }
-
-  /**
-   * Add language parameter to URL
-   */
-  private addLangToUrl(url: string): string {
-    const separator = url.includes("?") ? "&" : "?"
-    return `${url}${separator}lang=${this.language}`
   }
 
   /**
@@ -56,13 +52,15 @@ export class Agent {
     })
 
     // Request interceptor
-    client.interceptors.request.use((requestConfig) => {
+    client.interceptors.request.use(async (requestConfig) => {
       if (config?.token) {
         requestConfig.headers.Authorization = config.token
       }
 
-      // Add language to headers
-      requestConfig.headers["Accept-Language"] = this.language
+      // Add language to headers - dynamically get current locale
+      const currentLocale = getCurrentLocale()
+      requestConfig.headers["Accept-Language"] = currentLocale
+      requestConfig.headers["locale"] = currentLocale
 
       return requestConfig
     })
@@ -111,8 +109,7 @@ export class Agent {
    * GET request
    */
   async get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.get<T>(urlWithLang, config)
+    const response = await this.client.get<T>(url, config)
     return response.data
   }
 
@@ -120,8 +117,7 @@ export class Agent {
    * GET request with pagination
    */
   async getPaginated<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<ApiPaginatedApiResponse<T>> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.get<ApiPaginatedApiResponse<T>>(urlWithLang, config)
+    const response = await this.client.get<ApiPaginatedApiResponse<T>>(url, config)
     return response.data
   }
 
@@ -129,8 +125,7 @@ export class Agent {
    * POST request
    */
   async post<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.post<T>(urlWithLang, data, config)
+    const response = await this.client.post<T>(url, data, config)
     return response.data
   }
 
@@ -138,8 +133,7 @@ export class Agent {
    * PUT request
    */
   async put<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.put<T>(urlWithLang, data, config)
+    const response = await this.client.put<T>(url, data, config)
     return response.data
   }
 
@@ -147,8 +141,7 @@ export class Agent {
    * PATCH request
    */
   async patch<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.patch<T>(urlWithLang, data, config)
+    const response = await this.client.patch<T>(url, data, config)
     return response.data
   }
 
@@ -156,8 +149,7 @@ export class Agent {
    * DELETE request
    */
   async delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const urlWithLang = this.addLangToUrl(url)
-    const response = await this.client.delete<T>(urlWithLang, config)
+    const response = await this.client.delete<T>(url, config)
     return response.data
   }
 }

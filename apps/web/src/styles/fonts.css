@@ -1,0 +1,171 @@
+.typo-header {
+  font-family: var(--outfit);
+  font-weight: 500;
+  font-size: 80px;
+  line-height: 104px;
+  letter-spacing: 1.6px;
+}
+
+.typo-title-1 {
+  font-family: var(--outfit);
+  font-weight: 500;
+  font-size: 54px;
+  line-height: 72px;
+  letter-spacing: 1.08px;
+}
+
+:lang(ko) .typo-title-1 {
+  font-family: var(--pretendard);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.typo-title-2 {
+  font-family: var(--outfit);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.64px;
+}
+
+.text-title-3 {
+  font-family: var(--pretendard);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0.56px;
+}
+
+.typo-subtitle {
+  font-family: var(--pretendard);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.48px;
+}
+
+.typo-body-1 {
+  font-family: var(--pretendard);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+.typo-body-2 {
+  font-family: var(--pretendard);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+.typo-caption {
+  font-family: var(--pretendard);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.26px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .typo-header {
+    font-size: 54px;
+    line-height: 68px;
+    letter-spacing: 1.08px;
+  }
+
+  .typo-title-1 {
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: 0.8px;
+  }
+
+  :lang(ko) .typo-title-1 {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  .typo-title-2 {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: 0.56px;
+  }
+
+  .text-title-3 {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+  }
+
+  .typo-subtitle {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0.4px;
+  }
+
+  .typo-body-1,
+  .typo-body-2 {
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .typo-caption {
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .typo-header {
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: 0.8px;
+  }
+
+  .typo-title-1 {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.64px;
+  }
+
+  :lang(ko) .typo-title-1 {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .typo-title-2 {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+  }
+
+  .text-title-3 {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.36px;
+  }
+
+  .typo-subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.32px;
+  }
+
+  .typo-body-1,
+  .typo-body-2 {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.28px;
+  }
+
+  .typo-caption {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.22px;
+  }
+}
