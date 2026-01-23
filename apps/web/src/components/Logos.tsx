@@ -26,7 +26,7 @@ const Logos: React.FC = () => {
 
           {/* App Rating */}
           <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">4.9★</div>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">4.9</div>
             <p className="text-sm md:text-base text-muted-foreground">App Rating</p>
           </div>
         </div>

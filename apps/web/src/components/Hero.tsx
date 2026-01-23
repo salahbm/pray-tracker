@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
 
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)] backdrop-blur-[2px]" />
 
-      <div className="text-center">
+      <div className="text-center mt-10">
         <h1 className="mx-auto max-w-lg text-4xl font-bold text-foreground md:max-w-2xl md:text-6xl md:leading-tight">
           {heroDetails.heading}
         </h1>
@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
           priority
           unoptimized
           alt="app mockup"
-          className="relative z-10 mx-auto"
+          className="relative z-10 mx-auto mt-12"
         />
       </div>
     </section>

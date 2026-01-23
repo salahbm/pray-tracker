@@ -12,7 +12,7 @@ export const footerDetails: {
   quickLinks: [
     {
       text: 'Features',
-      url: '#features',
+      url: '/#features',
     },
     {
       text: 'Privacy Policy',
@@ -23,15 +23,15 @@ export const footerDetails: {
       url: '/terms',
     },
   ],
-  email: 'support@noorpray.app',
-  telephone: '+1 (800) 555-0123',
+  email: 'help@noorapp.uz',
+  telephone: '',
   socials: {
     // github: 'https://github.com',
     // x: 'https://twitter.com/x',
-    twitter: 'https://twitter.com/Twitter',
-    facebook: 'https://facebook.com',
+    twitter: 'https://twitter.com/noorapp',
+    facebook: 'https://facebook.com/noorapp',
     // youtube: 'https://youtube.com',
-    linkedin: 'https://www.linkedin.com/',
+    linkedin: 'https://www.linkedin.com/company/noorapp',
     // threads: 'https://www.threads.net',
     instagram: 'https://www.instagram.com/noor__app',
   },

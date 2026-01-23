@@ -13,7 +13,7 @@ export const tiers: IPricing[] = [
   },
   {
     name: 'Premium Monthly',
-    price: 2.99,
+    price: 3.99,
     features: [
       'Advanced streak tracking',
       'Custom adhan sounds',
@@ -24,7 +24,7 @@ export const tiers: IPricing[] = [
   },
   {
     name: 'Premium Yearly',
-    price: 24.99,
+    price: 39.99,
     features: [
       'Everything in Premium Monthly',
       'Yearly savings bundle',
