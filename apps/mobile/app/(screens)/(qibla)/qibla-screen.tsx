@@ -15,18 +15,10 @@ import { useQibla } from '@/hooks/prays/useQibla';
 import { X, Info, Palette } from '@/components/shared/icons';
 import { useMosqueBgStore } from '@/store/use-mosque-bg-store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MOSQUE_LIST } from '@/constants/images';
 
 const { width } = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.75;
-
-const MOSQUE_LIST = [
-  require('@/assets/mosque/mosque-1.jpg'),
-  require('@/assets/mosque/mosque-2.jpg'),
-  require('@/assets/mosque/mosque-3.jpg'),
-  require('@/assets/mosque/mosque-4.jpg'),
-  require('@/assets/mosque/mosque-5.jpg'),
-  require('@/assets/mosque/mosque-6.jpg'),
-];
 
 const norm360 = (deg: number) => ((deg % 360) + 360) % 360;
 const signedDelta = (a: number, b: number) => {
@@ -73,7 +65,7 @@ const QiblaScreen: React.FC = () => {
       });
     })();
     return () => headingSubRef.current?.remove();
-  }, [isFocused, qiblaAngle]);
+  }, [isFocused, qiblaAngle, heading]);
 
   const delta = useMemo(() => norm360(qiblaAngle - heading), [heading, qiblaAngle]);
   const ringRotationVisual = useMemo(() => toVisual(delta), [delta]);

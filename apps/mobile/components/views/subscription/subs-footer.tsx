@@ -29,7 +29,7 @@ const SubFooter: React.FC<SubFooterProps> = ({ handleRestore, purchasing }) => {
         className="mb-6 flex-row justify-center items-center gap-2 mt-2"
       >
         <TouchableOpacity
-          onPress={() => Linking.openURL('https://pray-tracker.vercel.app/privacy')}
+          onPress={() => Linking.openURL('https://noorapp.uz/privacy')}
           activeOpacity={0.7}
         >
           <Text className="text-muted-foreground text-xs font-semibold">

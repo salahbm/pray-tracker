@@ -86,10 +86,6 @@ const PrayerNotifierSheet: React.FC = () => {
     transform: [{ scale: withTiming(opacity.value ? 1 : 0.9) }],
   }));
 
-  const saveButtonStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
   return (
     <DetachedSheet ref={ref} snapPoints={['55%']}>
       <Animated.View style={fadeInStyle} className="gap-5 pb-8 pt-8 relative">
@@ -141,23 +137,15 @@ const PrayerNotifierSheet: React.FC = () => {
           {t('qibla.prayerTimes.notifier.minutesBefore', { minutes })}
         </Text>
 
-        <View className="flex-row gap-3 mt-6">
-          <Animated.View entering={FadeInDown.delay(200)} className="flex-1">
-            <Button variant="outline" onPress={close} className="flex-1">
-              <Text>{t('common.actions.cancel')}</Text>
-            </Button>
-          </Animated.View>
+        <Animated.View entering={FadeInDown.delay(200)} className="flex-row gap-3 mt-6 flex-1">
+          <Button variant="outline" onPress={close} className="flex-1">
+            <Text>{t('common.actions.cancel')}</Text>
+          </Button>
 
-          <Animated.View
-            entering={FadeInDown.delay(250)}
-            style={saveButtonStyle}
-            className="flex-1"
-          >
-            <Button variant="default" onPress={handleSave} className="flex-1">
-              <Text>{t('common.actions.save')}</Text>
-            </Button>
-          </Animated.View>
-        </View>
+          <Button variant="default" onPress={handleSave} className="flex-1">
+            <Text>{t('common.actions.save')}</Text>
+          </Button>
+        </Animated.View>
       </Animated.View>
     </DetachedSheet>
   );

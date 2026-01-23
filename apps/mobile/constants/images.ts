@@ -21,7 +21,14 @@ import empty from '@assets/gif/empty.json';
 import cat_playing from '@assets/gif/cat_playing.json';
 import location from '@assets/gif/location.json';
 import confetti from '@assets/gif/confetti.json';
-import uzbek_masjid from '@assets/images/uzbek-masjid.jpg';
+
+import mosque_1 from '@/assets/mosque/mosque-1.jpg';
+import mosque_2 from '@/assets/mosque/mosque-2.jpg';
+import mosque_3 from '@/assets/mosque/mosque-3.jpg';
+import mosque_4 from '@/assets/mosque/mosque-4.jpg';
+import mosque_5 from '@/assets/mosque/mosque-5.jpg';
+import mosque_6 from '@/assets/mosque/mosque-6.jpg';
+import mosque_7 from '@/assets/mosque/mosque-7.jpg';
 
 export const gifs = {
   man_looking_through,
@@ -48,8 +55,9 @@ export const IMAGES = {
   compass,
   icon_light,
   icon_dark,
-  uzbek_masjid,
 };
+
+export const MOSQUE_LIST = [mosque_1, mosque_2, mosque_3, mosque_4, mosque_5, mosque_6, mosque_7];
 
 export const FRIENDS = {
   guest,

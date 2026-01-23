@@ -26,7 +26,7 @@ export async function sendPasswordResetEmail(
 
     // Use web app redirect page for better email client compatibility
     // The page will automatically redirect to the mobile app deep link
-    const webRedirectUrl = `https://pray-tracker.vercel.app/reset?token=${resetToken}`;
+    const webRedirectUrl = `https://noorapp.uz/reset?token=${resetToken}`;
 
     const templatePath = path.join(
       process.cwd(),
@@ -41,7 +41,7 @@ export async function sendPasswordResetEmail(
     });
 
     await resend.emails.send({
-      from: 'Noor App <no-reply@noor.salahm.uz>',
+      from: 'Noor App <no-reply@noorapp.uz>',
       to: email,
       subject: getLocalizedMessage('EMAIL_PASSWORD_RESET_TITLE', locale),
       html,
