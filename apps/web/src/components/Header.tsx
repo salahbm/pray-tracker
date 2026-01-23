@@ -9,6 +9,7 @@ import { FaFingerprint } from 'react-icons/fa';
 import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +24,14 @@ const Header: React.FC = () => {
         <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <FaFingerprint className="text-foreground min-w-fit w-7 h-7" />
-            <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
+            <Image
+              src="/images/noor-logo.png"
+              alt="Logo"
+              width={100}
+              height={100}
+              className="text-foreground min-w-fit w-11 h-11 rounded-xl"
+            />
+            <span className="manrope text-xl font-bold text-foreground cursor-pointer">
               {siteDetails.siteName}
             </span>
           </Link>
