@@ -11,7 +11,7 @@ import CTA from '@/components/CTA';
 
 const HomePage: React.FC = () => {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Hero />
       <Logos />
       <Container>
@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
 
         <CTA />
       </Container>
-    </>
+    </div>
   );
 };
 
