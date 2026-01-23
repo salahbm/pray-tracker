@@ -1,39 +1,10 @@
-import { useRouter } from 'expo-router';
-import LottieView from 'lottie-react-native';
-import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  Linking,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as Localization from 'expo-localization';
+import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
-import { gifs } from '@/constants/images';
-import PREMIUM_FEATURES from '@/constants/premium-features';
-import {
-  usePurchasePackage,
-  useRevenueCatCustomer,
-  useRevenueCatOfferings,
-} from '@/hooks/subscriptions/useRevenueCat';
-import { PRODUCT_IDS } from '@/lib/revenuecat';
 import { cn } from '@/lib/utils';
-import { fireToast } from '@/providers/toaster';
-import { useAuthStore } from '@/store/auth/auth-session';
-import { useAuthBottomSheetStore, usePaywallBottomSheetStore } from '@/store/bottom-sheets';
-import { useAppRatingStore } from '@/store/defaults/app-rating';
-import { ChevronLeft, ChevronRight, Sparkles as SparklesIcon } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
-import { Sparkles } from '@/components/shared/sparks';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { BorderBeam } from '@/components/shared/vfx';
 
 type SubProductCardProps = {
