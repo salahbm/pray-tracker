@@ -227,7 +227,8 @@
   },
   "home": {
     "charts": {
-      "title": "İbadet İlerlemesi (Aylık)"
+      "title": "İlerlemesi",
+      "all": "Tümü"
     },
     "errors": {
       "futureDate": "Gelecekteki bir tarih seçemezsiniz"

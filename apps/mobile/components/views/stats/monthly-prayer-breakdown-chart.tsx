@@ -1,7 +1,6 @@
-import { format } from 'date-fns';
 import React, { useMemo } from 'react';
 import { Dimensions } from 'react-native';
-import { BarChart, type stackDataItem } from 'react-native-gifted-charts';
+import { BarChart } from 'react-native-gifted-charts';
 import { useTranslation } from 'react-i18next';
 
 import { Text } from '@/components/ui/text';
@@ -11,12 +10,11 @@ import { IPrays } from '@/types/prays';
 import { getMonthlyPrayerTotals, PRAYER_FIELDS } from '@/utils/stats';
 
 const CHART_HEIGHT = 220;
-const CHART_WIDTH_FACTOR = 0.85;
-const STACK_BAR_WIDTH = 50;
-const STACK_BAR_SPACING = 24;
-const MAX_VALUE_FALLBACK = 1;
+const BAR_WIDTH = 28;
+const BAR_SPACING = 20;
 const AXIS_FONT_SIZE = 12;
 const SECTION_COUNT = 4;
+const CHART_WIDTH_FACTOR = 0.9;
 
 const MonthlyPrayerBreakdownChart = ({ lineData }: { lineData?: IPrays[] }) => {
   const { t } = useTranslation();
@@ -34,56 +32,44 @@ const MonthlyPrayerBreakdownChart = ({ lineData }: { lineData?: IPrays[] }) => {
     [colors]
   );
 
-  const stackData = useMemo((): stackDataItem[] => {
+  const barData = useMemo(() => {
     const totals = getMonthlyPrayerTotals(lineData ?? []);
-    const monthLabel = format(new Date(), 'MMM');
 
-    return [
-      {
-        label: monthLabel,
-        stacks: PRAYER_FIELDS.map(field => ({
-          value: totals[field],
-          color: prayerColors[field],
-        })),
-      },
-    ];
-  }, [lineData, prayerColors]);
-
-  const totalValue = useMemo(
-    () =>
-      stackData.reduce(
-        (sum, item) => sum + item.stacks.reduce((stackSum, stack) => stackSum + stack.value, 0),
-        0
-      ),
-    [stackData]
-  );
+    return PRAYER_FIELDS.map(field => ({
+      value: totals[field] ?? 0,
+      label: t(`common.salahs.${field}`),
+      frontColor: prayerColors[field],
+    }));
+  }, [lineData, prayerColors, t]);
 
   const chartWidth = Dimensions.get('window').width * CHART_WIDTH_FACTOR;
-  const maxValue = Math.max(totalValue, MAX_VALUE_FALLBACK);
 
   return (
-    <React.Fragment>
-      <Text className={cn('text-xl font-semibold mt-10 mb-4')}>
-        {t('stats.monthlyBreakdown')}
-      </Text>
+    <>
+      <Text className={cn('text-xl font-semibold mt-10 mb-4')}>{t('stats.monthlyBreakdown')}</Text>
+
       <BarChart
-        stackData={stackData}
+        data={barData}
         height={CHART_HEIGHT}
-        barWidth={STACK_BAR_WIDTH}
-        spacing={STACK_BAR_SPACING}
-        initialSpacing={0}
-        maxValue={maxValue}
-        yAxisTextStyle={{ color: colors['--muted-foreground'], fontSize: AXIS_FONT_SIZE }}
+        barWidth={BAR_WIDTH}
+        spacing={BAR_SPACING}
+        width={chartWidth}
+        yAxisTextStyle={{
+          color: colors['--muted-foreground'],
+          fontSize: AXIS_FONT_SIZE,
+        }}
+        xAxisLabelTextStyle={{
+          color: colors['--muted-foreground'],
+          fontSize: AXIS_FONT_SIZE,
+        }}
         yAxisColor={colors['--border']}
         xAxisColor={colors['--border']}
-        xAxisLabelTextStyle={{ color: colors['--muted-foreground'], fontSize: AXIS_FONT_SIZE }}
         noOfSections={SECTION_COUNT}
-        adjustToWidth
-        parentWidth={chartWidth}
-        width={chartWidth}
         hideRules
+        showGradient
+        isAnimated
       />
-    </React.Fragment>
+    </>
   );
 };
 

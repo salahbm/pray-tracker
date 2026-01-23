@@ -294,16 +294,14 @@ export default function HomeScreen() {
         </MotiView>
 
         {/* CHARTS */}
-        {year === new Date().getFullYear() && user && (
-          <MotiView
-            key="area-chart-animation"
-            from={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
-          >
-            <AreaChart lineData={prays} />
-          </MotiView>
-        )}
+        <MotiView
+          key="area-chart-animation"
+          from={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
+        >
+          <AreaChart lineData={prays} year={year} user={!!user} />
+        </MotiView>
 
         {/* LOTTIE CONFETTI */}
         <LottieView

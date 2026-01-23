@@ -231,7 +231,8 @@
   },
   "home": {
     "charts": {
-      "title": "Ibadah Progress(Monthly)"
+      "title": "Progress",
+      "all": "View all"
     },
     "prayerHistory": {
       "close": "Close",

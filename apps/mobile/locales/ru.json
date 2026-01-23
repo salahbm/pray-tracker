@@ -222,7 +222,7 @@
   },
 
   "home": {
-    "charts": { "title": "Прогресс ибадата (за месяц)" },
+    "charts": { "title": "Прогресс", "all": "Все" },
     "prayerHistory": {
       "close": "Закрыть",
       "date": "Дата",

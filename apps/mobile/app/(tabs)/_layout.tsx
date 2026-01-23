@@ -1,7 +1,7 @@
 import { TabList, Tabs, TabSlot, TabTrigger } from 'expo-router/ui';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BarChart3, Calendar, Clock4, Home, Users } from '@components/shared/icons';
+import { Calendar, Clock4, Home, Users } from '@components/shared/icons';
 
 import { cn } from '@/lib/utils';
 import { TabButton } from '@/components/shared/tab-button';
@@ -26,9 +26,6 @@ export default function TabLayout() {
         </TabTrigger>
         <TabTrigger name="prayer-times" href="/(tabs)/prayer-times" asChild>
           <TabButton icon={Clock4}></TabButton>
-        </TabTrigger>
-        <TabTrigger name="stats" href="/(tabs)/stats" asChild>
-          <TabButton icon={BarChart3}></TabButton>
         </TabTrigger>
         <TabTrigger name="friends" href="/(tabs)/friends" asChild>
           <TabButton icon={Users}></TabButton>

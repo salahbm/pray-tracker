@@ -75,7 +75,7 @@ const GoBack: React.FC<GoBackHeaderProps> = props => {
         >
           <TouchableOpacity
             onPress={onRightPress}
-            className="w-10 h-10 justify-center items-center active:opacity-70"
+            className="justify-center items-center active:opacity-70"
             accessibilityLabel="Right action"
             accessibilityRole="button"
           >

@@ -6,8 +6,8 @@ import agent from '@/lib/agent';
 import { IPrays } from '@/types/prays';
 
 type TPraysParams = {
-  id: string;
-  year: number;
+  id?: string;
+  year?: number;
 };
 
 export type TransformedPrays = Record<string, DayData>;
@@ -20,7 +20,7 @@ const getPraysList = async (params: TPraysParams): Promise<IPrays[]> => {
   return data;
 };
 
-export const useGetPrays = (id: string, year: number) => {
+export const useGetPrays = (id?: string, year?: number) => {
   const queryKey = [...QueryKeys.prays.list, { id, year }];
   return useQuery({
     queryKey,
