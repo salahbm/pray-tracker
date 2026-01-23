@@ -30,7 +30,9 @@ interface AlAdhanCalendarEntry {
   };
 }
 
-const fetchRamadanCalendar = async (params: RamadanCalendarParams): Promise<RamadanCalendarDay[]> => {
+const fetchRamadanCalendar = async (
+  params: RamadanCalendarParams
+): Promise<RamadanCalendarDay[]> => {
   const { city, country, month, year } = params;
   if (!city || !country || !month || !year) return [];
 

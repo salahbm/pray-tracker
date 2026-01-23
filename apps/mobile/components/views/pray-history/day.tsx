@@ -3,12 +3,8 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
 
-import { defaultColorMap } from '@/components/shared/heat-map/constant';
-import { getOpacityByNumber } from '@/components/shared/heat-map/helpers';
 import { Text } from '@/components/ui/text';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
-import { PressableBounce } from '@/components/shared/pressable-bounce';
-import { useThemeStore } from '@/store/defaults/theme';
 import { cn } from '@/lib/utils';
 import { triggerHaptic } from '@/utils';
 

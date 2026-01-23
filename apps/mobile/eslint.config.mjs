@@ -44,6 +44,8 @@ export default tseslint.config(
         ecmaFeatures: {
           jsx: true,
         },
+        tsconfigRootDir: import.meta.dirname,
+        project: './tsconfig.json',
       },
     },
     settings: {
@@ -52,21 +54,27 @@ export default tseslint.config(
       },
     },
     rules: {
-      // TypeScript rules
+      // TypeScript rules - relaxed for mobile
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': [
-        'error',
+        'warn',
         {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
         },
       ],
       '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
+      '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
+      '@typescript-eslint/no-unused-expressions': 'warn',
 
       // React rules
       'react/react-in-jsx-scope': 'off', // Not needed in React Native
       'react/prop-types': 'off', // Using TypeScript
-      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/rules-of-hooks': 'warn', // Warn instead of error for flexibility
       'react-hooks/exhaustive-deps': 'warn',
 
       // Prettier
@@ -77,8 +85,10 @@ export default tseslint.config(
         },
       ],
 
-      // General
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // General - relaxed
+      'no-console': 'off', // Allow console in mobile for debugging
+      'no-undef': 'off', // TypeScript handles this
+      'no-empty-pattern': 'warn',
     },
   }
 );

@@ -19,8 +19,7 @@ export const faqs: IFAQ[] = [
   },
   {
     question: 'Can I customize adhan and reminders?',
-    answer:
-      'Yes. Choose reminder styles, sounds, and timing so Noor fits your routine.',
+    answer: 'Yes. Choose reminder styles, sounds, and timing so Noor fits your routine.',
   },
   {
     question: 'What if I need help using the app?',

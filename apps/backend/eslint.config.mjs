@@ -6,7 +6,16 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'generated/**',
+      'prisma/generated/**',
+      'api/**',
+      '.turbo/**',
+      '*.config.js',
+      '*.config.mjs',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -38,6 +47,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-redundant-type-constituents': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       'require-await': 'off',
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',

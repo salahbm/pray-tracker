@@ -1,11 +1,8 @@
 import { PropsWithChildren, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { router } from 'expo-router';
 
 import { useError } from '@/hooks/common/useError';
 import { fireToast } from '@/providers/toaster';
-import { useAuthStore } from '@/store/auth/auth-session';
 import { ApiError } from '@/lib/agent'; // ✅ import ApiError
 import { IErrorResponse, IResponse } from '@/types/api';
 

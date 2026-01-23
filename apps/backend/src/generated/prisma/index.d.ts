@@ -624,7 +624,7 @@ export namespace Prisma {
         ? False
         : T extends Uint8Array
           ? False
-          : T extends BigInt
+          : T extends bigint
             ? False
             : T extends object
               ? True
@@ -3257,14 +3257,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -3272,10 +3266,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -3283,7 +3274,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -4888,14 +4879,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -4903,10 +4888,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -4914,7 +4896,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -6299,14 +6281,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -6314,10 +6290,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -6325,7 +6298,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -7592,14 +7565,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -7607,10 +7574,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -7618,7 +7582,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -8985,14 +8949,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -9000,10 +8958,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -9011,7 +8966,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -10297,14 +10252,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -10312,10 +10261,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -10323,7 +10269,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -11620,14 +11566,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -11635,10 +11575,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -11646,7 +11583,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -12978,14 +12915,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -12993,10 +12924,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -13004,7 +12932,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -14332,14 +14260,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -14347,10 +14269,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -14358,7 +14277,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -15672,14 +15591,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -15687,10 +15600,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -15698,7 +15608,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -17062,14 +16972,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -17077,10 +16981,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -17088,7 +16989,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**
@@ -18533,14 +18434,8 @@ export namespace Prisma {
      * @returns A Promise for the completion of which ever callback is executed.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?:
-        | ((value: T) => TResult1 | PromiseLike<TResult1>)
-        | undefined
-        | null,
-      onrejected?:
-        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-        | undefined
-        | null,
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
     ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -18548,10 +18443,7 @@ export namespace Prisma {
      * @returns A Promise for the completion of the callback.
      */
     catch<TResult = never>(
-      onrejected?:
-        | ((reason: any) => TResult | PromiseLike<TResult>)
-        | undefined
-        | null,
+      onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
     ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -18559,7 +18451,7 @@ export namespace Prisma {
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+    finally(onfinally?: (() => void) | null): $Utils.JsPromise<T>;
   }
 
   /**

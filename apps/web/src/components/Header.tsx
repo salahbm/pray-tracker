@@ -1,15 +1,11 @@
 'use client';
-
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { HiOutlineXMark, HiBars3 } from 'react-icons/hi2';
-import { FaFingerprint } from 'react-icons/fa';
 
 import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
-import Image from 'next/image';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +19,8 @@ const Header: React.FC = () => {
       <Container className="!px-0">
         <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
+          <a href="/" className="flex items-center gap-2">
+            <img
               src="/images/noor-logo.png"
               alt="Logo"
               width={100}
@@ -34,27 +30,27 @@ const Header: React.FC = () => {
             <span className="manrope text-xl font-bold text-foreground cursor-pointer">
               {siteDetails.siteName}
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-6">
             {menuItems.map(item => (
               <li key={item.text}>
-                <Link
+                <a
                   href={item.url}
                   className="text-foreground hover:text-foreground-accent transition-colors"
                 >
                   {item.text}
-                </Link>
+                </a>
               </li>
             ))}
             <li>
-              <Link
+              <a
                 href="#cta"
                 className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
               >
                 Download
-              </Link>
+              </a>
             </li>
           </ul>
 
@@ -92,23 +88,23 @@ const Header: React.FC = () => {
           <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
             {menuItems.map(item => (
               <li key={item.text}>
-                <Link
+                <a
                   href={item.url}
                   className="text-foreground hover:text-primary block"
                   onClick={toggleMenu}
                 >
                   {item.text}
-                </Link>
+                </a>
               </li>
             ))}
             <li>
-              <Link
+              <a
                 href="#cta"
                 className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit"
                 onClick={toggleMenu}
               >
                 Get Started
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

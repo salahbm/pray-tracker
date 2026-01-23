@@ -34,12 +34,11 @@ export const benefits: IBenefit[] = [
         icon: <FiClock size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-1.webp',
+    imageSrc: '/mock/pray-times.png',
   },
   {
     title: 'Track Your Worship',
-    description:
-      'Log every prayer, build consistency, and celebrate your progress over time.',
+    description: 'Log every prayer, build consistency, and celebrate your progress over time.',
     bullets: [
       {
         title: 'Prayer Logs',
@@ -57,12 +56,11 @@ export const benefits: IBenefit[] = [
         icon: <FiTrendingUp size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-2.webp',
+    imageSrc: '/mock/history-track.png',
   },
   {
     title: 'Qibla & Community Tools',
-    description:
-      'Find the Qibla quickly and connect with nearby masajid and Ramadan tools.',
+    description: 'Find the Qibla quickly and connect with friends and Ramadan tools.',
     bullets: [
       {
         title: 'Qibla Compass',
@@ -70,17 +68,16 @@ export const benefits: IBenefit[] = [
         icon: <FiCompass size={26} />,
       },
       {
-        title: 'Nearby Mosques',
-        description: 'Discover local prayer spaces with distance and directions.',
+        title: 'Friend Groups',
+        description: 'Connect with friends, track progress together, and stay motivated.',
         icon: <FiMap size={26} />,
       },
       {
         title: 'Ramadan Mode',
-        description:
-          'Track fasting times, suhoor reminders, and nightly prayers with ease.',
+        description: 'Track fasting times, suhoor reminders, and nightly prayers with ease.',
         icon: <FiCalendar size={26} />,
       },
     ],
-    imageSrc: '/images/mockup-1.webp',
+    imageSrc: '/mock/qibla.png',
   },
 ];

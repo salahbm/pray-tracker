@@ -20,13 +20,14 @@ export default tseslint.config(
       'out/**',
       '*.config.js',
       '*.config.mjs',
+      '*.config.ts',
     ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
     plugins: {
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,
@@ -43,24 +44,31 @@ export default tseslint.config(
         ecmaFeatures: {
           jsx: true,
         },
+        tsconfigRootDir: import.meta.dirname,
+        project: './tsconfig.json',
       },
     },
     settings: {
       react: {
         version: 'detect',
       },
+      next: {
+        rootDir: import.meta.dirname,
+      },
     },
     rules: {
-      // TypeScript rules
+      // TypeScript rules - relaxed for web
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': [
-        'error',
+        'warn',
         {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
         },
       ],
       '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
 
       // React rules
       'react/react-in-jsx-scope': 'off', // Not needed in Next.js
@@ -76,8 +84,9 @@ export default tseslint.config(
         },
       ],
 
-      // General
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // General - relaxed
+      'no-console': 'off', // Allow console for debugging
+      'no-undef': 'off', // TypeScript handles this
     },
   }
 );

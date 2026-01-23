@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import { FaFingerprint } from 'react-icons/fa';
 
 import { siteDetails } from '@/data/siteDetails';
 import { footerDetails } from '@/data/footer';
