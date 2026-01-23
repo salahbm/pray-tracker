@@ -9,8 +9,7 @@ export default tseslint.config(
     ignores: [
       'node_modules/**',
       'dist/**',
-      'generated/**',
-      'prisma/generated/**',
+      'src/generated/**',
       'api/**',
       '.turbo/**',
       '*.config.js',
