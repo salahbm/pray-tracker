@@ -1,13 +1,12 @@
-import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import Constants from 'expo-constants';
-import { router } from 'expo-router';
 import * as Location from 'expo-location';
 import * as Localization from 'expo-localization';
 import * as Notifications from 'expo-notifications';
 import { AnimatePresence, MotiView } from 'moti';
 import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import * as Haptics from 'expo-haptics';
 import { useOnboarding } from '@/hooks/onboarding/use-onboarding';
 
 import onboardingSteps from './steps.json';
@@ -48,6 +47,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { OnboardingPreferencePayload } from '@/types/onboarding';
 import DetachedSheet from '@/components/shared/bottom-sheet/detached-sheet';
+import { triggerHaptic } from '@/utils';
 
 const translateOnboardingData = (data: OnboardingDataType, translate: (key: string) => string) => {
   const translateValue = (value: any): any => {
@@ -169,44 +169,50 @@ const Onboarding = () => {
     }
   };
 
-  const handleSingleChoice = (step: OnboardingChoiceStepType, value: string) => {
-    const selectedOption = step.content.options.find(option => option.id === value);
-    const nextFeedback = resolveOptionFeedback(selectedOption);
-    setFeedback(nextFeedback);
+  const handleSingleChoice = useCallback(
+    (step: OnboardingChoiceStepType, value: string) => {
+      const selectedOption = step.content.options.find(option => option.id === value);
+      const nextFeedback = resolveOptionFeedback(selectedOption);
+      setFeedback(nextFeedback);
 
-    if (step.id === 'prayer_knowledge') {
-      setPrayerKnowledge(value as PrayerKnowledge);
-    }
-
-    if (step.id === 'support_needed') {
-      setSupportNeeded(value as SupportNeeded);
-      if (selectedOption?.onSelect?.action?.type === 'open_modal') {
-        friendsModalRef.current?.present();
+      if (step.id === 'prayer_knowledge') {
+        setPrayerKnowledge(value as PrayerKnowledge);
       }
-    }
 
-    if (step.id === 'learn_islam') {
-      setLearnIslam(value as LearnIslam);
-    }
+      if (step.id === 'support_needed') {
+        setSupportNeeded(value as SupportNeeded);
+        if (selectedOption?.onSelect?.action?.type === 'open_modal') {
+          friendsModalRef.current?.present();
+        }
+      }
 
-    if (step.id === 'attribution') {
-      setWhereDidYouHearAboutUs(value as WhereDidYouHearAboutUs);
-    }
-  };
+      if (step.id === 'learn_islam') {
+        setLearnIslam(value as LearnIslam);
+      }
 
-  const handleMultiChoice = (step: OnboardingChoiceStepType, value: string[] | string) => {
-    const nextValues = Array.isArray(value) ? value : [value];
-    const lastSelected = Array.isArray(value) ? value[value.length - 1] : value;
-    const selectedOption = step.content.options.find(option => option.id === lastSelected);
+      if (step.id === 'attribution') {
+        setWhereDidYouHearAboutUs(value as WhereDidYouHearAboutUs);
+      }
+    },
+    [setFeedback, setPrayerKnowledge, setSupportNeeded, setLearnIslam, setWhereDidYouHearAboutUs]
+  );
 
-    if (selectedOption?.onSelect?.feedback) {
-      setFeedback({ title: undefined, body: selectedOption.onSelect.feedback });
-    }
+  const handleMultiChoice = useCallback(
+    (step: OnboardingChoiceStepType, value: string[] | string) => {
+      const nextValues = Array.isArray(value) ? value : [value];
+      const lastSelected = Array.isArray(value) ? value[value.length - 1] : value;
+      const selectedOption = step.content.options.find(option => option.id === lastSelected);
 
-    if (step.id === 'why_here') {
-      setWhyHere(nextValues as WhyHereOption[]);
-    }
-  };
+      if (selectedOption?.onSelect?.feedback) {
+        setFeedback({ title: undefined, body: selectedOption.onSelect.feedback });
+      }
+
+      if (step.id === 'why_here') {
+        setWhyHere(nextValues as WhyHereOption[]);
+      }
+    },
+    [setFeedback, setWhyHere]
+  );
 
   const requestLocationPermission = async () => {
     try {
@@ -367,7 +373,7 @@ const Onboarding = () => {
     }
 
     return null;
-  }, [activeStep, state, feedback]);
+  }, [activeStep, state, feedback, sharedText, handleMultiChoice, handleSingleChoice]);
 
   const primaryCtaLabel = getPrimaryCtaLabel(activeStep, sharedText);
 
@@ -418,6 +424,7 @@ const Onboarding = () => {
     }
 
     handleNext();
+    triggerHaptic(Haptics.ImpactFeedbackStyle.Soft);
   };
 
   const friendsModal = onboardingData.modals.find(modal => modal.id === 'friends_motivation_modal');

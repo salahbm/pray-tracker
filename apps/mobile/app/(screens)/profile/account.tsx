@@ -32,10 +32,13 @@ const Account = () => {
   const expirationDate = premiumInfo?.expirationDate;
 
   const handleWithdrawAccount = async () => {
+    if (!user?.id) {
+      return;
+    }
     if (Platform.OS !== 'web') {
       await triggerHaptic();
     }
-    await deleteUser(user?.id!).finally(() => {
+    await deleteUser(user?.id).finally(() => {
       setModalVisible(false);
       router.replace('/(tabs)');
     });

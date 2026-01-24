@@ -36,7 +36,7 @@ const PrayCheckbox = memo(
       const options = [PRAYER_POINTS.MISSED, PRAYER_POINTS.LATE, PRAYER_POINTS.ON_TIME];
 
       return options.filter(optionVal => {
-        if (prayer === 'nafl' && optionVal < 1) return false;
+        if (prayer === 'nafl' && optionVal !== PRAYER_POINTS.ON_TIME) return false;
         if (hideMissed && optionVal === PRAYER_POINTS.MISSED) return false;
         return true;
       });

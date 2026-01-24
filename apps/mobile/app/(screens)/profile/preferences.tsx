@@ -16,10 +16,7 @@ import { useNotificationStore } from '@/store/defaults/notification';
 import { useThemeStore } from '@/store/defaults/theme';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import { router } from 'expo-router';
-import { useLocationStore } from '@/store/use-location';
 import { Button } from '@/components/ui/button';
-import * as Location from 'expo-location';
-import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePreferencesStore } from '@/store/use-preferences';
 import { fireToast } from '@/providers/toaster';
@@ -32,7 +29,6 @@ const Preferences = () => {
   const { colors } = useThemeStore();
   const { currentLanguage } = useLanguage();
   const { visited, setVisited, clearPreferences } = useOnboardingStore();
-  const { resetLocation, city, country, initialized } = useLocationStore();
   const { resetTheme } = useThemeStore();
   const { prayerNotifications, toggleEnabled } = useNotificationStore();
   const { showHistoryDay, setShowHistoryDay } = usePreferencesStore();
@@ -171,49 +167,6 @@ const Preferences = () => {
               />
             </View>
 
-            {/* Location State */}
-            <View className="bg-muted/30 p-4 rounded-xl mx-2 my-2">
-              <Text className="text-sm font-bold text-foreground mb-2">📍 Location State</Text>
-              <Text className="text-xs text-muted-foreground">City: {city || 'Not set'}</Text>
-              <Text className="text-xs text-muted-foreground">Country: {country || 'Not set'}</Text>
-              <Text className="text-xs text-muted-foreground">
-                Initialized: {initialized ? '✅' : '❌'}
-              </Text>
-            </View>
-
-            {/* Permission Checks */}
-            <Button
-              variant="outline"
-              className="mx-2 my-1"
-              onPress={async () => {
-                const locationPerm = await Location.getForegroundPermissionsAsync();
-                const notificationPerm = await Notifications.getPermissionsAsync();
-
-                Alert.alert(
-                  'Permission Status',
-                  `Location: ${locationPerm.status}\n` +
-                    `Location Granted: ${locationPerm.granted ? '✅' : '❌'}\n\n` +
-                    `Notifications: ${notificationPerm.status}\n` +
-                    `Notifications Granted: ${notificationPerm.granted ? '✅' : '❌'}`,
-                  [{ text: 'OK' }]
-                );
-              }}
-            >
-              <Text className="text-foreground">Check Permissions</Text>
-            </Button>
-
-            {/* Reset Location */}
-            <Button
-              variant="outline"
-              className="mx-2 my-1"
-              onPress={() => {
-                resetLocation();
-                fireToast.success('Location store reset');
-              }}
-            >
-              <Text className="text-foreground">Reset Location Store</Text>
-            </Button>
-
             {/* Reset Theme */}
             <Button
               variant="outline"
@@ -264,17 +217,6 @@ const Preferences = () => {
               }}
             >
               <Text className="text-destructive-foreground">⚠️ Clear All Storage</Text>
-            </Button>
-
-            {/* Go to Onboarding */}
-            <Button
-              className="mx-2 my-1"
-              onPress={() => {
-                setVisited(false);
-                router.replace('/(onboarding)/onboarding');
-              }}
-            >
-              <Text className="text-primary-foreground">Go to Onboarding</Text>
             </Button>
           </Fragment>
         )}

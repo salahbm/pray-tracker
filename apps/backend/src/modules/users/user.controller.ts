@@ -55,6 +55,7 @@ export class UsersController {
    * Update current user profile
    */
   @Patch('me')
+  @UseGuards(AuthGuard)
   async updateCurrentUser(
     @Req() request: Request,
     @Body() updateUserDto: UpdateUserDto,
@@ -72,6 +73,7 @@ export class UsersController {
    * Save push notification token for current user
    */
   @Post('me/push-token')
+  @UseGuards(AuthGuard)
   async savePushToken(
     @Req() request: Request,
     @Body('pushToken') pushToken: string,

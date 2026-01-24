@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MotiView } from 'moti';
 import { router } from 'expo-router';
@@ -25,7 +25,7 @@ export const OnboardingSplashStep = ({
   const { setVisited } = useOnboardingStore();
 
   // Ensure we have fallback colors in case the store is undefined
-  const primaryColor = colors?.['--primary'] || '#000000';
+  const primaryColor = colors?.['--primary-300'] || '#000000';
   const secondaryColor = colors?.['--primary-700'] || '#1a1a1a';
 
   useEffect(() => {
@@ -44,6 +44,8 @@ export const OnboardingSplashStep = ({
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       />
+
+      <View className="absolute inset-0 bg-foreground/10 " />
 
       <View
         style={{
@@ -65,16 +67,19 @@ export const OnboardingSplashStep = ({
           transition={{ type: 'timing', duration: 1000 }}
           style={{ alignItems: 'center', width: '100%' }}
         >
-          <Text className="text-7xl font-black text-white text-center">{headline}</Text>
+          <Text className="text-7xl font-black text-background text-center">{headline}</Text>
 
           {badge && (
             <View className="mt-6 px-6 py-3">
-              <Text className="text-lg font-bold text-white uppercase tracking-widest">
+              <Text className="text-lg font-bold text-background uppercase tracking-widest">
                 {badge}
               </Text>
             </View>
           )}
         </MotiView>
+
+        {/* Loading */}
+        <ActivityIndicator size="large" color={colors?.['--background'] || '#000000'} />
 
         {/* Bottom Content */}
         <MotiView
@@ -82,7 +87,7 @@ export const OnboardingSplashStep = ({
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ type: 'timing', delay: 500 }}
         >
-          <Text className="text-center text-lg text-white/80 font-medium">{subheadline}</Text>
+          <Text className="text-center text-lg text-background/80 font-medium">{subheadline}</Text>
         </MotiView>
       </View>
     </View>

@@ -26,7 +26,6 @@ const signedDelta = (a: number, b: number) => {
   return ((d + 540) % 360) - 180;
 };
 const angularDiff = (a: number, b: number) => Math.abs(signedDelta(a, b));
-const toVisual = (deg: number) => norm360(360 - norm360(deg));
 
 const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -87,7 +86,6 @@ const QiblaScreen: React.FC = () => {
   // Calculate rotation: Kaaba should point to Qibla direction
   // Ring rotates opposite to device heading, offset by Qibla angle
   const ringRotation = useMemo(() => qiblaAngle - heading, [heading, qiblaAngle]);
-  const delta = useMemo(() => Math.abs(signedDelta(heading, qiblaAngle)), [heading, qiblaAngle]);
 
   return (
     <ImageBackground source={bg} className="flex-1" resizeMode="cover">

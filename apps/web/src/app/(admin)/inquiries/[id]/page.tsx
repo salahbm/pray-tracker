@@ -103,7 +103,7 @@ export default function InquiryDetailPage() {
                       {format(new Date(message.createdAt), 'PPp')}
                     </span>
                   </div>
-                  <p className="whitespace-pre-wrap text-gray-700">{message.message}</p>
+                  <p className="whitespace-pre-wrap text-gray-700">{message?.body}</p>
                 </div>
               ))
             ) : (

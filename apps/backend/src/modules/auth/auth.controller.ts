@@ -8,6 +8,7 @@ import {
   Body,
   UnauthorizedException,
   Inject,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Request } from 'express';
@@ -17,6 +18,7 @@ import type { Auth } from 'better-auth';
 import { AUTH_INSTANCE } from '@/common/constants/auth.constants';
 import { getLocalizedMessage } from '@/common/i18n/error-messages';
 import { getLocaleFromRequest } from '@/common/utils/headers';
+import { AuthGuard } from '@/common/guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,6 +31,7 @@ export class AuthController {
    * Get current authenticated user
    */
   @Get('me')
+  @UseGuards(AuthGuard)
   async getCurrentUser(@Req() request: Request) {
     const locale = getLocaleFromRequest(request.headers);
 
@@ -47,6 +50,7 @@ export class AuthController {
    */
   @Post('signout')
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   async signOut(@Req() request: Request) {
     const locale = getLocaleFromRequest(request.headers);
     const authHeader = request.headers.authorization;
@@ -82,6 +86,7 @@ export class AuthController {
    * List all active sessions
    */
   @Get('sessions')
+  @UseGuards(AuthGuard)
   async listSessions(@Req() request: Request) {
     const locale = getLocaleFromRequest(request.headers);
 
@@ -100,6 +105,7 @@ export class AuthController {
    */
   @Post('change-password')
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   async changePassword(
     @Body() body: ChangePasswordDto,
     @Req() request: Request,

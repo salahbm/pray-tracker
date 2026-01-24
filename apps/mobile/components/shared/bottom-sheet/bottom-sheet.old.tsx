@@ -1,8 +1,4 @@
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetScrollView,
-  ScrollEventsHandlersHookType,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
