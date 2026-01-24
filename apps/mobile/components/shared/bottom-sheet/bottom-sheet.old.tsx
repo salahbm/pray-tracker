@@ -50,7 +50,7 @@ const CustomBottomSheet = ({
 }: IBottomSheet) => {
   return (
     <BottomSheet
-      ref={sheetRef}
+      ref={sheetRef as React.RefObject<BottomSheet>}
       index={index} // Start closed
       snapPoints={snapPoints}
       enablePanDownToClose={true} // Enable swipe down to close

@@ -73,8 +73,6 @@ const QiblaScreen: React.FC = () => {
   const ringRotation = useMemo(() => qiblaAngle - heading, [heading, qiblaAngle]);
   const delta = useMemo(() => Math.abs(signedDelta(heading, qiblaAngle)), [heading, qiblaAngle]);
 
-  if (isLoading) return <Loader visible className="bg-background" />;
-
   return (
     <ImageBackground source={bg} className="flex-1" resizeMode="cover">
       <View className="flex-1 bg-black/10 px-6">
@@ -82,7 +80,7 @@ const QiblaScreen: React.FC = () => {
           style={{ marginTop: insets.top }}
           variant="ghost"
           size="icon"
-          className="rounded-full shadow-lg bg-muted/20 w-12 h-12 p-2 self-end mt-2"
+          className="rounded-full shadow-lg bg-muted/30 w-12 h-12 p-2 self-end mt-2"
           onPress={() => {
             triggerHaptic();
             setBgIndex(prev => {
@@ -98,46 +96,50 @@ const QiblaScreen: React.FC = () => {
           <Palette size={24} className="text-primary" />
         </Button>
         {/* Compass Area */}
-        <View className="flex-1 items-center justify-center">
-          <View
-            style={{ width: COMPASS_SIZE, height: COMPASS_SIZE }}
-            className="items-center justify-center"
-          >
-            {/* Main Outer Circle */}
+        {isLoading ? (
+          <Loader visible className="bg-transparent flex-1 relative" />
+        ) : (
+          <View className="flex-1 items-center justify-center">
             <View
-              className="absolute w-full h-full rounded-full border-[1.5px] border-white/60"
-              style={{ transform: [{ rotate: `${ringRotation}deg` }] }}
+              style={{ width: COMPASS_SIZE, height: COMPASS_SIZE }}
+              className="items-center justify-center"
             >
-              {/* Cardinal Points */}
-              <Text className="absolute self-center -top-8 text-white font-bold">N</Text>
-              <Text className="absolute self-center -bottom-8 text-white font-bold">S</Text>
-              <Text className="absolute -left-8 top-1/2 -translate-y-2 text-white font-bold">
-                W
-              </Text>
-              <Text className="absolute -right-8 top-1/2 -translate-y-2 text-white font-bold">
-                E
-              </Text>
-
-              {/* Crosshair lines */}
-              <View className="absolute w-[1px] h-full bg-white/20 self-center" />
-              <View className="absolute h-[1px] w-full bg-white/20 top-1/2" />
-
-              {/* Kaaba Indicator (Relative to the Ring) */}
+              {/* Main Outer Circle */}
               <View
-                className="absolute self-center -top-4 items-center justify-center"
-                style={{ transform: [{ translateY: -10 }] }}
+                className="absolute w-full h-full rounded-full border-[1.5px] border-white/60"
+                style={{ transform: [{ rotate: `${ringRotation}deg` }] }}
               >
-                <View className="bg-primary p-2 rounded-lg shadow-lg rotate-12">
-                  <Kaaba width={24} height={24} fill="white" />
+                {/* Cardinal Points */}
+                <Text className="absolute self-center -top-8 text-white font-bold">N</Text>
+                <Text className="absolute self-center -bottom-8 text-white font-bold">S</Text>
+                <Text className="absolute -left-8 top-1/2 -translate-y-2 text-white font-bold">
+                  W
+                </Text>
+                <Text className="absolute -right-8 top-1/2 -translate-y-2 text-white font-bold">
+                  E
+                </Text>
+
+                {/* Crosshair lines */}
+                <View className="absolute w-[1px] h-full bg-white/20 self-center" />
+                <View className="absolute h-[1px] w-full bg-white/20 top-1/2" />
+
+                {/* Kaaba Indicator (Relative to the Ring) */}
+                <View
+                  className="absolute self-center -top-4 items-center justify-center"
+                  style={{ transform: [{ translateY: -10 }] }}
+                >
+                  <View className="bg-primary p-2 rounded-lg shadow-lg rotate-12">
+                    <Kaaba width={24} height={24} fill="white" />
+                  </View>
                 </View>
               </View>
-            </View>
 
-            {/* Center Pointer (Fixed Device Orientation) */}
-            <View className="h-2 w-2 bg-white rounded-full m-5" />
-            <View className="w-1 h-32 bg-white/80 rounded-full" />
+              {/* Center Pointer (Fixed Device Orientation) */}
+              <View className="h-2 w-2 bg-white rounded-full m-5" />
+              <View className="w-1 h-32 bg-white/80 rounded-full" />
+            </View>
           </View>
-        </View>
+        )}
 
         {/* Bottom Info */}
         <View className="items-center pb-12">

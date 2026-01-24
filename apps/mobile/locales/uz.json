@@ -178,7 +178,13 @@
     "viewAll": "Hammasini ko'rish",
     "today": "Bugun",
     "loadMoreMonths": "+ Yana 6 oy yuklash",
-    "chooseLanguage": "Tilni tanlang"
+    "chooseLanguage": "Tilni tanlang",
+    "now": "Hozir",
+    "today_schedule": "Bugungi takvim",
+    "qibla": {
+      "title": "Qibla yo'nalishini",
+      "description": "Aniq Qibla yo'nalishini topish"
+    }
   },
   "location": {
     "selector": {
@@ -379,7 +385,8 @@
       "language": "Til",
       "notifications": "Bildirishnomalar",
       "theme": "Mavzu",
-      "title": "Sozlamalar"
+      "title": "Sozlamalar",
+      "show_history_day": "Oy kunlarini ko'rish"
     },
     "privacy": {
       "title": "Maxfiylik siyosati",

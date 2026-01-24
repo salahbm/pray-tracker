@@ -5,16 +5,22 @@ import {
   Get,
   Headers,
   Param,
+  Patch,
   Post,
   Query,
+  Req,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { Public } from '@/common/decorators/public.decorator';
+import { AuthGuard } from '@/common/guards/auth.guard';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
 import { CreateInquiryMessageDto } from './dto/create-inquiry-message.dto';
 import { InquiriesService } from './inquiries.service';
 import { type Locale } from '@/common/utils/response.utils';
+import { parsePaginationParams, createPaginatedResponse } from '@/common/utils';
+import { Prisma } from '../../generated/prisma';
 
 @Controller('inquiries')
 export class InquiriesController {
@@ -78,5 +84,84 @@ export class InquiriesController {
       email: dto.email,
       locale,
     });
+  }
+
+  /**
+   * Admin: Get all inquiries with pagination and filtering
+   */
+  @Get('admin/all')
+  async getAllInquiries(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('status') status?: 'OPEN' | 'CLOSED',
+  ) {
+    const {
+      skip,
+      take,
+      page: currentPage,
+    } = parsePaginationParams({
+      page,
+      limit,
+    });
+
+    const where: Prisma.InquiryWhereInput | undefined = status
+      ? { status }
+      : undefined;
+
+    const [inquiries, total] = await Promise.all([
+      this.inquiriesService.findAll({
+        skip,
+        take,
+        where,
+        orderBy: { updatedAt: 'desc' },
+      }),
+      this.inquiriesService.count(where),
+    ]);
+
+    return createPaginatedResponse(inquiries, total, currentPage, take);
+  }
+
+  /**
+   * Admin: Get inquiry detail by ID
+   */
+  @Get('admin/:id')
+  @UseGuards(AuthGuard)
+  async getInquiryById(
+    @Param('id') id: string,
+    @Headers('locale') locale: Locale = 'en',
+  ) {
+    return this.inquiriesService.findById(id, locale);
+  }
+
+  /**
+   * Admin: Update inquiry status
+   */
+  @Patch('admin/:id/status')
+  @UseGuards(AuthGuard)
+  async updateInquiryStatus(
+    @Param('id') id: string,
+    @Body('status') status: 'OPEN' | 'CLOSED',
+    @Headers('locale') locale: Locale = 'en',
+  ) {
+    return this.inquiriesService.updateStatus(id, status, locale);
+  }
+
+  /**
+   * Admin: Reply to inquiry
+   */
+  @Post('admin/:id/reply')
+  @UseGuards(AuthGuard)
+  async replyToInquiry(
+    @Req() request: Request,
+    @Param('id') id: string,
+    @Body('message') message: string,
+    @Headers('locale') locale: Locale = 'en',
+  ) {
+    const userId = request.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException('No active session found');
+    }
+
+    return this.inquiriesService.addAdminReply(id, message, userId, locale);
   }
 }

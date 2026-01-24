@@ -21,7 +21,6 @@ import { parsePaginationParams, createPaginatedResponse } from '@/common/utils';
 import { type Locale } from '@/common/utils/response.utils';
 
 @Controller('users')
-@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -29,6 +28,7 @@ export class UsersController {
    * Get current user profile
    */
   @Get('me')
+  @UseGuards(AuthGuard)
   async getCurrentUser(@Req() request: Request) {
     const userId = request.user?.id;
     if (!userId) {
@@ -42,6 +42,7 @@ export class UsersController {
    * Get current user statistics
    */
   @Get('me/stats')
+  @UseGuards(AuthGuard)
   async getCurrentUserStats(@Req() request: Request) {
     const userId = request.user?.id;
     if (!userId) {

@@ -149,4 +149,111 @@ export class InquiriesService {
       return message;
     });
   }
+
+  // Admin methods
+  async findAll(params: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.InquiryWhereInput;
+    orderBy?: Prisma.InquiryOrderByWithRelationInput;
+  }) {
+    return this.prisma.inquiry.findMany({
+      ...params,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
+        messages: {
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
+        _count: {
+          select: { messages: true },
+        },
+      },
+    });
+  }
+
+  async count(where?: Prisma.InquiryWhereInput) {
+    return this.prisma.inquiry.count({ where });
+  }
+
+  async findById(id: string, locale: Locale): Promise<InquiryWithMessages> {
+    const inquiry = await this.prisma.inquiry.findUnique({
+      where: { id },
+      include: {
+        messages: {
+          orderBy: { createdAt: 'asc' },
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                image: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    if (!inquiry) {
+      throw new NotFoundException({
+        error: 'NOT_FOUND',
+        message: getLocalizedMessage('NOT_FOUND', locale),
+      });
+    }
+
+    return inquiry;
+  }
+
+  async updateStatus(id: string, status: 'OPEN' | 'CLOSED', locale: Locale) {
+    await this.getInquiryOrThrow(id, locale);
+
+    return this.prisma.inquiry.update({
+      where: { id },
+      data: { status, updatedAt: new Date() },
+    });
+  }
+
+  async addAdminReply(
+    inquiryId: string,
+    message: string,
+    userId: string,
+    locale: Locale,
+  ): Promise<InquiryMessage> {
+    await this.getInquiryOrThrow(inquiryId, locale);
+
+    return this.prisma.$transaction(async (tx) => {
+      const reply = await tx.inquiryMessage.create({
+        data: {
+          inquiryId,
+          senderRole: 'OWNER',
+          body: message,
+          userId,
+        },
+      });
+
+      await tx.inquiry.update({
+        where: { id: inquiryId },
+        data: { updatedAt: new Date() },
+      });
+
+      return reply;
+    });
+  }
 }

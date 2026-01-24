@@ -117,7 +117,6 @@
         "title": "İstek Geçersiz",
         "message": "İsteğinizi işleyemedik. Girdiğiniz bilgileri kontrol edip tekrar deneyin."
       },
-
       "invalidEmail": "Geçersiz e-posta"
     },
     "salahs": {
@@ -150,6 +149,12 @@
     "today": "Bugün",
     "loadMoreMonths": "+ 6 Ay Daha Yükle",
     "chooseLanguage": "Dil seçin",
+    "now": "Şimdi",
+    "today_schedule": "Bugünün Takvim",
+    "qibla": {
+      "title": "Kibla Yönü",
+      "description": "Kibla Yönü"
+    },
     "actions": {
       "delete": "Sil",
       "deleting": "Siliniyor...",
@@ -392,7 +397,8 @@
       "language": "Dil",
       "notifications": "Bildirimler",
       "theme": "Tema",
-      "title": "Ayarlar"
+      "title": "Ayarlar",
+      "show_history_day": "Tarihleri göster"
     },
     "privacy": {
       "title": "Gizlilik Politikası",

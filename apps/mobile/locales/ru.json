@@ -167,7 +167,13 @@
     "viewAll": "Показать все",
     "today": "Сегодня",
     "loadMoreMonths": "+ Загрузить ещё 6 месяцев",
-    "chooseLanguage": "Выберите язык"
+    "chooseLanguage": "Выберите язык",
+    "now": "Сейчас",
+    "today_schedule": "Сегодняшний график",
+    "qibla": {
+      "title": "Направление киблы",
+      "description": "Найдите Каабу от вашего местоположения"
+    }
   },
 
   "location": {
@@ -367,7 +373,8 @@
         "language": "Язык",
         "notifications": "Уведомления",
         "theme": "Тема",
-        "title": "Настройки"
+        "title": "Настройки",
+        "show_history_day": "Показывать дни месяца"
       },
       "privacy": {
         "title": "Политика конфиденциальности",

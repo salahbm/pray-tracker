@@ -1,5 +1,4 @@
-import { format } from 'date-fns';
-import React from 'react';
+import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
 
@@ -7,6 +6,7 @@ import { Text } from '@/components/ui/text';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { cn } from '@/lib/utils';
 import { triggerHaptic } from '@/utils';
+import { memo } from 'react';
 
 interface IDayComponentProps {
   date?: DateData;
@@ -34,12 +34,22 @@ const getBgClassByCount = (count: number) => {
   return opacitySteps[idx];
 };
 
-const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, onDayPress }) => {
+const DayComponent = memo(({ date, prayerCountByDate, onDayPress }: IDayComponentProps) => {
   if (!date) return null;
 
   const { isPremium } = useRevenueCatCustomer();
-  const count = prayerCountByDate[date.dateString] ?? 0;
-  const bgClass = isPremium ? getBgClassByCount(count) : 'bg-muted';
+
+  const today = new Date();
+  const dayDate = parseISO(date.dateString);
+
+  const daysDiff = differenceInCalendarDays(today, dayDate);
+
+  // Non-premium users can only see last 7 days (including today)
+  const isAccessible = isPremium || (daysDiff >= 0 && daysDiff <= 6);
+
+  const count = isAccessible ? (prayerCountByDate[date.dateString] ?? 0) : 0;
+
+  const bgClass = isAccessible ? getBgClassByCount(count) : 'bg-muted';
 
   return (
     <Pressable
@@ -53,6 +63,8 @@ const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, o
       <Text className={cn('text-foreground')}>{date.day}</Text>
     </Pressable>
   );
-};
+});
+
+DayComponent.displayName = 'DayComponent';
 
 export default DayComponent;
