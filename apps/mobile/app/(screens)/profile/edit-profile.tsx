@@ -102,8 +102,8 @@ const EditProfile = () => {
   };
   return (
     <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.editProfile.title')} />
       <View className="main-area">
-        <GoBack title={t('profile.editProfile.title')} />
         <View className="h-[220px] mb-10 items-center justify-center gap-3">
           <View className="relative">
             <Image source={image} className="size-[150px]" />

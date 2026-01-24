@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import agent from '@/lib/agent';
-import { DashboardStats } from '@/types';
+import { DashboardStats } from '@/types/index';
 
 const getDashboardStats = async (): Promise<DashboardStats> => {
   const data = await agent.get<DashboardStats>('/admin/stats');

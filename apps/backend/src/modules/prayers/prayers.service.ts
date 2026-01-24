@@ -72,10 +72,6 @@ export class PrayersService {
                 [field]: next,
               },
             }),
-            tx.user.update({
-              where: { id: userId },
-              data: { totalPoints: { increment: delta } },
-            }),
           ]);
 
           return prayer;

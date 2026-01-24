@@ -30,8 +30,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
     const checkAuth = async () => {
       try {
         // Call the /auth/me endpoint to verify session
-        // Use suppressUnauthorizedLogout to prevent automatic redirect during check
-        await agent.get('/auth/me', { suppressUnauthorizedLogout: true });
+        await agent.get('/auth/me');
         setIsAuthenticated(true);
       } catch {
         setIsAuthenticated(false);

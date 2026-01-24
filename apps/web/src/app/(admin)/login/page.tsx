@@ -22,13 +22,18 @@ export default function AdminLogin() {
 
     try {
       // Use Better Auth sign-in endpoint
-      await agent.post('/api/auth/sign-in/email', {
+      const response: any = await agent.post('/api/auth/sign-in/email', {
         email,
         password,
       });
 
+      // Store the token in localStorage
+      // The agent will send it in the Authorization header
+      if (response.token) {
+        localStorage.setItem('auth-token', response.token);
+      }
+
       // On success, redirect to dashboard
-      // The session cookie is automatically set by Better Auth
       router.push('/dashboard');
     } catch (err: any) {
       setError(err?.message || 'Invalid email or password. Please try again.');

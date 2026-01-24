@@ -65,7 +65,7 @@ const HomeHeader = ({ today }: HomeHeaderProps) => {
 
           <View className={cn('flex-1 mr-4')}>
             <Text numberOfLines={1} className={cn('text-lg font-bold tracking-tight')}>
-              {user ? 'Hi, ' + user.name + ' 👋' : t('common.signIn')}
+              {user ? user.name + ' 👋' : t('common.signIn')}
             </Text>
             <Text className={cn('text-xs text-muted-foreground font-medium capitalize')}>
               {formattedDate}

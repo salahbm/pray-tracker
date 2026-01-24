@@ -93,7 +93,7 @@ export default function HomeScreen() {
 
   const {
     data: prays,
-    isLoading: isLoadingPrays,
+    isLoading: loadingPrays,
     refetch: refetchPrays,
   } = useGetPrays(user?.id!, year);
 
@@ -135,6 +135,8 @@ export default function HomeScreen() {
         date: today,
         field: prayer as PrayerField,
         value: value as 0 | 1 | 2,
+      }).then(() => {
+        confettiRef.current?.reset();
       });
 
       // Track prayer toggle for app rating
@@ -145,10 +147,12 @@ export default function HomeScreen() {
 
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
-      // if date is after today, return toast
       if (!user) return fireToast.error(t('common.errors.unauthorized'));
+      // if date is after today, return toast
       const isDateAfterToday = new Date(date) > today;
       if (isDateAfterToday) return fireToast.info(t('common.errors.futureDate'));
+
+      // if date is more than a week, return toast
       const isMoreThanAWeek = new Date(date) < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isMoreThanAWeek && !isPremium) {
         paywallSheetRef.current?.snapToIndex(0);
@@ -162,6 +166,7 @@ export default function HomeScreen() {
           animated: true,
         });
       }
+
       // Haptic feedback
       await triggerHaptic();
 
@@ -196,15 +201,6 @@ export default function HomeScreen() {
     [patchPray, user?.id]
   );
 
-  // Reset prayers to idle state when date changes
-  useEffect(() => {
-    // Reset to idle state when date changes
-    dispatch({
-      type: 'SET_PRAYERS',
-      payload: { ...initialState.prayers },
-    });
-  }, [today]); // Triggers when date changes
-
   // Update prayers when data arrives
   useEffect(() => {
     if (!user) {
@@ -237,7 +233,7 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            refreshing={isLoadingPrays}
+            refreshing={loadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
@@ -264,7 +260,7 @@ export default function HomeScreen() {
           transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 50 }}
         >
           <TodaysPray
-            isLoading={isLoadingPrays}
+            isLoading={loadingPrays}
             prayers={prayers}
             handlePrayerChange={handlePrayerChange}
           />
@@ -287,7 +283,7 @@ export default function HomeScreen() {
             dispatch={dispatch}
             accordion={accordion}
             clickedData={clickedData}
-            isLoading={isLoadingPrays}
+            isLoading={loadingPrays}
             handleDayClick={handleDayClick}
             handleUpdateClickedDay={handleUpdateClickedDay}
           />

@@ -16,9 +16,8 @@ const About = () => {
 
   return (
     <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.about.title')} />
       <ScrollView className="main-area">
-        <GoBack title={t('profile.about.title')} />
-
         <View className="mt-8 gap-8">
           {/* App Logo */}
           <View className="items-center">

@@ -57,8 +57,8 @@ const Preferences = () => {
 
   return (
     <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.settings.title')} />
       <View className="main-area">
-        <GoBack title={t('profile.settings.title')} />
         <TouchableOpacity
           className="touchable mt-10"
           onPress={() => themeRef.current?.snapToIndex(1)}

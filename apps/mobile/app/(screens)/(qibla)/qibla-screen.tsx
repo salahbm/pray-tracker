@@ -47,15 +47,27 @@ const QiblaScreen: React.FC = () => {
       headingSubRef.current?.remove();
       return;
     }
+
+    let rafId: number | null = null;
+    let pendingUpdate = false;
+
     (async () => {
       headingSubRef.current = await Location.watchHeadingAsync(h => {
         const raw =
           typeof h.trueHeading === 'number' && h.trueHeading >= 0 ? h.trueHeading : h.magHeading;
         const next = norm360(raw);
         const d = signedDelta(headingRef.current, next);
-        const smoothed = norm360(headingRef.current + d * 0.15);
+        const smoothed = norm360(headingRef.current + d * 0.2); // Increased smoothing factor
         headingRef.current = smoothed;
-        if (angularDiff(heading, smoothed) >= 0.5) setHeading(smoothed);
+
+        // Batch state updates using requestAnimationFrame
+        if (!pendingUpdate && angularDiff(heading, smoothed) >= 1) {
+          pendingUpdate = true;
+          rafId = requestAnimationFrame(() => {
+            setHeading(smoothed);
+            pendingUpdate = false;
+          });
+        }
 
         // Haptic feedback logic - trigger when pointing towards Qibla (within 5 degrees)
         const diff = angularDiff(smoothed, qiblaAngle);
@@ -65,7 +77,11 @@ const QiblaScreen: React.FC = () => {
         }
       });
     })();
-    return () => headingSubRef.current?.remove();
+
+    return () => {
+      headingSubRef.current?.remove();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, [isFocused, qiblaAngle, heading]);
 
   // Calculate rotation: Kaaba should point to Qibla direction

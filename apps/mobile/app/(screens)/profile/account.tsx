@@ -49,8 +49,8 @@ const Account = () => {
   return (
     <SafeAreaView className="safe-area">
       <Loader visible={isDeleting || isLoggingOut} />
+      <GoBack title={t('profile.account.title')} />
       <View className="main-area">
-        <GoBack title={t('profile.account.title')} />
         <Image source={user?.image} className="mt-10 size-[150px] mx-auto" />
 
         {/* Account Info */}

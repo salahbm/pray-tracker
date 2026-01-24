@@ -33,8 +33,10 @@ import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { Link } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
+import { useQibla } from '@/hooks/prays/useQibla';
 
 const PrayerTimer = () => {
+  useQibla();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
@@ -171,7 +173,7 @@ const PrayerTimer = () => {
                   <View className="flex-row items-center gap-4">
                     <View
                       className={cn('w-11 h-11 items-center justify-center rounded-xl', {
-                        'bg-primary shadow-lg shadow-primary/30': isCurrent,
+                        'bg-primary': isCurrent,
                         'bg-muted/40': !isCurrent,
                       })}
                     >

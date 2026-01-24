@@ -119,7 +119,8 @@ class Agent {
     const { headers = {}, params, signal, cache, suppressUnauthorizedLogout } = options;
     const url = this.createUrl(endpoint, params);
 
-    console.log(`[API] ${method} ${url}`, { params });
+    // Get token from localStorage
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth-token') : null;
 
     const config: RequestInit = {
       method,
@@ -128,9 +129,9 @@ class Agent {
         'Accept-Language': 'en',
         Locale: 'en',
         'x-lang': 'en',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...headers,
       },
-      credentials: 'include', // Important: Include cookies for Better Auth session
       signal,
       cache,
     };
@@ -156,10 +157,8 @@ class Agent {
       clearTimeout(timeoutId);
 
       const result = await this.processResponse<T>(res, suppressUnauthorizedLogout);
-      console.log(`[API] ✓ ${method} ${url}`, result);
       return result;
     } catch (err) {
-      console.error(`[API] ✗ ${method} ${url}`, err);
       if (err instanceof ApiError) throw err;
 
       // Handle timeout specifically

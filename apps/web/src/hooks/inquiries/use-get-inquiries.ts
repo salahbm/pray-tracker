@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import agent from '@/lib/agent';
-import { Inquiry } from '@/types';
+import { Inquiry } from '@/types/index';
 
 interface GetInquiriesParams {
   page?: number;
@@ -19,7 +19,9 @@ interface InquiriesResponse {
 }
 
 const getInquiries = async (params: GetInquiriesParams): Promise<InquiriesResponse> => {
-  const data = await agent.get<InquiriesResponse>('/inquiries/admin/all', { params });
+  const data = await agent.get<InquiriesResponse>('/inquiries/admin/all', {
+    params: params as Record<string, string | number | boolean | undefined>,
+  });
   return data;
 };
 

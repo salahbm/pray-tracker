@@ -27,8 +27,8 @@ const SettingsScreen = () => {
 
   return (
     <SafeAreaView className="safe-area">
+      <GoBack title={t('profile.title')} titleStyle="text-xl font-bold" />
       <ScrollView showsVerticalScrollIndicator={false} className="main-area pb-20">
-        <GoBack title={t('profile.title')} titleStyle="text-xl font-bold" />
         <AuthWrapper mode="signedIn">
           <View className="mt-6">
             <Text className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">

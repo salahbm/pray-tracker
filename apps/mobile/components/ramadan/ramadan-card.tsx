@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, memo } from 'react';
 import { View, Pressable } from 'react-native';
 import { MotiView } from 'moti';
 import { addDays, addMonths, differenceInCalendarDays, format, parse, startOfDay } from 'date-fns';
@@ -20,7 +20,7 @@ import { useLocationStore } from '@/store/use-location';
 const formatTiming = (timing: string) => timing.split(' ')[0];
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 
-const RamadanCard = () => {
+const RamadanCard = memo(() => {
   const { t } = useTranslation();
   const { city, country } = useLocationStore();
 
@@ -196,6 +196,8 @@ const RamadanCard = () => {
       </View>
     </MotiView>
   );
-};
+});
+
+RamadanCard.displayName = 'RamadanCard';
 
 export default RamadanCard;
