@@ -534,6 +534,35 @@
         "fetching": "Fetching location...",
         "unknown": "Unknown"
       },
+      "calculationMethod": {
+        "title": "Calculation Method",
+        "subtitle": "Select the Islamic calculation method for prayer times",
+        "methods": {
+          "jafari": "Shia Ithna-Ashari (Jafari)",
+          "muslimWorldLeague": "Muslim World League",
+          "isna": "Islamic Society of North America (ISNA)",
+          "egyptian": "Egyptian General Authority of Survey",
+          "ummAlQura": "Umm Al-Qura University, Makkah",
+          "karachi": "University of Islamic Sciences, Karachi",
+          "tehran": "Institute of Geophysics, University of Tehran",
+          "gulf": "Gulf Region",
+          "kuwait": "Kuwait",
+          "qatar": "Qatar",
+          "singapore": "Majlis Ugama Islam Singapura, Singapore",
+          "france": "Union Organization islamic de France",
+          "turkey": "Diyanet İşleri Başkanlığı, Turkey",
+          "russia": "Spiritual Administration of Muslims of Russia",
+          "moonsighting": "Moonsighting Committee Worldwide",
+          "dubai": "Dubai (Unofficial)",
+          "jakim": "Jabatan Kemajuan Islam Malaysia (JAKIM)",
+          "tunisia": "Tunisia",
+          "algeria": "Algeria",
+          "indonesia": "Kementerian Agama Republik Indonesia",
+          "morocco": "Morocco",
+          "portugal": "Comunidate Islamica de Lisboa (Portugal)",
+          "jordan": "Ministry of Awqaf, Islamic Affairs, Jordan"
+        }
+      },
       "notifier": {
         "title": "Prayer Reminder",
         "description": "How many minutes before prayer do you want a reminder?",

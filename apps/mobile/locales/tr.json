@@ -547,6 +547,35 @@
         "fetching": "Konum alınıyor...",
         "unknown": "Bilinmiyor"
       },
+      "calculationMethod": {
+        "title": "Hesaplama Yöntemi",
+        "subtitle": "Namaz vakitleri için İslami hesaplama yöntemini seçin",
+        "methods": {
+          "jafari": "Şii İsna Aşari (Caferi)",
+          "muslimWorldLeague": "Dünya Müslüman Birliği",
+          "isna": "Kuzey Amerika İslam Topluluğu (ISNA)",
+          "egyptian": "Mısır Genel Harita Müdürlüğü",
+          "ummAlQura": "Ümmü'l-Kura Üniversitesi, Mekke",
+          "karachi": "İslam Bilimleri Üniversitesi, Karaçi",
+          "tehran": "Jeofizik Enstitüsü, Tahran Üniversitesi",
+          "gulf": "Körfez Bölgesi",
+          "kuwait": "Kuveyt",
+          "qatar": "Katar",
+          "singapore": "Majlis Ugama Islam Singapura, Singapur",
+          "france": "Fransa İslam Örgütleri Birliği",
+          "turkey": "Diyanet İşleri Başkanlığı, Türkiye",
+          "russia": "Rusya Müslümanları Ruhani İdaresi",
+          "moonsighting": "Ay Gözlem Komitesi",
+          "dubai": "Dubai (Resmi Olmayan)",
+          "jakim": "Malezya İslam Gelişim Dairesi (JAKIM)",
+          "tunisia": "Tunus",
+          "algeria": "Cezayir",
+          "indonesia": "Endonezya Din İşleri Bakanlığı",
+          "morocco": "Fas",
+          "portugal": "Lizbon İslam Topluluğu (Portekiz)",
+          "jordan": "Vakıflar ve İslami İşler Bakanlığı, Ürdün"
+        }
+      },
       "notifier": {
         "title": "Namaz Hatırlatıcısı",
         "description": "Namazdan kaç dakika önce bildirim istiyorsunuz?",

@@ -13,6 +13,7 @@ import {
   Sun,
   MoonStar,
   SunDim,
+  Calculator,
 } from '@/components/shared/icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -21,6 +22,7 @@ import NoData from '@/components/shared/no-data';
 import { NotificationPermissionModal } from '@/components/shared/modals/notification-permission-modal';
 import PrayerTimerSkeleton from '@/components/views/qibla/prayer-time-skeleton';
 import { LocationSelector } from '@/components/shared/location-selector';
+import { CalculationMethodSelector } from '@/components/shared/calculation-method-selector';
 
 // Logic & Store
 import useTimeLeft from '@/hooks/common/useTimeLeft';
@@ -38,6 +40,7 @@ const PrayerTimer = () => {
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
   const locationSheetRef = useRef<BottomSheet>(null);
+  const calculationMethodSheetRef = useRef<BottomSheet>(null);
   const { prayerTimes, locationName, loading, error } = usePrayerData();
   const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes);
 
@@ -79,6 +82,7 @@ const PrayerTimer = () => {
 
         <View className="flex-row gap-3">
           {[
+            { icon: Calculator, action: () => calculationMethodSheetRef.current?.expand() },
             { icon: Compass, action: () => router.push('/(screens)/(qibla)/qibla-screen') },
             { icon: Settings2, action: open },
           ].map((btn, i) => (
@@ -200,6 +204,7 @@ const PrayerTimer = () => {
 
       <NotificationPermissionModal />
       <LocationSelector sheetRef={locationSheetRef} />
+      <CalculationMethodSelector ref={calculationMethodSheetRef} />
     </View>
   );
 };

@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { PrayerTimesData } from '@/types/prayer-times';
 import { useLocationStore } from '@/store/use-location';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
+import { usePreferencesStore } from '@/store/use-preferences';
 import * as Location from 'expo-location';
-
-const PRAYER_METHOD = 15;
 
 const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
@@ -22,50 +21,54 @@ export const usePrayerData = () => {
   const { t } = useTranslation();
   const { visited } = useOnboardingStore();
   const { city, country, initLocation, initialized, isLoadingLocation } = useLocationStore();
+  const { prayerCalculationMethod } = usePreferencesStore();
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [locationName, setLocationName] = useState(t('qibla.prayerTimes.location.fetching'));
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState(false);
 
-  const fetchPrayerTimes = useCallback(async (selectedCity: string, selectedCountry: string) => {
-    try {
-      setIsFetching(true);
-      setLocationName(`${selectedCity}, ${selectedCountry}`);
+  const fetchPrayerTimes = useCallback(
+    async (selectedCity: string, selectedCountry: string) => {
+      try {
+        setIsFetching(true);
+        setLocationName(`${selectedCity}, ${selectedCountry}`);
 
-      const date = new Date();
-      const response = await fetch(
-        `https://api.aladhan.com/v1/timingsByCity/${formatDate(
-          date
-        )}?city=${encodeURIComponent(selectedCity)}&country=${encodeURIComponent(
-          selectedCountry
-        )}&method=${PRAYER_METHOD}`
-      );
-      const json = await response.json();
-      const timings = json?.data?.timings;
+        const date = new Date();
+        const response = await fetch(
+          `https://api.aladhan.com/v1/timingsByCity/${formatDate(
+            date
+          )}?city=${encodeURIComponent(selectedCity)}&country=${encodeURIComponent(
+            selectedCountry
+          )}&method=${prayerCalculationMethod}`
+        );
+        const json = await response.json();
+        const timings = json?.data?.timings;
 
-      if (!timings) {
-        throw new Error('No timings returned');
+        if (!timings) {
+          throw new Error('No timings returned');
+        }
+
+        const times: PrayerTimesData = {
+          fajr: buildDateTime(date, timings.Fajr),
+          sunrise: buildDateTime(date, timings.Sunrise),
+          dhuhr: buildDateTime(date, timings.Dhuhr),
+          asr: buildDateTime(date, timings.Asr),
+          maghrib: buildDateTime(date, timings.Maghrib),
+          isha: buildDateTime(date, timings.Isha),
+        };
+
+        setPrayerTimes(times);
+        setError(false);
+      } catch (err) {
+        console.error('Prayer times fetch error:', err);
+        setError(true);
+        setPrayerTimes(null);
+      } finally {
+        setIsFetching(false);
       }
-
-      const times: PrayerTimesData = {
-        fajr: buildDateTime(date, timings.Fajr),
-        sunrise: buildDateTime(date, timings.Sunrise),
-        dhuhr: buildDateTime(date, timings.Dhuhr),
-        asr: buildDateTime(date, timings.Asr),
-        maghrib: buildDateTime(date, timings.Maghrib),
-        isha: buildDateTime(date, timings.Isha),
-      };
-
-      setPrayerTimes(times);
-      setError(false);
-    } catch (err) {
-      console.error('Prayer times fetch error:', err);
-      setError(true);
-      setPrayerTimes(null);
-    } finally {
-      setIsFetching(false);
-    }
-  }, []);
+    },
+    [prayerCalculationMethod]
+  );
 
   useEffect(() => {
     // Don't initialize location until onboarding is completed
@@ -94,7 +97,15 @@ export const usePrayerData = () => {
     // Fetch prayer times for the actual location (could be user's location or Mecca fallback)
     setLocationName(`${city}, ${country}`);
     void fetchPrayerTimes(city, country);
-  }, [city, country, fetchPrayerTimes, initLocation, initialized, visited]);
+  }, [
+    city,
+    country,
+    fetchPrayerTimes,
+    initLocation,
+    initialized,
+    visited,
+    prayerCalculationMethod,
+  ]);
 
   const loading = useMemo(() => {
     if (!initialized || isLoadingLocation) return true;

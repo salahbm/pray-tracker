@@ -534,6 +534,35 @@
         "fetching": "Joylashuv olinmoqda...",
         "unknown": "Noma'lum"
       },
+      "calculationMethod": {
+        "title": "Hisoblash usuli",
+        "subtitle": "Namoz vaqtlarini hisoblash uchun islomiy usulni tanlang",
+        "methods": {
+          "jafari": "Shia Isna-Ashari (Jafari)",
+          "muslimWorldLeague": "Jahon Musulmonlar Ligasi",
+          "isna": "Shimoliy Amerika Islom Jamiyati (ISNA)",
+          "egyptian": "Misr Umumiy Geodeziya Boshqarmasi",
+          "ummAlQura": "Umm al-Qura Universiteti, Makka",
+          "karachi": "Islom Fanlari Universiteti, Karachi",
+          "tehran": "Geofizika Instituti, Tehron Universiteti",
+          "gulf": "Ko'rfaz mintaqasi",
+          "kuwait": "Quvayt",
+          "qatar": "Qatar",
+          "singapore": "Majlis Ugama Islam Singapura, Singapur",
+          "france": "Frantsiya Islom Tashkilotlari Ittifoqi",
+          "turkey": "Turkiya Din Ishlari Boshqarmasi",
+          "russia": "Rossiya Musulmonlarining Ruhiy Boshqarmasi",
+          "moonsighting": "Oyni Kuzatish Qo'mitasi",
+          "dubai": "Dubay (Norasmiy)",
+          "jakim": "Malayziya Islom Taraqqiyoti Departamenti (JAKIM)",
+          "tunisia": "Tunis",
+          "algeria": "Jazoir",
+          "indonesia": "Indoneziya Din Ishlari Vazirligi",
+          "morocco": "Marokash",
+          "portugal": "Lissabon Islom Jamoasi (Portugaliya)",
+          "jordan": "Vaqflar va Islom Ishlari Vazirligi, Iordaniya"
+        }
+      },
       "notifier": {
         "title": "Namoz eslatmasi",
         "description": "Namozdan necha daqiqa oldin eslatma olmoqchisiz?",

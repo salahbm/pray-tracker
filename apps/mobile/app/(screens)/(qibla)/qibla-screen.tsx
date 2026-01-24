@@ -57,8 +57,9 @@ const QiblaScreen: React.FC = () => {
         headingRef.current = smoothed;
         if (angularDiff(heading, smoothed) >= 0.5) setHeading(smoothed);
 
-        // Haptic feedback logic
-        if (angularDiff(smoothed, qiblaAngle) <= 2 && Date.now() - lastHapticAtRef.current > 1200) {
+        // Haptic feedback logic - trigger when pointing towards Qibla (within 5 degrees)
+        const diff = angularDiff(smoothed, qiblaAngle);
+        if (diff <= 5 && Date.now() - lastHapticAtRef.current > 1200) {
           triggerHaptic();
           lastHapticAtRef.current = Date.now();
         }
@@ -67,8 +68,10 @@ const QiblaScreen: React.FC = () => {
     return () => headingSubRef.current?.remove();
   }, [isFocused, qiblaAngle, heading]);
 
-  const delta = useMemo(() => norm360(qiblaAngle - heading), [heading, qiblaAngle]);
-  const ringRotationVisual = useMemo(() => toVisual(delta), [delta]);
+  // Calculate rotation: Kaaba should point to Qibla direction
+  // Ring rotates opposite to device heading, offset by Qibla angle
+  const ringRotation = useMemo(() => qiblaAngle - heading, [heading, qiblaAngle]);
+  const delta = useMemo(() => Math.abs(signedDelta(heading, qiblaAngle)), [heading, qiblaAngle]);
 
   if (isLoading) return <Loader visible className="bg-background" />;
 
@@ -103,7 +106,7 @@ const QiblaScreen: React.FC = () => {
             {/* Main Outer Circle */}
             <View
               className="absolute w-full h-full rounded-full border-[1.5px] border-white/60"
-              style={{ transform: [{ rotate: `${ringRotationVisual}deg` }] }}
+              style={{ transform: [{ rotate: `${ringRotation}deg` }] }}
             >
               {/* Cardinal Points */}
               <Text className="absolute self-center -top-8 text-white font-bold">N</Text>

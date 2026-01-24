@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import * as Location from 'expo-location';
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePreferencesStore } from '@/store/use-preferences';
 import { fireToast } from '@/providers/toaster';
 import { Alert } from 'react-native';
 
@@ -34,6 +35,7 @@ const Preferences = () => {
   const { resetLocation, city, country, initialized } = useLocationStore();
   const { resetTheme } = useThemeStore();
   const { prayerNotifications, toggleEnabled } = useNotificationStore();
+  const { showHistoryDay, setShowHistoryDay } = usePreferencesStore();
 
   const handleToggleNotifications = async (enabled: boolean) => {
     toggleEnabled();
@@ -47,6 +49,10 @@ const Preferences = () => {
       // Cancel all notifications when disabled
       await cancelAllPrayerNotifications();
     }
+  };
+
+  const handleToggleShowHistoryDay = (enabled: boolean) => {
+    setShowHistoryDay(enabled);
   };
 
   return (
@@ -124,6 +130,22 @@ const Preferences = () => {
             }
             value={prayerNotifications.isEnabled}
             onValueChange={handleToggleNotifications}
+          />
+        </View>
+
+        <View className="touchable">
+          <Text className="text-base text-muted-foreground ml-2">
+            {t('profile.settings.show_history_day')}
+          </Text>
+
+          <Switch
+            trackColor={{
+              false: colors['--muted'],
+              true: colors['--primary'],
+            }}
+            thumbColor={showHistoryDay ? colors['--background'] : colors['--muted-foreground']}
+            value={showHistoryDay}
+            onValueChange={handleToggleShowHistoryDay}
           />
         </View>
         {__DEV__ && (
