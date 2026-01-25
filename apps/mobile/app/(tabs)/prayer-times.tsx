@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
-import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import {
   Settings2,
   Compass,
@@ -33,10 +33,8 @@ import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
 import { Link } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
-import { useQibla } from '@/hooks/prays/useQibla';
 
 const PrayerTimer = () => {
-  useQibla();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
