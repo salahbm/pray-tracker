@@ -247,6 +247,27 @@
       "title": "Today's Prayers"
     }
   },
+  "stats": {
+    "title": "Stats",
+    "premiumSectionTitle": "Premium Insights",
+    "monthlyBreakdown": "Monthly Prayer Breakdown",
+    "monthlyConsistency": "Monthly Consistency",
+    "yearlyOverview": "Yearly Overview",
+    "monthlyComparison": "Monthly Comparison",
+    "yearlyPrayerPerformance": "Yearly Prayer Performance",
+    "completionQuality": "Completion Quality",
+    "completionQualityUnavailable": "Completion quality breakdown is not available for your current data.",
+    "days": "Days",
+    "consistency": {
+      "full": "Full days",
+      "partial": "Partial days",
+      "missed": "Missed days"
+    },
+    "premiumLocked": {
+      "title": "Premium charts locked",
+      "description": "Upgrade to unlock advanced yearly insights and completion quality trends."
+    }
+  },
   "profile": {
     "title": "Profile",
     "about": {
