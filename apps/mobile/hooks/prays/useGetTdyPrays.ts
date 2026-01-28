@@ -4,6 +4,7 @@ import { DayData } from '@/components/shared/heat-map/heat';
 import QueryKeys from '@/constants/query-keys';
 import agent from '@/lib/agent';
 import { IPrays } from '@/types/prays';
+import { format } from 'date-fns';
 
 type TPraysParams = {
   id: string;
@@ -21,7 +22,8 @@ const getTodayPray = async (params: TPraysParams): Promise<IPrays> => {
 
 export const useGetTodayPrays = (id: string, date?: Date) => {
   // Format date to ensure query key changes at midnight
-  const dateKey = date ? date.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+  const effectiveDate = date ?? new Date();
+  const dateKey = format(effectiveDate, 'yyyy-MM-dd');
 
   return useQuery({
     queryKey: [...QueryKeys.prays.today, { id, date: dateKey }],
