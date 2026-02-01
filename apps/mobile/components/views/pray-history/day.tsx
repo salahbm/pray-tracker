@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
@@ -7,6 +6,7 @@ import { Text } from '@/components/ui/text';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import { cn } from '@/lib/utils';
 import { triggerHaptic } from '@/utils';
+import { getLocalDateKey } from '@/utils/date';
 
 interface IDayComponentProps {
   date?: DateData;
@@ -47,7 +47,7 @@ const DayComponent: React.FC<IDayComponentProps> = ({ date, prayerCountByDate, o
         triggerHaptic();
         onDayPress(date);
       }}
-      disabled={date.dateString === format(new Date(), 'yyyy-MM-dd')}
+      disabled={date.dateString === getLocalDateKey()}
       className={cn('flex-center h-12 w-12 rounded-full transition-colors', bgClass)}
     >
       <Text className={cn('text-foreground')}>{date.day}</Text>
