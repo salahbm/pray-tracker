@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -13,6 +12,7 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { IPrays } from '@/types/prays';
 import { triggerHaptic } from '@/utils/haptics';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { getUtcDateKey, parseLocalDateKey } from '@/utils/date';
 
 interface PrevDayProps {
   ref: React.RefObject<BottomSheetModal | null>;
@@ -33,7 +33,7 @@ const PrevDay: React.FC<PrevDayProps> = ({ ref, selected, setSelected, prays }) 
       await triggerHaptic();
       await patchPray({
         userId: user.id,
-        date: new Date(selected),
+        date: parseLocalDateKey(selected),
         field: prayerName as PrayerField,
         value: newValue as 0 | 1 | 2,
       });
@@ -60,7 +60,7 @@ const PrevDay: React.FC<PrevDayProps> = ({ ref, selected, setSelected, prays }) 
       </View>
 
       {(() => {
-        const selectedPray = prays?.find(p => format(new Date(p.date), 'yyyy-MM-dd') === selected);
+        const selectedPray = prays?.find(p => getUtcDateKey(p.date) === selected);
 
         // iterate through prayer keys
         const prayerKeys: (keyof IPrays)[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'nafl'];

@@ -1,5 +1,5 @@
 import confetti from '@assets/gif/confetti.json';
-import { format } from 'date-fns';
+import { getLocalDateKey, parseLocalDateKey } from '@/utils/date';
 import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { MotiView } from 'moti';
@@ -147,16 +147,18 @@ export default function HomeScreen() {
     async (date: string, details: { data: DayData | null | undefined }) => {
       // if date is after today, return toast
       if (!user) return fireToast.error(t('common.errors.unauthorized'));
-      const isDateAfterToday = new Date(date) > today;
+      const selectedDate = parseLocalDateKey(date);
+      const isDateAfterToday = selectedDate > today;
       if (isDateAfterToday) return fireToast.info(t('common.errors.futureDate'));
-      const isMoreThanAWeek = new Date(date) < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const isMoreThanAWeek =
+        selectedDate < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isMoreThanAWeek && !isPremium) {
         paywallSheetRef.current?.snapToIndex(0);
         return;
       }
 
       // if today, scroll to top
-      if (date === format(today, 'yyyy-MM-dd')) {
+      if (date === getLocalDateKey(today)) {
         return homeRef.current?.scrollTo({
           y: 0,
           animated: true,
@@ -186,7 +188,7 @@ export default function HomeScreen() {
       // Send PATCH request with only the changed field
       await patchPray({
         userId: user.id,
-        date: new Date(date),
+        date: parseLocalDateKey(date),
         field,
         value,
       });

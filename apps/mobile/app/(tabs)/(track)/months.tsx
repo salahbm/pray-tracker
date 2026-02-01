@@ -27,6 +27,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { getMonthTheme } from '@/styles/calendar.theme';
 import { IPrays } from '@/types/prays';
 import { debounce } from '@/utils/debounce';
+import { getLocalDateKey, getUtcDateKey, parseLocalDateKey } from '@/utils/date';
 import { setCalendarLocale } from '@/utils/month-names';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { BottomSheetModal, useBottomSheetTimingConfigs } from '@gorhom/bottom-sheet';
@@ -59,7 +60,7 @@ const MonthScreen = () => {
   const [renderVersion, setRenderVersion] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const lastVisibleMonthRef = useRef<Date>(new Date());
-  const initialMonthRef = useRef<string>(new Date().toISOString());
+  const initialMonthRef = useRef<string>(getLocalDateKey());
 
   const { isPremium, refetch } = useRevenueCatCustomer();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
@@ -77,8 +78,9 @@ const MonthScreen = () => {
     () =>
       debounce((months: any[]) => {
         if (months?.[0]?.dateString) {
-          lastVisibleMonthRef.current = new Date(months[0].dateString);
-          setYear(new Date(months[0].dateString).getFullYear());
+          const visibleDate = parseLocalDateKey(months[0].dateString);
+          lastVisibleMonthRef.current = visibleDate;
+          setYear(visibleDate.getFullYear());
         }
         monthControlsCallback(months);
       }, 10),
@@ -101,7 +103,7 @@ const MonthScreen = () => {
     if (!prays?.length) return {};
     return prays.reduce(
       (acc, pray: IPrays) => {
-        const date = format(new Date(pray.date), 'yyyy-MM-dd');
+        const date = getUtcDateKey(pray.date);
         const count =
           (pray.fajr ? 1 : 0) +
           (pray.dhuhr ? 1 : 0) +
@@ -123,7 +125,7 @@ const MonthScreen = () => {
         return;
       }
       // Prevent selecting future dates
-      const selectedDate = new Date(day.dateString);
+      const selectedDate = parseLocalDateKey(day.dateString);
       const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
       selectedDate.setHours(0, 0, 0, 0);
@@ -145,7 +147,7 @@ const MonthScreen = () => {
   );
 
   const marked = useMemo(() => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateKey();
     const entries: Record<string, MarkedDateProps> = {
       [today]: {
         marked: true,

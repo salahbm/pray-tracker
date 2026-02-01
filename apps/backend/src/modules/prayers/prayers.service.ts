@@ -142,9 +142,11 @@ export class PrayersService {
   /**
    * Get today's prayer for a user
    */
-  async findTodayByUser(userId: string): Promise<Prayer | null> {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  async findTodayByUser(userId: string, date?: string): Promise<Prayer | null> {
+    const today = date ? normalizeDayUtc(date) : new Date();
+    if (!date) {
+      today.setHours(0, 0, 0, 0);
+    }
 
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);

@@ -67,8 +67,8 @@ const HeatMap: React.FC<HeatMapProps> = props => {
 
     if (data) {
       Object.entries(data).forEach(([date, dayData]) => {
-        const dateObj = new Date(date);
-        if (dateObj.getFullYear() !== year) return;
+        const dateYear = Number(date.split('-')[0]);
+        if (dateYear !== year) return;
 
         const rawScore = Object.values(dayData).reduce((sum, value) => sum + value, 0);
 

@@ -4,10 +4,11 @@ import { PrayerTimesData } from '@/types/prayer-times';
 import { useLocationStore } from '@/store/use-location';
 import { useOnboardingStore } from '@/store/defaults/onboarding';
 import * as Location from 'expo-location';
+import { getLocalDateKey } from '@/utils/date';
 
 const PRAYER_METHOD = 15;
 
-const formatDate = (date: Date) => date.toISOString().split('T')[0];
+const formatDate = (date: Date) => getLocalDateKey(date);
 
 const sanitizeTime = (time: string) => time.split(' ')[0];
 
