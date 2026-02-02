@@ -96,8 +96,7 @@ Noor is an open-source project, and we welcome contributions from the community!
 
 Join our community discussions on GitHub to share ideas, ask questions, or suggest improvements. Let’s build something amazing together!
 
-
---- 
+---
 
 ## License
 

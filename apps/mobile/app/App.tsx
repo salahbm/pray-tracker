@@ -28,9 +28,9 @@ SplashScreen.setOptions({
 
 export default function App() {
   useSession();
-  useQibla();
-  usePrayerData();
   useLocationStore();
+  usePrayerData();
+  useQibla();
 
   const [loaded] = useFonts({
     SpaceMono: spaceMono,

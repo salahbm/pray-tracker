@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { useEffect, useMemo, useState, memo } from 'react';
+import { View, Pressable } from 'react-native';
 import { MotiView } from 'moti';
 import { addDays, addMonths, differenceInCalendarDays, format, parse, startOfDay } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,6 @@ import { MoonStar, Sun, ChevronRight, Sparkles } from '@/components/shared/icons
 import { Text } from '@/components/ui/text';
 import RamadanCountdown from '@/components/ramadan/ramadan-countdown';
 import RamadanStatusBadge from '@/components/ramadan/ramadan-badge';
-import { PressableBounce } from '../shared/pressable-bounce';
 import { cn } from '@/lib/utils';
 
 // Logic
@@ -18,13 +17,10 @@ import { useRamadanCalendar } from '@/hooks/ramadan/use-ramadan';
 import { getRamadanCountdown } from '@/utils/ramadanCountdown';
 import { useLocationStore } from '@/store/use-location';
 
-// Debug: Set to null for production
-const DEBUG_SIMULATED_DATE = '15-03-2026';
-
 const formatTiming = (timing: string) => timing.split(' ')[0];
 const parseGregorianDate = (dateValue: string) => parse(dateValue, 'dd-MM-yyyy', new Date());
 
-const RamadanCard = () => {
+const RamadanCard = memo(() => {
   const { t } = useTranslation();
   const { city, country } = useLocationStore();
 
@@ -97,8 +93,7 @@ const RamadanCard = () => {
       transition={{ type: 'timing', duration: 420 }}
       className="mt-8"
     >
-      <PressableBounce
-        onPress={() => router.push('/(screens)/ramadan/ramadan-screen')}
+      <View
         className={cn(
           'relative rounded-xl p-6 overflow-hidden',
           isRamadan
@@ -190,14 +185,19 @@ const RamadanCard = () => {
               </Text>
             </View>
 
-            <View className="h-14 w-14 rounded-full bg-primary/10 items-center justify-center">
+            <Pressable
+              onPress={() => router.push('/(screens)/ramadan/ramadan-screen')}
+              className="h-14 w-14 rounded-full bg-primary/10 items-center justify-center"
+            >
               <ChevronRight size={26} className="text-primary" />
-            </View>
+            </Pressable>
           </View>
         )}
-      </PressableBounce>
+      </View>
     </MotiView>
   );
-};
+});
+
+RamadanCard.displayName = 'RamadanCard';
 
 export default RamadanCard;

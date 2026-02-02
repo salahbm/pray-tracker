@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import { PRAYER_POINTS } from '@/constants/enums';
 import { cn } from '@/lib/utils';
@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { defaultColorMap, MAX_DISPLAY_POINTS } from './constant';
 import { DateMap, HeatMapProps, ProcessedData, YearData } from './heat';
 import { arrToMatrix, getDaysInMonth, getOpacityByNumber } from './helpers';
-import { PressableBounce } from '../pressable-bounce';
+import { usePreferencesStore } from '@/store/use-preferences';
 
 const HeatMap: React.FC<HeatMapProps> = props => {
   const {
@@ -17,8 +17,9 @@ const HeatMap: React.FC<HeatMapProps> = props => {
     year = new Date().getFullYear(),
     onDayClick,
     locale = 'en',
-    isLoading = false,
   } = props;
+
+  const { showHistoryDay } = usePreferencesStore();
 
   const monthLayouts = useRef<Record<string, number>>({});
   const scrollRef = useRef<ScrollView | null>(null);
@@ -38,7 +39,7 @@ const HeatMap: React.FC<HeatMapProps> = props => {
   useEffect(() => {
     const timeout = setTimeout(scrollToCurrentMonth, 100); // allow layout time
     return () => clearTimeout(timeout);
-  }, []);
+  }, [scrollToCurrentMonth]);
 
   // Process data
   const processedData: ProcessedData = useMemo(() => {
@@ -107,10 +108,10 @@ const HeatMap: React.FC<HeatMapProps> = props => {
                   const selectedDate = monthData.dates[rowIndex * 7 + dayIndex] || '';
 
                   return (
-                    <PressableBounce
+                    <Pressable
                       key={`${month}-cell-${rowIndex}-${dayIndex}`}
                       hitSlop={10}
-                      className={cn('size-7 shrink-0 rounded m-1')}
+                      className={cn('size-7 shrink-0 rounded m-1 flex-center')}
                       style={{
                         opacity: dayScore > 0 ? getOpacityByNumber(color.opacity, dayScore) : 1,
                         backgroundColor: dayScore > 0 ? color.theme : defaultBackgroundColor,
@@ -128,7 +129,14 @@ const HeatMap: React.FC<HeatMapProps> = props => {
                           onDayClick(selectedDate, { data: detailedData });
                         }
                       }}
-                    />
+                    >
+                      {/* Day of the month */}
+                      {showHistoryDay && (
+                        <Text className="text-xs text-primary-foreground shadow-sm text-center">
+                          {rowIndex * 7 + dayIndex + 1}
+                        </Text>
+                      )}
+                    </Pressable>
                   );
                 })}
               </View>
@@ -137,7 +145,7 @@ const HeatMap: React.FC<HeatMapProps> = props => {
         </View>
       );
     },
-    [color, defaultBackgroundColor, dateMap, onDayClick]
+    [color, defaultBackgroundColor, dateMap, onDayClick, showHistoryDay]
   );
 
   return (

@@ -82,7 +82,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
       };
       return acc;
     }, {});
-  }, [data, year]);
+  }, [data]);
 
   return (
     <React.Fragment>

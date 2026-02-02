@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import {
   Settings2,
   Compass,
@@ -13,6 +13,8 @@ import {
   Sun,
   MoonStar,
   SunDim,
+  Calculator,
+  ChevronRight,
 } from '@/components/shared/icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -21,23 +23,23 @@ import NoData from '@/components/shared/no-data';
 import { NotificationPermissionModal } from '@/components/shared/modals/notification-permission-modal';
 import PrayerTimerSkeleton from '@/components/views/qibla/prayer-time-skeleton';
 import { LocationSelector } from '@/components/shared/location-selector';
+import { CalculationMethodSelector } from '@/components/views/qibla/calculation-method-selector';
 
 // Logic & Store
 import useTimeLeft from '@/hooks/common/useTimeLeft';
 import { usePrayNotifierBottomSheetStore } from '@/store/bottom-sheets/pray-notifier.sheet';
 import { SALAHS } from '@/constants/enums';
 import { usePrayerData } from '@/hooks/prays/useGetPayingTimes';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { triggerHaptic } from '@/utils';
 import { cn } from '@/lib/utils';
-import { useQibla } from '@/hooks/prays/useQibla';
 
 const PrayerTimer = () => {
-  useQibla();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { open } = usePrayNotifierBottomSheetStore();
-  const locationSheetRef = useRef<BottomSheet>(null);
+  const locationSheetRef = useRef<BottomSheetModal>(null);
+  const calculationMethodSheetRef = useRef<BottomSheetModal>(null);
   const { prayerTimes, locationName, loading, error } = usePrayerData();
   const { timeLeft, currentPrayer, nextPrayer } = useTimeLeft(prayerTimes);
 
@@ -57,9 +59,8 @@ const PrayerTimer = () => {
 
   return (
     <View className="flex-1 bg-background">
-      {/* Header: Fixed at top. 
-        UX Improvement: Buttons are subtle (secondary) so they don't distract from the time.
-      */}
+      {/* HEADER: Now focused on Global Settings
+       */}
       <View
         className="flex-row justify-between items-center px-6 pb-4"
         style={{ paddingTop: insets.top + 10 }}
@@ -68,7 +69,7 @@ const PrayerTimer = () => {
           className="flex-row items-center gap-2 opacity-80"
           onPress={() => {
             triggerHaptic();
-            locationSheetRef.current?.expand();
+            locationSheetRef.current?.present();
           }}
         >
           <MapPin size={20} className="text-primary" />
@@ -79,7 +80,7 @@ const PrayerTimer = () => {
 
         <View className="flex-row gap-3">
           {[
-            { icon: Compass, action: () => router.push('/(screens)/(qibla)/qibla-screen') },
+            { icon: Calculator, action: () => calculationMethodSheetRef.current?.present() },
             { icon: Settings2, action: open },
           ].map((btn, i) => (
             <TouchableOpacity
@@ -96,21 +97,20 @@ const PrayerTimer = () => {
           ))}
         </View>
       </View>
-
       <ScrollView
         className="flex-1 px-4"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
       >
-        {/* Hero Section: The Main Countdown.
-           UI Improvement: Clean typography, removed the "Accordion" chevron.
-        */}
-        <View className="mb-6 rounded-3xl bg-primary p-6 shadow-lg shadow-primary/20 min-h-[200px] relative overflow-hidden">
-          {/* Background Decoration Circle */}
-          <View className="absolute -right-10 -top-10 w-40 h-40 bg-primary-foreground/5 rounded-full blur-2xl" />
+        {/* HERO SECTION: Countdown + Qibla Integration
+         */}
+        <View className="mb-6 rounded-2xl bg-primary p-6 shadow-xl shadow-primary/30 relative overflow-hidden">
+          {/* Decorative Background Elements */}
+          <View className="absolute -right-10 -top-10 w-48 h-48 bg-white/10 rounded-full" />
+          <View className="absolute -left-5 -bottom-5 w-24 h-24 bg-white/5 rounded-full" />
 
-          <View className="items-center py-4">
-            <Text className="text-sm font-bold tracking-[4px] uppercase text-primary-foreground/60 mb-1">
+          <View className="items-center py-6">
+            <Text className="text-xs font-bold tracking-[4px] uppercase text-primary-foreground/60 mb-1">
               {nextPrayer ? t(`common.salahs.${nextPrayer}`) : '--'}
             </Text>
 
@@ -118,47 +118,63 @@ const PrayerTimer = () => {
               {timeLeft}
             </Text>
 
-            <View className="bg-primary-foreground/10 px-4 py-1.5 rounded-full mt-3">
-              <Text className="text-xs font-semibold text-primary-foreground/80">
-                {t('qibla.prayerTimes.timeLeft')}
-              </Text>
-            </View>
+            <Text className="text-[11px] mt-2 font-bold text-primary-foreground uppercase tracking-wider text-center">
+              {t('qibla.prayerTimes.timeLeft')}
+            </Text>
           </View>
+
+          {/* QIBLA NAVIGATION: Contextual Placement */}
+          <Link href="/(screens)/(qibla)/qibla-screen" asChild>
+            <TouchableOpacity onPress={() => triggerHaptic()} activeOpacity={0.7}>
+              <View className="mt-4 gap-2 flex-row items-center justify-between bg-white/20 w-full border border-white/20 p-4 rounded-2xl backdrop-blur-xl">
+                <View className="flex-row items-center gap-3">
+                  <View className="bg-primary-foreground p-2 rounded-full">
+                    <Compass size={20} className="text-primary" />
+                  </View>
+                  <View>
+                    <Text className="text-primary-foreground font-bold text-sm">
+                      {t('common.qibla.title')}
+                    </Text>
+                    <Text className="text-primary-foreground/70 text-[10px]">
+                      {t('common.qibla.description')}
+                    </Text>
+                  </View>
+                </View>
+                <ChevronRight size={18} className="text-primary-foreground/50" />
+              </View>
+            </TouchableOpacity>
+          </Link>
         </View>
 
-        {/* Prayer List
-           UX Improvement: List is visible immediately (no accordion).
-           UI Improvement: "Current" prayer has a distinct left border and background tint.
-        */}
-        {error || !prayerTimes ? (
+        {error || !prayerTimes || !prayers.length ? (
           <NoData className="mt-[30%]" />
         ) : (
-          <View className="gap-3">
-            {prayers.map(item => {
+          <View className="gap-3 mt-6">
+            <Text className="text-sm font-bold text-muted-foreground px-1 mb-1 tracking-widest uppercase">
+              {t('common.today_schedule')}
+            </Text>
+
+            {prayers?.map(item => {
               const isCurrent = item.name === currentPrayer;
-              const isNext = item.name === nextPrayer;
               const Icon = item.icon;
 
               return (
                 <View
                   key={item.name}
-                  className={cn(
-                    'flex-row justify-between items-center p-4 rounded-xl border mb-1',
-                    {
-                      'bg-primary/5 border-primary/30 border-l-4 border-l-primary': isCurrent, // Active styling
-                      'bg-background/90 border-border/50': !isCurrent, // Inactive styling
-                      'opacity-50': !isCurrent && !isNext && item.time < new Date(), // Past prayers dimmed slightly (optional logic)
-                    }
-                  )}
+                  className={cn('flex-row justify-between items-center p-4 rounded-2xl border', {
+                    'bg-primary/5 border-primary/20': isCurrent,
+                    'bg-card border-border/40': !isCurrent,
+                  })}
                 >
                   <View className="flex-row items-center gap-4">
                     <View
-                      className={cn('w-10 h-10 items-center justify-center rounded-full', {
-                        'bg-primary text-primary-foreground': isCurrent,
-                        'bg-muted/50': !isCurrent,
+                      className={cn('w-11 h-11 items-center justify-center rounded-xl', {
+                        'bg-primary': isCurrent,
+                        'bg-muted/40': !isCurrent,
                       })}
                     >
                       <Icon
+                        size={20}
                         className={cn('size-5', {
                           'text-primary-foreground': isCurrent,
                           'text-muted-foreground': !isCurrent,
@@ -168,7 +184,7 @@ const PrayerTimer = () => {
 
                     <View>
                       <Text
-                        className={cn('text-base font-bold capitalize', {
+                        className={cn('text-[15px] font-bold', {
                           'text-foreground': isCurrent,
                           'text-muted-foreground': !isCurrent,
                         })}
@@ -176,9 +192,12 @@ const PrayerTimer = () => {
                         {t(`common.salahs.${item.name}`)}
                       </Text>
                       {isCurrent && (
-                        <Text className="text-[10px] uppercase font-bold text-primary tracking-wider">
-                          Now
-                        </Text>
+                        <View className="flex-row items-center gap-1 mt-0.5">
+                          <View className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                          <Text className="text-[10px] uppercase font-bold text-primary tracking-tighter">
+                            {t('common.now')}
+                          </Text>
+                        </View>
                       )}
                     </View>
                   </View>
@@ -186,7 +205,7 @@ const PrayerTimer = () => {
                   <Text
                     className={cn('text-lg font-bold tabular-nums', {
                       'text-primary': isCurrent,
-                      'text-foreground': !isCurrent,
+                      'text-foreground/70': !isCurrent,
                     })}
                   >
                     {item.time ? format(item.time, 'HH:mm') : '--:--'}
@@ -197,9 +216,9 @@ const PrayerTimer = () => {
           </View>
         )}
       </ScrollView>
-
-      <NotificationPermissionModal />
       <LocationSelector sheetRef={locationSheetRef} />
+      <CalculationMethodSelector ref={calculationMethodSheetRef} />
+      <NotificationPermissionModal />
     </View>
   );
 };

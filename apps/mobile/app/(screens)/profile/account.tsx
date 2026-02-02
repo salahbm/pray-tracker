@@ -32,10 +32,13 @@ const Account = () => {
   const expirationDate = premiumInfo?.expirationDate;
 
   const handleWithdrawAccount = async () => {
+    if (!user?.id) {
+      return;
+    }
     if (Platform.OS !== 'web') {
       await triggerHaptic();
     }
-    await deleteUser(user?.id!).finally(() => {
+    await deleteUser(user?.id).finally(() => {
       setModalVisible(false);
       router.replace('/(tabs)');
     });
@@ -49,8 +52,8 @@ const Account = () => {
   return (
     <SafeAreaView className="safe-area">
       <Loader visible={isDeleting || isLoggingOut} />
+      <GoBack title={t('profile.account.title')} />
       <View className="main-area">
-        <GoBack title={t('profile.account.title')} />
         <Image source={user?.image} className="mt-10 size-[150px] mx-auto" />
 
         {/* Account Info */}

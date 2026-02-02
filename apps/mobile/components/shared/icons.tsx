@@ -48,6 +48,8 @@ import {
   Check,
   WifiOff,
   Trash2,
+  BarChart3,
+  Calculator,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -108,6 +110,8 @@ iconWithClassName(Pencil);
 iconWithClassName(Check);
 iconWithClassName(WifiOff);
 iconWithClassName(Trash2);
+iconWithClassName(BarChart3);
+iconWithClassName(Calculator);
 
 export {
   Calendar,
@@ -156,4 +160,6 @@ export {
   Check,
   WifiOff,
   Trash2,
+  BarChart3,
+  Calculator,
 };

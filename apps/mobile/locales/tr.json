@@ -117,7 +117,6 @@
         "title": "İstek Geçersiz",
         "message": "İsteğinizi işleyemedik. Girdiğiniz bilgileri kontrol edip tekrar deneyin."
       },
-
       "invalidEmail": "Geçersiz e-posta"
     },
     "salahs": {
@@ -150,6 +149,12 @@
     "today": "Bugün",
     "loadMoreMonths": "+ 6 Ay Daha Yükle",
     "chooseLanguage": "Dil seçin",
+    "now": "Şimdi",
+    "today_schedule": "Bugünün Takvim",
+    "qibla": {
+      "title": "Kibla Yönü",
+      "description": "Kibla Yönü"
+    },
     "actions": {
       "delete": "Sil",
       "deleting": "Siliniyor...",
@@ -227,7 +232,8 @@
   },
   "home": {
     "charts": {
-      "title": "İbadet İlerlemesi (Aylık)"
+      "title": "İlerlemesi",
+      "all": "Tümü"
     },
     "errors": {
       "futureDate": "Gelecekteki bir tarih seçemezsiniz"
@@ -391,7 +397,8 @@
       "language": "Dil",
       "notifications": "Bildirimler",
       "theme": "Tema",
-      "title": "Ayarlar"
+      "title": "Ayarlar",
+      "show_history_day": "Tarihleri göster"
     },
     "privacy": {
       "title": "Gizlilik Politikası",
@@ -454,6 +461,27 @@
         "title": "Bize Ulaşın",
         "content": "Bu şartlarla ilgili sorularınız varsa, uygulamada sağlanan destek kanalı üzerinden istediğiniz zaman bizimle iletişime geçebilirsiniz."
       }
+    }
+  },
+  "stats": {
+    "title": "İstatistikler",
+    "premiumSectionTitle": "Premium İçgörüler",
+    "monthlyBreakdown": "Aylık Namaz Dağılımı",
+    "monthlyConsistency": "Aylık Tutarlılık",
+    "yearlyOverview": "Yıllık Genel Bakış",
+    "monthlyComparison": "Aylık Karşılaştırma",
+    "yearlyPrayerPerformance": "Yıllık Namaz Performansı",
+    "completionQuality": "Tamamlama Kalitesi",
+    "completionQualityUnavailable": "Tamamlama kalitesi dökümü mevcut verileriniz için kullanılamıyor.",
+    "days": "Günler",
+    "consistency": {
+      "full": "Tam günler",
+      "partial": "Kısmi günler",
+      "missed": "Kaçırılan günler"
+    },
+    "premiumLocked": {
+      "title": "Premium grafikler kilitli",
+      "description": "Gelişmiş yıllık içgörüler ve tamamlama kalitesi trendleri için yükseltin."
     }
   },
   "subscription": {
@@ -524,6 +552,35 @@
       "location": {
         "fetching": "Konum alınıyor...",
         "unknown": "Bilinmiyor"
+      },
+      "calculationMethod": {
+        "title": "Hesaplama Yöntemi",
+        "subtitle": "Namaz vakitleri için İslami hesaplama yöntemini seçin",
+        "methods": {
+          "jafari": "Şii İsna Aşari (Caferi)",
+          "muslimWorldLeague": "Dünya Müslüman Birliği",
+          "isna": "Kuzey Amerika İslam Topluluğu (ISNA)",
+          "egyptian": "Mısır Genel Harita Müdürlüğü",
+          "ummAlQura": "Ümmü'l-Kura Üniversitesi, Mekke",
+          "karachi": "İslam Bilimleri Üniversitesi, Karaçi",
+          "tehran": "Jeofizik Enstitüsü, Tahran Üniversitesi",
+          "gulf": "Körfez Bölgesi",
+          "kuwait": "Kuveyt",
+          "qatar": "Katar",
+          "singapore": "Majlis Ugama Islam Singapura, Singapur",
+          "france": "Fransa İslam Örgütleri Birliği",
+          "turkey": "Diyanet İşleri Başkanlığı, Türkiye",
+          "russia": "Rusya Müslümanları Ruhani İdaresi",
+          "moonsighting": "Ay Gözlem Komitesi",
+          "dubai": "Dubai (Resmi Olmayan)",
+          "jakim": "Malezya İslam Gelişim Dairesi (JAKIM)",
+          "tunisia": "Tunus",
+          "algeria": "Cezayir",
+          "indonesia": "Endonezya Din İşleri Bakanlığı",
+          "morocco": "Fas",
+          "portugal": "Lizbon İslam Topluluğu (Portekiz)",
+          "jordan": "Vakıflar ve İslami İşler Bakanlığı, Ürdün"
+        }
       },
       "notifier": {
         "title": "Namaz Hatırlatıcısı",

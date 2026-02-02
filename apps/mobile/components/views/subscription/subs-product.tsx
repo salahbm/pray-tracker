@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { View, Pressable } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
-import { PressableBounce } from '@/components/shared/pressable-bounce';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { BorderBeam } from '@/components/shared/vfx';
 
@@ -29,7 +28,7 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
       <Text className="text-xl font-bold mb-4">{t('subscription.choosePlan')}</Text>
 
       {/* Monthly Plan */}
-      <PressableBounce
+      <Pressable
         onPress={() => setSelectedPlan('monthly')}
         className={cn(
           'rounded-2xl border-2 p-5 relative overflow-hidden',
@@ -70,10 +69,10 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
             {selectedPlan === 'monthly' && <View className="size-2 rounded-full bg-primary" />}
           </View>
         </View>
-      </PressableBounce>
+      </Pressable>
 
       {/* Yearly Plan */}
-      <PressableBounce
+      <Pressable
         onPress={() => setSelectedPlan('yearly')}
         className={cn(
           'mt-4 rounded-2xl border-2 p-5 relative',
@@ -106,7 +105,7 @@ const SubProductCard: React.FC<SubProductCardProps> = ({
             {selectedPlan === 'yearly' && <View className="size-2 rounded-full bg-primary" />}
           </View>
         </View>
-      </PressableBounce>
+      </Pressable>
     </Animated.View>
   );
 };

@@ -109,11 +109,11 @@
       "futureDate": "Siz kelajakdagi sanani tanlay olmaysiz"
     },
     "salahs": {
-      "asr": "Asr",
-      "dhuhr": "Peshin",
       "fajr": "Bomdod",
-      "isha": "Shom",
-      "maghrib": "Xufton",
+      "dhuhr": "Peshin",
+      "asr": "Asr",
+      "maghrib": "Shom",
+      "isha": "Xufton",
       "nafl": "Nafl",
       "sunrise": "Quyosh chiqishi"
     },
@@ -178,7 +178,13 @@
     "viewAll": "Hammasini ko'rish",
     "today": "Bugun",
     "loadMoreMonths": "+ Yana 6 oy yuklash",
-    "chooseLanguage": "Tilni tanlang"
+    "chooseLanguage": "Tilni tanlang",
+    "now": "Hozir",
+    "today_schedule": "Bugungi takvim",
+    "qibla": {
+      "title": "Qibla yo'nalishini",
+      "description": "Aniq Qibla yo'nalishini topish"
+    }
   },
   "location": {
     "selector": {
@@ -231,13 +237,14 @@
   },
   "home": {
     "charts": {
-      "title": "Ibodat progressi (Oylik)"
+      "title": "Progress",
+      "all": "Hammasi"
     },
     "prayerHistory": {
       "close": "Yopish",
       "date": "Sana",
       "details": "Namoz tafsilotlari",
-      "title": "Namoz safari"
+      "title": "Namoz tarixi"
     },
     "todaysPrayers": {
       "late": "Kechikkan",
@@ -378,7 +385,8 @@
       "language": "Til",
       "notifications": "Bildirishnomalar",
       "theme": "Mavzu",
-      "title": "Sozlamalar"
+      "title": "Sozlamalar",
+      "show_history_day": "Oy kunlarini ko'rish"
     },
     "privacy": {
       "title": "Maxfiylik siyosati",
@@ -441,6 +449,27 @@
         "title": "Biz bilan bog'laning",
         "content": "Agar sizda ushbu shartlar bo'yicha savollar bo'lsa, ilovada taqdim etilgan yordam kanali orqali istalgan vaqtda biz bilan bog'lanishingiz mumkin."
       }
+    }
+  },
+  "stats": {
+    "title": "Statistika",
+    "premiumSectionTitle": "Premium tahlillar",
+    "monthlyBreakdown": "Oylik namoz taqsimoti",
+    "monthlyConsistency": "Oylik barqarorlik",
+    "yearlyOverview": "Yillik ko'rinish",
+    "monthlyComparison": "Oylar bo'yicha taqqoslash",
+    "yearlyPrayerPerformance": "Yillik namoz samaradorligi",
+    "completionQuality": "Bajarish sifati",
+    "completionQualityUnavailable": "Bajarish sifati bo'yicha taqsimot joriy ma'lumotlaringiz uchun mavjud emas.",
+    "days": "Kunlar",
+    "consistency": {
+      "full": "To'liq kunlar",
+      "partial": "Qisman kunlar",
+      "missed": "O'tkazib yuborilgan kunlar"
+    },
+    "premiumLocked": {
+      "title": "Premium grafiklar yopiq",
+      "description": "Kengaytirilgan yillik tahlillar va bajarish sifati trendlari uchun yangilang."
     }
   },
   "subscription": {
@@ -511,6 +540,35 @@
       "location": {
         "fetching": "Joylashuv olinmoqda...",
         "unknown": "Noma'lum"
+      },
+      "calculationMethod": {
+        "title": "Hisoblash usuli",
+        "subtitle": "Namoz vaqtlarini hisoblash uchun islomiy usulni tanlang",
+        "methods": {
+          "jafari": "Shia Isna-Ashari (Jafari)",
+          "muslimWorldLeague": "Jahon Musulmonlar Ligasi",
+          "isna": "Shimoliy Amerika Islom Jamiyati (ISNA)",
+          "egyptian": "Misr Umumiy Geodeziya Boshqarmasi",
+          "ummAlQura": "Umm al-Qura Universiteti, Makka",
+          "karachi": "Islom Fanlari Universiteti, Karachi",
+          "tehran": "Geofizika Instituti, Tehron Universiteti",
+          "gulf": "Ko'rfaz mintaqasi",
+          "kuwait": "Quvayt",
+          "qatar": "Qatar",
+          "singapore": "Majlis Ugama Islam Singapura, Singapur",
+          "france": "Frantsiya Islom Tashkilotlari Ittifoqi",
+          "turkey": "Turkiya Din Ishlari Boshqarmasi",
+          "russia": "Rossiya Musulmonlarining Ruhiy Boshqarmasi",
+          "moonsighting": "Oyni Kuzatish Qo'mitasi",
+          "dubai": "Dubay (Norasmiy)",
+          "jakim": "Malayziya Islom Taraqqiyoti Departamenti (JAKIM)",
+          "tunisia": "Tunis",
+          "algeria": "Jazoir",
+          "indonesia": "Indoneziya Din Ishlari Vazirligi",
+          "morocco": "Marokash",
+          "portugal": "Lissabon Islom Jamoasi (Portugaliya)",
+          "jordan": "Vaqflar va Islom Ishlari Vazirligi, Iordaniya"
+        }
       },
       "notifier": {
         "title": "Namoz eslatmasi",

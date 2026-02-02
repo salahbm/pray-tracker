@@ -93,11 +93,11 @@ export default function HomeScreen() {
 
   const {
     data: prays,
-    isLoading: isLoadingPrays,
+    isLoading: loadingPrays,
     refetch: refetchPrays,
-  } = useGetPrays(user?.id!, year);
+  } = useGetPrays(user?.id, year);
 
-  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!, today);
+  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id, today);
 
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
@@ -131,27 +131,33 @@ export default function HomeScreen() {
       // Send ONLY the changed prayer field to backend
       // This prevents race conditions when multiple prayers are clicked rapidly
       await patchPray({
-        userId: user?.id!,
+        userId: user.id,
         date: today,
         field: prayer as PrayerField,
         value: value as 0 | 1 | 2,
+      }).then(() => {
+        confettiRef.current?.reset();
       });
 
       // Track prayer toggle for app rating
       await incrementPrayerToggle();
     },
-    [prayers, patchPray, user?.id, today, dispatch, incrementPrayerToggle]
+    [prayers, patchPray, user, today, dispatch, incrementPrayerToggle, t]
   );
 
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
-      // if date is after today, return toast
       if (!user) return fireToast.error(t('common.errors.unauthorized'));
+
+      // Parse date
       const selectedDate = parseLocalDateKey(date);
+
+      // Check if date is after today
       const isDateAfterToday = selectedDate > today;
       if (isDateAfterToday) return fireToast.info(t('common.errors.futureDate'));
-      const isMoreThanAWeek =
-        selectedDate < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+      // Check if date is more than a week
+      const isMoreThanAWeek = selectedDate < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isMoreThanAWeek && !isPremium) {
         paywallSheetRef.current?.snapToIndex(0);
         return;
@@ -164,6 +170,7 @@ export default function HomeScreen() {
           animated: true,
         });
       }
+
       // Haptic feedback
       await triggerHaptic();
 
@@ -177,7 +184,7 @@ export default function HomeScreen() {
       });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
-    [today, t]
+    [today, t, user, isPremium, paywallSheetRef]
   );
 
   const handleUpdateClickedDay = useCallback(
@@ -197,15 +204,6 @@ export default function HomeScreen() {
     },
     [patchPray, user?.id]
   );
-
-  // Reset prayers to idle state when date changes
-  useEffect(() => {
-    // Reset to idle state when date changes
-    dispatch({
-      type: 'SET_PRAYERS',
-      payload: { ...initialState.prayers },
-    });
-  }, [today]); // Triggers when date changes
 
   // Update prayers when data arrives
   useEffect(() => {
@@ -239,7 +237,7 @@ export default function HomeScreen() {
         className="main-area"
         refreshControl={
           <RefreshControl
-            refreshing={isLoadingPrays}
+            refreshing={loadingPrays}
             onRefresh={() => {
               refetchTodaysPrays();
               refetchPrays();
@@ -266,7 +264,7 @@ export default function HomeScreen() {
           transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 50 }}
         >
           <TodaysPray
-            isLoading={isLoadingPrays}
+            isLoading={loadingPrays}
             prayers={prayers}
             handlePrayerChange={handlePrayerChange}
           />
@@ -289,23 +287,21 @@ export default function HomeScreen() {
             dispatch={dispatch}
             accordion={accordion}
             clickedData={clickedData}
-            isLoading={isLoadingPrays}
+            isLoading={loadingPrays}
             handleDayClick={handleDayClick}
             handleUpdateClickedDay={handleUpdateClickedDay}
           />
         </MotiView>
 
         {/* CHARTS */}
-        {year === new Date().getFullYear() && user && (
-          <MotiView
-            key="area-chart-animation"
-            from={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
-          >
-            <AreaChart lineData={prays} />
-          </MotiView>
-        )}
+        <MotiView
+          key="area-chart-animation"
+          from={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', damping: 12, stiffness: 200, mass: 0.8, delay: 150 }}
+        >
+          <AreaChart lineData={prays} year={year} user={!!user} />
+        </MotiView>
 
         {/* LOTTIE CONFETTI */}
         <LottieView

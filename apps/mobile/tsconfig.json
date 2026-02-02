@@ -3,49 +3,19 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@assets/*": [
-        "./assets/*"
-      ],
-      "@constants/*": [
-        "./constants/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@screens/*": [
-        "./screens/*"
-      ],
-      "@store/*": [
-        "./store/*"
-      ],
-      "@types/*": [
-        "./types/*"
-      ],
-      "@utils/*": [
-        "./utils/*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
-      "@locales/*": [
-        "./locales/*"
-      ],
-      "@styles/*": [
-        "./styles/*"
-      ]
+      "@/*": ["./*"],
+      "@assets/*": ["./assets/*"],
+      "@constants/*": ["./constants/*"],
+      "@lib/*": ["./lib/*"],
+      "@screens/*": ["./screens/*"],
+      "@store/*": ["./store/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"],
+      "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@locales/*": ["./locales/*"],
+      "@styles/*": ["./styles/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "nativewind-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]
 }

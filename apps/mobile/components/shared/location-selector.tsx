@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Keyboard } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import { CustomBottomSheet } from '@/components/shared/bottom-sheet';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { MapPin, Search, MapPinned } from '@/components/shared/icons';
 import { PressableBounce } from '@/components/shared/pressable-bounce';
 import { useLocationStore } from '@/store/use-location';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Input } from '../ui/input';
+import ScrollBottomSheet from './bottom-sheet/scroll-sheet';
 
 interface LocationSelectorProps {
   /**
    * Ref to control the bottom sheet from parent
    */
-  sheetRef: React.RefObject<BottomSheet | null>;
+  sheetRef: React.RefObject<BottomSheetModal>;
 
   /**
    * Optional callback when location is selected
@@ -58,7 +57,6 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   onLocationSelected,
 }) => {
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
   const { setLocation, initLocation, isLoadingLocation } = useLocationStore();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -118,7 +116,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   };
 
   return (
-    <CustomBottomSheet sheetRef={sheetRef} snapPoints={['75%', '85%']} opacity={0.3}>
+    <ScrollBottomSheet ref={sheetRef} snapPoints={['85%', '100%']}>
       <View className="py-8">
         <Text className="text-xl font-bold mb-4 text-center text-foreground">
           {t('location.selector.title')}
@@ -147,7 +145,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
           <View className="absolute left-4 top-4 z-10">
             <Search size={18} className="text-muted-foreground" />
           </View>
-          <Input
+          <BottomSheetTextInput
             placeholder={t('location.selector.searchPlaceholder')}
             placeholderTextColor="#9ca3af"
             value={searchQuery}
@@ -199,6 +197,6 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
           )}
         </View>
       </View>
-    </CustomBottomSheet>
+    </ScrollBottomSheet>
   );
 };

@@ -2,24 +2,14 @@ import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProps,
-  BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import { BottomSheetScrollViewProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/types';
-import { BottomSheetViewProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetView/types';
 import React, { forwardRef } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 
 import { cn } from '@/lib/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-export type ScrollConfig = Partial<BottomSheetScrollViewProps> & {
-  className?: string;
-};
-
-export type BottomSheetViewConfig = Partial<BottomSheetViewProps> & {
-  className?: string;
-};
+import { BottomSheetViewConfig, DEFAULT_SHEET_CONFIG } from './sheet.types';
 
 interface DetachedSheetProps extends Omit<BottomSheetModalProps, 'children'> {
   backdropConfig?: {
@@ -33,16 +23,6 @@ interface DetachedSheetProps extends Omit<BottomSheetModalProps, 'children'> {
   children: React.ReactNode;
   grabbable?: boolean;
 }
-
-export const DEFAULT_SHEET_CONFIG: Partial<BottomSheetModalProps> = {
-  enablePanDownToClose: true,
-  enableContentPanningGesture: true,
-  enableDismissOnClose: true,
-  enableDynamicSizing: false,
-  handleIndicatorStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-};
 
 const DetachedSheet = forwardRef<BottomSheetModal, DetachedSheetProps>(
   (
@@ -60,6 +40,7 @@ const DetachedSheet = forwardRef<BottomSheetModal, DetachedSheetProps>(
     return (
       <BottomSheetModal
         ref={ref}
+        bottomInset={insets.bottom}
         {...DEFAULT_SHEET_CONFIG}
         {...config}
         backdropComponent={backdropProps => (
@@ -78,7 +59,6 @@ const DetachedSheet = forwardRef<BottomSheetModal, DetachedSheetProps>(
         }}
         style={{
           marginHorizontal: 16,
-          marginBottom: Platform.OS === 'ios' ? insets.bottom + 10 : insets.bottom + 20,
         }}
       >
         <BottomSheetView

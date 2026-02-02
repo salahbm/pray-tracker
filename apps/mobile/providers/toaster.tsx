@@ -53,7 +53,7 @@ export const fireToast = {
   },
   info: (message: string) => {
     toast(message, {
-      icon: <Info size={24} color={colorsRef.info} />,
+      icon: <Info size={24} color={colorsRef.border} />,
       styles: {
         pressable: {
           borderColor: colorsRef.border,

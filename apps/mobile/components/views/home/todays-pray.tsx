@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -12,7 +12,7 @@ interface IPrayers {
   handlePrayerChange: (prayer: string, value: number) => void;
 }
 
-const TodaysPray = ({ isLoading, prayers, handlePrayerChange }: IPrayers) => {
+const TodaysPray = memo(({ isLoading, prayers, handlePrayerChange }: IPrayers) => {
   const { t } = useTranslation();
 
   return (
@@ -59,6 +59,8 @@ const TodaysPray = ({ isLoading, prayers, handlePrayerChange }: IPrayers) => {
       ))}
     </React.Fragment>
   );
-};
+});
+
+TodaysPray.displayName = 'TodaysPray';
 
 export default TodaysPray;

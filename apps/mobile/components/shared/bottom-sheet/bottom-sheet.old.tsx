@@ -1,8 +1,4 @@
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetScrollView,
-  ScrollEventsHandlersHookType,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
@@ -50,7 +46,7 @@ const CustomBottomSheet = ({
 }: IBottomSheet) => {
   return (
     <BottomSheet
-      ref={sheetRef}
+      ref={sheetRef as React.RefObject<BottomSheet>}
       index={index} // Start closed
       snapPoints={snapPoints}
       enablePanDownToClose={true} // Enable swipe down to close
