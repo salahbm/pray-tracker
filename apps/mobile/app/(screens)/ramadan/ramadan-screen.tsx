@@ -1,6 +1,6 @@
-import React, { useMemo, useRef, useEffect, useCallback } from 'react';
+import { useMemo, useRef, useEffect, useCallback } from 'react';
 import { View, FlatList, RefreshControl, Switch } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { format, parse } from 'date-fns';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -39,7 +39,7 @@ const RamadanScreen = () => {
   const isAuthenticated = !!user;
 
   const listRef = useRef<FlatList>(null);
-  const locationSheetRef = useRef<BottomSheet>(null);
+  const locationSheetRef = useRef<BottomSheetModal>(null);
 
   const {
     data: monthDays = [],
@@ -82,7 +82,7 @@ const RamadanScreen = () => {
             animated: true,
             viewPosition: 0.5,
           });
-        } catch (error) {
+        } catch {
           // Fallback: scroll to offset instead
           listRef.current?.scrollToOffset({
             offset: Math.floor(todayIndex / 2) * ITEM_HEIGHT,
@@ -150,7 +150,7 @@ const RamadanScreen = () => {
           </View>
 
           <PressableBounce
-            onPress={() => locationSheetRef.current?.snapToIndex(0)}
+            onPress={() => locationSheetRef.current?.present()}
             className="flex-row items-center bg-muted/50 border border-border px-3 py-1.5 rounded-full"
           >
             <MapPin size={12} className="text-primary mr-1.5" />

@@ -2,11 +2,10 @@ import { format } from 'date-fns';
 import { useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, FlatList, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import GoBack from '@/components/shared/go-back';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { useGetInquiry } from '@/hooks/inquiries/useGetInquiry';
@@ -14,7 +13,6 @@ import { useSendInquiryMessage } from '@/hooks/inquiries/useSendInquiryMessage';
 import { cn } from '@/lib/utils';
 import { fireToast } from '@/providers/toaster';
 import { useAuthStore } from '@/store/auth/auth-session';
-import { useThemeStore } from '@/store/defaults/theme';
 import { InquiryMessage } from '@/types/inquiries';
 
 const InquiryDetailScreen = () => {

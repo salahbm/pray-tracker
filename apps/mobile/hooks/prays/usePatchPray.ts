@@ -31,12 +31,12 @@ const ensureDefaults = (p: Partial<IPrays>, userId: string, date: Date): IPrays 
     id: p.id ?? 'temp-id',
     userId: p.userId ?? userId,
     date: p.date ?? date,
-    fajr: p.fajr ?? null,
-    dhuhr: p.dhuhr ?? null,
-    asr: p.asr ?? null,
-    maghrib: p.maghrib ?? null,
-    isha: p.isha ?? null,
-    nafl: p.nafl ?? null,
+    fajr: p.fajr ?? 0,
+    dhuhr: p.dhuhr ?? 0,
+    asr: p.asr ?? 0,
+    maghrib: p.maghrib ?? 0,
+    isha: p.isha ?? 0,
+    nafl: p.nafl ?? 0,
     createdAt: p.createdAt ?? new Date(),
     updatedAt: p.updatedAt ?? new Date(),
   } as IPrays;
@@ -57,10 +57,7 @@ export const usePatchPray = () => {
       const year = vars.date.getFullYear();
 
       // Include date in today key to match useGetTodayPrays signature
-      const todayKey = [
-        ...QueryKeys.prays.today,
-        { id: vars.userId, date: getLocalDateKey() },
-      ];
+      const todayKey = [...QueryKeys.prays.today, { id: vars.userId, date: getLocalDateKey() }];
       const praysKey = [...QueryKeys.prays.list, { id: vars.userId, year }];
 
       // sequence key

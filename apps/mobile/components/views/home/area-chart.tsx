@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
-import React, { useMemo } from 'react';
+import { format, startOfDay, subDays, Locale } from 'date-fns';
+import { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, Pressable, View } from 'react-native';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
@@ -11,6 +11,16 @@ import { IPrays } from '@/types/prays';
 import { ChevronRight } from '@components/shared/icons';
 import { router } from 'expo-router';
 import { getUtcDateKey, parseLocalDateKey } from '@/utils/date';
+import { enUS, ru, tr, uz } from 'date-fns/locale';
+
+const CHART_WIDTH = Dimensions.get('window').width * 0.85;
+
+const DATE_LOCALES: Record<string, Locale> = {
+  en: enUS,
+  uz: uz,
+  ru: ru,
+  tr: tr,
+};
 
 const AreaChart = ({
   lineData,
@@ -21,38 +31,51 @@ const AreaChart = ({
   year: number;
   user: boolean;
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useThemeStore();
-  const transformPraysToLineData = useMemo((): lineDataItem[] => {
-    if (!lineData) return [];
+  const locale = DATE_LOCALES[i18n.language as keyof typeof DATE_LOCALES];
 
-    const now = new Date();
-    const currentMonth = now.getMonth(); // 0–11
-    const currentYear = now.getFullYear();
+  const chartData = useMemo<lineDataItem[]>(() => {
+    if (!lineData?.length) return [];
 
-    return [...lineData]
-      .map(pray => {
-        const dateKey = getUtcDateKey(pray.date);
-        return { pray, date: parseLocalDateKey(dateKey) };
-      })
-      .filter(({ date }) => date.getMonth() === currentMonth && date.getFullYear() === currentYear)
-      .sort((a, b) => a.date.getTime() - b.date.getTime())
-      .map(pray => ({
-        value:
-          (pray.pray.asr ?? 0) +
-          (pray.pray.dhuhr ?? 0) +
-          (pray.pray.fajr ?? 0) +
-          (pray.pray.isha ?? 0) +
-          (pray.pray.maghrib ?? 0) +
-          (pray.pray.nafl ?? 0),
-        text: format(pray.date, 'dd.MM.yy'),
-      }));
-  }, [lineData]);
+    const valueByDay = new Map<string, number>();
+
+    const DAYS = 30;
+    const today = startOfDay(new Date());
+
+    for (const pray of lineData) {
+      const date = parseLocalDateKey(getUtcDateKey(pray.date));
+      const key = format(date, 'yyyy-MM-dd');
+
+      valueByDay.set(
+        key,
+        (pray.asr ?? 0) +
+          (pray.dhuhr ?? 0) +
+          (pray.fajr ?? 0) +
+          (pray.isha ?? 0) +
+          (pray.maghrib ?? 0) +
+          (pray.nafl ?? 0)
+      );
+    }
+
+    return Array.from({ length: DAYS }).map((_, index) => {
+      const date = subDays(today, DAYS - 1 - index);
+
+      return {
+        value: valueByDay.get(format(date, 'yyyy-MM-dd', { locale })) ?? 0,
+        label: index === 0 || index === DAYS - 1 ? format(date, 'MMM dd', { locale }) : '',
+        text: format(date, 'dd.MM.yy'),
+      };
+    });
+  }, [lineData, locale]);
+
+  const xLabels = useMemo(() => chartData.map(item => item.label ?? ''), [chartData]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <View className="flex-row items-center justify-between mt-10 mb-4">
         <Text className={cn('text-xl font-semibold')}>{t('home.charts.title')}</Text>
+
         <Pressable
           hitSlop={10}
           onPress={() => router.push('/(screens)/stats')}
@@ -62,82 +85,50 @@ const AreaChart = ({
           <ChevronRight className="text-muted-foreground" size={16} />
         </Pressable>
       </View>
+
       {year === new Date().getFullYear() && user && (
         <LineChart
-          data={transformPraysToLineData}
-          initialSpacing={0}
-          endSpacing={0}
+          data={chartData}
+          scrollToEnd
+          initialSpacing={10}
+          endSpacing={20}
           spacing={30}
           thickness={3}
           hideRules
           showVerticalLines
           areaChart
           curved
+          adjustToWidth
+          height={220}
+          width={CHART_WIDTH}
+          parentWidth={CHART_WIDTH}
+          maxValue={13}
+          mostNegativeValue={0}
+          dataPointsRadius={1}
+          dataPointsColor={colors['--primary']}
+          color={colors['--primary']}
           startFillColor={colors['--primary']}
           startOpacity={0.2}
           endFillColor={colors['--border']}
           endOpacity={0.1}
           verticalLinesStrokeDashArray={[7, 7]}
-          color={colors['--primary']}
-          yAxisTextStyle={{ color: colors['--muted-foreground'], fontSize: 12 }}
           yAxisColor={colors['--border']}
           verticalLinesColor={colors['--muted-foreground']}
           xAxisColor={colors['--border']}
-          adjustToWidth
-          height={220}
-          parentWidth={Dimensions.get('window').width * 0.85}
-          width={Dimensions.get('window').width * 0.85}
-          maxValue={13}
-          dataPointsRadius={1}
-          dataPointsColor={colors['--primary']}
-          pointerConfig={{
-            showPointerStrip: true,
-            pointerStripWidth: 2,
-            pointerStripHeight: 220,
-            pointerStripColor: colors['--border'],
-            pointerStripUptoDataPoint: true,
-            pointerColor: 'transparent',
-            radius: 6,
-            pointerLabelWidth: 120,
-            pointerLabelHeight: 30,
-            activatePointersDelay: 200,
-            autoAdjustPointerLabelPosition: true,
-            activatePointersOnLongPress: true,
-            pointerLabelComponent: (
-              point: {
-                value:
-                  | string
-                  | number
-                  | bigint
-                  | boolean
-                  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-                  | Iterable<React.ReactNode>
-                  | React.ReactPortal
-                  | Promise<
-                      | string
-                      | number
-                      | bigint
-                      | boolean
-                      | React.ReactPortal
-                      | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-                      | Iterable<React.ReactNode>
-                      | null
-                      | undefined
-                    >
-                  | null
-                  | undefined;
-              }[]
-            ) => (
-              <View className="flex-col items-start justify-center px-2 py-1 bg-background border border-border rounded-md">
-                <Text className="text-sm">
-                  {t('home.prayerHistory.date')}: {(point[0] as unknown as { text: string }).text}
-                </Text>
-              </View>
-            ),
+          xAxisLabelTexts={xLabels}
+          xAxisLabelTextStyle={{
+            color: colors['--muted-foreground'],
+            fontSize: 12,
+            minWidth: 50,
+            textTransform: 'capitalize',
+          }}
+          yAxisTextStyle={{
+            color: colors['--muted-foreground'],
+            fontSize: 12,
           }}
         />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
 

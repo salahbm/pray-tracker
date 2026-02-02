@@ -1,10 +1,9 @@
-import { format } from 'date-fns';
+import { differenceInCalendarDays, format, parseISO, subDays } from 'date-fns';
 import { useColorScheme } from 'nativewind';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
-  Easing,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Text,
@@ -25,8 +24,6 @@ import { useAuthStore } from '@/store/auth/auth-session';
 import { usePaywallBottomSheetStore } from '@/store/bottom-sheets';
 import { useThemeStore } from '@/store/defaults/theme';
 import { getMonthTheme } from '@/styles/calendar.theme';
-import { IPrays } from '@/types/prays';
-import { debounce } from '@/utils/debounce';
 import { getLocalDateKey, getUtcDateKey, parseLocalDateKey } from '@/utils/date';
 import { setCalendarLocale } from '@/utils/month-names';
 import { RefreshControl } from 'react-native-gesture-handler';
@@ -62,11 +59,20 @@ const MonthScreen = () => {
   const lastVisibleMonthRef = useRef<Date>(new Date());
   const initialMonthRef = useRef<string>(getLocalDateKey());
 
+  // Compute these once, outside of render cycles
+  const todayKey = useMemo(() => getLocalDateKey(), []);
+  const weekAgoTimestamp = useMemo(() => {
+    const weekAgo = subDays(new Date(), 6); // 7 days including today
+    weekAgo.setHours(0, 0, 0, 0);
+    return weekAgo.getTime();
+  }, []);
+
   const { isPremium, refetch } = useRevenueCatCustomer();
   const { paywallSheetRef } = usePaywallBottomSheetStore();
 
-  const { data: prays, isLoading: isLoadingPrays } = useGetPrays(user?.id!, year);
+  const { data: prays, isLoading: isLoadingPrays } = useGetPrays(user?.id, year);
 
+  // Theme only depends on colors, not colorScheme
   const theme = useMemo(() => getMonthTheme(colors), [colors]);
   const monthControlsCallback = useHeaderMonthControls(calendarRef);
 
@@ -74,25 +80,25 @@ const MonthScreen = () => {
     duration: 100,
   });
 
-  const handleVisibleMonthsChange = useMemo(
-    () =>
-      debounce((months: any[]) => {
-        if (months?.[0]?.dateString) {
-          const visibleDate = parseLocalDateKey(months[0].dateString);
-          lastVisibleMonthRef.current = visibleDate;
-          setYear(visibleDate.getFullYear());
-        }
-        monthControlsCallback(months);
-      }, 10),
+  // Handler for visible months change
+  const handleVisibleMonthsChange = useCallback(
+    (months: any[]) => {
+      if (months?.[0]?.dateString) {
+        const visibleDate = parseLocalDateKey(months[0].dateString);
+        lastVisibleMonthRef.current = visibleDate;
+        setYear(visibleDate.getFullYear());
+      }
+      monthControlsCallback(months);
+    },
     [monthControlsCallback]
   );
 
-  // Locale updates
+  // Locale and theme updates - combined into one effect
   useEffect(() => {
     setCalendarLocale(currentLanguage as Language);
     LocaleConfig.defaultLocale = currentLanguage;
     setRenderVersion(prev => prev + 1);
-  }, [currentLanguage]);
+  }, [currentLanguage, colorScheme]);
 
   // Force refresh when theme changes
   useEffect(() => {
@@ -101,41 +107,43 @@ const MonthScreen = () => {
 
   const prayerCountByDate = useMemo(() => {
     if (!prays?.length) return {};
-    return prays.reduce(
-      (acc, pray: IPrays) => {
-        const date = getUtcDateKey(pray.date);
-        const count =
-          (pray.fajr ? 1 : 0) +
-          (pray.dhuhr ? 1 : 0) +
-          (pray.asr ? 1 : 0) +
-          (pray.maghrib ? 1 : 0) +
-          (pray.isha ? 1 : 0) +
-          (pray.nafl ? 1 : 0);
-        acc[date] = count;
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+    const counts: Record<string, number> = {};
+    for (const pray of prays) {
+      const date = getUtcDateKey(pray.date);
+      counts[date] =
+        (pray.fajr ? 1 : 0) +
+        (pray.dhuhr ? 1 : 0) +
+        (pray.asr ? 1 : 0) +
+        (pray.maghrib ? 1 : 0) +
+        (pray.isha ? 1 : 0) +
+        (pray.nafl ? 1 : 0);
+    }
+    return counts;
   }, [prays]);
 
   const onDayPress = useCallback(
     (day: DateData) => {
-      if (!isPremium) {
-        paywallSheetRef.current?.snapToIndex(0);
-        return;
-      }
-      // Prevent selecting future dates
-      const selectedDate = parseLocalDateKey(day.dateString);
-      const todayDate = new Date();
-      todayDate.setHours(0, 0, 0, 0);
-      selectedDate.setHours(0, 0, 0, 0);
-
       if (!user) {
         fireToast.info(t('common.errors.unauthorized'));
         return;
       }
 
-      if (selectedDate > todayDate) {
+      // Prevent selecting future dates
+      const selectedDate = parseLocalDateKey(day.dateString);
+      const today = new Date();
+      const dayDate = parseISO(day.dateString);
+
+      const daysDiff = differenceInCalendarDays(today, dayDate);
+
+      // Non-premium users can only see last 7 days (including today)
+      const isAccessible = isPremium || (daysDiff >= 0 && daysDiff <= 6);
+
+      if (!isAccessible) {
+        paywallSheetRef.current?.snapToIndex(0);
+        return;
+      }
+
+      if (selectedDate > today) {
         fireToast.info(t('common.errors.futureDate'));
         return;
       }
@@ -143,32 +151,33 @@ const MonthScreen = () => {
       setSelected(day.dateString);
       dayRef.current?.present();
     },
-    [t, user]
+    [t, user, isPremium, paywallSheetRef]
   );
 
+  // Simplify marked dates - only update when selection changes
   const marked = useMemo(() => {
-    const today = getLocalDateKey();
     const entries: Record<string, MarkedDateProps> = {
-      [today]: {
+      [todayKey]: {
         marked: true,
         dotColor: colors['--primary'],
-        selected: selected === today,
+        selected: selected === todayKey,
         selectedTextColor: colors['--primary-foreground'],
       },
     };
 
-    if (selected) {
+    if (selected && selected !== todayKey) {
       entries[selected] = {
-        ...(entries[selected] || {}),
         selected: true,
         disableTouchEvent: true,
         selectedColor: colors['--primary'],
         selectedTextColor: colors['--primary-foreground'],
+        marked: false,
+        dotColor: '',
       };
     }
 
     return entries;
-  }, [selected, colors]);
+  }, [selected, todayKey, colors]);
 
   // Add more months and scroll back to last visible month (e.g., 2024-10)
   const handleAddMonths = useCallback(() => {
@@ -230,7 +239,14 @@ const MonthScreen = () => {
         extraData={selected}
         removeClippedSubviews
         dayComponent={({ date }) => (
-          <DayComponent date={date} prayerCountByDate={prayerCountByDate} onDayPress={onDayPress} />
+          <DayComponent
+            date={date}
+            isPremium={isPremium}
+            onDayPress={onDayPress}
+            prayerCountByDate={prayerCountByDate}
+            todayKey={todayKey}
+            weekAgoTimestamp={weekAgoTimestamp}
+          />
         )}
       />
     ),
@@ -245,6 +261,12 @@ const MonthScreen = () => {
       onDayPress,
       colors,
       handleScrollEnd,
+      isPremium,
+      currentLanguage,
+      isLoadingPrays,
+      refetch,
+      todayKey,
+      weekAgoTimestamp,
     ]
   );
 

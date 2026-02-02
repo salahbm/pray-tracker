@@ -1,19 +1,18 @@
-import { differenceInCalendarDays, parseISO } from 'date-fns';
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable } from 'react-native';
 import { DateData } from 'react-native-calendars/src/types';
 
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import { triggerHaptic } from '@/utils';
-import { memo } from 'react';
-import { getLocalDateKey } from '@/utils/date';
 
 interface IDayComponentProps {
   date?: DateData;
   prayerCountByDate: Record<string, number>;
   onDayPress: (date: DateData) => void;
   isPremium: boolean;
+  todayKey: string;
+  weekAgoTimestamp: number;
 }
 
 const opacitySteps = [
@@ -37,20 +36,23 @@ const getBgClassByCount = (count: number) => {
 };
 
 const DayComponent = memo(
-  ({ date, prayerCountByDate, onDayPress, isPremium }: IDayComponentProps) => {
+  ({
+    date,
+    prayerCountByDate,
+    onDayPress,
+    isPremium,
+    todayKey,
+    weekAgoTimestamp,
+  }: IDayComponentProps) => {
     if (!date) return null;
 
-    const today = new Date();
-    const dayDate = parseISO(date.dateString);
-
-    const daysDiff = differenceInCalendarDays(today, dayDate);
-
-    // Non-premium users can only see last 7 days (including today)
-    const isAccessible = isPremium || (daysDiff >= 0 && daysDiff <= 6);
+    // Fast timestamp comparison instead of date parsing
+    const dayTimestamp = date.timestamp;
+    const isAccessible = isPremium || dayTimestamp >= weekAgoTimestamp;
 
     const count = isAccessible ? (prayerCountByDate[date.dateString] ?? 0) : 0;
-
     const bgClass = isAccessible ? getBgClassByCount(count) : 'bg-muted';
+    const isToday = date.dateString === todayKey;
 
     return (
       <Pressable
@@ -58,11 +60,22 @@ const DayComponent = memo(
           triggerHaptic();
           onDayPress(date);
         }}
-        disabled={date.dateString === getLocalDateKey()}
+        hitSlop={10}
+        disabled={isToday}
         className={cn('flex-center h-12 w-12 rounded-full transition-colors', bgClass)}
       >
         <Text className={cn('text-foreground')}>{date.day}</Text>
       </Pressable>
+    );
+  },
+  (prev, next) => {
+    // Custom comparison for better memoization
+    return (
+      prev.date?.dateString === next.date?.dateString &&
+      prev.prayerCountByDate[prev.date?.dateString || ''] ===
+        next.prayerCountByDate[next.date?.dateString || ''] &&
+      prev.isPremium === next.isPremium &&
+      prev.todayKey === next.todayKey
     );
   }
 );

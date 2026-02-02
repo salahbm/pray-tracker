@@ -118,17 +118,15 @@ const PrayerTimer = () => {
               {timeLeft}
             </Text>
 
-            <View className="bg-white/20 px-4 py-1.5 rounded-full mt-4 backdrop-blur-md">
-              <Text className="text-[11px] font-bold text-primary-foreground uppercase tracking-wider">
-                {t('qibla.prayerTimes.timeLeft')}
-              </Text>
-            </View>
+            <Text className="text-[11px] mt-2 font-bold text-primary-foreground uppercase tracking-wider text-center">
+              {t('qibla.prayerTimes.timeLeft')}
+            </Text>
           </View>
 
           {/* QIBLA NAVIGATION: Contextual Placement */}
           <Link href="/(screens)/(qibla)/qibla-screen" asChild>
             <TouchableOpacity onPress={() => triggerHaptic()} activeOpacity={0.7}>
-              <View className="mt-4 flex-row items-center justify-between bg-white/10 w-full border border-white/20 p-4 rounded-2xl backdrop-blur-xl">
+              <View className="mt-4 gap-2 flex-row items-center justify-between bg-white/20 w-full border border-white/20 p-4 rounded-2xl backdrop-blur-xl">
                 <View className="flex-row items-center gap-3">
                   <View className="bg-primary-foreground p-2 rounded-full">
                     <Compass size={20} className="text-primary" />
@@ -137,7 +135,7 @@ const PrayerTimer = () => {
                     <Text className="text-primary-foreground font-bold text-sm">
                       {t('common.qibla.title')}
                     </Text>
-                    <Text className="text-primary-foreground/70 text-xs">
+                    <Text className="text-primary-foreground/70 text-[10px]">
                       {t('common.qibla.description')}
                     </Text>
                   </View>

@@ -7,7 +7,7 @@ import { IPrays } from '@/types/prays';
 import { getLocalDateKey } from '@/utils/date';
 
 type TPraysParams = {
-  id: string;
+  id?: string | null;
   date?: string; // Add date to ensure fresh data after midnight
 };
 
@@ -21,7 +21,7 @@ const getTodayPray = async (params: TPraysParams): Promise<IPrays> => {
   return data;
 };
 
-export const useGetTodayPrays = (id: string, date?: Date) => {
+export const useGetTodayPrays = (id?: string | null, date?: Date) => {
   // Format date to ensure query key changes at midnight
   const effectiveDate = date ?? new Date();
   const dateKey = getLocalDateKey(effectiveDate);

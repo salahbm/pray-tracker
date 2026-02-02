@@ -148,9 +148,15 @@ export default function HomeScreen() {
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
       if (!user) return fireToast.error(t('common.errors.unauthorized'));
+
+      // Parse date
       const selectedDate = parseLocalDateKey(date);
+
+      // Check if date is after today
       const isDateAfterToday = selectedDate > today;
       if (isDateAfterToday) return fireToast.info(t('common.errors.futureDate'));
+
+      // Check if date is more than a week
       const isMoreThanAWeek = selectedDate < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isMoreThanAWeek && !isPremium) {
         paywallSheetRef.current?.snapToIndex(0);
