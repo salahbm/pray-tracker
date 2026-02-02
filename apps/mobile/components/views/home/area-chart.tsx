@@ -10,6 +10,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
 import { ChevronRight } from '@components/shared/icons';
 import { router } from 'expo-router';
+import { getUtcDateKey, parseLocalDateKey } from '@/utils/date';
 
 const AreaChart = ({
   lineData,
@@ -30,20 +31,21 @@ const AreaChart = ({
     const currentYear = now.getFullYear();
 
     return [...lineData]
-      .filter(pray => {
-        const d = new Date(pray.date);
-        return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+      .map(pray => {
+        const dateKey = getUtcDateKey(pray.date);
+        return { pray, date: parseLocalDateKey(dateKey) };
       })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .filter(({ date }) => date.getMonth() === currentMonth && date.getFullYear() === currentYear)
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
       .map(pray => ({
         value:
-          (pray.asr ?? 0) +
-          (pray.dhuhr ?? 0) +
-          (pray.fajr ?? 0) +
-          (pray.isha ?? 0) +
-          (pray.maghrib ?? 0) +
-          (pray.nafl ?? 0),
-        text: format(new Date(pray.date), 'dd.MM.yy'),
+          (pray.pray.asr ?? 0) +
+          (pray.pray.dhuhr ?? 0) +
+          (pray.pray.fajr ?? 0) +
+          (pray.pray.isha ?? 0) +
+          (pray.pray.maghrib ?? 0) +
+          (pray.pray.nafl ?? 0),
+        text: format(pray.date, 'dd.MM.yy'),
       }));
   }, [lineData]);
 

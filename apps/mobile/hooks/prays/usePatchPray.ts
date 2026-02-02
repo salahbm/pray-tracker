@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { format } from 'date-fns';
 
 import QueryKeys from '@/constants/query-keys';
 import { IPrays } from '@/types/prays';
 import agent from '@/lib/agent';
+import { getLocalDateKey, getUtcDateKey } from '@/utils/date';
 
 export type PrayerField = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha' | 'nafl';
 
@@ -18,7 +18,7 @@ type PatchPrayerData = {
 export const patchPrayer = async (data: PatchPrayerData): Promise<IPrays> => {
   const response = await agent.patch<IPrays>('/prayers', {
     userId: data.userId,
-    date: format(data.date, 'yyyy-MM-dd'),
+    date: getLocalDateKey(data.date),
     field: data.field,
     value: data.value,
   });
@@ -52,14 +52,14 @@ export const usePatchPray = () => {
     mutationFn: (vars: PatchPrayerData) => patchPrayer(vars),
 
     onMutate: async vars => {
-      const dateStr = format(vars.date, 'yyyy-MM-dd');
-      const isToday = dateStr === format(new Date(), 'yyyy-MM-dd');
+      const dateStr = getLocalDateKey(vars.date);
+      const isToday = dateStr === getLocalDateKey();
       const year = vars.date.getFullYear();
 
       // Include date in today key to match useGetTodayPrays signature
       const todayKey = [
         ...QueryKeys.prays.today,
-        { id: vars.userId, date: format(new Date(), 'yyyy-MM-dd') },
+        { id: vars.userId, date: getLocalDateKey() },
       ];
       const praysKey = [...QueryKeys.prays.list, { id: vars.userId, year }];
 
@@ -84,7 +84,7 @@ export const usePatchPray = () => {
 
       queryClient.setQueryData<IPrays[]>(praysKey, old => {
         const list = old ?? [];
-        const idx = list.findIndex(p => format(new Date(p.date), 'yyyy-MM-dd') === dateStr);
+        const idx = list.findIndex(p => getUtcDateKey(p.date) === dateStr);
 
         if (idx === -1) {
           const base = ensureDefaults({}, vars.userId, vars.date);
@@ -123,7 +123,7 @@ export const usePatchPray = () => {
 
       queryClient.setQueryData<IPrays[]>(ctx.praysKey, old => {
         const list = old ?? [];
-        const idx = list.findIndex(p => format(new Date(p.date), 'yyyy-MM-dd') === ctx.dateStr);
+        const idx = list.findIndex(p => getUtcDateKey(p.date) === ctx.dateStr);
         if (idx === -1) return [...list, serverPrayer];
         return list.map((p, i) => (i === idx ? serverPrayer : p));
       });

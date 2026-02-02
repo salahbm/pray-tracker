@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -19,6 +18,7 @@ import { useThemeStore } from '@/store/defaults/theme';
 import { ClickedData } from '@/types/global';
 import { IPrays } from '@/types/prays';
 import { triggerHaptic } from '@/utils/haptics';
+import { getUtcDateKey } from '@/utils/date';
 
 interface PrayerHistoryProps {
   year: number;
@@ -71,7 +71,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
   const transformedData = useMemo(() => {
     if (!data) return {};
     return data.reduce((acc: TransformedPrays, pray: IPrays) => {
-      const date = format(new Date(pray.date), 'yyyy-MM-dd');
+      const date = getUtcDateKey(pray.date);
       acc[date] = {
         fajr: pray.fajr ?? 0,
         dhuhr: pray.dhuhr ?? 0,
@@ -131,7 +131,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
             (() => {
               // Get live data from prays array instead of stale clickedData
               const livePrayer = data?.find(
-                p => format(new Date(p.date), 'yyyy-MM-dd') === clickedData.date
+                p => getUtcDateKey(p.date) === clickedData.date
               );
               const liveData = livePrayer
                 ? {

@@ -1,5 +1,5 @@
 import confetti from '@assets/gif/confetti.json';
-import { format } from 'date-fns';
+import { getLocalDateKey, parseLocalDateKey } from '@/utils/date';
 import { useFocusEffect } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { MotiView } from 'moti';
@@ -95,9 +95,9 @@ export default function HomeScreen() {
     data: prays,
     isLoading: loadingPrays,
     refetch: refetchPrays,
-  } = useGetPrays(user?.id!, year);
+  } = useGetPrays(user?.id, year);
 
-  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id!, today);
+  const { data: todaysPrays, refetch: refetchTodaysPrays } = useGetTodayPrays(user?.id, today);
 
   // MUTATIONS
   const { mutateAsync: patchPray } = usePatchPray();
@@ -131,7 +131,7 @@ export default function HomeScreen() {
       // Send ONLY the changed prayer field to backend
       // This prevents race conditions when multiple prayers are clicked rapidly
       await patchPray({
-        userId: user?.id!,
+        userId: user.id,
         date: today,
         field: prayer as PrayerField,
         value: value as 0 | 1 | 2,
@@ -142,25 +142,23 @@ export default function HomeScreen() {
       // Track prayer toggle for app rating
       await incrementPrayerToggle();
     },
-    [prayers, patchPray, user?.id, today, dispatch, incrementPrayerToggle]
+    [prayers, patchPray, user, today, dispatch, incrementPrayerToggle, t]
   );
 
   const handleDayClick = useCallback(
     async (date: string, details: { data: DayData | null | undefined }) => {
       if (!user) return fireToast.error(t('common.errors.unauthorized'));
-      // if date is after today, return toast
-      const isDateAfterToday = new Date(date) > today;
+      const selectedDate = parseLocalDateKey(date);
+      const isDateAfterToday = selectedDate > today;
       if (isDateAfterToday) return fireToast.info(t('common.errors.futureDate'));
-
-      // if date is more than a week, return toast
-      const isMoreThanAWeek = new Date(date) < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const isMoreThanAWeek = selectedDate < new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       if (isMoreThanAWeek && !isPremium) {
         paywallSheetRef.current?.snapToIndex(0);
         return;
       }
 
       // if today, scroll to top
-      if (date === format(today, 'yyyy-MM-dd')) {
+      if (date === getLocalDateKey(today)) {
         return homeRef.current?.scrollTo({
           y: 0,
           animated: true,
@@ -180,7 +178,7 @@ export default function HomeScreen() {
       });
       dispatch({ type: 'SET_ACCORDION', payload: 'item-1' });
     },
-    [today, t]
+    [today, t, user, isPremium, paywallSheetRef]
   );
 
   const handleUpdateClickedDay = useCallback(
@@ -191,7 +189,7 @@ export default function HomeScreen() {
       // Send PATCH request with only the changed field
       await patchPray({
         userId: user.id,
-        date: new Date(date),
+        date: parseLocalDateKey(date),
         field,
         value,
       });

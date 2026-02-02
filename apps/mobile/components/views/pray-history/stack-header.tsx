@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useLanguage } from '@/hooks/common/useTranslation';
+import { getLocalDateKey } from '@/utils/date';
 
 interface CalendarRef {
   current: {
@@ -95,7 +96,7 @@ export const StackHeader: React.FC<IStackHeaderProps> = ({ options }) => {
           </View>
           <Button
             size="sm"
-            onPress={() => calendarRef?.current?.scrollToDay?.(format(new Date(), 'yyyy-MM-dd'))}
+            onPress={() => calendarRef?.current?.scrollToDay?.(getLocalDateKey())}
           >
             <Text className="text-primary-foreground font-medium">{t('common.today')}</Text>
           </Button>
