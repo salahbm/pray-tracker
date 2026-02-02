@@ -2,7 +2,7 @@
   "expo": {
     "name": "Noor",
     "slug": "noor-pray-tracker",
-    "version": "1.0.54",
+    "version": "1.0.55",
     "orientation": "portrait",
     "icon": "./assets/images/icon-light.png",
     "scheme": "noor",
