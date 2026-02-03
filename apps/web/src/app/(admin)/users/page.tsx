@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  AwaitedReactNode,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useState,
-} from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
@@ -87,54 +79,24 @@ export default function UsersPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {data.data.map(
-                    (user: {
-                      id: Key | null | undefined;
-                      name:
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | ReactElement<any, string | JSXElementConstructor<any>>
-                        | Iterable<ReactNode>
-                        | ReactPortal
-                        | Promise<AwaitedReactNode>
-                        | null
-                        | undefined;
-                      email:
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | ReactElement<any, string | JSXElementConstructor<any>>
-                        | Iterable<ReactNode>
-                        | ReactPortal
-                        | Promise<AwaitedReactNode>
-                        | null
-                        | undefined;
-                      emailVerified: any;
-                      totalPoints: { toLocaleString: () => any };
-                      locale: string;
-                      createdAt: string | number | Date;
-                    }) => (
-                      <TableRow key={user.id}>
-                        <TableCell className="font-medium">{user.name}</TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>
-                          <Badge variant={user.emailVerified ? 'success' : 'warning'}>
-                            {user.emailVerified ? 'Verified' : 'Unverified'}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{user.totalPoints?.toLocaleString() ?? 0}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{user.locale?.toUpperCase() ?? 'EN'}</Badge>
-                        </TableCell>
-                        <TableCell className="text-sm text-gray-500">
-                          {format(new Date(user.createdAt), 'MMM dd, yyyy')}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  )}
+                  {data.data.map(user => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Badge variant={user.emailVerified ? 'success' : 'warning'}>
+                          {user.emailVerified ? 'Verified' : 'Unverified'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{user.totalPoints?.toLocaleString() ?? 0}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{user.locale?.toUpperCase() ?? 'EN'}</Badge>
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-500">
+                        {format(new Date(user.createdAt), 'MMM dd, yyyy')}
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
 

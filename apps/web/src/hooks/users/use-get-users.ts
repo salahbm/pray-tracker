@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import agent from '@/lib/agent';
-import { IPaginatedResponse, User } from '@/types';
+import { IPaginatedResponse, User } from '@/types/index';
 
 interface GetUsersParams {
   page?: number;
@@ -9,7 +9,7 @@ interface GetUsersParams {
 }
 
 const getUsers = async (params: GetUsersParams): Promise<IPaginatedResponse<User>> => {
-  const data = await agent.get<IPaginatedResponse<User>>('/users', { params });
+  const data = await agent.get<IPaginatedResponse<User>>('/users', { params: { ...params } });
   return data;
 };
 
