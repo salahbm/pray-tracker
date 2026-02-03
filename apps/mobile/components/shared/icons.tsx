@@ -50,6 +50,7 @@ import {
   Trash2,
   BarChart3,
   Calculator,
+  Download,
 } from 'lucide-react-native';
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -112,6 +113,7 @@ iconWithClassName(WifiOff);
 iconWithClassName(Trash2);
 iconWithClassName(BarChart3);
 iconWithClassName(Calculator);
+iconWithClassName(Download);
 
 export {
   Calendar,
@@ -162,4 +164,5 @@ export {
   Trash2,
   BarChart3,
   Calculator,
+  Download,
 };

@@ -62,7 +62,7 @@ const InquiryDetailScreen = () => {
   };
 
   return (
-    <SafeAreaView className="main-area" style={{ paddingBottom: insets.bottom + 50 }}>
+    <SafeAreaView className="safe-area" style={{ paddingBottom: insets.bottom + 50 }}>
       <GoBack title={t('profile.inquiries.detail.title')} />
 
       {isLoading ? (
@@ -76,7 +76,7 @@ const InquiryDetailScreen = () => {
           </Text>
         </View>
       ) : (
-        <View className="flex-1">
+        <View className="main-area">
           {/* Header */}
           <View className="mt-6 mb-2">
             <Text className="text-xl font-bold">{inquiry.subject}</Text>

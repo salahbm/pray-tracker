@@ -10,6 +10,7 @@ import { IPrays } from '@/types/prays';
 import { getMonthLabel, getYearlyMonthlyTotals } from '@/utils/stats';
 import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import PremiumLocked from '@/components/common/premium-locked';
+import { ChartSkeleton } from './chart-skeleton';
 
 const CHART_HEIGHT = 220;
 const CHART_WIDTH_FACTOR = 0.9;
@@ -20,7 +21,13 @@ const AXIS_FONT_SIZE = 11;
 const X_AXIS_FONT_SIZE = 9;
 const SECTION_COUNT = 3;
 
-const MonthlyComparisonChart = ({ lineData }: { lineData?: IPrays[] }) => {
+const MonthlyComparisonChart = ({
+  lineData,
+  isLoading,
+}: {
+  lineData?: IPrays[];
+  isLoading?: boolean;
+}) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
   const { isPremium } = useRevenueCatCustomer();
@@ -53,32 +60,36 @@ const MonthlyComparisonChart = ({ lineData }: { lineData?: IPrays[] }) => {
   return (
     <Fragment>
       <Text className={cn('text-xl font-semibold mt-10 mb-4')}>{t('stats.monthlyComparison')}</Text>
-      <View>
-        <BarChart
-          data={barData}
-          height={CHART_HEIGHT}
-          barWidth={BAR_WIDTH}
-          spacing={BAR_SPACING}
-          maxValue={maxValue}
-          width={chartWidth}
-          noOfSections={SECTION_COUNT}
-          showGradient
-          isAnimated
-          animationDuration={600}
-          yAxisTextStyle={{
-            color: colors['--muted-foreground'],
-            fontSize: AXIS_FONT_SIZE,
-          }}
-          xAxisLabelTextStyle={{
-            color: colors['--muted-foreground'],
-            fontSize: X_AXIS_FONT_SIZE,
-          }}
-          yAxisColor={colors['--border']}
-          xAxisColor={colors['--border']}
-          hideRules
-        />
-        {!isPremium && <PremiumLocked />}
-      </View>
+      {isLoading ? (
+        <ChartSkeleton type="bar" height={CHART_HEIGHT + 20} />
+      ) : (
+        <View>
+          <BarChart
+            data={barData}
+            height={CHART_HEIGHT}
+            barWidth={BAR_WIDTH}
+            spacing={BAR_SPACING}
+            maxValue={maxValue}
+            width={chartWidth}
+            noOfSections={SECTION_COUNT}
+            showGradient
+            isAnimated
+            animationDuration={600}
+            yAxisTextStyle={{
+              color: colors['--muted-foreground'],
+              fontSize: AXIS_FONT_SIZE,
+            }}
+            xAxisLabelTextStyle={{
+              color: colors['--muted-foreground'],
+              fontSize: X_AXIS_FONT_SIZE,
+            }}
+            yAxisColor={colors['--border']}
+            xAxisColor={colors['--border']}
+            hideRules
+          />
+          {!isPremium && <PremiumLocked />}
+        </View>
+      )}
     </Fragment>
   );
 };

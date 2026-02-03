@@ -178,11 +178,23 @@
     "today": "Today",
     "loadMoreMonths": "+ Load 6 More Months",
     "chooseLanguage": "Choose a language",
+    "selectMonth": "Select Month",
+    "month": "Month",
+    "year": "Year",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
     "now": "Now",
     "today_schedule": "Today's Schedule",
     "qibla": {
       "title": "Qibla Direction",
       "description": "Find the Kaaba from your location"
+    },
+    "updateBanner": {
+      "title": "Update Available",
+      "message": "Version {{version}} is now available",
+      "otaMessage": "A new version is ready to install",
+      "update": "Update",
+      "updating": "Updating..."
     }
   },
   "location": {

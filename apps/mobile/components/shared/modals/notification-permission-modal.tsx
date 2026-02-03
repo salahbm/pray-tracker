@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { Linking, Modal, Platform, Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from 'react-native-reanimated';
 
-import { useThemeStore } from '@/store/defaults/theme';
-
 import { Button } from '../../ui/button';
 import { Text } from '../../ui/text';
 

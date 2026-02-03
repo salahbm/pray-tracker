@@ -60,7 +60,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
     if (item.type === 'friend') return t('friends.allFriends.isFriend', { name: item.username });
     if (item.type === 'sent') return t('friends.allFriends.requestSent', { name: item.username });
     return t('friends.allFriends.requestReceived', { name: item.username });
-  }, [item.type, t]);
+  }, [item.type, t, item.username]);
 
   return (
     <Animated.View
@@ -129,10 +129,9 @@ export const FriendItem: React.FC<FriendItemProps> = ({ item, index }) => {
               </View>
             )}
           </View>
+          <View className="h-[0.5px] bg-border mt-2 last:hidden" />
         </Pressable>
       </SwiperButton>
-
-      <View className="h-[0.5px] bg-border ml-[68px]" />
     </Animated.View>
   );
 };

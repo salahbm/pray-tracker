@@ -27,6 +27,7 @@ import { useAppRatingStore } from '@/store/defaults/app-rating';
 import { triggerHaptic } from '@/utils/haptics';
 
 import RamadanCard from '@/components/ramadan/ramadan-card';
+import UpdateBanner from '@/components/shared/update-banner';
 
 const initialState = {
   prayers: {
@@ -255,6 +256,9 @@ export default function HomeScreen() {
         >
           <HomeHeader today={today} />
         </MotiView>
+
+        {/* UPDATE BANNER */}
+        <UpdateBanner />
 
         {/* Today's Prayers */}
         <MotiView

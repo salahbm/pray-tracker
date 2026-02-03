@@ -64,9 +64,9 @@ const NewInquiryScreen = () => {
   };
 
   return (
-    <SafeAreaView className="main-area">
+    <SafeAreaView className="safe-area">
       <GoBack title={t('profile.inquiries.new.title')} />
-      <View className="flex-1">
+      <View className="flex-1 main-area">
         <ScrollView
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}

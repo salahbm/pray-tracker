@@ -130,9 +130,7 @@ const PrayerHistory: React.FC<PrayerHistoryProps> = params => {
             clickedData.details &&
             (() => {
               // Get live data from prays array instead of stale clickedData
-              const livePrayer = data?.find(
-                p => getUtcDateKey(p.date) === clickedData.date
-              );
+              const livePrayer = data?.find(p => getUtcDateKey(p.date) === clickedData.date);
               const liveData = livePrayer
                 ? {
                     fajr: livePrayer.fajr,

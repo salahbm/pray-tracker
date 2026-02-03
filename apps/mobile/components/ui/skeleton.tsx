@@ -2,8 +2,6 @@ import React from 'react';
 import { View, ViewProps } from 'react-native';
 import { cn } from '@/lib/utils';
 
-interface ISkeletonProps extends ViewProps {}
-
 const Skeleton: React.FC<ViewProps> = ({ className, ...props }) => {
   return (
     <View

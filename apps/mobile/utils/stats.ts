@@ -31,8 +31,9 @@ export const filterPraysByYear = (prays: IPrays[] = [], referenceDate = new Date
   return prays.filter(pray => new Date(pray.date).getFullYear() === currentYear);
 };
 
-export const getMonthlyPrayerTotals = (prays: IPrays[] = [], referenceDate = new Date()) => {
-  const monthPrays = filterPraysByMonth(prays, referenceDate);
+export const getMonthlyPrayerTotals = (prays: IPrays[] = [], referenceDate?: Date) => {
+  // If referenceDate is provided, filter by month; otherwise use already-filtered data
+  const monthPrays = referenceDate ? filterPraysByMonth(prays, referenceDate) : prays;
 
   return PRAYER_FIELDS.reduce(
     (acc, field) => {
@@ -43,8 +44,9 @@ export const getMonthlyPrayerTotals = (prays: IPrays[] = [], referenceDate = new
   );
 };
 
-export const getMonthlyConsistencyCounts = (prays: IPrays[] = [], referenceDate = new Date()) => {
-  const monthPrays = filterPraysByMonth(prays, referenceDate);
+export const getMonthlyConsistencyCounts = (prays: IPrays[] = [], referenceDate?: Date) => {
+  // If referenceDate is provided, filter by month; otherwise use already-filtered data
+  const monthPrays = referenceDate ? filterPraysByMonth(prays, referenceDate) : prays;
   const expectedMax = getExpectedDailyMax();
 
   return monthPrays.reduce(

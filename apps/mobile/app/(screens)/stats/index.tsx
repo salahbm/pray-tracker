@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { format } from 'date-fns';
+import * as allLocales from 'date-fns/locale';
 
 import MonthlyComparisonChart from '@/components/views/stats/monthly-comparison-chart';
 import MonthlyConsistencyChart from '@/components/views/stats/monthly-consistency-chart';
@@ -10,40 +12,93 @@ import YearlyOverviewChart from '@/components/views/stats/yearly-overview-chart'
 import { useGetPrays } from '@/hooks/prays/useGetPrays';
 import { useAuthStore } from '@/store/auth/auth-session';
 import { Text } from '@/components/ui/text';
-import GoBack from '@/components/shared/go-back';
-import YearPicker from '@/components/shared/modals/year-picker';
+import MonthPicker from '@/components/shared/modals/month-picker';
 import { triggerHaptic } from '@/utils';
+import { useLanguage } from '@/hooks/common/useTranslation';
+import { ChevronLeft } from '@/components/shared/icons';
+import { router } from 'expo-router';
+import { RefreshControl } from 'react-native-gesture-handler';
+
+const localeMap: { [key: string]: any } = {
+  en: allLocales.enUS,
+  uz: allLocales.uz,
+  ru: allLocales.ru,
+  tr: allLocales.tr,
+};
 
 const BOTTOM_PADDING = 80;
 
 const StatsScreen = () => {
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
   const { user } = useAuthStore();
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [isYearPickerVisible, setIsYearPickerVisible] = useState(false);
+  const insets = useSafeAreaInsets();
+  const { currentLanguage } = useLanguage();
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [isMonthPickerVisible, setIsMonthPickerVisible] = useState(false);
+  const [isMapping, setIsMapping] = useState<boolean>(false);
 
   const togglePicker = async () => {
     await triggerHaptic();
-    setIsYearPickerVisible(true);
+    setIsMonthPickerVisible(true);
   };
 
-  const handleYearConfirm = (selectedYear: number) => {
-    setYear(selectedYear);
-    setIsYearPickerVisible(false);
+  const handleMonthConfirm = (date: Date) => {
+    setSelectedMonth(date);
+    setIsMonthPickerVisible(false);
   };
 
-  const handleYearCancel = () => {
-    setIsYearPickerVisible(false);
+  const handleMonthCancel = () => {
+    setIsMonthPickerVisible(false);
   };
 
-  const { data: prays } = useGetPrays(user?.id, year);
+  const year = selectedMonth.getFullYear();
+  const { data: allPrays, isLoading: isLoadingPrays, refetch } = useGetPrays(user?.id, year);
+
+  // Filter prayers for the selected month
+  const prays = useMemo(() => {
+    if (!allPrays) return [];
+    setIsMapping(true);
+    const month = selectedMonth.getMonth();
+    const prays = allPrays.filter(pray => {
+      // Parse UTC date from backend
+      const prayDate = new Date(pray.date);
+      const prayYear = prayDate.getUTCFullYear();
+      const prayMonth = prayDate.getUTCMonth();
+      return prayMonth === month && prayYear === year;
+    });
+    setIsMapping(false);
+    return prays;
+  }, [allPrays, selectedMonth, year]);
+
+  // Format month/year for display
+  const displayText = useMemo(() => {
+    const selectedLocale = localeMap[currentLanguage] || allLocales.enUS;
+    return format(selectedMonth, 'MMM yyyy', { locale: selectedLocale });
+  }, [selectedMonth, currentLanguage]);
+
+  const onRefresh = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
+  const isLoading = isLoadingPrays || isMapping;
 
   return (
     <SafeAreaView className="safe-area">
-      <GoBack title={t('stats.title')} onRightPress={togglePicker}>
-        <Text className="border border-border rounded-md px-2 py-1 mr-2">{year}</Text>
-      </GoBack>
+      <View className="flex-row items-center justify-between px-4">
+        <Pressable
+          onPress={() => router.back()}
+          className="w-10 h-10 justify-center items-center active:opacity-70 active:bg-black/10 rounded-full"
+          accessibilityLabel="Go back"
+          accessibilityRole="button"
+        >
+          <ChevronLeft className="text-foreground size-6" />
+        </Pressable>
+        <Text className="font-semibold text-lg ml-6">{t('stats.title')}</Text>
+
+        <Pressable onPress={togglePicker} className="border border-border rounded-md px-2 py-1">
+          <Text className="capitalize">{displayText}</Text>
+        </Pressable>
+      </View>
 
       <ScrollView
         className="main-area"
@@ -51,20 +106,21 @@ const StatsScreen = () => {
           paddingBottom: insets.bottom + BOTTOM_PADDING,
         }}
         showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={onRefresh} />}
       >
-        <MonthlyPrayerBreakdownChart lineData={prays} />
+        <MonthlyPrayerBreakdownChart lineData={prays} isLoading={isLoading} />
 
         {/* Premium locked */}
-        <MonthlyConsistencyChart lineData={prays} />
-        <YearlyOverviewChart lineData={prays} />
-        <MonthlyComparisonChart lineData={prays} />
+        <MonthlyConsistencyChart lineData={prays} isLoading={isLoading} />
+        <YearlyOverviewChart lineData={prays} isLoading={isLoading} />
+        <MonthlyComparisonChart lineData={prays} isLoading={isLoading} />
       </ScrollView>
-      <YearPicker
-        visible={isYearPickerVisible}
-        value={year}
+      <MonthPicker
+        visible={isMonthPickerVisible}
+        value={selectedMonth}
         minYear={1980}
-        onConfirm={handleYearConfirm}
-        onCancel={handleYearCancel}
+        onConfirm={handleMonthConfirm}
+        onCancel={handleMonthCancel}
       />
     </SafeAreaView>
   );

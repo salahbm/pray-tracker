@@ -63,9 +63,9 @@ const InquiryListScreen = () => {
   };
 
   return (
-    <SafeAreaView className="main-area">
+    <SafeAreaView className="safe-area">
       <GoBack title={t('profile.inquiries.title')} />
-      <View className="flex-1 relative pt-10">
+      <View className="relative main-area">
         {/* Content */}
         {!isLoggedIn ? (
           <View className="flex-1">

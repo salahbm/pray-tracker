@@ -179,11 +179,23 @@
     "today": "Bugun",
     "loadMoreMonths": "+ Yana 6 oy yuklash",
     "chooseLanguage": "Tilni tanlang",
+    "selectMonth": "Oyni tanlang",
+    "month": "Oy",
+    "year": "Yil",
+    "confirm": "Tasdiqlash",
+    "cancel": "Bekor qilish",
     "now": "Hozir",
     "today_schedule": "Bugungi takvim",
     "qibla": {
       "title": "Qibla yo'nalishini",
       "description": "Aniq Qibla yo'nalishini topish"
+    },
+    "updateBanner": {
+      "title": "Yangilanish mavjud",
+      "message": "{{version}} versiyasi mavjud",
+      "otaMessage": "Yangi versiya o'rnatishga tayyor",
+      "update": "Yangilash",
+      "updating": "Yangilanmoqda..."
     }
   },
   "location": {

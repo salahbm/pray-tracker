@@ -64,7 +64,7 @@ const AllFriends: React.FC = () => {
   }, [allActivities]);
 
   // Handlers
-  const handleSendRequest = async () => {
+  const handleSendRequest = useCallback(async () => {
     if (!user?.id) return;
     if (!z.email().safeParse(friendEmail.trim()).success)
       return fireToast.error(t('common.errors.invalidEmail'));
@@ -73,7 +73,7 @@ const AllFriends: React.FC = () => {
       userId: user.id,
       friendEmail: friendEmail.trim(),
     }).then(() => setFriendEmail(''));
-  };
+  }, [user, friendEmail, sendFriendRequest, t]);
 
   const onRefresh = useCallback(() => {
     refetch();
@@ -88,57 +88,6 @@ const AllFriends: React.FC = () => {
   const keyExtractor = useCallback(
     (item: FriendActivity, idx: number) => `${item.type}-${item.id}-${idx}`,
     []
-  );
-
-  const ListHeader = useMemo(
-    () => (
-      <View className="mb-2">
-        <GoBack title={t('friends.allFriends.title')} />
-
-        {/* Search/Add friend */}
-        <View className="flex-row items-center border border-border rounded-lg mt-3 overflow-hidden">
-          <View className="flex-1">
-            <Input
-              className="px-4 py-3 border-0"
-              placeholder={t('friends.allFriends.searchPlaceholder')}
-              value={friendEmail}
-              onChangeText={setFriendEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              returnKeyType="send"
-              autoCorrect={false}
-              textContentType="emailAddress"
-              autoComplete="email"
-              editable={!isSending}
-              onSubmitEditing={handleSendRequest}
-            />
-          </View>
-          <Button
-            variant="link"
-            size="icon"
-            onPress={handleSendRequest}
-            disabled={isSending}
-            className="px-3 border-l rounded-none border-border"
-          >
-            <Search className="w-6 h-6 text-foreground" />
-          </Button>
-        </View>
-
-        {/* Tabs */}
-        <Tabs
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          counts={counts}
-          renderLabel={(tab, counts) => {
-            if (tab === 'all') return t('friends.allFriends.all', { count: counts.all });
-            if (tab === 'requests')
-              return t('friends.allFriends.requests', { count: counts.requests });
-            return t('friends.allFriends.friends', { count: counts.friends });
-          }}
-        />
-      </View>
-    ),
-    [friendEmail, isSending, activeTab, counts, t, colors]
   );
 
   const ListFooter = useMemo(() => {
@@ -181,18 +130,61 @@ const AllFriends: React.FC = () => {
 
   return (
     <SafeAreaView className="safe-area">
-      <View className="main-area">
+      <View>
         {isLoading && <Loader visible className="absolute inset-0 bg-transparent z-50" />}
+        <View className="px-4">
+          <GoBack title={t('friends.allFriends.title')} />
 
+          {/* Search/Add friend */}
+          <View className="flex-row items-center border border-border rounded-lg mt-3 overflow-hidden">
+            <View className="flex-1">
+              <Input
+                className="px-4 py-3 border-0"
+                placeholder={t('friends.allFriends.searchPlaceholder')}
+                value={friendEmail}
+                onChangeText={setFriendEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                returnKeyType="send"
+                autoCorrect={false}
+                textContentType="emailAddress"
+                autoComplete="email"
+                editable={!isSending}
+                onSubmitEditing={handleSendRequest}
+              />
+            </View>
+            <Button
+              variant="link"
+              size="icon"
+              onPress={handleSendRequest}
+              disabled={isSending}
+              className="px-3 border-l rounded-none border-border"
+            >
+              <Search className="w-6 h-6 text-foreground" />
+            </Button>
+          </View>
+
+          {/* Tabs */}
+          <Tabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            counts={counts}
+            renderLabel={(tab, counts) => {
+              if (tab === 'all') return t('friends.allFriends.all', { count: counts.all });
+              if (tab === 'requests')
+                return t('friends.allFriends.requests', { count: counts.requests });
+              return t('friends.allFriends.friends', { count: counts.friends });
+            }}
+          />
+        </View>
         <FlatList
           data={filteredActivities}
           keyExtractor={keyExtractor}
           onEndReached={onEndReached}
           onEndReachedThreshold={0.5}
-          ListHeaderComponent={ListHeader}
           ListFooterComponent={ListFooter}
           refreshControl={RefetchControl}
-          contentContainerStyle={{ paddingBottom: insets.bottom + 20, paddingTop: 8 }}
+          contentContainerStyle={{ paddingBottom: insets.bottom + 20, paddingTop: 10 }}
           renderItem={item => <FriendItem item={item.item} index={item.index} />}
           ListEmptyComponent={ListEmpty}
         />

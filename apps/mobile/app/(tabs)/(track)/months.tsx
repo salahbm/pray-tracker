@@ -93,6 +93,20 @@ const MonthScreen = () => {
     [monthControlsCallback]
   );
 
+  // Initialize header on mount to prevent loading state
+  useEffect(() => {
+    const today = new Date();
+    monthControlsCallback([
+      {
+        dateString: getLocalDateKey(),
+        day: today.getDate(),
+        month: today.getMonth() + 1,
+        timestamp: today.getTime(),
+        year: today.getFullYear(),
+      },
+    ]);
+  }, [monthControlsCallback]);
+
   // Locale and theme updates - combined into one effect
   useEffect(() => {
     setCalendarLocale(currentLanguage as Language);

@@ -149,11 +149,23 @@
     "today": "Bugün",
     "loadMoreMonths": "+ 6 Ay Daha Yükle",
     "chooseLanguage": "Dil seçin",
+    "selectMonth": "Ay Seçin",
+    "month": "Ay",
+    "year": "Yıl",
+    "confirm": "Onayla",
+    "cancel": "İptal",
     "now": "Şimdi",
     "today_schedule": "Bugünün Takvim",
     "qibla": {
       "title": "Kibla Yönü",
       "description": "Kibla Yönü"
+    },
+    "updateBanner": {
+      "title": "Güncelleme Mevcut",
+      "message": "{{version}} sürümü mevcut",
+      "otaMessage": "Yeni sürüm yüklemeye hazır",
+      "update": "Güncelle",
+      "updating": "Güncelleniyor..."
     },
     "actions": {
       "delete": "Sil",

@@ -50,7 +50,10 @@ export class PrayersController {
    * Get today's prayer for the current user
    */
   @Get('me/today')
-  async findMyTodayPrayer(@Req() request: Request, @Query('date') date?: string) {
+  async findMyTodayPrayer(
+    @Req() request: Request,
+    @Query('date') date?: string,
+  ) {
     const userId = request.user?.id;
     if (!userId) {
       throw new UnauthorizedException('No active session found');
@@ -94,7 +97,10 @@ export class PrayersController {
    * Get today's prayer for a specific user
    */
   @Get('user/:userId/today')
-  async findUserTodayPrayer(@Param('userId') userId: string, @Query('date') date?: string) {
+  async findUserTodayPrayer(
+    @Param('userId') userId: string,
+    @Query('date') date?: string,
+  ) {
     return this.prayersService.findTodayByUser(userId, date);
   }
 
