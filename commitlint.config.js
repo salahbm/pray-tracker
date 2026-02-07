@@ -1,13 +1,16 @@
-export default {
-  extends: ['@commitlint/config-conventional'],
-
+module.exports = {
+  parserPreset: 'conventional-changelog-conventionalcommits',
   rules: {
     'body-leading-blank': [1, 'always'],
     'body-max-line-length': [2, 'always', 100],
     'footer-leading-blank': [1, 'always'],
     'footer-max-line-length': [2, 'always', 100],
     'header-max-length': [2, 'always', 100],
-    'subject-case': [2, 'never', ['sentence-case', 'start-case', 'pascal-case', 'upper-case']],
+    'subject-case': [
+      2,
+      'never',
+      ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
+    ],
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],
     'type-case': [2, 'always', 'lower-case'],
@@ -33,7 +36,6 @@ export default {
       ],
     ],
   },
-
   prompt: {
     questions: {
       type: {
@@ -61,61 +63,81 @@ export default {
             emoji: '📚',
           },
           style: {
-            description: 'Formatting or style changes (no logic change)',
+            description:
+              'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)',
             title: 'Styles',
             emoji: '💎',
           },
           refactor: {
-            description: 'Refactoring without feature or bug changes',
-            title: 'Refactor',
+            description:
+              'A code change that neither fixes a bug nor adds a feature',
+            title: 'Code Refactoring',
             emoji: '📦',
           },
           perf: {
-            description: 'Performance improvements',
-            title: 'Performance',
+            description: 'A code change that improves performance',
+            title: 'Performance Improvements',
             emoji: '🚀',
           },
           test: {
-            description: 'Adding or fixing tests',
+            description: 'Adding missing tests or correcting existing tests',
             title: 'Tests',
             emoji: '🚨',
           },
           build: {
-            description: 'Build system or dependency changes',
-            title: 'Build',
+            description:
+              'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
+            title: 'Builds',
             emoji: '🛠',
           },
           ci: {
-            description: 'CI configuration changes',
-            title: 'CI',
+            description:
+              'Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
+            title: 'Continuous Integrations',
             emoji: '⚙️',
           },
           chore: {
-            description: 'Maintenance tasks',
-            title: 'Chore',
+            description: "Other changes that don't modify src or test files",
+            title: 'Chores',
             emoji: '♻️',
           },
           revert: {
-            description: 'Revert a previous commit',
-            title: 'Revert',
+            description: 'Reverts a previous commit',
+            title: 'Reverts',
             emoji: '🗑',
           },
           merge: {
-            description: 'Merge branches',
-            title: 'Merge',
+            description: 'Merges a branch to main',
+            title: 'Merges',
             emoji: '🔀',
           },
         },
       },
-      scope: { description: 'Scope of this change (optional)' },
-      subject: { description: 'Short description (imperative)' },
-      body: { description: 'Longer explanation (optional)' },
-      isBreaking: { description: 'Any breaking changes?' },
-      breakingBody: { description: 'Explain breaking changes' },
-      breaking: { description: 'Describe the breaking change' },
-      isIssueAffected: { description: 'Does this affect any issues?' },
-      issuesBody: { description: 'Explain issue impact' },
-      issues: { description: 'Reference issues (e.g. #123)' },
+      scope: {
+        description:
+          'What is the scope of this change (e.g. component or file name)',
+      },
+      subject: {
+        description:
+          'Write a short, imperative tense description of the change',
+      },
+      body: { description: 'Provide a longer description of the change' },
+      isBreaking: { description: 'Are there any breaking changes?' },
+      breakingBody: {
+        description:
+          'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself',
+      },
+      breaking: { description: 'Describe the breaking changes' },
+      isIssueAffected: {
+        description: 'Does this change affect any open issues?',
+      },
+      issuesBody: {
+        description:
+          'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself',
+      },
+      issues: {
+        description: 'Add issue references (e.g. "fix #123", "re #123".)',
+      },
     },
   },
 };

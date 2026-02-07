@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Source_Sans_3, Manrope } from 'next/font/google';
-
+import { Analytics } from "@vercel/analytics/next"
 import { siteDetails } from '@/data/siteDetails';
 
 import './globals.css';
@@ -44,6 +44,7 @@ export default function RootLayout({
       <body className={`${manrope.className} ${sourceSans.className} antialiased`}>
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
         {children}
+        <Analytics />
       </body>
     </html>
   );
