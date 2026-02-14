@@ -120,3 +120,43 @@ export const hasCompletionQualityData = (
 
 export const getMonthLabel = (referenceDate: Date, monthIndex: number) =>
   format(new Date(referenceDate.getFullYear(), monthIndex, 1), 'MMM');
+
+export interface RollingMonthEntry {
+  year: number;
+  month: number; // 0-11
+  total: number;
+  label: string;
+}
+
+export const getRolling12MonthTotals = (
+  prays: IPrays[] = [],
+  referenceDate = new Date()
+): RollingMonthEntry[] => {
+  const refYear = referenceDate.getFullYear();
+  const refMonth = referenceDate.getMonth();
+
+  // Build 12 month slots: from (refMonth+1 of prev year) to (refMonth of current year)
+  const slots: RollingMonthEntry[] = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(refYear, refMonth - i, 1);
+    slots.push({
+      year: d.getFullYear(),
+      month: d.getMonth(),
+      total: 0,
+      label: format(d, 'MMM'),
+    });
+  }
+
+  // Accumulate prayer totals into matching slots
+  prays.forEach(pray => {
+    const prayDate = new Date(pray.date);
+    const pYear = prayDate.getFullYear();
+    const pMonth = prayDate.getMonth();
+    const slot = slots.find(s => s.year === pYear && s.month === pMonth);
+    if (slot) {
+      slot.total += getPrayerTotal(pray);
+    }
+  });
+
+  return slots;
+};

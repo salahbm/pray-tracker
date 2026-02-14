@@ -7,44 +7,36 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
-import { getMonthLabel, getYearlyMonthlyTotals } from '@/utils/stats';
-import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
+import { getRolling12MonthTotals } from '@/utils/stats';
 import PremiumLocked from '@/components/common/premium-locked';
 import { ChartSkeleton } from './chart-skeleton';
 
 const CHART_HEIGHT = 220;
-const CHART_WIDTH_FACTOR = 0.9;
+const CHART_WIDTH_FACTOR = 0.8;
 const MAX_VALUE_FALLBACK = 1;
 
 const YearlyOverviewChart = ({
   lineData,
   isLoading,
+  isPremium,
 }: {
   lineData?: IPrays[];
   isLoading?: boolean;
+  isPremium?: boolean;
 }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const { isPremium } = useRevenueCatCustomer();
 
   const now = useMemo(() => new Date(), []);
-  const currentMonthIndex = now.getMonth();
 
   const yearlyData = useMemo((): lineDataItem[] => {
-    const totals = getYearlyMonthlyTotals(lineData ?? [], now);
+    const rolling = getRolling12MonthTotals(lineData ?? [], now);
 
-    return totals
-      .map((value, index) => ({
-        value,
-        text: getMonthLabel(now, index),
-        monthIndex: index,
-      }))
-      .filter(item => item.monthIndex <= currentMonthIndex)
-      .map(({ value, text }) => ({
-        value,
-        text,
-      }));
-  }, [lineData, now, currentMonthIndex]);
+    return rolling.map(entry => ({
+      value: entry.total,
+      text: entry.label,
+    }));
+  }, [lineData, now]);
 
   const maxValue = useMemo(
     () => Math.max(...yearlyData.map(item => item.value ?? 0), MAX_VALUE_FALLBACK),
@@ -68,6 +60,7 @@ const YearlyOverviewChart = ({
             thickness={3}
             curved
             areaChart
+            scrollToEnd
             startFillColor={colors['--primary']}
             startOpacity={0.15}
             endFillColor={colors['--background']}
@@ -98,7 +91,7 @@ const YearlyOverviewChart = ({
                 const point = points[0] as { value: number; text: string };
 
                 return (
-                  <View className="px-2 py-1 bg-background border border-border rounded-md">
+                  <View className="px-2 py-1 bg-background border border-border rounded-md min-w-24 z-50 flex flex-row items-center justify-between">
                     <Text className="text-xs text-muted-foreground">{point.text}</Text>
                     <Text className="text-sm font-semibold">{point.value}</Text>
                   </View>

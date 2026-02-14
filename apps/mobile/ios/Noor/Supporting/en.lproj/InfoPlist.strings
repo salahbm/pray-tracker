@@ -3,6 +3,7 @@ common = "[object Object]";
 location = "[object Object]";
 friends = "[object Object]";
 home = "[object Object]";
+stats = "[object Object]";
 profile = "[object Object]";
 subscription = "[object Object]";
 qibla = "[object Object]";

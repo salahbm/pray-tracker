@@ -8,11 +8,10 @@ import { cn } from '@/lib/utils';
 import { useThemeStore } from '@/store/defaults/theme';
 import { IPrays } from '@/types/prays';
 import { getMonthlyConsistencyCounts } from '@/utils/stats';
-import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 import PremiumLocked from '@/components/common/premium-locked';
 import { ChartSkeleton } from './chart-skeleton';
 
-const CHART_WIDTH_FACTOR = 0.85;
+const CHART_WIDTH_FACTOR = 0.8;
 const DONUT_RADIUS = 90;
 const INNER_RADIUS = 60;
 const STROKE_WIDTH = 2;
@@ -20,13 +19,14 @@ const STROKE_WIDTH = 2;
 const MonthlyConsistencyChart = ({
   lineData,
   isLoading,
+  isPremium,
 }: {
   lineData?: IPrays[];
   isLoading?: boolean;
+  isPremium?: boolean;
 }) => {
   const { t } = useTranslation();
   const { colors } = useThemeStore();
-  const { isPremium } = useRevenueCatCustomer();
 
   const consistencyData = useMemo(() => getMonthlyConsistencyCounts(lineData ?? []), [lineData]);
 

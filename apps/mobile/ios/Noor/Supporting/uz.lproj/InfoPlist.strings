@@ -4,6 +4,7 @@ location = "[object Object]";
 friends = "[object Object]";
 home = "[object Object]";
 profile = "[object Object]";
+stats = "[object Object]";
 subscription = "[object Object]";
 qibla = "[object Object]";
 ramadan = "[object Object]";

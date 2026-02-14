@@ -50,7 +50,7 @@ const MonthScreen = () => {
   const calendarRef = useRef<any>(null);
   const dayRef = useRef<BottomSheetModal>(null);
 
-  const [year, setYear] = useState(2025);
+  const [year, setYear] = useState(() => new Date().getFullYear());
   const [atTop, setAtTop] = useState(false);
   const [selected, setSelected] = useState('');
   const [visibleMonths, setVisibleMonths] = useState(2);
@@ -107,17 +107,12 @@ const MonthScreen = () => {
     ]);
   }, [monthControlsCallback]);
 
-  // Locale and theme updates - combined into one effect
+  // Locale and theme updates - single effect to avoid double re-render
   useEffect(() => {
     setCalendarLocale(currentLanguage as Language);
     LocaleConfig.defaultLocale = currentLanguage;
     setRenderVersion(prev => prev + 1);
-  }, [currentLanguage, colorScheme]);
-
-  // Force refresh when theme changes
-  useEffect(() => {
-    setRenderVersion(prev => prev + 1);
-  }, [colorScheme, colors]);
+  }, [currentLanguage, colorScheme, colors]);
 
   const prayerCountByDate = useMemo(() => {
     if (!prays?.length) return {};
@@ -209,12 +204,12 @@ const MonthScreen = () => {
       setLoadingMore(false);
 
       // Wait for new months to render, then scroll to previous visible month
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         if (calendarRef.current?.scrollToMonth) {
           calendarRef.current.scrollToMonth(targetMonth, false);
         }
-      }, 300);
-    }, 400);
+      });
+    }, 100);
   }, [loadingMore]);
 
   const handleScrollEnd = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -225,6 +220,30 @@ const MonthScreen = () => {
   const calendarKey = useMemo(
     () => `${currentLanguage}-${colorScheme}-${renderVersion}`,
     [currentLanguage, colorScheme, renderVersion]
+  );
+
+  // Use a ref for prayerCountByDate so the calendar doesn't remount on data changes
+  const prayerCountRef = useRef(prayerCountByDate);
+  prayerCountRef.current = prayerCountByDate;
+
+  // Stable dayComponent callback — avoids breaking DayComponent's memo
+  const renderDay = useCallback(
+    ({ date }: { date?: DateData }) => (
+      <DayComponent
+        date={date}
+        isPremium={isPremium}
+        onDayPress={onDayPress}
+        prayerCountByDate={prayerCountRef.current}
+        todayKey={todayKey}
+        weekAgoTimestamp={weekAgoTimestamp}
+      />
+    ),
+    [isPremium, onDayPress, todayKey, weekAgoTimestamp]
+  );
+
+  const renderHeader = useCallback(
+    (date: any) => <RenderHeader date={date} locale={currentLanguage} />,
+    [currentLanguage]
   );
 
   const calendar = useMemo(
@@ -239,7 +258,7 @@ const MonthScreen = () => {
         firstDay={1}
         onVisibleMonthsChange={handleVisibleMonthsChange}
         theme={theme}
-        renderHeader={date => <RenderHeader date={date} locale={currentLanguage} />}
+        renderHeader={renderHeader}
         refreshControl={<RefreshControl refreshing={isLoadingPrays} onRefresh={refetch} />}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
@@ -250,18 +269,9 @@ const MonthScreen = () => {
         alwaysBounceVertical={false}
         calendarHeight={260}
         markedDates={marked}
-        extraData={selected}
+        extraData={prayerCountByDate}
         removeClippedSubviews
-        dayComponent={({ date }) => (
-          <DayComponent
-            date={date}
-            isPremium={isPremium}
-            onDayPress={onDayPress}
-            prayerCountByDate={prayerCountByDate}
-            todayKey={todayKey}
-            weekAgoTimestamp={weekAgoTimestamp}
-          />
-        )}
+        dayComponent={renderDay}
       />
     ),
     [
@@ -270,17 +280,14 @@ const MonthScreen = () => {
       handleVisibleMonthsChange,
       theme,
       marked,
-      selected,
       prayerCountByDate,
-      onDayPress,
       colors,
       handleScrollEnd,
-      isPremium,
       currentLanguage,
       isLoadingPrays,
       refetch,
-      todayKey,
-      weekAgoTimestamp,
+      renderDay,
+      renderHeader,
     ]
   );
 

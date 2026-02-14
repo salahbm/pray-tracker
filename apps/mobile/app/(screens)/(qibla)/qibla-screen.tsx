@@ -1,8 +1,12 @@
 import { useIsFocused } from '@react-navigation/native';
 import * as Location from 'expo-location';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageBackground, View, Dimensions } from 'react-native';
+import { ImageBackground, View, Dimensions, TextInput } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
 import Kaaba from '@/assets/icons/kaaba.svg';
 import Loader from '@/components/shared/loader';
@@ -34,11 +38,11 @@ const QiblaScreen: React.FC = () => {
   const bg = MOSQUE_LIST[bgIndex];
 
   const headingRef = useRef<number>(0);
-  const headingStateRef = useRef<number>(0);
   const lastHapticAtRef = useRef<number>(0);
-  const lastFrameAtRef = useRef<number>(0);
-  const [heading, setHeading] = useState<number>(0);
   const headingSubRef = useRef<Location.LocationSubscription | null>(null);
+  const headingTextRef = useRef<TextInput>(null);
+
+  const ringRotation = useSharedValue(0);
 
   const { data: qiblaAngle = 0, isLoading } = useQibla();
 
@@ -57,20 +61,15 @@ const QiblaScreen: React.FC = () => {
         const smoothed = norm360(headingRef.current + d * 0.3); // Stronger smoothing
         headingRef.current = smoothed;
 
-        // Throttle UI updates more aggressively (60ms ~= 16fps, good for compass)
-        const now = Date.now();
-        if (now - lastFrameAtRef.current < 60) return;
+        // Drive rotation on UI thread via shared value — no React re-render
+        // Direct assignment (no withTiming) avoids jumps; smoothing is already handled above
+        ringRotation.value = qiblaAngle - smoothed;
 
-        // Only update if change is significant (2 degrees minimum)
-        const diff = Math.abs(headingStateRef.current - smoothed);
-        const normalizedDiff = Math.min(diff, 360 - diff); // Handle wraparound
-        if (normalizedDiff < 2) return;
-
-        lastFrameAtRef.current = now;
-        headingStateRef.current = smoothed;
-        setHeading(smoothed);
+        // Update heading text without re-render
+        headingTextRef.current?.setNativeProps({ text: `${smoothed.toFixed(1)}°` });
 
         // Haptic feedback - check against qiblaAngle
+        const now = Date.now();
         const qiblaDiff = Math.abs(smoothed - qiblaAngle);
         const normalizedQiblaDiff = Math.min(qiblaDiff, 360 - qiblaDiff);
         if (normalizedQiblaDiff <= 5 && now - lastHapticAtRef.current > 1200) {
@@ -85,9 +84,9 @@ const QiblaScreen: React.FC = () => {
     };
   }, [isFocused, qiblaAngle]);
 
-  // Calculate rotation: Kaaba should point to Qibla direction
-  // Ring rotates opposite to device heading, offset by Qibla angle
-  const ringRotation = useMemo(() => qiblaAngle - heading, [heading, qiblaAngle]);
+  const ringAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${ringRotation.value}deg` }],
+  }));
 
   return (
     <ImageBackground source={bg} className="flex-1" resizeMode="cover">
@@ -114,9 +113,9 @@ const QiblaScreen: React.FC = () => {
               className="items-center justify-center"
             >
               {/* Main Outer Circle */}
-              <View
+              <Animated.View
                 className="absolute w-full h-full rounded-full border-[1.5px] border-white/60"
-                style={{ transform: [{ rotate: `${ringRotation}deg` }] }}
+                style={ringAnimatedStyle}
               >
                 {/* Cardinal Points */}
                 <Text className="absolute self-center -top-8 text-white font-bold">N</Text>
@@ -141,7 +140,7 @@ const QiblaScreen: React.FC = () => {
                     <Kaaba width={24} height={24} fill="white" />
                   </View>
                 </View>
-              </View>
+              </Animated.View>
 
               {/* Center Pointer (Fixed Device Orientation) */}
               <View className="h-2 w-2 bg-white rounded-full m-5" />
@@ -155,7 +154,13 @@ const QiblaScreen: React.FC = () => {
           <View className="flex-row items-center mb-12">
             <Text className="text-white text-2xl font-bold">{qiblaAngle.toFixed(1)}° N</Text>
             <View className="w-1.5 h-1.5 bg-white/80 rounded-full mx-3" />
-            <Text className="text-white text-2xl font-bold">{heading.toFixed(1)}°</Text>
+            <TextInput
+              ref={headingTextRef}
+              editable={false}
+              defaultValue="0.0°"
+              className="text-white text-2xl font-bold"
+              style={{ padding: 0, margin: 0 }}
+            />
           </View>
 
           <View className="flex-row justify-between w-full items-center">

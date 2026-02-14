@@ -15,7 +15,7 @@ const BAR_WIDTH = 28;
 const BAR_SPACING = 20;
 const AXIS_FONT_SIZE = 12;
 const SECTION_COUNT = 4;
-const CHART_WIDTH_FACTOR = 0.9;
+const CHART_WIDTH_FACTOR = 0.8;
 
 const MonthlyPrayerBreakdownChart = ({
   lineData,
@@ -29,11 +29,11 @@ const MonthlyPrayerBreakdownChart = ({
 
   const prayerColors = useMemo(
     () => ({
-      fajr: colors['--primary'],
-      dhuhr: colors['--primary-400'],
-      asr: colors['--primary-600'],
+      fajr: colors['--primary-400'],
+      dhuhr: colors['--warning'],
+      asr: colors['--warning'],
       maghrib: colors['--warning'],
-      isha: colors['--destructive'],
+      isha: colors['--primary-600'],
       nafl: colors['--success'],
     }),
     [colors]

@@ -18,6 +18,7 @@ import { useLanguage } from '@/hooks/common/useTranslation';
 import { ChevronLeft } from '@/components/shared/icons';
 import { router } from 'expo-router';
 import { RefreshControl } from 'react-native-gesture-handler';
+import { useRevenueCatCustomer } from '@/hooks/subscriptions/useRevenueCat';
 
 const localeMap: { [key: string]: any } = {
   en: allLocales.enUS,
@@ -33,6 +34,7 @@ const StatsScreen = () => {
   const { user } = useAuthStore();
   const insets = useSafeAreaInsets();
   const { currentLanguage } = useLanguage();
+  const { isPremium } = useRevenueCatCustomer();
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [isMonthPickerVisible, setIsMonthPickerVisible] = useState(false);
   const [isMapping, setIsMapping] = useState<boolean>(false);
@@ -52,7 +54,14 @@ const StatsScreen = () => {
   };
 
   const year = selectedMonth.getFullYear();
+  const prevYear = year - 1;
   const { data: allPrays, isLoading: isLoadingPrays, refetch } = useGetPrays(user?.id, year);
+  const { data: prevYearPrays, isLoading: isLoadingPrevYear, refetch: refetchPrev } = useGetPrays(user?.id, prevYear);
+
+  // Merge current + previous year data for rolling 12-month charts
+  const mergedPrays = useMemo(() => {
+    return [...(prevYearPrays ?? []), ...(allPrays ?? [])];
+  }, [allPrays, prevYearPrays]);
 
   // Filter prayers for the selected month
   const prays = useMemo(() => {
@@ -78,13 +87,14 @@ const StatsScreen = () => {
 
   const onRefresh = useCallback(() => {
     refetch();
-  }, [refetch]);
+    refetchPrev();
+  }, [refetch, refetchPrev]);
 
-  const isLoading = isLoadingPrays || isMapping;
+  const isLoading = isLoadingPrays || isLoadingPrevYear || isMapping;
 
   return (
     <SafeAreaView className="safe-area">
-      <View className="flex-row items-center justify-between px-4">
+      <View className="flex-row items-center justify-between px-4 pt-4">
         <Pressable
           onPress={() => router.back()}
           className="w-10 h-10 justify-center items-center active:opacity-70 active:bg-black/10 rounded-full"
@@ -111,9 +121,9 @@ const StatsScreen = () => {
         <MonthlyPrayerBreakdownChart lineData={prays} isLoading={isLoading} />
 
         {/* Premium locked */}
-        <MonthlyConsistencyChart lineData={prays} isLoading={isLoading} />
-        <YearlyOverviewChart lineData={prays} isLoading={isLoading} />
-        <MonthlyComparisonChart lineData={prays} isLoading={isLoading} />
+        <MonthlyConsistencyChart lineData={prays} isLoading={isLoading} isPremium={isPremium} />
+        <YearlyOverviewChart lineData={mergedPrays} isLoading={isLoading} isPremium={isPremium} />
+        <MonthlyComparisonChart lineData={mergedPrays} isLoading={isLoading} isPremium={isPremium} />
       </ScrollView>
       <MonthPicker
         visible={isMonthPickerVisible}
