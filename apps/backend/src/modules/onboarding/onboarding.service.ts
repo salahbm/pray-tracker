@@ -51,6 +51,82 @@ export class OnboardingService {
     });
   }
 
+  async listAllForAdmin(params?: { skip?: number; take?: number }) {
+    const rows = await this.prisma.onboarding.findMany({
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      skip: params?.skip,
+      take: params?.take,
+    });
+
+    return rows.map((row) => ({
+      id: row.id,
+      userId: row.userId,
+      email: row.user.email,
+      prayerKnowledge: row.prayerKnowledge,
+      supportNeeded: row.supportNeeded,
+      learnIslam: row.learnIslam,
+      whyHere: this.toStringArray(row.whyHere),
+      whereDidYouHearAboutUs: row.whereDidYouHearAboutUs,
+      locationPermissionGranted: row.locationPermissionGranted,
+      locationCity: row.locationCity,
+      locationTimezone: row.locationTimezone,
+      notificationPermissionGranted: row.notificationPermissionGranted,
+      notificationPreset: row.notificationPreset,
+      enabledModules: this.toStringArray(row.enabledModules),
+      defaultHomeTab: row.defaultHomeTab,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
+    }));
+  }
+
+  async countAllForAdmin() {
+    return this.prisma.onboarding.count();
+  }
+
+  async getAdminStats() {
+    const rows = await this.prisma.onboarding.findMany({
+      select: {
+        prayerKnowledge: true,
+        whereDidYouHearAboutUs: true,
+        defaultHomeTab: true,
+        locationPermissionGranted: true,
+        notificationPermissionGranted: true,
+      },
+    });
+
+    const buildBuckets = (values: Array<string | null | undefined>) => {
+      return values.reduce<Record<string, number>>((acc, value) => {
+        const key = value ?? 'unknown';
+        acc[key] = (acc[key] ?? 0) + 1;
+        return acc;
+      }, {});
+    };
+
+    return {
+      total: rows.length,
+      prayerKnowledge: buildBuckets(rows.map((row) => row.prayerKnowledge)),
+      attributionSources: buildBuckets(
+        rows.map((row) => row.whereDidYouHearAboutUs),
+      ),
+      defaultHomeTab: buildBuckets(rows.map((row) => row.defaultHomeTab)),
+      locationPermissionGranted: rows.filter(
+        (row) => row.locationPermissionGranted,
+      ).length,
+      notificationPermissionGranted: rows.filter(
+        (row) => row.notificationPermissionGranted,
+      ).length,
+    };
+  }
+
   private buildUpdatePayload(
     dto: UpsertOnboardingDto,
   ): Prisma.OnboardingUpdateInput {
@@ -105,5 +181,13 @@ export class OnboardingService {
     }
 
     return data;
+  }
+
+  private toStringArray(value: Prisma.JsonValue | null): string[] {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    return value.filter((item): item is string => typeof item === 'string');
   }
 }

@@ -116,7 +116,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   };
 
   return (
-    <ScrollBottomSheet ref={sheetRef} snapPoints={['85%', '100%']}>
+    <ScrollBottomSheet ref={sheetRef} snapPoints={['90%', '100%']}>
       <View className="py-8">
         <Text className="text-xl font-bold mb-4 text-center text-foreground">
           {t('location.selector.title')}

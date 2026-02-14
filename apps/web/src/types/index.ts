@@ -109,3 +109,23 @@ export interface DashboardStats {
     closed: number;
   }>;
 }
+
+export interface OnboardingPreferences {
+  id: string;
+  userId: string;
+  email: string;
+  prayerKnowledge: string | null;
+  supportNeeded: string | null;
+  learnIslam: string | null;
+  whyHere: string[];
+  whereDidYouHearAboutUs: string | null;
+  locationPermissionGranted: boolean;
+  locationCity: string | null;
+  locationTimezone: string | null;
+  notificationPermissionGranted: boolean;
+  notificationPreset: string | null;
+  enabledModules: string[];
+  defaultHomeTab: string | null;
+  createdAt: string;
+  updatedAt: string;
+}

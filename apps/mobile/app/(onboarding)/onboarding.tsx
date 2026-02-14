@@ -40,7 +40,7 @@ import {
   WhyHereOption,
 } from '@/components/views/onboarding';
 import { gifs } from '@/constants/images';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/auth/auth-session';
@@ -455,6 +455,7 @@ const Onboarding = () => {
           exit={{ opacity: 0, translateX: -12 }}
           transition={{ type: 'timing', duration: 220 }}
           className="flex-1"
+          pointerEvents="box-none"
         >
           {renderStep}
         </MotiView>
@@ -465,6 +466,8 @@ const Onboarding = () => {
           onPrimary={onPrimaryPress}
           primaryDisabled={isPrimaryDisabled()}
           isLoading={isSaving || onboardingMutation.isPending}
+          containerClassName={Platform.OS === 'android' ? 'z-20' : undefined}
+          containerStyle={Platform.OS === 'android' ? { elevation: 20 } : undefined}
         />
       )}
       <DetachedSheet ref={friendsModalRef} snapPoints={['50%']}>

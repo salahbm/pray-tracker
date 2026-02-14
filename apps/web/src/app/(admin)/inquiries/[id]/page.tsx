@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { InquiryStatus } from '@/types/index';
 import { useGetInquiry } from '@/hooks/inquiries/use-get-inquiry';
 import { useSendReply } from '@/hooks/inquiries/use-send-reply';
+import { useUpdateInquiryStatus } from '@/hooks/inquiries/use-update-inquiry-status';
 
 export default function InquiryDetailPage() {
   const params = useParams();
@@ -19,6 +20,7 @@ export default function InquiryDetailPage() {
   const [reply, setReply] = useState('');
   const { data: inquiry, isLoading } = useGetInquiry(id);
   const { mutate: sendReply, isPending: isSending } = useSendReply();
+  const { mutate: updateStatus, isPending: isUpdatingStatus } = useUpdateInquiryStatus();
 
   const handleSendReply = () => {
     if (!reply.trim()) return;
@@ -30,6 +32,11 @@ export default function InquiryDetailPage() {
         },
       }
     );
+  };
+
+  const handleCloseInquiry = () => {
+    if (!id || inquiry?.status === InquiryStatus.CLOSED) return;
+    updateStatus({ inquiryId: id, status: InquiryStatus.CLOSED });
   };
 
   if (isLoading) {
@@ -62,6 +69,11 @@ export default function InquiryDetailPage() {
           <h1 className="text-3xl font-bold text-gray-900">Inquiry Details</h1>
           <p className="mt-1 text-gray-600">View and respond to inquiry</p>
         </div>
+        {inquiry.status === InquiryStatus.OPEN && (
+          <Button variant="outline" onClick={handleCloseInquiry} disabled={isUpdatingStatus}>
+            {isUpdatingStatus ? 'Closing...' : 'Close Inquiry'}
+          </Button>
+        )}
         <Badge variant={inquiry.status === InquiryStatus.OPEN ? 'warning' : 'success'}>
           {inquiry.status}
         </Badge>

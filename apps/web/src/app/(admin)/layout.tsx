@@ -3,7 +3,7 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, MessageSquare, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, MessageSquare, ClipboardList, LogOut } from 'lucide-react';
 import QueryProvider from '@/providers/query-provider';
 import { cn } from '@/lib/utils';
 import agent from '@/lib/agent';
@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Users', href: '/users', icon: Users },
   { name: 'Inquiries', href: '/inquiries', icon: MessageSquare },
+  { name: 'Onboarding', href: '/onboarding', icon: ClipboardList },
 ];
 
 export default function AdminLayout({ children }: PropsWithChildren) {

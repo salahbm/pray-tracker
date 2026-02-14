@@ -113,7 +113,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Charts */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6">
         {/* User Growth Chart */}
         <Card>
           <CardHeader>

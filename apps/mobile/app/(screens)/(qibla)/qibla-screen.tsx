@@ -25,7 +25,6 @@ const signedDelta = (a: number, b: number) => {
   const d = norm360(b) - norm360(a);
   return ((d + 540) % 360) - 180;
 };
-const angularDiff = (a: number, b: number) => Math.abs(signedDelta(a, b));
 
 const QiblaScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -35,7 +34,9 @@ const QiblaScreen: React.FC = () => {
   const bg = MOSQUE_LIST[bgIndex];
 
   const headingRef = useRef<number>(0);
+  const headingStateRef = useRef<number>(0);
   const lastHapticAtRef = useRef<number>(0);
+  const lastFrameAtRef = useRef<number>(0);
   const [heading, setHeading] = useState<number>(0);
   const headingSubRef = useRef<Location.LocationSubscription | null>(null);
 
@@ -47,41 +48,42 @@ const QiblaScreen: React.FC = () => {
       return;
     }
 
-    let rafId: number | null = null;
-    let pendingUpdate = false;
-
     (async () => {
       headingSubRef.current = await Location.watchHeadingAsync(h => {
         const raw =
           typeof h.trueHeading === 'number' && h.trueHeading >= 0 ? h.trueHeading : h.magHeading;
         const next = norm360(raw);
         const d = signedDelta(headingRef.current, next);
-        const smoothed = norm360(headingRef.current + d * 0.2); // Increased smoothing factor
+        const smoothed = norm360(headingRef.current + d * 0.3); // Stronger smoothing
         headingRef.current = smoothed;
 
-        // Batch state updates using requestAnimationFrame
-        if (!pendingUpdate && angularDiff(heading, smoothed) >= 1) {
-          pendingUpdate = true;
-          rafId = requestAnimationFrame(() => {
-            setHeading(smoothed);
-            pendingUpdate = false;
-          });
-        }
+        // Throttle UI updates more aggressively (60ms ~= 16fps, good for compass)
+        const now = Date.now();
+        if (now - lastFrameAtRef.current < 60) return;
 
-        // Haptic feedback logic - trigger when pointing towards Qibla (within 5 degrees)
-        const diff = angularDiff(smoothed, qiblaAngle);
-        if (diff <= 5 && Date.now() - lastHapticAtRef.current > 1200) {
+        // Only update if change is significant (2 degrees minimum)
+        const diff = Math.abs(headingStateRef.current - smoothed);
+        const normalizedDiff = Math.min(diff, 360 - diff); // Handle wraparound
+        if (normalizedDiff < 2) return;
+
+        lastFrameAtRef.current = now;
+        headingStateRef.current = smoothed;
+        setHeading(smoothed);
+
+        // Haptic feedback - check against qiblaAngle
+        const qiblaDiff = Math.abs(smoothed - qiblaAngle);
+        const normalizedQiblaDiff = Math.min(qiblaDiff, 360 - qiblaDiff);
+        if (normalizedQiblaDiff <= 5 && now - lastHapticAtRef.current > 1200) {
           triggerHaptic();
-          lastHapticAtRef.current = Date.now();
+          lastHapticAtRef.current = now;
         }
       });
     })();
 
     return () => {
       headingSubRef.current?.remove();
-      if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [isFocused, qiblaAngle, heading]);
+  }, [isFocused, qiblaAngle]);
 
   // Calculate rotation: Kaaba should point to Qibla direction
   // Ring rotates opposite to device heading, offset by Qibla angle
@@ -89,22 +91,15 @@ const QiblaScreen: React.FC = () => {
 
   return (
     <ImageBackground source={bg} className="flex-1" resizeMode="cover">
-      <View className="flex-1 bg-black/10 px-6">
+      <View className="flex-1 bg-black/10 px-6 pt-5">
         <Button
           style={{ marginTop: insets.top }}
           variant="ghost"
           size="icon"
-          className="rounded-full shadow-lg bg-muted/30 w-12 h-12 p-2 self-end mt-2"
+          className="rounded-full shadow-lg bg-muted/30 w-12 h-12 p-2 self-end"
           onPress={() => {
             triggerHaptic();
-            setBgIndex(prev => {
-              if (MOSQUE_LIST.length <= 1) return prev;
-              let next = prev;
-              while (next === prev) {
-                next = Math.floor(Math.random() * MOSQUE_LIST.length);
-              }
-              return next;
-            });
+            setBgIndex(prev => (prev + 1) % MOSQUE_LIST.length);
           }}
         >
           <Palette size={24} className="text-primary" />

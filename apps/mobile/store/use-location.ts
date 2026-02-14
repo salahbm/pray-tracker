@@ -18,6 +18,7 @@ interface LocationState {
 
 const FALLBACK_CITY = 'Mecca';
 const FALLBACK_COUNTRY = 'Saudi Arabia';
+const LOCATION_TIMEOUT_MS = 12000;
 
 export const useLocationStore = create<LocationState>()(
   persist(
@@ -55,52 +56,28 @@ export const useLocationStore = create<LocationState>()(
             return;
           }
 
-          const pos = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.Balanced,
-            timeInterval: 5000,
+          const lastKnown = await Location.getLastKnownPositionAsync({
+            maxAge: 1000 * 60 * 10,
+            requiredAccuracy: 1000,
           });
+          const pos =
+            lastKnown ??
+            (await Promise.race([
+              Location.getCurrentPositionAsync({
+                accuracy: Location.Accuracy.Balanced,
+              }),
+              new Promise<never>((_, reject) => {
+                setTimeout(() => reject(new Error('Location timeout')), LOCATION_TIMEOUT_MS);
+              }),
+            ]));
 
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&accept-language=en&addressdetails=1`,
-            {
-              headers: {
-                Accept: 'application/json',
-                'User-Agent': 'NoorPrayTracker/1.0',
-              },
-            }
-          );
-
-          if (!res.ok) {
-            set({
-              city: FALLBACK_CITY,
-              country: FALLBACK_COUNTRY,
-              locationError: 'Reverse geocoding failed',
-              initialized: true,
-              isLoadingLocation: false,
-            });
-            return;
-          }
-
-          const data = await res.json();
-          if (!data?.address) {
-            set({
-              city: FALLBACK_CITY,
-              country: FALLBACK_COUNTRY,
-              locationError: 'Invalid geocoding response',
-              initialized: true,
-              isLoadingLocation: false,
-            });
-            return;
-          }
-
-          const city =
-            data.address.city ||
-            data.address.town ||
-            data.address.village ||
-            data.address.county ||
-            data.address.state;
-
-          const country = data.address.country;
+          const geocoded = await Location.reverseGeocodeAsync({
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude,
+          });
+          const first = geocoded[0];
+          const city = first?.city || first?.subregion || first?.region || first?.district;
+          const country = first?.country;
 
           if (!city || !country) {
             set({
